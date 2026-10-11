@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T00:38:48Z",
+  "generated_at": "2026-10-11T00:41:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-033",
@@ -536,6 +536,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-073",
+      "headline": "This Nuclear Stock Doesn't Need a Breakthrough. It Just Won Another $189 Million Contract Doing What It's Always Done.",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/10/10/nuclear-stock-bwxt-need-breakthrough-contract/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T12:15:00Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "The company secured a new $189 million contract, which is a material revenue-generating event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "The company secured a new $189 million contract, which is a material revenue-generating event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BWX Technologies",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-028",
       "headline": "Mitsubishi Motors to Supply Pickups to Honda for SE Asia",
       "headline_en": null,
@@ -963,55 +1012,6 @@
           "name": "Rolls-Royce",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-061",
-      "headline": "This Nuclear Stock Doesn't Need a Breakthrough. It Just Won Another $189 Million Contract Doing What It's Always Done.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/nuclear-stock-doesnt-need-breakthrough-it-just-won-another-189-million-contract-doing-what",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T12:35:00Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "The company secured a new $189 million contract, providing revenue visibility.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "The company secured a new $189 million contract, providing revenue visibility.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BWX Technologies",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1779,6 +1779,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-076",
+      "headline": "FDA may allow some toxic chemicals to be added to food without safety review. Experts are alarmed",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/us-news/2026/oct/10/fda-toxic-chemicals-food-analysis",
+      "source_name": "The Guardian — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T12:00:57Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Potential changes to FDA food safety review processes could increase regulatory and litigation risk for the broader food and beverage sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Potential changes to FDA food safety review processes could increase regulatory and litigation risk for the broader food and beverage sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-002",
       "headline": "Etihad extends Abu Dhabi-Riyadh flight cancellations as Saudi airport issues advisory",
       "headline_en": null,
@@ -1828,93 +1871,55 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261011-042",
-      "headline": "Trump calls for new Ukraine president, blames Zelenskyy for war and high US diesel prices",
+      "inbox_id": "INB-20261011-077",
+      "headline": "From BJ’s to Lululemon, retailers are trimming assortments to boost business",
       "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/world/trump-says-it-is-time-for-ukraine-to-get-a-new-president/article71569393.ece",
-      "source_name": "The Hindu BusinessLine",
+      "url": "https://www.cnbc.com/2026/10/10/from-bjs-to-lululemon-retailers-are-trimming-assortments.html",
+      "source_name": "CNBC",
       "input_nature": "news_headline",
-      "found_at": "2026-10-11T00:05:53Z",
+      "found_at": "2026-10-10T12:00:01Z",
       "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Geopolitical rhetoric regarding the Ukraine conflict and energy policy that could impact global oil/diesel markets.",
+      "prelim_note": "Retailers trimming assortments to improve margins is a sector-wide operational trend aimed at efficiency.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "Geopolitical rhetoric regarding the Ukraine conflict and energy policy that could impact global oil/diesel markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-006",
-      "headline": "Oura Smart Ring Wants $2 Billion From Its IPO. Original Medicare Still Pays $0 for the Health-Tracking Gear",
-      "headline_en": null,
-      "url": "https://247wallst.com/personal-finance/2026/10/10/oura-smart-ring-wants-2-billion-from-its-ipo-original-medicare-still-pays-0-for-the-health-tracking-gear/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T14:00:34Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Oura is reportedly targeting a $2 billion valuation for an upcoming IPO, providing a data point for private market valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "Oura is reportedly targeting a $2 billion valuation for an upcoming IPO, providing a data point for private market valuation.",
+      "triage_score": 60,
+      "triage_reason": "Retailers trimming assortments to improve margins is a sector-wide operational trend aimed at efficiency.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 50,
       "rank_factors": {
         "materiality": 50,
         "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
+        "scope": 5,
+        "event": 2,
+        "size": 2,
+        "recency": 1,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
+        "event_id": "operations",
+        "size_bucket": "large"
       },
       "event_types": [
-        "capital_actions"
+        "operations"
       ],
-      "issuer_linkage": "primary",
+      "issuer_linkage": "sector",
       "companies": [
         {
-          "name": "Oura",
+          "name": "BJ's Wholesale Club",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "US"
+        },
+        {
+          "name": "Lululemon",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212138,9 +212143,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 143200,
-    "news_picked_today": 74,
-    "news_dropped_today": 214
+    "news_seen_today": 155264,
+    "news_picked_today": 80,
+    "news_dropped_today": 232
   },
   "book_momentum": {
     "live_count": 8,
