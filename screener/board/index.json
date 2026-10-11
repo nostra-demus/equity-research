@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T05:52:53Z",
+  "generated_at": "2026-10-11T05:54:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-302",
@@ -1280,6 +1280,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-321",
+      "headline": "UAE says Omani flydubai co-pilot planned suicide attack on Tel Aviv flight",
+      "headline_en": null,
+      "url": "https://www.al-monitor.com/originals/2026/10/uae-says-omani-flydubai-co-pilot-planned-suicide-attack-tel-aviv-flight",
+      "source_name": "Al-Monitor",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T16:46:29Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "A planned suicide attack on a commercial flight represents a major security and operational risk for the airline industry.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "A planned suicide attack on a commercial flight represents a major security and operational risk for the airline industry.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "flydubai",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-304",
       "headline": "Google’s $15 billion AI data centre in India faces local resistance",
       "headline_en": null,
@@ -1902,55 +1951,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-248",
-      "headline": "The maker of non-text AI model Jev valued at $7.5B just weeks after launch",
-      "headline_en": null,
-      "url": "https://techcrunch.com/2026/10/09/the-maker-of-non-text-ai-model-jev-valued-at-7-5b-just-weeks-after-launch/",
-      "source_name": "TechCrunch",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T21:41:29Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "AI startup Jev reached a $7.5B valuation shortly after launch, signaling significant capital inflow and market interest.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "AI startup Jev reached a $7.5B valuation shortly after launch, signaling significant capital inflow and market interest.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jev",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212539,9 +212539,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1199172,
-    "news_picked_today": 787,
-    "news_dropped_today": 2213
+    "news_seen_today": 1205506,
+    "news_picked_today": 794,
+    "news_dropped_today": 2230
   },
   "book_momentum": {
     "live_count": 8,
