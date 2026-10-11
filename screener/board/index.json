@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T05:26:47Z",
+  "generated_at": "2026-10-11T05:29:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-302",
@@ -1133,6 +1133,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-309",
+      "headline": "EAU dice que copiloto omaní de flydubai planeaba un atentado suicida en vuelo con destino a Tel Aviv",
+      "headline_en": "UAE says Omani co-pilot of flydubai planned a suicide attack on a flight bound for Tel Aviv",
+      "url": "https://www.reuters.com/latam/mundo/Q7MP3EYZ6NM2HORYYHBED32NXE-2026-10-09/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T17:13:00Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Allegations of a planned suicide attack by a flydubai pilot represent a severe operational and security risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Allegations of a planned suicide attack by a flydubai pilot represent a severe operational and security risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "flydubai",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-304",
       "headline": "Google’s $15 billion AI data centre in India faces local resistance",
       "headline_en": null,
@@ -1896,55 +1945,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-274",
-      "headline": "Colombian Billionaire Jaime Gilinski Moves To Take Control Of GeoPark In $500 Million Venezuela Oil Deal",
-      "headline_en": null,
-      "url": "https://www.forbes.com/sites/fionariley/2026/10/09/colombian-billionaire-jaime-gilinski-moves-to-take-control-of-geopark-in-500-million-venezuela-oil-deal/",
-      "source_name": "Forbes",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T19:36:26Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Jaime Gilinski is moving to take control of GeoPark in a $500 million deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Jaime Gilinski is moving to take control of GeoPark in a $500 million deal.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GeoPark",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212533,9 +212533,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1143618,
-    "news_picked_today": 737,
-    "news_dropped_today": 2095
+    "news_seen_today": 1153581,
+    "news_picked_today": 744,
+    "news_dropped_today": 2112
   },
   "book_momentum": {
     "live_count": 8,
