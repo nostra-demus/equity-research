@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T04:08:44Z",
+  "generated_at": "2026-10-11T04:11:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-160",
@@ -1360,6 +1360,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-274",
+      "headline": "Colombian Billionaire Jaime Gilinski Moves To Take Control Of GeoPark In $500 Million Venezuela Oil Deal",
+      "headline_en": null,
+      "url": "https://www.forbes.com/sites/fionariley/2026/10/09/colombian-billionaire-jaime-gilinski-moves-to-take-control-of-geopark-in-500-million-venezuela-oil-deal/",
+      "source_name": "Forbes",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T19:36:26Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Jaime Gilinski is moving to take control of GeoPark in a $500 million deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Jaime Gilinski is moving to take control of GeoPark in a $500 million deal.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GeoPark",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-258",
       "headline": "CSL vaccines unit slammed over UK compliance failures",
       "headline_en": null,
@@ -1890,55 +1939,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-145",
-      "headline": "Anthropic's Revenue Jumped 12-Fold in 2025, but So Did Its Losses",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/anthropics-revenue-jumped-12-fold-2025-so-did-its-losses",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T09:15:00Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Anthropic reported a 12-fold revenue increase alongside significant losses, indicating rapid growth but high cash burn.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Anthropic reported a 12-fold revenue increase alongside significant losses, indicating rapid growth but high cash burn.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212523,9 +212523,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 946494,
-    "news_picked_today": 531,
-    "news_dropped_today": 1629
+    "news_seen_today": 954666,
+    "news_picked_today": 545,
+    "news_dropped_today": 1639
   },
   "book_momentum": {
     "live_count": 8,
