@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T02:19:41Z",
+  "generated_at": "2026-10-11T02:21:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-160",
@@ -291,6 +291,55 @@
           "name": "Premier Energies",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-192",
+      "headline": "MTY Food Group Inc Profit Retreats In Q3",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/mty-food-group-inc-profit-retreats-q3",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T02:24:41Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "MTY Food Group reported a retreat in Q3 profits.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "MTY Food Group reported a retreat in Q3 profits.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MTY Food Group",
+          "ticker": null,
+          "listing_country": "CA"
         }
       ],
       "size_bucket": "mid",
@@ -1914,49 +1963,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-096",
-      "headline": "Justice Department probes TV networks over Trump pool coverage",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/media-telecom/justice-department-probes-tv-networks-over-trump-pool-coverage-new-york-times-2026-10-10/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T23:10:10Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "A DOJ probe into major TV networks regarding pool coverage practices introduces regulatory and operational risk for the media sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "A DOJ probe into major TV networks regarding pool coverage practices introduces regulatory and operational risk for the media sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212178,9 +212184,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 571810,
-    "news_picked_today": 305,
-    "news_dropped_today": 967
+    "news_seen_today": 581816,
+    "news_picked_today": 310,
+    "news_dropped_today": 986
   },
   "book_momentum": {
     "live_count": 8,
