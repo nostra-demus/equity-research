@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T03:31:50Z",
+  "generated_at": "2026-10-11T03:35:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-160",
@@ -1261,6 +1261,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-249",
+      "headline": "Super Micro Case ‘Fixer’ Pleads Guilty to Diverting AI Servers",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-09/super-micro-case-fixer-pleads-guilty-to-diverting-ai-servers",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T21:11:31Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "A key individual involved in Super Micro's supply chain operations has pleaded guilty to diverting AI servers, indicating significant internal control and operational risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "A key individual involved in Super Micro's supply chain operations has pleaded guilty to diverting AI servers, indicating significant internal control and operational risks.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Super Micro Computer",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-136",
       "headline": "Westpac’s ‘Catalyst’ program triggers job cuts, despite assurances",
       "headline_en": null,
@@ -1931,55 +1980,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-154",
-      "headline": "Brazil sues Shell for $108m over deadly 2024 floods linked to climate change",
-      "headline_en": null,
-      "url": "https://gulfnews.com/business/energy/brazil-sues-shell-for-108m-over-deadly-2024-floods-linked-to-climate-change-1.500705246",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T08:47:18Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Shell is being sued for $108 million by Brazil regarding climate-related damages.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Shell is being sued for $108 million by Brazil regarding climate-related damages.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shell",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212491,9 +212491,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 834349,
-    "news_picked_today": 463,
-    "news_dropped_today": 1385
+    "news_seen_today": 838810,
+    "news_picked_today": 468,
+    "news_dropped_today": 1404
   },
   "book_momentum": {
     "live_count": 8,
