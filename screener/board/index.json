@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T02:53:41Z",
+  "generated_at": "2026-10-11T02:56:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-160",
@@ -673,6 +673,50 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-206",
+      "headline": "China and EU strike deal to halve Chinese hybrid exports",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/10/10/economy/china-eu-hybrid-exports/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T23:55:00Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "The EU and China have reached a deal to halve Chinese hybrid vehicle exports, representing a major trade restriction affecting the automotive sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "The EU and China have reached a deal to halve Chinese hybrid vehicle exports, representing a major trade restriction affecting the automotive sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "commercial"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1911,56 +1955,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-070",
-      "headline": "Trump Administration Brings The Hammer Down On Microsoft After Vance Said The Company Laid Off “6,000 American Workers” While Getting 6,300 H-1B Visas For Foreign Workers",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/10/10/trump-administration-brings-the-hammer-down-on-microsoft-after-vance-said-the-company-laid-off-6000-american-workers-while-getting-6300-h-1b-visas-for-foreign-workers/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T12:23:49Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "The Trump administration is targeting Microsoft regarding its labor practices and H-1B visa usage.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "The Trump administration is targeting Microsoft regarding its labor practices and H-1B visa usage.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Microsoft",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212327,9 +212321,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 699578,
-    "news_picked_today": 365,
-    "news_dropped_today": 1171
+    "news_seen_today": 713930,
+    "news_picked_today": 368,
+    "news_dropped_today": 1192
   },
   "book_momentum": {
     "live_count": 8,
