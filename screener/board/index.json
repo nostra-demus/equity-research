@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T01:32:16Z",
+  "generated_at": "2026-10-11T01:37:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-124",
@@ -1041,6 +1041,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-154",
+      "headline": "Brazil sues Shell for $108m over deadly 2024 floods linked to climate change",
+      "headline_en": null,
+      "url": "https://gulfnews.com/business/energy/brazil-sues-shell-for-108m-over-deadly-2024-floods-linked-to-climate-change-1.500705246",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T08:47:18Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Shell is being sued for $108 million by Brazil regarding climate-related damages.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Shell is being sued for $108 million by Brazil regarding climate-related damages.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shell",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-030",
       "headline": "Hundreds protests at FedEx Oakland over Israel arms shipments",
       "headline_en": null,
@@ -1877,49 +1926,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-026",
-      "headline": "RBI tightens rules for forex bets to shield bruised rupee",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/news/economy/policy/rbi-tightens-rules-for-forex-bets-to-shield-bruised-rupee/articleshow/134860362.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-11T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Central bank tightening forex rules to stabilize the currency, impacting market liquidity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Central bank tightening forex rules to stabilize the currency, impacting market liquidity.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
@@ -212154,9 +212160,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 380157,
-    "news_picked_today": 209,
-    "news_dropped_today": 607
+    "news_seen_today": 396747,
+    "news_picked_today": 214,
+    "news_dropped_today": 626
   },
   "book_momentum": {
     "live_count": 8,
