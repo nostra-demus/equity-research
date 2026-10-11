@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T00:32:48Z",
+  "generated_at": "2026-10-11T00:35:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-033",
@@ -437,6 +437,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-064",
+      "headline": "DMart’s Q2 profit growth trails revenue as expenses rise",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/dmarts-q2-profit-growth-trails-revenue-as-expenses-rise-11791630204915.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T12:34:08Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "DMart reported Q2 profit growth trailing revenue due to rising expenses, indicating margin pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "DMart reported Q2 profit growth trailing revenue due to rising expenses, indicating margin pressure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Avenue Supermarts",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-028",
       "headline": "Mitsubishi Motors to Supply Pickups to Honda for SE Asia",
       "headline_en": null,
@@ -584,6 +633,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-062",
+      "headline": "EU Plans Measures to Halve Imports of Chinese Hybrid Cars",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-10/eu-plans-measures-to-cut-imports-of-chinese-hybrid-cars-by-half",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T12:34:31Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "EU plans to halve imports of Chinese hybrid cars represent a significant trade barrier for the sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "EU plans to halve imports of Chinese hybrid cars represent a significant trade barrier for the sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -771,6 +863,55 @@
           "name": "Rolls-Royce",
           "ticker": null,
           "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-061",
+      "headline": "This Nuclear Stock Doesn't Need a Breakthrough. It Just Won Another $189 Million Contract Doing What It's Always Done.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/nuclear-stock-doesnt-need-breakthrough-it-just-won-another-189-million-contract-doing-what",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T12:35:00Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "The company secured a new $189 million contract, providing revenue visibility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "The company secured a new $189 million contract, providing revenue visibility.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BWX Technologies",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1121,6 +1262,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-059",
+      "headline": "TCS Withholds Quarterly Bonus For Senior Staff; Junior Employees To Get Full Payout: Report",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/tcs-withholds-quarterly-bonus-for-senior-staff-junior-employees-to-get-full-payout-report-12166523#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T12:39:49Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "TCS is withholding quarterly bonuses for senior staff, signaling cost-control measures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "TCS is withholding quarterly bonuses for senior staff, signaling cost-control measures.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Consultancy Services",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-049",
       "headline": "H World Group's 2026 Outlook: Asset-Light Platform Fuels Long-Term Scale",
       "headline_en": null,
@@ -1354,6 +1544,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-065",
+      "headline": "Ownership Differences Surface In Venu Srinivasan Family Over Ownership In TVS Group",
+      "headline_en": null,
+      "url": "https://www.outlookbusiness.com/corporate/ownership-differences-surface-in-venu-srinivasan-family-over-ownership-in-tvs-group",
+      "source_name": "Outlook Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T12:32:23Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Ownership disputes within the founding family of the TVS Group could lead to governance or structural changes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Ownership disputes within the founding family of the TVS Group could lead to governance or structural changes.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TVS Group",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-002",
       "headline": "Etihad extends Abu Dhabi-Riyadh flight cancellations as Saudi airport issues advisory",
       "headline_en": null,
@@ -1581,6 +1820,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-060",
+      "headline": "China proposes tighter vehicle design rules, reiterates concealed-handle ban and targets foldable screens",
+      "headline_en": null,
+      "url": "https://cnevpost.com/2026/10/10/china-proposes-tighter-vehicle-design-rules/",
+      "source_name": "CnEVPost",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T12:37:54Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Proposed tighter vehicle design rules in China could impact manufacturing costs and product design for EV makers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Proposed tighter vehicle design rules in China could impact manufacturing costs and product design for EV makers.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-010",
       "headline": "SSSMehta Industries, Diversified Engineering Products Manufacturer, Files DRHP With NSE Emerge",
       "headline_en": null,
@@ -1625,276 +1907,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-021",
-      "headline": "Milky Mist denies FSSAI inquiry on its paneer products",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/milky-mist-denies-fssai-inquiry-on-its-paneer-products/article71568236.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T13:35:24Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Denial of an FSSAI inquiry helps mitigate potential reputational and regulatory risk for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 56,
-      "triage_reason": "Denial of an FSSAI inquiry helps mitigate potential reputational and regulatory risk for the company.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Milky Mist",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-032",
-      "headline": "Adani Defence & Aerospace wins SIDM Champion Award 2026 for defence export performance",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/adani-defence-aerospace-wins-sidm-champion-award-2026-for-defence-export-performance/article71568278.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T13:19:03Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Award recognition for export performance highlights growth in the company's defense segment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "Award recognition for export performance highlights growth in the company's defense segment.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Defence & Aerospace",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-019",
-      "headline": "EU-Haushalt: Neuer Budget-Plan verschärft Streit mit Nettozahlern",
-      "headline_en": "EU Budget: New budget plan intensifies dispute with net contributors",
-      "url": "https://www.handelsblatt.com/politik/international/eu-haushalt-neuer-budget-plan-verschaerft-streit-mit-nettozahlern/100261216.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T13:36:49Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Escalating budget disputes within the EU threaten fiscal policy stability and regional economic cooperation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 54,
-      "triage_reason": "Escalating budget disputes within the EU threaten fiscal policy stability and regional economic cooperation.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-039",
-      "headline": "La presidencia irlandesa de la UE quiere un recorte del 8% al proyecto de presupuesto para 2028-2034",
-      "headline_en": "The Irish EU presidency wants an 8% cut to the 2028-2034 budget project",
-      "url": "https://www.reuters.com/latam/negocio/HOLMXZOCEBL3DFVTVRXKCDH5T4-2026-10-10/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T13:07:18Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "The Irish EU presidency proposes an 8% cut to the 2028-2034 EU budget project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 54,
-      "triage_reason": "The Irish EU presidency proposes an 8% cut to the 2028-2034 EU budget project.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-052",
-      "headline": "India-EU FTA 'An Absolute Game Changer': EU Envoy On Trade Deal, Defence Ties",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/india-eu-fta-an-absolute-game-changer-eu-envoy-on-trade-deal-defence-ties-12166393#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T12:53:45Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "EU envoy highlights the potential economic impact of an India-EU Free Trade Agreement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 54,
-      "triage_reason": "EU envoy highlights the potential economic impact of an India-EU Free Trade Agreement.",
-      "region": "GLOBAL",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-018",
-      "headline": "Cotton Back to Mixed Midday Trade, as USDA Hikes Production",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/cotton-back-mixed-midday-trade-usda-hikes-production",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T23:53:06Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "USDA production hike for cotton typically exerts downward pressure on commodity prices.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "USDA production hike for cotton typically exerts downward pressure on commodity prices.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212118,9 +212130,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 118878,
-    "news_picked_today": 59,
-    "news_dropped_today": 181
+    "news_seen_today": 131088,
+    "news_picked_today": 66,
+    "news_dropped_today": 198
   },
   "book_momentum": {
     "live_count": 8,
