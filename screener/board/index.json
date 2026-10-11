@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T10:35:03Z",
+  "generated_at": "2026-10-11T10:38:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-326",
@@ -1344,6 +1344,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-646",
+      "headline": "Delta Air Lines abaisse ses prévisions de bénéfices, avec la hausse des coûts du carburant",
+      "headline_en": "Delta Air Lines lowers profit forecast as fuel costs rise",
+      "url": "https://www.reuters.com/fr/affaires/delta-air-lines-abaisse-ses-prvisions-de-bnfices-avec-la-hausse-des-cots-du-2026-10-09/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T10:33:10Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Delta Air Lines lowered its profit forecast due to rising fuel costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Delta Air Lines lowered its profit forecast due to rising fuel costs.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 3,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Delta Air Lines",
+          "ticker": "DAL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-604",
       "headline": "S.J.S. Enterprises Limited: S.J.S. Enterprises Limited has informed the Exchange about Capacity addition At SJS Display Electronics Pvt Ltd The Wholly Owned Subsidiary Of The Company by setting up new manufacturing facility.",
       "headline_en": null,
@@ -1754,6 +1803,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-671",
+      "headline": "Zetwerk weighs nearly Rs 5,000 crore IPO next week: Report",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/ipos/fpos/zetwerk-said-to-plan-up-to-525-million-india-ipo-next-week/articleshow/134829141.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T09:23:42Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Zetwerk weighing a nearly Rs 5,000 crore IPO indicates a significant capital markets event with potential impact on the company and investors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Zetwerk weighing a nearly Rs 5,000 crore IPO indicates a significant capital markets event with potential impact on the company and investors.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zetwerk",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-593",
       "headline": "'Unacceptable’: India Condemns 'Dastardly’ Riyadh Airport Missile Strike That Killed 12",
       "headline_en": null,
@@ -1890,125 +1988,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-578",
-      "headline": "Avolon Enters Firm Order With Boeing For 140 Aircraft, Airbus For 110 Aircraft",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/avolon-enters-firm-order-boeing-140-aircraft-airbus-110-aircraft",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T12:52:01Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Avolon places a massive firm order for 250 aircraft (140 Boeing, 110 Airbus), a major capital commitment and revenue driver for OEMs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Avolon places a massive firm order for 250 aircraft (140 Boeing, 110 Airbus), a major capital commitment and revenue driver for OEMs.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Avolon",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Boeing",
-          "ticker": "BA",
-          "listing_country": "US"
-        },
-        {
-          "name": "Airbus",
-          "ticker": "AIR",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-582",
-      "headline": "Empresa de alquiler Avolon encarga 250 aviones de Boeing y Airbus, con opción de compra de 100 más",
-      "headline_en": "Rental company Avolon orders 250 aircraft from Boeing and Airbus, with an option to purchase 100 more",
-      "url": "https://www.reuters.com/latam/negocio/R53VNBNFWFO55GTUDJMVZJVP3U-2026-10-09/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T12:25:01Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Avolon has placed a major order for 250 aircraft from Boeing and Airbus, with an option for 100 more, representing a significant capital expenditure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Avolon has placed a major order for 250 aircraft from Boeing and Airbus, with an option for 100 more, representing a significant capital expenditure.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Avolon",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Boeing",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Airbus",
-          "ticker": null,
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212525,9 +212504,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1501820,
-    "news_picked_today": 1502,
-    "news_dropped_today": 3970
+    "news_seen_today": 1501952,
+    "news_picked_today": 1544,
+    "news_dropped_today": 4048
   },
   "book_momentum": {
     "live_count": 8,
