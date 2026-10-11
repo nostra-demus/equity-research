@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T16:23:08Z",
+  "generated_at": "2026-10-11T16:32:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-326",
@@ -1491,6 +1491,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-688",
+      "headline": "Riyadh airport hit for second time after deadly Houthi missile attack, Saudi-led coalition says",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/world/2026/oct/11/saudi-coalition-retaliation-houthi-attack-riyadh-airport",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-11T16:11:14Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "A repeated missile attack on critical infrastructure in Saudi Arabia indicates a major regional security escalation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "A repeated missile attack on critical infrastructure in Saudi Arabia indicates a major regional security escalation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-686",
       "headline": "Oil chiefs pull out of Riyadh energy congress after airport missile strike",
       "headline_en": null,
@@ -1927,55 +1970,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-671",
-      "headline": "Zetwerk weighs nearly Rs 5,000 crore IPO next week: Report",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/ipos/fpos/zetwerk-said-to-plan-up-to-525-million-india-ipo-next-week/articleshow/134829141.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T09:23:42Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Zetwerk weighing a nearly Rs 5,000 crore IPO indicates a significant capital markets event with potential impact on the company and investors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Zetwerk weighing a nearly Rs 5,000 crore IPO indicates a significant capital markets event with potential impact on the company and investors.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zetwerk",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212506,9 +212500,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1503381,
-    "news_picked_today": 1813,
-    "news_dropped_today": 4907
+    "news_seen_today": 1503423,
+    "news_picked_today": 1826,
+    "news_dropped_today": 4936
   },
   "book_momentum": {
     "live_count": 8,
