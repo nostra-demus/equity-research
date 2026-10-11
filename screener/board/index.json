@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-11T20:33:10Z",
+  "generated_at": "2026-10-11T20:37:46Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261011-705",
+      "headline": "RYM: Second quarter trading update [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RYM?key=2924-03146804-3A703807",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-11T20:30:42Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "The company issued a price-sensitive trading update for the second quarter.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company issued a price-sensitive trading update for the second quarter.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ryman Healthcare",
+          "ticker": "RYM",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261011-704",
       "headline": "Amazon in Talks to Buy AI Startup Decart for Around $7 Billion",
@@ -1896,61 +1945,6 @@
           "name": "Prudential",
           "ticker": null,
           "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-395",
-      "headline": "Delta Slides on FY Outlook; Humana Surges on Quality Ratings | Stock Movers",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-10-09/delta-slides-on-outlook-humana-surges-on-ratings-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T14:54:57Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Delta Air Lines provided a fiscal outlook update, and Humana saw a surge following quality rating changes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Delta Air Lines provided a fiscal outlook update, and Humana saw a surge following quality rating changes.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Delta Air Lines",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Humana",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -212419,9 +212413,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1504085,
-    "news_picked_today": 1984,
-    "news_dropped_today": 5440
+    "news_seen_today": 1504094,
+    "news_picked_today": 1987,
+    "news_dropped_today": 5446
   },
   "book_momentum": {
     "live_count": 8,
