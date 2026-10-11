@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T09:43:02Z",
+  "generated_at": "2026-10-11T09:48:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-326",
@@ -1196,6 +1196,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-621",
+      "headline": "Delta Cites Higher Fuel Prices in Reducing Profit Outlook",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-10-09/delta-cites-higher-fuel-prices-in-cutting-profit-outlook-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T11:26:55Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Delta Air Lines reduced its profit outlook due to higher fuel prices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Delta Air Lines reduced its profit outlook due to higher fuel prices.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Delta Air Lines",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-604",
       "headline": "S.J.S. Enterprises Limited: S.J.S. Enterprises Limited has informed the Exchange about Capacity addition At SJS Display Electronics Pvt Ltd The Wholly Owned Subsidiary Of The Company by setting up new manufacturing facility.",
       "headline_en": null,
@@ -1964,55 +2013,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-347",
-      "headline": "Netflix Reportedly Plans To Lay Off 5% Of Its Workforce",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/netflix-reportedly-plans-lay-5-its-workforce",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T15:17:44Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Netflix is reportedly planning to lay off 5% of its workforce, a significant operational restructuring.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Netflix is reportedly planning to lay off 5% of its workforce, a significant operational restructuring.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Netflix",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212529,9 +212529,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1485209,
-    "news_picked_today": 1377,
-    "news_dropped_today": 3663
+    "news_seen_today": 1487267,
+    "news_picked_today": 1394,
+    "news_dropped_today": 3694
   },
   "book_momentum": {
     "live_count": 8,
