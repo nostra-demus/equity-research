@@ -1,9 +1,9 @@
 {
   "idea_id": "IDEA-0448efa62005",
-  "idea_version": "IDEAV-13728e6a91cbd6d2",
-  "idea_version_started_at": "2026-10-10T13:14:35Z",
+  "idea_version": "IDEAV-44acb4356f9aad36",
+  "idea_version_started_at": "2026-10-11T02:32:41Z",
   "ticker": "AAPL",
-  "company": "Apple Inc.",
+  "company": "Apple",
   "exchange": "NASDAQ",
   "ticker_verified": true,
   "listing_verified": true,
@@ -11,15 +11,15 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "A reduction in iPhone 18 Pro production orders indicates weaker-than-expected consumer demand, which will negatively impact near-term revenue and margin expectations.",
-  "why_now": "The report of order cuts surfaced on October 10, 2026.",
-  "conviction": 65,
+  "reason": "Reports of slashed iPhone orders suggest that price sensitivity is negatively impacting unit volume and overall revenue growth.",
+  "why_now": "The report regarding order cuts surfaced on October 10, 2026.",
+  "conviction": 60,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 65,
+  "trade_score": 64,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 19,
+    "impact": 18,
     "specificity": 15,
     "timing": 10,
     "expression": 7,
@@ -47,17 +47,17 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-1e6cffb4cec4"
+    "EVT-9aabea214c41"
   ],
-  "primary_source_event_id": "EVT-1e6cffb4cec4",
+  "primary_source_event_id": "EVT-9aabea214c41",
   "source_headlines": [
-    "Apple cuts iPhone 18 Pro orders due to soft demand"
+    "A $100 price hike may be all it takes to scare off iPhone buyers in this economy, as Apple reportedly slashes orders"
   ],
-  "source_headline": "Apple cuts iPhone 18 Pro orders due to soft demand",
-  "source_url": "https://www.thehindubusinessline.com/info-tech/apple-cuts-iphone-18-pro-orders-due-to-soft-demand/article71567514.ece",
-  "source_name": "The Hindu BusinessLine",
-  "materiality_max": 93,
-  "newest_source_at": "2026-10-10T08:58:12Z",
+  "source_headline": "A $100 price hike may be all it takes to scare off iPhone buyers in this economy, as Apple reportedly slashes orders",
+  "source_url": "https://fortune.com/2026/10/10/apple-iphone-18-pro-orders-cut-price-hike-memory-chip-shortage/",
+  "source_name": "Fortune",
+  "materiality_max": 87,
+  "newest_source_at": "2026-10-10T12:42:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -65,8 +65,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-10-09T09:10:35Z",
-  "updated_at": "2026-10-10T13:14:35Z",
-  "decay_at": "2026-10-11T20:58:12Z",
+  "updated_at": "2026-10-11T02:32:41Z",
+  "decay_at": "2026-10-12T00:42:00Z",
   "status": "live",
   "promoted_signal_id": null
 }

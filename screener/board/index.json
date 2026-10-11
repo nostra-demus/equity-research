@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T02:32:20Z",
+  "generated_at": "2026-10-11T02:33:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-160",
@@ -170546,22 +170546,22 @@
     },
     {
       "idea_id": "IDEA-0448efa62005",
-      "idea_version": "IDEAV-13728e6a91cbd6d2",
-      "idea_version_started_at": "2026-10-10T13:14:35Z",
+      "idea_version": "IDEAV-44acb4356f9aad36",
+      "idea_version_started_at": "2026-10-11T02:32:41Z",
       "ticker": "AAPL",
-      "company": "Apple Inc.",
+      "company": "Apple",
       "exchange": "NASDAQ",
       "direction": "short",
       "pair_with": null,
-      "reason": "A reduction in iPhone 18 Pro production orders indicates weaker-than-expected consumer demand, which will negatively impact near-term revenue and margin expectations.",
-      "why_now": "The report of order cuts surfaced on October 10, 2026.",
-      "conviction": 65,
+      "reason": "Reports of slashed iPhone orders suggest that price sensitivity is negatively impacting unit volume and overall revenue growth.",
+      "why_now": "The report regarding order cuts surfaced on October 10, 2026.",
+      "conviction": 60,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
+      "trade_score": 64,
       "trade_score_basis": "event_driven_v3",
       "trade_score_breakdown": {
         "evidence": 14,
-        "impact": 19,
+        "impact": 18,
         "specificity": 15,
         "timing": 10,
         "expression": 7,
@@ -170589,17 +170589,17 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-1e6cffb4cec4"
+        "EVT-9aabea214c41"
       ],
-      "primary_source_event_id": "EVT-1e6cffb4cec4",
+      "primary_source_event_id": "EVT-9aabea214c41",
       "source_headlines": [
-        "Apple cuts iPhone 18 Pro orders due to soft demand"
+        "A $100 price hike may be all it takes to scare off iPhone buyers in this economy, as Apple reportedly slashes orders"
       ],
-      "source_headline": "Apple cuts iPhone 18 Pro orders due to soft demand",
-      "source_url": "https://www.thehindubusinessline.com/info-tech/apple-cuts-iphone-18-pro-orders-due-to-soft-demand/article71567514.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 93,
-      "newest_source_at": "2026-10-10T08:58:12Z",
+      "source_headline": "A $100 price hike may be all it takes to scare off iPhone buyers in this economy, as Apple reportedly slashes orders",
+      "source_url": "https://fortune.com/2026/10/10/apple-iphone-18-pro-orders-cut-price-hike-memory-chip-shortage/",
+      "source_name": "Fortune",
+      "materiality_max": 87,
+      "newest_source_at": "2026-10-10T12:42:00Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
@@ -170607,8 +170607,8 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-10-09T09:10:35Z",
-      "updated_at": "2026-10-10T13:14:35Z",
-      "decay_at": "2026-10-11T20:58:12Z",
+      "updated_at": "2026-10-11T02:32:41Z",
+      "decay_at": "2026-10-12T00:42:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -171412,6 +171412,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-83598d432045",
+      "idea_version": "IDEAV-9048d2887f7c6712",
+      "idea_version_started_at": "2026-10-11T02:32:41Z",
+      "ticker": "PREMIERENE",
+      "company": "Premier Energies",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured ₹4,000 crore in new orders during Q2, providing significant revenue visibility and supporting margin expansion.",
+      "why_now": "The order win was reported on October 10, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-33aa9310762a"
+      ],
+      "primary_source_event_id": "EVT-33aa9310762a",
+      "source_headlines": [
+        "Premier Energies secures orders worth ₹4,000 crore in Q2"
+      ],
+      "source_headline": "Premier Energies secures orders worth ₹4,000 crore in Q2",
+      "source_url": "https://www.thehindubusinessline.com/companies/premier-energies-secures-orders-worth-4000-crore-in-q2/article71567830.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 98,
+      "newest_source_at": "2026-10-10T11:18:24Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-11T02:32:41Z",
+      "updated_at": "2026-10-11T02:32:41Z",
+      "decay_at": "2026-10-11T23:18:24Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-bf715810980d",
       "idea_version": "IDEAV-b69300e15583f72b",
       "idea_version_started_at": "2026-10-10T16:24:46Z",
@@ -171619,6 +171691,78 @@
       "surfaced_at": "2026-10-10T16:24:46Z",
       "updated_at": "2026-10-10T16:24:46Z",
       "decay_at": "2026-10-12T01:29:18Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-1b994a384f0c",
+      "idea_version": "IDEAV-5daeffd819fc31e6",
+      "idea_version_started_at": "2026-10-11T02:32:41Z",
+      "ticker": "000660",
+      "company": "SK Hynix",
+      "exchange": "KRX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is accelerating capital expenditure for a new semiconductor facility in Gwangju, signaling strong management confidence in long-term capacity demand.",
+      "why_now": "The chairman issued a direct order for the acceleration of the build as of October 10, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f4610b9dbdf6"
+      ],
+      "primary_source_event_id": "EVT-f4610b9dbdf6",
+      "source_headlines": [
+        "Chey Orders Fast Gwangju Semiconductor Build"
+      ],
+      "source_headline": "Chey Orders Fast Gwangju Semiconductor Build",
+      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=278544",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "materiality_max": 93,
+      "newest_source_at": "2026-10-10T10:51:19Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-11T02:32:41Z",
+      "updated_at": "2026-10-11T02:32:41Z",
+      "decay_at": "2026-10-11T22:51:19Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -171905,6 +172049,80 @@
       "surfaced_at": "2026-10-10T08:29:45Z",
       "updated_at": "2026-10-10T08:29:45Z",
       "decay_at": "2026-10-11T18:05:29Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-cd88af904b7c",
+      "idea_version": "IDEAV-a8f62a0f1f654020",
+      "idea_version_started_at": "2026-10-11T02:32:41Z",
+      "ticker": "DMART",
+      "company": "Avenue Supermarts",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported Q2 net profit growth of 8.5% and revenue growth of 17.8%, demonstrating resilience in consumer spending patterns.",
+      "why_now": "The earnings results were released on October 10, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4ea78d53c5a3",
+        "EVT-be4a87728e10"
+      ],
+      "primary_source_event_id": "EVT-4ea78d53c5a3",
+      "source_headlines": [
+        "Avenue Supermarts Q2 net profit rises 8.5%, revenue up 17.8%",
+        "D-Mart profit rises 8.5% to ₹743 crore in Q2"
+      ],
+      "source_headline": "Avenue Supermarts Q2 net profit rises 8.5%, revenue up 17.8%",
+      "source_url": "https://www.cnbctv18.com/market/avenue-supermarts-dmart-q2-net-profit-rise-revenue-share-price-stock-20009046.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 89,
+      "newest_source_at": "2026-10-10T10:58:31Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-11T02:32:41Z",
+      "updated_at": "2026-10-11T02:32:41Z",
+      "decay_at": "2026-10-11T22:58:31Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -174551,79 +174769,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-77d2c5a28c93",
-      "idea_version": "IDEAV-28cf685820cc7a33",
-      "idea_version_started_at": "2026-10-08T09:52:56Z",
-      "ticker": "LGES",
-      "company": "LG Energy Solution",
-      "exchange": "KRX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "LG Energy Solution reported a 25.7% year-on-year increase in Q3 operating profit, supported by strong demand for Energy Storage Systems (ESS).",
-      "why_now": "The earnings results were released on October 8, 2026, providing a clear catalyst for margin growth.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c3fc0686f740",
-        "EVT-baadeadc0ce9"
-      ],
-      "primary_source_event_id": "EVT-c3fc0686f740",
-      "source_headlines": [
-        "(LEAD) LG Energy Q3 operating profit up 25.7 pct on ESS demand",
-        "LG Energy Solution, Q3 operating profit grew 25.7% year-on-year to 756 billion KRW"
-      ],
-      "source_headline": "(LEAD) LG Energy Q3 operating profit up 25.7 pct on ESS demand",
-      "source_url": "https://en.yna.co.kr/view/AEN20261008001451320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-08T01:12:21Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-08T09:52:56Z",
-      "updated_at": "2026-10-08T09:52:56Z",
-      "decay_at": "2026-10-09T13:12:21Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-b7df09840cec",
       "idea_version": "IDEAV-659899b88f8fce6c",
       "idea_version_started_at": "2026-10-08T09:52:56Z",
@@ -174991,14 +175136,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 537,
     "shown_count": 499,
-    "hidden_count": 39,
+    "hidden_count": 38,
     "side_counts": {
       "long": {
-        "total_count": 270,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 20
+        "hidden_count": 19
       },
       "short": {
         "total_count": 269,
@@ -175008,12 +175153,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 919,
+      "evicted_count": 920,
       "oldest_retained_at": "2026-09-14T22:03:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 612,
-          "oldest_retained_at": "2026-09-28T07:04:56Z"
+          "evicted_count": 613,
+          "oldest_retained_at": "2026-09-28T13:30:00Z"
         },
         "short": {
           "evicted_count": 307,
@@ -177842,8 +177987,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-09T13:12:21Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-11T02:32:54Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -212159,8 +212304,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1489,
-    "live_count": 31,
+    "surfaced_total": 1492,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
