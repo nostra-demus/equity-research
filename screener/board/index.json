@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T06:09:55Z",
+  "generated_at": "2026-10-11T06:13:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-326",
@@ -1508,6 +1508,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-327",
+      "headline": "26 women, 4 children killed in Sudan RSF drone strike",
+      "headline_en": null,
+      "url": "https://www.newarab.com/news/26-women-4-children-killed-sudan-rsf-drone-strike",
+      "source_name": "The New Arab",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T16:23:29Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "A drone strike killing 30 people in Sudan represents a significant escalation in an ongoing conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "A drone strike killing 30 people in Sudan represents a significant escalation in an ongoing conflict.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-153",
       "headline": "CATL signs long-term strategic deal with Seres to expand Aito battery capacity",
       "headline_en": null,
@@ -1907,50 +1950,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-206",
-      "headline": "China and EU strike deal to halve Chinese hybrid exports",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/10/10/economy/china-eu-hybrid-exports/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T23:55:00Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "The EU and China have reached a deal to halve Chinese hybrid vehicle exports, representing a major trade restriction affecting the automotive sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "The EU and China have reached a deal to halve Chinese hybrid vehicle exports, representing a major trade restriction affecting the automotive sector.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "commercial"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212542,9 +212541,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1233322,
-    "news_picked_today": 820,
-    "news_dropped_today": 2324
+    "news_seen_today": 1242313,
+    "news_picked_today": 830,
+    "news_dropped_today": 2338
   },
   "book_momentum": {
     "live_count": 8,
