@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T00:03:48Z",
+  "generated_at": "2026-10-11T00:06:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-005",
@@ -160,6 +160,98 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-008",
+      "headline": "Sebi’s CAS guidelines likely within a week, says chief Tuhin Kanta Pandey",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/sebis-cas-guidelines-likely-within-a-week-says-chief-tuhin-kanta-pandey/articleshow/134855486.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T13:58:00Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Upcoming SEBI guidelines for CAS are expected to impact the Indian financial services and investment sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Upcoming SEBI guidelines for CAS are expected to impact the Indian financial services and investment sector.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-010",
+      "headline": "SSSMehta Industries, Diversified Engineering Products Manufacturer, Files DRHP With NSE Emerge",
+      "headline_en": null,
+      "url": "https://www.outlookbusiness.com/spotlight/news-wire/sssmehta-industries-diversified-engineering-products-manufacturer-files-drhp-with-nse-emerge",
+      "source_name": "Outlook Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T13:54:21Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "SSSMehta Industries has filed a Draft Red Herring Prospectus (DRHP) for an IPO on the NSE Emerge platform.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "SSSMehta Industries has filed a Draft Red Herring Prospectus (DRHP) for an IPO on the NSE Emerge platform.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SSSMehta Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-004",
       "headline": "Thane Crime: Anti-Corruption Bureau Arrests Bhiwandi Sarpanch For Allegedly Accepting ₹7.5 Lakh Bribe In ₹2.33-Crore Pond Project",
       "headline_en": null,
@@ -197,6 +289,55 @@
       ],
       "issuer_linkage": "primary",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-009",
+      "headline": "Tawakkalna App surpasses 30 billion operations, with over 36.7 million users",
+      "headline_en": null,
+      "url": "https://saudigazette.com.sa/article/665283/saudi-arabia/tawakkalna-app-surpasses-30-billion-operations-with-over-367-million-users",
+      "source_name": "Saudi Gazette — Saudi Arabia / general",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T13:56:06Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Tawakkalna app reports high usage metrics, indicating strong operational scale for the government-backed platform.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 50,
+      "triage_reason": "Tawakkalna app reports high usage metrics, indicating strong operational scale for the government-backed platform.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tawakkalna",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -246,6 +387,49 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-007",
+      "headline": "5 major UAE rule changes announced in October: What residents need to know",
+      "headline_en": null,
+      "url": "https://gulfnews.com/uae/dubai/5-major-uae-rule-changes-announced-in-october-what-residents-need-to-know-1.500705788",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T13:58:09Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Routine regulatory updates in the UAE affecting residents and businesses.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 48,
+      "triage_reason": "Routine regulatory updates in the UAE affecting residents and businesses.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -210431,7 +210615,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3453,
+    "inbox_unconsumed": 3457,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -210440,9 +210624,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12724,
-    "news_picked_today": 6,
-    "news_dropped_today": 18
+    "news_seen_today": 25400,
+    "news_picked_today": 10,
+    "news_dropped_today": 38
   },
   "book_momentum": {
     "live_count": 8,
