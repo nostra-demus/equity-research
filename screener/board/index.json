@@ -1,6 +1,299 @@
 {
-  "generated_at": "2026-10-11T00:00:40Z",
+  "generated_at": "2026-10-11T00:03:48Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261011-005",
+      "headline": "Geely Galaxy launches Cruiser 700 to take on BYD, GWM in off-road SUV market",
+      "headline_en": null,
+      "url": "https://cnevpost.com/2026/10/10/geely-galaxy-launches-cruiser-700-suv/",
+      "source_name": "CnEVPost",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T14:07:06Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Geely is launching a new model to compete directly with BYD and GWM, signaling increased competition in the SUV segment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "Geely is launching a new model to compete directly with BYD and GWM, signaling increased competition in the SUV segment.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Geely",
+          "ticker": null,
+          "listing_country": "CN"
+        },
+        {
+          "name": "BYD",
+          "ticker": null,
+          "listing_country": "CN"
+        },
+        {
+          "name": "Great Wall Motor",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-002",
+      "headline": "Etihad extends Abu Dhabi-Riyadh flight cancellations as Saudi airport issues advisory",
+      "headline_en": null,
+      "url": "https://gulfnews.com/business/aviation/etihad-extends-abu-dhabi-riyadh-flight-cancellations-as-saudi-airport-issues-advisory-1.500705830",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T14:09:39Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Etihad Airways is extending flight cancellations due to airport operational issues, impacting service capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "Etihad Airways is extending flight cancellations due to airport operational issues, impacting service capacity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Etihad Airways",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-006",
+      "headline": "Oura Smart Ring Wants $2 Billion From Its IPO. Original Medicare Still Pays $0 for the Health-Tracking Gear",
+      "headline_en": null,
+      "url": "https://247wallst.com/personal-finance/2026/10/10/oura-smart-ring-wants-2-billion-from-its-ipo-original-medicare-still-pays-0-for-the-health-tracking-gear/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T14:00:34Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Oura is reportedly targeting a $2 billion valuation for an upcoming IPO, providing a data point for private market valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Oura is reportedly targeting a $2 billion valuation for an upcoming IPO, providing a data point for private market valuation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oura",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-004",
+      "headline": "Thane Crime: Anti-Corruption Bureau Arrests Bhiwandi Sarpanch For Allegedly Accepting ₹7.5 Lakh Bribe In ₹2.33-Crore Pond Project",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/mumbai/thane-crime-anti-corruption-bureau-arrests-bhiwandi-sarpanch-for-allegedly-accepting-75-lakh-bribe-in-233-crore-pond-project",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T14:06:55Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Corruption arrest involving a local government official in a specific project, limited impact on broader market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 50,
+      "triage_reason": "Corruption arrest involving a local government official in a specific project, limited impact on broader market.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-003",
+      "headline": "Celeste frozen pizza discontinued after 89 years",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/retail/conagra-discontinues-celeste-pizza-brand",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T14:07:44Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Discontinuation of a legacy product line is a minor operational change for the parent company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 48,
+      "triage_reason": "Discontinuation of a legacy product line is a minor operational change for the parent company.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Celeste",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-001",
+      "headline": "Has Yemen returned to ‘full-scale war’?",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/10/10/has-yemen-returned-to-full-scale-war?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-10-10T14:10:24Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Escalation of conflict in Yemen poses significant regional geopolitical risk and potential supply chain disruption.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 44,
+      "triage_reason": "Escalation of conflict in Yemen poses significant regional geopolitical risk and potential supply chain disruption.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261010-152",
       "headline": "Avenue Supermarts Limited: Avenue Supermarts Limited has submitted to the Exchange, the financial results for the period ended September 30, 2026.",
@@ -210138,7 +210431,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3447,
+    "inbox_unconsumed": 3453,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -210147,9 +210440,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 0,
-    "news_picked_today": 0,
-    "news_dropped_today": 0
+    "news_seen_today": 12724,
+    "news_picked_today": 6,
+    "news_dropped_today": 18
   },
   "book_momentum": {
     "live_count": 8,
