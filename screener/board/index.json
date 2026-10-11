@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T21:48:35Z",
+  "generated_at": "2026-10-11T22:03:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-705",
@@ -51,31 +51,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261011-710",
-      "headline": "Amazon in talks to buy AI startup Decart for around $7 billion, WSJ reports",
+      "inbox_id": "INB-20261011-712",
+      "headline": "Amazon is in talks to buy US$7 billion AI startup Decart, WSJ reports",
       "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/amazon-talks-buy-ai-startup-decart-around-7-billion-wsj-reports-2026-10-11/",
-      "source_name": "Reuters — Latest (news sitemap)",
+      "url": "https://www.businesstimes.com.sg/companies-markets/amazon-talks-buy-us7-billion-ai-startup-decart-wsj-reports",
+      "source_name": "The Business Times (Singapore)",
       "input_nature": "news_headline",
-      "found_at": "2026-10-11T21:16:59Z",
+      "found_at": "2026-10-11T21:51:58Z",
       "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Amazon is in talks to acquire AI startup Decart for approximately $7 billion.",
+      "prelim_note": "Amazon is in talks to acquire an AI startup for US$7 billion.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Amazon is in talks to acquire AI startup Decart for approximately $7 billion.",
+      "triage_reason": "Amazon is in talks to acquire an AI startup for US$7 billion.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 80,
+      "materiality_pre_score": 85,
       "rank_factors": {
-        "materiality": 80,
+        "materiality": 85,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 0,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "multi_name",
@@ -1589,6 +1589,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-725",
+      "headline": "Al menos 72 mineros artesanales sudaneses mueren en un ataque aéreo, según organización de DDHH",
+      "headline_en": "At least 72 Sudanese artisanal miners die in an airstrike, according to human rights organization",
+      "url": "https://www.reuters.com/latam/mundo/QZKKRSHN5ZNJTG2W23GDMU2UMI-2026-10-11/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-11T21:57:12Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "A deadly airstrike in Sudan represents a significant escalation in regional conflict, threatening local stability and commodity supply chains.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "A deadly airstrike in Sudan represents a significant escalation in regional conflict, threatening local stability and commodity supply chains.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-707",
       "headline": "Deadly air strike kills dozens at Sudan gold mine near Egypt border",
       "headline_en": null,
@@ -1891,56 +1934,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-177",
-      "headline": "Premier Energies Bags ₹4,001 Crore Orders, Boosts Solar Cell And Module Capacity",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/premier-energies-bags-4001-crore-orders-boosts-solar-cell-and-module-capacity",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T05:31:38Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Premier Energies secured orders worth ₹4,001 crore and is expanding its solar cell and module capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Premier Energies secured orders worth ₹4,001 crore and is expanding its solar cell and module capacity.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Premier Energies",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -170176,76 +170169,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0c529d942ea8",
-      "idea_version": "IDEAV-1dbda0fa72470143",
-      "idea_version_started_at": "2026-10-10T13:14:35Z",
-      "ticker": "GOOGL",
-      "company": "Alphabet Inc.",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Alphabet reported 82% growth in cloud revenue to $24.8 billion, signaling that its cloud segment is becoming a primary growth engine that could drive multiple expansion.",
-      "why_now": "The revenue figures were reported on October 10, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-36939d86961e"
-      ],
-      "primary_source_event_id": "EVT-36939d86961e",
-      "source_headlines": [
-        "Sundar Pichai Reported Alphabet's Cloud Revenue Grew 82% to $24.8 Billion Last Quarter, With the Gemini App Reaching 950 Million Monthly Users. Is Google Cloud Becoming a Bigger Growth Driver Than Search?"
-      ],
-      "source_headline": "Sundar Pichai Reported Alphabet's Cloud Revenue Grew 82% to $24.8 Billion Last Quarter, With the Gemini App Reaching 950 Million Monthly Users. Is Google Cloud Becoming a Bigger Growth Driver Than Search?",
-      "source_url": "https://www.nasdaq.com/articles/sundar-pichai-reported-alphabets-cloud-revenue-grew-82-248-billion-last-quarter-gemini-app",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-10T09:49:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-10T13:14:35Z",
-      "updated_at": "2026-10-10T13:14:35Z",
-      "decay_at": "2026-10-11T21:49:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-0448efa62005",
       "idea_version": "IDEAV-44acb4356f9aad36",
       "idea_version_started_at": "2026-10-11T02:32:41Z",
@@ -172046,6 +171969,76 @@
       "surfaced_at": "2026-10-10T07:05:33Z",
       "updated_at": "2026-10-10T07:05:33Z",
       "decay_at": "2026-10-11T15:22:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-0c529d942ea8",
+      "idea_version": "IDEAV-1dbda0fa72470143",
+      "idea_version_started_at": "2026-10-10T13:14:35Z",
+      "ticker": "GOOGL",
+      "company": "Alphabet Inc.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Alphabet reported 82% growth in cloud revenue to $24.8 billion, signaling that its cloud segment is becoming a primary growth engine that could drive multiple expansion.",
+      "why_now": "The revenue figures were reported on October 10, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-36939d86961e"
+      ],
+      "primary_source_event_id": "EVT-36939d86961e",
+      "source_headlines": [
+        "Sundar Pichai Reported Alphabet's Cloud Revenue Grew 82% to $24.8 Billion Last Quarter, With the Gemini App Reaching 950 Million Monthly Users. Is Google Cloud Becoming a Bigger Growth Driver Than Search?"
+      ],
+      "source_headline": "Sundar Pichai Reported Alphabet's Cloud Revenue Grew 82% to $24.8 Billion Last Quarter, With the Gemini App Reaching 950 Million Monthly Users. Is Google Cloud Becoming a Bigger Growth Driver Than Search?",
+      "source_url": "https://www.nasdaq.com/articles/sundar-pichai-reported-alphabets-cloud-revenue-grew-82-248-billion-last-quarter-gemini-app",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-10T09:49:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-10T13:14:35Z",
+      "updated_at": "2026-10-10T13:14:35Z",
+      "decay_at": "2026-10-11T21:49:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -175140,14 +175133,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 545,
+    "total_count": 546,
     "shown_count": 499,
-    "hidden_count": 46,
+    "hidden_count": 47,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 28
       },
       "short": {
         "total_count": 269,
@@ -175171,6 +175164,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0c529d942ea8",
+        "idea_version": "IDEAV-1dbda0fa72470143",
+        "idea_version_started_at": "2026-10-10T13:14:35Z",
+        "ticker": "GOOGL",
+        "company": "Alphabet Inc.",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Alphabet reported 82% growth in cloud revenue to $24.8 billion, signaling that its cloud segment is becoming a primary growth engine that could drive multiple expansion.",
+        "why_now": "The revenue figures were reported on October 10, 2026.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-36939d86961e"
+        ],
+        "primary_source_event_id": "EVT-36939d86961e",
+        "source_headlines": [
+          "Sundar Pichai Reported Alphabet's Cloud Revenue Grew 82% to $24.8 Billion Last Quarter, With the Gemini App Reaching 950 Million Monthly Users. Is Google Cloud Becoming a Bigger Growth Driver Than Search?"
+        ],
+        "source_headline": "Sundar Pichai Reported Alphabet's Cloud Revenue Grew 82% to $24.8 Billion Last Quarter, With the Gemini App Reaching 950 Million Monthly Users. Is Google Cloud Becoming a Bigger Growth Driver Than Search?",
+        "source_url": "https://www.nasdaq.com/articles/sundar-pichai-reported-alphabets-cloud-revenue-grew-82-248-billion-last-quarter-gemini-app",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-10T09:49:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-10T13:14:35Z",
+        "updated_at": "2026-10-10T13:14:35Z",
+        "decay_at": "2026-10-11T21:49:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-11T21:49:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3060680a62c4",
         "idea_version": "IDEAV-0df0bbb86ffb0f4c",
@@ -203693,80 +203759,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-f0a787c35540",
-        "idea_version": "IDEAV-96c6838b9ba35fd3",
-        "idea_version_started_at": "2026-09-28T00:37:06Z",
-        "ticker": "EXT",
-        "company": "EXT",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The $3.2m federal government contract expansion provides a predictable, high-margin revenue stream that improves the company's forward earnings visibility.",
-        "why_now": "The contract expansion was officially announced on 2026-09-28.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 14,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-424378040de9"
-        ],
-        "primary_source_event_id": "EVT-424378040de9",
-        "source_headlines": [
-          "EXT: $3.2m Federal Government contract expansion [price-sensitive]"
-        ],
-        "source_headline": "EXT: $3.2m Federal Government contract expansion [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EXT?key=2924-03140559-3A702647",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 74,
-        "newest_source_at": "2026-09-28T00:00:59Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-28T00:37:06Z",
-        "updated_at": "2026-09-28T00:37:06Z",
-        "decay_at": "2026-09-29T12:00:59Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-01T01:46:30Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-cc058e79f633",
         "idea_version": "IDEAV-ff4cee524be55d68",
         "idea_version_started_at": "2026-09-27T23:52:27Z",
@@ -212315,7 +212307,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1507,
-    "live_count": 26,
+    "live_count": 25,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -212334,9 +212326,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1504316,
-    "news_picked_today": 2043,
-    "news_dropped_today": 5612
+    "news_seen_today": 1504373,
+    "news_picked_today": 2059,
+    "news_dropped_today": 5653
   },
   "book_momentum": {
     "live_count": 8,
