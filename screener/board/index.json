@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T05:43:47Z",
+  "generated_at": "2026-10-11T05:49:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-302",
@@ -900,6 +900,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-313",
+      "headline": "‎MIS wins over SAR 3.44B in HUMAIN work orders",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1942891",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-11T08:24:00Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "MIS won work orders valued at SAR 3.44 billion for HUMAIN projects.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "MIS won work orders valued at SAR 3.44 billion for HUMAIN projects.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Al Moammar Information Systems",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-256",
       "headline": "Ashton Woods leans into discipline as orders and margins slide",
       "headline_en": null,
@@ -987,6 +1036,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-320",
+      "headline": "‎MIS receives HUMAIN work order worth over 135% of 2025 revenue",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1942891",
+      "source_name": "Argaam — Company Disclosures (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-11T09:24:00Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "MIS received a work order worth over 135% of its 2025 revenue, a massive contract win.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "MIS received a work order worth over 135% of its 2025 revenue, a massive contract win.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MIS",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1853,98 +1951,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-266",
-      "headline": "Flydubai co-pilot plotted ‘suicide’ attack on Israel, UAE says",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/2026/10/9/flydubai-co-pilot-plotted-suicide-attack-on-israel-uae-says?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-10-09T20:13:24Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "UAE authorities reported a co-pilot plotted a suicide attack on Israel, indicating a significant geopolitical security risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "UAE authorities reported a co-pilot plotted a suicide attack on Israel, indicating a significant geopolitical security risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-300",
-      "headline": "Ambani Heirs Face Tough Questions In Roadshow For Record Jio IPO",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/ambani-heirs-face-tough-questions-in-roadshow-for-record-jio-ipo-12163759#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T17:47:10Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Reliance Industries is preparing for a record IPO of its Jio unit, a major capital event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Reliance Industries is preparing for a record IPO of its Jio unit, a major capital event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212533,9 +212539,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1183061,
-    "news_picked_today": 766,
-    "news_dropped_today": 2162
+    "news_seen_today": 1189587,
+    "news_picked_today": 779,
+    "news_dropped_today": 2197
   },
   "book_momentum": {
     "live_count": 8,
