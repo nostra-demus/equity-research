@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T03:36:46Z",
+  "generated_at": "2026-10-11T03:40:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-160",
@@ -493,6 +493,55 @@
           "name": "MTY Food Group",
           "ticker": null,
           "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-256",
+      "headline": "Ashton Woods leans into discipline as orders and margins slide",
+      "headline_en": null,
+      "url": "https://www.housingwire.com/articles/ashton-woods-q1-2027-earnings/",
+      "source_name": "HousingWire",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T20:53:18Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Ashton Woods reported a slide in orders and margins, indicating operational headwinds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Ashton Woods reported a slide in orders and margins, indicating operational headwinds.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ashton Woods",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mid",
@@ -1927,55 +1976,6 @@
       "companies": [
         {
           "name": "Laser Technologies Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-015",
-      "headline": "Vinir Engineering Files DRHP, Eyes Expansion Across Defence, Aerospace And Engineering",
-      "headline_en": null,
-      "url": "https://www.outlookbusiness.com/spotlight/news-wire/vinir-engineering-files-drhp-eyes-expansion-across-defence-aerospace-and-engineering",
-      "source_name": "Outlook Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T13:44:25Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Vinir Engineering has filed a DRHP for an IPO, signaling plans for expansion in the defense and aerospace sectors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Vinir Engineering has filed a DRHP for an IPO, signaling plans for expansion in the defense and aerospace sectors.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vinir Engineering",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -212492,9 +212492,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 843247,
-    "news_picked_today": 472,
-    "news_dropped_today": 1424
+    "news_seen_today": 860875,
+    "news_picked_today": 478,
+    "news_dropped_today": 1442
   },
   "book_momentum": {
     "live_count": 8,
