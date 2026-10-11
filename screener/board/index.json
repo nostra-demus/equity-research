@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T02:36:47Z",
+  "generated_at": "2026-10-11T02:39:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-160",
@@ -1680,6 +1680,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-197",
+      "headline": "Canadian ransomware negotiator arrested amid FBI hacker crackdown",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/government/canadian-ransomware-negotiator-arrested-amid-fbi-hacker-crackdown-2026-10-11/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-11T02:14:27Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "The arrest of a ransomware negotiator as part of an FBI crackdown indicates increased regulatory and legal risk for cybersecurity-related services.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "The arrest of a ransomware negotiator as part of an FBI crackdown indicates increased regulatory and legal risk for cybersecurity-related services.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-194",
       "headline": "Porsche targets 20% price increase for top-model sports cars",
       "headline_en": null,
@@ -1916,55 +1960,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-148",
-      "headline": "Rosatom says it wins tribunal ruling in Finnish nuclear plant dispute",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/energy/rosatom-says-it-wins-tribunal-ruling-finnish-nuclear-plant-dispute-2026-10-10/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T09:05:48Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Rosatom won a tribunal ruling in a dispute over a Finnish nuclear plant, potentially impacting project liabilities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Rosatom won a tribunal ruling in a dispute over a Finnish nuclear plant, potentially impacting project liabilities.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rosatom",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212331,9 +212326,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 636378,
-    "news_picked_today": 329,
-    "news_dropped_today": 1063
+    "news_seen_today": 646204,
+    "news_picked_today": 337,
+    "news_dropped_today": 1079
   },
   "book_momentum": {
     "live_count": 8,
