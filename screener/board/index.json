@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T00:09:47Z",
+  "generated_at": "2026-10-11T00:14:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-012",
@@ -149,6 +149,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-022",
+      "headline": "Ronaldo provisionally suspended after national team walkout, media reports say",
+      "headline_en": null,
+      "url": "https://www.reuters.com/sports/soccer/ronaldo-provisionally-suspended-after-national-team-walkout-media-reports-say-2026-10-10/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T13:35:53Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Suspension of a high-profile athlete impacts team performance and commercial endorsements.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Suspension of a high-profile athlete impacts team performance and commercial endorsements.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 25,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cristiano Ronaldo",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-005",
       "headline": "Geely Galaxy launches Cruiser 700 to take on BYD, GWM in off-road SUV market",
       "headline_en": null,
@@ -201,6 +250,104 @@
           "name": "Great Wall Motor",
           "ticker": null,
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-023",
+      "headline": "KEC International Bags Rs 1,014 Crore Transmission And Distribution Orders In India",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/kec-international-bags-rs-1-014-crore-transmission-and-distribution-orders-in-india-12166577#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T13:30:24Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Securing new orders worth Rs 1,014 crore provides a clear revenue boost and backlog visibility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "Securing new orders worth Rs 1,014 crore provides a clear revenue boost and backlog visibility.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KEC International",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-017",
+      "headline": "TCS senior employees miss quarterly variable pay as AI revenue rises nearly 20%; juniors get full payouts",
+      "headline_en": null,
+      "url": "https://www.livemint.com/money/tcs-senior-employees-c3a-grade-miss-quarterly-variable-pay-bonuses-junior-staff-get-full-payouts-miss-performance-target-11791635684055.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T13:38:00Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "TCS senior employees missing variable pay indicates internal cost-cutting measures despite revenue growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "TCS senior employees missing variable pay indicates internal cost-cutting measures despite revenue growth.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Consultancy Services",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -437,6 +584,184 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-021",
+      "headline": "Milky Mist denies FSSAI inquiry on its paneer products",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/milky-mist-denies-fssai-inquiry-on-its-paneer-products/article71568236.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T13:35:24Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Denial of an FSSAI inquiry helps mitigate potential reputational and regulatory risk for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "Denial of an FSSAI inquiry helps mitigate potential reputational and regulatory risk for the company.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Milky Mist",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-019",
+      "headline": "EU-Haushalt: Neuer Budget-Plan verschärft Streit mit Nettozahlern",
+      "headline_en": "EU Budget: New budget plan intensifies dispute with net contributors",
+      "url": "https://www.handelsblatt.com/politik/international/eu-haushalt-neuer-budget-plan-verschaerft-streit-mit-nettozahlern/100261216.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T13:36:49Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Escalating budget disputes within the EU threaten fiscal policy stability and regional economic cooperation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 54,
+      "triage_reason": "Escalating budget disputes within the EU threaten fiscal policy stability and regional economic cooperation.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-020",
+      "headline": "EU-Haushalt: „Schlicht unleistbar“ – Neuer Budget-Plan verschärft Streit mit Nettozahlern",
+      "headline_en": "EU Budget: \"Simply unaffordable\" – New budget plan intensifies dispute with net contributors",
+      "url": "https://www.handelsblatt.com/politik/international/eu-haushalt-schlicht-unleistbar-neuer-budget-plan-verschaerft-streit-mit-nettozahlern/100261216.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T13:36:49Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Escalating budget disputes within the EU threaten fiscal policy stability and regional economic cooperation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 54,
+      "triage_reason": "Escalating budget disputes within the EU threaten fiscal policy stability and regional economic cooperation.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-018",
+      "headline": "Cotton Back to Mixed Midday Trade, as USDA Hikes Production",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/cotton-back-mixed-midday-trade-usda-hikes-production",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T23:53:06Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "USDA production hike for cotton typically exerts downward pressure on commodity prices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "USDA production hike for cotton typically exerts downward pressure on commodity prices.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -690,6 +1015,49 @@
       "triage_score": 44,
       "triage_reason": "Escalation of conflict in Yemen poses significant regional geopolitical risk and potential supply chain disruption.",
       "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-016",
+      "headline": "Putin relayed Iran war proposal to Trump, Kremlin says",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/10/putin-trump-iran-war-russia-diesel.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T13:42:36Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Geopolitical escalation involving a potential war proposal between major powers creates significant market uncertainty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 44,
+      "triage_reason": "Geopolitical escalation involving a potential war proposal between major powers creates significant market uncertainty.",
+      "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 85,
       "rank_factors": {
@@ -210854,7 +211222,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3462,
+    "inbox_unconsumed": 3470,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -210863,9 +211231,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 44321,
-    "news_picked_today": 15,
-    "news_dropped_today": 57
+    "news_seen_today": 56909,
+    "news_picked_today": 23,
+    "news_dropped_today": 73
   },
   "book_momentum": {
     "live_count": 8,
