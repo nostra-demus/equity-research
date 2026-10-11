@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T03:42:23Z",
+  "generated_at": "2026-10-11T03:45:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-160",
@@ -1022,6 +1022,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-258",
+      "headline": "CSL vaccines unit slammed over UK compliance failures",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/healthcare-and-fitness/csl-vaccines-unit-slammed-over-uk-compliance-failures-20261011-p614hc?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-11T03:29:22Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "CSL's vaccine unit faces regulatory scrutiny over compliance failures in the UK, posing potential operational and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "CSL's vaccine unit faces regulatory scrutiny over compliance failures in the UK, posing potential operational and reputational risk.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CSL",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-229",
       "headline": "Japan’s Sumitomo Bakelite expands China chip packaging materials output amid AI boom",
       "headline_en": null,
@@ -1927,55 +1977,6 @@
       "companies": [
         {
           "name": "Vetrivel Explosives Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-013",
-      "headline": "Laser And Sheet Metal Processing Solutions Provider Laser Technologies Limited Files DRHP With NSE Emerge",
-      "headline_en": null,
-      "url": "https://www.outlookbusiness.com/spotlight/news-wire/laser-and-sheet-metal-processing-solutions-provider-laser-technologies-limited-files-drhp-with-nse-emerge",
-      "source_name": "Outlook Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T13:47:04Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Laser Technologies Limited has filed a Draft Red Herring Prospectus (DRHP) for an IPO on NSE Emerge.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Laser Technologies Limited has filed a Draft Red Herring Prospectus (DRHP) for an IPO on NSE Emerge.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Laser Technologies Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -212492,9 +212493,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 865289,
-    "news_picked_today": 483,
-    "news_dropped_today": 1461
+    "news_seen_today": 882801,
+    "news_picked_today": 493,
+    "news_dropped_today": 1499
   },
   "book_momentum": {
     "live_count": 8,
