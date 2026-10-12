@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T02:22:33Z",
+  "generated_at": "2026-10-12T02:27:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-002",
@@ -1134,6 +1134,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261012-112",
+      "headline": "McKinsey strips partner of leadership role over LinkedIn posts",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/news/international/mckinsey-strips-partner-of-leadership-role-over-linkedin-posts/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T02:05:57Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Stripping a partner of leadership due to social media posts suggests internal governance issues and potential reputational damage for McKinsey.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Stripping a partner of leadership due to social media posts suggests internal governance issues and potential reputational damage for McKinsey.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "McKinsey",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261012-061",
       "headline": "XRP Ledger defends emergency patch for unlimited XRP bug",
       "headline_en": null,
@@ -1916,55 +1965,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-006",
-      "headline": "SEYOND (02665): VOLUNTARY ANNOUNCEMENT UNAUDITED LIDAR SHIPMENT VOLUME FOR THE THIRD QUARTER OF 2026",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101200005.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-11T22:05:00Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Seyond reported unaudited LiDAR shipment volumes for Q3 2026, providing a key operational metric for investors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "Seyond reported unaudited LiDAR shipment volumes for Q3 2026, providing a key operational metric for investors.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Seyond",
-          "ticker": "02665",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -215101,9 +215101,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 517,
-    "news_picked_today": 121,
-    "news_dropped_today": 396
+    "news_seen_today": 537,
+    "news_picked_today": 130,
+    "news_dropped_today": 407
   },
   "book_momentum": {
     "live_count": 8,
