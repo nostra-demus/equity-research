@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T03:03:29Z",
+  "generated_at": "2026-10-12T03:08:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-002",
@@ -1176,6 +1176,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261012-137",
+      "headline": "AMH: Notification of cessation of securities - AMH",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AMH?key=2924-03147144-3A703870",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T03:02:04Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Notification of cessation of securities indicates a change in capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Notification of cessation of securities indicates a change in capital structure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AMH",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-138",
+      "headline": "EIG: EIGA Final Distribution September 2026",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EIG?key=2924-03147143-2A1703496",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T03:01:39Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Announcement of a final distribution payment to shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Announcement of a final distribution payment to shareholders.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EIG",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261012-077",
       "headline": "MBK, Young Poong Raise Questions Over Korea Zinc Chairman’s Arc Media Investment",
       "headline_en": null,
@@ -1520,6 +1618,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261012-140",
+      "headline": "Citi drops target price on Laopu Gold to HK$400 as consumer spending faces pressure",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/citi-drops-target-price-laopu-gold-hk400-consumer-spending-faces-pressure",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T03:06:23Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Analyst price target reduction to HK$400 reflects negative sentiment on consumer spending trends.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Analyst price target reduction to HK$400 reflects negative sentiment on consumer spending trends.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Laopu Gold",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261012-106",
       "headline": "Fintechs: Trade Republic macht jetzt über 750 Millionen Euro Umsatz",
       "headline_en": "Fintechs: Trade Republic now generates over 750 million euros in revenue",
@@ -1815,153 +1962,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-052",
-      "headline": "Coinbase Australia to add share trading in ‘everything exchange’ plan",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/financial-services/coinbase-australia-to-add-share-trading-in-everything-exchange-plan-20261012-p613mh?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T01:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Coinbase is expanding its product offering in Australia to include share trading, potentially increasing revenue streams.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Coinbase is expanding its product offering in Australia to include share trading, potentially increasing revenue streams.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coinbase",
-          "ticker": "COIN",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-027",
-      "headline": "C-Dot aims to end reliance on govt grants in two years, targets ₹10,000 cr revenue in five years",
-      "headline_en": null,
-      "url": "https://www.livemint.com/industry/telecom/c-dot-revenue-target-bsnl-4g-5g-rajkumar-upadhyay-11791692169375.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T00:30:35Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "C-Dot targets ₹10,000 crore in revenue within five years as it shifts away from government grants.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "C-Dot targets ₹10,000 crore in revenue within five years as it shifts away from government grants.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "C-Dot",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-018",
-      "headline": "Space Force Successfully Launches Northrop Grumman’s First Plane Of Transport Layer Satellites",
-      "headline_en": null,
-      "url": "https://www.defensedaily.com/space-force-successfully-launches-northrop-grummans-first-plane-of-transport-layer-satellites/space/",
-      "source_name": "Defense Daily",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T00:16:48Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Northrop Grumman successfully launched its first plane of transport layer satellites for the US Space Force.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Northrop Grumman successfully launched its first plane of transport layer satellites for the US Space Force.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Northrop Grumman",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -215310,9 +215310,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 640,
-    "news_picked_today": 160,
-    "news_dropped_today": 480
+    "news_seen_today": 652,
+    "news_picked_today": 165,
+    "news_dropped_today": 487
   },
   "book_momentum": {
     "live_count": 8,
