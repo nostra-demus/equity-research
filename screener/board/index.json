@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T15:23:50Z",
+  "generated_at": "2026-10-12T15:24:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-535",
@@ -172035,6 +172035,75 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-5c23343bcf9d",
+      "idea_version": "IDEAV-1646fdf367040156",
+      "idea_version_started_at": "2026-10-12T15:24:05Z",
+      "ticker": "GD",
+      "company": "General Dynamics",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The Department of War certified production capacity for a guided-missile destroyer at Bath Iron Works, a subsidiary of General Dynamics, suggesting increased future revenue from defense contracts.",
+      "why_now": "The certification of production capacity is a new development.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 76,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1e8f57b5b992"
+      ],
+      "primary_source_event_id": "EVT-1e8f57b5b992",
+      "source_headlines": [
+        "Department of War Certifies Production Capacity for Second Guided-Missile Destroyer at Maine's Bath Iron Works"
+      ],
+      "source_headline": "Department of War Certifies Production Capacity for Second Guided-Missile Destroyer at Maine's Bath Iron Works",
+      "source_url": "https://www.war.gov/News/Releases/Release/Article/4623902/department-of-war-certifies-production-capacity-for-second-guided-missile-destr/",
+      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-12T13:30:07Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-12T15:24:05Z",
+      "updated_at": "2026-10-12T15:24:05Z",
+      "decay_at": "2026-10-14T01:30:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-c9da0ae18daf",
       "idea_version": "IDEAV-fed8a91888ad3742",
       "idea_version_started_at": "2026-10-12T11:48:12Z",
@@ -172661,6 +172730,150 @@
       "surfaced_at": "2026-10-12T00:37:53Z",
       "updated_at": "2026-10-12T00:37:53Z",
       "decay_at": "2026-10-13T12:16:48Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-bf5d0b948a8f",
+      "idea_version": "IDEAV-6f1a9c38300d3144",
+      "idea_version_started_at": "2026-10-12T15:24:05Z",
+      "ticker": "00896",
+      "company": "Hanison",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is undertaking a disposal of equity interests in a target, which is a major transaction that could impact its financial structure and operations.",
+      "why_now": "The announcement of the major and connected transaction is effective immediately.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c010fe3755ea"
+      ],
+      "primary_source_event_id": "EVT-c010fe3755ea",
+      "source_headlines": [
+        "HANISON (00896): Major and Connected Transaction in relation to Disposal of Equity Interests in the Target"
+      ],
+      "source_headline": "HANISON (00896): Major and Connected Transaction in relation to Disposal of Equity Interests in the Target",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101201251.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-12T14:09:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-12T15:24:05Z",
+      "updated_at": "2026-10-12T15:24:05Z",
+      "decay_at": "2026-10-14T02:09:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-e386e059df23",
+      "idea_version": "IDEAV-7632a8179baa12be",
+      "idea_version_started_at": "2026-10-12T15:24:05Z",
+      "ticker": "01389",
+      "company": "Major Holdings Limited",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is subject to a mandatory unconditional cash offer, indicating a takeover event.",
+      "why_now": "The announcement of the completion of the sale and purchase agreement and the mandatory offer is effective immediately.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6330378d03fd"
+      ],
+      "primary_source_event_id": "EVT-6330378d03fd",
+      "source_headlines": [
+        "MAJOR HLDGS (01389): JOINT ANNOUNCEMENT (1) THE SALE AND PURCHASE OF THE SHARES IN MAJOR HOLDINGS LIMITED; (2) COMPLETION OF THE SALE AND PURCHASE AGREEMENT; (3) MANDATORY UNCONDITIONAL CASH OFFER BY KINGSTON SECURITIES LIMITED FOR AND ON BEHALF OF MAX PREMIER LIMITED TO ACQUIRE ALL THE ISSUED SHARES OF MAJOR HOLDINGS LIMITED (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY MAX PREMIER LIMITED AND PARTIES ACTING IN CONCERT WITH IT); AND (4) RESUMPTION OF TRADIN"
+      ],
+      "source_headline": "MAJOR HLDGS (01389): JOINT ANNOUNCEMENT (1) THE SALE AND PURCHASE OF THE SHARES IN MAJOR HOLDINGS LIMITED; (2) COMPLETION OF THE SALE AND PURCHASE AGREEMENT; (3) MANDATORY UNCONDITIONAL CASH OFFER BY KINGSTON SECURITIES LIMITED FOR AND ON BEHALF OF MAX PREMIER LIMITED TO ACQUIRE ALL THE ISSUED SHARES OF MAJOR HOLDINGS LIMITED (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY MAX PREMIER LIMITED AND PARTIES ACTING IN CONCERT WITH IT); AND (4) RESUMPTION OF TRADIN",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101201299.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-12T14:43:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-12T15:24:05Z",
+      "updated_at": "2026-10-12T15:24:05Z",
+      "decay_at": "2026-10-14T02:43:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -215765,8 +215978,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1547,
-    "live_count": 46,
+    "surfaced_total": 1550,
+    "live_count": 49,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
