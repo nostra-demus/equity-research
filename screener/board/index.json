@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T02:18:04Z",
+  "generated_at": "2026-10-12T02:22:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-002",
@@ -1085,6 +1085,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261012-106",
+      "headline": "Fintechs: Trade Republic macht jetzt über 750 Millionen Euro Umsatz",
+      "headline_en": "Fintechs: Trade Republic now generates over 750 million euros in revenue",
+      "url": "https://www.handelsblatt.com/finanzen/banken-versicherungen/fintechs-trade-republic-macht-jetzt-ueber-750-millionen-euro-umsatz/100260956.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T02:12:13Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Trade Republic now generates over 750 million euros in revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Trade Republic now generates over 750 million euros in revenue.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Trade Republic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261012-061",
       "headline": "XRP Ledger defends emergency patch for unlimited XRP bug",
       "headline_en": null,
@@ -1818,6 +1867,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261012-104",
+      "headline": "ASX rallies on miners; Telstra sell-off extends after SpaceX deal",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/asx-to-gain-despite-bond-jitters-oil-prices-may-waver-after-attacks-20261012-p614ia?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T02:17:45Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Telstra's sell-off extended after a deal with SpaceX, while the ASX rallied on miners.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "Telstra's sell-off extended after a deal with SpaceX, while the ASX rallied on miners.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Telstra",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261012-006",
       "headline": "SEYOND (02665): VOLUNTARY ANNOUNCEMENT UNAUDITED LIDAR SHIPMENT VOLUME FOR THE THIRD QUARTER OF 2026",
       "headline_en": null,
@@ -1862,104 +1965,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-001",
-      "headline": "PINE TECH (01079): NOTIFICATION LETTER AND REQUEST FORM TO NON-REGISTERED SHAREHOLDERS - NOTICE OF PUBLICATION OF PROSPECTUS IN RELATION TO RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY TWO (2) EXISTING SHARES HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101200035.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-11T22:21:00Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Company is conducting a rights issue on a 1-for-2 basis, which is dilutive to existing shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "Company is conducting a rights issue on a 1-for-2 basis, which is dilutive to existing shareholders.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PINE TECH",
-          "ticker": "01079",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-013",
-      "headline": "REV: Update - Dividend/Distribution - REV [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.REV?key=2924-03147082-3A703858",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-12T00:01:18Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "The company announced a dividend distribution, which is a direct capital return to shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "The company announced a dividend distribution, which is a direct capital return to shareholders.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "REV",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -215096,9 +215101,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 494,
-    "news_picked_today": 113,
-    "news_dropped_today": 381
+    "news_seen_today": 517,
+    "news_picked_today": 121,
+    "news_dropped_today": 396
   },
   "book_momentum": {
     "live_count": 8,
