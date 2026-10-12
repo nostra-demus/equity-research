@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T15:24:28Z",
+  "generated_at": "2026-10-12T15:25:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-535",
@@ -291,6 +291,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-573",
+      "headline": "IWS GROUP (06663): INSIDE INFORMATION AND UPDATE ON DISCLOSEABLE AND CONNECTED TRANSACTION DISPOSAL OF EQUITY INTEREST IN THE TARGET COMPANY AND THE ASSIGNMENT OF THE SALE LOAN",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101201097.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T12:45:00Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "IWS GROUP provided an update on a discloseable and connected transaction involving the disposal of equity interest and assignment of a sale loan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IWS GROUP provided an update on a discloseable and connected transaction involving the disposal of equity interest and assignment of a sale loan.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IWS GROUP",
+          "ticker": "06663",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1942,55 +1991,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-258",
-      "headline": "Poonawalla Fincorp Shares Surge Over 8% As Q2 Profit Increases Five-Fold, Results Beat Expectations",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/poonawalla-fincorp-share-price-today-stock-soars-over-8-percent-on-q2-results-beat-12172108#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T05:04:45Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Q2 profit increased five-fold, significantly beating market expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Q2 profit increased five-fold, significantly beating market expectations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Poonawalla Fincorp",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -215998,9 +215998,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2558116,
-    "news_picked_today": 882,
-    "news_dropped_today": 6802
+    "news_seen_today": 2568722,
+    "news_picked_today": 896,
+    "news_dropped_today": 6860
   },
   "book_momentum": {
     "live_count": 8,
