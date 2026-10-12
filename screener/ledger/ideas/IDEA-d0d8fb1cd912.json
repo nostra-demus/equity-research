@@ -1,0 +1,72 @@
+{
+  "idea_id": "IDEA-d0d8fb1cd912",
+  "idea_version": "IDEAV-47dc223fc5c9109b",
+  "idea_version_started_at": "2026-10-12T18:34:22Z",
+  "ticker": "KR",
+  "company": "Kroger",
+  "exchange": "NYSE",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "Albertsons is seeking an $8 billion termination fee following the collapse of their merger, creating a significant potential liability for Kroger's balance sheet.",
+  "why_now": "The demand for the $8 billion payment was reported on October 12, 2026.",
+  "conviction": 65,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 66,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 20,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-61371ed25da9"
+  ],
+  "primary_source_event_id": "EVT-61371ed25da9",
+  "source_headlines": [
+    "Albertsons Wants $8 Billion From Kroger After Failed Merger"
+  ],
+  "source_headline": "Albertsons Wants $8 Billion From Kroger After Failed Merger",
+  "source_url": "https://www.wsj.com/business/retail/albertsons-wants-8-billion-from-kroger-after-failed-merger-fd0aacd8?mod=pls_whats_news_us_business_f",
+  "source_name": "The Wall Street Journal",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-12T17:13:00Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-12T18:34:22Z",
+  "updated_at": "2026-10-12T18:34:22Z",
+  "decay_at": "2026-10-14T05:13:00Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
