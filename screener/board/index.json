@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T10:22:36Z",
+  "generated_at": "2026-10-12T10:33:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-392",
@@ -1373,6 +1373,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261012-414",
+      "headline": "AGILE GROUP (03383): ADJOURNMENT OF WINDING-UP PETITION HEARING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101200579.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T09:29:00Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Adjournment of a winding-up petition hearing indicates ongoing legal and financial distress for the developer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Adjournment of a winding-up petition hearing indicates ongoing legal and financial distress for the developer.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Agile Group",
+          "ticker": "03383",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261012-388",
       "headline": "LK TECH (00558): EXERCISE OF REPURCHASE OPTIONS AND REPURCHASE OF SHARES IN SHENZHEN LK",
       "headline_en": null,
@@ -1662,6 +1711,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261012-408",
+      "headline": "SKIL Infrastructure Limited: SKIL Infrastructure Limited has informed the Exchange regarding the postponement of the 13th COC meeting.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/Skilinfra_12102026151529_Letter_Postponement_Intimation_13th_COC.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T09:46:08Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "The company postponed a Committee of Creditors meeting, indicating ongoing financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "The company postponed a Committee of Creditors meeting, indicating ongoing financial distress.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SKIL Infrastructure Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261012-369",
       "headline": "Chinese wealth manager CreditEase placed under criminal investigation",
       "headline_en": null,
@@ -1848,104 +1946,6 @@
       "companies": [
         {
           "name": "GHCL Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-331",
-      "headline": "Offer to Buy – Acquisition Window (Takeover) for RGF CAPITAL MARKETS LIMITED – Live Activities Schedule",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261012-1/20261012-1.pdf",
-      "source_name": "BSE India — Notices (RSS)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-12T06:50:56Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Takeover offer for RGF Capital Markets Limited.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Takeover offer for RGF Capital Markets Limited.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "RGF Capital Markets Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-354",
-      "headline": "Raymond Limited: Raymond Limited has informed the Exchange regarding a press release dated October 12, 2026, titled \"Raymond Limited Accelerates Andhra Pradesh Expansion to Support Growth Momentum\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/RAYMOND_12102026120217_RLSEintimationPRsigned.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-12T06:34:46Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Raymond Limited is expanding its manufacturing footprint in Andhra Pradesh to support growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Raymond Limited is expanding its manufacturing footprint in Andhra Pradesh to support growth.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Raymond Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -215451,9 +215451,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 868799,
-    "news_picked_today": 554,
-    "news_dropped_today": 4970
+    "news_seen_today": 925311,
+    "news_picked_today": 568,
+    "news_dropped_today": 5004
   },
   "book_momentum": {
     "live_count": 8,
