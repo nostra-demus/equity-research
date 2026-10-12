@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T02:27:34Z",
+  "generated_at": "2026-10-12T02:28:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-002",
@@ -172149,6 +172149,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-a91b27166e5b",
+      "idea_version": "IDEAV-d1e3a2a79b983b93",
+      "idea_version_started_at": "2026-10-12T02:28:00Z",
+      "ticker": "ENLT",
+      "company": "Enlight Renewable Energy",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company issued aggressive forward guidance targeting 3x growth in its global energy platform over the next three years, signaling significant capacity expansion.",
+      "why_now": "The guidance was released on 2026-10-11.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a8abeebd2dc2"
+      ],
+      "primary_source_event_id": "EVT-a8abeebd2dc2",
+      "source_headlines": [
+        "Enlight's 2026 Outlook: Global Energy Platform Expansion Targets 3x Growth in 3 Years"
+      ],
+      "source_headline": "Enlight's 2026 Outlook: Global Energy Platform Expansion Targets 3x Growth in 3 Years",
+      "source_url": "https://www.nasdaq.com/articles/enlights-2026-outlook-global-energy-platform-expansion-targets-3x-growth-3-years",
+      "source_name": "Nasdaq",
+      "materiality_max": 94,
+      "newest_source_at": "2026-10-11T23:11:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-12T02:28:00Z",
+      "updated_at": "2026-10-12T02:28:00Z",
+      "decay_at": "2026-10-13T11:11:47Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-a7b0cf284225",
       "idea_version": "IDEAV-3604cee836b790b2",
       "idea_version_started_at": "2026-10-12T00:57:38Z",
@@ -173227,6 +173297,77 @@
       "surfaced_at": "2026-10-11T19:54:08Z",
       "updated_at": "2026-10-11T19:54:08Z",
       "decay_at": "2026-10-12T04:47:10Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-7ec0f1c395e9",
+      "idea_version": "IDEAV-b8589836ee24aba4",
+      "idea_version_started_at": "2026-10-12T02:28:00Z",
+      "ticker": "09887",
+      "company": "Leads Biolabs",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "FDA Fast Track designation accelerates the regulatory pathway for LBL-024, potentially shortening the time to commercialization for a key pipeline asset in biliary tract cancer.",
+      "why_now": "The designation was officially announced via HKEX filing on 2026-10-11.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-541311d21991"
+      ],
+      "primary_source_event_id": "EVT-541311d21991",
+      "source_headlines": [
+        "LEADS BIOLABS-B (09887): VOLUNTARY ANNOUNCEMENT LBL-024 (OPAMTISTOMIG, PD-L1/4-1BB BISPECIFIC ANTIBODY) GRANTED FAST TRACK DESIGNATION BY THE U.S. FDA FOR FIRST-LINE TREATMENT OF ADVANCED BILIARY TRACT CANCER"
+      ],
+      "source_headline": "LEADS BIOLABS-B (09887): VOLUNTARY ANNOUNCEMENT LBL-024 (OPAMTISTOMIG, PD-L1/4-1BB BISPECIFIC ANTIBODY) GRANTED FAST TRACK DESIGNATION BY THE U.S. FDA FOR FIRST-LINE TREATMENT OF ADVANCED BILIARY TRACT CANCER",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101200001.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 93,
+      "newest_source_at": "2026-10-11T22:04:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-12T02:28:00Z",
+      "updated_at": "2026-10-12T02:28:00Z",
+      "decay_at": "2026-10-13T10:04:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -177389,77 +177530,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-1d2ec78f4706",
-      "idea_version": "IDEAV-bbff5588962bcb2a",
-      "idea_version_started_at": "2026-10-09T05:42:02Z",
-      "ticker": "BEML",
-      "company": "BEML Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has secured a new commercial contract, which directly bolsters its order backlog and future revenue recognition.",
-      "why_now": "The exchange filing on 2026-10-09 confirms the award, providing immediate fundamental support.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8a1f9dedaa84"
-      ],
-      "primary_source_event_id": "EVT-8a1f9dedaa84",
-      "source_headlines": [
-        "BEML Limited: BEML Limited has informed the Exchange about Awarding of order(s)/contract(s)"
-      ],
-      "source_headline": "BEML Limited: BEML Limited has informed the Exchange about Awarding of order(s)/contract(s)",
-      "source_url": "https://nsearchives.nseindia.com/corporate/BEML_09102026071209_intimation_nse_signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 90,
-      "newest_source_at": "2026-10-09T01:42:58Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-09T05:42:02Z",
-      "updated_at": "2026-10-09T05:42:02Z",
-      "decay_at": "2026-10-10T13:42:58Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-cd88af904b7c",
       "idea_version": "IDEAV-a8f62a0f1f654020",
       "idea_version_started_at": "2026-10-11T02:32:41Z",
@@ -177904,14 +177974,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 551,
+    "total_count": 550,
     "shown_count": 499,
-    "hidden_count": 52,
+    "hidden_count": 51,
     "side_counts": {
       "long": {
-        "total_count": 281,
+        "total_count": 280,
         "shown_count": 250,
-        "hidden_count": 31
+        "hidden_count": 30
       },
       "short": {
         "total_count": 271,
@@ -177921,12 +177991,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 941,
+      "evicted_count": 942,
       "oldest_retained_at": "2026-09-15T07:31:11Z",
       "side_counts": {
         "long": {
-          "evicted_count": 624,
-          "oldest_retained_at": "2026-09-28T21:14:56Z"
+          "evicted_count": 625,
+          "oldest_retained_at": "2026-09-28T21:57:19Z"
         },
         "short": {
           "evicted_count": 317,
@@ -181813,8 +181883,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-10T13:42:58Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-12T02:28:06Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -215081,8 +215151,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1524,
-    "live_count": 31,
+    "surfaced_total": 1526,
+    "live_count": 33,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
