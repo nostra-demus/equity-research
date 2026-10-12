@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-12T16:24:12Z",
+  "generated_at": "2026-10-12T16:38:02Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261012-593",
+      "headline": "Juniper Green Energy Limited: Juniper Green Energy Limited has informed the Exchange about commissioning of additional capacity",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/JGEL2025_12102026212707_2026_10_12-_Reg_30-_JGEL_Commissiong_5_MW_Wind.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T15:57:26Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Juniper Green Energy Limited has commissioned additional capacity, which could increase its operational output.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Juniper Green Energy Limited has commissioned additional capacity, which could increase its operational output.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Juniper Green Energy Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261012-535",
       "headline": "MAJOR HLDGS (01389): JOINT ANNOUNCEMENT (1) THE SALE AND PURCHASE OF THE SHARES IN MAJOR HOLDINGS LIMITED; (2) COMPLETION OF THE SALE AND PURCHASE AGREEMENT; (3) MANDATORY UNCONDITIONAL CASH OFFER BY KINGSTON SECURITIES LIMITED FOR AND ON BEHALF OF MAX PREMIER LIMITED TO ACQUIRE ALL THE ISSUED SHARES OF MAJOR HOLDINGS LIMITED (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY MAX PREMIER LIMITED AND PARTIES ACTING IN CONCERT WITH IT); AND (4) RESUMPTION OF TRADIN",
@@ -831,6 +880,104 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-582",
+      "headline": "Adnoc Logistics in Talks to Buy Stake in HEA at $3 Billion Valuation",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/energy-oil/adnoc-logistics-in-talks-to-buy-stake-in-hea-at-3-billion-valuation-c005541a?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T16:19:00Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Adnoc Logistics is in talks to acquire a stake in HEA at a $3 billion valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Adnoc Logistics is in talks to acquire a stake in HEA at a $3 billion valuation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adnoc Logistics",
+          "ticker": null,
+          "listing_country": "AE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-587",
+      "headline": "Getty Images to go private after restructuring deal",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/getty-images-go-private-after-restructuring-deal-2026-10-12/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T15:40:00Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Getty Images is set to go private following a restructuring deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Getty Images is set to go private following a restructuring deal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Getty Images",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1839,158 +1986,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-271",
-      "headline": "Künstliche Intelligenz: BMW plant mit KI-basiertem Geschäftsmodell Milliardeneinsparungen",
-      "headline_en": "Artificial Intelligence: BMW plans billion-euro savings with AI-based business model",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/autobauer-bmw-plant-mit-ki-basiertem-geschaeftsmodell-milliardeneinsparungen/100260010.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T05:21:00Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "BMW plans to achieve billion-euro savings through an AI-based business model.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BMW plans to achieve billion-euro savings through an AI-based business model.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BMW",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-279",
-      "headline": "Amazon en pourparlers pour racheter la start-up Decart pour $7 mds-WSJ",
-      "headline_en": "Amazon in talks to acquire startup Decart for $7 billion - WSJ",
-      "url": "https://www.reuters.com/fr/actualites/amazon-en-pourparlers-pour-racheter-la-start-up-decart-pour-7-mds-wsj-2026-10-12/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T05:19:59Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Amazon is in talks to acquire startup Decart for $7 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Amazon is in talks to acquire startup Decart for $7 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Decart",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-257",
-      "headline": "63 Moons Technologies shares rally 9% as subsidiary raises FY27 revenue guidance to Rs 600 crore",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/63-moons-technologies-shares-rally-9-as-subsidiary-raises-fy27-revenue-guidance-to-rs-600-crore/articleshow/134883373.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T05:14:25Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Subsidiary raised FY27 revenue guidance to Rs 600 crore, driving a 9% rally in the parent company's shares.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Subsidiary raised FY27 revenue guidance to Rs 600 crore, driving a 9% rally in the parent company's shares.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "63 Moons Technologies",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -215929,9 +215924,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2920816,
-    "news_picked_today": 922,
-    "news_dropped_today": 7026
+    "news_seen_today": 2996812,
+    "news_picked_today": 939,
+    "news_dropped_today": 7129
   },
   "book_momentum": {
     "live_count": 8,
