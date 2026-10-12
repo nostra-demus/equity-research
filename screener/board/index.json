@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T14:53:44Z",
+  "generated_at": "2026-10-12T15:00:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-535",
@@ -42,6 +42,55 @@
         {
           "name": "MAJOR HLDGS",
           "ticker": "01389",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-552",
+      "headline": "HANISON (00896): Major and Connected Transaction in relation to Disposal of Equity Interests in the Target",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101201251.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T14:09:00Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Company announced a major and connected transaction involving the disposal of equity interests.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced a major and connected transaction involving the disposal of equity interests.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HANISON",
+          "ticker": "00896",
           "listing_country": "CN"
         }
       ],
@@ -1939,55 +1988,6 @@
           "name": "NeoAI Cloud",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-188",
-      "headline": "IRB Infra shares jump 4% after raising toll guidance; Here's why CLSA sees 90% upside",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/irb-infra-share-price-clsa-sees-90-percent-upside-toll-collection-guidance-raised-for-fy27-20009665.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T04:41:04Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "IRB Infrastructure raised its toll revenue guidance, prompting a significant analyst upgrade.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "IRB Infrastructure raised its toll revenue guidance, prompting a significant analyst upgrade.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IRB Infrastructure Developers",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -215785,9 +215785,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2398628,
-    "news_picked_today": 837,
-    "news_dropped_today": 6391
+    "news_seen_today": 2452244,
+    "news_picked_today": 861,
+    "news_dropped_today": 6631
   },
   "book_momentum": {
     "live_count": 8,
