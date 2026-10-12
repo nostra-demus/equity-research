@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T02:37:37Z",
+  "generated_at": "2026-10-12T02:42:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-002",
@@ -92,6 +92,55 @@
           "name": "Celltrion",
           "ticker": null,
           "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-119",
+      "headline": "Bain’s Bridge Data Centres Seeks to Upsize Loan to $6.6 Billion",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-12/bain-s-bridge-data-centres-seeks-to-upsize-loan-to-6-6-billion",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T02:29:55Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Bain's Bridge Data Centres is seeking to upsize a loan to $6.6 billion, a significant capital structure event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bain's Bridge Data Centres is seeking to upsize a loan to $6.6 billion, a significant capital structure event.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bridge Data Centres",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -193,6 +242,49 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-121",
+      "headline": "Israeli shelling kills retired Lebanese soldier",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israeli-shelling-kills-retired-lebanese-soldier",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T02:40:24Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "The killing of a soldier by Israeli shelling marks a further escalation in the regional conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "The killing of a soldier by Israeli shelling marks a further escalation in the regional conflict.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -336,6 +428,55 @@
       ],
       "issuer_linkage": "sector",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-118",
+      "headline": "TM1: Trading Halt [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TM1?key=2924-03147137-6A1348718",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T02:36:28Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Trading halt pending a price-sensitive announcement indicates a material corporate event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Trading halt pending a price-sensitive announcement indicates a material corporate event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "strategic_review",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TM1",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1808,157 +1949,6 @@
       ],
       "issuer_linkage": "sector",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-022",
-      "headline": "Judge orders Trump admin to stop airing challenged government-funded ads immediately",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/11/trump-ads-dhs-judge-order.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T00:29:50Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Legal order impacting government operations and political messaging.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Legal order impacting government operations and political messaging.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-068",
-      "headline": "Rinehart-backed Arafura expands US rare earths offtake deal",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/mining/rinehart-backed-arafura-expands-us-rare-earths-offtake-deal-20261012-p614p5?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T01:34:35Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Arafura Rare Earths has expanded its offtake agreement with a US partner, strengthening its commercial position in the rare earths market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Arafura Rare Earths has expanded its offtake agreement with a US partner, strengthening its commercial position in the rare earths market.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Arafura Rare Earths",
-          "ticker": "ARU",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-029",
-      "headline": "China’s CXMT unveils ‘key progress’ on chip structure pursued by Samsung, SK Hynix",
-      "headline_en": null,
-      "url": "https://www.scmp.com/tech/big-tech/article/3370505/chinas-cxmt-unveils-key-progress-chip-structure-pursued-samsung-sk-hynix?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T00:30:13Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "CXMT reports progress in chip structure technology, potentially impacting competitive dynamics with Samsung and SK Hynix.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "CXMT reports progress in chip structure technology, potentially impacting competitive dynamics with Samsung and SK Hynix.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CXMT",
-          "ticker": null,
-          "listing_country": "CN"
-        },
-        {
-          "name": "Samsung",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "SK Hynix",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -215166,9 +215156,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 567,
-    "news_picked_today": 138,
-    "news_dropped_today": 429
+    "news_seen_today": 581,
+    "news_picked_today": 144,
+    "news_dropped_today": 437
   },
   "book_momentum": {
     "live_count": 8,
