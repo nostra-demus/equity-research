@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T02:32:42Z",
+  "generated_at": "2026-10-12T02:37:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-002",
@@ -993,6 +993,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261012-117",
+      "headline": "Chery recalls Omoda 5 in Malaysia after rear axle detachment incident",
+      "headline_en": null,
+      "url": "https://cnevpost.com/2026/10/12/chery-recalls-omoda-5-malaysia/",
+      "source_name": "CnEVPost",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T02:35:46Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Chery is recalling the Omoda 5 in Malaysia due to a critical safety defect involving rear axle detachment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Chery is recalling the Omoda 5 in Malaysia due to a critical safety defect involving rear axle detachment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chery Automobile",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261012-025",
       "headline": "Encalm looks beyond airport lounges to build ₹5,000 crore hospitality business",
       "headline_en": null,
@@ -1910,49 +1959,6 @@
           "listing_country": "KR"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-116",
-      "headline": "RBI Tightens Rupee Defense as Pricey Crude, Foreign Outflows Bite: USD/INR",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/newsletters/2026-10-12/rbi-tightens-rupee-defense-as-pricey-crude-foreign-outflows-bite-usd-inr",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T02:30:23Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Central bank intervention to defend the Rupee indicates significant macro pressure from oil prices and capital outflows.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "Central bank intervention to defend the Rupee indicates significant macro pressure from oil prices and capital outflows.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -215160,9 +215166,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 558,
-    "news_picked_today": 135,
-    "news_dropped_today": 423
+    "news_seen_today": 567,
+    "news_picked_today": 138,
+    "news_dropped_today": 429
   },
   "book_momentum": {
     "live_count": 8,
