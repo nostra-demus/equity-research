@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-12T13:49:56Z",
+  "generated_at": "2026-10-12T14:14:25Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261012-527",
+      "headline": "CR BLDG MAT TEC (01313): INSIDE INFORMATION - PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101201243.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T14:05:00Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "CR BLDG MAT TEC issued a profit warning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CR BLDG MAT TEC issued a profit warning.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CR BLDG MAT TEC",
+          "ticker": "01313",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261012-523",
       "headline": "HX BLDG MAT (06655): PROPOSAL ON THE DISCLOSEABLE AND CONNECTED TRANSACTION OF THE ACQUISITION OF HOLCIM PHILIPPINES INC. AND NOTICE OF THE FOURTH EXTRAORDINARY GENERAL MEETING IN 2026",
@@ -1928,55 +1977,6 @@
           "name": "Genting",
           "ticker": null,
           "listing_country": "MY"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-150",
-      "headline": "Poonawalla Fincorp shares in focus after Q2 net profit soars 407% to Rs 375 crore",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/poonawalla-fincorp-shares-in-focus-after-q2-net-profit-soars-407-to-rs-375-crore/articleshow/134881686.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T03:32:03Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Poonawalla Fincorp reported a 407% increase in Q2 net profit to Rs 375 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Poonawalla Fincorp reported a 407% increase in Q2 net profit to Rs 375 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Poonawalla Fincorp",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -215557,9 +215557,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2041168,
-    "news_picked_today": 779,
-    "news_dropped_today": 6233
+    "news_seen_today": 2217644,
+    "news_picked_today": 790,
+    "news_dropped_today": 6246
   },
   "book_momentum": {
     "live_count": 8,
