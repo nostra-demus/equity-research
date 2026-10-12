@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-12T05:02:33Z",
+  "generated_at": "2026-10-12T05:16:58Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261012-229",
+      "headline": "Emcure Pharmaceuticals Limited: Emcure Pharmaceuticals Limited has informed the Exchange that the Board of Directors at the meeting held on October 12, 2026 have approved the proposed Scheme of Amalgamation of Zuventus Healthcare Limited and Emcutix Biopharmaceuticals Limited, wholly owned subsidiaries with Emcure Pharmaceuticals Limited - Holding Company, subject to requisite statutory and regulatory approvals.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/EMCURE_12102026103306_OutcomeofBM12102026_Final.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T05:03:18Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Emcure Pharmaceuticals approved the amalgamation of two wholly owned subsidiaries, Zuventus Healthcare and Emcutix Biopharmaceuticals, into the parent company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Emcure Pharmaceuticals approved the amalgamation of two wholly owned subsidiaries, Zuventus Healthcare and Emcutix Biopharmaceuticals, into the parent company.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Emcure Pharmaceuticals Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261012-165",
       "headline": "PANGAEA CONNECT (01473): POSITIVE PROFIT ALERT AND BUSINESS UPDATE",
@@ -95,6 +144,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-242",
+      "headline": "Samsung affiliates to invest $9.15 billion in semiconductor operations, with major focus on Vietnam",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/samsung-affiliates-to-invest-915-billion-in-semiconductor-operations-with-major-focus-on-vietnam/article71573748.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T04:53:52Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Samsung affiliates are investing $9.15 billion in semiconductor operations, primarily in Vietnam.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Samsung affiliates are investing $9.15 billion in semiconductor operations, primarily in Vietnam.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -498,6 +596,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261012-254",
+      "headline": "Air strikes reported in Yemen’s Sanaa and Taiz",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/air-strikes-reported-yemens-sanaa-and-taiz",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T05:01:39Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Reported air strikes in Yemen represent a direct escalation of regional military conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Reported air strikes in Yemen represent a direct escalation of regional military conflict.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261012-121",
       "headline": "Israeli shelling kills retired Lebanese soldier",
       "headline_en": null,
@@ -824,6 +965,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-230",
+      "headline": "Tata Power Company Limited: Tata Power Company Limited has informed the Exchange regarding a press release dated October 12, 2026, titled \"Tata Power Renewables Records over 130% YoY Growth in Utility-Scale Execution in Q2 FY27, delivering 419 MW Capacity along with 131.2 MWhr of Battery Storage Projects\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/KSTPCL_12102026102915_PR12102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T05:00:10Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Tata Power Renewables reported 130% YoY growth in utility-scale execution for Q2 FY27, delivering 419 MW capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Tata Power Renewables reported 130% YoY growth in utility-scale execution for Q2 FY27, delivering 419 MW capacity.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Power Company Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1759,202 +1949,6 @@
       "companies": [
         {
           "name": "Firmus",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-132",
-      "headline": "Peak XV, Accel-backed Zetwerk seeks $2.6 billion valuation in India IPO",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/peak-xv-accel-backed-zetwerk-seeks-26-billion-valuation-in-india-ipo/article71573626.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T02:55:24Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Zetwerk is seeking a $2.6 billion valuation for its upcoming IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Zetwerk is seeking a $2.6 billion valuation for its upcoming IPO.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zetwerk",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-134",
-      "headline": "DMart Q2 Review: Motilal Oswal Trims Target Price On Profitability, Free Cash Flow Concerns",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/dmart-q2-results-review-motilal-oswal-trims-target-price-as-growth-recovers-profitability-free-cash-flow-weaken-12171694#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T02:16:17Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Motilal Oswal cut the target price for DMart due to concerns regarding profitability and free cash flow.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Motilal Oswal cut the target price for DMart due to concerns regarding profitability and free cash flow.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DMart",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-066",
-      "headline": "Tencent plans dollar, offshore yuan bond sale under note programme",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/tencent-plans-dollar-offshore-yuan-bond-sale-under-note-programme-2026-10-12/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T01:19:05Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Tencent is planning a multi-currency bond sale, which will impact its capital structure and debt profile.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Tencent is planning a multi-currency bond sale, which will impact its capital structure and debt profile.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tencent",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-137",
-      "headline": "AMH: Notification of cessation of securities - AMH",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AMH?key=2924-03147144-3A703870",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-12T03:02:04Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Notification of cessation of securities indicates a change in capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Notification of cessation of securities indicates a change in capital structure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AMH",
           "ticker": null,
           "listing_country": null
         }
@@ -215163,9 +215157,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8223,
-    "news_picked_today": 258,
-    "news_dropped_today": 1673
+    "news_seen_today": 8587,
+    "news_picked_today": 334,
+    "news_dropped_today": 1961
   },
   "book_momentum": {
     "live_count": 8,
