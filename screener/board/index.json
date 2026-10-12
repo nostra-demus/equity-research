@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T10:09:37Z",
+  "generated_at": "2026-10-12T10:20:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-392",
@@ -1471,6 +1471,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261012-400",
+      "headline": "Oratomic raises $775m for development of fault-tolerant quantum computer",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/oratomic-raises-775m-for-development-of-fault-tolerant-quantum-computer/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T10:03:42Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Oratomic raised $775 million for quantum computing development, representing a significant capital injection.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Oratomic raised $775 million for quantum computing development, representing a significant capital injection.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oratomic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261012-372",
       "headline": "Beijing police detain Yiren Digital chairman after massive product defaults",
       "headline_en": null,
@@ -1902,55 +1951,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-230",
-      "headline": "Tata Power Company Limited: Tata Power Company Limited has informed the Exchange regarding a press release dated October 12, 2026, titled \"Tata Power Renewables Records over 130% YoY Growth in Utility-Scale Execution in Q2 FY27, delivering 419 MW Capacity along with 131.2 MWhr of Battery Storage Projects\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/KSTPCL_12102026102915_PR12102026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-12T05:00:10Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Tata Power Renewables reported 130% YoY growth in utility-scale execution for Q2 FY27, delivering 419 MW capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Tata Power Renewables reported 130% YoY growth in utility-scale execution for Q2 FY27, delivering 419 MW capacity.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Power Company Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -215451,9 +215451,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 806685,
-    "news_picked_today": 544,
-    "news_dropped_today": 4884
+    "news_seen_today": 854906,
+    "news_picked_today": 552,
+    "news_dropped_today": 4948
   },
   "book_momentum": {
     "live_count": 8,
