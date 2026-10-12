@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-12T14:47:00Z",
+  "generated_at": "2026-10-12T14:53:44Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261012-535",
+      "headline": "MAJOR HLDGS (01389): JOINT ANNOUNCEMENT (1) THE SALE AND PURCHASE OF THE SHARES IN MAJOR HOLDINGS LIMITED; (2) COMPLETION OF THE SALE AND PURCHASE AGREEMENT; (3) MANDATORY UNCONDITIONAL CASH OFFER BY KINGSTON SECURITIES LIMITED FOR AND ON BEHALF OF MAX PREMIER LIMITED TO ACQUIRE ALL THE ISSUED SHARES OF MAJOR HOLDINGS LIMITED (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY MAX PREMIER LIMITED AND PARTIES ACTING IN CONCERT WITH IT); AND (4) RESUMPTION OF TRADIN",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101201299.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T14:43:00Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Major Holdings Limited is subject to a mandatory unconditional cash offer following a change in control.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Major Holdings Limited is subject to a mandatory unconditional cash offer following a change in control.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MAJOR HLDGS",
+          "ticker": "01389",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261012-527",
       "headline": "CR BLDG MAT TEC (01313): INSIDE INFORMATION - PROFIT WARNING",
@@ -1942,55 +1991,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-280",
-      "headline": "DMart Shares Fall for Third Consecutive Session, Decline Over 4% After Q2 Proft, Revenue Miss Estimates",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/dmart-shares-fall-for-third-consecutive-session-decline-over-4-today-12171975#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T04:37:22Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "DMart shares fell over 4% following a Q2 profit and revenue miss.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "DMart shares fell over 4% following a Q2 profit and revenue miss.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DMart",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -215785,9 +215785,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2377056,
-    "news_picked_today": 833,
-    "news_dropped_today": 6371
+    "news_seen_today": 2398628,
+    "news_picked_today": 837,
+    "news_dropped_today": 6391
   },
   "book_momentum": {
     "live_count": 8,
