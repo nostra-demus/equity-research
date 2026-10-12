@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T01:13:23Z",
+  "generated_at": "2026-10-12T01:19:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-002",
@@ -92,6 +92,55 @@
         {
           "name": "Butterfield",
           "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-054",
+      "headline": "TM1: Pause in Trading [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TM1?key=2924-03147108-6A1348707",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T01:10:48Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Trading halt on ASX is a price-sensitive event indicating potential material news pending.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Trading halt on ASX is a price-sensitive event indicating potential material news pending.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "strategic_review",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TM1",
+          "ticker": "TM1",
           "listing_country": null
         }
       ],
@@ -1595,6 +1644,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261012-055",
+      "headline": "GST reforms: What changes in compliance, input tax credit, refunds and litigation from 2027",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/wealth/tax/gst-reforms-what-changes-in-compliance-input-tax-credit-refunds-and-litigation-from-2027/articleshow/134847162.cms",
+      "source_name": "The Economic Times Wealth",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T01:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Upcoming GST reforms in 2027 represent a significant change in compliance and tax structure for Indian businesses.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Upcoming GST reforms in 2027 represent a significant change in compliance and tax structure for Indian businesses.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261012-041",
       "headline": "US reverses course on request that AI developers not share models for UK testing: Telegraph",
       "headline_en": null,
@@ -1809,92 +1901,6 @@
         "macro_sector"
       ],
       "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-045",
-      "headline": "Gold Edges Up as Traders Weigh Russia-Ukraine ‘Energy Ceasefire’",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-12/gold-edges-up-as-traders-weigh-russia-ukraine-energy-ceasefire",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T00:38:27Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Market reaction to potential Russia-Ukraine energy ceasefire news affecting gold prices.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Market reaction to potential Russia-Ukraine energy ceasefire news affecting gold prices.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-049",
-      "headline": "Malaysia Budget Sees Consumer Names Emerge Winners, Analysts Say",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-12/malaysia-budget-sees-consumer-names-emerge-winners-analysts-say",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T00:43:28Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Malaysia's budget announcement identifies consumer sector beneficiaries, providing sector-level guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "Malaysia's budget announcement identifies consumer sector beneficiaries, providing sector-level guidance.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -214891,9 +214897,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 270,
-    "news_picked_today": 55,
-    "news_dropped_today": 215
+    "news_seen_today": 294,
+    "news_picked_today": 57,
+    "news_dropped_today": 237
   },
   "book_momentum": {
     "live_count": 8,
