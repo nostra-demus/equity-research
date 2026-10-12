@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T15:08:55Z",
+  "generated_at": "2026-10-12T15:10:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-535",
@@ -784,6 +784,55 @@
           "name": "Starbucks",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-559",
+      "headline": "HCLTech Raises FY27 Revenue Growth Guidance To 2.5-4%, Retains EBIT Margin Outlook",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/hcltech-raises-fy27-revenue-growth-guidance-to-2-5-4-retains-ebit-margin-outlook-12174482#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T13:35:26Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "HCLTech raised its FY27 revenue growth guidance to 2.5-4%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HCLTech raised its FY27 revenue growth guidance to 2.5-4%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HCLTech",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1942,55 +1991,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-278",
-      "headline": "NeoAI Cloud, 포항 AI데이터센터 개발 6000억 원 자금 확보",
-      "headline_en": "NeoAI Cloud secures 600 billion KRW in funding for Pohang AI data center development",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=278603",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T04:42:35Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "NeoAI Cloud secured 600 billion KRW in funding for the development of an AI data center in Pohang.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "NeoAI Cloud secured 600 billion KRW in funding for the development of an AI data center in Pohang.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NeoAI Cloud",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -215785,9 +215785,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2483854,
-    "news_picked_today": 862,
-    "news_dropped_today": 6702
+    "news_seen_today": 2494464,
+    "news_picked_today": 871,
+    "news_dropped_today": 6717
   },
   "book_momentum": {
     "live_count": 8,
