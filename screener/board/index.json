@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T10:53:10Z",
+  "generated_at": "2026-10-12T10:57:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-392",
@@ -1298,6 +1298,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261012-424",
+      "headline": "Tata Motors Passenger Vehicles Limited: Tata Motors Passenger Vehicles Limited has informed the Exchange regarding a press release dated October 12, 2026, titled \"Stellantis and Tata Motors Passenger Vehicles Broaden Strategic Partnership to include Advanced Technology and Product Collaboration\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TATAMOTORSSJS_12102026155833_NSEBSETraverse.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T10:28:49Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Tata Motors Passenger Vehicles and Stellantis are broadening their strategic partnership for technology and product collaboration.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Tata Motors Passenger Vehicles and Stellantis are broadening their strategic partnership for technology and product collaboration.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors Passenger Vehicles Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Stellantis",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261012-054",
       "headline": "TM1: Pause in Trading [price-sensitive]",
       "headline_en": null,
@@ -1913,55 +1967,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-171",
-      "headline": "Zetwerk Manufacturing Business IPO price band set at Rs 143–151; Rs 5,012 crore issue opens on October 15",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/ipos/fpos/zetwerk-manufacturing-business-ipo-price-band-set-at-rs-143151-rs-5012-crore-issue-opens-on-october-15/articleshow/134881830.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T03:46:23Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Zetwerk Manufacturing Business set an IPO price band for a 5,012 crore rupee issue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Zetwerk Manufacturing Business set an IPO price band for a 5,012 crore rupee issue.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zetwerk Manufacturing Business",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -215318,9 +215323,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1004142,
-    "news_picked_today": 598,
-    "news_dropped_today": 5214
+    "news_seen_today": 1018740,
+    "news_picked_today": 602,
+    "news_dropped_today": 5258
   },
   "book_momentum": {
     "live_count": 8,
