@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T07:15:59Z",
+  "generated_at": "2026-10-12T08:28:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-229",
@@ -1755,6 +1755,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261012-361",
+      "headline": "Goodluck India Limited: Goodluck India Limited has informed the Exchange regarding Outcome of Board Meeting held on October 12, 2026.We wish to inform you that the Board of Directors of the Company in its meeting, held today i.e. 12th October, 2026 which concluded at 12:45 P.M. (IST), has, inter alia, considered the proposal and accorded its in-principle approval for enlargement of the scope of the aforesaid corporate restructuring to include proposed amalgamation of Goodluck Defence and Aerospa",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/GOODLUCK_12102026125629_BM_outcome_12102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T07:26:53Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Goodluck India Limited has approved the expansion of its corporate restructuring to include the amalgamation of Goodluck Defence and Aerospace.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Goodluck India Limited has approved the expansion of its corporate restructuring to include the amalgamation of Goodluck Defence and Aerospace.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Goodluck India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261012-359",
       "headline": "Puravankara Limited: Puravankara Limited has informed the Exchange regarding a press release dated October 12, 2026, titled \"Puravankara Signs JDA for 12.76-acre Land Parcel in Sathanur, Bengaluru, with Potential GDV of Rs 2,500 Crore .",
       "headline_en": null,
@@ -1894,55 +1943,6 @@
           "name": "Embassy Developments Limited",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-118",
-      "headline": "TM1: Trading Halt [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TM1?key=2924-03147137-6A1348718",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-12T02:36:28Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Trading halt pending a price-sensitive announcement indicates a material corporate event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Trading halt pending a price-sensitive announcement indicates a material corporate event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "strategic_review",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TM1",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "unknown",
@@ -215591,9 +215591,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 133731,
-    "news_picked_today": 458,
-    "news_dropped_today": 4082
+    "news_seen_today": 386947,
+    "news_picked_today": 462,
+    "news_dropped_today": 4126
   },
   "book_momentum": {
     "live_count": 8,
