@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T10:33:15Z",
+  "generated_at": "2026-10-12T10:35:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-392",
@@ -172065,6 +172065,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-7887ab3ce6c6",
+      "idea_version": "IDEAV-4ecbc763c0cbe847",
+      "idea_version_started_at": "2026-10-12T10:33:47Z",
+      "ticker": "YRD",
+      "company": "Yiren Digital",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The detention of the chairman following massive product defaults creates severe governance risk and potential for operational collapse.",
+      "why_now": "The news of the detention broke on 2026-10-12, representing an immediate existential threat to the firm.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-47f16d460fcc"
+      ],
+      "primary_source_event_id": "EVT-47f16d460fcc",
+      "source_headlines": [
+        "Beijing police detain Yiren Digital chairman after massive product defaults"
+      ],
+      "source_headline": "Beijing police detain Yiren Digital chairman after massive product defaults",
+      "source_url": "https://www.scmp.com/business/banking-finance/article/3370569/beijing-police-detain-yiren-digital-chairman-after-massive-product-defaults?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "materiality_max": 98,
+      "newest_source_at": "2026-10-12T07:24:24Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-12T10:33:47Z",
+      "updated_at": "2026-10-12T10:33:47Z",
+      "decay_at": "2026-10-13T19:24:24Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-a91b27166e5b",
       "idea_version": "IDEAV-d1e3a2a79b983b93",
       "idea_version_started_at": "2026-10-12T02:28:00Z",
@@ -176362,148 +176432,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-c67e8a0a9181",
-      "idea_version": "IDEAV-a54ce213521254f1",
-      "idea_version_started_at": "2026-10-10T00:19:59Z",
-      "ticker": "00179",
-      "company": "Johnson Electric Holdings",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, signaling deteriorating margins or demand headwinds that will likely lead to downward earnings revisions.",
-      "why_now": "The profit warning was filed on 2026-10-09, making this a live catalyst for immediate repricing.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cde7390361fd"
-      ],
-      "primary_source_event_id": "EVT-cde7390361fd",
-      "source_headlines": [
-        "JOHNSON ELEC H (00179): Profit Warning"
-      ],
-      "source_headline": "JOHNSON ELEC H (00179): Profit Warning",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900757.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-09T10:16:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-09T13:03:03Z",
-      "updated_at": "2026-10-10T00:19:59Z",
-      "decay_at": "2026-10-10T22:16:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-091e1bf47c6d",
-      "idea_version": "IDEAV-e9f0eba8908b5d6f",
-      "idea_version_started_at": "2026-10-09T23:48:51Z",
-      "ticker": "01203",
-      "company": "GUANGNAN (HOLD)",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "GUANGNAN (HOLD) issued a profit warning, indicating an expected decline in its profitability.",
-      "why_now": "The profit warning was filed today, October 9, 2026, signaling an immediate negative outlook for the company.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-939e94de7057"
-      ],
-      "primary_source_event_id": "EVT-939e94de7057",
-      "source_headlines": [
-        "GUANGNAN (HOLD) (01203): Profit Warning"
-      ],
-      "source_headline": "GUANGNAN (HOLD) (01203): Profit Warning",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900675.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-09T09:49:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-09T12:39:29Z",
-      "updated_at": "2026-10-09T23:48:51Z",
-      "decay_at": "2026-10-10T21:49:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-4f3cb64516d2",
       "idea_version": "IDEAV-b504373a698d491c",
       "idea_version_started_at": "2026-10-09T23:48:51Z",
@@ -176788,78 +176716,6 @@
       "surfaced_at": "2026-10-09T13:03:03Z",
       "updated_at": "2026-10-09T13:03:03Z",
       "decay_at": "2026-10-10T23:16:49Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-c0f022152a38",
-      "idea_version": "IDEAV-6dd0fbbf441759c0",
-      "idea_version_started_at": "2026-10-09T12:39:29Z",
-      "ticker": "SSPGY",
-      "company": "SSP Group",
-      "exchange": "LSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company warned on profits due to a decline in tourism linked to the Iran conflict, which directly impacts their airport and travel-hub retail revenue.",
-      "why_now": "The profit warning was issued on 2026-10-09, reflecting a live impact on current-quarter guidance.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-691739ca96f6"
-      ],
-      "primary_source_event_id": "EVT-691739ca96f6",
-      "source_headlines": [
-        "Upper Crust owner SSP warns on profit as Iran war hits tourism"
-      ],
-      "source_headline": "Upper Crust owner SSP warns on profit as Iran war hits tourism",
-      "source_url": "https://www.cityam.com/upper-crust-owner-ssp-warns-on-profit-as-iran-war-hits-tourism/",
-      "source_name": "City A.M.",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-09T09:45:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-09T12:39:29Z",
-      "updated_at": "2026-10-09T12:39:29Z",
-      "decay_at": "2026-10-10T21:45:05Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -178242,9 +178098,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 551,
+    "total_count": 548,
     "shown_count": 499,
-    "hidden_count": 52,
+    "hidden_count": 49,
     "side_counts": {
       "long": {
         "total_count": 281,
@@ -178252,23 +178108,23 @@
         "hidden_count": 31
       },
       "short": {
-        "total_count": 271,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 18
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 947,
-      "oldest_retained_at": "2026-09-15T12:36:05Z",
+      "evicted_count": 950,
+      "oldest_retained_at": "2026-09-15T14:15:23Z",
       "side_counts": {
         "long": {
           "evicted_count": 627,
           "oldest_retained_at": "2026-09-28T22:25:00Z"
         },
         "short": {
-          "evicted_count": 320,
-          "oldest_retained_at": "2026-09-15T12:36:05Z"
+          "evicted_count": 323,
+          "oldest_retained_at": "2026-09-15T14:15:23Z"
         }
       }
     },
@@ -181785,8 +181641,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-10T22:16:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-12T10:33:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -181933,8 +181789,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-10T21:49:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-12T10:33:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -182008,8 +181864,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-10T21:45:05Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-12T10:33:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -215431,8 +215287,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1535,
-    "live_count": 36,
+    "surfaced_total": 1536,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
