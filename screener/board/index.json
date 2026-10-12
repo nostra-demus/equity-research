@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-12T13:15:01Z",
+  "generated_at": "2026-10-12T13:19:24Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261012-514",
+      "headline": "Bank of India: Bank Of India has informed the Exchange about Fraud/Default/Arrest",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BANKINDIA2_12102026183224_Future_Fraud.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T13:02:34Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Bank of India has reported a fraud/default event, which is a material operational and financial risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bank of India has reported a fraud/default event, which is a material operational and financial risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261012-451",
       "headline": "HOPSON DEV HOLD (00754): PROFIT WARNING AND CONTINUED SUSPENSION OF TRADING",
@@ -1932,60 +1981,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-424",
-      "headline": "Tata Motors Passenger Vehicles Limited: Tata Motors Passenger Vehicles Limited has informed the Exchange regarding a press release dated October 12, 2026, titled \"Stellantis and Tata Motors Passenger Vehicles Broaden Strategic Partnership to include Advanced Technology and Product Collaboration\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/TATAMOTORSSJS_12102026155833_NSEBSETraverse.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-12T10:28:49Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Tata Motors Passenger Vehicles and Stellantis are broadening their strategic partnership for technology and product collaboration.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Tata Motors Passenger Vehicles and Stellantis are broadening their strategic partnership for technology and product collaboration.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Motors Passenger Vehicles Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Stellantis",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -174104,78 +174099,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-f92cc8ec25f6",
-      "idea_version": "IDEAV-c1dbd50338ba3b13",
-      "idea_version_started_at": "2026-10-11T03:12:42Z",
-      "ticker": "300750",
-      "company": "CATL",
-      "exchange": "SZSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A long-term strategic supply agreement with Seres secures volume for CATL's battery production, reinforcing its dominant market share in the EV supply chain.",
-      "why_now": "The deal was officially announced on 2026-10-11.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-da3f2ab59fca"
-      ],
-      "primary_source_event_id": "EVT-da3f2ab59fca",
-      "source_headlines": [
-        "CATL signs long-term strategic deal with Seres to expand Aito battery capacity"
-      ],
-      "source_headline": "CATL signs long-term strategic deal with Seres to expand Aito battery capacity",
-      "source_url": "https://cnevpost.com/2026/10/11/catl-deal-seres-expand-aito-battery-capacity/",
-      "source_name": "CnEVPost",
-      "materiality_max": 93,
-      "newest_source_at": "2026-10-11T01:17:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-11T03:12:42Z",
-      "updated_at": "2026-10-11T03:12:42Z",
-      "decay_at": "2026-10-12T13:17:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5dcbd52d3d62",
       "idea_version": "IDEAV-81766fd1a8f82794",
       "idea_version_started_at": "2026-10-12T02:08:33Z",
@@ -177476,6 +177399,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-f92cc8ec25f6",
+      "idea_version": "IDEAV-c1dbd50338ba3b13",
+      "idea_version_started_at": "2026-10-11T03:12:42Z",
+      "ticker": "300750",
+      "company": "CATL",
+      "exchange": "SZSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A long-term strategic supply agreement with Seres secures volume for CATL's battery production, reinforcing its dominant market share in the EV supply chain.",
+      "why_now": "The deal was officially announced on 2026-10-11.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-da3f2ab59fca"
+      ],
+      "primary_source_event_id": "EVT-da3f2ab59fca",
+      "source_headlines": [
+        "CATL signs long-term strategic deal with Seres to expand Aito battery capacity"
+      ],
+      "source_headline": "CATL signs long-term strategic deal with Seres to expand Aito battery capacity",
+      "source_url": "https://cnevpost.com/2026/10/11/catl-deal-seres-expand-aito-battery-capacity/",
+      "source_name": "CnEVPost",
+      "materiality_max": 93,
+      "newest_source_at": "2026-10-11T01:17:40Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-11T03:12:42Z",
+      "updated_at": "2026-10-11T03:12:42Z",
+      "decay_at": "2026-10-12T13:17:40Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-1b994a384f0c",
       "idea_version": "IDEAV-5daeffd819fc31e6",
       "idea_version_started_at": "2026-10-11T02:32:41Z",
@@ -178351,14 +178346,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 544,
+    "total_count": 545,
     "shown_count": 499,
-    "hidden_count": 45,
+    "hidden_count": 46,
     "side_counts": {
       "long": {
-        "total_count": 279,
+        "total_count": 280,
         "shown_count": 250,
-        "hidden_count": 29
+        "hidden_count": 30
       },
       "short": {
         "total_count": 266,
@@ -178382,6 +178377,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-f92cc8ec25f6",
+        "idea_version": "IDEAV-c1dbd50338ba3b13",
+        "idea_version_started_at": "2026-10-11T03:12:42Z",
+        "ticker": "300750",
+        "company": "CATL",
+        "exchange": "SZSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "A long-term strategic supply agreement with Seres secures volume for CATL's battery production, reinforcing its dominant market share in the EV supply chain.",
+        "why_now": "The deal was officially announced on 2026-10-11.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-da3f2ab59fca"
+        ],
+        "primary_source_event_id": "EVT-da3f2ab59fca",
+        "source_headlines": [
+          "CATL signs long-term strategic deal with Seres to expand Aito battery capacity"
+        ],
+        "source_headline": "CATL signs long-term strategic deal with Seres to expand Aito battery capacity",
+        "source_url": "https://cnevpost.com/2026/10/11/catl-deal-seres-expand-aito-battery-capacity/",
+        "source_name": "CnEVPost",
+        "materiality_max": 93,
+        "newest_source_at": "2026-10-11T01:17:40Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-11T03:12:42Z",
+        "updated_at": "2026-10-11T03:12:42Z",
+        "decay_at": "2026-10-12T13:17:40Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-12T13:17:40Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-49717d740b20",
         "idea_version": "IDEAV-58ba282a07c6b59b",
@@ -207288,81 +207358,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-faf4a80af724",
-        "idea_version": "IDEAV-d7a40b8b80d3f7b3",
-        "idea_version_started_at": "2026-09-28T04:46:17Z",
-        "ticker": "GODREJPROP",
-        "company": "Godrej Properties",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "A new ₹6,000 crore luxury residential project in South Mumbai significantly expands the company's high-margin development pipeline in a premium market.",
-        "why_now": "The partnership for the Marine Lines project was announced on September 28, 2026.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b0b292141c44"
-        ],
-        "primary_source_event_id": "EVT-b0b292141c44",
-        "source_headlines": [
-          "Godrej Properties, MICL partner for ₹6,000 crore Marine Lines project in south Mumbai"
-        ],
-        "source_headline": "Godrej Properties, MICL partner for ₹6,000 crore Marine Lines project in south Mumbai",
-        "source_url": "https://www.livemint.com/industry/real-estate/godrej-properties-micl-marine-lines-luxury-project-mumbai-11790560841762.html",
-        "source_name": "Mint",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-28T04:17:49Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-28T02:17:49Z",
-        "updated_at": "2026-09-28T04:46:17Z",
-        "decay_at": "2026-09-29T16:17:49Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-01T05:01:37Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-bee4cf1b394c",
         "idea_version": "IDEAV-e2599f94bff2162c",
         "idea_version_started_at": "2026-09-28T04:46:17Z",
@@ -215544,7 +215539,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1543,
-    "live_count": 43,
+    "live_count": 42,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -215563,9 +215558,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1809445,
-    "news_picked_today": 757,
-    "news_dropped_today": 6183
+    "news_seen_today": 1839361,
+    "news_picked_today": 763,
+    "news_dropped_today": 6201
   },
   "book_momentum": {
     "live_count": 8,
