@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T00:03:19Z",
+  "generated_at": "2026-10-12T00:07:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-002",
@@ -298,6 +298,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261012-013",
+      "headline": "REV: Update - Dividend/Distribution - REV [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.REV?key=2924-03147082-3A703858",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T00:01:18Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "The company announced a dividend distribution, which is a direct capital return to shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "The company announced a dividend distribution, which is a direct capital return to shareholders.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "REV",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261012-009",
       "headline": "Oil rises on Middle East attacks, dollar edges higher",
       "headline_en": null,
@@ -390,6 +439,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261012-015",
+      "headline": "WASION HOLDINGS (03393): VOLUNTARY ANNOUNCEMENT - WASION AMERICAS' AMI METERS OFFICIALLY PASSED ANSI CERTIFICATION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101200049.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "The company's meters passed ANSI certification, which is a prerequisite for entering the US market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "The company's meters passed ANSI certification, which is a prerequisite for entering the US market.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wasion Holdings",
+          "ticker": "03393",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261012-003",
       "headline": "WASION HOLDINGS (03393): VOLUNTARY ANNOUNCEMENT - LATEST UPDATE ON THE DEVELOPMENT OF OVERSEAS BUSINESS",
       "headline_en": null,
@@ -434,6 +532,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-014",
+      "headline": "TRANSCENTA-B (06628): VOLUNTARY ANNOUNCEMENT-BUSINESS UPDATE ON THE GRANT OF CHINA INVENTION PATENTS RELATED TO OSEMITAMAB (TST001) AND ITS COMPANION DIAGNOSTIC ANTIBODY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101200051.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T00:03:00Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "The company received new patents for its Osemitamab drug candidate, strengthening its intellectual property portfolio.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "The company received new patents for its Osemitamab drug candidate, strengthening its intellectual property portfolio.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Transcenta Holding",
+          "ticker": "06628",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -565,6 +712,49 @@
       },
       "event_types": [
         "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-016",
+      "headline": "Iran war live: Riyadh airport hit again; Tehran says US reply ‘inadequate’",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/liveblog/2026/10/12/iran-war-live-riyadh-airport-hit-again-tehran-says-us-reply-inadequate?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-10-12T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Escalation of military conflict in the Middle East poses a significant risk to global energy supply and market stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Escalation of military conflict in the Middle East poses a significant risk to global energy supply and market stability.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -212768,7 +212958,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3499,
+    "inbox_unconsumed": 3503,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -212777,9 +212967,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 54,
-    "news_picked_today": 12,
-    "news_dropped_today": 42
+    "news_seen_today": 69,
+    "news_picked_today": 16,
+    "news_dropped_today": 53
   },
   "book_momentum": {
     "live_count": 8,
