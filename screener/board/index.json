@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T03:02:55Z",
+  "generated_at": "2026-10-12T03:03:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-002",
@@ -172076,76 +172076,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-272376b0a506",
-      "idea_version": "IDEAV-aa658eb159c6e067",
-      "idea_version_started_at": "2026-10-10T16:24:46Z",
-      "ticker": "JEF",
-      "company": "Jefferies Financial Group",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The discovery of fraud in $900 million of deals creates significant legal, reputational, and potential balance sheet risk for the firm.",
-      "why_now": "The disclosure of the fraud investigation occurred on October 10, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-07e9e8d1b0ab"
-      ],
-      "primary_source_event_id": "EVT-07e9e8d1b0ab",
-      "source_headlines": [
-        "Jefferies Says It Found Fraud in $900 Million of Radiant Deals"
-      ],
-      "source_headline": "Jefferies Says It Found Fraud in $900 Million of Radiant Deals",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-10-10/jefferies-says-it-found-fraud-in-900-million-of-radiant-deals",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-10T15:03:27Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-10T16:24:46Z",
-      "updated_at": "2026-10-10T16:24:46Z",
-      "decay_at": "2026-10-12T03:03:27Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a91b27166e5b",
       "idea_version": "IDEAV-d1e3a2a79b983b93",
       "idea_version_started_at": "2026-10-12T02:28:00Z",
@@ -174582,6 +174512,76 @@
       "surfaced_at": "2026-10-10T07:05:33Z",
       "updated_at": "2026-10-10T07:05:33Z",
       "decay_at": "2026-10-11T15:22:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-272376b0a506",
+      "idea_version": "IDEAV-aa658eb159c6e067",
+      "idea_version_started_at": "2026-10-10T16:24:46Z",
+      "ticker": "JEF",
+      "company": "Jefferies Financial Group",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The discovery of fraud in $900 million of deals creates significant legal, reputational, and potential balance sheet risk for the firm.",
+      "why_now": "The disclosure of the fraud investigation occurred on October 10, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-07e9e8d1b0ab"
+      ],
+      "primary_source_event_id": "EVT-07e9e8d1b0ab",
+      "source_headlines": [
+        "Jefferies Says It Found Fraud in $900 Million of Radiant Deals"
+      ],
+      "source_headline": "Jefferies Says It Found Fraud in $900 Million of Radiant Deals",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-10/jefferies-says-it-found-fraud-in-900-million-of-radiant-deals",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-10T15:03:27Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-10T16:24:46Z",
+      "updated_at": "2026-10-10T16:24:46Z",
+      "decay_at": "2026-10-12T03:03:27Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -178112,9 +178112,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 551,
+    "total_count": 552,
     "shown_count": 499,
-    "hidden_count": 52,
+    "hidden_count": 53,
     "side_counts": {
       "long": {
         "total_count": 281,
@@ -178122,9 +178122,9 @@
         "hidden_count": 31
       },
       "short": {
-        "total_count": 271,
+        "total_count": 272,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 22
       }
     },
     "retention": {
@@ -178143,6 +178143,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-272376b0a506",
+        "idea_version": "IDEAV-aa658eb159c6e067",
+        "idea_version_started_at": "2026-10-10T16:24:46Z",
+        "ticker": "JEF",
+        "company": "Jefferies Financial Group",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The discovery of fraud in $900 million of deals creates significant legal, reputational, and potential balance sheet risk for the firm.",
+        "why_now": "The disclosure of the fraud investigation occurred on October 10, 2026.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-07e9e8d1b0ab"
+        ],
+        "primary_source_event_id": "EVT-07e9e8d1b0ab",
+        "source_headlines": [
+          "Jefferies Says It Found Fraud in $900 Million of Radiant Deals"
+        ],
+        "source_headline": "Jefferies Says It Found Fraud in $900 Million of Radiant Deals",
+        "source_url": "https://www.bloomberg.com/news/articles/2026-10-10/jefferies-says-it-found-fraud-in-900-million-of-radiant-deals",
+        "source_name": "Bloomberg",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-10T15:03:27Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-10T16:24:46Z",
+        "updated_at": "2026-10-10T16:24:46Z",
+        "decay_at": "2026-10-12T03:03:27Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-12T03:03:27Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1e404b952344",
         "idea_version": "IDEAV-206215b468e96801",
@@ -215213,87 +215286,12 @@
         "archived_at": "2026-09-17T14:46:54Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-7c8fbecac247",
-        "idea_version": "IDEAV-ee46e79deecf2fcd",
-        "idea_version_started_at": "2026-09-14T12:11:23Z",
-        "ticker": "CMILIMITED",
-        "company": "CMI Limited",
-        "exchange": "BSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling a total breakdown in financial viability.",
-        "why_now": "The exchange notification was filed today, September 14, 2026.",
-        "conviction": 90,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 23,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4543e6a52940"
-        ],
-        "primary_source_event_id": "EVT-4543e6a52940",
-        "source_headlines": [
-          "CMI Limited: CMI Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-        ],
-        "source_headline": "CMI Limited: CMI Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-        "source_url": "https://nsearchives.nseindia.com/corporate/CMICABLES_14092026170353_Notice_48.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-14T11:34:01Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-14T12:11:23Z",
-        "updated_at": "2026-09-14T12:11:23Z",
-        "decay_at": "2026-09-15T23:34:01Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-17T13:02:02Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1528,
-    "live_count": 34,
+    "live_count": 33,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
