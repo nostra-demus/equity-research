@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T13:31:23Z",
+  "generated_at": "2026-10-12T13:49:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-523",
@@ -172095,6 +172095,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-d2450dbed90f",
+      "idea_version": "IDEAV-db8d71c76461c102",
+      "idea_version_started_at": "2026-10-12T13:49:38Z",
+      "ticker": "STE",
+      "company": "Steris",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Steris is acquiring Xodus Medical for $2.1 billion, which expands its surgical and infection prevention portfolio through a strategic bolt-on acquisition.",
+      "why_now": "The deal was announced on October 12, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-eb4d395e9d7a"
+      ],
+      "primary_source_event_id": "EVT-eb4d395e9d7a",
+      "source_headlines": [
+        "Steris to Acquire Xodus Medical for $2.1 Billion"
+      ],
+      "source_headline": "Steris to Acquire Xodus Medical for $2.1 Billion",
+      "source_url": "https://www.wsj.com/business/deals/steris-to-acquire-xodus-medical-for-2-1-billion-ea048437?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-12T13:11:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-12T13:49:38Z",
+      "updated_at": "2026-10-12T13:49:38Z",
+      "decay_at": "2026-10-14T01:11:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-521e020bb493",
       "idea_version": "IDEAV-2047f3026f26d5aa",
       "idea_version_started_at": "2026-10-11T22:04:00Z",
@@ -175312,76 +175382,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-5057424de03d",
-      "idea_version": "IDEAV-e30529bd3537e1b9",
-      "idea_version_started_at": "2026-10-09T14:15:15Z",
-      "ticker": "PPC",
-      "company": "Pilgrim's Pride",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Pilgrim's Pride has formed a special committee to evaluate a buyout bid from JBS, which typically acts as a floor for the share price and creates potential upside if a premium is negotiated.",
-      "why_now": "The formation of the special committee was reported on 2026-10-09.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-282dbbae0c88"
-      ],
-      "primary_source_event_id": "EVT-282dbbae0c88",
-      "source_headlines": [
-        "Pilgrim's Pride forms special committee to review meatpacker JBS buyout bid"
-      ],
-      "source_headline": "Pilgrim's Pride forms special committee to review meatpacker JBS buyout bid",
-      "source_url": "https://www.reuters.com/legal/legalindustry/pilgrims-pride-forms-special-committee-review-meatpacker-jbs-buyout-bid-2026-10-09/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-09T13:17:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-09T14:15:15Z",
-      "updated_at": "2026-10-09T14:15:15Z",
-      "decay_at": "2026-10-11T01:17:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-f8d21dcf8212",
       "idea_version": "IDEAV-958d650b31683146",
       "idea_version_started_at": "2026-10-09T18:31:26Z",
@@ -178345,14 +178345,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 545,
+    "total_count": 544,
     "shown_count": 499,
-    "hidden_count": 46,
+    "hidden_count": 45,
     "side_counts": {
       "long": {
-        "total_count": 280,
+        "total_count": 279,
         "shown_count": 250,
-        "hidden_count": 30
+        "hidden_count": 29
       },
       "short": {
         "total_count": 266,
@@ -178362,12 +178362,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 955,
+      "evicted_count": 956,
       "oldest_retained_at": "2026-09-15T17:17:29Z",
       "side_counts": {
         "long": {
-          "evicted_count": 629,
-          "oldest_retained_at": "2026-09-28T22:47:00Z"
+          "evicted_count": 630,
+          "oldest_retained_at": "2026-09-28T23:17:23Z"
         },
         "short": {
           "evicted_count": 326,
@@ -181814,8 +181814,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-11T01:17:44Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-12T13:49:43Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -215537,8 +215537,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1543,
-    "live_count": 42,
+    "surfaced_total": 1544,
+    "live_count": 43,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -215557,7 +215557,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1909800,
+    "news_seen_today": 2041168,
     "news_picked_today": 779,
     "news_dropped_today": 6233
   },
