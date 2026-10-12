@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T02:28:18Z",
+  "generated_at": "2026-10-12T02:32:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-002",
@@ -1916,55 +1916,44 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261012-104",
-      "headline": "ASX rallies on miners; Telstra sell-off extends after SpaceX deal",
+      "inbox_id": "INB-20261012-116",
+      "headline": "RBI Tightens Rupee Defense as Pricey Crude, Foreign Outflows Bite: USD/INR",
       "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-to-gain-despite-bond-jitters-oil-prices-may-waver-after-attacks-20261012-p614ia?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
+      "url": "https://www.bloomberg.com/news/newsletters/2026-10-12/rbi-tightens-rupee-defense-as-pricey-crude-foreign-outflows-bite-usd-inr",
+      "source_name": "Bloomberg",
       "input_nature": "news_headline",
-      "found_at": "2026-10-12T02:17:45Z",
+      "found_at": "2026-10-12T02:30:23Z",
       "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Telstra's sell-off extended after a deal with SpaceX, while the ASX rallied on miners.",
+      "prelim_note": "Central bank intervention to defend the Rupee indicates significant macro pressure from oil prices and capital outflows.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 77,
-      "triage_reason": "Telstra's sell-off extended after a deal with SpaceX, while the ASX rallied on miners.",
-      "region": "OTHER",
+      "triage_reason": "Central bank intervention to defend the Rupee indicates significant macro pressure from oil prices and capital outflows.",
+      "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 65,
+      "materiality_pre_score": 50,
       "rank_factors": {
-        "materiality": 65,
+        "materiality": 50,
         "source_tier": 0,
-        "scope": 5,
+        "scope": 2,
         "event": 0,
-        "size": 2,
+        "size": 0,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 20,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
+        "scope_id": "policy",
         "source_tier_id": "news",
         "event_id": null,
-        "size_bucket": "large"
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "commercial"
+        "macro_sector"
       ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Telstra",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -215171,9 +215160,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 537,
-    "news_picked_today": 130,
-    "news_dropped_today": 407
+    "news_seen_today": 558,
+    "news_picked_today": 135,
+    "news_dropped_today": 423
   },
   "book_momentum": {
     "live_count": 8,
