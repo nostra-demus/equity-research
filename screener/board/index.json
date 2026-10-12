@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T03:38:21Z",
+  "generated_at": "2026-10-12T03:42:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-002",
@@ -92,6 +92,55 @@
           "name": "Celltrion",
           "ticker": null,
           "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-150",
+      "headline": "Poonawalla Fincorp shares in focus after Q2 net profit soars 407% to Rs 375 crore",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/poonawalla-fincorp-shares-in-focus-after-q2-net-profit-soars-407-to-rs-375-crore/articleshow/134881686.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T03:32:03Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Poonawalla Fincorp reported a 407% increase in Q2 net profit to Rs 375 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Poonawalla Fincorp reported a 407% increase in Q2 net profit to Rs 375 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Poonawalla Fincorp",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1918,55 +1967,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-140",
-      "headline": "Citi drops target price on Laopu Gold to HK$400 as consumer spending faces pressure",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/citi-drops-target-price-laopu-gold-hk400-consumer-spending-faces-pressure",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T03:06:23Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Analyst price target reduction to HK$400 reflects negative sentiment on consumer spending trends.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Analyst price target reduction to HK$400 reflects negative sentiment on consumer spending trends.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Laopu Gold",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -172938,78 +172938,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-cc72955eba04",
-      "idea_version": "IDEAV-67810bf50775283c",
-      "idea_version_started_at": "2026-10-10T21:26:59Z",
-      "ticker": "SIGNATURE",
-      "company": "Signature Global",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported a 9% decline in quarterly sales bookings to Rs 1,830 crore, signaling a potential slowdown in demand or project execution within their real estate portfolio.",
-      "why_now": "The earnings report was released on 2026-10-10, providing immediate data on the company's recent sales performance.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d1c08cfd225a"
-      ],
-      "primary_source_event_id": "EVT-d1c08cfd225a",
-      "source_headlines": [
-        "Signature Global Sales Bookings Down 9% To Rs 1,830 Crore In July-Sept Quarter"
-      ],
-      "source_headline": "Signature Global Sales Bookings Down 9% To Rs 1,830 Crore In July-Sept Quarter",
-      "source_url": "https://www.ndtvprofit.com/business/signature-global-sales-bookings-down-9-to-rs-1-830-crore-in-july-sept-quarter-12167186#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-10T15:40:57Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-10T21:26:59Z",
-      "updated_at": "2026-10-10T21:26:59Z",
-      "decay_at": "2026-10-12T03:40:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-2b9840c4ba25",
       "idea_version": "IDEAV-45fed6cbdf30df16",
       "idea_version_started_at": "2026-10-10T20:26:49Z",
@@ -175587,6 +175515,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-cc72955eba04",
+      "idea_version": "IDEAV-67810bf50775283c",
+      "idea_version_started_at": "2026-10-10T21:26:59Z",
+      "ticker": "SIGNATURE",
+      "company": "Signature Global",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a 9% decline in quarterly sales bookings to Rs 1,830 crore, signaling a potential slowdown in demand or project execution within their real estate portfolio.",
+      "why_now": "The earnings report was released on 2026-10-10, providing immediate data on the company's recent sales performance.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d1c08cfd225a"
+      ],
+      "primary_source_event_id": "EVT-d1c08cfd225a",
+      "source_headlines": [
+        "Signature Global Sales Bookings Down 9% To Rs 1,830 Crore In July-Sept Quarter"
+      ],
+      "source_headline": "Signature Global Sales Bookings Down 9% To Rs 1,830 Crore In July-Sept Quarter",
+      "source_url": "https://www.ndtvprofit.com/business/signature-global-sales-bookings-down-9-to-rs-1-830-crore-in-july-sept-quarter-12167186#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-10T15:40:57Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-10T21:26:59Z",
+      "updated_at": "2026-10-10T21:26:59Z",
+      "decay_at": "2026-10-12T03:40:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-1a9e59915c16",
       "idea_version": "IDEAV-3ebc623c9db33d1a",
       "idea_version_started_at": "2026-10-10T13:14:35Z",
@@ -178045,9 +178045,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 550,
+    "total_count": 551,
     "shown_count": 499,
-    "hidden_count": 51,
+    "hidden_count": 52,
     "side_counts": {
       "long": {
         "total_count": 280,
@@ -178055,9 +178055,9 @@
         "hidden_count": 30
       },
       "short": {
-        "total_count": 271,
+        "total_count": 272,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 22
       }
     },
     "retention": {
@@ -178076,6 +178076,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-cc72955eba04",
+        "idea_version": "IDEAV-67810bf50775283c",
+        "idea_version_started_at": "2026-10-10T21:26:59Z",
+        "ticker": "SIGNATURE",
+        "company": "Signature Global",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company reported a 9% decline in quarterly sales bookings to Rs 1,830 crore, signaling a potential slowdown in demand or project execution within their real estate portfolio.",
+        "why_now": "The earnings report was released on 2026-10-10, providing immediate data on the company's recent sales performance.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d1c08cfd225a"
+        ],
+        "primary_source_event_id": "EVT-d1c08cfd225a",
+        "source_headlines": [
+          "Signature Global Sales Bookings Down 9% To Rs 1,830 Crore In July-Sept Quarter"
+        ],
+        "source_headline": "Signature Global Sales Bookings Down 9% To Rs 1,830 Crore In July-Sept Quarter",
+        "source_url": "https://www.ndtvprofit.com/business/signature-global-sales-bookings-down-9-to-rs-1-830-crore-in-july-sept-quarter-12167186#publisher=newsstand",
+        "source_name": "NDTV Profit",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-10T15:40:57Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-10T21:26:59Z",
+        "updated_at": "2026-10-10T21:26:59Z",
+        "decay_at": "2026-10-12T03:40:57Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-12T03:40:57Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-272376b0a506",
         "idea_version": "IDEAV-aa658eb159c6e067",
@@ -215144,87 +215219,12 @@
         "archived_at": "2026-09-17T14:46:54Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-fcc27ba359ed",
-        "idea_version": "IDEAV-820816f59bc3e773",
-        "idea_version_started_at": "2026-09-14T21:24:14Z",
-        "ticker": "03321",
-        "company": "Zhongke Group",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company proposes to increase its authorized share capital and issue convertible bonds, which dilutes existing shareholders and increases debt, negatively impacting its financial structure.",
-        "why_now": "The proposed actions are presented with a notice for an extraordinary general meeting, indicating immediate plans.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e53da08e3cee"
-        ],
-        "primary_source_event_id": "EVT-e53da08e3cee",
-        "source_headlines": [
-          "ZHONGKE GROUP (03321): (1) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; (2) PROPOSED ISSUE OF CONVERTIBLE BONDS UNDER SPECIFIC MANDATE; AND (3) NOTICE OF EXTRAORDINARY GENERAL MEETING"
-        ],
-        "source_headline": "ZHONGKE GROUP (03321): (1) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; (2) PROPOSED ISSUE OF CONVERTIBLE BONDS UNDER SPECIFIC MANDATE; AND (3) NOTICE OF EXTRAORDINARY GENERAL MEETING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091401239.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-14T13:17:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-14T21:24:14Z",
-        "updated_at": "2026-09-14T21:24:14Z",
-        "decay_at": "2026-09-16T01:17:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-17T14:46:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1529,
-    "live_count": 34,
+    "live_count": 33,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -215243,9 +215243,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 749,
-    "news_picked_today": 188,
-    "news_dropped_today": 561
+    "news_seen_today": 765,
+    "news_picked_today": 190,
+    "news_dropped_today": 575
   },
   "book_momentum": {
     "live_count": 8,
