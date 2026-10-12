@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T02:49:17Z",
+  "generated_at": "2026-10-12T02:57:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-002",
@@ -1820,6 +1820,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261012-129",
+      "headline": "Virgin tells agents it is hiking airfares to counter fuel price surge",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/transport/virgin-tells-agents-it-is-hiking-airfares-to-counter-fuel-price-surge-20261012-p614pl?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T02:55:42Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Virgin Australia is increasing airfares to offset rising fuel costs, which directly impacts revenue and margin management.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Virgin Australia is increasing airfares to offset rising fuel costs, which directly impacts revenue and margin management.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Virgin Australia",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261012-100",
       "headline": "Tata Motors CV shares in focus after increasing offer price for Iveco deal amidst completion delays",
       "headline_en": null,
@@ -1919,49 +1968,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-065",
-      "headline": "Indian central bank curbs to temper corporate rush to hedge against rupee weakness",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/india/indian-central-bank-curbs-temper-corporate-rush-hedge-against-rupee-weakness-2026-10-12/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T01:24:18Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "The Reserve Bank of India is implementing curbs on corporate hedging, which will impact the capital management and FX risk strategies of Indian firms.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "The Reserve Bank of India is implementing curbs on corporate hedging, which will impact the capital management and FX risk strategies of Indian firms.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -173003,79 +173009,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-1e404b952344",
-      "idea_version": "IDEAV-206215b468e96801",
-      "idea_version_started_at": "2026-10-11T00:15:05Z",
-      "ticker": "M&M",
-      "company": "Mahindra & Mahindra",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The divestment of a 51% stake in Novavayu Aerospace for Rs 5,100 crore provides a significant cash infusion and allows the company to focus on its core automotive and tractor operations.",
-      "why_now": "The deal was announced on 2026-10-10, and the market has yet to fully price in the capital allocation benefit of this divestiture.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b8c337ce10e6",
-        "EVT-f150bbee1cb8"
-      ],
-      "primary_source_event_id": "EVT-b8c337ce10e6",
-      "source_headlines": [
-        "Mahindra & Mahindra announces sale of 51% stake in Novavayu Aerospace to Embraer",
-        "Mahindra to sell majority stake in aerospace subsidiary to Brazil's Embraer for Rs 5,100 crore"
-      ],
-      "source_headline": "Mahindra & Mahindra announces sale of 51% stake in Novavayu Aerospace to Embraer",
-      "source_url": "https://www.businesstoday.in/latest/corporate/story/mahindra-mahindra-announces-sale-of-51-stake-in-novavayu-aerospace-to-embraer-560832-2026-10-10?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-10T14:56:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-11T00:15:05Z",
-      "updated_at": "2026-10-11T00:15:05Z",
-      "decay_at": "2026-10-12T02:56:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-cc72955eba04",
       "idea_version": "IDEAV-67810bf50775283c",
       "idea_version_started_at": "2026-10-10T21:26:59Z",
@@ -175504,6 +175437,79 @@
       "surfaced_at": "2026-10-08T22:24:36Z",
       "updated_at": "2026-10-11T05:19:17Z",
       "decay_at": "2026-10-11T08:17:18Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-1e404b952344",
+      "idea_version": "IDEAV-206215b468e96801",
+      "idea_version_started_at": "2026-10-11T00:15:05Z",
+      "ticker": "M&M",
+      "company": "Mahindra & Mahindra",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The divestment of a 51% stake in Novavayu Aerospace for Rs 5,100 crore provides a significant cash infusion and allows the company to focus on its core automotive and tractor operations.",
+      "why_now": "The deal was announced on 2026-10-10, and the market has yet to fully price in the capital allocation benefit of this divestiture.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b8c337ce10e6",
+        "EVT-f150bbee1cb8"
+      ],
+      "primary_source_event_id": "EVT-b8c337ce10e6",
+      "source_headlines": [
+        "Mahindra & Mahindra announces sale of 51% stake in Novavayu Aerospace to Embraer",
+        "Mahindra to sell majority stake in aerospace subsidiary to Brazil's Embraer for Rs 5,100 crore"
+      ],
+      "source_headline": "Mahindra & Mahindra announces sale of 51% stake in Novavayu Aerospace to Embraer",
+      "source_url": "https://www.businesstoday.in/latest/corporate/story/mahindra-mahindra-announces-sale-of-51-stake-in-novavayu-aerospace-to-embraer-560832-2026-10-10?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-10T14:56:46Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-11T00:15:05Z",
+      "updated_at": "2026-10-11T00:15:05Z",
+      "decay_at": "2026-10-12T02:56:46Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -178112,14 +178118,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 550,
+    "total_count": 551,
     "shown_count": 499,
-    "hidden_count": 51,
+    "hidden_count": 52,
     "side_counts": {
       "long": {
-        "total_count": 280,
+        "total_count": 281,
         "shown_count": 250,
-        "hidden_count": 30
+        "hidden_count": 31
       },
       "short": {
         "total_count": 271,
@@ -178143,6 +178149,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-1e404b952344",
+        "idea_version": "IDEAV-206215b468e96801",
+        "idea_version_started_at": "2026-10-11T00:15:05Z",
+        "ticker": "M&M",
+        "company": "Mahindra & Mahindra",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The divestment of a 51% stake in Novavayu Aerospace for Rs 5,100 crore provides a significant cash infusion and allows the company to focus on its core automotive and tractor operations.",
+        "why_now": "The deal was announced on 2026-10-10, and the market has yet to fully price in the capital allocation benefit of this divestiture.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b8c337ce10e6",
+          "EVT-f150bbee1cb8"
+        ],
+        "primary_source_event_id": "EVT-b8c337ce10e6",
+        "source_headlines": [
+          "Mahindra & Mahindra announces sale of 51% stake in Novavayu Aerospace to Embraer",
+          "Mahindra to sell majority stake in aerospace subsidiary to Brazil's Embraer for Rs 5,100 crore"
+        ],
+        "source_headline": "Mahindra & Mahindra announces sale of 51% stake in Novavayu Aerospace to Embraer",
+        "source_url": "https://www.businesstoday.in/latest/corporate/story/mahindra-mahindra-announces-sale-of-51-stake-in-novavayu-aerospace-to-embraer-560832-2026-10-10?utm_source=rssfeed",
+        "source_name": "Business Today",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-10T14:56:46Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-11T00:15:05Z",
+        "updated_at": "2026-10-11T00:15:05Z",
+        "decay_at": "2026-10-12T02:56:46Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-12T02:56:46Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-2cfdd94cac09",
         "idea_version": "IDEAV-b7adfc4b80285fd2",
@@ -206815,79 +206897,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-52e98452feee",
-        "idea_version": "IDEAV-85ee33ca7114f155",
-        "idea_version_started_at": "2026-09-28T02:57:09Z",
-        "ticker": "NEM",
-        "company": "Newmont",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The rejection of a $27 billion takeover bid signals management's confidence in the company's standalone valuation and future gold production margins, likely forcing a higher bid or a strategic premium adjustment.",
-        "why_now": "The bid rejection was reported on September 28, 2026, creating immediate volatility and potential for a follow-up offer.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 67,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-40c0321a5bb6"
-        ],
-        "primary_source_event_id": "EVT-40c0321a5bb6",
-        "source_headlines": [
-          "Australia’s biggest gold miner rejects $27bn takeover bid"
-        ],
-        "source_headline": "Australia’s biggest gold miner rejects $27bn takeover bid",
-        "source_url": "https://www.ft.com/content/bce81a18-05cf-43a6-9c86-b3238b732230?syn-25a6b1a6=1",
-        "source_name": "Financial Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-28T02:42:40Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-28T02:57:09Z",
-        "updated_at": "2026-09-28T02:57:09Z",
-        "decay_at": "2026-09-29T14:42:40Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-01T05:01:37Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-0448efa62005",
         "idea_version": "IDEAV-9e9db2598360c1ed",
         "idea_version_started_at": "2026-09-28T03:32:24Z",
@@ -215290,7 +215299,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1528,
-    "live_count": 35,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -215309,9 +215318,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 594,
-    "news_picked_today": 150,
-    "news_dropped_today": 444
+    "news_seen_today": 615,
+    "news_picked_today": 152,
+    "news_dropped_today": 463
   },
   "book_momentum": {
     "live_count": 8,
