@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T09:52:07Z",
+  "generated_at": "2026-10-12T10:00:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-392",
@@ -42,6 +42,55 @@
         {
           "name": "LAI FUNG HOLD",
           "ticker": "01125",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-394",
+      "headline": "ESUN HOLDINGS (00571): POSITIVE PROFIT ALERT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101200476.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T09:12:00Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Company issued a positive profit alert indicating improved financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company issued a positive profit alert indicating improved financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "E-Sun Holdings",
+          "ticker": "00571",
           "listing_country": "CN"
         }
       ],
@@ -1902,56 +1951,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-092",
-      "headline": "EGH: Eureka undertakes asset swap and capital release [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EGH?key=2924-03147123-2A1703489",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-12T01:57:18Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "An asset swap and capital release can impact revenue, margins, and cash flow.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "An asset swap and capital release can impact revenue, margins, and cash flow.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Eureka",
-          "ticker": "EGH",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -215452,9 +215451,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 728655,
-    "news_picked_today": 538,
-    "news_dropped_today": 4746
+    "news_seen_today": 774062,
+    "news_picked_today": 541,
+    "news_dropped_today": 4815
   },
   "book_momentum": {
     "live_count": 8,
