@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T01:49:53Z",
+  "generated_at": "2026-10-12T01:57:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-002",
@@ -441,6 +441,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-086",
+      "headline": "Treasury Wine sells Rosemount label back to billionaire Oatley family",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/retail/treasury-wine-sells-rosemount-label-back-to-billionaire-oatley-family-20261012-p614q2?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T01:52:23Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Treasury Wine Estates is divesting its Rosemount label to the Oatley family.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Treasury Wine Estates is divesting its Rosemount label to the Oatley family.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Treasury Wine Estates",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1040,6 +1089,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261012-091",
+      "headline": "India's Zetwerk sets price band of 143-151 rupees per share for $518 million IPO",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/india/indias-zetwerk-sets-price-band-143-151-rupees-per-share-518-million-ipo-2026-10-12/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T01:47:39Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Zetwerk has set a price band for its $518 million IPO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Zetwerk has set a price band for its $518 million IPO.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zetwerk",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261012-065",
       "headline": "Indian central bank curbs to temper corporate rush to hedge against rupee weakness",
       "headline_en": null,
@@ -1553,31 +1651,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261012-040",
+      "inbox_id": "INB-20261012-089",
       "headline": "ASX rallies higher; oil nears $US105 on Saudi attacks",
       "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-to-gain-despite-bond-jitters-oil-prices-may-waver-after-attacks-20261012-p614ia?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "url": "https://www.afr.com/markets/equity-markets/asx-to-gain-despite-bond-jitters-oil-prices-may-waver-after-attacks-20261012-p614ia?ref=rss&utm_medium=rss&utm_source=rss_markets",
       "source_name": "Australian Financial Review",
       "input_nature": "news_headline",
-      "found_at": "2026-10-12T00:50:51Z",
+      "found_at": "2026-10-12T01:00:30Z",
       "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Oil prices nearing 105 USD per barrel due to Saudi attacks indicates a significant geopolitical supply shock.",
+      "prelim_note": "Oil prices rose to $US105 per barrel following attacks on Saudi infrastructure, indicating a supply shock.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 68,
-      "triage_reason": "Oil prices nearing 105 USD per barrel due to Saudi attacks indicates a significant geopolitical supply shock.",
+      "triage_reason": "Oil prices rose to $US105 per barrel following attacks on Saudi infrastructure, indicating a supply shock.",
       "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 80,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 80,
+        "materiality": 75,
         "source_tier": 0,
         "scope": -22,
         "event": 0,
         "size": 0,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "commodity",
@@ -1780,148 +1878,44 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261012-019",
-      "headline": "Tata Consultancy Services Limited - Ex-Date: 14-Oct-2026",
+      "inbox_id": "INB-20261012-087",
+      "headline": "Indian Rupee Strengthens in Offshore Market After RBI Measures",
       "headline_en": null,
-      "url": "https://www.nseindia.com/companies-listing/corporate-filings-actions",
-      "source_name": "NSE India — Corporate Actions (RSS)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-12T00:40:07Z",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-12/indian-rupee-strengthens-in-offshore-market-after-rbi-measures",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T01:44:56Z",
       "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Routine ex-dividend date announcement for Tata Consultancy Services.",
+      "prelim_note": "The Indian Rupee strengthened following RBI measures to stabilize the currency.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Routine ex-dividend date announcement for Tata Consultancy Services.",
+      "triage_score": 67,
+      "triage_reason": "The Indian Rupee strengthened following RBI measures to stabilize the currency.",
       "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
+      "relevance": "material",
+      "materiality_pre_score": 60,
       "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
         "event": 0,
-        "size": 2,
+        "size": 0,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
+        "scope_id": "policy",
+        "source_tier_id": "news",
         "event_id": null,
-        "size_bucket": "large"
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "capital_actions"
+        "macro_sector"
       ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Consultancy Services",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-034",
-      "headline": "TDO: Sauropod 3D Seismic Environment Plan Accepted",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TDO?key=2924-03147096-3A703863",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-12T00:41:38Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "TDO received environmental approval for seismic activity, a routine operational milestone.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "TDO received environmental approval for seismic activity, a routine operational milestone.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TDO",
-          "ticker": "TDO",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-033",
-      "headline": "S ROBOT EDU (08206): EXCHANGE NOTICE - RESUMPTION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1012/2026101200075.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-12T00:39:00Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Trading resumption notice for S Robot Edu.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Trading resumption notice for S Robot Edu.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "S Robot Edu",
-          "ticker": "08206",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -214915,9 +214909,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 376,
-    "news_picked_today": 85,
-    "news_dropped_today": 291
+    "news_seen_today": 422,
+    "news_picked_today": 97,
+    "news_dropped_today": 325
   },
   "book_momentum": {
     "live_count": 8,
