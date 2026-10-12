@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T20:33:12Z",
+  "generated_at": "2026-10-12T20:43:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-593",
@@ -880,6 +880,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-615",
+      "headline": "PepsiCo Cuts Estimates for Poppi Payout While Soda Sales Slump",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-12/pepsico-cuts-estimates-for-poppi-payout-while-soda-sales-slump",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T20:16:02Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "PepsiCo is cutting estimates for a specific payout and reporting a slump in soda sales, indicating operational headwinds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PepsiCo is cutting estimates for a specific payout and reporting a slump in soda sales, indicating operational headwinds.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PepsiCo",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1954,55 +2003,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-421",
-      "headline": "Photonic quantum startup Quanfluence raises $10m for full-stack architecture development",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/photonic-quantum-startup-quanfluence-raises-10m-for-full-stack-architecture-development/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T10:25:53Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Photonic quantum startup Quanfluence raised $10 million for full-stack architecture development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Photonic quantum startup Quanfluence raised $10 million for full-stack architecture development.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Quanfluence",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -216011,9 +216011,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4325205,
-    "news_picked_today": 1031,
-    "news_dropped_today": 8765
+    "news_seen_today": 4399848,
+    "news_picked_today": 1033,
+    "news_dropped_today": 8835
   },
   "book_momentum": {
     "live_count": 8,
