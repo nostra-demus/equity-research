@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T01:07:52Z",
+  "generated_at": "2026-10-12T01:13:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-002",
@@ -173166,6 +173166,152 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-1216c09ce08d",
+      "idea_version": "IDEAV-c77c0140cddb84fe",
+      "idea_version_started_at": "2026-10-12T01:12:56Z",
+      "ticker": "TATACHEM",
+      "company": "Tata Chemicals",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Tata Motors is reportedly sweetening its offer for Iveco, which could lead to a positive outcome for Tata Chemicals if it is involved in the supply chain or has related investments.",
+      "why_now": "The news is current, indicating ongoing negotiations and a potential catalyst for Tata Motors' related entities.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1f088a950ee9"
+      ],
+      "primary_source_event_id": "EVT-1f088a950ee9",
+      "source_headlines": [
+        "Tata Motors sweetens Iveco offer as key investors hold out"
+      ],
+      "source_headline": "Tata Motors sweetens Iveco offer as key investors hold out",
+      "source_url": "https://www.livemint.com/companies/tata-motors-iveco-acquisition-deal-status-11791713827262.html",
+      "source_name": "Mint",
+      "materiality_max": 91,
+      "newest_source_at": "2026-10-12T00:35:40Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-12T01:12:56Z",
+      "updated_at": "2026-10-12T01:12:56Z",
+      "decay_at": "2026-10-13T12:35:40Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-cc4cb4924e53",
+      "idea_version": "IDEAV-032beb63c1f9a397",
+      "idea_version_started_at": "2026-10-12T01:12:56Z",
+      "ticker": "SPDR",
+      "company": "SPDR S&P/ASX 200 ETF",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The Australian stock market (ASX) is rallying higher, suggesting a broad market uplift that would benefit an ETF tracking the index.",
+      "why_now": "The rally is occurring now, with oil prices also nearing $US105 on Saudi attacks, indicating a dynamic market environment.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "macro_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e1c14fcea47a",
+        "EVT-3bb7837c5390"
+      ],
+      "primary_source_event_id": "EVT-e1c14fcea47a",
+      "source_headlines": [
+        "Healey’s Budget will be ‘fiction’ without plan for £35bn hole in spending, IFS warns",
+        "ASX rallies higher; oil nears $US105 on Saudi attacks"
+      ],
+      "source_headline": "Healey’s Budget will be ‘fiction’ without plan for £35bn hole in spending, IFS warns",
+      "source_url": "https://www.ft.com/content/619800ae-b2f2-46e3-b34e-23f0525637da?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "materiality_max": 87,
+      "newest_source_at": "2026-10-12T00:50:51Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-12T01:12:56Z",
+      "updated_at": "2026-10-12T01:12:56Z",
+      "decay_at": "2026-10-13T12:50:51Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-49717d740b20",
       "idea_version": "IDEAV-58ba282a07c6b59b",
       "idea_version_started_at": "2026-10-11T03:12:42Z",
@@ -173233,6 +173379,78 @@
       "surfaced_at": "2026-10-11T03:12:42Z",
       "updated_at": "2026-10-11T03:12:42Z",
       "decay_at": "2026-10-12T13:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-6b3b74b3573e",
+      "idea_version": "IDEAV-2c83a373078e1ddc",
+      "idea_version_started_at": "2026-10-12T01:12:56Z",
+      "ticker": "GQG",
+      "company": "GQG Partners",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "GQG Partners is experiencing significant outflows, indicating a loss of investor confidence and potential pressure on its assets under management and profitability.",
+      "why_now": "The outflows occurred in September and are being reported now, highlighting a current negative trend for the company.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-39bb4fb05de7"
+      ],
+      "primary_source_event_id": "EVT-39bb4fb05de7",
+      "source_headlines": [
+        "GQG’s Jain fails to stem outflows after $3.3b pulled in September"
+      ],
+      "source_headline": "GQG’s Jain fails to stem outflows after $3.3b pulled in September",
+      "source_url": "https://www.afr.com/markets/equity-markets/gqg-s-jains-fails-to-stem-outflows-after-3-3b-pulled-in-september-20261012-p614od?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 84,
+      "newest_source_at": "2026-10-12T00:43:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-12T01:12:56Z",
+      "updated_at": "2026-10-12T01:12:56Z",
+      "decay_at": "2026-10-13T12:43:39Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -173588,6 +173806,152 @@
       "surfaced_at": "2026-10-12T00:19:13Z",
       "updated_at": "2026-10-12T00:19:13Z",
       "decay_at": "2026-10-13T12:03:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-7b08e8c1482d",
+      "idea_version": "IDEAV-cf76d562cf92c0da",
+      "idea_version_started_at": "2026-10-12T01:12:56Z",
+      "ticker": "HDFCLIFE",
+      "company": "HDFC Life Insurance Company",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Insurers are facing muted growth and claims pressure due to looming regulatory changes, which could negatively impact profitability and business expansion.",
+      "why_now": "Regulatory changes are on the horizon, creating near-term uncertainty and potential headwinds for the insurance sector.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 44,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 13,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "sector_cycle",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cef5050e3be4"
+      ],
+      "primary_source_event_id": "EVT-cef5050e3be4",
+      "source_headlines": [
+        "Insurers face muted growth, claims pressure as regulatory changes loom"
+      ],
+      "source_headline": "Insurers face muted growth, claims pressure as regulatory changes loom",
+      "source_url": "https://www.livemint.com/industry/insurers-face-muted-growth-claims-pressure-as-regulatory-changes-loom-11791702672212.html",
+      "source_name": "Mint",
+      "materiality_max": 61,
+      "newest_source_at": "2026-10-12T00:20:34Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-12T01:12:56Z",
+      "updated_at": "2026-10-12T01:12:56Z",
+      "decay_at": "2026-10-13T12:20:34Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-bd6d23f312b2",
+      "idea_version": "IDEAV-0b9ef1fec3bd67e9",
+      "idea_version_started_at": "2026-10-12T01:12:56Z",
+      "ticker": "NTPC",
+      "company": "NTPC Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "NTPC is in talks with South Africa's Eskom for a green energy pact, which could open new markets and revenue streams for the company.",
+      "why_now": "The discussions are happening now, representing a current business development opportunity.",
+      "conviction": 40,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 42,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 11,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5fa1bfa2af08"
+      ],
+      "primary_source_event_id": "EVT-5fa1bfa2af08",
+      "source_headlines": [
+        "NTPC in talks with South Africa’s Eskom for a green energy pact"
+      ],
+      "source_headline": "NTPC in talks with South Africa’s Eskom for a green energy pact",
+      "source_url": "https://www.livemint.com/industry/energy/ntpc-eskom-renewable-energy-joint-venture-in-south-africa-11791543333845.html",
+      "source_name": "Mint",
+      "materiality_max": 58,
+      "newest_source_at": "2026-10-12T00:30:34Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-12T01:12:56Z",
+      "updated_at": "2026-10-12T01:12:56Z",
+      "decay_at": "2026-10-13T12:30:34Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -214507,8 +214871,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1515,
-    "live_count": 23,
+    "surfaced_total": 1520,
+    "live_count": 28,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -214527,9 +214891,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 254,
+    "news_seen_today": 270,
     "news_picked_today": 55,
-    "news_dropped_today": 199
+    "news_dropped_today": 215
   },
   "book_momentum": {
     "live_count": 8,
