@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T07:09:59Z",
+  "generated_at": "2026-10-12T07:15:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-229",
@@ -1563,6 +1563,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261012-354",
+      "headline": "Raymond Limited: Raymond Limited has informed the Exchange regarding a press release dated October 12, 2026, titled \"Raymond Limited Accelerates Andhra Pradesh Expansion to Support Growth Momentum\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/RAYMOND_12102026120217_RLSEintimationPRsigned.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T06:34:46Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Raymond Limited is expanding its manufacturing footprint in Andhra Pradesh to support growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Raymond Limited is expanding its manufacturing footprint in Andhra Pradesh to support growth.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Raymond Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261012-230",
       "headline": "Tata Power Company Limited: Tata Power Company Limited has informed the Exchange regarding a press release dated October 12, 2026, titled \"Tata Power Renewables Records over 130% YoY Growth in Utility-Scale Execution in Q2 FY27, delivering 419 MW Capacity along with 131.2 MWhr of Battery Storage Projects\".",
       "headline_en": null,
@@ -1701,6 +1750,55 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-359",
+      "headline": "Puravankara Limited: Puravankara Limited has informed the Exchange regarding a press release dated October 12, 2026, titled \"Puravankara Signs JDA for 12.76-acre Land Parcel in Sathanur, Bengaluru, with Potential GDV of Rs 2,500 Crore .",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PURVA_12102026121738_SEintimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T06:47:47Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Puravankara signed a joint development agreement for a 12.76-acre land parcel with a potential gross development value of Rs 2,500 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Puravankara signed a joint development agreement for a 12.76-acre land parcel with a potential gross development value of Rs 2,500 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Puravankara Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1848,105 +1946,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-348",
-      "headline": "1MDB reaches settlement with Deutsche Bank in US$1.1 billion lawsuit",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/asean/1mdb-reaches-settlement-deutsche-bank-us1-1-billion-lawsuit",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T05:49:31Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Deutsche Bank reaches a $1.1 billion settlement in a 1MDB-related lawsuit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Deutsche Bank reaches a $1.1 billion settlement in a 1MDB-related lawsuit.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Deutsche Bank",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-008",
-      "headline": "Enlight's 2026 Outlook: Global Energy Platform Expansion Targets 3x Growth in 3 Years",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/enlights-2026-outlook-global-energy-platform-expansion-targets-3x-growth-3-years",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-11T23:11:47Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Enlight Renewable Energy announced a strategic target to triple its global energy platform capacity by 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Enlight Renewable Energy announced a strategic target to triple its global energy platform capacity by 2026.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Enlight Renewable Energy",
-          "ticker": "ENLT",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -173131,82 +173130,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2b9840c4ba25",
-      "idea_version": "IDEAV-45fed6cbdf30df16",
-      "idea_version_started_at": "2026-10-10T20:26:49Z",
-      "ticker": "OIL",
-      "company": "United States Oil Fund",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Geopolitical instability in Saudi Arabia, specifically targeting critical infrastructure like Riyadh airport, threatens regional oil supply chains and increases the risk premium on crude oil prices.",
-      "why_now": "The attack occurred on 2026-10-10 and resulted in the immediate suspension of operations at a major regional transit hub, creating an immediate supply-side fear premium.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 23,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 10,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "commodity_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2b83f336105e",
-        "EVT-f4e6340ec246",
-        "EVT-d8ceda0bbb61"
-      ],
-      "primary_source_event_id": "EVT-f4e6340ec246",
-      "source_headlines": [
-        "Riyadh airport suspends operations after missile strike injures dozens",
-        "Riyadh airport attacked again as missile strike wounds passengers, flights diverted",
-        "Saudi Arabia Closes Riyadh Airport After Dozens Hurt in Houthi Missile Attack"
-      ],
-      "source_headline": "Riyadh airport suspends operations after missile strike injures dozens",
-      "source_url": "https://www.ft.com/content/391ddf3f-b233-41fd-819b-fcdbfb0ed010?syn-25a6b1a6=1",
-      "source_name": "Financial Times — Middle East",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-10T19:12:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-10T20:26:49Z",
-      "updated_at": "2026-10-10T20:26:49Z",
-      "decay_at": "2026-10-12T07:12:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-8a633c73be0c",
       "idea_version": "IDEAV-a801eb7dfc36ebbf",
       "idea_version_started_at": "2026-10-11T18:27:45Z",
@@ -176068,6 +175991,82 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-2b9840c4ba25",
+      "idea_version": "IDEAV-45fed6cbdf30df16",
+      "idea_version_started_at": "2026-10-10T20:26:49Z",
+      "ticker": "OIL",
+      "company": "United States Oil Fund",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Geopolitical instability in Saudi Arabia, specifically targeting critical infrastructure like Riyadh airport, threatens regional oil supply chains and increases the risk premium on crude oil prices.",
+      "why_now": "The attack occurred on 2026-10-10 and resulted in the immediate suspension of operations at a major regional transit hub, creating an immediate supply-side fear premium.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 23,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "commodity_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2b83f336105e",
+        "EVT-f4e6340ec246",
+        "EVT-d8ceda0bbb61"
+      ],
+      "primary_source_event_id": "EVT-f4e6340ec246",
+      "source_headlines": [
+        "Riyadh airport suspends operations after missile strike injures dozens",
+        "Riyadh airport attacked again as missile strike wounds passengers, flights diverted",
+        "Saudi Arabia Closes Riyadh Airport After Dozens Hurt in Houthi Missile Attack"
+      ],
+      "source_headline": "Riyadh airport suspends operations after missile strike injures dozens",
+      "source_url": "https://www.ft.com/content/391ddf3f-b233-41fd-819b-fcdbfb0ed010?syn-25a6b1a6=1",
+      "source_name": "Financial Times — Middle East",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-10T19:12:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-10T20:26:49Z",
+      "updated_at": "2026-10-10T20:26:49Z",
+      "decay_at": "2026-10-12T07:12:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-1a9e59915c16",
       "idea_version": "IDEAV-3ebc623c9db33d1a",
       "idea_version_started_at": "2026-10-10T13:14:35Z",
@@ -178383,14 +178382,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 552,
+    "total_count": 553,
     "shown_count": 499,
-    "hidden_count": 53,
+    "hidden_count": 54,
     "side_counts": {
       "long": {
-        "total_count": 281,
+        "total_count": 282,
         "shown_count": 250,
-        "hidden_count": 31
+        "hidden_count": 32
       },
       "short": {
         "total_count": 272,
@@ -178414,6 +178413,85 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-2b9840c4ba25",
+        "idea_version": "IDEAV-45fed6cbdf30df16",
+        "idea_version_started_at": "2026-10-10T20:26:49Z",
+        "ticker": "OIL",
+        "company": "United States Oil Fund",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Geopolitical instability in Saudi Arabia, specifically targeting critical infrastructure like Riyadh airport, threatens regional oil supply chains and increases the risk premium on crude oil prices.",
+        "why_now": "The attack occurred on 2026-10-10 and resulted in the immediate suspension of operations at a major regional transit hub, creating an immediate supply-side fear premium.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 23,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 10,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "commodity_conditional",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2b83f336105e",
+          "EVT-f4e6340ec246",
+          "EVT-d8ceda0bbb61"
+        ],
+        "primary_source_event_id": "EVT-f4e6340ec246",
+        "source_headlines": [
+          "Riyadh airport suspends operations after missile strike injures dozens",
+          "Riyadh airport attacked again as missile strike wounds passengers, flights diverted",
+          "Saudi Arabia Closes Riyadh Airport After Dozens Hurt in Houthi Missile Attack"
+        ],
+        "source_headline": "Riyadh airport suspends operations after missile strike injures dozens",
+        "source_url": "https://www.ft.com/content/391ddf3f-b233-41fd-819b-fcdbfb0ed010?syn-25a6b1a6=1",
+        "source_name": "Financial Times — Middle East",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-10T19:12:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-10T20:26:49Z",
+        "updated_at": "2026-10-10T20:26:49Z",
+        "decay_at": "2026-10-12T07:12:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-12T07:12:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-fa713f07e3b3",
         "idea_version": "IDEAV-545a6900b8f1ea12",
@@ -207315,80 +207393,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-cd610332b346",
-        "idea_version": "IDEAV-5a9a84931362fd33",
-        "idea_version_started_at": "2026-09-28T03:56:13Z",
-        "ticker": "LUPIN",
-        "company": "Lupin Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company received tentative U.S. FDA approval for a novel Apixaban oral suspension, providing a path to enter a high-volume anticoagulant market.",
-        "why_now": "The approval was announced via exchange filing on September 28, 2026.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-715ed379df1d"
-        ],
-        "primary_source_event_id": "EVT-715ed379df1d",
-        "source_headlines": [
-          "Lupin Limited: Lupin Limited has informed the Exchange regarding a press release dated September 28, 2026, titled \"Lupin Receives Tentative Approval from U.S. FDA for Novel Apixaban Oral Suspension\"."
-        ],
-        "source_headline": "Lupin Limited: Lupin Limited has informed the Exchange regarding a press release dated September 28, 2026, titled \"Lupin Receives Tentative Approval from U.S. FDA for Novel Apixaban Oral Suspension\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/Lupin2_28092026091311_SELetterPressRelease.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 91,
-        "newest_source_at": "2026-09-28T03:43:36Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-28T03:56:13Z",
-        "updated_at": "2026-09-28T03:56:13Z",
-        "decay_at": "2026-09-29T15:43:36Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-01T05:01:37Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-0448efa62005",
         "idea_version": "IDEAV-9e9db2598360c1ed",
         "idea_version_started_at": "2026-09-28T03:32:24Z",
@@ -215568,7 +215572,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1535,
-    "live_count": 37,
+    "live_count": 36,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -215587,9 +215591,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 122850,
-    "news_picked_today": 452,
-    "news_dropped_today": 3968
+    "news_seen_today": 133731,
+    "news_picked_today": 458,
+    "news_dropped_today": 4082
   },
   "book_momentum": {
     "live_count": 8,
