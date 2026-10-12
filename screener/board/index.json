@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T09:04:27Z",
+  "generated_at": "2026-10-12T09:08:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-229",
@@ -1275,6 +1275,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261012-388",
+      "headline": "LK TECH (00558): EXERCISE OF REPURCHASE OPTIONS AND REPURCHASE OF SHARES IN SHENZHEN LK",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101200386.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T08:51:00Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "LK Technology is exercising repurchase options for shares in its subsidiary, Shenzhen LK.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "LK Technology is exercising repurchase options for shares in its subsidiary, Shenzhen LK.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LK Technology",
+          "ticker": "00558",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261012-163",
       "headline": "CSSC SHIPPING (03877): Publication of Offering Circular on The Stock Exchange of Hong Kong Limited - U.S.$3,000,000,000 Guaranteed Medium Term Note Programme by CSSC Capital 2015 Limited and Guaranteed by CSSC (Hong Kong) Shipping Company Limited",
       "headline_en": null,
@@ -1898,55 +1947,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-361",
-      "headline": "Goodluck India Limited: Goodluck India Limited has informed the Exchange regarding Outcome of Board Meeting held on October 12, 2026.We wish to inform you that the Board of Directors of the Company in its meeting, held today i.e. 12th October, 2026 which concluded at 12:45 P.M. (IST), has, inter alia, considered the proposal and accorded its in-principle approval for enlargement of the scope of the aforesaid corporate restructuring to include proposed amalgamation of Goodluck Defence and Aerospa",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/GOODLUCK_12102026125629_BM_outcome_12102026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-12T07:26:53Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Goodluck India Limited has approved the expansion of its corporate restructuring to include the amalgamation of Goodluck Defence and Aerospace.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Goodluck India Limited has approved the expansion of its corporate restructuring to include the amalgamation of Goodluck Defence and Aerospace.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Goodluck India Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -215447,9 +215447,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 504191,
-    "news_picked_today": 512,
-    "news_dropped_today": 4340
+    "news_seen_today": 529671,
+    "news_picked_today": 519,
+    "news_dropped_today": 4357
   },
   "book_momentum": {
     "live_count": 8,
