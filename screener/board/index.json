@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T20:55:16Z",
+  "generated_at": "2026-10-12T21:02:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-593",
@@ -877,6 +877,56 @@
           "name": "FWD",
           "ticker": "01828",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-616",
+      "headline": "HCLTech Q2 revenue up 2.2%, narrows FY27 guidance",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/hcltech-q2-revenue-up-2-2-narrows-fy27-guidance/articleshow/134902134.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T20:37:45Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "HCLTech reported Q2 revenue growth of 2.2% and narrowed its FY27 guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HCLTech reported Q2 revenue growth of 2.2% and narrowed its FY27 guidance.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HCLTech",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1943,66 +1993,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-417",
-      "headline": "SWI raises $894 million to repurpose former FTX bitcoin miner Genesis Digital to AI",
-      "headline_en": null,
-      "url": "https://www.coindesk.com/business/2026/10/12/swi-raises-usd894-million-to-repurpose-former-ftx-bitcoin-miner-genesis-digital-to-ai",
-      "source_name": "CoinDesk",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T10:27:00Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "SWI raised $894 million to repurpose former FTX bitcoin miner Genesis Digital to AI.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SWI raised $894 million to repurpose former FTX bitcoin miner Genesis Digital to AI.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SWI",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "FTX",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Genesis Digital",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -216011,9 +216001,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4486913,
-    "news_picked_today": 1035,
-    "news_dropped_today": 8881
+    "news_seen_today": 4561382,
+    "news_picked_today": 1037,
+    "news_dropped_today": 8951
   },
   "book_momentum": {
     "live_count": 8,
