@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T12:54:51Z",
+  "generated_at": "2026-10-12T13:02:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-451",
@@ -488,6 +488,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-512",
+      "headline": "IonQ to buy cybersecurity firm Elisity in up to $1.3 billion deal",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/ionq-buy-cybersecurity-firm-elisity-up-13-billion-deal-2026-10-12/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T12:31:54Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "IonQ announced a definitive agreement to acquire Elisity in a deal valued at up to $1.3 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IonQ announced a definitive agreement to acquire Elisity in a deal valued at up to $1.3 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 3,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IonQ",
+          "ticker": "IONQ",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1937,55 +1986,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-054",
-      "headline": "TM1: Pause in Trading [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TM1?key=2924-03147108-6A1348707",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-12T01:10:48Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Trading halt on ASX is a price-sensitive event indicating potential material news pending.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Trading halt on ASX is a price-sensitive event indicating potential material news pending.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "strategic_review",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TM1",
-          "ticker": "TM1",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -174459,79 +174459,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-49717d740b20",
-      "idea_version": "IDEAV-58ba282a07c6b59b",
-      "idea_version_started_at": "2026-10-11T03:12:42Z",
-      "ticker": "WBC",
-      "company": "Westpac Banking Corp",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The 'Catalyst' program restructuring and associated job cuts signal internal cost pressures and potential operational inefficiencies that may weigh on near-term earnings.",
-      "why_now": "The restructuring news was reported on 2026-10-11.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-85a41105987b"
-      ],
-      "primary_source_event_id": "EVT-85a41105987b",
-      "source_headlines": [
-        "Westpac’s ‘Catalyst’ program triggers job cuts, despite assurances"
-      ],
-      "source_headline": "Westpac’s ‘Catalyst’ program triggers job cuts, despite assurances",
-      "source_url": "https://www.afr.com/companies/financial-services/westpac-s-catalyst-program-triggers-job-cuts-despite-assurances-20261011-p6147o?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 87,
-      "newest_source_at": "2026-10-11T01:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-11T03:12:42Z",
-      "updated_at": "2026-10-11T03:12:42Z",
-      "decay_at": "2026-10-12T13:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-6b3b74b3573e",
       "idea_version": "IDEAV-2c83a373078e1ddc",
       "idea_version_started_at": "2026-10-12T01:12:56Z",
@@ -178119,6 +178046,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-49717d740b20",
+      "idea_version": "IDEAV-58ba282a07c6b59b",
+      "idea_version_started_at": "2026-10-11T03:12:42Z",
+      "ticker": "WBC",
+      "company": "Westpac Banking Corp",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The 'Catalyst' program restructuring and associated job cuts signal internal cost pressures and potential operational inefficiencies that may weigh on near-term earnings.",
+      "why_now": "The restructuring news was reported on 2026-10-11.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-85a41105987b"
+      ],
+      "primary_source_event_id": "EVT-85a41105987b",
+      "source_headlines": [
+        "Westpac’s ‘Catalyst’ program triggers job cuts, despite assurances"
+      ],
+      "source_headline": "Westpac’s ‘Catalyst’ program triggers job cuts, despite assurances",
+      "source_url": "https://www.afr.com/companies/financial-services/westpac-s-catalyst-program-triggers-job-cuts-despite-assurances-20261011-p6147o?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 87,
+      "newest_source_at": "2026-10-11T01:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-11T03:12:42Z",
+      "updated_at": "2026-10-11T03:12:42Z",
+      "decay_at": "2026-10-12T13:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-675f9fa696a1",
       "idea_version": "IDEAV-1ca0e0c57f9c130d",
       "idea_version_started_at": "2026-10-10T03:24:22Z",
@@ -178345,9 +178345,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 544,
+    "total_count": 545,
     "shown_count": 499,
-    "hidden_count": 45,
+    "hidden_count": 46,
     "side_counts": {
       "long": {
         "total_count": 280,
@@ -178355,9 +178355,9 @@
         "hidden_count": 30
       },
       "short": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       }
     },
     "retention": {
@@ -178376,6 +178376,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-49717d740b20",
+        "idea_version": "IDEAV-58ba282a07c6b59b",
+        "idea_version_started_at": "2026-10-11T03:12:42Z",
+        "ticker": "WBC",
+        "company": "Westpac Banking Corp",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The 'Catalyst' program restructuring and associated job cuts signal internal cost pressures and potential operational inefficiencies that may weigh on near-term earnings.",
+        "why_now": "The restructuring news was reported on 2026-10-11.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-85a41105987b"
+        ],
+        "primary_source_event_id": "EVT-85a41105987b",
+        "source_headlines": [
+          "Westpac’s ‘Catalyst’ program triggers job cuts, despite assurances"
+        ],
+        "source_headline": "Westpac’s ‘Catalyst’ program triggers job cuts, despite assurances",
+        "source_url": "https://www.afr.com/companies/financial-services/westpac-s-catalyst-program-triggers-job-cuts-despite-assurances-20261011-p6147o?ref=rss&utm_medium=rss&utm_source=rss_feed",
+        "source_name": "Australian Financial Review",
+        "materiality_max": 87,
+        "newest_source_at": "2026-10-11T01:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-11T03:12:42Z",
+        "updated_at": "2026-10-11T03:12:42Z",
+        "decay_at": "2026-10-12T13:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-12T13:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-2b9840c4ba25",
         "idea_version": "IDEAV-45fed6cbdf30df16",
@@ -215457,85 +215533,12 @@
         "archived_at": "2026-09-17T14:46:54Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-41acdf75eb6c",
-        "idea_version": "IDEAV-9e64c7ec16a5db22",
-        "idea_version_started_at": "2026-09-14T19:12:02Z",
-        "ticker": "HUBG",
-        "company": "Hub Group",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company has received a Nasdaq delisting notice and reported an operating loss for the first half of the year, signaling severe financial distress and potential equity impairment.",
-        "why_now": "The delisting notice and H1 loss were disclosed on 2026-09-14.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0bb8559a6352"
-        ],
-        "primary_source_event_id": "EVT-0bb8559a6352",
-        "source_headlines": [
-          "Hub Group warns of Nasdaq delisting notice; flags H1 operating loss"
-        ],
-        "source_headline": "Hub Group warns of Nasdaq delisting notice; flags H1 operating loss",
-        "source_url": "https://finance.yahoo.com/markets/stocks/articles/hub-group-warns-nasdaq-delisting-142643603.html",
-        "source_name": "Yahoo Finance",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-14T14:26:43Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-14T12:31:25Z",
-        "updated_at": "2026-09-14T19:12:02Z",
-        "decay_at": "2026-09-16T02:26:43Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-17T14:46:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1542,
-    "live_count": 43,
+    "live_count": 42,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -215554,9 +215557,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1673592,
-    "news_picked_today": 732,
-    "news_dropped_today": 6040
+    "news_seen_today": 1722289,
+    "news_picked_today": 741,
+    "news_dropped_today": 6079
   },
   "book_momentum": {
     "live_count": 8,
