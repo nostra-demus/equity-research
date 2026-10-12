@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T09:22:06Z",
+  "generated_at": "2026-10-12T09:42:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-229",
@@ -1662,6 +1662,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261012-390",
+      "headline": "GHCL Limited: GHCL Limited has informed the Exchange about Capacity addition",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/GHCL_12102026141339_GHCL_Intimation_UR30_Commencement_Launch_Product_Bromine_October2026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T08:43:51Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "GHCL Limited announced a capacity addition, which is a material operational expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "GHCL Limited announced a capacity addition, which is a material operational expansion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GHCL Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261012-331",
       "headline": "Offer to Buy – Acquisition Window (Takeover) for RGF CAPITAL MARKETS LIMITED – Live Activities Schedule",
       "headline_en": null,
@@ -1903,50 +1952,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-101",
-      "headline": "China Agrees to Curb Hybrid Car Exports to EU",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-10-12/china-agrees-to-curb-hybrid-car-exports-to-eu-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T02:12:12Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "China agreeing to curb hybrid car exports to the EU represents a significant trade policy change that will directly impact the automotive sector's supply and demand dynamics.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "China agreeing to curb hybrid car exports to the EU represents a significant trade policy change that will directly impact the automotive sector's supply and demand dynamics.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -215447,9 +215452,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 587423,
-    "news_picked_today": 524,
-    "news_dropped_today": 4448
+    "news_seen_today": 682744,
+    "news_picked_today": 528,
+    "news_dropped_today": 4684
   },
   "book_momentum": {
     "live_count": 8,
