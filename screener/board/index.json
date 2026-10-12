@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T04:28:31Z",
+  "generated_at": "2026-10-12T04:35:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-165",
@@ -1529,6 +1529,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261012-187",
+      "headline": "NutryFarm shareholders seek CEO’s removal as company pivots from durians to data centres",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/nutryfarm-shareholders-seek-ceos-removal-as-company-pivots-from-durians-to-data-centres",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T04:15:00Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Shareholders are seeking the removal of the CEO amid a major pivot in business strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Shareholders are seeking the removal of the CEO amid a major pivot in business strategy.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "management",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NutryFarm",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261012-145",
       "headline": "Firmus Fiasco Wipes Out $700 Million of Early Backer Maas’ Value",
       "headline_en": null,
@@ -1917,55 +1967,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-125",
-      "headline": "AirAsia in talks with Malaysian government over potential funding support, sources say",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/airasia-talks-with-malaysian-government-over-potential-funding-support-sources-2026-10-12/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T02:41:32Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "AirAsia is in discussions for potential government funding support, indicating liquidity or capital structure challenges.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "AirAsia is in discussions for potential government funding support, indicating liquidity or capital structure challenges.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AirAsia",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -215166,9 +215167,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3756,
-    "news_picked_today": 238,
-    "news_dropped_today": 949
+    "news_seen_today": 4536,
+    "news_picked_today": 246,
+    "news_dropped_today": 1085
   },
   "book_momentum": {
     "live_count": 8,
