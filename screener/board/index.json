@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T15:18:44Z",
+  "generated_at": "2026-10-12T15:19:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-535",
@@ -144,6 +144,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-560",
+      "headline": "Department of War Certifies Production Capacity for Second Guided-Missile Destroyer at Maine's Bath Iron Works",
+      "headline_en": null,
+      "url": "https://www.war.gov/News/Releases/Release/Article/4623902/department-of-war-certifies-production-capacity-for-second-guided-missile-destr/",
+      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-12T13:30:07Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "The Department of War certified production capacity for a second guided-missile destroyer at Bath Iron Works, indicating a significant expansion in defense manufacturing capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Department of War certified production capacity for a second guided-missile destroyer at Bath Iron Works, indicating a significant expansion in defense manufacturing capacity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "General Dynamics",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1942,55 +1991,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-242",
-      "headline": "Samsung affiliates to invest $9.15 billion in semiconductor operations, with major focus on Vietnam",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/samsung-affiliates-to-invest-915-billion-in-semiconductor-operations-with-major-focus-on-vietnam/article71573748.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T04:53:52Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Samsung affiliates are investing $9.15 billion in semiconductor operations, primarily in Vietnam.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Samsung affiliates are investing $9.15 billion in semiconductor operations, primarily in Vietnam.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -215785,9 +215785,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2526330,
-    "news_picked_today": 879,
-    "news_dropped_today": 6757
+    "news_seen_today": 2547486,
+    "news_picked_today": 881,
+    "news_dropped_today": 6779
   },
   "book_momentum": {
     "live_count": 8,
