@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-12T11:13:12Z",
+  "generated_at": "2026-10-12T11:17:40Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261012-432",
+      "headline": "CREDITACCESS GRAMEEN LIMITED: CREDITACCESS GRAMEEN LIMITED has informed the Exchange regarding a press release dated October 12, 2026, titled \"CreditAccess Grameen broadens its Global Lender Base with USD 175 Million Syndicated Social Loan Facility\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/CREDITACC_12102026161704_PressRelease12102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T10:47:17Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "CreditAccess Grameen secured a USD 175 million syndicated social loan facility to expand its lender base.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CreditAccess Grameen secured a USD 175 million syndicated social loan facility to expand its lender base.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CreditAccess Grameen Limited",
+          "ticker": "541770",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261012-392",
       "headline": "LAI FUNG HOLD (01125): PROFIT WARNING",
@@ -1918,55 +1967,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-408",
-      "headline": "SKIL Infrastructure Limited: SKIL Infrastructure Limited has informed the Exchange regarding the postponement of the 13th COC meeting.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/Skilinfra_12102026151529_Letter_Postponement_Intimation_13th_COC.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-12T09:46:08Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "The company postponed a Committee of Creditors meeting, indicating ongoing financial distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "The company postponed a Committee of Creditors meeting, indicating ongoing financial distress.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SKIL Infrastructure Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -215323,9 +215323,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1115538,
-    "news_picked_today": 621,
-    "news_dropped_today": 5383
+    "news_seen_today": 1138351,
+    "news_picked_today": 624,
+    "news_dropped_today": 5428
   },
   "book_momentum": {
     "live_count": 8,
