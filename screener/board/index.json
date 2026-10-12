@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T00:19:33Z",
+  "generated_at": "2026-10-12T00:28:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-002",
@@ -195,6 +195,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-018",
+      "headline": "Space Force Successfully Launches Northrop Grumman’s First Plane Of Transport Layer Satellites",
+      "headline_en": null,
+      "url": "https://www.defensedaily.com/space-force-successfully-launches-northrop-grummans-first-plane-of-transport-layer-satellites/space/",
+      "source_name": "Defense Daily",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T00:16:48Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Northrop Grumman successfully launched its first plane of transport layer satellites for the US Space Force.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Northrop Grumman successfully launched its first plane of transport layer satellites for the US Space Force.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Northrop Grumman",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -630,6 +679,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-017",
+      "headline": "Insurers face muted growth, claims pressure as regulatory changes loom",
+      "headline_en": null,
+      "url": "https://www.livemint.com/industry/insurers-face-muted-growth-claims-pressure-as-regulatory-changes-loom-11791702672212.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T00:20:34Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Indian insurers face potential growth headwinds and increased claims pressure due to upcoming regulatory changes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Indian insurers face potential growth headwinds and increased claims pressure due to upcoming regulatory changes.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -213171,7 +213263,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3503,
+    "inbox_unconsumed": 3505,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -213180,9 +213272,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 82,
-    "news_picked_today": 16,
-    "news_dropped_today": 66
+    "news_seen_today": 102,
+    "news_picked_today": 18,
+    "news_dropped_today": 84
   },
   "book_momentum": {
     "live_count": 8,
