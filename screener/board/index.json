@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-12T22:30:00Z",
+  "generated_at": "2026-10-12T22:38:58Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261012-627",
+      "headline": "FDA Approves Hovilpri (pritelivir) for the Treatment of Mucocutaneous Herpes Simplex Virus (HSV) Lesions",
+      "headline_en": null,
+      "url": "https://www.drugs.com/newdrugs/fda-approves-hovilpri-pritelivir-mucocutaneous-herpes-simplex-virus-hsv-lesions-6910.html",
+      "source_name": "Drugs.com — New Drug Approvals",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-12T21:10:04Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "FDA approval of a new drug is a critical event that directly impacts revenue potential and market position.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "FDA approval of a new drug is a critical event that directly impacts revenue potential and market position.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hovlan",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261012-593",
       "headline": "Juniper Green Energy Limited: Juniper Green Energy Limited has informed the Exchange about commissioning of additional capacity",
@@ -1944,55 +1993,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-431",
-      "headline": "Quantum-Computing Company IonQ to Buy Cybersecurity Firm for Up to $1.3 Billion",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/deals/quantum-computing-company-ionq-to-buy-cybersecurity-firm-for-up-to-1-3-billion-65af65bd?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T11:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "IonQ announced the acquisition of a cybersecurity firm for $1.3 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "IonQ announced the acquisition of a cybersecurity firm for $1.3 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IonQ",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -216002,9 +216002,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5256921,
-    "news_picked_today": 1112,
-    "news_dropped_today": 9716
+    "news_seen_today": 5329105,
+    "news_picked_today": 1123,
+    "news_dropped_today": 9849
   },
   "book_momentum": {
     "live_count": 8,
