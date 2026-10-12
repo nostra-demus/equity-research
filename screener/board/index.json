@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-12T11:17:40Z",
+  "generated_at": "2026-10-12T11:22:06Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261012-433",
+      "headline": "RBL Bank Limited: Unaudited standalone and consolidated financial results of the Bank, for the quarter and half year ended September 30, 2026",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/RBLBANK_12102026163624_BoardMeetingOutcomeQ2FY2627resultssigned.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T11:09:18Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "RBL Bank released its unaudited standalone and consolidated financial results for the quarter and half year ended September 30, 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "RBL Bank released its unaudited standalone and consolidated financial results for the quarter and half year ended September 30, 2026.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RBL Bank Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261012-432",
       "headline": "CREDITACCESS GRAMEEN LIMITED: CREDITACCESS GRAMEEN LIMITED has informed the Exchange regarding a press release dated October 12, 2026, titled \"CreditAccess Grameen broadens its Global Lender Base with USD 175 Million Syndicated Social Loan Facility\".",
@@ -1918,55 +1967,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-143",
-      "headline": "Genting Shares Tumble Most Since 1998 on Rights Issue Plan",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-12/genting-shares-tumble-most-since-1998-on-rights-issue-plan",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T03:07:45Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Genting announced a rights issue, causing the largest share price decline since 1998.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Genting announced a rights issue, causing the largest share price decline since 1998.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Genting",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -215323,9 +215323,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1138351,
-    "news_picked_today": 624,
-    "news_dropped_today": 5428
+    "news_seen_today": 1161640,
+    "news_picked_today": 630,
+    "news_dropped_today": 5446
   },
   "book_momentum": {
     "live_count": 8,
