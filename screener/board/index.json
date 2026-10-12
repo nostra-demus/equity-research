@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T03:54:20Z",
+  "generated_at": "2026-10-12T03:58:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-002",
@@ -1775,6 +1775,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261012-157",
+      "headline": "Avenue Supermarts shares fall over 4% after Q2 margin miss - Should you buy, hold, or sell?",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/avenue-supermarts-dmart-share-price-buy-hold-or-sell-after-q2-results-margin-pressure-target-upside-returns-20009597.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T03:50:59Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Avenue Supermarts shares fell over 4% following a Q2 margin miss.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Avenue Supermarts shares fell over 4% following a Q2 margin miss.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Avenue Supermarts",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261012-078",
       "headline": "Samsung, SK hynix NAND Profits Seen Surging Up to 40-Fold",
       "headline_en": null,
@@ -1924,55 +1973,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-025",
-      "headline": "Encalm looks beyond airport lounges to build ₹5,000 crore hospitality business",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/encalm-looks-beyond-airport-lounges-to-build-5-000-crore-hospitality-business-11791693514617.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T00:30:14Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Encalm is planning a ₹5,000 crore expansion into the hospitality business.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Encalm is planning a ₹5,000 crore expansion into the hospitality business.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Encalm",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -215249,9 +215249,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 797,
-    "news_picked_today": 197,
-    "news_dropped_today": 600
+    "news_seen_today": 832,
+    "news_picked_today": 206,
+    "news_dropped_today": 626
   },
   "book_momentum": {
     "live_count": 8,
