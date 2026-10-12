@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-12T04:15:35Z",
+  "generated_at": "2026-10-12T04:28:31Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261012-165",
+      "headline": "PANGAEA CONNECT (01473): POSITIVE PROFIT ALERT AND BUSINESS UPDATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101200169.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T04:06:00Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Pangaea Connect issued a positive profit alert indicating improved financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Pangaea Connect issued a positive profit alert indicating improved financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PANGAEA CONNECT",
+          "ticker": "01473",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261012-002",
       "headline": "FWD (01828): Connected Transaction - Acquisition of 25% Equity Interest in Bolttech Insurance (Hong Kong) Company Limited",
@@ -92,6 +141,55 @@
           "name": "Celltrion",
           "ticker": null,
           "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-184",
+      "headline": "Shares in Malaysia’s Genting tumble by most in 28 years",
+      "headline_en": null,
+      "url": "https://www.scmp.com/news/asia/southeast-asia/article/3370534/shares-malaysias-genting-tumble-most-28-years?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T04:09:16Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Significant stock price volatility for a major conglomerate, indicating a potential operational or financial shock.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Significant stock price volatility for a major conglomerate, indicating a potential operational or financial shock.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Genting",
+          "ticker": null,
+          "listing_country": "MY"
         }
       ],
       "size_bucket": "large",
@@ -443,6 +541,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261012-163",
+      "headline": "CSSC SHIPPING (03877): Publication of Offering Circular on The Stock Exchange of Hong Kong Limited - U.S.$3,000,000,000 Guaranteed Medium Term Note Programme by CSSC Capital 2015 Limited and Guaranteed by CSSC (Hong Kong) Shipping Company Limited",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101200161.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T04:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "The company is establishing a $3,000,000,000 medium-term note programme for future debt issuance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "The company is establishing a $3,000,000,000 medium-term note programme for future debt issuance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CSSC Shipping",
+          "ticker": "03877",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261012-143",
       "headline": "Genting Shares Tumble Most Since 1998 on Rights Issue Plan",
       "headline_en": null,
@@ -487,6 +634,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-171",
+      "headline": "Zetwerk Manufacturing Business IPO price band set at Rs 143–151; Rs 5,012 crore issue opens on October 15",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/ipos/fpos/zetwerk-manufacturing-business-ipo-price-band-set-at-rs-143151-rs-5012-crore-issue-opens-on-october-15/articleshow/134881830.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T03:46:23Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Zetwerk Manufacturing Business set an IPO price band for a 5,012 crore rupee issue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Zetwerk Manufacturing Business set an IPO price band for a 5,012 crore rupee issue.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zetwerk Manufacturing Business",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1770,203 +1966,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-160",
-      "headline": "Rupee jumps 1% after RBI redirects oil dollar demand, raises cost of some FX hedges",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/india/rupee-jumps-1-after-rbi-redirects-oil-dollar-demand-raises-cost-some-fx-hedges-2026-10-12/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T03:54:07Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "The Indian Rupee rose 1% following RBI intervention to manage oil-related dollar demand and adjust FX hedging costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "The Indian Rupee rose 1% following RBI intervention to manage oil-related dollar demand and adjust FX hedging costs.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-157",
-      "headline": "Avenue Supermarts shares fall over 4% after Q2 margin miss - Should you buy, hold, or sell?",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/avenue-supermarts-dmart-share-price-buy-hold-or-sell-after-q2-results-margin-pressure-target-upside-returns-20009597.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T03:50:59Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Avenue Supermarts shares fell over 4% following a Q2 margin miss.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Avenue Supermarts shares fell over 4% following a Q2 margin miss.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Avenue Supermarts",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-078",
-      "headline": "Samsung, SK hynix NAND Profits Seen Surging Up to 40-Fold",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=278573",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T04:48:30Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "NAND profits for Samsung and SK hynix are seen surging up to 40-fold, indicating a significant positive shift in the semiconductor sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "NAND profits for Samsung and SK hynix are seen surging up to 40-fold, indicating a significant positive shift in the semiconductor sector.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Samsung",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "SK hynix",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-149",
-      "headline": "Drones Strike Third Yandex Data Centre, Disrupts 80+ Services Across Russia",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/tech/drones-strike-third-yandex-data-centre-disrupts-80-services-across-russia",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T02:54:30Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Drones struck a third Yandex data center, disrupting over 80 services across Russia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Drones struck a third Yandex data center, disrupting over 80 services across Russia.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "cybersecurity",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yandex",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -172361,76 +172360,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c60c4513384e",
-      "idea_version": "IDEAV-e88b197efb452015",
-      "idea_version_started_at": "2026-10-10T17:25:22Z",
-      "ticker": "NET",
-      "company": "Cloudflare",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of Deno accelerates Cloudflare's developer platform capabilities by integrating Deno's runtime, which directly enhances the value proposition of the Workers serverless product and increases developer stickiness.",
-      "why_now": "The acquisition was announced today, October 10, 2026, providing an immediate catalyst for market re-evaluation of the company's product roadmap.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 61,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7a1b0ff795b5"
-      ],
-      "primary_source_event_id": "EVT-7a1b0ff795b5",
-      "source_headlines": [
-        "Cloudflare acquires Deno to improve its Workers programming model"
-      ],
-      "source_headline": "Cloudflare acquires Deno to improve its Workers programming model",
-      "source_url": "https://techcrunch.com/2026/10/10/cloudflare-acquires-deno-to-improve-its-workers-programming-model/",
-      "source_name": "TechCrunch",
-      "materiality_max": 91,
-      "newest_source_at": "2026-10-10T16:25:42Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-10T17:25:22Z",
-      "updated_at": "2026-10-10T17:25:22Z",
-      "decay_at": "2026-10-12T04:25:42Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f814e9dcdbe7",
       "idea_version": "IDEAV-568e041a018c0946",
       "idea_version_started_at": "2026-10-12T01:35:16Z",
@@ -175228,6 +175157,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-c60c4513384e",
+      "idea_version": "IDEAV-e88b197efb452015",
+      "idea_version_started_at": "2026-10-10T17:25:22Z",
+      "ticker": "NET",
+      "company": "Cloudflare",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of Deno accelerates Cloudflare's developer platform capabilities by integrating Deno's runtime, which directly enhances the value proposition of the Workers serverless product and increases developer stickiness.",
+      "why_now": "The acquisition was announced today, October 10, 2026, providing an immediate catalyst for market re-evaluation of the company's product roadmap.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 61,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7a1b0ff795b5"
+      ],
+      "primary_source_event_id": "EVT-7a1b0ff795b5",
+      "source_headlines": [
+        "Cloudflare acquires Deno to improve its Workers programming model"
+      ],
+      "source_headline": "Cloudflare acquires Deno to improve its Workers programming model",
+      "source_url": "https://techcrunch.com/2026/10/10/cloudflare-acquires-deno-to-improve-its-workers-programming-model/",
+      "source_name": "TechCrunch",
+      "materiality_max": 91,
+      "newest_source_at": "2026-10-10T16:25:42Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-10T17:25:22Z",
+      "updated_at": "2026-10-10T17:25:22Z",
+      "decay_at": "2026-10-12T04:25:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-cde852397b1c",
       "idea_version": "IDEAV-b9632fe3f52e6eed",
       "idea_version_started_at": "2026-10-11T05:19:17Z",
@@ -177973,14 +177972,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 548,
+    "total_count": 549,
     "shown_count": 499,
-    "hidden_count": 49,
+    "hidden_count": 50,
     "side_counts": {
       "long": {
-        "total_count": 278,
+        "total_count": 279,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 29
       },
       "short": {
         "total_count": 271,
@@ -178004,6 +178003,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c60c4513384e",
+        "idea_version": "IDEAV-e88b197efb452015",
+        "idea_version_started_at": "2026-10-10T17:25:22Z",
+        "ticker": "NET",
+        "company": "Cloudflare",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of Deno accelerates Cloudflare's developer platform capabilities by integrating Deno's runtime, which directly enhances the value proposition of the Workers serverless product and increases developer stickiness.",
+        "why_now": "The acquisition was announced today, October 10, 2026, providing an immediate catalyst for market re-evaluation of the company's product roadmap.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 61,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 15,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7a1b0ff795b5"
+        ],
+        "primary_source_event_id": "EVT-7a1b0ff795b5",
+        "source_headlines": [
+          "Cloudflare acquires Deno to improve its Workers programming model"
+        ],
+        "source_headline": "Cloudflare acquires Deno to improve its Workers programming model",
+        "source_url": "https://techcrunch.com/2026/10/10/cloudflare-acquires-deno-to-improve-its-workers-programming-model/",
+        "source_name": "TechCrunch",
+        "materiality_max": 91,
+        "newest_source_at": "2026-10-10T16:25:42Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-10T17:25:22Z",
+        "updated_at": "2026-10-10T17:25:22Z",
+        "decay_at": "2026-10-12T04:25:42Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-12T04:25:42Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-cc72955eba04",
         "idea_version": "IDEAV-67810bf50775283c",
@@ -206896,81 +206968,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-699b27265ce6",
-        "idea_version": "IDEAV-b16bde90d1ed76f2",
-        "idea_version_started_at": "2026-09-28T04:16:28Z",
-        "ticker": "CDL",
-        "company": "City Developments Limited",
-        "exchange": "SGX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "CDL's Kwek clan plans to invest US$3.9 billion in Singapore, China, and Japan, which should enhance the company's asset base and future earnings potential.",
-        "why_now": "The investment plan was announced on September 28, 2026, signaling a clear forward-looking capital allocation strategy.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9ed682a3e67c"
-        ],
-        "primary_source_event_id": "EVT-9ed682a3e67c",
-        "source_headlines": [
-          "CDL’s Kwek clan looks to invest US$3.9b in Singapore, China, Japan to raise confidence"
-        ],
-        "source_headline": "CDL’s Kwek clan looks to invest US$3.9b in Singapore, China, Japan to raise confidence",
-        "source_url": "https://www.scmp.com/news/asia/southeast-asia/article/3368989/cdls-kwek-clan-looks-invest-us39b-singapore-china-japan-raise-confidence?utm_source=rss_feed",
-        "source_name": "South China Morning Post",
-        "materiality_max": 95,
-        "newest_source_at": "2026-09-28T02:27:04Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-28T04:16:28Z",
-        "updated_at": "2026-09-28T04:16:28Z",
-        "decay_at": "2026-09-29T14:27:04Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-01T05:01:37Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-353ee6d92397",
         "idea_version": "IDEAV-af94d9c89c45f066",
         "idea_version_started_at": "2026-09-28T03:32:24Z",
@@ -215150,7 +215147,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1529,
-    "live_count": 35,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -215169,9 +215166,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2068,
-    "news_picked_today": 210,
-    "news_dropped_today": 766
+    "news_seen_today": 3756,
+    "news_picked_today": 238,
+    "news_dropped_today": 949
   },
   "book_momentum": {
     "live_count": 8,
