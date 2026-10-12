@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T11:48:37Z",
+  "generated_at": "2026-10-12T11:50:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-433",
@@ -340,6 +340,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-447",
+      "headline": "RBL Bank Q2 results: Profit jumps 170% as core income grows, bad loans decline",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/rbl-bank-q2-results-profit-jumps-169-as-core-income-grows-bad-loans-decline-20010063.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T11:33:20Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "RBL Bank reported a significant 170% jump in profit and improving asset quality with declining bad loans.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "RBL Bank reported a significant 170% jump in profit and improving asset quality with declining bad loans.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RBL Bank",
+          "ticker": "RBLBANK",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1923,56 +1972,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-372",
-      "headline": "Beijing police detain Yiren Digital chairman after massive product defaults",
-      "headline_en": null,
-      "url": "https://www.scmp.com/business/banking-finance/article/3370569/beijing-police-detain-yiren-digital-chairman-after-massive-product-defaults?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T07:24:24Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Yiren Digital chairman detained following massive product defaults, indicating severe operational and legal distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Yiren Digital chairman detained following massive product defaults, indicating severe operational and legal distress.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yiren Digital",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -215397,9 +215396,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1316351,
-    "news_picked_today": 646,
-    "news_dropped_today": 5574
+    "news_seen_today": 1334425,
+    "news_picked_today": 661,
+    "news_dropped_today": 5583
   },
   "book_momentum": {
     "live_count": 8,
