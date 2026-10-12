@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T03:37:36Z",
+  "generated_at": "2026-10-12T03:38:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-002",
@@ -173232,6 +173232,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-1aeb23b16c7e",
+      "idea_version": "IDEAV-cb2c73fb1a174ba3",
+      "idea_version_started_at": "2026-10-12T03:38:04Z",
+      "ticker": "OV8",
+      "company": "Sheng Siong",
+      "exchange": "SGX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Maybank downgraded the stock and cut its target price due to deteriorating outlook, which typically triggers institutional selling.",
+      "why_now": "The downgrade was reported on 2026-10-12, and the stock has already begun to react with a 3% decline.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 14,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4095a883cb91"
+      ],
+      "primary_source_event_id": "EVT-4095a883cb91",
+      "source_headlines": [
+        "Sheng Siong shares fall 3% after Maybank downgrade, target price cut"
+      ],
+      "source_headline": "Sheng Siong shares fall 3% after Maybank downgrade, target price cut",
+      "source_url": "https://www.businesstimes.com.sg/companies-markets/sheng-siong-shares-fall-3-after-maybank-downgrade-target-price-cut",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 95,
+      "newest_source_at": "2026-10-12T02:59:40Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-12T03:38:04Z",
+      "updated_at": "2026-10-12T03:38:04Z",
+      "decay_at": "2026-10-13T14:59:40Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-7ec0f1c395e9",
       "idea_version": "IDEAV-b8589836ee24aba4",
       "idea_version_started_at": "2026-10-12T02:28:00Z",
@@ -176526,150 +176598,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-03b640031702",
-      "idea_version": "IDEAV-ad09f710414eead7",
-      "idea_version_started_at": "2026-10-09T08:52:52Z",
-      "ticker": "9983",
-      "company": "Fast Retailing",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company projects a 7th consecutive year of record profits, signaling sustained operational efficiency and strong consumer demand.",
-      "why_now": "The guidance was released on 2026-10-09.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-441ca1cd2522"
-      ],
-      "primary_source_event_id": "EVT-441ca1cd2522",
-      "source_headlines": [
-        "Uniqlo operator projects 7th straight record profit for current fiscal year"
-      ],
-      "source_headline": "Uniqlo operator projects 7th straight record profit for current fiscal year",
-      "source_url": "https://asia.nikkei.com/business/retail/uniqlo-operator-projects-7th-straight-record-profit-for-current-fiscal-year",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-09T03:23:33Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-09T08:52:52Z",
-      "updated_at": "2026-10-09T08:52:52Z",
-      "decay_at": "2026-10-10T15:23:33Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-80213da6012c",
-      "idea_version": "IDEAV-f9bf4daa812032db",
-      "idea_version_started_at": "2026-10-09T08:52:52Z",
-      "ticker": "4543",
-      "company": "Terumo",
-      "exchange": "TSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company faces a $610 million earnings hit due to the loss of a major US customer for its plasma device, directly impacting near-term revenue and margins.",
-      "why_now": "The news of the contract loss and financial impact was reported on 2026-10-09.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c45d1328042e"
-      ],
-      "primary_source_event_id": "EVT-c45d1328042e",
-      "source_headlines": [
-        "Japan's Terumo takes $610m hit after losing US customer for plasma device"
-      ],
-      "source_headline": "Japan's Terumo takes $610m hit after losing US customer for plasma device",
-      "source_url": "https://asia.nikkei.com/business/companies/japan-s-terumo-takes-610m-hit-after-losing-us-customer-for-plasma-device",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-09T03:23:33Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-09T08:52:52Z",
-      "updated_at": "2026-10-09T08:52:52Z",
-      "decay_at": "2026-10-10T15:23:33Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-27493c72d311",
       "idea_version": "IDEAV-493a9b9da9bb396c",
       "idea_version_started_at": "2026-10-11T03:47:12Z",
@@ -178117,33 +178045,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 552,
+    "total_count": 550,
     "shown_count": 499,
-    "hidden_count": 53,
+    "hidden_count": 51,
     "side_counts": {
       "long": {
-        "total_count": 281,
+        "total_count": 280,
         "shown_count": 250,
-        "hidden_count": 31
+        "hidden_count": 30
       },
       "short": {
-        "total_count": 272,
+        "total_count": 271,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 21
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 942,
-      "oldest_retained_at": "2026-09-15T07:31:11Z",
+      "evicted_count": 944,
+      "oldest_retained_at": "2026-09-15T08:37:29Z",
       "side_counts": {
         "long": {
-          "evicted_count": 625,
-          "oldest_retained_at": "2026-09-28T21:57:19Z"
+          "evicted_count": 626,
+          "oldest_retained_at": "2026-09-28T22:08:00Z"
         },
         "short": {
-          "evicted_count": 317,
-          "oldest_retained_at": "2026-09-15T07:31:11Z"
+          "evicted_count": 318,
+          "oldest_retained_at": "2026-09-15T08:37:29Z"
         }
       }
     },
@@ -181951,8 +181879,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-10T15:23:33Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-12T03:38:08Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -182026,8 +181954,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-10T15:23:33Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-12T03:38:08Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -215295,8 +215223,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1528,
-    "live_count": 33,
+    "surfaced_total": 1529,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
