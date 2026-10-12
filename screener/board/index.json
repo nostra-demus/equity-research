@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T17:15:09Z",
+  "generated_at": "2026-10-12T17:29:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-593",
@@ -880,6 +880,60 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-597",
+      "headline": "Albertsons Wants $8 Billion From Kroger After Failed Merger",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/retail/albertsons-wants-8-billion-from-kroger-after-failed-merger-fd0aacd8?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T17:13:00Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Albertsons is seeking $8 billion from Kroger following the termination of their merger agreement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Albertsons is seeking $8 billion from Kroger following the termination of their merger agreement.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Albertsons",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Kroger",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1932,55 +1986,6 @@
       "companies": [
         {
           "name": "McCain Foods",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-318",
-      "headline": "Sweden's Telia to cut around 900 jobs and save $1 million",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/world-at-work/swedens-telia-cut-around-900-jobs-save-1-million-2026-10-12/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T05:38:25Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Telia is cutting 900 jobs as part of a restructuring effort to reduce costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Telia is cutting 900 jobs as part of a restructuring effort to reduce costs.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Telia",
           "ticker": null,
           "listing_country": null
         }
@@ -215924,9 +215929,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3234138,
-    "news_picked_today": 960,
-    "news_dropped_today": 7348
+    "news_seen_today": 3299097,
+    "news_picked_today": 965,
+    "news_dropped_today": 7367
   },
   "book_momentum": {
     "live_count": 8,
