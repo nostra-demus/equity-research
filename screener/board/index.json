@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T13:19:24Z",
+  "generated_at": "2026-10-12T13:21:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261012-514",
@@ -537,6 +537,60 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261012-519",
+      "headline": "Bank of India declares Future Enterprises’ ₹575 crore outstanding account as fraud",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/bank-of-india-share-price-declares-future-enterprises-rs-575-crore-outstanding-account-as-fraud-20010124.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T12:56:03Z",
+      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
+      "prelim_note": "Bank of India declared Future Enterprises' Rs 575 crore outstanding account as fraud, indicating a significant credit event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bank of India declared Future Enterprises' Rs 575 crore outstanding account as fraud, indicating a significant credit event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Future Enterprises",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Bank of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1931,56 +1985,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261012-047",
-      "headline": "Butterfield's 2026 Outlook: Reliable Fee Income Growth and a Major Acquisition Doubling the Size of Its Business",
-      "headline_en": null,
-      "url": "https://www.fool.com/coverage/moneyball/2026/10/11/butterfield-s-2026-outlook-reliable-fee-income-growth-and-a-major-acquisition-doubling-the-size-of-its-business/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T00:42:55Z",
-      "sweep_file": "screener/inbox/2026-10-12_sweep.json",
-      "prelim_note": "Butterfield announced a major acquisition that doubles the size of its business and provided a positive 2026 outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Butterfield announced a major acquisition that doubles the size of its business and provided a positive 2026 outlook.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Butterfield",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
