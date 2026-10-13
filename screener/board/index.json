@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T15:09:33Z",
+  "generated_at": "2026-10-13T15:17:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-171",
@@ -1952,50 +1952,44 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261013-381",
-      "headline": "JLMAG B3008 JLMAG (05834 06680): PRELIMINARY ESTIMATION FOR THE FIRST THREE QUARTERS RESULTS OF 2026",
+      "inbox_id": "INB-20261013-401",
+      "headline": "Three arrests in major FCA operation against criminal insider dealing ring",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1013/2026101301111.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-13T14:43:00Z",
+      "url": "https://www.fca.org.uk/news/press-releases/three-arrests-major-fca-operation-against-criminal-insider-dealing-ring",
+      "source_name": "UK Financial Conduct Authority (FCA) — News",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-13T15:07:04Z",
       "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "JLMAG provided a preliminary earnings estimate for the first three quarters of 2026.",
+      "prelim_note": "The UK FCA has arrested three individuals in connection with a criminal insider dealing ring, indicating a significant regulatory enforcement action.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "JLMAG provided a preliminary earnings estimate for the first three quarters of 2026.",
-      "region": "CN",
+      "triage_score": 96,
+      "triage_reason": "The UK FCA has arrested three individuals in connection with a criminal insider dealing ring, indicating a significant regulatory enforcement action.",
+      "region": "GB",
       "relevance": "material",
-      "materiality_pre_score": 65,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 65,
+        "materiality": 75,
         "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "policy",
         "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "litigation_enforcement"
       ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JLMAG",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -216489,9 +216483,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4847146,
-    "news_picked_today": 548,
-    "news_dropped_today": 4036
+    "news_seen_today": 4938614,
+    "news_picked_today": 572,
+    "news_dropped_today": 4276
   },
   "book_momentum": {
     "live_count": 8,
