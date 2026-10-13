@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T03:38:12Z",
+  "generated_at": "2026-10-13T03:39:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-086",
@@ -1378,6 +1378,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261013-097",
+      "headline": "SK Hynix, SoftBank shares plunge as tech stocks in Asia track Wall Street chip sell-off",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/13/sk-hynix-softbank-samsung-electronics-shares-tech-stocks-fall.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-13T02:49:17Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Shares of SK Hynix and SoftBank fell significantly as part of a broader regional sell-off in the technology sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Shares of SK Hynix and SoftBank fell significantly as part of a broader regional sell-off in the technology sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "SK Hynix",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "SoftBank",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261013-069",
       "headline": "JIUMAOJIU (09922): VOLUNTARY ANNOUNCEMENT - OPERATIONAL UPDATE FOR THE THIRD QUARTER OF 2026",
       "headline_en": null,
@@ -1900,55 +1954,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-075",
-      "headline": "BKY: Response to ASX Price and Volume Query [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BKY?key=2924-03147645-6A1348934",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-13T01:58:24Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Berkeley Energia responded to an ASX price and volume query, which is a standard regulatory disclosure regarding unusual market activity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "Berkeley Energia responded to an ASX price and volume query, which is a standard regulatory disclosure regarding unusual market activity.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Berkeley Energia",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -217954,9 +217959,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1661859,
-    "news_picked_today": 131,
-    "news_dropped_today": 1765
+    "news_seen_today": 1672591,
+    "news_picked_today": 133,
+    "news_dropped_today": 1787
   },
   "book_momentum": {
     "live_count": 8,
