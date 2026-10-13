@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T16:17:00Z",
+  "generated_at": "2026-10-13T16:37:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-420",
@@ -635,6 +635,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261013-459",
+      "headline": "London Stock Exchange owner in talks to buy US financial data group Octus for £2.6bn from private equity",
+      "headline_en": null,
+      "url": "https://www.thisismoney.co.uk/money/markets/article-16206191/London-Stock-Exchange-owner-talks-buy-US-financial-data-group-Octus-2-6bn-private-equity.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-13T16:27:21Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "London Stock Exchange Group is in talks for a significant £2.6bn acquisition of US data group Octus.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "London Stock Exchange Group is in talks for a significant £2.6bn acquisition of US data group Octus.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "London Stock Exchange Group",
+          "ticker": "LSEG",
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1929,60 +1978,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-361",
-      "headline": "Shinhan Financial acquires Lotte Insurance Co. for 693 bln won",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261013007000320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T05:17:41Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Shinhan Financial is acquiring Lotte Insurance for 693 billion won.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shinhan Financial is acquiring Lotte Insurance for 693 billion won.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shinhan Financial",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "Lotte Insurance Co.",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -216474,9 +216469,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5529061,
-    "news_picked_today": 620,
-    "news_dropped_today": 4612
+    "news_seen_today": 5876944,
+    "news_picked_today": 654,
+    "news_dropped_today": 4626
   },
   "book_momentum": {
     "live_count": 8,
