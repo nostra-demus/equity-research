@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T21:09:53Z",
+  "generated_at": "2026-10-13T21:10:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-579",
@@ -174299,6 +174299,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-c6c88bb7ea3e",
+      "idea_version": "IDEAV-18ef8f3c9a75bd4b",
+      "idea_version_started_at": "2026-10-13T21:10:09Z",
+      "ticker": "ACI",
+      "company": "Albertsons",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The withdrawal of full-year guidance and the initiation of a business review signal significant operational instability and potential margin compression.",
+      "why_now": "The announcement was made today, October 13, 2026, creating immediate uncertainty regarding the company's financial trajectory.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dc5e8d403f91"
+      ],
+      "primary_source_event_id": "EVT-dc5e8d403f91",
+      "source_headlines": [
+        "Albertsons Pulls Full-Year Guidance, Plans Business Review"
+      ],
+      "source_headline": "Albertsons Pulls Full-Year Guidance, Plans Business Review",
+      "source_url": "https://www.wsj.com/business/retail/albertsons-pulls-fy-guidance-plans-business-review-9d71facf?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-13T14:10:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-13T21:10:09Z",
+      "updated_at": "2026-10-13T21:10:09Z",
+      "decay_at": "2026-10-15T02:10:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-d0d8fb1cd912",
       "idea_version": "IDEAV-47dc223fc5c9109b",
       "idea_version_started_at": "2026-10-12T18:34:22Z",
@@ -174363,6 +174433,76 @@
       "surfaced_at": "2026-10-12T18:34:22Z",
       "updated_at": "2026-10-12T18:34:22Z",
       "decay_at": "2026-10-14T05:13:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-01df123bfa03",
+      "idea_version": "IDEAV-aa2290e56b4a0d8e",
+      "idea_version_started_at": "2026-10-13T21:10:09Z",
+      "ticker": "UNH",
+      "company": "UnitedHealth Group",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "UnitedHealth's ability to manage medical loss ratios while raising full-year guidance indicates superior operational efficiency and pricing power in a challenging healthcare cost environment.",
+      "why_now": "The company issued an updated positive guidance outlook today, October 13, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c6991a6cc645"
+      ],
+      "primary_source_event_id": "EVT-c6991a6cc645",
+      "source_headlines": [
+        "UnitedHealth keeps medical costs under control — and raises its outlook again"
+      ],
+      "source_headline": "UnitedHealth keeps medical costs under control — and raises its outlook again",
+      "source_url": "https://www.marketwatch.com/story/unitedhealth-keeps-medical-costs-under-control-and-raises-its-outlook-again-71abc99c?mod=mw_rss_topstories",
+      "source_name": "MarketWatch",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-13T13:49:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-13T21:10:09Z",
+      "updated_at": "2026-10-13T21:10:09Z",
+      "decay_at": "2026-10-15T01:49:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -176584,146 +176724,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-90b902d53889",
-      "idea_version": "IDEAV-d2eb5f91a602118f",
-      "idea_version_started_at": "2026-10-11T20:32:52Z",
-      "ticker": "NVDA",
-      "company": "Nvidia",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Nvidia is reportedly in talks to acquire Reflection AI, an 'open' model start-up, which could enhance its AI software capabilities and ecosystem.",
-      "why_now": "News of the acquisition talks broke on October 10, 2026, creating a live catalyst for potential upside.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 61,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5e4aea6ed0f1"
-      ],
-      "primary_source_event_id": "EVT-5e4aea6ed0f1",
-      "source_headlines": [
-        "Nvidia in talks to acquire US ‘open’ model start-up Reflection AI"
-      ],
-      "source_headline": "Nvidia in talks to acquire US ‘open’ model start-up Reflection AI",
-      "source_url": "https://www.ft.com/content/052610c5-22b4-4dd4-932e-b7f9f0628b6a?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "materiality_max": 96,
-      "newest_source_at": "2026-10-10T18:14:28Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-10T19:12:19Z",
-      "updated_at": "2026-10-11T20:32:52Z",
-      "decay_at": "2026-10-12T06:14:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-c60c4513384e",
-      "idea_version": "IDEAV-e88b197efb452015",
-      "idea_version_started_at": "2026-10-10T17:25:22Z",
-      "ticker": "NET",
-      "company": "Cloudflare",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of Deno accelerates Cloudflare's developer platform capabilities by integrating Deno's runtime, which directly enhances the value proposition of the Workers serverless product and increases developer stickiness.",
-      "why_now": "The acquisition was announced today, October 10, 2026, providing an immediate catalyst for market re-evaluation of the company's product roadmap.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 61,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7a1b0ff795b5"
-      ],
-      "primary_source_event_id": "EVT-7a1b0ff795b5",
-      "source_headlines": [
-        "Cloudflare acquires Deno to improve its Workers programming model"
-      ],
-      "source_headline": "Cloudflare acquires Deno to improve its Workers programming model",
-      "source_url": "https://techcrunch.com/2026/10/10/cloudflare-acquires-deno-to-improve-its-workers-programming-model/",
-      "source_name": "TechCrunch",
-      "materiality_max": 91,
-      "newest_source_at": "2026-10-10T16:25:42Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-10T17:25:22Z",
-      "updated_at": "2026-10-10T17:25:22Z",
-      "decay_at": "2026-10-12T04:25:42Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-f814e9dcdbe7",
       "idea_version": "IDEAV-568e041a018c0946",
       "idea_version_started_at": "2026-10-12T01:35:16Z",
@@ -177439,84 +177439,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-fa713f07e3b3",
-      "idea_version": "IDEAV-545a6900b8f1ea12",
-      "idea_version_started_at": "2026-10-11T15:32:54Z",
-      "ticker": "BAE",
-      "company": "BAE Systems",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is a major defense contractor that could benefit from increased geopolitical tensions and potential demand for its products following missile strikes in Saudi Arabia.",
-      "why_now": "Missile strikes on Riyadh airport and surrounding areas occurred on October 10, 2026, raising regional security concerns.",
-      "conviction": 40,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 23,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 10,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "macro_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f4e6340ec246",
-        "EVT-2b83f336105e",
-        "EVT-fb85cc879929",
-        "EVT-314c093c3d5d"
-      ],
-      "primary_source_event_id": "EVT-f4e6340ec246",
-      "source_headlines": [
-        "Riyadh airport suspends operations after missile strike injures dozens",
-        "Riyadh airport attacked again as missile strike wounds passengers, flights diverted",
-        "Saudi airport attacked again: Missile strike reported, many wounded; passengers evacuated, flights diverted",
-        "Saudi Arabia Suspends Riyadh Airport Operations After Attack"
-      ],
-      "source_headline": "Riyadh airport suspends operations after missile strike injures dozens",
-      "source_url": "https://www.ft.com/content/391ddf3f-b233-41fd-819b-fcdbfb0ed010?syn-25a6b1a6=1",
-      "source_name": "Financial Times — Middle East",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-10T18:28:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-11T15:32:54Z",
-      "updated_at": "2026-10-11T15:32:54Z",
-      "decay_at": "2026-10-12T06:28:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-5d7419f0c968",
       "idea_version": "IDEAV-f6adbee53bffcb81",
       "idea_version_started_at": "2026-10-11T11:07:45Z",
@@ -177656,82 +177578,6 @@
       "surfaced_at": "2026-10-11T09:12:22Z",
       "updated_at": "2026-10-11T09:12:22Z",
       "decay_at": "2026-10-12T16:21:13Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-2b9840c4ba25",
-      "idea_version": "IDEAV-45fed6cbdf30df16",
-      "idea_version_started_at": "2026-10-10T20:26:49Z",
-      "ticker": "OIL",
-      "company": "United States Oil Fund",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Geopolitical instability in Saudi Arabia, specifically targeting critical infrastructure like Riyadh airport, threatens regional oil supply chains and increases the risk premium on crude oil prices.",
-      "why_now": "The attack occurred on 2026-10-10 and resulted in the immediate suspension of operations at a major regional transit hub, creating an immediate supply-side fear premium.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 23,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 10,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "commodity_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2b83f336105e",
-        "EVT-f4e6340ec246",
-        "EVT-d8ceda0bbb61"
-      ],
-      "primary_source_event_id": "EVT-f4e6340ec246",
-      "source_headlines": [
-        "Riyadh airport suspends operations after missile strike injures dozens",
-        "Riyadh airport attacked again as missile strike wounds passengers, flights diverted",
-        "Saudi Arabia Closes Riyadh Airport After Dozens Hurt in Houthi Missile Attack"
-      ],
-      "source_headline": "Riyadh airport suspends operations after missile strike injures dozens",
-      "source_url": "https://www.ft.com/content/391ddf3f-b233-41fd-819b-fcdbfb0ed010?syn-25a6b1a6=1",
-      "source_name": "Financial Times — Middle East",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-10T19:12:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-10T20:26:49Z",
-      "updated_at": "2026-10-10T20:26:49Z",
-      "decay_at": "2026-10-12T07:12:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -177948,79 +177794,6 @@
       "surfaced_at": "2026-10-12T05:53:02Z",
       "updated_at": "2026-10-12T05:53:02Z",
       "decay_at": "2026-10-13T17:00:10Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-cb3cb2efdc5e",
-      "idea_version": "IDEAV-692ac25308ae16a1",
-      "idea_version_started_at": "2026-10-11T19:54:08Z",
-      "ticker": "SAUDIA",
-      "company": "Saudi Arabian Airlines",
-      "exchange": null,
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The suspension of operations at King Khalid International Airport (RUH) will lead to immediate revenue loss and increased operational costs due to flight cancellations and diversions.",
-      "why_now": "Operations were halted on October 10, 2026, following an attack, creating immediate near-term disruption.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-314c093c3d5d",
-        "EVT-439b46e09177"
-      ],
-      "primary_source_event_id": "EVT-314c093c3d5d",
-      "source_headlines": [
-        "Saudi Arabia Suspends Riyadh Airport Operations After Attack",
-        "Saudi Arabia's King Khalid International Airport temporarily halts operations"
-      ],
-      "source_headline": "Saudi Arabia Suspends Riyadh Airport Operations After Attack",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-10-10/saudi-arabia-suspends-operations-at-riyadh-airport-after-attack",
-      "source_name": "Bloomberg",
-      "materiality_max": 96,
-      "newest_source_at": "2026-10-10T16:47:10Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-11T19:54:08Z",
-      "updated_at": "2026-10-11T19:54:08Z",
-      "decay_at": "2026-10-12T04:47:10Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -179258,33 +179031,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 541,
+    "total_count": 536,
     "shown_count": 499,
-    "hidden_count": 42,
+    "hidden_count": 37,
     "side_counts": {
       "long": {
-        "total_count": 284,
+        "total_count": 280,
         "shown_count": 250,
-        "hidden_count": 34
+        "hidden_count": 30
       },
       "short": {
-        "total_count": 258,
+        "total_count": 257,
         "shown_count": 250,
-        "hidden_count": 8
+        "hidden_count": 7
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 993,
-      "oldest_retained_at": "2026-09-16T01:17:00Z",
+      "evicted_count": 998,
+      "oldest_retained_at": "2026-09-16T01:32:47Z",
       "side_counts": {
         "long": {
-          "evicted_count": 654,
-          "oldest_retained_at": "2026-09-29T14:27:04Z"
+          "evicted_count": 658,
+          "oldest_retained_at": "2026-09-29T16:17:49Z"
         },
         "short": {
-          "evicted_count": 339,
-          "oldest_retained_at": "2026-09-16T01:17:00Z"
+          "evicted_count": 340,
+          "oldest_retained_at": "2026-09-16T01:32:47Z"
         }
       }
     },
@@ -182122,8 +181895,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-12T07:12:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-13T21:10:17Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -182203,8 +181976,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-12T06:28:09Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-13T21:10:17Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -182276,8 +182049,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-12T06:14:28Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-13T21:10:17Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -182352,8 +182125,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-12T04:47:10Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-13T21:10:17Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -182425,8 +182198,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-12T04:25:42Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-13T21:10:17Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -216452,8 +216225,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1566,
-    "live_count": 31,
+    "surfaced_total": 1568,
+    "live_count": 33,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
