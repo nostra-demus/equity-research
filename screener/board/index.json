@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T01:33:11Z",
+  "generated_at": "2026-10-13T01:39:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-002",
@@ -927,6 +927,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261013-069",
+      "headline": "JIUMAOJIU (09922): VOLUNTARY ANNOUNCEMENT - OPERATIONAL UPDATE FOR THE THIRD QUARTER OF 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101200769.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T10:16:00Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Jiumaojiu provided a scheduled operational update for Q3 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Jiumaojiu provided a scheduled operational update for Q3 2026.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jiumaojiu International Holdings",
+          "ticker": "09922",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1904,55 +1953,6 @@
           "name": "Energy Resources of Australia",
           "ticker": "EGY",
           "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-048",
-      "headline": "Tinna Rubber and Infrastructure Limited",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/TINNARUBBER_12102026162947_SEIntimationTRILBODM_12October2026.pdf",
-      "source_name": "NSE India — Board Meetings (RSS)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-12T11:02:06Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Routine board meeting announcement for Tinna Rubber and Infrastructure Limited.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Routine board meeting announcement for Tinna Rubber and Infrastructure Limited.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tinna Rubber and Infrastructure Limited",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "small",
@@ -217961,9 +217961,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 695877,
-    "news_picked_today": 78,
-    "news_dropped_today": 762
+    "news_seen_today": 740821,
+    "news_picked_today": 80,
+    "news_dropped_today": 784
   },
   "book_momentum": {
     "live_count": 8,
