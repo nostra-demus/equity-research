@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-10-13T05:54:58Z",
+  "generated_at": "2026-10-13T05:59:58Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261013-133",
+      "headline": "STEEL EXCHANGE INDIA LIMITED: STEEL EXCHANGE INDIA LIMITED has informed the Exchange regarding a press release dated October 13, 2026, titled \"Record Production, Credit Upgrade and Rapid Deleveraging: Steel Exchange India Ltd Strengthens Its Foundation in H1 FY27\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/STEELXIND_13102026105701_Intimation_under_Reg_30_Press_Release_13102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-13T05:27:55Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Steel Exchange India reported record production and a credit upgrade, signaling improved operational and financial health.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Steel Exchange India reported record production and a credit upgrade, signaling improved operational and financial health.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Steel Exchange India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261013-086",
       "headline": "TCF: Loan Realisation Update and Acquisition of Senior Loan [price-sensitive]",
@@ -1917,60 +1967,6 @@
           "name": "Broadcom",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-097",
-      "headline": "SK Hynix, SoftBank shares plunge as tech stocks in Asia track Wall Street chip sell-off",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/13/sk-hynix-softbank-samsung-electronics-shares-tech-stocks-fall.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T02:49:17Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Shares of SK Hynix and SoftBank fell significantly as part of a broader regional sell-off in the technology sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Shares of SK Hynix and SoftBank fell significantly as part of a broader regional sell-off in the technology sector.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "SK Hynix",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "SoftBank",
-          "ticker": null,
-          "listing_country": "JP"
         }
       ],
       "size_bucket": "mega",
@@ -216902,9 +216898,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2770893,
-    "news_picked_today": 192,
-    "news_dropped_today": 2952
+    "news_seen_today": 2828951,
+    "news_picked_today": 198,
+    "news_dropped_today": 2994
   },
   "book_momentum": {
     "live_count": 8,
