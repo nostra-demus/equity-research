@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T00:35:06Z",
+  "generated_at": "2026-10-13T00:38:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-002",
@@ -674,6 +674,55 @@
           "name": "CPN",
           "ticker": "CPN",
           "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261013-027",
+      "headline": "SEBI exempts DKJ Ownership Trust from open offer for 19.85% stake in S Chand",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/markets/sebi-exempts-dkj-ownership-trust-from-open-offer-for-1985-stake-in-s-chand/article71577739.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-13T00:27:10Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "SEBI granted an exemption to DKJ Ownership Trust from making an open offer for a 19.85% stake in S Chand, simplifying the ownership change.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "SEBI granted an exemption to DKJ Ownership Trust from making an open offer for a 19.85% stake in S Chand, simplifying the ownership change.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "S Chand and Company Ltd",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "small",
@@ -217203,7 +217252,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3552,
+    "inbox_unconsumed": 3553,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -217212,9 +217261,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 195728,
-    "news_picked_today": 26,
-    "news_dropped_today": 286
+    "news_seen_today": 218558,
+    "news_picked_today": 27,
+    "news_dropped_today": 309
   },
   "book_momentum": {
     "live_count": 8,
