@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T05:16:27Z",
+  "generated_at": "2026-10-13T05:17:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-086",
@@ -174434,6 +174434,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-1a38d7aae72f",
+      "idea_version": "IDEAV-02e095ec7a14628d",
+      "idea_version_started_at": "2026-10-13T05:16:42Z",
+      "ticker": "PEP",
+      "company": "PepsiCo",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is cutting estimates due to slumping soda sales, indicating weakening consumer demand and margin pressure.",
+      "why_now": "The news was reported on October 12, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0102830d2340"
+      ],
+      "primary_source_event_id": "EVT-0102830d2340",
+      "source_headlines": [
+        "PepsiCo Cuts Estimates for Poppi Payout While Soda Sales Slump"
+      ],
+      "source_headline": "PepsiCo Cuts Estimates for Poppi Payout While Soda Sales Slump",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-12/pepsico-cuts-estimates-for-poppi-payout-while-soda-sales-slump",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-12T20:16:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-08T12:13:45Z",
+      "updated_at": "2026-10-13T05:16:42Z",
+      "decay_at": "2026-10-14T08:16:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-a91b27166e5b",
       "idea_version": "IDEAV-d1e3a2a79b983b93",
       "idea_version_started_at": "2026-10-12T02:28:00Z",
@@ -174779,6 +174849,77 @@
       "surfaced_at": "2026-10-12T00:37:53Z",
       "updated_at": "2026-10-12T00:37:53Z",
       "decay_at": "2026-10-13T12:16:48Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-ad3b964fc3b7",
+      "idea_version": "IDEAV-210ff701dd219f58",
+      "idea_version_started_at": "2026-10-13T05:16:42Z",
+      "ticker": "541770",
+      "company": "CreditAccess Grameen",
+      "exchange": "BSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Securing a USD 175 million syndicated social loan facility diversifies the lender base and improves liquidity for microfinance operations.",
+      "why_now": "The press release was issued on October 12, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f20c6558f4ae"
+      ],
+      "primary_source_event_id": "EVT-f20c6558f4ae",
+      "source_headlines": [
+        "CREDITACCESS GRAMEEN LIMITED: CREDITACCESS GRAMEEN LIMITED has informed the Exchange regarding a press release dated October 12, 2026, titled \"CreditAccess Grameen broadens its Global Lender Base with USD 175 Million Syndicated Social Loan Facility\"."
+      ],
+      "source_headline": "CREDITACCESS GRAMEEN LIMITED: CREDITACCESS GRAMEEN LIMITED has informed the Exchange regarding a press release dated October 12, 2026, titled \"CreditAccess Grameen broadens its Global Lender Base with USD 175 Million Syndicated Social Loan Facility\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/CREDITACC_12102026161704_PressRelease12102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-12T10:47:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-13T05:16:42Z",
+      "updated_at": "2026-10-13T05:16:42Z",
+      "decay_at": "2026-10-13T22:47:17Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -177373,77 +177514,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-03c185c28ffe",
-      "idea_version": "IDEAV-cd0c5691441766a2",
-      "idea_version_started_at": "2026-10-10T07:05:33Z",
-      "ticker": "VLO",
-      "company": "Valero Energy Corporation",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The lifting of sanctions on Russian diesel will flood the global market with supply, significantly compressing refining margins (crack spreads) for Western merchant refiners.",
-      "why_now": "The policy shift was announced on October 10, 2024, creating an immediate bearish outlook for global middle distillate pricing.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 74,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "policy_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9dcb9aab8141",
-        "EVT-574f3b41a213"
-      ],
-      "primary_source_event_id": "EVT-9dcb9aab8141",
-      "source_headlines": [
-        "‘I want to thank President Putin’, Trump says after agreeing to lift sanctions on Russian diesel – as it happened",
-        "President Trump Hails 'Big Deal' With Putin On Russian Diesel Supplies As Zelenskyy Warns Sanctions Relief Could Prolong Ukraine War | Video"
-      ],
-      "source_headline": "‘I want to thank President Putin’, Trump says after agreeing to lift sanctions on Russian diesel – as it happened",
-      "source_url": "https://www.theguardian.com/us-news/live/2026/oct/09/pentagon-fort-hood-livestream-firing-squad-execution-reaction-backlash-pete-hegseth-donald-trump-mussolini-latest-news-updates",
-      "source_name": "The Guardian — World news",
-      "materiality_max": 96,
-      "newest_source_at": "2026-10-10T03:22:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-10T07:05:33Z",
-      "updated_at": "2026-10-10T07:05:33Z",
-      "decay_at": "2026-10-11T15:22:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-272376b0a506",
       "idea_version": "IDEAV-aa658eb159c6e067",
       "idea_version_started_at": "2026-10-10T16:24:46Z",
@@ -177584,76 +177654,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-1a38d7aae72f",
-      "idea_version": "IDEAV-d488798321a83992",
-      "idea_version_started_at": "2026-10-10T00:19:59Z",
-      "ticker": "PEP",
-      "company": "PepsiCo",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company slashed its guidance, suggesting that cost-cutting measures are insufficient to offset broader volume or demand weakness.",
-      "why_now": "The guidance cut was reported on 2026-10-09, and the market is in the process of recalibrating valuation multiples for the lower growth outlook.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-fd94969b100e"
-      ],
-      "primary_source_event_id": "EVT-fd94969b100e",
-      "source_headlines": [
-        "PepsiCo CFO touts cost discipline, slashes guidance"
-      ],
-      "source_headline": "PepsiCo CFO touts cost discipline, slashes guidance",
-      "source_url": "https://www.cfodive.com/news/pepsico-cfo-touts-cost-discipline-slashes-guidance-beverage-pricing/832649/",
-      "source_name": "CFO Dive",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-09T19:11:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-08T12:13:45Z",
-      "updated_at": "2026-10-10T00:19:59Z",
-      "decay_at": "2026-10-11T07:11:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-0448efa62005",
       "idea_version": "IDEAV-44acb4356f9aad36",
       "idea_version_started_at": "2026-10-11T02:32:41Z",
@@ -177718,76 +177718,6 @@
       "surfaced_at": "2026-10-09T09:10:35Z",
       "updated_at": "2026-10-11T02:32:41Z",
       "decay_at": "2026-10-12T00:42:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-37a5121be6e7",
-      "idea_version": "IDEAV-d0910d16a32ac094",
-      "idea_version_started_at": "2026-10-11T05:19:17Z",
-      "ticker": "SYNA",
-      "company": "Synaptics",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Cirrus Logic is reportedly bidding to acquire Synaptics, which typically forces a premium to the current trading price.",
-      "why_now": "The report surfaced on 2026-10-09, creating an immediate M&A arbitrage opportunity.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c94c3c769054"
-      ],
-      "primary_source_event_id": "EVT-c94c3c769054",
-      "source_headlines": [
-        "Cirrus Logic Is Said to Have Bid for Synaptics After Onsemi Deal"
-      ],
-      "source_headline": "Cirrus Logic Is Said to Have Bid for Synaptics After Onsemi Deal",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-10-09/cirrus-logic-is-said-to-have-bid-for-synaptics-after-onsemi-deal",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-09T23:25:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-11T05:19:17Z",
-      "updated_at": "2026-10-11T05:19:17Z",
-      "decay_at": "2026-10-11T11:25:37Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -177999,147 +177929,6 @@
       "surfaced_at": "2026-10-10T17:25:22Z",
       "updated_at": "2026-10-10T17:25:22Z",
       "decay_at": "2026-10-12T04:25:42Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-cde852397b1c",
-      "idea_version": "IDEAV-b9632fe3f52e6eed",
-      "idea_version_started_at": "2026-10-11T05:19:17Z",
-      "ticker": "DAL",
-      "company": "Delta Air Lines",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has officially lowered its profit outlook due to rising fuel costs, signaling margin compression.",
-      "why_now": "The guidance cut was issued on 2026-10-09, and the market is currently adjusting to the new earnings reality.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-734046c1d31b"
-      ],
-      "primary_source_event_id": "EVT-734046c1d31b",
-      "source_headlines": [
-        "Delta slashes profit outlook as higher fuel prices bite"
-      ],
-      "source_headline": "Delta slashes profit outlook as higher fuel prices bite",
-      "source_url": "https://www.ft.com/content/77d73223-3cfc-4892-a3c5-5502595f42d4?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-09T20:31:49Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-09T13:03:03Z",
-      "updated_at": "2026-10-11T05:19:17Z",
-      "decay_at": "2026-10-11T08:31:49Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-9a15ea504d7b",
-      "idea_version": "IDEAV-5902d95c838a1182",
-      "idea_version_started_at": "2026-10-10T03:44:38Z",
-      "ticker": "HMC",
-      "company": "Honda Motor",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Honda is expanding its Southeast Asian product portfolio by rebranding Mitsubishi-built pickups, which lowers R&D and manufacturing overhead for this segment.",
-      "why_now": "The strategic partnership was announced on 2026-10-10.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 14,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-936ee565ce96"
-      ],
-      "primary_source_event_id": "EVT-936ee565ce96",
-      "source_headlines": [
-        "Honda to sell Thai-built Mitsubishi pickup under own brand in Southeast Asia"
-      ],
-      "source_headline": "Honda to sell Thai-built Mitsubishi pickup under own brand in Southeast Asia",
-      "source_url": "https://asia.nikkei.com/business/automobiles/honda-to-sell-thai-built-mitsubishi-pickup-under-own-brand-in-southeast-asia",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 82,
-      "newest_source_at": "2026-10-10T01:21:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-10T03:44:38Z",
-      "updated_at": "2026-10-10T03:44:38Z",
-      "decay_at": "2026-10-11T13:21:11Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -178514,78 +178303,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-8e38ef15bf4e",
-      "idea_version": "IDEAV-c24533954972c069",
-      "idea_version_started_at": "2026-10-11T05:19:17Z",
-      "ticker": "RTX",
-      "company": "Raytheon",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The $6.3 billion Pentagon contract provides a significant, multi-year revenue backlog boost for the company's missile defense segment.",
-      "why_now": "The contract was announced on 2026-10-09 and represents a major, concrete capital inflow.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0ad636401623"
-      ],
-      "primary_source_event_id": "EVT-0ad636401623",
-      "source_headlines": [
-        "Pentagon, Raytheon sign $6.3B deal to replenish US missile interceptor supply"
-      ],
-      "source_headline": "Pentagon, Raytheon sign $6.3B deal to replenish US missile interceptor supply",
-      "source_url": "https://www.defensenews.com/missile-defense/2026/10/09/pentagon-raytheon-sign-63b-deal-to-replenish-us-missile-interceptor-supply/",
-      "source_name": "Defense News",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-09T20:17:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-08T22:24:36Z",
-      "updated_at": "2026-10-11T05:19:17Z",
-      "decay_at": "2026-10-11T08:17:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-1e404b952344",
       "idea_version": "IDEAV-206215b468e96801",
       "idea_version_started_at": "2026-10-11T00:15:05Z",
@@ -178878,79 +178595,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-279942e1dba3",
-      "idea_version": "IDEAV-c3cfce299cc4d8b6",
-      "idea_version_started_at": "2026-10-10T08:29:45Z",
-      "ticker": "HDFCBANK",
-      "company": "HDFC Bank",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The RBI's decision to raise the daily Cash Reserve Ratio (CRR) to 99% significantly restricts liquidity available for lending, compressing net interest margins for major banks.",
-      "why_now": "The requirement takes effect on 2026-10-16.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "macro_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c7767b39c72a",
-        "EVT-e481cfc0a65a"
-      ],
-      "primary_source_event_id": "EVT-c7767b39c72a",
-      "source_headlines": [
-        "RBI Raises Daily CRR Requirement To 99%, Announces ₹25,000 Crore Bond Sale",
-        "RBI Raises Daily CRR Requirement For Banks To 99% From October 16"
-      ],
-      "source_headline": "RBI Raises Daily CRR Requirement To 99%, Announces ₹25,000 Crore Bond Sale",
-      "source_url": "https://www.freepressjournal.in/business/rbi-raises-daily-crr-requirement-to-99-announces-25000-crore-bond-sale",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-10T05:03:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-10T08:29:45Z",
-      "updated_at": "2026-10-10T08:29:45Z",
-      "decay_at": "2026-10-11T17:03:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-671ed28cb051",
       "idea_version": "IDEAV-6e2ad3b85f33e576",
       "idea_version_started_at": "2026-10-10T08:29:45Z",
@@ -179019,152 +178663,6 @@
       "surfaced_at": "2026-10-10T08:29:45Z",
       "updated_at": "2026-10-10T08:29:45Z",
       "decay_at": "2026-10-11T18:17:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-07a811748c9e",
-      "idea_version": "IDEAV-a8f0159ea92628f4",
-      "idea_version_started_at": "2026-10-10T00:19:59Z",
-      "ticker": "CCCS",
-      "company": "CCC Intelligent Solutions",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Advanced acquisition talks with private equity firms GTCR and Elliott typically establish a floor price near the rumored takeout valuation.",
-      "why_now": "The report surfaced on 2026-10-09; the stock is likely to trade up toward the potential acquisition premium.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5f1bd035375e"
-      ],
-      "primary_source_event_id": "EVT-5f1bd035375e",
-      "source_headlines": [
-        "GTCR, Elliott in advanced talks to acquire CCC Intelligent Solutions, Bloomberg News reports"
-      ],
-      "source_headline": "GTCR, Elliott in advanced talks to acquire CCC Intelligent Solutions, Bloomberg News reports",
-      "source_url": "https://www.reuters.com/technology/gtcr-elliott-advanced-talks-acquire-ccc-intelligent-solutions-bloomberg-news-2026-10-09/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-09T21:15:19Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-09T21:53:19Z",
-      "updated_at": "2026-10-10T00:19:59Z",
-      "decay_at": "2026-10-11T09:15:19Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-67edac5436ac",
-      "idea_version": "IDEAV-3b0a4004482824d4",
-      "idea_version_started_at": "2026-10-09T19:14:31Z",
-      "ticker": "IVG",
-      "company": "Iveco Group N.V.",
-      "exchange": "BIT",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tata Motors has launched a voluntary tender offer for all common shares of Iveco Group at a fixed price of €14.40 per share.",
-      "why_now": "The offer was formally announced and the price finalized on October 9, 2026, creating a near-term arbitrage opportunity between the current market price and the tender offer price.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2342f79f0faa",
-        "EVT-da49ab7e3097"
-      ],
-      "primary_source_event_id": "EVT-2342f79f0faa",
-      "source_headlines": [
-        "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated October 09, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited (formerly TML Commercial Vehicles Limited) Voluntary TotalitarianTender Offer for all the common shares of Iveco Group N.V.\".",
-        "Tata Motors raises Iveco takeover offer to €14.40 per share, rules out further increase"
-      ],
-      "source_headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated October 09, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited (formerly TML Commercial Vehicles Limited) Voluntary TotalitarianTender Offer for all the common shares of Iveco Group N.V.\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/TMLCOMMERCIAL_09102026220615_IVECOPROCT.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-09T18:05:59Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-09T19:14:31Z",
-      "updated_at": "2026-10-09T19:14:31Z",
-      "decay_at": "2026-10-11T06:05:59Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -179310,79 +178808,6 @@
       "surfaced_at": "2026-10-11T15:32:54Z",
       "updated_at": "2026-10-11T15:32:54Z",
       "decay_at": "2026-10-11T23:18:24Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-f128adef3e6c",
-      "idea_version": "IDEAV-901173219fedbaa9",
-      "idea_version_started_at": "2026-10-11T03:47:12Z",
-      "ticker": "MTY",
-      "company": "MTY Food Group Inc",
-      "exchange": "TSX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The Q3 profit retreat indicates margin compression or slowing organic growth across its portfolio of restaurant brands, suggesting potential downside to earnings expectations.",
-      "why_now": "The earnings report was released on 2026-10-10, and the market is currently digesting the negative margin trend.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6ac6f7dd8953"
-      ],
-      "primary_source_event_id": "EVT-6ac6f7dd8953",
-      "source_headlines": [
-        "MTY Food Group Inc Profit Retreats In Q3"
-      ],
-      "source_headline": "MTY Food Group Inc Profit Retreats In Q3",
-      "source_url": "https://www.nasdaq.com/articles/mty-food-group-inc-profit-retreats-q3",
-      "source_name": "Nasdaq",
-      "materiality_max": 98,
-      "newest_source_at": "2026-10-10T02:24:41Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-11T03:47:12Z",
-      "updated_at": "2026-10-11T03:47:12Z",
-      "decay_at": "2026-10-11T14:24:41Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -180033,150 +179458,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-7cf547d54695",
-      "idea_version": "IDEAV-24918a5b93e8aee3",
-      "idea_version_started_at": "2026-10-10T07:05:33Z",
-      "ticker": "9020",
-      "company": "East Japan Railway Company",
-      "exchange": "TSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A massive cybersecurity breach involving 6 million customer records creates significant litigation risk and potential regulatory fines in Japan's strict data privacy environment.",
-      "why_now": "The breach was reported on October 10, 2024, and the scale of the leak (6 million records) is likely to trigger immediate reputational damage and investigative costs.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a294f061400d"
-      ],
-      "primary_source_event_id": "EVT-a294f061400d",
-      "source_headlines": [
-        "Bookoff, JR East each report 6 mil customer records leak in newest breach"
-      ],
-      "source_headline": "Bookoff, JR East each report 6 mil customer records leak in newest breach",
-      "source_url": "https://japantoday.com/category/crime/update1-bookoff-jr-east-each-report-6-mil.-customer-records-leak-in-newest-breach",
-      "source_name": "Japan Today",
-      "materiality_max": 91,
-      "newest_source_at": "2026-10-10T01:54:58Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-10T07:05:33Z",
-      "updated_at": "2026-10-10T07:05:33Z",
-      "decay_at": "2026-10-11T13:54:58Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-736a98e7fc49",
-      "idea_version": "IDEAV-849e89dae03c45f4",
-      "idea_version_started_at": "2026-10-10T03:24:22Z",
-      "ticker": "5406",
-      "company": "Kobe Steel",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Kobe Steel plans to pursue M&A in India to increase its compressor production capacity, which could expand its market share and revenue in a growing region.",
-      "why_now": "The company executive's statement on October 10, 2026, indicates an active strategic initiative to grow through acquisitions in India.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-465c25baadb8"
-      ],
-      "primary_source_event_id": "EVT-465c25baadb8",
-      "source_headlines": [
-        "Japan's Kobe Steel eyes India M&A to lift compressor production: executive"
-      ],
-      "source_headline": "Japan's Kobe Steel eyes India M&A to lift compressor production: executive",
-      "source_url": "https://asia.nikkei.com/business/companies/japan-s-kobe-steel-eyes-india-m-a-to-lift-compressor-production-executive",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 91,
-      "newest_source_at": "2026-10-10T01:21:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-10T03:24:22Z",
-      "updated_at": "2026-10-10T03:24:22Z",
-      "decay_at": "2026-10-11T13:21:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-92fc7e8de294",
       "idea_version": "IDEAV-f3650a4baf2ed569",
       "idea_version_started_at": "2026-10-10T08:29:45Z",
@@ -180322,150 +179603,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-6e03d8c38d33",
-      "idea_version": "IDEAV-3a933cf114501052",
-      "idea_version_started_at": "2026-10-10T08:29:45Z",
-      "ticker": "AVANTEL",
-      "company": "Avantel Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured new orders, which directly increases its order book and provides revenue visibility.",
-      "why_now": "The exchange filing confirming the order win was released on 2026-10-10.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 14,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-616dc86d7a44"
-      ],
-      "primary_source_event_id": "EVT-616dc86d7a44",
-      "source_headlines": [
-        "Avantel Limited: Avantel Limited has informed the Exchange about Bagging/Receiving of orders/contracts"
-      ],
-      "source_headline": "Avantel Limited: Avantel Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
-      "source_url": "https://nsearchives.nseindia.com/corporate/AVANTEL_10102026101310_OrderIntimation10102026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 88,
-      "newest_source_at": "2026-10-10T04:43:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-10T08:29:45Z",
-      "updated_at": "2026-10-10T08:29:45Z",
-      "decay_at": "2026-10-11T16:43:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-3f16c02405f0",
-      "idea_version": "IDEAV-9f1ab115389443ad",
-      "idea_version_started_at": "2026-10-10T03:24:22Z",
-      "ticker": "6762",
-      "company": "TDK",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "TDK is considering selling its hard-drive head unit, which could streamline its operations, improve profitability by divesting a non-core or underperforming asset, or unlock capital for other investments.",
-      "why_now": "The company is actively weighing this strategic review as of October 10, 2026, indicating a potential near-term corporate action.",
-      "conviction": 45,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6a66b1a8fd90"
-      ],
-      "primary_source_event_id": "EVT-6a66b1a8fd90",
-      "source_headlines": [
-        "TDK weighs sale of hard-drive head unit, but regulatory OK uncertain"
-      ],
-      "source_headline": "TDK weighs sale of hard-drive head unit, but regulatory OK uncertain",
-      "source_url": "https://asia.nikkei.com/business/business-deals/tdk-weighs-sale-of-hard-drive-head-unit-but-regulatory-ok-uncertain",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 88,
-      "newest_source_at": "2026-10-10T01:21:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-10T03:24:22Z",
-      "updated_at": "2026-10-10T03:24:22Z",
-      "decay_at": "2026-10-11T13:21:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-49717d740b20",
       "idea_version": "IDEAV-58ba282a07c6b59b",
       "idea_version_started_at": "2026-10-11T03:12:42Z",
@@ -180537,222 +179674,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-675f9fa696a1",
-      "idea_version": "IDEAV-1ca0e0c57f9c130d",
-      "idea_version_started_at": "2026-10-10T03:24:22Z",
-      "ticker": "TCS",
-      "company": "Tata Consultancy Services",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Tata Consultancy Services is withholding quarterly bonuses for senior staff, indicating it missed performance targets, which could signal weaker-than-expected earnings or margin pressure.",
-      "why_now": "The news of withheld bonuses is fresh as of October 10, 2026, suggesting immediate negative sentiment ahead of its next earnings report.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5c6c1bd91087"
-      ],
-      "primary_source_event_id": "EVT-5c6c1bd91087",
-      "source_headlines": [
-        "TCS withholds quarterly bonuses for senior staff after missing performance targets"
-      ],
-      "source_headline": "TCS withholds quarterly bonuses for senior staff after missing performance targets",
-      "source_url": "https://www.thehindubusinessline.com/info-tech/tcs-withholds-quarterly-bonuses-for-senior-staff-after-missing-performance-targets/article71566947.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 87,
-      "newest_source_at": "2026-10-10T00:28:08Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-10T03:24:22Z",
-      "updated_at": "2026-10-10T03:24:22Z",
-      "decay_at": "2026-10-11T12:28:08Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-2fabc4574ced",
-      "idea_version": "IDEAV-407c46ab2cdd72ca",
-      "idea_version_started_at": "2026-10-10T07:05:33Z",
-      "ticker": "1211",
-      "company": "BYD Company",
-      "exchange": "HKG",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Reaching the 150,000 commercial NEV production milestone validates the company's ability to scale beyond passenger cars into higher-margin commercial truck segments.",
-      "why_now": "The production milestone and strategic shift to trucks were confirmed on October 10, 2024, signaling a new growth vector for the company's commercial division.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-063336d1347c"
-      ],
-      "primary_source_event_id": "EVT-063336d1347c",
-      "source_headlines": [
-        "BYD reaches 150,000 commercial NEV production milestone as growth focus shifts to trucks"
-      ],
-      "source_headline": "BYD reaches 150,000 commercial NEV production milestone as growth focus shifts to trucks",
-      "source_url": "https://cnevpost.com/2026/10/10/byd-150000-commercial-nev-production-focus-trucks/",
-      "source_name": "CnEVPost",
-      "materiality_max": 85,
-      "newest_source_at": "2026-10-10T01:34:49Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-10T07:05:33Z",
-      "updated_at": "2026-10-10T07:05:33Z",
-      "decay_at": "2026-10-11T13:34:49Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-17e9f88b4b0e",
-      "idea_version": "IDEAV-f2aad2fb68e15335",
-      "idea_version_started_at": "2026-10-10T03:24:22Z",
-      "ticker": "7267",
-      "company": "Honda Motor",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Honda will sell Thai-built Mitsubishi pickups under its own brand in Southeast Asia, expanding its product offering and potentially gaining market share at Mitsubishi's expense.",
-      "why_now": "This commercial strategy shift was announced on October 10, 2026, indicating a live competitive development in the Southeast Asian auto market.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 14,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "pair_trade",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-936ee565ce96"
-      ],
-      "primary_source_event_id": "EVT-936ee565ce96",
-      "source_headlines": [
-        "Honda to sell Thai-built Mitsubishi pickup under own brand in Southeast Asia"
-      ],
-      "source_headline": "Honda to sell Thai-built Mitsubishi pickup under own brand in Southeast Asia",
-      "source_url": "https://asia.nikkei.com/business/automobiles/honda-to-sell-thai-built-mitsubishi-pickup-under-own-brand-in-southeast-asia",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 82,
-      "newest_source_at": "2026-10-10T01:21:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-10T03:24:22Z",
-      "updated_at": "2026-10-10T03:24:22Z",
-      "decay_at": "2026-10-11T13:21:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -180765,33 +179686,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 546,
+    "total_count": 529,
     "shown_count": 499,
-    "hidden_count": 47,
+    "hidden_count": 30,
     "side_counts": {
       "long": {
-        "total_count": 280,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 30
+        "hidden_count": 20
       },
       "short": {
-        "total_count": 267,
+        "total_count": 260,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 10
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 957,
-      "oldest_retained_at": "2026-09-15T17:17:29Z",
+      "evicted_count": 973,
+      "oldest_retained_at": "2026-09-15T19:13:07Z",
       "side_counts": {
         "long": {
-          "evicted_count": 631,
-          "oldest_retained_at": "2026-09-28T23:46:00Z"
+          "evicted_count": 641,
+          "oldest_retained_at": "2026-09-29T10:31:20Z"
         },
         "short": {
-          "evicted_count": 326,
-          "oldest_retained_at": "2026-09-15T17:17:29Z"
+          "evicted_count": 332,
+          "oldest_retained_at": "2026-09-15T19:13:07Z"
         }
       }
     },
@@ -183120,8 +182041,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-11T17:03:02Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-13T05:16:49Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -183194,8 +182115,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-11T16:43:39Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-13T05:16:49Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -183268,8 +182189,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-11T15:22:37Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-13T05:16:49Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -183344,8 +182265,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-11T14:24:41Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-13T05:16:49Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -183419,8 +182340,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-11T13:54:58Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-13T05:16:49Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -183494,8 +182415,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-11T13:34:49Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-13T05:16:49Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -183567,8 +182488,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-11T13:21:11Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-13T05:16:49Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -183642,8 +182563,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-11T13:21:11Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-13T05:16:49Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -183718,8 +182639,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-11T13:21:11Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-13T05:16:49Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -183793,8 +182714,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-11T13:21:11Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-13T05:16:49Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -183868,8 +182789,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-11T12:28:08Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-13T05:16:49Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -183941,8 +182862,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-11T11:25:37Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-13T05:16:49Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -184016,8 +182937,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-11T09:15:19Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-13T05:16:49Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -184090,8 +183011,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-11T08:31:49Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-13T05:16:49Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -184165,81 +183086,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-11T08:17:18Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-1a38d7aae72f",
-        "idea_version": "IDEAV-d488798321a83992",
-        "idea_version_started_at": "2026-10-10T00:19:59Z",
-        "ticker": "PEP",
-        "company": "PepsiCo",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company slashed its guidance, suggesting that cost-cutting measures are insufficient to offset broader volume or demand weakness.",
-        "why_now": "The guidance cut was reported on 2026-10-09, and the market is in the process of recalibrating valuation multiples for the lower growth outlook.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 67,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-fd94969b100e"
-        ],
-        "primary_source_event_id": "EVT-fd94969b100e",
-        "source_headlines": [
-          "PepsiCo CFO touts cost discipline, slashes guidance"
-        ],
-        "source_headline": "PepsiCo CFO touts cost discipline, slashes guidance",
-        "source_url": "https://www.cfodive.com/news/pepsico-cfo-touts-cost-discipline-slashes-guidance-beverage-pricing/832649/",
-        "source_name": "CFO Dive",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-09T19:11:50Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-08T12:13:45Z",
-        "updated_at": "2026-10-10T00:19:59Z",
-        "decay_at": "2026-10-11T07:11:50Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-11T07:11:50Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-13T05:16:49Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -184315,8 +183163,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-11T06:05:59Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-13T05:16:49Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -217955,12 +216803,87 @@
         "archived_at": "2026-09-17T16:22:00Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-06cacb3c01bf",
+        "idea_version": "IDEAV-03684379dd6f9a80",
+        "idea_version_started_at": "2026-09-14T21:24:14Z",
+        "ticker": "02479",
+        "company": "TIANJUDIHE",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has released key findings from an independent forensic investigation and internal control review, which are typically negative and can lead to accounting restatements or other financial impairments.",
+        "why_now": "The announcement of the investigation's findings is a fresh catalyst.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-28ec5d52c90a"
+        ],
+        "primary_source_event_id": "EVT-28ec5d52c90a",
+        "source_headlines": [
+          "TIANJUDIHE (02479): ANNOUNCEMENT OF KEY FINDINGS OF (I) INDEPENDENT FORENSIC INVESTIGATION REPORT AND (II) INDEPENDENT INTERNAL CONTROL REVIEW REPORT"
+        ],
+        "source_headline": "TIANJUDIHE (02479): ANNOUNCEMENT OF KEY FINDINGS OF (I) INDEPENDENT FORENSIC INVESTIGATION REPORT AND (II) INDEPENDENT INTERNAL CONTROL REVIEW REPORT",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0914/2026091401329.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-14T14:45:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-14T21:24:14Z",
+        "updated_at": "2026-09-14T21:24:14Z",
+        "decay_at": "2026-09-16T02:45:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-17T14:46:54Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1551,
-    "live_count": 47,
+    "surfaced_total": 1552,
+    "live_count": 49,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,

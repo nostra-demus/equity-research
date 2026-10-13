@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-30T16:19:56Z",
+  "archived_at": "2026-10-13T05:16:49Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-0cef461e2830",
-    "idea_version": "IDEAV-c6e6eab23717338f",
-    "idea_version_started_at": "2026-09-27T16:15:45Z",
-    "ticker": "EVPR",
-    "company": "Everpure",
-    "exchange": "NYSE",
+    "idea_id": "IDEA-6e03d8c38d33",
+    "idea_version": "IDEAV-3a933cf114501052",
+    "idea_version_started_at": "2026-10-10T08:29:45Z",
+    "ticker": "AVANTEL",
+    "company": "Avantel Limited",
+    "exchange": "NSE",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "long",
     "pair_with": null,
-    "reason": "The company issued a $7 billion revenue forecast that significantly exceeds consensus analyst expectations, suggesting a fundamental step-change in growth.",
-    "why_now": "The guidance update was released on September 27, 2026, creating an immediate valuation gap relative to previous estimates.",
+    "reason": "The company secured new orders, which directly increases its order book and provides revenue visibility.",
+    "why_now": "The exchange filing confirming the order win was released on 2026-10-10.",
     "conviction": 75,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 14,
-      "impact": 19,
+      "evidence": 25,
+      "impact": 14,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -53,26 +52,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-ca9cafde9b29"
+      "EVT-616dc86d7a44"
     ],
-    "primary_source_event_id": "EVT-ca9cafde9b29",
+    "primary_source_event_id": "EVT-616dc86d7a44",
     "source_headlines": [
-      "Everpure’s $7 Billion Forecast Just Blew Past Wall Street’s Numbers"
+      "Avantel Limited: Avantel Limited has informed the Exchange about Bagging/Receiving of orders/contracts"
     ],
-    "source_headline": "Everpure’s $7 Billion Forecast Just Blew Past Wall Street’s Numbers",
-    "source_url": "https://247wallst.com/investing/2026/09/27/everpures-7-billion-forecast-just-blew-past-wall-streets-numbers/",
-    "source_name": "24/7 Wall St.",
-    "materiality_max": 100,
-    "newest_source_at": "2026-09-27T15:45:36Z",
+    "source_headline": "Avantel Limited: Avantel Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
+    "source_url": "https://nsearchives.nseindia.com/corporate/AVANTEL_10102026101310_OrderIntimation10102026.pdf",
+    "source_name": "BSE / NSE Exchange Filing",
+    "materiality_max": 88,
+    "newest_source_at": "2026-10-10T04:43:39Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-27T16:15:45Z",
-    "updated_at": "2026-09-27T16:15:45Z",
-    "decay_at": "2026-09-29T03:45:36Z",
+    "surfaced_at": "2026-10-10T08:29:45Z",
+    "updated_at": "2026-10-10T08:29:45Z",
+    "decay_at": "2026-10-11T16:43:39Z",
     "status": "live",
     "promoted_signal_id": null
   }

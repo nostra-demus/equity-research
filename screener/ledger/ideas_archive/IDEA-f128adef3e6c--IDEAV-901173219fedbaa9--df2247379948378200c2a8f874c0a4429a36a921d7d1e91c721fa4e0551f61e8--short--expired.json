@@ -1,31 +1,31 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-17T09:07:03Z",
+  "archived_at": "2026-10-13T05:16:49Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-1089731bbcf8",
-    "idea_version": "IDEAV-ba236278519390af",
-    "idea_version_started_at": "2026-09-14T05:51:52Z",
-    "ticker": "Z.AI",
-    "company": "Z.ai",
-    "exchange": null,
+    "idea_id": "IDEA-f128adef3e6c",
+    "idea_version": "IDEAV-901173219fedbaa9",
+    "idea_version_started_at": "2026-10-11T03:47:12Z",
+    "ticker": "MTY",
+    "company": "MTY Food Group Inc",
+    "exchange": "TSX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "Z.ai shares are tumbling after announcing a $5 billion fundraising plan, indicating potential dilution or unfavorable terms.",
-    "why_now": "The share price drop occurred today following the announcement of the fundraising plan.",
-    "conviction": 55,
+    "reason": "The Q3 profit retreat indicates margin compression or slowing organic growth across its portfolio of restaurant brands, suggesting potential downside to earnings expectations.",
+    "why_now": "The earnings report was released on 2026-10-10, and the market is currently digesting the negative margin trend.",
+    "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
-    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 19,
+      "impact": 18,
       "specificity": 7,
-      "timing": 10,
+      "timing": 6,
       "expression": 0,
       "corroboration": 0,
       "learning_adjustment": 0
@@ -36,7 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "price and market expectations",
+      "priced-in risk",
       "independent confirmation",
       "live price, liquidity, and consensus"
     ],
@@ -49,31 +49,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "unknown",
+    "priced_in": "priced",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-f8a7bc853863"
+      "EVT-6ac6f7dd8953"
     ],
-    "primary_source_event_id": "EVT-f8a7bc853863",
+    "primary_source_event_id": "EVT-6ac6f7dd8953",
     "source_headlines": [
-      "Z.ai shares tumble 10% after $5 billion fundraising plan"
+      "MTY Food Group Inc Profit Retreats In Q3"
     ],
-    "source_headline": "Z.ai shares tumble 10% after $5 billion fundraising plan",
-    "source_url": "https://www.cnbctv18.com/market/z-ai-share-price-tumbles-after-usd-5-billion-fundraising-plan-19990203.htm",
-    "source_name": "CNBC-TV18",
-    "materiality_max": 96,
-    "newest_source_at": "2026-09-14T05:17:29Z",
+    "source_headline": "MTY Food Group Inc Profit Retreats In Q3",
+    "source_url": "https://www.nasdaq.com/articles/mty-food-group-inc-profit-retreats-q3",
+    "source_name": "Nasdaq",
+    "materiality_max": 98,
+    "newest_source_at": "2026-10-10T02:24:41Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-14T05:51:52Z",
-    "updated_at": "2026-09-14T05:51:52Z",
-    "decay_at": "2026-09-15T17:17:29Z",
+    "surfaced_at": "2026-10-11T03:47:12Z",
+    "updated_at": "2026-10-11T03:47:12Z",
+    "decay_at": "2026-10-11T14:24:41Z",
     "status": "live",
     "promoted_signal_id": null
   }
