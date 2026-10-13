@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T00:27:01Z",
+  "generated_at": "2026-10-13T00:29:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-002",
@@ -46,6 +46,49 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261013-019",
+      "headline": "Houthi missile attack targets Saudi capital Riyadh for third day in a row",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/10/12/houthi-missile-attack-targets-saudi-capital-riyadh-for-third-day-in-a-row?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-10-12T23:54:05Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Continued missile attacks on Riyadh represent a significant geopolitical escalation affecting regional stability and energy supply chains.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Continued missile attacks on Riyadh represent a significant geopolitical escalation affecting regional stability and energy supply chains.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -340,6 +383,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261013-020",
+      "headline": "$2.9 Billion Contract in Hand, Anduril May Already Be America's Second-Biggest Navy Warship Builder",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/29-billion-contract-hand-anduril-may-already-be-americas-second-biggest-navy-warship",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-12T23:50:00Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Anduril secured a $2.9 billion contract, significantly strengthening its position in the defense sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Anduril secured a $2.9 billion contract, significantly strengthening its position in the defense sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anduril",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -715,6 +807,49 @@
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261013-018",
+      "headline": "Iran war live: Trump says Houthis ‘misbehaving’ as Riyadh flights halted",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/liveblog/2026/10/13/iran-war-live-trump-says-houthis-misbehaving-as-riyadh-flights-halted?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-10-13T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Geopolitical escalation involving Houthi missile attacks and regional flight disruptions poses a risk to global energy and transport markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Geopolitical escalation involving Houthi missile attacks and regional flight disruptions poses a risk to global energy and transport markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
         "source_tier_id": "news",
         "event_id": null,
         "size_bucket": "unknown"
@@ -216775,7 +216910,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3543,
+    "inbox_unconsumed": 3546,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -216784,9 +216919,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 138430,
-    "news_picked_today": 17,
-    "news_dropped_today": 223
+    "news_seen_today": 161359,
+    "news_picked_today": 20,
+    "news_dropped_today": 244
   },
   "book_momentum": {
     "live_count": 8,
