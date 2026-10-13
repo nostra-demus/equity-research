@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T01:30:02Z",
+  "generated_at": "2026-10-13T01:33:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-002",
@@ -51,21 +51,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261013-059",
-      "headline": "Japan's Omron to buy US industrial PC firm Onlogic for $675 million in physical AI push",
+      "inbox_id": "INB-20261013-065",
+      "headline": "Japan's Omron to buy US-based OnLogic for $675m in physical AI push",
       "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/japans-omron-buy-us-industrial-pc-firm-onlogic-675-million-physical-ai-push-2026-10-13/",
-      "source_name": "Reuters — Latest (news sitemap)",
+      "url": "https://asia.nikkei.com/business/business-deals/japan-s-omron-to-buy-us-based-onlogic-for-675m-in-physical-ai-push",
+      "source_name": "Nikkei Asia",
       "input_nature": "news_headline",
-      "found_at": "2026-10-13T01:04:03Z",
+      "found_at": "2026-10-13T01:28:56Z",
       "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Omron announced the acquisition of Onlogic for $675 million to expand its AI capabilities.",
+      "prelim_note": "Omron is acquiring OnLogic for $675 million to expand its physical AI capabilities.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Omron announced the acquisition of Onlogic for $675 million to expand its AI capabilities.",
-      "region": "GLOBAL",
+      "triage_reason": "Omron is acquiring OnLogic for $675 million to expand its physical AI capabilities.",
+      "region": "JP",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
@@ -90,11 +90,11 @@
       "companies": [
         {
           "name": "Omron",
-          "ticker": null,
+          "ticker": "6645",
           "listing_country": "JP"
         },
         {
-          "name": "Onlogic",
+          "name": "OnLogic",
           "ticker": null,
           "listing_country": "US"
         }
@@ -834,6 +834,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261013-067",
+      "headline": "VERALLIS S.A. lists on Euronext",
+      "headline_en": null,
+      "url": "https://athens.euronext.com/en/more-options/announcements/verallis-sa-lists-euronext",
+      "source_name": "Euronext Athens — Press Releases",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T10:23:27Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Verallis S.A. has completed its listing on the Euronext exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Verallis S.A. has completed its listing on the Euronext exchange.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Verallis S.A.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261013-023",
       "headline": "Tonbo Imaging sets ₹852 crore IPO price band, targets ₹4,010 crore valuation",
       "headline_en": null,
@@ -1373,6 +1422,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261013-064",
+      "headline": "Northland Capital Markets Upgrades C3.ai to Outperform from Market Perform",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/northland-capital-markets-upgrades-c3ai-outperform-market-perform",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-13T00:58:44Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Analyst upgrade of C3.ai to Outperform from Market Perform.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "Analyst upgrade of C3.ai to Outperform from Market Perform.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "C3.ai",
+          "ticker": "AI",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261013-006",
       "headline": "CPN: Investor Webinar Presentation - Updated Kelpie MRE",
       "headline_en": null,
@@ -1858,105 +1956,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-046",
-      "headline": "NANHUA FUTURES (02691): ANNOUNCEMENT ON CHANGE OF REGISTERED CAPITAL AND PROPOSED AMENDMENTS TO THE ARTICLES OF ASSOCIATION",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101200903.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-12T11:06:00Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Nanhua Futures announces a change in registered capital and proposed amendments to its articles of association.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Nanhua Futures announces a change in registered capital and proposed amendments to its articles of association.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 42,
-      "rank_factors": {
-        "materiality": 42,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NANHUA FUTURES",
-          "ticker": "02691",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-026",
-      "headline": "Mallika Srinivasan, Lakshmi Venu seek fair TVS family assets' division; MoU covers brand rights, management",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/mallika-lakshmi-seek-fair-tvs-family-assets-division-mou-covers-brand-rights-management-venu-srinivasan/articleshow/134901767.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Ongoing family asset division and management rights negotiations within the TVS family.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Ongoing family asset division and management rights negotiations within the TVS family.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TVS Motor",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -217962,9 +217961,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 662190,
-    "news_picked_today": 74,
-    "news_dropped_today": 742
+    "news_seen_today": 695877,
+    "news_picked_today": 78,
+    "news_dropped_today": 762
   },
   "book_momentum": {
     "live_count": 8,
