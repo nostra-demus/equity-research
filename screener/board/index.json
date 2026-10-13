@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T02:14:13Z",
+  "generated_at": "2026-10-13T02:16:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-002",
@@ -1378,6 +1378,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261013-077",
+      "headline": "KINGDEE INT'L (00268): VOLUNTARY ANNOUNCEMENT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101200492.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T09:15:00Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Kingdee International issued a voluntary announcement, which often precedes strategic updates or clarifications.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "Kingdee International issued a voluntary announcement, which often precedes strategic updates or clarifications.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kingdee International Software Group",
+          "ticker": "00268",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261013-063",
       "headline": "C FIN SERVICES (00605): DISCLOSEABLE TRANSACTION PROVISION OF FINANCIAL ASSISTANCE",
       "headline_en": null,
@@ -1907,55 +1956,6 @@
       "companies": [
         {
           "name": "Cardinal Health",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-031",
-      "headline": "FDA device recall (Class II) — Penumbra Inc.: Brand Name: Penumbra System (RED 62 Reperfusion Catheter) Product Name: Penumbra System (RED 62 Reperfusion Catheter) Model/Catalog Number: THNDRRED62SKIT Softw — Due to manufacturing issues reperfusion catheters may fracture.",
-      "headline_en": null,
-      "url": "https://api.fda.gov/device/enforcement.json?search=recall_number.exact:%22Z-3331-2026%22",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-07T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Penumbra recall of reperfusion catheters due to fracture risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Penumbra recall of reperfusion catheters due to fracture risk.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Penumbra Inc.",
           "ticker": null,
           "listing_country": "US"
         }
@@ -217966,9 +217966,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1041865,
-    "news_picked_today": 103,
-    "news_dropped_today": 1097
+    "news_seen_today": 1063865,
+    "news_picked_today": 104,
+    "news_dropped_today": 1120
   },
   "book_momentum": {
     "live_count": 8,
