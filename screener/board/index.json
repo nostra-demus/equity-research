@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T01:13:11Z",
+  "generated_at": "2026-10-13T01:14:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-002",
@@ -628,6 +628,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261013-050",
+      "headline": "LUZHU BIOTECH-B (02480): VOLUNTARY ANNOUNCEMENT - RECOMBINANT RSV VACCINE OBTAINS CLINICAL TRIAL APPROVAL IN CHINA",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101200881.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Luzhu Biotech received clinical trial approval in China for its recombinant RSV vaccine.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Luzhu Biotech received clinical trial approval in China for its recombinant RSV vaccine.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Luzhu Biotech",
+          "ticker": "02480",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1368,6 +1417,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261013-051",
+      "headline": "FDA 510(k) clearance — Cepheid®: Xpert Xpress CoV-2/Flu plus",
+      "headline_en": null,
+      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K263120",
+      "source_name": "U.S. Food & Drug Administration (Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-02T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Cepheid received FDA 510(k) clearance for its Xpert Xpress CoV-2/Flu plus diagnostic test.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "Cepheid received FDA 510(k) clearance for its Xpert Xpress CoV-2/Flu plus diagnostic test.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cepheid",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261013-027",
       "headline": "SEBI exempts DKJ Ownership Trust from open offer for 19.85% stake in S Chand",
       "headline_en": null,
@@ -1755,20 +1853,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261013-039",
-      "headline": "FDA 510(k) clearance — OsteoCentric Technologies: OsteoCentric Technologies Cannulated and Soild Fasteners with Nuts",
+      "inbox_id": "INB-20261013-056",
+      "headline": "FDA 510(k) clearance — Shenzhen Ninenovo Technology Limited: Ninenovo Blood Oxygen Ring (BORMB-01-6,BORMB-01-7,BORMB-01-8,BORMB-01-9,BORMB-01-10,BORMB-01-11,BORMB-01-12,BORMB-01-13,BORMB-01-14)",
       "headline_en": null,
-      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K263116",
+      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K260490",
       "source_name": "U.S. Food & Drug Administration (Press Releases)",
       "input_nature": "regulatory_filing",
       "found_at": "2026-10-02T00:00:00Z",
       "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "FDA granted 510(k) clearance for OsteoCentric Technologies' fastener system.",
+      "prelim_note": "Shenzhen Ninenovo Technology received FDA 510(k) clearance for its Blood Oxygen Ring.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "FDA granted 510(k) clearance for OsteoCentric Technologies' fastener system.",
+      "triage_score": 59,
+      "triage_reason": "Shenzhen Ninenovo Technology received FDA 510(k) clearance for its Blood Oxygen Ring.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 45,
@@ -1777,7 +1875,7 @@
         "source_tier": 8,
         "scope": 6,
         "event": 0,
-        "size": -1,
+        "size": 0,
         "recency": 0,
         "materiality_label_floor": 0,
         "quantified": 0,
@@ -1785,7 +1883,7 @@
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
         "event_id": null,
-        "size_bucket": "small"
+        "size_bucket": "unknown"
       },
       "event_types": [
         "product"
@@ -1793,31 +1891,31 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "OsteoCentric Technologies",
+          "name": "Shenzhen Ninenovo Technology Limited",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": "CN"
         }
       ],
-      "size_bucket": "small",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261013-040",
-      "headline": "FDA 510(k) clearance — Tdm Co., Ltd.: TDM Large Bone Plate and Screw System",
+      "inbox_id": "INB-20261013-057",
+      "headline": "FDA 510(k) clearance — Spinal Simplicity, LLC: Minuteman G6 MIS Fusion Plate; Minuteman G5 MIS Fusion Plate; Minuteman G1 (Posterior Fusion Plate /HA Posterior Fusion Plate); HA Minuteman G3-R MIS Fusion Plate; Minuteman G3/HA",
       "headline_en": null,
-      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261611",
+      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261607",
       "source_name": "U.S. Food & Drug Administration (Press Releases)",
       "input_nature": "regulatory_filing",
       "found_at": "2026-10-02T00:00:00Z",
       "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "FDA granted 510(k) clearance for Tdm Co., Ltd.'s bone plate and screw system.",
+      "prelim_note": "Spinal Simplicity received FDA 510(k) clearance for its Minuteman G6 MIS Fusion Plate and related products.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "FDA granted 510(k) clearance for Tdm Co., Ltd.'s bone plate and screw system.",
+      "triage_score": 59,
+      "triage_reason": "Spinal Simplicity received FDA 510(k) clearance for its Minuteman G6 MIS Fusion Plate and related products.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 45,
@@ -1826,7 +1924,7 @@
         "source_tier": 8,
         "scope": 6,
         "event": 0,
-        "size": -1,
+        "size": 0,
         "recency": 0,
         "materiality_label_floor": 0,
         "quantified": 0,
@@ -1834,7 +1932,7 @@
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
         "event_id": null,
-        "size_bucket": "small"
+        "size_bucket": "unknown"
       },
       "event_types": [
         "product"
@@ -1842,120 +1940,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Tdm Co., Ltd.",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-022",
-      "headline": "The SpaceX threat could loom over AT&T’s stock for a prolonged stretch, analyst cautions",
-      "headline_en": null,
-      "url": "https://www.marketwatch.com/story/the-spacex-threat-could-loom-over-at-ts-stock-for-a-prolonged-stretch-analyst-cautions-71436853?mod=mw_rss_topstories",
-      "source_name": "MarketWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T00:18:00Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Analyst commentary on competitive threat to AT&T from SpaceX.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "Analyst commentary on competitive threat to AT&T from SpaceX.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "AT&T",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "SpaceX",
+          "name": "Spinal Simplicity, LLC",
           "ticker": null,
           "listing_country": "US"
         }
       ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-003",
-      "headline": "TCS, Vedanta Dividends: Last Day To Buy Shares Today To Qualify",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/tcs-vedanta-dividends-last-day-to-buy-shares-today-to-qualify-12175257#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T23:52:09Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Routine dividend ex-date notification for TCS and Vedanta.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "Routine dividend ex-date notification for TCS and Vedanta.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TCS",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Vedanta",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -217961,9 +217951,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 515513,
-    "news_picked_today": 49,
-    "news_dropped_today": 623
+    "news_seen_today": 526840,
+    "news_picked_today": 57,
+    "news_dropped_today": 639
   },
   "book_momentum": {
     "live_count": 8,
