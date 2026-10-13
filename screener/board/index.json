@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T05:35:00Z",
+  "generated_at": "2026-10-13T05:39:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-086",
@@ -1092,6 +1092,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261013-129",
+      "headline": "Power Grid Acquires Jam Khambhaliya REZ Transmission For ₹19.22 Crore",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/power-grid-acquires-jam-khambhaliya-rez-transmission-for-1922-crore",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-13T05:03:09Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Power Grid acquired Jam Khambhaliya REZ Transmission for 19.22 crore rupees.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Power Grid acquired Jam Khambhaliya REZ Transmission for 19.22 crore rupees.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Power Grid Corporation of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261013-089",
       "headline": "Kalpataru Projects International Limited: Kalpataru Projects International Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
       "headline_en": null,
@@ -1925,55 +1974,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-088",
-      "headline": "IMA: Response to ASX Price Query [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IMA?key=2924-03147664-6A1348943",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-13T03:05:59Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Company responding to an ASX price query, often a precursor to material disclosure or clarification of market rumors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Company responding to an ASX price query, often a precursor to material disclosure or clarification of market rumors.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "strategic_review",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IMA",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -216902,9 +216902,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2530751,
-    "news_picked_today": 186,
-    "news_dropped_today": 2742
+    "news_seen_today": 2597108,
+    "news_picked_today": 189,
+    "news_dropped_today": 2787
   },
   "book_momentum": {
     "live_count": 8,
