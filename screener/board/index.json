@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T21:25:16Z",
+  "generated_at": "2026-10-13T21:28:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-579",
@@ -929,6 +929,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261013-591",
+      "headline": "Bank of America fined $1.2bn over claimed sanctions breaches",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/business/banking/2026/10/13/bank-of-america-fined-12bn-over-claimed-sanctions-breaches/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-13T21:18:53Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Bank of America was fined $1.2 billion for alleged sanctions breaches.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bank of America was fined $1.2 billion for alleged sanctions breaches.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of America",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1936,55 +1985,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-223",
-      "headline": "AEP to Buy Mobile Power Units in Deal That May Reach $4 Billion",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-13/aep-to-buy-mobile-power-units-in-deal-that-may-reach-4-billion",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T13:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "AEP is acquiring mobile power units in a deal valued at up to $4 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "AEP is acquiring mobile power units in a deal valued at up to $4 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "American Electric Power",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -216251,9 +216251,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9207919,
-    "news_picked_today": 992,
-    "news_dropped_today": 9256
+    "news_seen_today": 9251569,
+    "news_picked_today": 996,
+    "news_dropped_today": 9276
   },
   "book_momentum": {
     "live_count": 8,
