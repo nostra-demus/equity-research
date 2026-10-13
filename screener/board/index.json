@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T15:27:07Z",
+  "generated_at": "2026-10-13T16:07:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-417",
@@ -174591,6 +174591,220 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-00b4c736ede9",
+      "idea_version": "IDEAV-3710c24cc71a30c8",
+      "idea_version_started_at": "2026-10-13T16:07:22Z",
+      "ticker": "01999",
+      "company": "Man Wah Holdings",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, indicating a material decline in earnings performance for the period.",
+      "why_now": "The filing was released on October 13, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-36b5f0a6bdb3"
+      ],
+      "primary_source_event_id": "EVT-36b5f0a6bdb3",
+      "source_headlines": [
+        "MAN WAH HLDGS (01999): INSIDE INFORMATION PROFIT WARNING"
+      ],
+      "source_headline": "MAN WAH HLDGS (01999): INSIDE INFORMATION PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1013/2026101300015.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-13T00:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-13T16:07:22Z",
+      "updated_at": "2026-10-13T16:07:22Z",
+      "decay_at": "2026-10-14T12:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-1df45a00a852",
+      "idea_version": "IDEAV-2e8b7e4c06d9aa63",
+      "idea_version_started_at": "2026-10-13T16:07:22Z",
+      "ticker": "STEELEXIND",
+      "company": "Steel Exchange India Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported record production levels alongside a credit rating upgrade and active deleveraging of its balance sheet.",
+      "why_now": "The press release was filed on October 13, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-23de2b7b8159"
+      ],
+      "primary_source_event_id": "EVT-23de2b7b8159",
+      "source_headlines": [
+        "STEEL EXCHANGE INDIA LIMITED: STEEL EXCHANGE INDIA LIMITED has informed the Exchange regarding a press release dated October 13, 2026, titled \"Record Production, Credit Upgrade and Rapid Deleveraging: Steel Exchange India Ltd Strengthens Its Foundation in H1 FY27\"."
+      ],
+      "source_headline": "STEEL EXCHANGE INDIA LIMITED: STEEL EXCHANGE INDIA LIMITED has informed the Exchange regarding a press release dated October 13, 2026, titled \"Record Production, Credit Upgrade and Rapid Deleveraging: Steel Exchange India Ltd Strengthens Its Foundation in H1 FY27\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/STEELXIND_13102026105701_Intimation_under_Reg_30_Press_Release_13102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-13T05:27:55Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-13T16:07:22Z",
+      "updated_at": "2026-10-13T16:07:22Z",
+      "decay_at": "2026-10-14T17:27:55Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-ea0eb25c074b",
+      "idea_version": "IDEAV-1536ce726c271807",
+      "idea_version_started_at": "2026-10-13T16:07:22Z",
+      "ticker": "J36",
+      "company": "Jardine Matheson",
+      "exchange": "SGX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company raised its 2026 earnings guidance to as high as US$5.65 per share, signaling improved profitability expectations.",
+      "why_now": "The guidance update was announced on October 13, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fd1b1915ad8e"
+      ],
+      "primary_source_event_id": "EVT-fd1b1915ad8e",
+      "source_headlines": [
+        "Jardine Matheson raises 2026 earnings guidance as high as US$5.65 per share"
+      ],
+      "source_headline": "Jardine Matheson raises 2026 earnings guidance as high as US$5.65 per share",
+      "source_url": "https://www.straitstimes.com/business/companies-markets/jardine-matheson-raises-2026-earnings-guidance-as-high-as-us5-65-per-share",
+      "source_name": "The Straits Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-13T04:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-13T16:07:22Z",
+      "updated_at": "2026-10-13T16:07:22Z",
+      "decay_at": "2026-10-14T16:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-8a22e6887d94",
       "idea_version": "IDEAV-9406b06e3a9d7790",
       "idea_version_started_at": "2026-10-13T14:10:50Z",
@@ -175959,77 +176173,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c258353b6529",
-      "idea_version": "IDEAV-da6d3a939aa6717b",
-      "idea_version_started_at": "2026-10-12T05:17:24Z",
-      "ticker": "01473",
-      "company": "Pangaea Connect",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company issued a positive profit alert, indicating a significant improvement in earnings performance for the period.",
-      "why_now": "The filing was released on October 12, 2026, making the information fresh for market participants.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e53634d558a1"
-      ],
-      "primary_source_event_id": "EVT-e53634d558a1",
-      "source_headlines": [
-        "PANGAEA CONNECT (01473): POSITIVE PROFIT ALERT AND BUSINESS UPDATE"
-      ],
-      "source_headline": "PANGAEA CONNECT (01473): POSITIVE PROFIT ALERT AND BUSINESS UPDATE",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101200169.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-12T04:06:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-12T05:17:24Z",
-      "updated_at": "2026-10-12T05:17:24Z",
-      "decay_at": "2026-10-13T16:06:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d66f1bdd8f21",
       "idea_version": "IDEAV-1cf0fae349c9bab9",
       "idea_version_started_at": "2026-10-12T05:17:24Z",
@@ -176096,150 +176239,6 @@
       "surfaced_at": "2026-10-12T05:17:24Z",
       "updated_at": "2026-10-12T05:17:24Z",
       "decay_at": "2026-10-13T16:09:53Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-94db52611a9e",
-      "idea_version": "IDEAV-ee6f275c36994ec6",
-      "idea_version_started_at": "2026-10-12T03:58:15Z",
-      "ticker": "POONAWALLA",
-      "company": "Poonawalla Fincorp",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 407% increase in Q2 net profit to Rs 375 crore, indicating significant margin expansion and operational efficiency.",
-      "why_now": "The earnings report was released on 2026-10-12, providing a fresh catalyst for price discovery.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-90e48deedcbb"
-      ],
-      "primary_source_event_id": "EVT-90e48deedcbb",
-      "source_headlines": [
-        "Poonawalla Fincorp shares in focus after Q2 net profit soars 407% to Rs 375 crore"
-      ],
-      "source_headline": "Poonawalla Fincorp shares in focus after Q2 net profit soars 407% to Rs 375 crore",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/poonawalla-fincorp-shares-in-focus-after-q2-net-profit-soars-407-to-rs-375-crore/articleshow/134881686.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-12T03:32:03Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-09T15:15:20Z",
-      "updated_at": "2026-10-12T03:58:15Z",
-      "decay_at": "2026-10-13T15:32:03Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-27493c72d311",
-      "idea_version": "IDEAV-20f169f36e098382",
-      "idea_version_started_at": "2026-10-12T03:58:15Z",
-      "ticker": "PREMIER",
-      "company": "Premier Energies",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured new orders worth Rs 4,000 crore, which provides high visibility for future revenue growth.",
-      "why_now": "The order book update was announced on 2026-10-12.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5043987a10cf"
-      ],
-      "primary_source_event_id": "EVT-5043987a10cf",
-      "source_headlines": [
-        "Premier Energies shares in focus after Q2 update reveals fresh orders worth Rs 4,000 crore"
-      ],
-      "source_headline": "Premier Energies shares in focus after Q2 update reveals fresh orders worth Rs 4,000 crore",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/premier-energies-shares-in-focus-after-q2-update-reveals-fresh-orders-worth-rs-4000-crore/articleshow/134881776.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 97,
-      "newest_source_at": "2026-10-12T03:38:56Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-09T15:15:20Z",
-      "updated_at": "2026-10-12T03:58:15Z",
-      "decay_at": "2026-10-13T15:38:56Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -176746,76 +176745,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-272376b0a506",
-      "idea_version": "IDEAV-aa658eb159c6e067",
-      "idea_version_started_at": "2026-10-10T16:24:46Z",
-      "ticker": "JEF",
-      "company": "Jefferies Financial Group",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The discovery of fraud in $900 million of deals creates significant legal, reputational, and potential balance sheet risk for the firm.",
-      "why_now": "The disclosure of the fraud investigation occurred on October 10, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-07e9e8d1b0ab"
-      ],
-      "primary_source_event_id": "EVT-07e9e8d1b0ab",
-      "source_headlines": [
-        "Jefferies Says It Found Fraud in $900 Million of Radiant Deals"
-      ],
-      "source_headline": "Jefferies Says It Found Fraud in $900 Million of Radiant Deals",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-10-10/jefferies-says-it-found-fraud-in-900-million-of-radiant-deals",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-10T15:03:27Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-10T16:24:46Z",
-      "updated_at": "2026-10-10T16:24:46Z",
-      "decay_at": "2026-10-12T03:03:27Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-a91b27166e5b",
       "idea_version": "IDEAV-d1e3a2a79b983b93",
       "idea_version_started_at": "2026-10-12T02:28:00Z",
@@ -177307,6 +177236,149 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-c258353b6529",
+      "idea_version": "IDEAV-da6d3a939aa6717b",
+      "idea_version_started_at": "2026-10-12T05:17:24Z",
+      "ticker": "01473",
+      "company": "Pangaea Connect",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company issued a positive profit alert, indicating a significant improvement in earnings performance for the period.",
+      "why_now": "The filing was released on October 12, 2026, making the information fresh for market participants.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e53634d558a1"
+      ],
+      "primary_source_event_id": "EVT-e53634d558a1",
+      "source_headlines": [
+        "PANGAEA CONNECT (01473): POSITIVE PROFIT ALERT AND BUSINESS UPDATE"
+      ],
+      "source_headline": "PANGAEA CONNECT (01473): POSITIVE PROFIT ALERT AND BUSINESS UPDATE",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101200169.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-12T04:06:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-12T05:17:24Z",
+      "updated_at": "2026-10-12T05:17:24Z",
+      "decay_at": "2026-10-13T16:06:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-94db52611a9e",
+      "idea_version": "IDEAV-ee6f275c36994ec6",
+      "idea_version_started_at": "2026-10-12T03:58:15Z",
+      "ticker": "POONAWALLA",
+      "company": "Poonawalla Fincorp",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 407% increase in Q2 net profit to Rs 375 crore, indicating significant margin expansion and operational efficiency.",
+      "why_now": "The earnings report was released on 2026-10-12, providing a fresh catalyst for price discovery.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-90e48deedcbb"
+      ],
+      "primary_source_event_id": "EVT-90e48deedcbb",
+      "source_headlines": [
+        "Poonawalla Fincorp shares in focus after Q2 net profit soars 407% to Rs 375 crore"
+      ],
+      "source_headline": "Poonawalla Fincorp shares in focus after Q2 net profit soars 407% to Rs 375 crore",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/poonawalla-fincorp-shares-in-focus-after-q2-net-profit-soars-407-to-rs-375-crore/articleshow/134881686.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-12T03:32:03Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-09T15:15:20Z",
+      "updated_at": "2026-10-12T03:58:15Z",
+      "decay_at": "2026-10-13T15:32:03Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-03a7d47a5d7e",
       "idea_version": "IDEAV-17b9672d67100331",
       "idea_version_started_at": "2026-10-12T02:08:33Z",
@@ -177673,151 +177745,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-1e404b952344",
-      "idea_version": "IDEAV-206215b468e96801",
-      "idea_version_started_at": "2026-10-11T00:15:05Z",
-      "ticker": "M&M",
-      "company": "Mahindra & Mahindra",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The divestment of a 51% stake in Novavayu Aerospace for Rs 5,100 crore provides a significant cash infusion and allows the company to focus on its core automotive and tractor operations.",
-      "why_now": "The deal was announced on 2026-10-10, and the market has yet to fully price in the capital allocation benefit of this divestiture.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b8c337ce10e6",
-        "EVT-f150bbee1cb8"
-      ],
-      "primary_source_event_id": "EVT-b8c337ce10e6",
-      "source_headlines": [
-        "Mahindra & Mahindra announces sale of 51% stake in Novavayu Aerospace to Embraer",
-        "Mahindra to sell majority stake in aerospace subsidiary to Brazil's Embraer for Rs 5,100 crore"
-      ],
-      "source_headline": "Mahindra & Mahindra announces sale of 51% stake in Novavayu Aerospace to Embraer",
-      "source_url": "https://www.businesstoday.in/latest/corporate/story/mahindra-mahindra-announces-sale-of-51-stake-in-novavayu-aerospace-to-embraer-560832-2026-10-10?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-10T14:56:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-11T00:15:05Z",
-      "updated_at": "2026-10-11T00:15:05Z",
-      "decay_at": "2026-10-12T02:56:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-cc72955eba04",
-      "idea_version": "IDEAV-67810bf50775283c",
-      "idea_version_started_at": "2026-10-10T21:26:59Z",
-      "ticker": "SIGNATURE",
-      "company": "Signature Global",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported a 9% decline in quarterly sales bookings to Rs 1,830 crore, signaling a potential slowdown in demand or project execution within their real estate portfolio.",
-      "why_now": "The earnings report was released on 2026-10-10, providing immediate data on the company's recent sales performance.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d1c08cfd225a"
-      ],
-      "primary_source_event_id": "EVT-d1c08cfd225a",
-      "source_headlines": [
-        "Signature Global Sales Bookings Down 9% To Rs 1,830 Crore In July-Sept Quarter"
-      ],
-      "source_headline": "Signature Global Sales Bookings Down 9% To Rs 1,830 Crore In July-Sept Quarter",
-      "source_url": "https://www.ndtvprofit.com/business/signature-global-sales-bookings-down-9-to-rs-1-830-crore-in-july-sept-quarter-12167186#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-10T15:40:57Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-10T21:26:59Z",
-      "updated_at": "2026-10-10T21:26:59Z",
-      "decay_at": "2026-10-12T03:40:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-2b9840c4ba25",
       "idea_version": "IDEAV-45fed6cbdf30df16",
       "idea_version_started_at": "2026-10-10T20:26:49Z",
@@ -177961,6 +177888,78 @@
       "surfaced_at": "2026-10-11T11:33:08Z",
       "updated_at": "2026-10-11T18:27:45Z",
       "decay_at": "2026-10-12T21:23:32Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-27493c72d311",
+      "idea_version": "IDEAV-20f169f36e098382",
+      "idea_version_started_at": "2026-10-12T03:58:15Z",
+      "ticker": "PREMIER",
+      "company": "Premier Energies",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured new orders worth Rs 4,000 crore, which provides high visibility for future revenue growth.",
+      "why_now": "The order book update was announced on 2026-10-12.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5043987a10cf"
+      ],
+      "primary_source_event_id": "EVT-5043987a10cf",
+      "source_headlines": [
+        "Premier Energies shares in focus after Q2 update reveals fresh orders worth Rs 4,000 crore"
+      ],
+      "source_headline": "Premier Energies shares in focus after Q2 update reveals fresh orders worth Rs 4,000 crore",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/premier-energies-shares-in-focus-after-q2-update-reveals-fresh-orders-worth-rs-4000-crore/articleshow/134881776.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 97,
+      "newest_source_at": "2026-10-12T03:38:56Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-09T15:15:20Z",
+      "updated_at": "2026-10-12T03:58:15Z",
+      "decay_at": "2026-10-13T15:38:56Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -179276,32 +179275,256 @@
     "hidden_count": 36,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 279,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 29
       },
       "short": {
-        "total_count": 259,
+        "total_count": 257,
         "shown_count": 250,
-        "hidden_count": 9
+        "hidden_count": 7
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 990,
-      "oldest_retained_at": "2026-09-15T23:34:01Z",
+      "evicted_count": 993,
+      "oldest_retained_at": "2026-09-16T01:17:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 653,
-          "oldest_retained_at": "2026-09-29T14:25:00Z"
+          "evicted_count": 654,
+          "oldest_retained_at": "2026-09-29T14:27:04Z"
         },
         "short": {
-          "evicted_count": 337,
-          "oldest_retained_at": "2026-09-15T23:34:01Z"
+          "evicted_count": 339,
+          "oldest_retained_at": "2026-09-16T01:17:00Z"
         }
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c258353b6529",
+        "idea_version": "IDEAV-da6d3a939aa6717b",
+        "idea_version_started_at": "2026-10-12T05:17:24Z",
+        "ticker": "01473",
+        "company": "Pangaea Connect",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company issued a positive profit alert, indicating a significant improvement in earnings performance for the period.",
+        "why_now": "The filing was released on October 12, 2026, making the information fresh for market participants.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e53634d558a1"
+        ],
+        "primary_source_event_id": "EVT-e53634d558a1",
+        "source_headlines": [
+          "PANGAEA CONNECT (01473): POSITIVE PROFIT ALERT AND BUSINESS UPDATE"
+        ],
+        "source_headline": "PANGAEA CONNECT (01473): POSITIVE PROFIT ALERT AND BUSINESS UPDATE",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101200169.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-12T04:06:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-12T05:17:24Z",
+        "updated_at": "2026-10-12T05:17:24Z",
+        "decay_at": "2026-10-13T16:06:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-13T16:06:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-27493c72d311",
+        "idea_version": "IDEAV-20f169f36e098382",
+        "idea_version_started_at": "2026-10-12T03:58:15Z",
+        "ticker": "PREMIER",
+        "company": "Premier Energies",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company secured new orders worth Rs 4,000 crore, which provides high visibility for future revenue growth.",
+        "why_now": "The order book update was announced on 2026-10-12.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5043987a10cf"
+        ],
+        "primary_source_event_id": "EVT-5043987a10cf",
+        "source_headlines": [
+          "Premier Energies shares in focus after Q2 update reveals fresh orders worth Rs 4,000 crore"
+        ],
+        "source_headline": "Premier Energies shares in focus after Q2 update reveals fresh orders worth Rs 4,000 crore",
+        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/premier-energies-shares-in-focus-after-q2-update-reveals-fresh-orders-worth-rs-4000-crore/articleshow/134881776.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 97,
+        "newest_source_at": "2026-10-12T03:38:56Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-09T15:15:20Z",
+        "updated_at": "2026-10-12T03:58:15Z",
+        "decay_at": "2026-10-13T15:38:56Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-13T15:38:56Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-94db52611a9e",
+        "idea_version": "IDEAV-ee6f275c36994ec6",
+        "idea_version_started_at": "2026-10-12T03:58:15Z",
+        "ticker": "POONAWALLA",
+        "company": "Poonawalla Fincorp",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported a 407% increase in Q2 net profit to Rs 375 crore, indicating significant margin expansion and operational efficiency.",
+        "why_now": "The earnings report was released on 2026-10-12, providing a fresh catalyst for price discovery.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-90e48deedcbb"
+        ],
+        "primary_source_event_id": "EVT-90e48deedcbb",
+        "source_headlines": [
+          "Poonawalla Fincorp shares in focus after Q2 net profit soars 407% to Rs 375 crore"
+        ],
+        "source_headline": "Poonawalla Fincorp shares in focus after Q2 net profit soars 407% to Rs 375 crore",
+        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/poonawalla-fincorp-shares-in-focus-after-q2-net-profit-soars-407-to-rs-375-crore/articleshow/134881686.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-12T03:32:03Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-09T15:15:20Z",
+        "updated_at": "2026-10-12T03:58:15Z",
+        "decay_at": "2026-10-13T15:32:03Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-13T15:32:03Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1aeb23b16c7e",
         "idea_version": "IDEAV-cb2c73fb1a174ba3",
@@ -181842,8 +182065,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-12T03:40:57Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-13T16:07:33Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -181915,8 +182138,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-12T03:03:27Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-13T16:07:33Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -181991,8 +182214,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-12T02:56:46Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-13T16:07:33Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -207172,230 +207395,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-9c1fb5bd088d",
-        "idea_version": "IDEAV-e1c08ae772655aa8",
-        "idea_version_started_at": "2026-09-30T04:07:30Z",
-        "ticker": "00848",
-        "company": "Maoye International",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company announced a privatization proposal by W.F Group Limited via a scheme of arrangement, which typically results in the stock price converging toward the offer price.",
-        "why_now": "The announcement was made on 2026-09-29 and trading resumed on 2026-09-30.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ecc2af8e82dd"
-        ],
-        "primary_source_event_id": "EVT-ecc2af8e82dd",
-        "source_headlines": [
-          "MAOYE INT'L (00848): JOINT ANNOUNCEMENT (1) PROPOSAL FOR THE PRIVATISATION OF MAOYE INTERNATIONAL HOLDINGS LIMITED BY W.F GROUP LIMITED BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS; (2) PROPOSED WITHDRAWAL OF LISTING (3) SPECIAL DEAL RELATING TO THE ROLLOVER ARRANGEMENT; AND (4) RESUMPTION OF TRADING"
-        ],
-        "source_headline": "MAOYE INT'L (00848): JOINT ANNOUNCEMENT (1) PROPOSAL FOR THE PRIVATISATION OF MAOYE INTERNATIONAL HOLDINGS LIMITED BY W.F GROUP LIMITED BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS; (2) PROPOSED WITHDRAWAL OF LISTING (3) SPECIAL DEAL RELATING TO THE ROLLOVER ARRANGEMENT; AND (4) RESUMPTION OF TRADING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0929/2026092902197.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-29T14:52:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-30T04:07:30Z",
-        "updated_at": "2026-09-30T04:07:30Z",
-        "decay_at": "2026-10-01T02:52:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-02T20:03:43Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-da27b1ea58fb",
-        "idea_version": "IDEAV-dc34c3134228dee9",
-        "idea_version_started_at": "2026-09-29T16:06:24Z",
-        "ticker": "CCL",
-        "company": "Carnival Corporation",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Strong consumer demand for cruise travel is driving higher pricing power and occupancy, leading to an increase in the annual profit forecast.",
-        "why_now": "The guidance hike was announced today, September 29, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1c337004f5dc"
-        ],
-        "primary_source_event_id": "EVT-1c337004f5dc",
-        "source_headlines": [
-          "Carnival raises annual profit forecast on strong demand"
-        ],
-        "source_headline": "Carnival raises annual profit forecast on strong demand",
-        "source_url": "https://www.reuters.com/business/carnival-raises-annual-profit-forecast-demand-grows-2026-09-29/",
-        "source_name": "Reuters — Latest, next page (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-29T14:22:49Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-29T16:06:24Z",
-        "updated_at": "2026-09-29T16:06:24Z",
-        "decay_at": "2026-10-01T02:22:49Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-02T20:03:43Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-be560624e06e",
-        "idea_version": "IDEAV-bb336048078104aa",
-        "idea_version_started_at": "2026-09-29T14:12:15Z",
-        "ticker": "ENDR.NS",
-        "company": "Endurance Technologies Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Endurance Technologies is acquiring the remaining stake in its German subsidiaries, consolidating ownership and potentially improving operational synergies and financial control.",
-        "why_now": "The acquisition of the remaining 32% stake is being completed now, with a reported value of €18 million.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 7,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-715bd7f8f5f4",
-          "EVT-6d6dd0b6c8ed"
-        ],
-        "primary_source_event_id": "EVT-715bd7f8f5f4",
-        "source_headlines": [
-          "Endurance Technologies Limited: Endurance Technologies Limited has informed the Exchange about acquisition of remaining 32% stake in Stoeferle GmbH and Stoeferle Automotive GmbH by Endurance Overseas SpA, Italy, a wholly-owned subsidiary of the Company.",
-          "Endurance Technologies to acquire remaining 32% stake in German Stöferle companies for €18 million"
-        ],
-        "source_headline": "Endurance Technologies Limited: Endurance Technologies Limited has informed the Exchange about acquisition of remaining 32% stake in Stoeferle GmbH and Stoeferle Automotive GmbH by Endurance Overseas SpA, Italy, a wholly-owned subsidiary of the Company.",
-        "source_url": "https://nsearchives.nseindia.com/corporate/ENDURANCE_29092026171139_Intimation29.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-29T13:54:20Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-29T14:12:15Z",
-        "updated_at": "2026-09-29T14:12:15Z",
-        "decay_at": "2026-10-01T01:54:20Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-02T13:58:04Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-9652af888bb5",
         "idea_version": "IDEAV-f389334e4802534c",
         "idea_version_started_at": "2026-09-29T13:10:26Z",
@@ -216464,7 +216463,7 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1563,
+    "surfaced_total": 1566,
     "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
@@ -216484,7 +216483,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5006607,
+    "news_seen_today": 5482905,
     "news_picked_today": 605,
     "news_dropped_today": 4603
   },
