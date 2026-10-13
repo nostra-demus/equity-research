@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T06:05:00Z",
+  "generated_at": "2026-10-13T06:21:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-133",
@@ -642,6 +642,60 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261013-135",
+      "headline": "RHC: Becoming a substantial holder from CGF",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RHC?key=2924-03147728-2A1703754",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-13T05:33:44Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Challenger Limited (CGF) has become a substantial holder in Ramsay Health Care (RHC), indicating a significant change in ownership structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Challenger Limited (CGF) has become a substantial holder in Ramsay Health Care (RHC), indicating a significant change in ownership structure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ramsay Health Care",
+          "ticker": "RHC",
+          "listing_country": null
+        },
+        {
+          "name": "Challenger Limited",
+          "ticker": "CGF",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1921,55 +1975,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-079",
-      "headline": "'Bunch of Casino Gamblers' - Broadcom CEO remarks trigger broader sell-off among chip stocks",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/bunch-of-casino-gamblers-broadcom-ceo-remarks-trigger-broader-sell-off-among-chip-stocks-20010406.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T02:20:03Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Broadcom CEO's negative remarks regarding the chip sector triggered a broader sell-off in semiconductor stocks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Broadcom CEO's negative remarks regarding the chip sector triggered a broader sell-off in semiconductor stocks.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Broadcom",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -216898,9 +216903,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2872771,
-    "news_picked_today": 200,
-    "news_dropped_today": 3016
+    "news_seen_today": 3048196,
+    "news_picked_today": 202,
+    "news_dropped_today": 3158
   },
   "book_momentum": {
     "live_count": 8,
