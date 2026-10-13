@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T06:51:27Z",
+  "generated_at": "2026-10-13T06:52:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-133",
@@ -1637,6 +1637,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261013-141",
+      "headline": "RBL Bank CEO sees ROA rising to 1.3%, loan growth to outpace industry despite near-term NIM pressure",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/rbl-bank-roa-loan-growth-nim-outlook-microfinance-20010591.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-13T06:02:10Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "RBL Bank CEO provided specific guidance on ROA targets (1.3%) and loan growth expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "RBL Bank CEO provided specific guidance on ROA targets (1.3%) and loan growth expectations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RBL Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261013-015",
       "headline": "One dead and more injured after incident on Six Flags rollercoaster in US",
       "headline_en": null,
@@ -1926,55 +1975,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-020",
-      "headline": "$2.9 Billion Contract in Hand, Anduril May Already Be America's Second-Biggest Navy Warship Builder",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/29-billion-contract-hand-anduril-may-already-be-americas-second-biggest-navy-warship",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T23:50:00Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Anduril secured a $2.9 billion contract, significantly strengthening its position in the defense sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Anduril secured a $2.9 billion contract, significantly strengthening its position in the defense sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anduril",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -216903,9 +216903,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3328697,
-    "news_picked_today": 216,
-    "news_dropped_today": 3384
+    "news_seen_today": 3358363,
+    "news_picked_today": 219,
+    "news_dropped_today": 3405
   },
   "book_momentum": {
     "live_count": 8,
