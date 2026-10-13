@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T06:21:33Z",
+  "generated_at": "2026-10-13T06:28:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-133",
@@ -1882,6 +1882,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261013-136",
+      "headline": "Bandhan Bank Limited: The Exchange has sought clarification from Bandhan Bank Limited with respect to recent news item captioned Bandhan Bank stock jumps 7% on reports of Abu Dhabi's IHC exploring promoter stake acquisition. The response from the Company is awaited.",
+      "headline_en": null,
+      "url": "https://www.nseindia.com/companies-listing/corporate-filings-announcements?symbol=BANDHANBNK&seq=106815517",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-13T05:56:51Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Exchange has requested clarification on reports regarding a potential promoter stake acquisition by Abu Dhabi's IHC.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Exchange has requested clarification on reports regarding a potential promoter stake acquisition by Abu Dhabi's IHC.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "unconfirmed",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review",
+        "rumor"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bandhan Bank Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261013-067",
       "headline": "VERALLIS S.A. lists on Euronext",
       "headline_en": null,
@@ -1926,55 +1976,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-023",
-      "headline": "Tonbo Imaging sets ₹852 crore IPO price band, targets ₹4,010 crore valuation",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/ipo/tonbo-imaging-sets-852-crore-ipo-price-band-targets-4-010-crore-valuation-11791796275436.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T00:15:31Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Tonbo Imaging announced an IPO with a valuation target of ₹4,010 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Tonbo Imaging announced an IPO with a valuation target of ₹4,010 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tonbo Imaging",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -216903,9 +216904,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3048196,
-    "news_picked_today": 202,
-    "news_dropped_today": 3158
+    "news_seen_today": 3107288,
+    "news_picked_today": 207,
+    "news_dropped_today": 3201
   },
   "book_momentum": {
     "live_count": 8,
