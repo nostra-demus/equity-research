@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T04:11:04Z",
+  "generated_at": "2026-10-13T04:17:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-086",
@@ -737,6 +737,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261013-117",
+      "headline": "HCLTech shares jump 5% on EPS upgrades after Q2 results, boosts other IT stocks as well",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/hcltech-share-price-q2-result-reaction-eps-upgrades-target-buy-sell-return-boost-to-it-stocks-tcs-mphasis-20010507.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-13T04:08:29Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "HCLTech shares rose 5% following EPS upgrades after Q2 results, positively impacting the broader IT sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "HCLTech shares rose 5% following EPS upgrades after Q2 results, positively impacting the broader IT sector.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HCL Technologies",
+          "ticker": "HCLTECH",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1906,55 +1955,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-115",
-      "headline": "JINHUI HOLDINGS (00137): Delay in Despatch of Circular - Very Substantial Acquisition: Acquisition of Two Vessels",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1013/2026101300147.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-13T04:04:00Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Jinhui Holdings announced a delay in the circular for a very substantial acquisition of two vessels.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "Jinhui Holdings announced a delay in the circular for a very substantial acquisition of two vessels.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jinhui Holdings",
-          "ticker": "00137",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -217960,9 +217960,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1949872,
-    "news_picked_today": 160,
-    "news_dropped_today": 2024
+    "news_seen_today": 2004250,
+    "news_picked_today": 162,
+    "news_dropped_today": 2094
   },
   "book_momentum": {
     "live_count": 8,
