@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T21:28:04Z",
+  "generated_at": "2026-10-13T21:48:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-579",
@@ -929,6 +929,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261013-600",
+      "headline": "Kroger plans 3,000 job cuts as it expands AI use",
+      "headline_en": null,
+      "url": "https://www.qatar-tribune.com/article/259023/business/kroger-plans-3000-job-cuts-as-it-expands-ai-use",
+      "source_name": "Qatar Tribune — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-13T21:26:00Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Kroger plans 3,000 job cuts as part of an operational restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kroger plans 3,000 job cuts as part of an operational restructuring.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kroger",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1936,55 +1985,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-229",
-      "headline": "Tata Elxsi Q2 FY27 Results: Net Profit Rises 10% To ₹170.30 Crore; Revenue Jumps 15%",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/tata-elxsi-q2-fy27-results-net-profit-rises-10-to-17030-crore-revenue-jumps-15",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T13:33:48Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Tata Elxsi reported Q2 FY27 net profit growth of 10% to ₹170.30 crore and revenue growth of 15%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tata Elxsi reported Q2 FY27 net profit growth of 10% to ₹170.30 crore and revenue growth of 15%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Elxsi",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -216251,9 +216251,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9251569,
-    "news_picked_today": 996,
-    "news_dropped_today": 9276
+    "news_seen_today": 9600301,
+    "news_picked_today": 1005,
+    "news_dropped_today": 9435
   },
   "book_momentum": {
     "live_count": 8,
