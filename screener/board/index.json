@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T22:34:03Z",
+  "generated_at": "2026-10-13T22:39:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-603",
@@ -1081,6 +1081,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261013-608",
+      "headline": "Stock Market Today, Oct. 13: Bank of America Dips After $1.2 Billion Fine From Treasury Department",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/stock-market-today-oct-13-bank-america-dips-after-12-billion-fine-treasury-department",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-13T21:40:45Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Bank of America dipped after a $1.2 billion fine from the Treasury Department.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bank of America dipped after a $1.2 billion fine from the Treasury Department.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of America",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261013-600",
       "headline": "Kroger plans 3,000 job cuts as it expands AI use",
       "headline_en": null,
@@ -1930,56 +1979,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-320",
-      "headline": "Albertsons Pulls Full-Year Guidance, Plans Business Review",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/retail/albertsons-pulls-fy-guidance-plans-business-review-9d71facf?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T14:10:00Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Albertsons pulled its full-year guidance and announced a business review.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Albertsons pulled its full-year guidance and announced a business review.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Albertsons",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -216246,9 +216245,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10323214,
-    "news_picked_today": 1062,
-    "news_dropped_today": 9786
+    "news_seen_today": 10389034,
+    "news_picked_today": 1087,
+    "news_dropped_today": 9833
   },
   "book_momentum": {
     "live_count": 8,
