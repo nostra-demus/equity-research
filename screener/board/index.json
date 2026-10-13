@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T01:49:52Z",
+  "generated_at": "2026-10-13T02:02:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-002",
@@ -290,6 +290,60 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261013-071",
+      "headline": "Bank of India declares Rs 575 crore exposure to Future Enterprises as fraud",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/bank-of-india-declares-rs-575-crore-exposure-to-future-enterprises-as-fraud/articleshow/134905834.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-13T01:42:34Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Bank of India has classified a Rs 575 crore exposure to Future Enterprises as fraud, indicating a likely total loss on this asset.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Bank of India has classified a Rs 575 crore exposure to Future Enterprises as fraud, indicating a likely total loss on this asset.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of India",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Future Enterprises",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1907,55 +1961,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-027",
-      "headline": "SEBI exempts DKJ Ownership Trust from open offer for 19.85% stake in S Chand",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/sebi-exempts-dkj-ownership-trust-from-open-offer-for-1985-stake-in-s-chand/article71577739.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T00:27:10Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "SEBI granted an exemption to DKJ Ownership Trust from making an open offer for a 19.85% stake in S Chand, simplifying the ownership change.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "SEBI granted an exemption to DKJ Ownership Trust from making an open offer for a 19.85% stake in S Chand, simplifying the ownership change.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "S Chand and Company Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -217961,9 +217966,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 819285,
-    "news_picked_today": 89,
-    "news_dropped_today": 871
+    "news_seen_today": 941932,
+    "news_picked_today": 91,
+    "news_dropped_today": 965
   },
   "book_momentum": {
     "live_count": 8,
