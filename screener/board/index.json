@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-13T17:58:34Z",
+  "generated_at": "2026-10-13T18:13:19Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261013-470",
+      "headline": "Aegis Logistics Limited: Aegis Logistics Limited has informed the Exchange about Acquisition of 89.8% stake of Tristar Holdings Limited by the Company via its 100% step-down subsidiary Aegis Logistics International Pte Ltd. (collectively Aegis)",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/AEGISCHEM_13102026232700_ALL_SE_BM_Outcome_AcquisitionTristar_Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-13T17:57:53Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Aegis Logistics is acquiring an 89.8% stake in Tristar Holdings Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Aegis Logistics is acquiring an 89.8% stake in Tristar Holdings Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aegis Logistics Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261013-420",
       "headline": "Siti Networks Limited: Siti Networks Limited has informed the Exchange about Corporate Insolvency Resolution Process",
@@ -1927,56 +1976,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-299",
-      "headline": "UnitedHealth Group raises profit forecast on third-quarter earnings beat",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/litigation/unitedhealth-group-raises-profit-forecast-third-quarter-earnings-beat-2026-10-13/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T09:57:58Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "UnitedHealth Group beat third-quarter earnings expectations and raised its full-year profit forecast.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "UnitedHealth Group beat third-quarter earnings expectations and raised its full-year profit forecast.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UnitedHealth Group",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -216471,9 +216470,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6843551,
+    "news_seen_today": 6986625,
     "news_picked_today": 694,
-    "news_dropped_today": 4922
+    "news_dropped_today": 4946
   },
   "book_momentum": {
     "live_count": 8,
