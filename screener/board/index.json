@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T02:02:03Z",
+  "generated_at": "2026-10-13T02:04:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-002",
@@ -638,6 +638,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261013-073",
+      "headline": "GLOBAL UIN (08496): CLARIFICATION ANNOUNCEMENT; AND CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1012/2026101200681.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T09:57:00Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Continued suspension of trading indicates ongoing material uncertainty or regulatory issues for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Continued suspension of trading indicates ongoing material uncertainty or regulatory issues for the company.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Global UIN",
+          "ticker": "08496",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1912,55 +1961,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-051",
-      "headline": "FDA 510(k) clearance — Cepheid®: Xpert Xpress CoV-2/Flu plus",
-      "headline_en": null,
-      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K263120",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-02T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Cepheid received FDA 510(k) clearance for its Xpert Xpress CoV-2/Flu plus diagnostic test.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "Cepheid received FDA 510(k) clearance for its Xpert Xpress CoV-2/Flu plus diagnostic test.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cepheid",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -217966,9 +217966,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 941932,
-    "news_picked_today": 91,
-    "news_dropped_today": 965
+    "news_seen_today": 964205,
+    "news_picked_today": 100,
+    "news_dropped_today": 980
   },
   "book_momentum": {
     "live_count": 8,
