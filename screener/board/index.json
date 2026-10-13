@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T03:39:48Z",
+  "generated_at": "2026-10-13T03:44:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-086",
@@ -1616,6 +1616,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261013-098",
+      "headline": "ORE: Application to Change ASX Category to Foreign Exempt Listing [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ORE?key=2924-03147670-6A1348944",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-13T03:33:19Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Allkem (ORE) is changing its ASX listing category to Foreign Exempt, which is a procedural change in regulatory status.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "Allkem (ORE) is changing its ASX listing category to Foreign Exempt, which is a procedural change in regulatory status.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Allkem",
+          "ticker": "ORE",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261013-081",
       "headline": "Kolte - Patil Developers Limited: Kolte - Patil Developers Limited has informed the Exchange regarding 'Operational Update for Q2 & H1 FY27'.",
       "headline_en": null,
@@ -1905,55 +1954,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-095",
-      "headline": "ICICI Prudential AMC Q2 Results Review: Jefferies Raises Target Price, Kotak Flags Valuation Concerns",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/icici-prudential-amc-q2-results-review-jefferies-raises-target-price-kotak-flags-valuation-concerns-12176687#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T02:47:24Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Jefferies raised the target price for ICICI Prudential AMC following Q2 results, though valuation concerns were noted.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Jefferies raised the target price for ICICI Prudential AMC following Q2 results, though valuation concerns were noted.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ICICI Prudential AMC",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -217959,9 +217959,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1672591,
-    "news_picked_today": 133,
-    "news_dropped_today": 1787
+    "news_seen_today": 1704715,
+    "news_picked_today": 134,
+    "news_dropped_today": 1810
   },
   "book_momentum": {
     "live_count": 8,
