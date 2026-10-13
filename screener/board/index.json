@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T00:38:11Z",
+  "generated_at": "2026-10-13T00:41:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-002",
@@ -481,6 +481,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261013-028",
+      "headline": "FDA device recall (Class I) — Medline Industries, LP: Medline Basic Homecare Beds and Medlite Homecare Beds and Accessories MDR107000P BED, MANUAL, MEDLITE — Potential fire hazard involving the hand control pendant and associated wiring used with affected beds. Pendant or penda",
+      "headline_en": null,
+      "url": "https://api.fda.gov/device/enforcement.json?search=recall_number.exact:%22Z-3228-2026%22",
+      "source_name": "U.S. Food & Drug Administration (Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-07T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Class I recall for homecare beds due to potential fire hazard represents a significant safety and liability risk for Medline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Class I recall for homecare beds due to potential fire hazard represents a significant safety and liability risk for Medline.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Medline Industries, LP",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -217252,7 +217301,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3553,
+    "inbox_unconsumed": 3554,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -217261,9 +217310,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 218558,
-    "news_picked_today": 27,
-    "news_dropped_today": 309
+    "news_seen_today": 253139,
+    "news_picked_today": 28,
+    "news_dropped_today": 332
   },
   "book_momentum": {
     "live_count": 8,
