@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T20:50:28Z",
+  "generated_at": "2026-10-13T20:53:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-579",
@@ -988,6 +988,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261013-581",
+      "headline": "Televisa, Fintech Holdings to Buy AT&T Mexico for $2 Billion",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-13/televisa-fintech-holdings-to-buy-at-t-mexico-for-2-billion",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-13T20:15:43Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Televisa and Fintech Holdings are acquiring AT&T Mexico for $2 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Televisa and Fintech Holdings are acquiring AT&T Mexico for $2 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Televisa",
+          "ticker": null,
+          "listing_country": "MX"
+        },
+        {
+          "name": "AT&T",
+          "ticker": "T",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261013-475",
       "headline": "NMC Healthcare founder BR Shetty files $15 billion lawsuit against Bank of Baroda",
       "headline_en": null,
@@ -1931,55 +1985,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-251",
-      "headline": "Dating app Bumble swipes right on US$1.3b buyout as users fall out of love",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/companies-markets/dating-app-bumble-swipes-right-on-us1-3b-buyout-as-users-fall-out-of-love",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T13:14:18Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Bumble is being acquired in a US$1.3 billion buyout deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bumble is being acquired in a US$1.3 billion buyout deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bumble",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -216473,9 +216478,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8752359,
-    "news_picked_today": 954,
-    "news_dropped_today": 9006
+    "news_seen_today": 8773864,
+    "news_picked_today": 957,
+    "news_dropped_today": 9027
   },
   "book_momentum": {
     "live_count": 8,
