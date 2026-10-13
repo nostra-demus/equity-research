@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T21:13:41Z",
+  "generated_at": "2026-10-13T21:17:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-579",
@@ -934,6 +934,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261013-585",
+      "headline": "Micron Just Raised Its Buyback Authorization to $35 Billion. Prediction: It Spends More Buying Back Stock in the Next Year Than in the Past 8 Combined.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/micron-just-raised-its-buyback-authorization-35-billion-prediction-it-spends-more-buying",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-13T20:57:02Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Micron Technology increased its share buyback authorization to $35 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Micron Technology increased its share buyback authorization to $35 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Micron Technology",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261013-582",
       "headline": "Bank of America to Pay $1.21 Billion to Settle Violations of Money Laundering, Sanctions laws",
       "headline_en": null,
@@ -978,55 +1027,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-583",
-      "headline": "Micron Just Raised Its Buyback Authorization to $35 Billion. Prediction: It Spends More Buying Back Stock in the Next Year Than in the Past 8 Combined.",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/10/13/micron-just-raised-its-buyback-authorization-to-usd35-billion-prediction-it-spends-more-buying-back-stock-in-the-next-year-than-in-the-past-8-combined/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T20:37:02Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Micron increased its share buyback authorization by $35 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Micron increased its share buyback authorization by $35 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Micron Technology",
-          "ticker": "MU",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -216245,9 +216245,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9011858,
-    "news_picked_today": 979,
-    "news_dropped_today": 9149
+    "news_seen_today": 9077108,
+    "news_picked_today": 981,
+    "news_dropped_today": 9171
   },
   "book_momentum": {
     "live_count": 8,
