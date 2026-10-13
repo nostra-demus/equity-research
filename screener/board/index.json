@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-13T22:53:19Z",
+  "generated_at": "2026-10-13T22:57:19Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261013-619",
+      "headline": "GRR: FID to deliver the Savage River Underground [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GRR?key=2924-03148079-3A704046",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-13T22:48:53Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Final Investment Decision (FID) for an underground project represents a major capital commitment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Final Investment Decision (FID) for an underground project represents a major capital commitment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GRR",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261013-603",
       "headline": "425 - PATRICK INDUSTRIES INC (0000076605) (Subject)",
@@ -1925,60 +1974,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-331",
-      "headline": "EU approves Kimberly-Clark's acquisition of Kenvue, subject to conditions",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/eu-approves-kimberly-clarks-acquisition-kenvue-subject-conditions-2026-10-13/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T14:12:09Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "The EU approved Kimberly-Clark's acquisition of Kenvue, subject to conditions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The EU approved Kimberly-Clark's acquisition of Kenvue, subject to conditions.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kimberly-Clark",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Kenvue",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -216246,9 +216241,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10673138,
-    "news_picked_today": 1115,
-    "news_dropped_today": 9925
+    "news_seen_today": 10738670,
+    "news_picked_today": 1128,
+    "news_dropped_today": 9960
   },
   "book_momentum": {
     "live_count": 8,
