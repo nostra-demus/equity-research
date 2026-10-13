@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-13T21:54:17Z",
+  "generated_at": "2026-10-13T21:57:17Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261013-603",
+      "headline": "425 - PATRICK INDUSTRIES INC (0000076605) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/76605/000007660526000093/0000076605-26-000093-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-13T21:17:35Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Patrick Industries filed a 425 form regarding a business combination, indicating ongoing M&A activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Patrick Industries filed a 425 form regarding a business combination, indicating ongoing M&A activity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PATRICK INDUSTRIES INC",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261013-579",
       "headline": "OCC Imposes $750 Million Assessment Against Bank of America for Deficient BSA/AML Compliance",
@@ -1926,60 +1975,6 @@
       "companies": [
         {
           "name": "Albertsons",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-376",
-      "headline": "Steris inks $2.1B Xodus buyout to expand consumables portfolio",
-      "headline_en": null,
-      "url": "https://www.medtechdive.com/news/steris-inks-21b-xodus-buyout-to-expand-consumables-portfolio/832822/",
-      "source_name": "MedTech Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T14:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Steris is acquiring Xodus for $2.1B.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Steris is acquiring Xodus for $2.1B.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Steris",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Xodus",
           "ticker": null,
           "listing_country": "US"
         }
@@ -216251,9 +216246,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9731875,
-    "news_picked_today": 1011,
-    "news_dropped_today": 9501
+    "news_seen_today": 9797506,
+    "news_picked_today": 1012,
+    "news_dropped_today": 9524
   },
   "book_momentum": {
     "live_count": 8,
