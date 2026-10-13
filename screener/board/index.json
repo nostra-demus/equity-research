@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T05:17:10Z",
+  "generated_at": "2026-10-13T05:35:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-086",
@@ -641,6 +641,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261013-128",
+      "headline": "Zydus Lifesciences Limited: Zydus Lifesciences Limited has informed the Exchange regarding a press release dated October 13, 2026, titled \"Zydus and Formycon: FYB206 Becomes First Publicly Announced Keytruda® Biosimilar Accepted for Review by USFDA\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/Cadilahc_13102026094541_PressRelease13102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-13T04:16:39Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "USFDA acceptance for review of a biosimilar is a significant milestone for the company's product pipeline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "USFDA acceptance for review of a biosimilar is a significant milestone for the company's product pipeline.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zydus Lifesciences",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1925,55 +1974,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-112",
-      "headline": "CGSI upgrades DBS to ‘add’, raises target price to S$79.50",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/banking-finance/cgsi-upgrades-dbs-add-raises-target-price-s79-50",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T03:59:18Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "CGSI upgraded DBS to 'add' with a raised target price of S$79.50.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 78,
-      "triage_reason": "CGSI upgraded DBS to 'add' with a raised target price of S$79.50.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DBS Group",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -216902,9 +216902,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2363322,
-    "news_picked_today": 180,
-    "news_dropped_today": 2604
+    "news_seen_today": 2530751,
+    "news_picked_today": 186,
+    "news_dropped_today": 2742
   },
   "book_momentum": {
     "live_count": 8,
