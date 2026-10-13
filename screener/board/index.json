@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T14:44:43Z",
+  "generated_at": "2026-10-13T14:50:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-171",
@@ -395,6 +395,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261013-375",
+      "headline": "Character.ai declares bankruptcy, citing legal and business woes",
+      "headline_en": null,
+      "url": "https://www.cbsnews.com/news/character-ai-files-bankruptcy-disney-license/",
+      "source_name": "CBS MoneyWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-13T14:40:13Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Character.ai has filed for bankruptcy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Character.ai has filed for bankruptcy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Character.ai",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261013-368",
       "headline": "Bumble agrees to a $1.3B acquisition deal as online dating faces a reset",
       "headline_en": null,
@@ -538,6 +587,60 @@
       "companies": [
         {
           "name": "Albertsons",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261013-376",
+      "headline": "Steris inks $2.1B Xodus buyout to expand consumables portfolio",
+      "headline_en": null,
+      "url": "https://www.medtechdive.com/news/steris-inks-21b-xodus-buyout-to-expand-consumables-portfolio/832822/",
+      "source_name": "MedTech Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-13T14:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Steris is acquiring Xodus for $2.1B.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Steris is acquiring Xodus for $2.1B.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Steris",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Xodus",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1849,142 +1952,55 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261013-058",
-      "headline": "Jardine Matheson raises 2026 earnings guidance as high as US$5.65 per share",
+      "inbox_id": "INB-20261013-372",
+      "headline": "Alaunos Therapeutics Announces Acquisition of Velaris Therapeutics",
       "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/jardine-matheson-raises-2026-earnings-guidance-high-us5-65-share",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T00:58:52Z",
+      "url": "https://www.globenewswire.com/news-release/2026/10/13/3379885/18421/en/alaunos-therapeutics-announces-acquisition-of-velaris-therapeutics.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-13T14:31:00Z",
       "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Jardine Matheson raised its 2026 earnings guidance to US$5.65 per share.",
+      "prelim_note": "Alaunos Therapeutics is acquiring Velaris Therapeutics.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Jardine Matheson raised its 2026 earnings guidance to US$5.65 per share.",
-      "region": "GLOBAL",
+      "triage_score": 67,
+      "triage_reason": "Alaunos Therapeutics is acquiring Velaris Therapeutics.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
         "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
         "recency": 5,
         "materiality_label_floor": 10,
-        "quantified": 6,
+        "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "small"
       },
       "event_types": [
-        "guidance_change"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Jardine Matheson",
+          "name": "Alaunos Therapeutics",
           "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-042",
-      "headline": "CHABAIDAO (02555): EXCHANGE NOTICE - SUSPENSION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1013/2026101300053.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-13T00:42:00Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Trading suspension of Chabaidao (02555) is a material event affecting liquidity and investor access.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Trading suspension of Chabaidao (02555) is a material event affecting liquidity and investor access.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
+          "listing_country": "US"
+        },
         {
-          "name": "Chabaidao",
-          "ticker": "02555",
-          "listing_country": "CN"
+          "name": "Velaris Therapeutics",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-019",
-      "headline": "Houthi missile attack targets Saudi capital Riyadh for third day in a row",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/2026/10/12/houthi-missile-attack-targets-saudi-capital-riyadh-for-third-day-in-a-row?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-10-12T23:54:05Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Continued missile attacks on Riyadh represent a significant geopolitical escalation affecting regional stability and energy supply chains.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Continued missile attacks on Riyadh represent a significant geopolitical escalation affecting regional stability and energy supply chains.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -216477,9 +216493,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4508093,
-    "news_picked_today": 530,
-    "news_dropped_today": 3982
+    "news_seen_today": 4598085,
+    "news_picked_today": 542,
+    "news_dropped_today": 4018
   },
   "book_momentum": {
     "live_count": 8,
