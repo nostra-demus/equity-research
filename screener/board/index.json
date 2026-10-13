@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T17:51:42Z",
+  "generated_at": "2026-10-13T17:58:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-420",
@@ -635,6 +635,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261013-469",
+      "headline": "Bharat Coking Coal raises basic prices of select coking coal grades by up to 14%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/bharat-coking-coal-share-price-raises-basic-prices-of-select-coking-coal-grades-by-up-to-14-20011242.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-13T17:48:55Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Bharat Coking Coal increased prices for select coking coal grades by up to 14%, impacting revenue margins.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bharat Coking Coal increased prices for select coking coal grades by up to 14%, impacting revenue margins.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bharat Coking Coal",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1923,55 +1972,6 @@
       "companies": [
         {
           "name": "UnitedHealth Group",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-297",
-      "headline": "UnitedHealth Raises 2026 Profit View as Cost Pressures Ease",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-13/unitedhealth-raises-2026-profit-outlook-as-cost-pressures-ease",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T09:55:00Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "UnitedHealth raised its 2026 profit outlook due to easing cost pressures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "UnitedHealth raised its 2026 profit outlook due to easing cost pressures.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UnitedHealth",
           "ticker": null,
           "listing_country": "US"
         }
@@ -216471,9 +216471,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6748393,
-    "news_picked_today": 691,
-    "news_dropped_today": 4901
+    "news_seen_today": 6843551,
+    "news_picked_today": 694,
+    "news_dropped_today": 4922
   },
   "book_momentum": {
     "live_count": 8,
