@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-13T18:24:01Z",
+  "generated_at": "2026-10-13T18:31:47Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261013-471",
+      "headline": "Aegis Logistics Limited: Aegis Logistics Limited has informed the Exchange regarding a press release dated October 13, 2026, titled \" Aegis signs definitive agreement for its proposed acquisition of a majority stake in Tristar \".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/AEGISCHEM_13102026233905_ALL_SE_Pressrelease_Tristar_Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-13T18:09:48Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Aegis Logistics signed a definitive agreement to acquire a majority stake in Tristar.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Aegis Logistics signed a definitive agreement to acquire a majority stake in Tristar.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aegis Logistics Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261013-470",
       "headline": "Aegis Logistics Limited: Aegis Logistics Limited has informed the Exchange about Acquisition of 89.8% stake of Tristar Holdings Limited by the Company via its 100% step-down subsidiary Aegis Logistics International Pte Ltd. (collectively Aegis)",
@@ -681,6 +730,55 @@
           "name": "Man Wah Holdings",
           "ticker": "01999",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261013-472",
+      "headline": "Aegis Logistics to acquire 90% stake in Tristar Holdings for $809 million",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/aegis-logistics-share-price-to-acquire-90-stake-in-tristar-holdings-for-809-million-20011265.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-13T18:16:40Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Aegis Logistics is acquiring a 90% stake in Tristar Holdings for $809 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Aegis Logistics is acquiring a 90% stake in Tristar Holdings for $809 million.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aegis Logistics Limited",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -1877,105 +1975,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-278",
-      "headline": "JPMorgan earnings come up short of expectations: live coverage",
-      "headline_en": null,
-      "url": "https://www.marketwatch.com/bulletins/redirect/go?g=db1a7873-98b8-42fc-a561-b68f682854ca&mod=mw_rss_bulletins",
-      "source_name": "MarketWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T10:38:14Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "JPMorgan reported earnings that missed analyst expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "JPMorgan reported earnings that missed analyst expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JPMorgan",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-285",
-      "headline": "Metaplanet to issue $329M convertible bonds to pay debt, fund share buybacks",
-      "headline_en": null,
-      "url": "https://cointelegraph.com/news/metaplanet-329m-convertible-bonds-pay-debt-share-buybacks?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source_name": "Cointelegraph",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T10:23:07Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Metaplanet is issuing $329M in convertible bonds to address debt and fund buybacks, indicating significant leverage pressure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Metaplanet is issuing $329M in convertible bonds to address debt and fund buybacks, indicating significant leverage pressure.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "debt_credit",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Metaplanet",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -216470,9 +216469,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7081894,
-    "news_picked_today": 733,
-    "news_dropped_today": 5363
+    "news_seen_today": 7152652,
+    "news_picked_today": 735,
+    "news_dropped_today": 5385
   },
   "book_momentum": {
     "live_count": 8,
