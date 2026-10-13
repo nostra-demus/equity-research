@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T01:45:02Z",
+  "generated_at": "2026-10-13T01:47:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-002",
@@ -43,6 +43,55 @@
           "name": "Man Wah Holdings",
           "ticker": "01999",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261013-070",
+      "headline": "Bumble shares soar after report dating firm in $1bn takeover talks",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/cm9qzwjgnjxlo?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-13T01:36:36Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Bumble is reportedly in talks for a $1bn takeover, which is a significant valuation event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bumble is reportedly in talks for a $1bn takeover, which is a significant valuation event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bumble",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mid",
@@ -1904,55 +1953,6 @@
           "name": "S Chand and Company Ltd",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-005",
-      "headline": "EGY: Notification of cessation of securities - EGY",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EGY?key=2924-03147607-2A1703691",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-13T00:04:03Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Routine notification of security cessation for Energy Resources of Australia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Routine notification of security cessation for Energy Resources of Australia.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Energy Resources of Australia",
-          "ticker": "EGY",
-          "listing_country": null
         }
       ],
       "size_bucket": "small",
@@ -217961,9 +217961,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 785686,
-    "news_picked_today": 87,
-    "news_dropped_today": 825
+    "news_seen_today": 796897,
+    "news_picked_today": 88,
+    "news_dropped_today": 848
   },
   "book_momentum": {
     "live_count": 8,
