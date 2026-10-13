@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T02:30:03Z",
+  "generated_at": "2026-10-13T02:34:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-002",
@@ -1268,6 +1268,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261013-081",
+      "headline": "Kolte - Patil Developers Limited: Kolte - Patil Developers Limited has informed the Exchange regarding 'Operational Update for Q2 & H1 FY27'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/KOLTEPATIL_13102026075428_SubmissionoperationalQ2.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-13T02:25:09Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "The company provided an operational update for Q2 and H1 FY27, which is relevant for tracking performance trends.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "The company provided an operational update for Q2 and H1 FY27, which is relevant for tracking performance trends.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kolte-Patil Developers Ltd",
+          "ticker": "532924",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261013-011",
       "headline": "INSILICO (03696): VOLUNTARY ANNOUNCEMENT INSILICO MEDICINE NOMINATES PERIPHERAL-RESTRICTED VAV1 MOLECULAR GLUE DEGRADER FOR POTENTIAL TREATMENT OF AUTOIMMUNE DISEASES",
       "headline_en": null,
@@ -1900,55 +1949,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-064",
-      "headline": "Northland Capital Markets Upgrades C3.ai to Outperform from Market Perform",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/northland-capital-markets-upgrades-c3ai-outperform-market-perform",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T00:58:44Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Analyst upgrade of C3.ai to Outperform from Market Perform.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Analyst upgrade of C3.ai to Outperform from Market Perform.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "C3.ai",
-          "ticker": "AI",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -217954,9 +217954,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1141118,
-    "news_picked_today": 111,
-    "news_dropped_today": 1209
+    "news_seen_today": 1163138,
+    "news_picked_today": 112,
+    "news_dropped_today": 1232
   },
   "book_momentum": {
     "live_count": 8,
