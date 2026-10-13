@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T17:01:14Z",
+  "generated_at": "2026-10-13T17:38:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-420",
@@ -635,6 +635,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261013-466",
+      "headline": "Character.ai Maker Files for Chapter 11 Bankruptcy",
+      "headline_en": null,
+      "url": "https://www.wsj.com/tech/ai/character-ai-maker-files-for-chapter-11-bankruptcy-740e6fb1?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-13T17:07:00Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Character.ai maker filed for Chapter 11 bankruptcy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Character.ai maker filed for Chapter 11 bankruptcy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Character.ai",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1928,56 +1977,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-307",
-      "headline": "Poundland on the brink: Union fears administration budget cuts put thousands of jobs under threat",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/poundland-shops-sale-gordon-brothers-b3065692.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T09:35:36Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Poundland is facing potential administration and significant job cuts, indicating severe financial distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Poundland is facing potential administration and significant job cuts, indicating severe financial distress.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Poundland",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -175944,150 +175943,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b0b9aa045546",
-      "idea_version": "IDEAV-7359c810d800daa5",
-      "idea_version_started_at": "2026-10-12T05:53:02Z",
-      "ticker": "63MOONS",
-      "company": "63 Moons Technologies",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its FY27 revenue guidance to Rs 600 crore, indicating improved demand or operational efficiency within its subsidiary.",
-      "why_now": "The guidance update was reported on October 12, 2026, following a 9% rally in share price.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9f7a25855681"
-      ],
-      "primary_source_event_id": "EVT-9f7a25855681",
-      "source_headlines": [
-        "63 Moons Technologies shares rally 9% as subsidiary raises FY27 revenue guidance to Rs 600 crore"
-      ],
-      "source_headline": "63 Moons Technologies shares rally 9% as subsidiary raises FY27 revenue guidance to Rs 600 crore",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/63-moons-technologies-shares-rally-9-as-subsidiary-raises-fy27-revenue-guidance-to-rs-600-crore/articleshow/134883373.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-12T05:14:25Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-12T05:53:02Z",
-      "updated_at": "2026-10-12T05:53:02Z",
-      "decay_at": "2026-10-13T17:14:25Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-95e0b5599de3",
-      "idea_version": "IDEAV-be34fa90a93597e9",
-      "idea_version_started_at": "2026-10-12T05:17:24Z",
-      "ticker": "EMCURE",
-      "company": "Emcure Pharmaceuticals",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The board approved the amalgamation of two wholly owned subsidiaries, which typically streamlines operations and improves consolidated margins.",
-      "why_now": "The filing was made on October 12, 2026, immediately following the board meeting.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-996692ceca4f"
-      ],
-      "primary_source_event_id": "EVT-996692ceca4f",
-      "source_headlines": [
-        "Emcure Pharmaceuticals Limited: Emcure Pharmaceuticals Limited has informed the Exchange that the Board of Directors at the meeting held on October 12, 2026 have approved the proposed Scheme of Amalgamation of Zuventus Healthcare Limited and Emcutix Biopharmaceuticals Limited, wholly owned subsidiaries with Emcure Pharmaceuticals Limited - Holding Company, subject to requisite statutory and regulatory approvals."
-      ],
-      "source_headline": "Emcure Pharmaceuticals Limited: Emcure Pharmaceuticals Limited has informed the Exchange that the Board of Directors at the meeting held on October 12, 2026 have approved the proposed Scheme of Amalgamation of Zuventus Healthcare Limited and Emcutix Biopharmaceuticals Limited, wholly owned subsidiaries with Emcure Pharmaceuticals Limited - Holding Company, subject to requisite statutory and regulatory approvals.",
-      "source_url": "https://nsearchives.nseindia.com/corporate/EMCURE_12102026103306_OutcomeofBM12102026_Final.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-12T05:03:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-12T05:17:24Z",
-      "updated_at": "2026-10-12T05:17:24Z",
-      "decay_at": "2026-10-13T17:03:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-026b016aaebf",
       "idea_version": "IDEAV-f9345ef6d367f75f",
       "idea_version_started_at": "2026-10-13T14:10:50Z",
@@ -177008,6 +176863,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-b0b9aa045546",
+      "idea_version": "IDEAV-7359c810d800daa5",
+      "idea_version_started_at": "2026-10-12T05:53:02Z",
+      "ticker": "63MOONS",
+      "company": "63 Moons Technologies",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company raised its FY27 revenue guidance to Rs 600 crore, indicating improved demand or operational efficiency within its subsidiary.",
+      "why_now": "The guidance update was reported on October 12, 2026, following a 9% rally in share price.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9f7a25855681"
+      ],
+      "primary_source_event_id": "EVT-9f7a25855681",
+      "source_headlines": [
+        "63 Moons Technologies shares rally 9% as subsidiary raises FY27 revenue guidance to Rs 600 crore"
+      ],
+      "source_headline": "63 Moons Technologies shares rally 9% as subsidiary raises FY27 revenue guidance to Rs 600 crore",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/63-moons-technologies-shares-rally-9-as-subsidiary-raises-fy27-revenue-guidance-to-rs-600-crore/articleshow/134883373.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-12T05:14:25Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-12T05:53:02Z",
+      "updated_at": "2026-10-12T05:53:02Z",
+      "decay_at": "2026-10-13T17:14:25Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-3d36c355ad79",
       "idea_version": "IDEAV-cfd42763d30bf50b",
       "idea_version_started_at": "2026-10-12T05:17:24Z",
@@ -177074,6 +177002,77 @@
       "surfaced_at": "2026-10-12T05:17:24Z",
       "updated_at": "2026-10-12T05:17:24Z",
       "decay_at": "2026-10-13T16:41:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-95e0b5599de3",
+      "idea_version": "IDEAV-be34fa90a93597e9",
+      "idea_version_started_at": "2026-10-12T05:17:24Z",
+      "ticker": "EMCURE",
+      "company": "Emcure Pharmaceuticals",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The board approved the amalgamation of two wholly owned subsidiaries, which typically streamlines operations and improves consolidated margins.",
+      "why_now": "The filing was made on October 12, 2026, immediately following the board meeting.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-996692ceca4f"
+      ],
+      "primary_source_event_id": "EVT-996692ceca4f",
+      "source_headlines": [
+        "Emcure Pharmaceuticals Limited: Emcure Pharmaceuticals Limited has informed the Exchange that the Board of Directors at the meeting held on October 12, 2026 have approved the proposed Scheme of Amalgamation of Zuventus Healthcare Limited and Emcutix Biopharmaceuticals Limited, wholly owned subsidiaries with Emcure Pharmaceuticals Limited - Holding Company, subject to requisite statutory and regulatory approvals."
+      ],
+      "source_headline": "Emcure Pharmaceuticals Limited: Emcure Pharmaceuticals Limited has informed the Exchange that the Board of Directors at the meeting held on October 12, 2026 have approved the proposed Scheme of Amalgamation of Zuventus Healthcare Limited and Emcutix Biopharmaceuticals Limited, wholly owned subsidiaries with Emcure Pharmaceuticals Limited - Holding Company, subject to requisite statutory and regulatory approvals.",
+      "source_url": "https://nsearchives.nseindia.com/corporate/EMCURE_12102026103306_OutcomeofBM12102026_Final.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-12T05:03:18Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-12T05:17:24Z",
+      "updated_at": "2026-10-12T05:17:24Z",
+      "decay_at": "2026-10-13T17:03:18Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -179257,14 +179256,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 540,
     "shown_count": 499,
-    "hidden_count": 39,
+    "hidden_count": 41,
     "side_counts": {
       "long": {
-        "total_count": 282,
+        "total_count": 284,
         "shown_count": 250,
-        "hidden_count": 32
+        "hidden_count": 34
       },
       "short": {
         "total_count": 257,
@@ -179288,6 +179287,156 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b0b9aa045546",
+        "idea_version": "IDEAV-7359c810d800daa5",
+        "idea_version_started_at": "2026-10-12T05:53:02Z",
+        "ticker": "63MOONS",
+        "company": "63 Moons Technologies",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company raised its FY27 revenue guidance to Rs 600 crore, indicating improved demand or operational efficiency within its subsidiary.",
+        "why_now": "The guidance update was reported on October 12, 2026, following a 9% rally in share price.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9f7a25855681"
+        ],
+        "primary_source_event_id": "EVT-9f7a25855681",
+        "source_headlines": [
+          "63 Moons Technologies shares rally 9% as subsidiary raises FY27 revenue guidance to Rs 600 crore"
+        ],
+        "source_headline": "63 Moons Technologies shares rally 9% as subsidiary raises FY27 revenue guidance to Rs 600 crore",
+        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/63-moons-technologies-shares-rally-9-as-subsidiary-raises-fy27-revenue-guidance-to-rs-600-crore/articleshow/134883373.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-12T05:14:25Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-12T05:53:02Z",
+        "updated_at": "2026-10-12T05:53:02Z",
+        "decay_at": "2026-10-13T17:14:25Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-13T17:14:25Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-95e0b5599de3",
+        "idea_version": "IDEAV-be34fa90a93597e9",
+        "idea_version_started_at": "2026-10-12T05:17:24Z",
+        "ticker": "EMCURE",
+        "company": "Emcure Pharmaceuticals",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The board approved the amalgamation of two wholly owned subsidiaries, which typically streamlines operations and improves consolidated margins.",
+        "why_now": "The filing was made on October 12, 2026, immediately following the board meeting.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-996692ceca4f"
+        ],
+        "primary_source_event_id": "EVT-996692ceca4f",
+        "source_headlines": [
+          "Emcure Pharmaceuticals Limited: Emcure Pharmaceuticals Limited has informed the Exchange that the Board of Directors at the meeting held on October 12, 2026 have approved the proposed Scheme of Amalgamation of Zuventus Healthcare Limited and Emcutix Biopharmaceuticals Limited, wholly owned subsidiaries with Emcure Pharmaceuticals Limited - Holding Company, subject to requisite statutory and regulatory approvals."
+        ],
+        "source_headline": "Emcure Pharmaceuticals Limited: Emcure Pharmaceuticals Limited has informed the Exchange that the Board of Directors at the meeting held on October 12, 2026 have approved the proposed Scheme of Amalgamation of Zuventus Healthcare Limited and Emcutix Biopharmaceuticals Limited, wholly owned subsidiaries with Emcure Pharmaceuticals Limited - Holding Company, subject to requisite statutory and regulatory approvals.",
+        "source_url": "https://nsearchives.nseindia.com/corporate/EMCURE_12102026103306_OutcomeofBM12102026_Final.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-12T05:03:18Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-12T05:17:24Z",
+        "updated_at": "2026-10-12T05:17:24Z",
+        "decay_at": "2026-10-13T17:03:18Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-13T17:03:18Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-58c976f2825a",
         "idea_version": "IDEAV-f804e69c1df58ee4",
@@ -207010,80 +207159,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-36170b9aa8ef",
-        "idea_version": "IDEAV-7ca0ad97af6df0f8",
-        "idea_version_started_at": "2026-09-30T02:20:53Z",
-        "ticker": "EMP",
-        "company": "Empire Energy Group",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The approval of the Judith2 appraisal well drilling environment plan removes a key regulatory hurdle for the company's exploration and production operations.",
-        "why_now": "The approval was officially announced on September 29, 2026, providing an immediate catalyst for development.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-460657a7ad63"
-        ],
-        "primary_source_event_id": "EVT-460657a7ad63",
-        "source_headlines": [
-          "EMP: Approval of Judith2 Appraisal Well Drilling Environment Plan [price-sensitive]"
-        ],
-        "source_headline": "EMP: Approval of Judith2 Appraisal Well Drilling Environment Plan [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EMP?key=2924-03141907-2A1700521",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 90,
-        "newest_source_at": "2026-09-29T23:52:59Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-30T02:20:53Z",
-        "updated_at": "2026-09-30T02:20:53Z",
-        "decay_at": "2026-10-01T11:52:59Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-02T23:55:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-02a86175523b",
         "idea_version": "IDEAV-f25ea1d334d8503f",
         "idea_version_started_at": "2026-09-30T02:00:49Z",
@@ -207152,80 +207227,6 @@
         "surfaced_at": "2026-09-30T02:00:49Z",
         "updated_at": "2026-09-30T02:00:49Z",
         "decay_at": "2026-10-01T11:51:34Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-02T23:55:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-aa2a7b63a414",
-        "idea_version": "IDEAV-849a173aea6f83d8",
-        "idea_version_started_at": "2026-09-29T23:33:49Z",
-        "ticker": "DRO",
-        "company": "DroneShield",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The US$500M IDIQ procurement vehicle represents a massive increase in the company's total addressable contract value and provides long-term revenue visibility.",
-        "why_now": "Contract award announced 2026-09-29.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b139def55f45"
-        ],
-        "primary_source_event_id": "EVT-b139def55f45",
-        "source_headlines": [
-          "DRO: DroneShield Awarded US$500M US IDIQ Procurement Vehicle"
-        ],
-        "source_headline": "DRO: DroneShield Awarded US$500M US IDIQ Procurement Vehicle",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DRO?key=2924-03141779-2A1700430",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-29T22:49:44Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-29T23:33:49Z",
-        "updated_at": "2026-09-29T23:33:49Z",
-        "decay_at": "2026-10-01T10:49:44Z",
         "status": "expired",
         "promoted_signal_id": null,
         "feedback": null,
@@ -216451,7 +216452,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1566,
-    "live_count": 34,
+    "live_count": 32,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -216470,9 +216471,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6157837,
-    "news_picked_today": 669,
-    "news_dropped_today": 4707
+    "news_seen_today": 6629485,
+    "news_picked_today": 679,
+    "news_dropped_today": 4721
   },
   "book_momentum": {
     "live_count": 8,
