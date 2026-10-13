@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T04:09:41Z",
+  "generated_at": "2026-10-13T04:11:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-086",
@@ -1911,50 +1911,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261013-098",
-      "headline": "ORE: Application to Change ASX Category to Foreign Exempt Listing [price-sensitive]",
+      "inbox_id": "INB-20261013-115",
+      "headline": "JINHUI HOLDINGS (00137): Delay in Despatch of Circular - Very Substantial Acquisition: Acquisition of Two Vessels",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ORE?key=2924-03147670-6A1348944",
-      "source_name": "ASX (Australia Exchange Filing)",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1013/2026101300147.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-10-13T03:33:19Z",
+      "found_at": "2026-10-13T04:04:00Z",
       "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Allkem (ORE) is changing its ASX listing category to Foreign Exempt, which is a procedural change in regulatory status.",
+      "prelim_note": "Jinhui Holdings announced a delay in the circular for a very substantial acquisition of two vessels.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "Allkem (ORE) is changing its ASX listing category to Foreign Exempt, which is a procedural change in regulatory status.",
-      "region": "OTHER",
+      "triage_score": 76,
+      "triage_reason": "Jinhui Holdings announced a delay in the circular for a very substantial acquisition of two vessels.",
+      "region": "CN",
       "relevance": "material",
       "materiality_pre_score": 50,
       "rank_factors": {
         "materiality": 50,
         "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "large"
+        "event_id": "mna",
+        "size_bucket": "small"
       },
       "event_types": [
-        "regulatory"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Allkem",
-          "ticker": "ORE",
-          "listing_country": null
+          "name": "Jinhui Holdings",
+          "ticker": "00137",
+          "listing_country": "CN"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -217960,9 +217960,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1938966,
-    "news_picked_today": 158,
-    "news_dropped_today": 2002
+    "news_seen_today": 1949872,
+    "news_picked_today": 160,
+    "news_dropped_today": 2024
   },
   "book_momentum": {
     "live_count": 8,
