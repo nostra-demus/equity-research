@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T01:19:43Z",
+  "generated_at": "2026-10-13T01:23:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-002",
@@ -1079,6 +1079,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261013-061",
+      "headline": "CHINA LIT (00772): (1) REVISION OF ANNUAL CAPS FOR 2026 PROMOTION COOPERATION FRAMEWORK AGREEMENT AND (2) PROPOSED REVISION OF ANNUAL CAPS FOR 2026 ADVERTISEMENT COOPERATION FRAMEWORK AGREEMENT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101200847.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T10:52:00Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "China Literature is revising annual caps for promotion and advertisement agreements, indicating changes in expected transaction volumes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "China Literature is revising annual caps for promotion and advertisement agreements, indicating changes in expected transaction volumes.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Literature",
+          "ticker": "00772",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261013-047",
       "headline": "Bharat Petroleum Corporation Limited",
       "headline_en": null,
@@ -1902,55 +1951,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-045",
-      "headline": "CBK HOLDINGS (08428): DISCLOSEABLE TRANSACTION IN RELATION TO THE LEASE OF MONG KOK SITE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1012/2026101200917.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-12T11:07:00Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "CBK Holdings enters a discloseable transaction for a lease of a site in Mong Kok, indicating a new operational location.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 59,
-      "triage_reason": "CBK Holdings enters a discloseable transaction for a lease of a site in Mong Kok, indicating a new operational location.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CBK HOLDINGS",
-          "ticker": "08428",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -217956,9 +217956,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 572039,
-    "news_picked_today": 59,
-    "news_dropped_today": 661
+    "news_seen_today": 594619,
+    "news_picked_today": 62,
+    "news_dropped_today": 682
   },
   "book_momentum": {
     "live_count": 8,
