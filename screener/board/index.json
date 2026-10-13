@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T21:19:57Z",
+  "generated_at": "2026-10-13T21:22:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-579",
@@ -929,6 +929,61 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261013-587",
+      "headline": "Character.AI Files for Bankruptcy as Disney Bids $20 Million—And Users Get Grief Resources",
+      "headline_en": null,
+      "url": "https://decrypt.co/380894/character-ai-bankruptcy-disney-users-grief-resources",
+      "source_name": "Decrypt — Crypto News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-13T21:16:04Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Character.AI has filed for bankruptcy and is subject to a $20 million acquisition bid.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Character.AI has filed for bankruptcy and is subject to a $20 million acquisition bid.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Character.AI",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Disney",
+          "ticker": "DIS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1927,55 +1982,6 @@
           "name": "American Electric Power",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-202",
-      "headline": "BR Shetty sues Bank of Baroda for $15 billion, alleges lender enabled NMC fraud",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/br-shetty-sues-bank-of-baroda-for-15-billion-alleges-lender-enabled-nmc-fraud/article71579455.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T13:28:00Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "BR Shetty is suing Bank of Baroda for $15 billion over alleged fraud facilitation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BR Shetty is suing Bank of Baroda for $15 billion over alleged fraud facilitation.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bank of Baroda",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -216245,9 +216251,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9120673,
-    "news_picked_today": 983,
-    "news_dropped_today": 9193
+    "news_seen_today": 9164263,
+    "news_picked_today": 985,
+    "news_dropped_today": 9215
   },
   "book_momentum": {
     "live_count": 8,
