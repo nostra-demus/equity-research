@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T14:50:36Z",
+  "generated_at": "2026-10-13T15:09:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-171",
@@ -1952,55 +1952,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261013-372",
-      "headline": "Alaunos Therapeutics Announces Acquisition of Velaris Therapeutics",
+      "inbox_id": "INB-20261013-381",
+      "headline": "JLMAG B3008 JLMAG (05834 06680): PRELIMINARY ESTIMATION FOR THE FIRST THREE QUARTERS RESULTS OF 2026",
       "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/10/13/3379885/18421/en/alaunos-therapeutics-announces-acquisition-of-velaris-therapeutics.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-13T14:31:00Z",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1013/2026101301111.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-13T14:43:00Z",
       "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Alaunos Therapeutics is acquiring Velaris Therapeutics.",
+      "prelim_note": "JLMAG provided a preliminary earnings estimate for the first three quarters of 2026.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Alaunos Therapeutics is acquiring Velaris Therapeutics.",
-      "region": "US",
+      "triage_score": 95,
+      "triage_reason": "JLMAG provided a preliminary earnings estimate for the first three quarters of 2026.",
+      "region": "CN",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 65,
       "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "small"
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
       },
       "event_types": [
-        "mna"
+        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Alaunos Therapeutics",
+          "name": "JLMAG",
           "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Velaris Therapeutics",
-          "ticker": null,
-          "listing_country": "US"
+          "listing_country": "CN"
         }
       ],
-      "size_bucket": "small",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -176327,78 +176322,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-1aeb23b16c7e",
-      "idea_version": "IDEAV-cb2c73fb1a174ba3",
-      "idea_version_started_at": "2026-10-12T03:38:04Z",
-      "ticker": "OV8",
-      "company": "Sheng Siong",
-      "exchange": "SGX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Maybank downgraded the stock and cut its target price due to deteriorating outlook, which typically triggers institutional selling.",
-      "why_now": "The downgrade was reported on 2026-10-12, and the stock has already begun to react with a 3% decline.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 14,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4095a883cb91"
-      ],
-      "primary_source_event_id": "EVT-4095a883cb91",
-      "source_headlines": [
-        "Sheng Siong shares fall 3% after Maybank downgrade, target price cut"
-      ],
-      "source_headline": "Sheng Siong shares fall 3% after Maybank downgrade, target price cut",
-      "source_url": "https://www.businesstimes.com.sg/companies-markets/sheng-siong-shares-fall-3-after-maybank-downgrade-target-price-cut",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 95,
-      "newest_source_at": "2026-10-12T02:59:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-12T03:38:04Z",
-      "updated_at": "2026-10-12T03:38:04Z",
-      "decay_at": "2026-10-13T14:59:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-026b016aaebf",
       "idea_version": "IDEAV-f9345ef6d367f75f",
       "idea_version_started_at": "2026-10-13T14:10:50Z",
@@ -178122,6 +178045,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-1aeb23b16c7e",
+      "idea_version": "IDEAV-cb2c73fb1a174ba3",
+      "idea_version_started_at": "2026-10-12T03:38:04Z",
+      "ticker": "OV8",
+      "company": "Sheng Siong",
+      "exchange": "SGX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Maybank downgraded the stock and cut its target price due to deteriorating outlook, which typically triggers institutional selling.",
+      "why_now": "The downgrade was reported on 2026-10-12, and the stock has already begun to react with a 3% decline.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 14,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4095a883cb91"
+      ],
+      "primary_source_event_id": "EVT-4095a883cb91",
+      "source_headlines": [
+        "Sheng Siong shares fall 3% after Maybank downgrade, target price cut"
+      ],
+      "source_headline": "Sheng Siong shares fall 3% after Maybank downgrade, target price cut",
+      "source_url": "https://www.businesstimes.com.sg/companies-markets/sheng-siong-shares-fall-3-after-maybank-downgrade-target-price-cut",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 95,
+      "newest_source_at": "2026-10-12T02:59:40Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-12T03:38:04Z",
+      "updated_at": "2026-10-12T03:38:04Z",
+      "decay_at": "2026-10-13T14:59:40Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-7ec0f1c395e9",
       "idea_version": "IDEAV-b8589836ee24aba4",
       "idea_version_started_at": "2026-10-12T02:28:00Z",
@@ -179281,9 +179276,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 534,
+    "total_count": 535,
     "shown_count": 499,
-    "hidden_count": 35,
+    "hidden_count": 36,
     "side_counts": {
       "long": {
         "total_count": 277,
@@ -179291,9 +179286,9 @@
         "hidden_count": 27
       },
       "short": {
-        "total_count": 258,
+        "total_count": 259,
         "shown_count": 250,
-        "hidden_count": 8
+        "hidden_count": 9
       }
     },
     "retention": {
@@ -179312,6 +179307,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-1aeb23b16c7e",
+        "idea_version": "IDEAV-cb2c73fb1a174ba3",
+        "idea_version_started_at": "2026-10-12T03:38:04Z",
+        "ticker": "OV8",
+        "company": "Sheng Siong",
+        "exchange": "SGX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Maybank downgraded the stock and cut its target price due to deteriorating outlook, which typically triggers institutional selling.",
+        "why_now": "The downgrade was reported on 2026-10-12, and the stock has already begun to react with a 3% decline.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 14,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4095a883cb91"
+        ],
+        "primary_source_event_id": "EVT-4095a883cb91",
+        "source_headlines": [
+          "Sheng Siong shares fall 3% after Maybank downgrade, target price cut"
+        ],
+        "source_headline": "Sheng Siong shares fall 3% after Maybank downgrade, target price cut",
+        "source_url": "https://www.businesstimes.com.sg/companies-markets/sheng-siong-shares-fall-3-after-maybank-downgrade-target-price-cut",
+        "source_name": "The Business Times (Singapore)",
+        "materiality_max": 95,
+        "newest_source_at": "2026-10-12T02:59:40Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-12T03:38:04Z",
+        "updated_at": "2026-10-12T03:38:04Z",
+        "decay_at": "2026-10-13T14:59:40Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-13T14:59:40Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-4b467da5d4b8",
         "idea_version": "IDEAV-0769238bbac11fe4",
@@ -216395,86 +216465,12 @@
         "archived_at": "2026-09-18T00:05:50Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-b20393c595ee",
-        "idea_version": "IDEAV-8714ecc4c69db234",
-        "idea_version_started_at": "2026-09-15T03:13:27Z",
-        "ticker": "08291",
-        "company": "HK ENT Intl",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A 3-for-1 non-underwritten rights issue is extremely dilutive and suggests significant financial distress or lack of institutional support.",
-        "why_now": "The filing was released on 2026-09-14.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4500191720f1"
-        ],
-        "primary_source_event_id": "EVT-4500191720f1",
-        "source_headlines": [
-          "HK ENT INTL (08291): PROPOSED RIGHTS ISSUE ON THE BASIS OF THREE (3) RIGHTS SHARES FOR EVERY ONE (1) SHARE HELD AT THE CLOSE OF BUSINESS ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS"
-        ],
-        "source_headline": "HK ENT INTL (08291): PROPOSED RIGHTS ISSUE ON THE BASIS OF THREE (3) RIGHTS SHARES FOR EVERY ONE (1) SHARE HELD AT THE CLOSE OF BUSINESS ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0915/2026091500017.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 87,
-        "newest_source_at": "2026-09-14T22:32:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-15T03:13:27Z",
-        "updated_at": "2026-09-15T03:13:27Z",
-        "decay_at": "2026-09-16T10:32:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-17T22:39:02Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1563,
-    "live_count": 38,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -216493,9 +216489,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4598085,
-    "news_picked_today": 542,
-    "news_dropped_today": 4018
+    "news_seen_today": 4847146,
+    "news_picked_today": 548,
+    "news_dropped_today": 4036
   },
   "book_momentum": {
     "live_count": 8,
