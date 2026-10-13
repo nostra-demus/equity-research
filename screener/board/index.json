@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T06:41:34Z",
+  "generated_at": "2026-10-13T06:46:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-133",
@@ -642,6 +642,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261013-140",
+      "headline": "Puravankara Limited: Puravankara Limited has informed the Exchange regarding a press release dated October 13, 2026, titled \"Puravankara Q2 Pre-sales up 62% YoY at ₹2,136 Crore\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PURVA_13102026111703_seintimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-13T05:47:28Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Puravankara reported a 62% YoY increase in Q2 pre-sales to ₹2,136 Crore, a significant growth indicator.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Puravankara reported a 62% YoY increase in Q2 pre-sales to ₹2,136 Crore, a significant growth indicator.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Puravankara Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1441,6 +1490,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261013-137",
+      "headline": "Bumble’s billion-dollar buyout: Why investors are betting on a turnaround",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/us-stocks/news/bumbles-billion-dollar-buyout-why-investors-are-betting-on-a-turnaround/slideshow/134910098.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-13T06:20:20Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Bumble is the subject of a billion-dollar buyout speculation, which is a material event for valuation and ownership.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Bumble is the subject of a billion-dollar buyout speculation, which is a material event for valuation and ownership.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bumble",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261013-010",
       "headline": "UISEE TECH (01511): VOLUNTARY ANNOUNCEMENT INCREASE IN SHAREHOLDING OF THE COMPANY BY THE CHAIRMAN OF THE BOARD",
       "headline_en": null,
@@ -1872,105 +1970,6 @@
       "companies": [
         {
           "name": "Anduril",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-136",
-      "headline": "Bandhan Bank Limited: The Exchange has sought clarification from Bandhan Bank Limited with respect to recent news item captioned Bandhan Bank stock jumps 7% on reports of Abu Dhabi's IHC exploring promoter stake acquisition. The response from the Company is awaited.",
-      "headline_en": null,
-      "url": "https://www.nseindia.com/companies-listing/corporate-filings-announcements?symbol=BANDHANBNK&seq=106815517",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-13T05:56:51Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Exchange has requested clarification on reports regarding a potential promoter stake acquisition by Abu Dhabi's IHC.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Exchange has requested clarification on reports regarding a potential promoter stake acquisition by Abu Dhabi's IHC.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -8,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "unconfirmed",
-        "event_id": "strategic_review",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "strategic_review",
-        "rumor"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bandhan Bank Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-067",
-      "headline": "VERALLIS S.A. lists on Euronext",
-      "headline_en": null,
-      "url": "https://athens.euronext.com/en/more-options/announcements/verallis-sa-lists-euronext",
-      "source_name": "Euronext Athens — Press Releases",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-12T10:23:27Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Verallis S.A. has completed its listing on the Euronext exchange.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Verallis S.A. has completed its listing on the Euronext exchange.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Verallis S.A.",
           "ticker": null,
           "listing_country": null
         }
@@ -216904,9 +216903,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3254380,
-    "news_picked_today": 211,
-    "news_dropped_today": 3317
+    "news_seen_today": 3298959,
+    "news_picked_today": 215,
+    "news_dropped_today": 3361
   },
   "book_momentum": {
     "live_count": 8,
