@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-13T20:48:28Z",
+  "generated_at": "2026-10-13T20:50:18Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261013-579",
+      "headline": "OCC Imposes $750 Million Assessment Against Bank of America for Deficient BSA/AML Compliance",
+      "headline_en": null,
+      "url": "https://www.occ.gov/news-issuances/news-releases/2026/nr-occ-2026-89.html",
+      "source_name": "Office of the Comptroller of the Currency — News Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-13T20:15:00Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Bank of America was assessed a $750 million fine by the OCC for BSA/AML compliance failures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bank of America was assessed a $750 million fine by the OCC for BSA/AML compliance failures.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of America",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261013-471",
       "headline": "Aegis Logistics Limited: Aegis Logistics Limited has informed the Exchange regarding a press release dated October 13, 2026, titled \" Aegis signs definitive agreement for its proposed acquisition of a majority stake in Tristar \".",
@@ -1901,55 +1950,6 @@
       "launched_signal_id": null,
       "triage_score": 100,
       "triage_reason": "Bumble is being acquired in a US$1.3 billion buyout deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bumble",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-231",
-      "headline": "Bumble To Be Acquired By Ithaca For $1.3 Bln In Cash; BMBL Up Nearly 4% In Pre-Market",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/bumble-be-acquired-ithaca-13-bln-cash-bmbl-nearly-4-pre-market",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T12:53:43Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Bumble is being acquired for $1.3 billion in cash.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bumble is being acquired for $1.3 billion in cash.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 80,
@@ -216473,9 +216473,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8730806,
-    "news_picked_today": 949,
-    "news_dropped_today": 8963
+    "news_seen_today": 8752359,
+    "news_picked_today": 954,
+    "news_dropped_today": 9006
   },
   "book_momentum": {
     "live_count": 8,
