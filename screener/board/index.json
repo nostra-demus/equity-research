@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T01:02:11Z",
+  "generated_at": "2026-10-13T01:07:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-002",
@@ -878,6 +878,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261013-047",
+      "headline": "Bharat Petroleum Corporation Limited",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BPCL26_12102026163415_stexintimationprior121026s.pdf",
+      "source_name": "NSE India — Board Meetings (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T11:04:37Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Routine board meeting announcement for Bharat Petroleum Corporation Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "Routine board meeting announcement for Bharat Petroleum Corporation Limited.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bharat Petroleum Corporation Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261013-037",
       "headline": "FDA 510(k) clearance — Roche Diagnostics: Elecsys EBV VCA IgG",
       "headline_en": null,
@@ -1360,6 +1409,55 @@
           "name": "Energy Resources of Australia",
           "ticker": "EGY",
           "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261013-048",
+      "headline": "Tinna Rubber and Infrastructure Limited",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TINNARUBBER_12102026162947_SEIntimationTRILBODM_12October2026.pdf",
+      "source_name": "NSE India — Board Meetings (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T11:02:06Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Routine board meeting announcement for Tinna Rubber and Infrastructure Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Routine board meeting announcement for Tinna Rubber and Infrastructure Limited.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tinna Rubber and Infrastructure Limited",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "small",
@@ -1857,92 +1955,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-016",
-      "headline": "Zelensky unleashes on Trump over Russia diesel deal",
-      "headline_en": null,
-      "url": "https://thehill.com/newsletters/defense-national-security/6144319-zelensky-criticized-trump-russian-diesel/",
-      "source_name": "The Hill — Homenews",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T00:16:34Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Geopolitical tension regarding energy trade and sanctions creates uncertainty for global energy markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Geopolitical tension regarding energy trade and sanctions creates uncertainty for global energy markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-018",
-      "headline": "Iran war live: Trump says Houthis ‘misbehaving’ as Riyadh flights halted",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/liveblog/2026/10/13/iran-war-live-trump-says-houthis-misbehaving-as-riyadh-flights-halted?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-10-13T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Geopolitical escalation involving Houthi missile attacks and regional flight disruptions poses a risk to global energy and transport markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Geopolitical escalation involving Houthi missile attacks and regional flight disruptions poses a risk to global energy and transport markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -217949,9 +217961,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 425009,
-    "news_picked_today": 46,
-    "news_dropped_today": 530
+    "news_seen_today": 470357,
+    "news_picked_today": 48,
+    "news_dropped_today": 576
   },
   "book_momentum": {
     "live_count": 8,
