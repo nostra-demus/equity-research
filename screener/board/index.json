@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T01:07:11Z",
+  "generated_at": "2026-10-13T01:13:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-002",
@@ -873,6 +873,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261013-049",
+      "headline": "HAIDILAO (06862): CONNECTED TRANSACTION - PROVISION OF FINANCIAL ASSISTANCE FOR OUR CONTROLLING SHAREHOLDER, EXECUTIVE DIRECTOR, CHAIRMAN OF THE BOARD AND CHIEF EXECUTIVE OFFICER",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101200893.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-12T11:02:00Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Haidilao is providing financial assistance to its controlling shareholder and CEO, which raises corporate governance concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "Haidilao is providing financial assistance to its controlling shareholder and CEO, which raises corporate governance concerns.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Haidilao International Holding Ltd",
+          "ticker": "06862",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1907,55 +1956,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-021",
-      "headline": "Jefferies Initiates Coverage of MiniMed Group with Hold",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/jefferies-initiates-coverage-minimed-group-hold",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-12T23:59:13Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Analyst initiation with a Hold rating is standard market activity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "Analyst initiation with a Hold rating is standard market activity.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MiniMed Group",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -217961,9 +217961,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 470357,
-    "news_picked_today": 48,
-    "news_dropped_today": 576
+    "news_seen_today": 515513,
+    "news_picked_today": 49,
+    "news_dropped_today": 623
   },
   "book_momentum": {
     "live_count": 8,
