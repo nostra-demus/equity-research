@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T02:04:52Z",
+  "generated_at": "2026-10-13T02:10:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-002",
@@ -1280,6 +1280,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261013-075",
+      "headline": "BKY: Response to ASX Price and Volume Query [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BKY?key=2924-03147645-6A1348934",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-13T01:58:24Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Berkeley Energia responded to an ASX price and volume query, which is a standard regulatory disclosure regarding unusual market activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "Berkeley Energia responded to an ASX price and volume query, which is a standard regulatory disclosure regarding unusual market activity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Berkeley Energia",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261013-049",
       "headline": "HAIDILAO (06862): CONNECTED TRANSACTION - PROVISION OF FINANCIAL ASSISTANCE FOR OUR CONTROLLING SHAREHOLDER, EXECUTIVE DIRECTOR, CHAIRMAN OF THE BOARD AND CHIEF EXECUTIVE OFFICER",
       "headline_en": null,
@@ -1882,55 +1931,6 @@
       "launched_signal_id": null,
       "triage_score": 65,
       "triage_reason": "Philips recall of IntraSight Plus due to potential patient data association errors.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Philips",
-          "ticker": null,
-          "listing_country": "NL"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-035",
-      "headline": "FDA device recall (Class II) — Philips North America Llc: Philips Medical Systems Technologies Ltd. Spectral CT 7500, Software V5.2.x, Product Code 728333 — The Bolus tracking scan application may crash with a system error message. Bolus Tracker shots may continue to occur eve",
-      "headline_en": null,
-      "url": "https://api.fda.gov/device/enforcement.json?search=recall_number.exact:%22Z-3155-2026%22",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-07T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Philips recall of Spectral CT 7500 due to software crash risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Philips recall of Spectral CT 7500 due to software crash risk.",
       "region": "US",
       "relevance": "relevant_non_material",
       "materiality_pre_score": 45,
@@ -217966,9 +217966,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 964205,
-    "news_picked_today": 100,
-    "news_dropped_today": 980
+    "news_seen_today": 1008685,
+    "news_picked_today": 102,
+    "news_dropped_today": 1026
   },
   "book_momentum": {
     "live_count": 8,
