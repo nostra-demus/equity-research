@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T21:48:17Z",
+  "generated_at": "2026-10-13T21:51:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-579",
@@ -929,6 +929,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261013-602",
+      "headline": "Treasury fines Bank of America $1.2B for violating money laundering, sanctions law",
+      "headline_en": null,
+      "url": "https://thehill.com/business/6146632-bank-america-treasury-fine/",
+      "source_name": "The Hill — Business News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-13T21:45:01Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Bank of America was fined $1.2 billion by the Treasury for violating money laundering and sanctions laws.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bank of America was fined $1.2 billion by the Treasury for violating money laundering and sanctions laws.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of America",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1936,55 +1985,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-198",
-      "headline": "UnitedHealth keeps medical costs under control — and raises its outlook again",
-      "headline_en": null,
-      "url": "https://www.marketwatch.com/story/unitedhealth-keeps-medical-costs-under-control-and-raises-its-outlook-again-71abc99c?mod=mw_rss_topstories",
-      "source_name": "MarketWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T13:49:00Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "UnitedHealth raised its outlook again, signaling strong operational performance and cost control.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "UnitedHealth raised its outlook again, signaling strong operational performance and cost control.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UnitedHealth",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -216251,9 +216251,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9600301,
-    "news_picked_today": 1005,
-    "news_dropped_today": 9435
+    "news_seen_today": 9666148,
+    "news_picked_today": 1009,
+    "news_dropped_today": 9455
   },
   "book_momentum": {
     "live_count": 8,
