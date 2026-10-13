@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T20:53:28Z",
+  "generated_at": "2026-10-13T20:56:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-579",
@@ -929,6 +929,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261013-582",
+      "headline": "Bank of America to Pay $1.21 Billion to Settle Violations of Money Laundering, Sanctions laws",
+      "headline_en": null,
+      "url": "https://www.wsj.com/finance/regulation/bank-of-america-to-pay-1-21-billion-to-settle-violations-of-money-laundering-sanctions-laws-203b5fdf?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-13T20:48:00Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Bank of America will pay $1.21 billion to settle violations related to money laundering and sanctions laws.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bank of America will pay $1.21 billion to settle violations related to money laundering and sanctions laws.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of America",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1933,55 +1982,6 @@
           "name": "Humana",
           "ticker": "HUM",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-263",
-      "headline": "LSEG in talks to buy Octus for about $3.5 billion",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/lseg-talks-buy-octus-about-35-billion-2026-10-13/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T13:23:19Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "LSEG is in talks to acquire Octus for approximately $3.5 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "LSEG is in talks to acquire Octus for approximately $3.5 billion.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "London Stock Exchange Group",
-          "ticker": null,
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "mega",
@@ -216478,9 +216478,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8773864,
-    "news_picked_today": 957,
-    "news_dropped_today": 9027
+    "news_seen_today": 8838532,
+    "news_picked_today": 958,
+    "news_dropped_today": 9050
   },
   "book_momentum": {
     "live_count": 8,
