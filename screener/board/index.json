@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T22:11:18Z",
+  "generated_at": "2026-10-13T22:17:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-603",
@@ -983,6 +983,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261013-604",
+      "headline": "Bank of America to Pay $1.2 Billion to Settle Violations of Money Laundering, Sanctions Laws",
+      "headline_en": null,
+      "url": "https://www.wsj.com/finance/regulation/bank-of-america-to-pay-1-21-billion-to-settle-violations-of-money-laundering-sanctions-laws-203b5fdf?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-13T22:05:00Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Bank of America will pay a $1.2 billion settlement for regulatory violations, directly impacting cash flow and legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bank of America will pay a $1.2 billion settlement for regulatory violations, directly impacting cash flow and legal risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of America",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261013-602",
       "headline": "Treasury fines Bank of America $1.2B for violating money laundering, sanctions law",
       "headline_en": null,
@@ -1224,55 +1273,6 @@
       "companies": [
         {
           "name": "Micron Technology",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261013-582",
-      "headline": "Bank of America to Pay $1.21 Billion to Settle Violations of Money Laundering, Sanctions laws",
-      "headline_en": null,
-      "url": "https://www.wsj.com/finance/regulation/bank-of-america-to-pay-1-21-billion-to-settle-violations-of-money-laundering-sanctions-laws-203b5fdf?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-13T20:48:00Z",
-      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
-      "prelim_note": "Bank of America will pay $1.21 billion to settle violations related to money laundering and sanctions laws.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bank of America will pay $1.21 billion to settle violations related to money laundering and sanctions laws.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bank of America",
           "ticker": null,
           "listing_country": "US"
         }
@@ -216246,9 +216246,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9994543,
-    "news_picked_today": 1022,
-    "news_dropped_today": 9634
+    "news_seen_today": 10104144,
+    "news_picked_today": 1034,
+    "news_dropped_today": 9670
   },
   "book_momentum": {
     "live_count": 8,
