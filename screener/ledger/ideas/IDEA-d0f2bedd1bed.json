@@ -1,25 +1,25 @@
 {
-  "idea_id": "IDEA-92fc7e8de294",
-  "idea_version": "IDEAV-f3650a4baf2ed569",
-  "idea_version_started_at": "2026-10-10T08:29:45Z",
-  "ticker": "531595",
-  "company": "Capri Global Capital Limited",
-  "exchange": "BSE",
+  "idea_id": "IDEA-d0f2bedd1bed",
+  "idea_version": "IDEAV-89ab38a22830460b",
+  "idea_version_started_at": "2026-10-13T09:12:26Z",
+  "ticker": "01999.HK",
+  "company": "Man Wah Holdings",
+  "exchange": "HKEX",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
-  "direction": "long",
+  "direction": "short",
   "pair_with": null,
-  "reason": "The company scheduled a board meeting to discuss fund raising, which typically signals capital expansion or balance sheet strengthening.",
-  "why_now": "The board meeting is scheduled for 2026-10-14.",
+  "reason": "Profit warning signals lower expected earnings, pressuring the share price.",
+  "why_now": "Inside information filing dated 2026-10-13 delivers the warning.",
   "conviction": 60,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 25,
-    "impact": 16,
+    "impact": 21,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
@@ -48,26 +48,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-391206a2c965"
+    "EVT-36b5f0a6bdb3"
   ],
-  "primary_source_event_id": "EVT-391206a2c965",
+  "primary_source_event_id": "EVT-36b5f0a6bdb3",
   "source_headlines": [
-    "Capri Global Capital Limited: board meeting 14-Oct-2026 — Fund Raising"
+    "MAN WAH HLDGS (01999): INSIDE INFORMATION PROFIT WARNING"
   ],
-  "source_headline": "Capri Global Capital Limited: board meeting 14-Oct-2026 — Fund Raising",
-  "source_url": "https://nsearchives.nseindia.com/corporate/CGCL_10102026113520_IntimationofBoardMeeting.pdf",
-  "source_name": "BSE / NSE Exchange Filing",
-  "materiality_max": 90,
-  "newest_source_at": "2026-10-10T06:05:29Z",
+  "source_headline": "MAN WAH HLDGS (01999): INSIDE INFORMATION PROFIT WARNING",
+  "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1013/2026101300015.pdf",
+  "source_name": "HKEXnews (HK Exchange Filing)",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-13T00:00:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-10-10T08:29:45Z",
-  "updated_at": "2026-10-10T08:29:45Z",
-  "decay_at": "2026-10-11T18:05:29Z",
+  "surfaced_at": "2026-10-13T09:12:26Z",
+  "updated_at": "2026-10-13T09:12:26Z",
+  "decay_at": "2026-10-14T12:00:00Z",
   "status": "live",
   "promoted_signal_id": null
 }
