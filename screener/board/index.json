@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T00:45:11Z",
+  "generated_at": "2026-10-13T00:48:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261013-002",
@@ -383,6 +383,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261013-036",
+      "headline": "FDA device recall (Class I) — Draeger, Inc.: VentStar Resus Neo. Neonatal. 25 Units per Box. Part Number: MP00310 Disposable breathing circuit for use with a resuscitation module. — Potential cracks in the hose, which could lead to leakage or the hose falling off.",
+      "headline_en": null,
+      "url": "https://api.fda.gov/device/enforcement.json?search=recall_number.exact:%22Z-3252-2026%22",
+      "source_name": "U.S. Food & Drug Administration (Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-07T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-13_sweep.json",
+      "prelim_note": "Class I recall for neonatal breathing circuits indicates a significant safety risk and potential liability for Draeger.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Class I recall for neonatal breathing circuits indicates a significant safety risk and potential liability for Draeger.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Draeger, Inc.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -217644,7 +217693,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3561,
+    "inbox_unconsumed": 3562,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -217653,9 +217702,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 287648,
-    "news_picked_today": 35,
-    "news_dropped_today": 349
+    "news_seen_today": 310598,
+    "news_picked_today": 36,
+    "news_dropped_today": 372
   },
   "book_momentum": {
     "live_count": 8,
