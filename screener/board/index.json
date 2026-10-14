@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T23:44:59Z",
+  "generated_at": "2026-10-14T23:48:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-444",
@@ -1295,6 +1295,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261014-467",
+      "headline": "Nvidia-Backed AI Drugmaker Iambic Raises $150 Million in US IPO",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-14/nvidia-backed-ai-drugmaker-iambic-raises-150-million-in-us-ipo",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T23:11:14Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Iambic Therapeutics is raising $150 million in an IPO, representing a significant capital event for the AI drug discovery sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Iambic Therapeutics is raising $150 million in an IPO, representing a significant capital event for the AI drug discovery sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Iambic Therapeutics",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261014-441",
       "headline": "CVS, DOJ reach $315M settlement in opioid prescription case",
       "headline_en": null,
@@ -1942,55 +1991,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-356",
-      "headline": "Netflix Cuts 1,000 Jobs After Earlier Layoff Warnings",
-      "headline_en": null,
-      "url": "https://www.forbes.com/sites/rickellis/2026/10/14/netflix-cuts-1000-jobs-after-earlier-layoff-warnings/",
-      "source_name": "Forbes",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T13:31:21Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Netflix is eliminating approximately 1,000 jobs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Netflix is eliminating approximately 1,000 jobs.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Netflix",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219314,9 +219314,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11523665,
-    "news_picked_today": 1071,
-    "news_dropped_today": 20865
+    "news_seen_today": 11538412,
+    "news_picked_today": 1073,
+    "news_dropped_today": 20887
   },
   "book_momentum": {
     "live_count": 8,
