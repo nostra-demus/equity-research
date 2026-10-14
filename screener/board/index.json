@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T05:06:26Z",
+  "generated_at": "2026-10-14T05:13:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-110",
@@ -176336,76 +176336,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d0d8fb1cd912",
-      "idea_version": "IDEAV-47dc223fc5c9109b",
-      "idea_version_started_at": "2026-10-12T18:34:22Z",
-      "ticker": "KR",
-      "company": "Kroger",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Albertsons is seeking an $8 billion termination fee following the collapse of their merger, creating a significant potential liability for Kroger's balance sheet.",
-      "why_now": "The demand for the $8 billion payment was reported on October 12, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-61371ed25da9"
-      ],
-      "primary_source_event_id": "EVT-61371ed25da9",
-      "source_headlines": [
-        "Albertsons Wants $8 Billion From Kroger After Failed Merger"
-      ],
-      "source_headline": "Albertsons Wants $8 Billion From Kroger After Failed Merger",
-      "source_url": "https://www.wsj.com/business/retail/albertsons-wants-8-billion-from-kroger-after-failed-merger-fd0aacd8?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-12T17:13:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-12T18:34:22Z",
-      "updated_at": "2026-10-12T18:34:22Z",
-      "decay_at": "2026-10-14T05:13:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3d9be100b359",
       "idea_version": "IDEAV-cc32091157fb53b7",
       "idea_version_started_at": "2026-10-14T00:48:30Z",
@@ -177619,6 +177549,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-3db24171678d",
+      "idea_version": "IDEAV-2476dd0fe7baf0b5",
+      "idea_version_started_at": "2026-10-14T05:13:31Z",
+      "ticker": "LRV",
+      "company": "Larvotto Resources",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The first shipment of concentrate from the Hillgrove project marks a transition from exploration to revenue-generating operations.",
+      "why_now": "The filing was released on October 14, 2026, confirming the start of commercial production.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2062507ca080"
+      ],
+      "primary_source_event_id": "EVT-2062507ca080",
+      "source_headlines": [
+        "LRV: First Concentrate Shipped from Hillgrove [price-sensitive]"
+      ],
+      "source_headline": "LRV: First Concentrate Shipped from Hillgrove [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LRV?key=2924-03148227-6A1349174",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 90,
+      "newest_source_at": "2026-10-14T02:24:08Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-14T05:13:31Z",
+      "updated_at": "2026-10-14T05:13:31Z",
+      "decay_at": "2026-10-15T14:24:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-5ef7cac32b21",
       "idea_version": "IDEAV-47c37289bd6a2c31",
       "idea_version_started_at": "2026-10-13T09:12:26Z",
@@ -177755,6 +177756,79 @@
       "surfaced_at": "2026-10-14T04:53:47Z",
       "updated_at": "2026-10-14T04:53:47Z",
       "decay_at": "2026-10-15T11:04:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-44f60ec8fa69",
+      "idea_version": "IDEAV-139e11281bf778b4",
+      "idea_version_started_at": "2026-10-14T05:13:31Z",
+      "ticker": "3297",
+      "company": "Toubujyuhan Co.,Ltd.",
+      "exchange": "TSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The Tokyo Stock Exchange has placed the company under supervision for confirmation, signaling potential delisting or severe regulatory issues that impair equity value.",
+      "why_now": "The designation was announced on October 13, 2026, and typically precedes significant volatility or liquidity constraints.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6b95e8307bef",
+        "EVT-efff7f904c83"
+      ],
+      "primary_source_event_id": "EVT-6b95e8307bef",
+      "source_headlines": [
+        "Toubujyuhan Co.,Ltd.(3297)",
+        "[TSE]Designation of Securities Under Supervision (Confirmation): Toubujyuhan Co.,Ltd."
+      ],
+      "source_headline": "Toubujyuhan Co.,Ltd.(3297)",
+      "source_url": "https://www.jpx.co.jp/english/markets/equities/suspended/index.html",
+      "source_name": "Japan Exchange Group (JPX) — Trading Halts (Equities)",
+      "materiality_max": 88,
+      "newest_source_at": "2026-10-13T06:40:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-14T05:13:31Z",
+      "updated_at": "2026-10-14T05:13:31Z",
+      "decay_at": "2026-10-14T18:40:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -178250,6 +178324,76 @@
       "surfaced_at": "2026-10-11T20:32:52Z",
       "updated_at": "2026-10-11T22:04:00Z",
       "decay_at": "2026-10-13T09:51:58Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d0d8fb1cd912",
+      "idea_version": "IDEAV-47dc223fc5c9109b",
+      "idea_version_started_at": "2026-10-12T18:34:22Z",
+      "ticker": "KR",
+      "company": "Kroger",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Albertsons is seeking an $8 billion termination fee following the collapse of their merger, creating a significant potential liability for Kroger's balance sheet.",
+      "why_now": "The demand for the $8 billion payment was reported on October 12, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-61371ed25da9"
+      ],
+      "primary_source_event_id": "EVT-61371ed25da9",
+      "source_headlines": [
+        "Albertsons Wants $8 Billion From Kroger After Failed Merger"
+      ],
+      "source_headline": "Albertsons Wants $8 Billion From Kroger After Failed Merger",
+      "source_url": "https://www.wsj.com/business/retail/albertsons-wants-8-billion-from-kroger-after-failed-merger-fd0aacd8?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-12T17:13:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-12T18:34:22Z",
+      "updated_at": "2026-10-12T18:34:22Z",
+      "decay_at": "2026-10-14T05:13:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -181491,9 +181635,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 548,
+    "total_count": 549,
     "shown_count": 499,
-    "hidden_count": 49,
+    "hidden_count": 50,
     "side_counts": {
       "long": {
         "total_count": 288,
@@ -181501,9 +181645,9 @@
         "hidden_count": 38
       },
       "short": {
-        "total_count": 261,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 12
       }
     },
     "retention": {
@@ -181522,6 +181666,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d0d8fb1cd912",
+        "idea_version": "IDEAV-47dc223fc5c9109b",
+        "idea_version_started_at": "2026-10-12T18:34:22Z",
+        "ticker": "KR",
+        "company": "Kroger",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Albertsons is seeking an $8 billion termination fee following the collapse of their merger, creating a significant potential liability for Kroger's balance sheet.",
+        "why_now": "The demand for the $8 billion payment was reported on October 12, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-61371ed25da9"
+        ],
+        "primary_source_event_id": "EVT-61371ed25da9",
+        "source_headlines": [
+          "Albertsons Wants $8 Billion From Kroger After Failed Merger"
+        ],
+        "source_headline": "Albertsons Wants $8 Billion From Kroger After Failed Merger",
+        "source_url": "https://www.wsj.com/business/retail/albertsons-wants-8-billion-from-kroger-after-failed-merger-fd0aacd8?mod=pls_whats_news_us_business_f",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-12T17:13:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-12T18:34:22Z",
+        "updated_at": "2026-10-12T18:34:22Z",
+        "decay_at": "2026-10-14T05:13:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-14T05:13:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-e386e059df23",
         "idea_version": "IDEAV-7632a8179baa12be",
@@ -218611,87 +218828,12 @@
         "archived_at": "2026-09-18T17:05:03Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-b89460c407f6",
-        "idea_version": "IDEAV-31d65d151ca3a27a",
-        "idea_version_started_at": "2026-09-16T01:34:59Z",
-        "ticker": "08645",
-        "company": "Byte Meta",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company issued a formal profit warning, indicating significant deterioration in earnings performance that will likely lead to downward revisions in analyst estimates.",
-        "why_now": "The filing was released today, September 15, 2026, and typically precedes a sharp negative reaction in equity price.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b411ead946c4"
-        ],
-        "primary_source_event_id": "EVT-b411ead946c4",
-        "source_headlines": [
-          "BYTE META (08645): PROFIT WARNING ANNOUNCEMENT"
-        ],
-        "source_headline": "BYTE META (08645): PROFIT WARNING ANNOUNCEMENT",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0915/2026091501363.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-15T14:23:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-16T01:34:59Z",
-        "updated_at": "2026-09-16T01:34:59Z",
-        "decay_at": "2026-09-17T02:23:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-18T17:05:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1578,
-    "live_count": 28,
+    "surfaced_total": 1580,
+    "live_count": 29,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -218710,9 +218852,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3600211,
+    "news_seen_today": 3710091,
     "news_picked_today": 152,
-    "news_dropped_today": 2224
+    "news_dropped_today": 2272
   },
   "book_momentum": {
     "live_count": 8,
