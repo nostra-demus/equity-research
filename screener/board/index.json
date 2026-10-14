@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T06:36:17Z",
+  "generated_at": "2026-10-14T06:44:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-142",
@@ -940,6 +940,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-150",
+      "headline": "Aeroflex Industries Limited: Considered and approved the Company s further expansion plans, including the capacity enhancement in SS Hose & Braiding Division and Liquid Cooling SFN Skid Assemblies Division",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/AEROFLEXINDIA_14102026112339_outcomesigned.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-14T05:54:12Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Aeroflex Industries announced capacity expansion plans for its SS Hose and Liquid Cooling divisions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Aeroflex Industries announced capacity expansion plans for its SS Hose and Liquid Cooling divisions.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aeroflex Industries Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1922,55 +1971,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-013",
-      "headline": "SoftBank junk bond sale raises stakes for CEO Son’s all-in AI bet",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/softbank-junk-bond-sale-raises-stakes-for-ceo-sons-all-in-ai-bet",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T00:05:00Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "SoftBank is issuing junk bonds to fund its AI investment strategy, increasing its financial leverage and risk profile.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "SoftBank is issuing junk bonds to fund its AI investment strategy, increasing its financial leverage and risk profile.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SoftBank Group",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -218929,9 +218929,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4843353,
-    "news_picked_today": 220,
-    "news_dropped_today": 3380
+    "news_seen_today": 4865846,
+    "news_picked_today": 229,
+    "news_dropped_today": 3635
   },
   "book_momentum": {
     "live_count": 8,
