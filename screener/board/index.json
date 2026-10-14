@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T11:46:25Z",
+  "generated_at": "2026-10-14T11:54:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-229",
@@ -597,6 +597,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-281",
+      "headline": "Getty Images to go private under ‘prepackaged’ bankruptcy",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/getty-images-to-go-private-under-prepackaged-bankruptcy",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T11:40:00Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Getty Images files for prepackaged bankruptcy to go private — a survival/distress event materially impairing equity holders and creditors, with likely loss of equity value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Getty Images files for prepackaged bankruptcy to go private — a survival/distress event materially impairing equity holders and creditors, with likely loss of equity value.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Getty Images",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1939,55 +1988,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-095",
-      "headline": "AI startup with 12 million users faces bankruptcy: Why Character.AI failed to make money",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/ai-startup-with-12-million-users-faces-bankruptcy-why-character-ai-failed-to-make-money-11791946398297.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T03:19:16Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Character.AI is facing bankruptcy due to an inability to monetize its 12 million user base.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Character.AI is facing bankruptcy due to an inability to monetize its 12 million user base.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Character.AI",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -178217,78 +178217,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3d0aac23addf",
-      "idea_version": "IDEAV-187d5119d82ff758",
-      "idea_version_started_at": "2026-10-13T09:12:26Z",
-      "ticker": "SIX",
-      "company": "Six Flags",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Roller‑coaster accident raises liability and reputational risks that could hurt attendance and earnings.",
-      "why_now": "Incident reported on 2026-10-12 creates an immediate overhang.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 44,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 13,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e0dc0125b5c3"
-      ],
-      "primary_source_event_id": "EVT-e0dc0125b5c3",
-      "source_headlines": [
-        "One dead and more injured after incident on Six Flags rollercoaster in US"
-      ],
-      "source_headline": "One dead and more injured after incident on Six Flags rollercoaster in US",
-      "source_url": "https://www.theguardian.com/us-news/2026/oct/13/six-flags-georgia-death-rollercoaster",
-      "source_name": "The Guardian — World news",
-      "materiality_max": 89,
-      "newest_source_at": "2026-10-12T23:51:55Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-13T09:12:26Z",
-      "updated_at": "2026-10-13T09:12:26Z",
-      "decay_at": "2026-10-14T11:51:55Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5c23343bcf9d",
       "idea_version": "IDEAV-1646fdf367040156",
       "idea_version_started_at": "2026-10-12T15:24:05Z",
@@ -181642,6 +181570,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-3d0aac23addf",
+      "idea_version": "IDEAV-187d5119d82ff758",
+      "idea_version_started_at": "2026-10-13T09:12:26Z",
+      "ticker": "SIX",
+      "company": "Six Flags",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Roller‑coaster accident raises liability and reputational risks that could hurt attendance and earnings.",
+      "why_now": "Incident reported on 2026-10-12 creates an immediate overhang.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 44,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 13,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e0dc0125b5c3"
+      ],
+      "primary_source_event_id": "EVT-e0dc0125b5c3",
+      "source_headlines": [
+        "One dead and more injured after incident on Six Flags rollercoaster in US"
+      ],
+      "source_headline": "One dead and more injured after incident on Six Flags rollercoaster in US",
+      "source_url": "https://www.theguardian.com/us-news/2026/oct/13/six-flags-georgia-death-rollercoaster",
+      "source_name": "The Guardian — World news",
+      "materiality_max": 89,
+      "newest_source_at": "2026-10-12T23:51:55Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-13T09:12:26Z",
+      "updated_at": "2026-10-13T09:12:26Z",
+      "decay_at": "2026-10-14T11:51:55Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-7b08e8c1482d",
       "idea_version": "IDEAV-cf76d562cf92c0da",
       "idea_version_started_at": "2026-10-12T01:12:56Z",
@@ -181798,9 +181798,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 548,
+    "total_count": 549,
     "shown_count": 499,
-    "hidden_count": 49,
+    "hidden_count": 50,
     "side_counts": {
       "long": {
         "total_count": 286,
@@ -181808,9 +181808,9 @@
         "hidden_count": 36
       },
       "short": {
-        "total_count": 263,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 14
       }
     },
     "retention": {
@@ -181829,6 +181829,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3d0aac23addf",
+        "idea_version": "IDEAV-187d5119d82ff758",
+        "idea_version_started_at": "2026-10-13T09:12:26Z",
+        "ticker": "SIX",
+        "company": "Six Flags",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Roller‑coaster accident raises liability and reputational risks that could hurt attendance and earnings.",
+        "why_now": "Incident reported on 2026-10-12 creates an immediate overhang.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 44,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 13,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e0dc0125b5c3"
+        ],
+        "primary_source_event_id": "EVT-e0dc0125b5c3",
+        "source_headlines": [
+          "One dead and more injured after incident on Six Flags rollercoaster in US"
+        ],
+        "source_headline": "One dead and more injured after incident on Six Flags rollercoaster in US",
+        "source_url": "https://www.theguardian.com/us-news/2026/oct/13/six-flags-georgia-death-rollercoaster",
+        "source_name": "The Guardian — World news",
+        "materiality_max": 89,
+        "newest_source_at": "2026-10-12T23:51:55Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-13T09:12:26Z",
+        "updated_at": "2026-10-13T09:12:26Z",
+        "decay_at": "2026-10-14T11:51:55Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-14T11:51:55Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-014dbf1d39d3",
         "idea_version": "IDEAV-5510dd59339cf996",
@@ -218915,86 +218990,12 @@
         "archived_at": "2026-09-19T08:59:21Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-1327c0d32ef1",
-        "idea_version": "IDEAV-204cb94afc4eebe6",
-        "idea_version_started_at": "2026-09-16T02:35:22Z",
-        "ticker": "00092",
-        "company": "CHAMPION TECH",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The profit warning signals a failure to meet earnings expectations, which typically results in a sharp sell-off as institutional investors adjust their models.",
-        "why_now": "The filing was released today, September 15, 2026, making the information fresh and actionable.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-88a96cc80762"
-        ],
-        "primary_source_event_id": "EVT-88a96cc80762",
-        "source_headlines": [
-          "CHAMPION TECH (00092): PROFIT WARNING"
-        ],
-        "source_headline": "CHAMPION TECH (00092): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091501445.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-15T14:59:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-16T02:35:22Z",
-        "updated_at": "2026-09-16T02:35:22Z",
-        "decay_at": "2026-09-17T02:59:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-18T17:05:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1584,
-    "live_count": 32,
+    "live_count": 31,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -219013,9 +219014,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6534117,
-    "news_picked_today": 449,
-    "news_dropped_today": 12727
+    "news_seen_today": 6571707,
+    "news_picked_today": 454,
+    "news_dropped_today": 12866
   },
   "book_momentum": {
     "live_count": 8,
