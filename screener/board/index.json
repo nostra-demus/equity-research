@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T01:47:13Z",
+  "generated_at": "2026-10-14T01:50:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-037",
@@ -781,6 +781,104 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-055",
+      "headline": "Toubujyuhan Co.,Ltd.(3297)",
+      "headline_en": null,
+      "url": "https://www.jpx.co.jp/english/markets/equities/suspended/index.html",
+      "source_name": "Japan Exchange Group (JPX) — Trading Halts (Equities)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-13T06:40:00Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Trading halt on Toubujyuhan Co.,Ltd. following the designation of securities under supervision.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Trading halt on Toubujyuhan Co.,Ltd. following the designation of securities under supervision.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Toubujyuhan Co.,Ltd.",
+          "ticker": "3297",
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-054",
+      "headline": "[TSE]Designation of Securities Under Supervision (Confirmation): Toubujyuhan Co.,Ltd.",
+      "headline_en": null,
+      "url": "https://www.jpx.co.jp/english/news/1023/20261013-12.html",
+      "source_name": "Japan Exchange Group (JPX) — Market News",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-13T06:40:00Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Toubujyuhan Co.,Ltd. has been placed under supervision by the Tokyo Stock Exchange, indicating potential delisting or regulatory concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Toubujyuhan Co.,Ltd. has been placed under supervision by the Tokyo Stock Exchange, indicating potential delisting or regulatory concerns.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Toubujyuhan Co.,Ltd.",
+          "ticker": "3297",
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1839,98 +1937,6 @@
         "regulatory"
       ],
       "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-025",
-      "headline": "SCHEDULE 13D/A - Silvercrest Asset Management Group Inc. (0001549966) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1549966/000114036126039469/0001140361-26-039469-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-14T00:12:48Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Routine amendment to a 13D filing for Silvercrest Asset Management.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "Routine amendment to a 13D filing for Silvercrest Asset Management.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Silvercrest Asset Management Group Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-034",
-      "headline": "Sebi proposes Rs 50,000 fine for firms not cooperating with monitors",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/sebi-proposes-rs-50000-fine-for-firms-not-cooperating-with-monitors/articleshow/134929434.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T00:32:33Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "SEBI proposes a fine of Rs 50,000 for firms failing to cooperate with monitors, increasing regulatory compliance risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "SEBI proposes a fine of Rs 50,000 for firms failing to cooperate with monitors, increasing regulatory compliance risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -218536,9 +218542,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1184806,
-    "news_picked_today": 55,
-    "news_dropped_today": 785
+    "news_seen_today": 1206244,
+    "news_picked_today": 57,
+    "news_dropped_today": 807
   },
   "book_momentum": {
     "live_count": 8,
