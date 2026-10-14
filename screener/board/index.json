@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-10-14T23:48:25Z",
+  "generated_at": "2026-10-14T23:56:26Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261014-469",
+      "headline": "MAT: All Conditions Finalised for AngloGold Ashanti Option [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MAT?key=2924-03148751-6A1349381",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-14T23:31:48Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Matador Mining finalized all conditions for the option agreement with AngloGold Ashanti.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Matador Mining finalized all conditions for the option agreement with AngloGold Ashanti.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Matador Mining",
+          "ticker": "MAT",
+          "listing_country": "AU"
+        },
+        {
+          "name": "AngloGold Ashanti",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261014-444",
       "headline": "MFD: Correction - FY26 Guidance Reinstated & Restructure Complete [price-sensitive]",
@@ -1942,55 +1996,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-357",
-      "headline": "Pickleball facility franchisor files for bankruptcy amid bubble concerns",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/latest-news/the-picklr-files-for-bankruptcy-amid-bubble-concerns",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T13:33:00Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "A franchisor has filed for bankruptcy, indicating a total loss of equity value for shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A franchisor has filed for bankruptcy, indicating a total loss of equity value for shareholders.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pickleball",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219314,9 +219319,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11538412,
-    "news_picked_today": 1073,
-    "news_dropped_today": 20887
+    "news_seen_today": 11553133,
+    "news_picked_today": 1092,
+    "news_dropped_today": 21060
   },
   "book_momentum": {
     "live_count": 8,
