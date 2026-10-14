@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T12:25:33Z",
+  "generated_at": "2026-10-14T12:27:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-287",
@@ -784,6 +784,56 @@
       "event_types": [
         "earnings_revenue_margin",
         "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of America",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-309",
+      "headline": "Bank of America Just Got Hit With a $1.2 Billion Fine. It Reports Earnings This Morning",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/10/14/bank-of-america-just-got-hit-with-a-1-2-billion-fine-it-reports-earnings-this-morning/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T11:50:34Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Bank of America faces a quantified $1.2 billion regulatory fine ahead of its earnings report.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bank of America faces a quantified $1.2 billion regulatory fine ahead of its earnings report.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -1940,55 +1990,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-119",
-      "headline": "Bank of Baroda shares fall on $15 billion lawsuit - Here's what the lender officially said",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/bank-of-baroda-share-price-bank-response-15-billion-lawsuit-br-shetty-insolvency-dues-2800-crore-20011458.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T04:47:55Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Bank of Baroda faces a $15 billion lawsuit from NMC Health's founder.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bank of Baroda faces a $15 billion lawsuit from NMC Health's founder.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bank of Baroda",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219015,9 +219016,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6755527,
-    "news_picked_today": 498,
-    "news_dropped_today": 13422
+    "news_seen_today": 6792227,
+    "news_picked_today": 508,
+    "news_dropped_today": 13460
   },
   "book_momentum": {
     "live_count": 8,
