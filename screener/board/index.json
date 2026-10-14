@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T17:32:26Z",
+  "generated_at": "2026-10-14T17:42:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-370",
@@ -46,6 +46,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-380",
+      "headline": "25-NSE - LandBridge Corp (0001995807) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1995807/000087666126000830/0000876661-26-000830-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-14T14:30:09Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "LandBridge Corp Form 25-NSE delisting notification removes public trading access and signals either going-private M&A or forced delisting due to non-compliance or distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "LandBridge Corp Form 25-NSE delisting notification removes public trading access and signals either going-private M&A or forced delisting due to non-compliance or distress.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LandBridge Corp",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1919,56 +1969,6 @@
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bank of America",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-277",
-      "headline": "Bank of America profit hurt by $1.2-billion fine over anti-money laundering shortcomings",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-bank-of-america-third-quarter-results-anti-money-laundering-fine/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T11:22:29Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Bank of America profit was impacted by a $1.2 billion fine for anti-money laundering shortcomings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bank of America profit was impacted by a $1.2 billion fine for anti-money laundering shortcomings.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "policy",
@@ -219449,9 +219449,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9367332,
-    "news_picked_today": 765,
-    "news_dropped_today": 15075
+    "news_seen_today": 9405480,
+    "news_picked_today": 787,
+    "news_dropped_today": 15365
   },
   "book_momentum": {
     "live_count": 8,
