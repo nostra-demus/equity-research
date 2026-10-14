@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T12:12:08Z",
+  "generated_at": "2026-10-14T12:18:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-282",
@@ -43,6 +43,55 @@
           "name": "Hyundai Motor India Limited",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-284",
+      "headline": "DEFM14A - Transocean Ltd. (0001451505) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1451505/000110465926115680/0001104659-26-115680-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-14T10:03:31Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Transocean Ltd. filed DEFM14A (definitive proxy for merger), confirming an M&A transaction in shareholder-vote stage, though headline provides no acquirer identity or deal economics.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Transocean Ltd. filed DEFM14A (definitive proxy for merger), confirming an M&A transaction in shareholder-vote stage, though headline provides no acquirer identity or deal economics.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Transocean Ltd.",
+          "ticker": "RIG",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1939,55 +1988,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-120",
-      "headline": "Aegis Logistics gain 6% after announcing $809 million Tristar Holdings acquisition",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/aegis-logistics-share-price-tristar-holdings-acquisition-809-million-cash-timeline-approvals-benefits-20011302.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T04:26:11Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Aegis Logistics shares rose 6% after announcing the $809 million acquisition of Tristar Holdings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Aegis Logistics shares rose 6% after announcing the $809 million acquisition of Tristar Holdings.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aegis Logistics",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219014,9 +219014,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6699856,
-    "news_picked_today": 464,
-    "news_dropped_today": 13240
+    "news_seen_today": 6718533,
+    "news_picked_today": 471,
+    "news_dropped_today": 13377
   },
   "book_momentum": {
     "live_count": 8,
