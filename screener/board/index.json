@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T14:13:53Z",
+  "generated_at": "2026-10-14T14:20:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-344",
@@ -999,6 +999,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261014-363",
+      "headline": "Bank of America shares drop 8% after third-quarter revenue miss and regulatory penalty",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/14/bank-of-america-bac-q3-2026-earnings.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T14:07:44Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Bank of America shares dropped 8% following a revenue miss and a regulatory penalty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bank of America shares dropped 8% following a revenue miss and a regulatory penalty.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of America",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261014-359",
       "headline": "IDBI Bank's ₹52,878-crore sale to Fairfax gets govt nod: A 9-year journey from financial crisis to restructuring",
       "headline_en": null,
@@ -1936,60 +1986,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-259",
-      "headline": "CCEA clears ₹52,878-crore IDBI Bank restructuring; Fairfax to acquire stake at ₹81 per share",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/idbi-bank-restructuring-cabinet-approval-fairfax-financials-stake-sale-20011819.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T11:02:15Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "CCEA clears IDBI Bank sale to Fairfax at ₹81 per share (₹52,878 crore total), same M&A event as item 3 with additional per-share pricing detail.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CCEA clears IDBI Bank sale to Fairfax at ₹81 per share (₹52,878 crore total), same M&A event as item 3 with additional per-share pricing detail.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 7,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IDBI Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Fairfax",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219018,9 +219014,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7983808,
-    "news_picked_today": 651,
-    "news_dropped_today": 14445
+    "news_seen_today": 8040021,
+    "news_picked_today": 660,
+    "news_dropped_today": 14484
   },
   "book_momentum": {
     "live_count": 8,
