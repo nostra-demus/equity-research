@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-14T13:18:43Z",
+  "generated_at": "2026-10-14T13:23:40Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261014-331",
+      "headline": "Siti Networks Limited: Siti Networks Limited has informed that this is in continuation of our earlier communications (i.e. dated October 13, 2026), pursuant to Regulation 30 of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015, as amended from time to time ( Listing Regulations ), wherein we have informed that the Hon ble National Company Law Tribunal, Mumbai Bench ( NCLT ) vide order dated September 28, 2026 (received on October 12, 2",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SITINET_14102026182927_CIRP_Update.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-14T13:02:34Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Siti Networks is involved in ongoing NCLT proceedings, indicating significant financial distress or insolvency risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Siti Networks is involved in ongoing NCLT proceedings, indicating significant financial distress or insolvency risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Siti Networks Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261014-326",
       "headline": "GON TECHNOLOGY (02768): COMPLETION OF DISCLOSEABLE TRANSACTION IN RELATION TO ACQUISITION OF 80% EQUITY INTEREST IN THE TARGET COMPANY",
@@ -1936,60 +1985,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-147",
-      "headline": "Galderma to Buy ZO Skin Health for $1.5 Billion",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/deals/galderma-to-buy-zo-skin-health-for-1-5-billion-354ba9ff?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T05:47:00Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Galderma announced acquisition of ZO Skin Health for $1.5 billion, a confirmed material M&A affecting capital deployment and strategic positioning.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Galderma announced acquisition of ZO Skin Health for $1.5 billion, a confirmed material M&A affecting capital deployment and strategic positioning.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Galderma",
-          "ticker": null,
-          "listing_country": "CH"
-        },
-        {
-          "name": "ZO Skin Health",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219017,9 +219012,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7265026,
-    "news_picked_today": 576,
-    "news_dropped_today": 14184
+    "news_seen_today": 7283389,
+    "news_picked_today": 584,
+    "news_dropped_today": 14200
   },
   "book_momentum": {
     "live_count": 8,
