@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-14T01:00:07Z",
+  "generated_at": "2026-10-14T01:02:07Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261014-037",
+      "headline": "RRL: Federal Court Rules McPhillamys s10 Declaration Invalid [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RRL?key=2924-03148159-6A1349139",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-14T00:50:33Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "The Federal Court has ruled a declaration invalid, which is price-sensitive and could impact the company's operations or future plans.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Federal Court has ruled a declaration invalid, which is price-sensitive and could impact the company's operations or future plans.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Regis Resources Limited",
+          "ticker": "RRL",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261014-002",
       "headline": "HANG YICK HLDGS (01894): DESPATCH OF OFFER DOCUMENT RELATING TO CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY RAINBOW CAPITAL (HK) LIMITED FOR AND ON BEHALF OF NGAI WA PING TO ACQUIRE 30,000,000 SHARES IN HANG YICK HOLDINGS COMPANY LIMITED (STOCK CODE: 1894) (OTHER THAN THOSE ALREADY OWNED BY NGAI WA PING AND PARTIES ACTING IN CONCERT WITH HIM)",
@@ -218374,7 +218423,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3602,
+    "inbox_unconsumed": 3603,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -218383,9 +218432,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 604653,
-    "news_picked_today": 36,
-    "news_dropped_today": 396
+    "news_seen_today": 647717,
+    "news_picked_today": 37,
+    "news_dropped_today": 467
   },
   "book_momentum": {
     "live_count": 8,
