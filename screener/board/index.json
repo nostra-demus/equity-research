@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-14T10:23:01Z",
+  "generated_at": "2026-10-14T10:59:52Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261014-229",
+      "headline": "Aeroflex Industries Limited: AEROFLEX: Aeroflex Industries Limited has informed the Exchange regarding a press release titled \"Aeroflex Industries Limited to Invest Rs 202 Crore by March 2028 to Strengthen Manufacturing Prowess\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/AEROFLEXINDIA_14102026152609_PressReleasef.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-14T09:56:25Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "The company announced a significant capital expenditure plan of Rs 202 Crore to expand manufacturing capacity by 2028.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced a significant capital expenditure plan of Rs 202 Crore to expand manufacturing capacity by 2028.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aeroflex Industries Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-232",
+      "headline": "C ZENITH CHEM (00362): Cancellation of listing",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1014/2026101400707.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-14T09:39:00Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Cancellation of listing removes trading rights and liquidity; typically follows covenant breach, sustained non-compliance, or enforcement, and precedes restructuring or equity loss.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cancellation of listing removes trading rights and liquidity; typically follows covenant breach, sustained non-compliance, or enforcement, and precedes restructuring or equity loss.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "C Zenith Chemical Limited",
+          "ticker": "00362",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261014-183",
       "headline": "HSBC HOLDINGS (00005): EARNINGS RELEASE FOR THIRD QUARTER 2026 AND CONSIDERATION OF PAYMENT OF THIRD INTERIM DIVIDEND FOR 2026",
@@ -1739,6 +1837,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261014-231",
+      "headline": "POLYFAIR HLDGS (08532): INSIDE INFORMATION UPDATE ON THE WINDING-UP PETITION AGAINST A SUBSIDIARY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1014/2026101400735.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-14T09:48:00Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "The company provided an update on a winding-up petition against a subsidiary, indicating ongoing legal and financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "The company provided an update on a winding-up petition against a subsidiary, indicating ongoing legal and financial distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "POLYFAIR HLDGS",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261014-206",
       "headline": "Suspension of Trading in PTCs of CAPRICORN TRUST MAY 2024",
       "headline_en": null,
@@ -1833,153 +1980,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-158",
-      "headline": "Aeroflex Enterprises Limited: Update on Capacity Enhancements and Expansion Plans for Aeroflex Industries Limited, the Material Subsidiary of the Company",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/SATINDUSTRIES_14102026115311_Update_on_capacity_enhancements_and_expansions_of_AIL__final.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-14T06:25:14Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "The company is announcing capacity enhancements and expansion plans for its material subsidiary, which indicates growth investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "The company is announcing capacity enhancements and expansion plans for its material subsidiary, which indicates growth investment.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aeroflex Enterprises Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-117",
-      "headline": "AGL: Notice of Class Action",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AGL?key=2924-03148260-2A1703995",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-14T03:52:44Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "AGL has received a notice of class action.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "AGL has received a notice of class action.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AGL",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-036",
-      "headline": "SCHEDULE 13D/A - Haymaker Sponsor IV LLC (0001986992) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1986992/000110465926115657/0001104659-26-115657-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-14T00:49:06Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Haymaker Sponsor IV LLC filed a Schedule 13D/A, indicating a significant change in ownership or investor intent.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Haymaker Sponsor IV LLC filed a Schedule 13D/A, indicating a significant change in ownership or investor intent.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Haymaker Sponsor IV LLC",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219151,9 +219151,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5951151,
-    "news_picked_today": 366,
-    "news_dropped_today": 10722
+    "news_seen_today": 6213975,
+    "news_picked_today": 373,
+    "news_dropped_today": 11891
   },
   "book_momentum": {
     "live_count": 8,
