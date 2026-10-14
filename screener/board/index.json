@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T03:26:47Z",
+  "generated_at": "2026-10-14T03:31:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-037",
@@ -144,6 +144,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-095",
+      "headline": "AI startup with 12 million users faces bankruptcy: Why Character.AI failed to make money",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/ai-startup-with-12-million-users-faces-bankruptcy-why-character-ai-failed-to-make-money-11791946398297.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T03:19:16Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Character.AI is facing bankruptcy due to an inability to monetize its 12 million user base.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Character.AI is facing bankruptcy due to an inability to monetize its 12 million user base.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Character.AI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1913,49 +1962,6 @@
         "regulatory"
       ],
       "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-039",
-      "headline": "Hong Kong Investigates IPO Rigging",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-10-14/hong-kong-investigates-ipo-rigging-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T00:56:55Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Hong Kong regulators are investigating IPO rigging, which poses a systemic risk to market integrity and future IPO activity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Hong Kong regulators are investigating IPO rigging, which poses a systemic risk to market integrity and future IPO activity.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -218564,9 +218570,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2398698,
-    "news_picked_today": 108,
-    "news_dropped_today": 1356
+    "news_seen_today": 2462604,
+    "news_picked_today": 109,
+    "news_dropped_today": 1379
   },
   "book_momentum": {
     "live_count": 8,
