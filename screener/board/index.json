@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T17:55:31Z",
+  "generated_at": "2026-10-14T18:30:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-370",
@@ -1098,6 +1098,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261014-386",
+      "headline": "Getty Images to go private, planning 'prepackaged' bankruptcy amid $2.1 billion debt- Here's what we know",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/getty-images-to-go-private-planning-prepackaged-bankruptcy-amid-2-1-billion-debt-heres-what-we-know-11791996521138.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T17:25:22Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Getty Images plans prepackaged bankruptcy to address $2.1 billion debt, a default event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Getty Images plans prepackaged bankruptcy to address $2.1 billion debt, a default event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Getty Images",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261014-375",
       "headline": "‘The biggest financial institutions are not above the law’: Bessent hits BofA with $1.2 billion fine for money laundering—the third-largest in history",
       "headline_en": null,
@@ -1939,56 +1988,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-269",
-      "headline": "Bank of America adds a profit miss to the misery of a $1.2 billion government fine",
-      "headline_en": null,
-      "url": "https://www.marketwatch.com/story/bank-of-america-adds-a-profit-miss-to-the-misery-of-a-1-2-billion-government-fine-d4420bfa?mod=mw_rss_topstories",
-      "source_name": "MarketWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T11:28:00Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Bank of America reported a profit miss alongside a $1.2 billion government fine.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bank of America reported a profit miss alongside a $1.2 billion government fine.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bank of America",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219449,9 +219448,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9442834,
-    "news_picked_today": 806,
-    "news_dropped_today": 15586
+    "news_seen_today": 9720085,
+    "news_picked_today": 820,
+    "news_dropped_today": 15908
   },
   "book_momentum": {
     "live_count": 8,
