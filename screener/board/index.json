@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T16:43:11Z",
+  "generated_at": "2026-10-14T16:51:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-370",
@@ -1048,6 +1048,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261014-375",
+      "headline": "‘The biggest financial institutions are not above the law’: Bessent hits BofA with $1.2 billion fine for money laundering—the third-largest in history",
+      "headline_en": null,
+      "url": "https://fortune.com/2026/10/14/bessent-bank-of-america-1-2-billion-fine-money-laundering/",
+      "source_name": "Fortune",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T15:44:37Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "$1.2 billion enforcement fine against Bank of America for money laundering, the third-largest regulatory sanction in US history.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "$1.2 billion enforcement fine against Bank of America for money laundering, the third-largest regulatory sanction in US history.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of America",
+          "ticker": "BAC",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261014-369",
       "headline": "Fairfax to buy IDBI stake: CCEA clears Rs 53,000 crore deal; all you need to know",
       "headline_en": null,
@@ -1909,56 +1958,6 @@
       "launched_signal_id": null,
       "triage_score": 100,
       "triage_reason": "Bank of America profit was impacted by a $1.2 billion fine for anti-money laundering shortcomings.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bank of America",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-276",
-      "headline": "Bank of America Results Hit by Weaker Trading, $1.2 Billion Penalty",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-10-14/bank-of-america-results-hit-by-weaker-trading-penalty-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T11:22:03Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Bank of America reported weaker trading results and a $1.2 billion regulatory penalty.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bank of America reported weaker trading results and a $1.2 billion regulatory penalty.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -219451,9 +219450,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9269471,
-    "news_picked_today": 720,
-    "news_dropped_today": 14568
+    "news_seen_today": 9289053,
+    "news_picked_today": 739,
+    "news_dropped_today": 14597
   },
   "book_momentum": {
     "live_count": 8,
