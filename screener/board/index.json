@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T14:26:18Z",
+  "generated_at": "2026-10-14T14:49:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-344",
@@ -177072,77 +177072,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-bcfe3a2924a3",
-      "idea_version": "IDEAV-3c94b90729487e24",
-      "idea_version_started_at": "2026-10-13T14:10:50Z",
-      "ticker": "AGST",
-      "company": "AGS Transact Technologies Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has informed the exchange about entering Corporate Insolvency Resolution Process, signaling potential bankruptcy.",
-      "why_now": "The announcement of the insolvency process on October 13, 2026, is a critical and immediate event.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-edb6e4414fad"
-      ],
-      "primary_source_event_id": "EVT-edb6e4414fad",
-      "source_headlines": [
-        "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-      ],
-      "source_headline": "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-      "source_url": "https://nsearchives.nseindia.com/corporate/AGSTRA_13102026080408_Intimation_to_BSE_And_NSE_-_19th_Coc_meeting_-_Final.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-13T02:40:30Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-13T14:10:50Z",
-      "updated_at": "2026-10-13T14:10:50Z",
-      "decay_at": "2026-10-14T14:40:30Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-67e788b795cf",
       "idea_version": "IDEAV-6525009ab95c2fa5",
       "idea_version_started_at": "2026-10-14T08:35:25Z",
@@ -178762,6 +178691,77 @@
       "surfaced_at": "2026-10-13T14:10:50Z",
       "updated_at": "2026-10-13T14:10:50Z",
       "decay_at": "2026-10-14T12:58:52Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-bcfe3a2924a3",
+      "idea_version": "IDEAV-3c94b90729487e24",
+      "idea_version_started_at": "2026-10-13T14:10:50Z",
+      "ticker": "AGST",
+      "company": "AGS Transact Technologies Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has informed the exchange about entering Corporate Insolvency Resolution Process, signaling potential bankruptcy.",
+      "why_now": "The announcement of the insolvency process on October 13, 2026, is a critical and immediate event.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-edb6e4414fad"
+      ],
+      "primary_source_event_id": "EVT-edb6e4414fad",
+      "source_headlines": [
+        "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+      ],
+      "source_headline": "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "source_url": "https://nsearchives.nseindia.com/corporate/AGSTRA_13102026080408_Intimation_to_BSE_And_NSE_-_19th_Coc_meeting_-_Final.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-13T02:40:30Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-13T14:10:50Z",
+      "updated_at": "2026-10-13T14:10:50Z",
+      "decay_at": "2026-10-14T14:40:30Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -181796,9 +181796,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 558,
+    "total_count": 559,
     "shown_count": 499,
-    "hidden_count": 59,
+    "hidden_count": 60,
     "side_counts": {
       "long": {
         "total_count": 292,
@@ -181806,9 +181806,9 @@
         "hidden_count": 42
       },
       "short": {
-        "total_count": 267,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 18
       }
     },
     "retention": {
@@ -181827,6 +181827,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-bcfe3a2924a3",
+        "idea_version": "IDEAV-3c94b90729487e24",
+        "idea_version_started_at": "2026-10-13T14:10:50Z",
+        "ticker": "AGST",
+        "company": "AGS Transact Technologies Limited",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has informed the exchange about entering Corporate Insolvency Resolution Process, signaling potential bankruptcy.",
+        "why_now": "The announcement of the insolvency process on October 13, 2026, is a critical and immediate event.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-edb6e4414fad"
+        ],
+        "primary_source_event_id": "EVT-edb6e4414fad",
+        "source_headlines": [
+          "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+        ],
+        "source_headline": "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+        "source_url": "https://nsearchives.nseindia.com/corporate/AGSTRA_13102026080408_Intimation_to_BSE_And_NSE_-_19th_Coc_meeting_-_Final.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-13T02:40:30Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-13T14:10:50Z",
+        "updated_at": "2026-10-13T14:10:50Z",
+        "decay_at": "2026-10-14T14:40:30Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-14T14:40:30Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-026b016aaebf",
         "idea_version": "IDEAV-f9345ef6d367f75f",
@@ -218918,85 +218992,12 @@
         "archived_at": "2026-09-19T11:08:12Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-c5681a8c6872",
-        "idea_version": "IDEAV-7f0dd62da673ca71",
-        "idea_version_started_at": "2026-09-16T13:28:55Z",
-        "ticker": "ENT.L",
-        "company": "Entain",
-        "exchange": "London",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company is cutting 400 jobs and warning of further losses due to UK tax hikes, indicating significant operational and regulatory headwinds.",
-        "why_now": "The announcement was made today, September 16, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b08d3df56736"
-        ],
-        "primary_source_event_id": "EVT-b08d3df56736",
-        "source_headlines": [
-          "Gambling giant set to axe 400 jobs as it blames UK tax hikes and warns of further losses"
-        ],
-        "source_headline": "Gambling giant set to axe 400 jobs as it blames UK tax hikes and warns of further losses",
-        "source_url": "https://www.independent.co.uk/news/business/ladbrokes-entain-job-cuts-burnham-budget-gambling-tax-b3051024.html",
-        "source_name": "The Independent — Business",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-16T08:48:50Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-16T13:28:55Z",
-        "updated_at": "2026-09-16T13:28:55Z",
-        "decay_at": "2026-09-17T20:48:50Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-19T08:59:21Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1584,
-    "live_count": 22,
+    "live_count": 21,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -219015,9 +219016,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8058799,
-    "news_picked_today": 663,
-    "news_dropped_today": 14505
+    "news_seen_today": 8266565,
+    "news_picked_today": 674,
+    "news_dropped_today": 14518
   },
   "book_momentum": {
     "live_count": 8,
