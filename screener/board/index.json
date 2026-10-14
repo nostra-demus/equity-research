@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T08:05:36Z",
+  "generated_at": "2026-10-14T08:25:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-161",
@@ -176564,76 +176564,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-1a38d7aae72f",
-      "idea_version": "IDEAV-02e095ec7a14628d",
-      "idea_version_started_at": "2026-10-13T05:16:42Z",
-      "ticker": "PEP",
-      "company": "PepsiCo",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is cutting estimates due to slumping soda sales, indicating weakening consumer demand and margin pressure.",
-      "why_now": "The news was reported on October 12, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0102830d2340"
-      ],
-      "primary_source_event_id": "EVT-0102830d2340",
-      "source_headlines": [
-        "PepsiCo Cuts Estimates for Poppi Payout While Soda Sales Slump"
-      ],
-      "source_headline": "PepsiCo Cuts Estimates for Poppi Payout While Soda Sales Slump",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-10-12/pepsico-cuts-estimates-for-poppi-payout-while-soda-sales-slump",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-12T20:16:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-08T12:13:45Z",
-      "updated_at": "2026-10-13T05:16:42Z",
-      "decay_at": "2026-10-14T08:16:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-36caf66b30a2",
       "idea_version": "IDEAV-698170b57ed1112e",
       "idea_version_started_at": "2026-10-14T01:34:40Z",
@@ -178554,6 +178484,76 @@
       "surfaced_at": "2026-10-12T10:33:47Z",
       "updated_at": "2026-10-12T10:33:47Z",
       "decay_at": "2026-10-13T19:24:24Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-1a38d7aae72f",
+      "idea_version": "IDEAV-02e095ec7a14628d",
+      "idea_version_started_at": "2026-10-13T05:16:42Z",
+      "ticker": "PEP",
+      "company": "PepsiCo",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is cutting estimates due to slumping soda sales, indicating weakening consumer demand and margin pressure.",
+      "why_now": "The news was reported on October 12, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0102830d2340"
+      ],
+      "primary_source_event_id": "EVT-0102830d2340",
+      "source_headlines": [
+        "PepsiCo Cuts Estimates for Poppi Payout While Soda Sales Slump"
+      ],
+      "source_headline": "PepsiCo Cuts Estimates for Poppi Payout While Soda Sales Slump",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-12/pepsico-cuts-estimates-for-poppi-payout-while-soda-sales-slump",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-12T20:16:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-08T12:13:45Z",
+      "updated_at": "2026-10-13T05:16:42Z",
+      "decay_at": "2026-10-14T08:16:02Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -181725,9 +181725,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 549,
+    "total_count": 550,
     "shown_count": 499,
-    "hidden_count": 50,
+    "hidden_count": 51,
     "side_counts": {
       "long": {
         "total_count": 288,
@@ -181735,9 +181735,9 @@
         "hidden_count": 38
       },
       "short": {
-        "total_count": 262,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 13
       }
     },
     "retention": {
@@ -181756,6 +181756,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-1a38d7aae72f",
+        "idea_version": "IDEAV-02e095ec7a14628d",
+        "idea_version_started_at": "2026-10-13T05:16:42Z",
+        "ticker": "PEP",
+        "company": "PepsiCo",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company is cutting estimates due to slumping soda sales, indicating weakening consumer demand and margin pressure.",
+        "why_now": "The news was reported on October 12, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0102830d2340"
+        ],
+        "primary_source_event_id": "EVT-0102830d2340",
+        "source_headlines": [
+          "PepsiCo Cuts Estimates for Poppi Payout While Soda Sales Slump"
+        ],
+        "source_headline": "PepsiCo Cuts Estimates for Poppi Payout While Soda Sales Slump",
+        "source_url": "https://www.bloomberg.com/news/articles/2026-10-12/pepsico-cuts-estimates-for-poppi-payout-while-soda-sales-slump",
+        "source_name": "Bloomberg",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-12T20:16:02Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-08T12:13:45Z",
+        "updated_at": "2026-10-13T05:16:42Z",
+        "decay_at": "2026-10-14T08:16:02Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-14T08:16:02Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d0d8fb1cd912",
         "idea_version": "IDEAV-47dc223fc5c9109b",
@@ -218844,86 +218917,12 @@
         "archived_at": "2026-09-18T17:05:03Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-df0c67c7416a",
-        "idea_version": "IDEAV-84111d6ff6b44498",
-        "idea_version_started_at": "2026-09-16T02:35:22Z",
-        "ticker": "01059",
-        "company": "KANTONE HOLDING",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A formal profit warning suggests a deterioration in the company's core business performance, likely leading to a contraction in valuation multiples.",
-        "why_now": "The announcement was made today, September 15, 2026, creating an immediate negative catalyst for the stock.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4f74ca20ca5d"
-        ],
-        "primary_source_event_id": "EVT-4f74ca20ca5d",
-        "source_headlines": [
-          "KANTONE HOLDING (01059): PROFIT WARNING"
-        ],
-        "source_headline": "KANTONE HOLDING (01059): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091501403.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-15T14:47:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-16T02:35:22Z",
-        "updated_at": "2026-09-16T02:35:22Z",
-        "decay_at": "2026-09-17T02:47:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-18T17:05:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1581,
-    "live_count": 30,
+    "live_count": 29,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -218942,9 +218941,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5306963,
-    "news_picked_today": 264,
-    "news_dropped_today": 6408
+    "news_seen_today": 5538670,
+    "news_picked_today": 271,
+    "news_dropped_today": 6425
   },
   "book_momentum": {
     "live_count": 8,
