@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T06:44:03Z",
+  "generated_at": "2026-10-14T06:53:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-142",
@@ -297,6 +297,60 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-156",
+      "headline": "Galderma To Acquire ZO Skin Health For $1.5 Bln",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/galderma-acquire-zo-skin-health-15-bln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T05:26:56Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Galderma to acquire ZO Skin Health for $1.5 billion, a confirmed dermatology platform expansion deal from primary sources.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Galderma to acquire ZO Skin Health for $1.5 billion, a confirmed dermatology platform expansion deal from primary sources.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Galderma",
+          "ticker": null,
+          "listing_country": "CH"
+        },
+        {
+          "name": "ZO Skin Health",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1922,55 +1976,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-084",
-      "headline": "Dr B.R. Shetty Files $15 Billion Damages Suit Against Bank Of Baroda, Alleges Collusion In NMC Healthcare Fraud",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/dr-br-shetty-files-15-billion-damages-suit-against-bank-of-baroda-alleges-collusion-in-nmc-healthcare-fraud",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T01:56:50Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Dr. B.R. Shetty has filed a $15 billion damages suit against Bank of Baroda alleging collusion in the NMC Healthcare fraud.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Dr. B.R. Shetty has filed a $15 billion damages suit against Bank of Baroda alleging collusion in the NMC Healthcare fraud.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bank of Baroda",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -218929,9 +218934,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4865846,
-    "news_picked_today": 229,
-    "news_dropped_today": 3635
+    "news_seen_today": 4888058,
+    "news_picked_today": 235,
+    "news_dropped_today": 4061
   },
   "book_momentum": {
     "live_count": 8,
