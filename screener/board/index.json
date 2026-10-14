@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-14T12:18:14Z",
+  "generated_at": "2026-10-14T12:25:33Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261014-287",
+      "headline": "IDBI Bank Limited: The Exchange has sought clarification from IDBI Bank Limited with respect to recent news item captioned Cabinet Approves IDBI Bank Stake Sale To Fairfax For Rs 52,878 Crore; FM Calls It Strategic Restructuring. The response from the Company is awaited.",
+      "headline_en": null,
+      "url": "https://www.nseindia.com/companies-listing/corporate-filings-announcements?symbol=IDBI&seq=106817473",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-14T12:05:46Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Cabinet approved a 52,878 crore stake sale of IDBI Bank to Fairfax.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cabinet approved a 52,878 crore stake sale of IDBI Bank to Fairfax.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IDBI Bank Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261014-282",
       "headline": "Hyundai Motor India Limited: Hyundai Motor India Limited has informed the Exchange regarding a press release dated October 14, 2026, titled \"Hon ble Chief Minister of Maharashtra Shri. Devendra Fadnavis Inaugurates Hyundai Motor India s Pune Plant\".",
@@ -700,6 +749,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261014-307",
+      "headline": "Bank of America shares drop more than 4% after third-quarter revenue miss and regulatory penalty",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/14/bank-of-america-bac-q3-2026-earnings.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T12:09:50Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Bank of America shares fell over 4% following a revenue miss and a $1.2 billion regulatory penalty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bank of America shares fell over 4% following a revenue miss and a $1.2 billion regulatory penalty.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of America",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-308",
+      "headline": "The Morning Risk Report: Bank of America to Pay $1.2 Billion to Settle Violations of Money Laundering, Sanctions Laws",
+      "headline_en": null,
+      "url": "https://www.wsj.com/risk-compliance-journal/the-morning-risk-report-bank-of-america-to-pay-1-2-billion-to-settle-violations-of-money-laundering-sanctions-laws-56d72ccf?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T11:45:00Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Bank of America to pay $1.2 billion to settle money laundering and sanctions violations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bank of America to pay $1.2 billion to settle money laundering and sanctions violations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of America",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261014-281",
       "headline": "Getty Images to go private under ‘prepackaged’ bankruptcy",
       "headline_en": null,
@@ -1042,55 +1190,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-274",
-      "headline": "Cabinet Approves IDBI Bank Stake Sale To Fairfax For Rs 52,878 Crore; FM Calls It Strategic Restructuring",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/cabinet-approves-idbi-bank-stake-sale-to-fairfax-fm-calls-it-strategic-restructuring-12184216#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T11:03:40Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "The Indian Cabinet approved the sale of an IDBI Bank stake to Fairfax for Rs 52,878 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The Indian Cabinet approved the sale of an IDBI Bank stake to Fairfax for Rs 52,878 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IDBI Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1890,104 +1989,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-042",
-      "headline": "Samsung Biologics Nears $2 Billion PolyPeptide Takeover",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=278731",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T04:39:05Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Samsung Biologics is reportedly nearing a $2 billion acquisition of PolyPeptide.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Samsung Biologics is reportedly nearing a $2 billion acquisition of PolyPeptide.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung Biologics",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-121",
-      "headline": "US hits Bank of America with $1.2 billion fine, says it violated money laundering, sanctions laws",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/us-hits-bank-of-america-with-12-billion-fine-says-it-violated-money-laundering-sanctions-laws/article71582068.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T04:34:52Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Bank of America was fined $1.2 billion for violations of money laundering and sanctions laws.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bank of America was fined $1.2 billion for violations of money laundering and sanctions laws.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bank of America",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219014,9 +219015,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6718533,
-    "news_picked_today": 471,
-    "news_dropped_today": 13377
+    "news_seen_today": 6755527,
+    "news_picked_today": 498,
+    "news_dropped_today": 13422
   },
   "book_momentum": {
     "live_count": 8,
