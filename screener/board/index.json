@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T06:18:45Z",
+  "generated_at": "2026-10-14T06:36:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-142",
@@ -199,31 +199,80 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261014-137",
-      "headline": "Galderma to buy US firm ZO Skin Health for $1.5 billion",
+      "inbox_id": "INB-20261014-149",
+      "headline": "ASML Raises Full-Year Sales Outlook",
       "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/galderma-buy-us-firm-zo-skin-health-15-billion-2026-10-14/",
-      "source_name": "Reuters — Latest (news sitemap)",
+      "url": "https://www.bloomberg.com/news/videos/2026-10-14/asml-raises-full-year-sales-outlook-video",
+      "source_name": "Bloomberg",
       "input_nature": "news_headline",
-      "found_at": "2026-10-14T05:24:23Z",
+      "found_at": "2026-10-14T06:07:29Z",
       "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Galderma announced the acquisition of ZO Skin Health for $1.5 billion.",
+      "prelim_note": "ASML raised full-year sales outlook, signaling stronger demand and execution momentum from a mega-cap semiconductor-equipment supplier.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Galderma announced the acquisition of ZO Skin Health for $1.5 billion.",
+      "triage_reason": "ASML raised full-year sales outlook, signaling stronger demand and execution momentum from a mega-cap semiconductor-equipment supplier.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ASML",
+          "ticker": "ASML",
+          "listing_country": "NL"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-147",
+      "headline": "Galderma to Buy ZO Skin Health for $1.5 Billion",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/galderma-to-buy-zo-skin-health-for-1-5-billion-354ba9ff?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T05:47:00Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Galderma announced acquisition of ZO Skin Health for $1.5 billion, a confirmed material M&A affecting capital deployment and strategic positioning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Galderma announced acquisition of ZO Skin Health for $1.5 billion, a confirmed material M&A affecting capital deployment and strategic positioning.",
       "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 80,
+      "materiality_pre_score": 78,
       "rank_factors": {
-        "materiality": 80,
+        "materiality": 78,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 0,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "multi_name",
@@ -244,7 +293,7 @@
         {
           "name": "ZO Skin Health",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -1922,55 +1971,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-012",
-      "headline": "BRETON (01333): PLACING OF NEW H SHARES UNDER GENERAL MANDATE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1014/2026101400061.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-13T23:04:00Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Breton announced a placing of new H shares, which is dilutive to existing shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Breton announced a placing of new H shares, which is dilutive to existing shareholders.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Breton",
-          "ticker": "01333",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -218929,9 +218929,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4730099,
-    "news_picked_today": 212,
-    "news_dropped_today": 2788
+    "news_seen_today": 4843353,
+    "news_picked_today": 220,
+    "news_dropped_today": 3380
   },
   "book_momentum": {
     "live_count": 8,
