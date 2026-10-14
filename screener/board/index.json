@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T08:35:46Z",
+  "generated_at": "2026-10-14T08:42:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-161",
@@ -1107,6 +1107,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261014-169",
+      "headline": "CY5: Court approves the Scheme",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CY5?key=2924-03148441-6A1349265",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-14T07:50:19Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Court approval of scheme of arrangement is binding corporate restructuring event; headline does not disclose counterparty, economic terms, value, or accretion status.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Court approval of scheme of arrangement is binding corporate restructuring event; headline does not disclose counterparty, economic terms, value, or accretion status.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261014-150",
       "headline": "Aeroflex Industries Limited: Considered and approved the Company s further expansion plans, including the capacity enhancement in SS Hose & Braiding Division and Liquid Cooling SFN Skid Assemblies Division",
       "headline_en": null,
@@ -1935,55 +1978,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-050",
-      "headline": "RHC: Becoming a substantial holder",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RHC?key=2924-03147789-2A1703783",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-13T06:46:55Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "A new substantial holder disclosure indicates a significant change in ownership structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "A new substantial holder disclosure indicates a significant change in ownership structure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "RHC",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219155,9 +219149,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5581032,
-    "news_picked_today": 277,
-    "news_dropped_today": 6803
+    "news_seen_today": 5601862,
+    "news_picked_today": 286,
+    "news_dropped_today": 6938
   },
   "book_momentum": {
     "live_count": 8,
