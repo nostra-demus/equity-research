@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T01:10:37Z",
+  "generated_at": "2026-10-14T01:14:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-037",
@@ -193,6 +193,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-038",
+      "headline": "Getty Images to keep Seattle HQ as it goes private through bankruptcy",
+      "headline_en": null,
+      "url": "https://www.geekwire.com/2026/getty-images-to-keep-seattle-hq-as-it-goes-private-through-bankruptcy/",
+      "source_name": "GeekWire",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T00:53:00Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Getty Images is undergoing a bankruptcy process to go private.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Getty Images is undergoing a bankruptcy process to go private.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Getty Images",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -737,6 +786,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261014-040",
+      "headline": "SCHEDULE 13D/A - TALOS ENERGY INC. (0001724965) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1724965/000114036126039476/0001140361-26-039476-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-14T00:56:54Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "A Schedule 13D/A filing indicates a change in significant ownership or intent for Talos Energy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "A Schedule 13D/A filing indicates a change in significant ownership or intent for Talos Energy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Talos Energy Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261014-021",
       "headline": "SCHEDULE 13D - Tarheel Investors III L.P. (0002158690) (Filed by)",
       "headline_en": null,
@@ -830,6 +928,98 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-039",
+      "headline": "Hong Kong Investigates IPO Rigging",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-10-14/hong-kong-investigates-ipo-rigging-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T00:56:55Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Hong Kong regulators are investigating IPO rigging, which poses a systemic risk to market integrity and future IPO activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Hong Kong regulators are investigating IPO rigging, which poses a systemic risk to market integrity and future IPO activity.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-041",
+      "headline": "SCHEDULE 13D/A - HELU CARLOS SLIM (0001080910) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1080910/000114036126039476/0001140361-26-039476-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-14T00:56:54Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "A Schedule 13D/A filing indicates a change in significant ownership or intent by Carlos Slim.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "A Schedule 13D/A filing indicates a change in significant ownership or intent by Carlos Slim.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Carlos Slim",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -175979,76 +176169,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d2450dbed90f",
-      "idea_version": "IDEAV-db8d71c76461c102",
-      "idea_version_started_at": "2026-10-12T13:49:38Z",
-      "ticker": "STE",
-      "company": "Steris",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Steris is acquiring Xodus Medical for $2.1 billion, which expands its surgical and infection prevention portfolio through a strategic bolt-on acquisition.",
-      "why_now": "The deal was announced on October 12, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-eb4d395e9d7a"
-      ],
-      "primary_source_event_id": "EVT-eb4d395e9d7a",
-      "source_headlines": [
-        "Steris to Acquire Xodus Medical for $2.1 Billion"
-      ],
-      "source_headline": "Steris to Acquire Xodus Medical for $2.1 Billion",
-      "source_url": "https://www.wsj.com/business/deals/steris-to-acquire-xodus-medical-for-2-1-billion-ea048437?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-12T13:11:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-12T13:49:38Z",
-      "updated_at": "2026-10-12T13:49:38Z",
-      "decay_at": "2026-10-14T01:11:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d42db65b6b2f",
       "idea_version": "IDEAV-5277018282cf5049",
       "idea_version_started_at": "2026-10-13T23:04:58Z",
@@ -177896,6 +178016,76 @@
       "surfaced_at": "2026-10-12T11:48:12Z",
       "updated_at": "2026-10-12T11:48:12Z",
       "decay_at": "2026-10-13T23:13:34Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d2450dbed90f",
+      "idea_version": "IDEAV-db8d71c76461c102",
+      "idea_version_started_at": "2026-10-12T13:49:38Z",
+      "ticker": "STE",
+      "company": "Steris",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Steris is acquiring Xodus Medical for $2.1 billion, which expands its surgical and infection prevention portfolio through a strategic bolt-on acquisition.",
+      "why_now": "The deal was announced on October 12, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-eb4d395e9d7a"
+      ],
+      "primary_source_event_id": "EVT-eb4d395e9d7a",
+      "source_headlines": [
+        "Steris to Acquire Xodus Medical for $2.1 Billion"
+      ],
+      "source_headline": "Steris to Acquire Xodus Medical for $2.1 Billion",
+      "source_url": "https://www.wsj.com/business/deals/steris-to-acquire-xodus-medical-for-2-1-billion-ea048437?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-12T13:11:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-12T13:49:38Z",
+      "updated_at": "2026-10-12T13:49:38Z",
+      "decay_at": "2026-10-14T01:11:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -181210,14 +181400,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 546,
+    "total_count": 547,
     "shown_count": 499,
-    "hidden_count": 47,
+    "hidden_count": 48,
     "side_counts": {
       "long": {
-        "total_count": 286,
+        "total_count": 287,
         "shown_count": 250,
-        "hidden_count": 36
+        "hidden_count": 37
       },
       "short": {
         "total_count": 261,
@@ -181241,6 +181431,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d2450dbed90f",
+        "idea_version": "IDEAV-db8d71c76461c102",
+        "idea_version_started_at": "2026-10-12T13:49:38Z",
+        "ticker": "STE",
+        "company": "Steris",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Steris is acquiring Xodus Medical for $2.1 billion, which expands its surgical and infection prevention portfolio through a strategic bolt-on acquisition.",
+        "why_now": "The deal was announced on October 12, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-eb4d395e9d7a"
+        ],
+        "primary_source_event_id": "EVT-eb4d395e9d7a",
+        "source_headlines": [
+          "Steris to Acquire Xodus Medical for $2.1 Billion"
+        ],
+        "source_headline": "Steris to Acquire Xodus Medical for $2.1 Billion",
+        "source_url": "https://www.wsj.com/business/deals/steris-to-acquire-xodus-medical-for-2-1-billion-ea048437?mod=rss_markets_main",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-12T13:11:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-12T13:49:38Z",
+        "updated_at": "2026-10-12T13:49:38Z",
+        "decay_at": "2026-10-14T01:11:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-14T01:11:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-97dc92a71990",
         "idea_version": "IDEAV-746a328f610e5961",
@@ -209343,81 +209606,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-5fb10eec7770",
-        "idea_version": "IDEAV-172081ed4cadf983",
-        "idea_version_started_at": "2026-09-30T09:10:28Z",
-        "ticker": "GRG",
-        "company": "Greggs",
-        "exchange": "LSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Raising the profit outlook indicates stronger-than-expected consumer demand and operational efficiency, which outweighs the costs associated with the planned factory closures.",
-        "why_now": "The guidance upgrade was issued on 2026-09-30.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4792e1a7c0b8"
-        ],
-        "primary_source_event_id": "EVT-4792e1a7c0b8",
-        "source_headlines": [
-          "UK's Greggs raises profit outlook but plans factory closures"
-        ],
-        "source_headline": "UK's Greggs raises profit outlook but plans factory closures",
-        "source_url": "https://www.reuters.com/world/uk/britains-greggs-raises-profit-outlook-improved-trading-2026-09-30/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-30T08:21:29Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-30T09:10:28Z",
-        "updated_at": "2026-09-30T09:10:28Z",
-        "decay_at": "2026-10-01T20:21:29Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-03T08:45:43Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-669e750ceb07",
         "idea_version": "IDEAV-318316218afa88ad",
         "idea_version_started_at": "2026-09-30T05:39:46Z",
@@ -218411,7 +218599,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1574,
-    "live_count": 29,
+    "live_count": 28,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -218421,7 +218609,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3603,
+    "inbox_unconsumed": 3607,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -218430,9 +218618,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 755138,
-    "news_picked_today": 37,
-    "news_dropped_today": 539
+    "news_seen_today": 798156,
+    "news_picked_today": 41,
+    "news_dropped_today": 559
   },
   "book_momentum": {
     "live_count": 8,
