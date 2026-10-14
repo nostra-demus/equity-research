@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-10-14T23:24:34Z",
+  "generated_at": "2026-10-14T23:36:18Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261014-444",
+      "headline": "MFD: Correction - FY26 Guidance Reinstated & Restructure Complete [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MFD?key=2924-03148728-3A704168",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-14T22:51:07Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Company reinstated FY26 guidance and completed a restructuring, signaling improved operational clarity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company reinstated FY26 guidance and completed a restructuring, signaling improved operational clarity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MFD",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261014-413",
       "headline": "CZR: Takeover Update Offer Declared Best and Final [price-sensitive]",
@@ -1196,6 +1246,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261014-465",
+      "headline": "Hyundai to invest $15.5bn in Indian manufacturing, R&D",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/automobiles/hyundai-to-invest-15.5bn-in-indian-manufacturing-r-d",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T23:16:48Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Hyundai announced a major $15.5 billion investment in Indian manufacturing and R&D.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hyundai announced a major $15.5 billion investment in Indian manufacturing and R&D.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyundai",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261014-441",
       "headline": "CVS, DOJ reach $315M settlement in opioid prescription case",
       "headline_en": null,
@@ -1892,104 +1991,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-360",
-      "headline": "Aegis Logistics to acquire 89.8% stake in Dubai-based Tristar for ₹7700 crore",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/economy/logistics/aegis-logistics-to-acquire-898-stake-in-dubai-based-tristar-for-7700-crore/article71583721.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T13:26:48Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Aegis Logistics is acquiring a majority stake in Tristar for ₹7700 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Aegis Logistics is acquiring a majority stake in Tristar for ₹7700 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aegis Logistics",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-338",
-      "headline": "Kraken parent Payward to become first crypto firm to buy a EU bank as it expands into deposits, lending",
-      "headline_en": null,
-      "url": "https://www.coindesk.com/business/2026/10/14/kraken-parent-payward-to-become-first-crypto-firm-to-buy-a-eu-bank-as-it-expands-into-deposits-lending",
-      "source_name": "CoinDesk",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T13:07:45Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Kraken's parent company is set to become the first crypto firm to acquire a European bank.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Kraken's parent company is set to become the first crypto firm to acquire a European bank.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Payward",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219383,9 +219384,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11493794,
-    "news_picked_today": 1039,
-    "news_dropped_today": 20561
+    "news_seen_today": 11508815,
+    "news_picked_today": 1065,
+    "news_dropped_today": 20775
   },
   "book_momentum": {
     "live_count": 8,
