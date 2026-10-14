@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T04:53:33Z",
+  "generated_at": "2026-10-14T04:54:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-110",
@@ -176062,6 +176062,75 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-5f8e4c75be94",
+      "idea_version": "IDEAV-00dd1eb7eab5b8cb",
+      "idea_version_started_at": "2026-10-14T04:53:47Z",
+      "ticker": "RRL.AX",
+      "company": "Regis Resources Limited",
+      "exchange": "Australian",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The Federal Court's invalidation of the s10 declaration for the McPhillamys gold project creates significant regulatory uncertainty and potential project abandonment, directly threatening the company's primary growth asset.",
+      "why_now": "The court ruling was issued on 2026-10-14, creating an immediate and material negative impact on the company's valuation.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 76,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-19b34ce6ce6f"
+      ],
+      "primary_source_event_id": "EVT-19b34ce6ce6f",
+      "source_headlines": [
+        "RRL: Federal Court Rules McPhillamys s10 Declaration Invalid [price-sensitive]"
+      ],
+      "source_headline": "RRL: Federal Court Rules McPhillamys s10 Declaration Invalid [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RRL?key=2924-03148159-6A1349139",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-14T00:50:33Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-14T04:53:47Z",
+      "updated_at": "2026-10-14T04:53:47Z",
+      "decay_at": "2026-10-15T12:50:33Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-ab675b24d137",
       "idea_version": "IDEAV-b4003ca2a21d5f59",
       "idea_version_started_at": "2026-10-13T14:10:50Z",
@@ -177620,6 +177689,148 @@
       "surfaced_at": "2026-10-13T09:12:26Z",
       "updated_at": "2026-10-13T09:12:26Z",
       "decay_at": "2026-10-14T12:10:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-11e71885e916",
+      "idea_version": "IDEAV-2fbc227795adbe78",
+      "idea_version_started_at": "2026-10-14T04:53:47Z",
+      "ticker": "01333.HK",
+      "company": "Breton",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The announcement of a new H-share placing under a general mandate will result in immediate equity dilution for existing shareholders.",
+      "why_now": "The filing was released on 2026-10-13, and share placings typically exert downward pressure on the stock price as the market adjusts for the increased share count.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5245bf389a69"
+      ],
+      "primary_source_event_id": "EVT-5245bf389a69",
+      "source_headlines": [
+        "BRETON (01333): PLACING OF NEW H SHARES UNDER GENERAL MANDATE"
+      ],
+      "source_headline": "BRETON (01333): PLACING OF NEW H SHARES UNDER GENERAL MANDATE",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1014/2026101400061.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 89,
+      "newest_source_at": "2026-10-13T23:04:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-14T04:53:47Z",
+      "updated_at": "2026-10-14T04:53:47Z",
+      "decay_at": "2026-10-15T11:04:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-bc0beacad2eb",
+      "idea_version": "IDEAV-30cf9e9a4f104e94",
+      "idea_version_started_at": "2026-10-14T04:53:47Z",
+      "ticker": "09926.HK",
+      "company": "AKESO",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is executing a new share placement under a general mandate, which will dilute existing equity holders.",
+      "why_now": "The filing was released on 2026-10-13, and the market will likely price in the dilution effect immediately upon trading resumption.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5db6368c112a"
+      ],
+      "primary_source_event_id": "EVT-5db6368c112a",
+      "source_headlines": [
+        "AKESO (09926): PLACING OF NEW SHARES UNDER GENERAL MANDATE"
+      ],
+      "source_headline": "AKESO (09926): PLACING OF NEW SHARES UNDER GENERAL MANDATE",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1014/2026101400009.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 88,
+      "newest_source_at": "2026-10-13T22:06:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-14T04:53:47Z",
+      "updated_at": "2026-10-14T04:53:47Z",
+      "decay_at": "2026-10-15T10:06:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -179983,79 +180194,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-a87e2e15a1c1",
-      "idea_version": "IDEAV-5fd55a3088253688",
-      "idea_version_started_at": "2026-10-11T09:12:22Z",
-      "ticker": "DMART",
-      "company": "Avenue Supermarts",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A 13.7% quarter-over-quarter decline in net profit despite a 4.5% revenue increase signals significant margin compression and operational inefficiency.",
-      "why_now": "The Q2 FY27 results were released on 2026-10-11.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cd7fbd10f3bd"
-      ],
-      "primary_source_event_id": "EVT-cd7fbd10f3bd",
-      "source_headlines": [
-        "DMart Q2 FY27 Results: Net Profit Falls 13.7% QoQ To ₹743 Crore; Revenue Rises 4.5%"
-      ],
-      "source_headline": "DMart Q2 FY27 Results: Net Profit Falls 13.7% QoQ To ₹743 Crore; Revenue Rises 4.5%",
-      "source_url": "https://www.freepressjournal.in/business/dmart-q2-fy27-results-net-profit-falls-137-qoq-to-743-crore-revenue-rises-45",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-11T04:21:13Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-11T09:12:22Z",
-      "updated_at": "2026-10-11T09:12:22Z",
-      "decay_at": "2026-10-12T16:21:13Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-8a633c73be0c",
       "idea_version": "IDEAV-a801eb7dfc36ebbf",
       "idea_version_started_at": "2026-10-11T18:27:45Z",
@@ -181358,9 +181496,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 549,
+    "total_count": 548,
     "shown_count": 499,
-    "hidden_count": 50,
+    "hidden_count": 49,
     "side_counts": {
       "long": {
         "total_count": 288,
@@ -181368,23 +181506,23 @@
         "hidden_count": 38
       },
       "short": {
-        "total_count": 262,
+        "total_count": 261,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 11
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1000,
-      "oldest_retained_at": "2026-09-16T02:26:43Z",
+      "evicted_count": 1001,
+      "oldest_retained_at": "2026-09-16T02:45:00Z",
       "side_counts": {
         "long": {
           "evicted_count": 659,
           "oldest_retained_at": "2026-09-29T17:02:48Z"
         },
         "short": {
-          "evicted_count": 341,
-          "oldest_retained_at": "2026-09-16T02:26:43Z"
+          "evicted_count": 342,
+          "oldest_retained_at": "2026-09-16T02:45:00Z"
         }
       }
     },
@@ -185113,8 +185251,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-12T16:21:13Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-14T04:53:57Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -218557,8 +218695,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1575,
-    "live_count": 25,
+    "surfaced_total": 1578,
+    "live_count": 28,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
