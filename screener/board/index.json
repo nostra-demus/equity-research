@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T12:46:46Z",
+  "generated_at": "2026-10-14T12:57:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-287",
@@ -794,6 +794,60 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-324",
+      "headline": "Fairfax To Acquire 60.72% Stake In IDBI Bank For ₹52,878 Crore",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/fairfax-to-acquire-6072-stake-in-idbi-bank-for-52878-crore",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T12:03:54Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Fairfax is acquiring a 60.72% stake in IDBI Bank for ₹52,878 crore, a major M&A transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Fairfax is acquiring a 60.72% stake in IDBI Bank for ₹52,878 crore, a major M&A transaction.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fairfax Financial",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "IDBI Bank",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1916,55 +1970,6 @@
       "materiality_pre_score": 85,
       "rank_factors": {
         "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ASML",
-          "ticker": null,
-          "listing_country": "NL"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-134",
-      "headline": "ASML Raises Full-Year Sales Outlook as AI Boom Drives Demand",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-14/asml-raises-full-year-sales-outlook-as-ai-boom-drives-demand",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T05:12:36Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "ASML raised its full-year sales outlook driven by AI demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ASML raised its full-year sales outlook driven by AI demand.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
         "source_tier": 0,
         "scope": 6,
         "event": 7,
@@ -219016,9 +219021,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6955306,
-    "news_picked_today": 524,
-    "news_dropped_today": 13876
+    "news_seen_today": 6991977,
+    "news_picked_today": 545,
+    "news_dropped_today": 13975
   },
   "book_momentum": {
     "live_count": 8,
