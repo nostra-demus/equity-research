@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T02:48:13Z",
+  "generated_at": "2026-10-14T03:26:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-037",
@@ -149,6 +149,110 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261014-090",
+      "headline": "BR Shetty files suit against Bank of Baroda, seeks $15 billion for alleged role in NMC fraud",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/nmc-healthcare-founder-br-shetty-files-lawsuit-against-bank-of-baroda-seeks-dollar-15-billion-in-damages-20011356.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T03:02:35Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "BR Shetty filed a lawsuit against Bank of Baroda seeking $15 billion for alleged involvement in the NMC fraud.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BR Shetty filed a lawsuit against Bank of Baroda seeking $15 billion for alleged involvement in the NMC fraud.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of Baroda",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "NMC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-093",
+      "headline": "US hits Bank of America with $1.2 billion fine, saying it violated money laundering, sanctions laws",
+      "headline_en": null,
+      "url": "https://gulfnews.com/business/banking/us-hits-bank-of-america-with-12-billion-fine-saying-it-violated-money-laundering-sanctions-laws-1.500709567",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T02:51:06Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Bank of America has been hit with a significant $1.2 billion fine for violating money laundering and sanctions laws.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bank of America has been hit with a significant $1.2 billion fine for violating money laundering and sanctions laws.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of America",
+          "ticker": "BAC",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261014-059",
       "headline": "Aegis Logistics shares in focus after announcing $809 million Tristar Holdings acquisition",
       "headline_en": null,
@@ -193,55 +297,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-057",
-      "headline": "US hits Bank of America with $1.2 billion fine, saying it violated money laundering, sanctions laws",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/companies/us-hits-bank-of-america-with-usd1-2-billion-fine-saying-it-violated-money-laundering-sanctions-laws-20011317.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T01:48:43Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Bank of America faces a $1.2 billion fine for violations of money laundering and sanctions laws.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bank of America faces a $1.2 billion fine for violations of money laundering and sanctions laws.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bank of America",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -830,6 +885,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-094",
+      "headline": "Thyssenkrupp's largest shareholder sees 'window of opportunity' for steel spin-off",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/aerospace-defense/thyssenkrupps-largest-shareholder-sees-window-opportunity-steel-spin-off-2026-10-14/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T03:04:53Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "The largest shareholder of Thyssenkrupp sees a window for a steel spin-off, signaling potential structural changes and value unlocking.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "The largest shareholder of Thyssenkrupp sees a window for a steel spin-off, signaling potential structural changes and value unlocking.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 2,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Thyssenkrupp AG",
+          "ticker": "TKA",
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1853,104 +1958,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-041",
-      "headline": "SCHEDULE 13D/A - HELU CARLOS SLIM (0001080910) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1080910/000114036126039476/0001140361-26-039476-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-14T00:56:54Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "A Schedule 13D/A filing indicates a change in significant ownership or intent by Carlos Slim.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "A Schedule 13D/A filing indicates a change in significant ownership or intent by Carlos Slim.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Carlos Slim",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-028",
-      "headline": "JAV: Quarterly Activities/Appendix 5B Cash Flow Report [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.JAV?key=2924-03148150-6A1349140",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-14T00:39:33Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Quarterly cash flow report provides transparency on the company's liquidity and operational burn rate.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 78,
-      "triage_reason": "Quarterly cash flow report provides transparency on the company's liquidity and operational burn rate.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Java",
-          "ticker": "JAV",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -218557,9 +218564,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1930676,
-    "news_picked_today": 100,
-    "news_dropped_today": 1316
+    "news_seen_today": 2398698,
+    "news_picked_today": 108,
+    "news_dropped_today": 1356
   },
   "book_momentum": {
     "live_count": 8,
