@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T04:01:52Z",
+  "generated_at": "2026-10-14T04:24:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-037",
@@ -149,32 +149,32 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261014-098",
-      "headline": "Aegis Logistics shares in focus after firm acquires 90% stake worth $809 million in Tristar Holdings",
+      "inbox_id": "INB-20261014-109",
+      "headline": "Aegis Logistics rise 3% after announcing $809 million Tristar Holdings acquisition",
       "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/aegis-logistics-shares-in-focus-after-firm-acquires-90-stake-worth-809-million-in-tristar-holdings/articleshow/134931031.cms",
-      "source_name": "The Economic Times",
+      "url": "https://www.cnbctv18.com/market/aegis-logistics-share-price-tristar-holdings-acquisition-809-million-cash-timeline-approvals-benefits-20011302.htm",
+      "source_name": "CNBC-TV18",
       "input_nature": "news_headline",
-      "found_at": "2026-10-14T03:20:17Z",
+      "found_at": "2026-10-14T04:00:34Z",
       "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Aegis Logistics is acquiring a 90% stake in Tristar Holdings for $809 million.",
+      "prelim_note": "Aegis Logistics announced a $809 million acquisition of Tristar Holdings.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Aegis Logistics is acquiring a 90% stake in Tristar Holdings for $809 million.",
+      "triage_reason": "Aegis Logistics announced a $809 million acquisition of Tristar Holdings.",
       "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 85,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 85,
+        "materiality": 80,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
         "size": 1,
         "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
+        "materiality_label_floor": 5,
+        "quantified": 6,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
@@ -1677,6 +1677,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261014-108",
+      "headline": "Tata Elxsi shares jump over 7% reacting to Q2 results beat; Majority analysts still cautious",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/tata-elxsi-share-price-analysts-bearish-on-tata-groups-stock-after-q2-target-returns-outlook-20011353.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T03:52:21Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Tata Elxsi shares rose 7% following a Q2 earnings beat.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Tata Elxsi shares rose 7% following a Q2 earnings beat.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Elxsi",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261014-097",
       "headline": "Fusion CX raises ₹315 crore from anchor book ahead of IPO",
       "headline_en": null,
@@ -1922,55 +1971,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-102",
-      "headline": "We’ll pull Neet support if Healey hikes taxes, warns boss of B&Q owner Kingfisher",
-      "headline_en": null,
-      "url": "https://www.cityam.com/well-pull-neet-support-if-healey-hikes-taxes-warns-boss-of-bq-owner-kingfisher/",
-      "source_name": "City A.M.",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T03:33:00Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Kingfisher CEO warns of reduced support for government initiatives if taxes are hiked, signaling potential political and operational friction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Kingfisher CEO warns of reduced support for government initiatives if taxes are hiked, signaling potential political and operational friction.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kingfisher",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -218577,9 +218577,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2804566,
-    "news_picked_today": 129,
-    "news_dropped_today": 1743
+    "news_seen_today": 3143982,
+    "news_picked_today": 137,
+    "news_dropped_today": 1807
   },
   "book_momentum": {
     "live_count": 8,
