@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-10-14T13:41:49Z",
+  "generated_at": "2026-10-14T13:44:58Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261014-344",
+      "headline": "Reliance Industries Limited: Proposed Initial Public Offer of Jio Platforms Limited - filing of the Red Herring Prospectus.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/kavinavora_14102026183404_RIL_SE14102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-14T13:05:12Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Reliance Industries is moving forward with the IPO of its major subsidiary Jio Platforms, a significant capital event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reliance Industries is moving forward with the IPO of its major subsidiary Jio Platforms, a significant capital event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Industries Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Jio Platforms Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261014-331",
       "headline": "Siti Networks Limited: Siti Networks Limited has informed that this is in continuation of our earlier communications (i.e. dated October 13, 2026), pursuant to Regulation 30 of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015, as amended from time to time ( Listing Regulations ), wherein we have informed that the Hon ble National Company Law Tribunal, Mumbai Bench ( NCLT ) vide order dated September 28, 2026 (received on October 12, 2",
@@ -1931,55 +1985,6 @@
       "companies": [
         {
           "name": "NoonTalk",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-194",
-      "headline": "Bumble dating app agrees £980 million takeover deal sending shares soaring",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/bumble-dating-app-takeover-deal-b3066470.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T08:53:45Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Bumble dating app agrees £980 million takeover deal, named valuation >£1bn.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bumble dating app agrees £980 million takeover deal, named valuation >£1bn.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 13,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bumble",
           "ticker": null,
           "listing_country": null
         }
@@ -177214,78 +177219,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d7d2cfd9508b",
-      "idea_version": "IDEAV-ce45777e44bf7303",
-      "idea_version_started_at": "2026-10-13T14:10:50Z",
-      "ticker": "FNT",
-      "company": "Future Enterprises",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Bank of India declared its Rs 575 crore exposure to Future Enterprises as fraud, indicating severe financial distress.",
-      "why_now": "The declaration of fraud by Bank of India on October 13, 2026, is a fresh negative catalyst.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2e77c80432e7"
-      ],
-      "primary_source_event_id": "EVT-2e77c80432e7",
-      "source_headlines": [
-        "Bank of India declares Rs 575 crore exposure to Future Enterprises as fraud"
-      ],
-      "source_headline": "Bank of India declares Rs 575 crore exposure to Future Enterprises as fraud",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/bank-of-india-declares-rs-575-crore-exposure-to-future-enterprises-as-fraud/articleshow/134905834.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 94,
-      "newest_source_at": "2026-10-13T01:42:34Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-13T14:10:50Z",
-      "updated_at": "2026-10-13T14:10:50Z",
-      "decay_at": "2026-10-14T13:42:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-67e788b795cf",
       "idea_version": "IDEAV-6525009ab95c2fa5",
       "idea_version_started_at": "2026-10-14T08:35:25Z",
@@ -180566,6 +180499,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-d7d2cfd9508b",
+      "idea_version": "IDEAV-ce45777e44bf7303",
+      "idea_version_started_at": "2026-10-13T14:10:50Z",
+      "ticker": "FNT",
+      "company": "Future Enterprises",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Bank of India declared its Rs 575 crore exposure to Future Enterprises as fraud, indicating severe financial distress.",
+      "why_now": "The declaration of fraud by Bank of India on October 13, 2026, is a fresh negative catalyst.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2e77c80432e7"
+      ],
+      "primary_source_event_id": "EVT-2e77c80432e7",
+      "source_headlines": [
+        "Bank of India declares Rs 575 crore exposure to Future Enterprises as fraud"
+      ],
+      "source_headline": "Bank of India declares Rs 575 crore exposure to Future Enterprises as fraud",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/bank-of-india-declares-rs-575-crore-exposure-to-future-enterprises-as-fraud/articleshow/134905834.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 94,
+      "newest_source_at": "2026-10-13T01:42:34Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-13T14:10:50Z",
+      "updated_at": "2026-10-13T14:10:50Z",
+      "decay_at": "2026-10-14T13:42:34Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-7ec0f1c395e9",
       "idea_version": "IDEAV-b8589836ee24aba4",
       "idea_version_started_at": "2026-10-12T02:28:00Z",
@@ -181795,9 +181800,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 556,
+    "total_count": 557,
     "shown_count": 499,
-    "hidden_count": 57,
+    "hidden_count": 58,
     "side_counts": {
       "long": {
         "total_count": 291,
@@ -181805,9 +181810,9 @@
         "hidden_count": 41
       },
       "short": {
-        "total_count": 266,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 17
       }
     },
     "retention": {
@@ -181826,6 +181831,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d7d2cfd9508b",
+        "idea_version": "IDEAV-ce45777e44bf7303",
+        "idea_version_started_at": "2026-10-13T14:10:50Z",
+        "ticker": "FNT",
+        "company": "Future Enterprises",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Bank of India declared its Rs 575 crore exposure to Future Enterprises as fraud, indicating severe financial distress.",
+        "why_now": "The declaration of fraud by Bank of India on October 13, 2026, is a fresh negative catalyst.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2e77c80432e7"
+        ],
+        "primary_source_event_id": "EVT-2e77c80432e7",
+        "source_headlines": [
+          "Bank of India declares Rs 575 crore exposure to Future Enterprises as fraud"
+        ],
+        "source_headline": "Bank of India declares Rs 575 crore exposure to Future Enterprises as fraud",
+        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/bank-of-india-declares-rs-575-crore-exposure-to-future-enterprises-as-fraud/articleshow/134905834.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 94,
+        "newest_source_at": "2026-10-13T01:42:34Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-13T14:10:50Z",
+        "updated_at": "2026-10-13T14:10:50Z",
+        "decay_at": "2026-10-14T13:42:34Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-14T13:42:34Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ab675b24d137",
         "idea_version": "IDEAV-b4003ca2a21d5f59",
@@ -218914,87 +218994,12 @@
         "archived_at": "2026-09-19T08:59:21Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-bacb61cda38f",
-        "idea_version": "IDEAV-bf60ba27352a43d5",
-        "idea_version_started_at": "2026-09-17T09:06:55Z",
-        "ticker": "ENT",
-        "company": "Entain",
-        "exchange": "LSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company is facing significant headwinds from UK tax hikes, leading to job cuts and a warning of further losses.",
-        "why_now": "The announcement of job cuts and loss warnings occurred today, September 16, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b08d3df56736"
-        ],
-        "primary_source_event_id": "EVT-b08d3df56736",
-        "source_headlines": [
-          "Gambling giant set to axe 400 jobs as it blames UK tax hikes and warns of further losses"
-        ],
-        "source_headline": "Gambling giant set to axe 400 jobs as it blames UK tax hikes and warns of further losses",
-        "source_url": "https://www.independent.co.uk/news/business/ladbrokes-entain-job-cuts-burnham-budget-gambling-tax-b3051024.html",
-        "source_name": "The Independent — Business",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-16T08:48:50Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-17T09:06:55Z",
-        "updated_at": "2026-09-17T09:06:55Z",
-        "decay_at": "2026-09-17T20:48:50Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-19T08:59:21Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1584,
-    "live_count": 24,
+    "live_count": 23,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -219013,9 +219018,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7557067,
-    "news_picked_today": 605,
-    "news_dropped_today": 14323
+    "news_seen_today": 7575655,
+    "news_picked_today": 610,
+    "news_dropped_today": 14342
   },
   "book_momentum": {
     "live_count": 8,
