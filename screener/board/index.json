@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T04:54:10Z",
+  "generated_at": "2026-10-14T05:06:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-110",
@@ -149,6 +149,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261014-119",
+      "headline": "Bank of Baroda shares fall on $15 billion lawsuit - Here's what the lender officially said",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/bank-of-baroda-share-price-bank-response-15-billion-lawsuit-br-shetty-insolvency-dues-2800-crore-20011458.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T04:47:55Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Bank of Baroda faces a $15 billion lawsuit from NMC Health's founder.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bank of Baroda faces a $15 billion lawsuit from NMC Health's founder.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of Baroda",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261014-042",
       "headline": "Samsung Biologics Nears $2 Billion PolyPeptide Takeover",
       "headline_en": null,
@@ -193,6 +242,104 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-121",
+      "headline": "US hits Bank of America with $1.2 billion fine, says it violated money laundering, sanctions laws",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/money-and-banking/us-hits-bank-of-america-with-12-billion-fine-says-it-violated-money-laundering-sanctions-laws/article71582068.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T04:34:52Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Bank of America was fined $1.2 billion for violations of money laundering and sanctions laws.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bank of America was fined $1.2 billion for violations of money laundering and sanctions laws.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of America",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-120",
+      "headline": "Aegis Logistics gain 6% after announcing $809 million Tristar Holdings acquisition",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/aegis-logistics-share-price-tristar-holdings-acquisition-809-million-cash-timeline-approvals-benefits-20011302.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T04:26:11Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Aegis Logistics shares rose 6% after announcing the $809 million acquisition of Tristar Holdings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Aegis Logistics shares rose 6% after announcing the $809 million acquisition of Tristar Holdings.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aegis Logistics",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1775,20 +1922,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261014-108",
-      "headline": "Tata Elxsi shares jump over 7% reacting to Q2 results beat; Majority analysts still cautious",
+      "inbox_id": "INB-20261014-118",
+      "headline": "Anand Rathi Share and Stock Brokers shares drop 6% after Q2 results. What’s spooking investors?",
       "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/tata-elxsi-share-price-analysts-bearish-on-tata-groups-stock-after-q2-target-returns-outlook-20011353.htm",
-      "source_name": "CNBC-TV18",
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/anand-rathi-share-and-stock-brokers-shares-drop-6-after-q2-results-whats-spooking-investors/articleshow/134932047.cms",
+      "source_name": "The Economic Times",
       "input_nature": "news_headline",
-      "found_at": "2026-10-14T03:52:21Z",
+      "found_at": "2026-10-14T04:30:16Z",
       "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Tata Elxsi shares rose 7% following a Q2 earnings beat.",
+      "prelim_note": "Anand Rathi Share and Stock Brokers shares fell 6% following the release of Q2 results.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 87,
-      "triage_reason": "Tata Elxsi shares rose 7% following a Q2 earnings beat.",
+      "triage_reason": "Anand Rathi Share and Stock Brokers shares fell 6% following the release of Q2 results.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 65,
@@ -1813,161 +1960,9 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Tata Elxsi",
+          "name": "Anand Rathi Share and Stock Brokers",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-097",
-      "headline": "Fusion CX raises ₹315 crore from anchor book ahead of IPO",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/fusion-cx-raises-315-crore-from-anchor-book-ahead-of-ipo/article71582069.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T03:29:17Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Fusion CX raised 315 crore rupees from anchor investors ahead of its upcoming IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Fusion CX raised 315 crore rupees from anchor investors ahead of its upcoming IPO.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fusion CX",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-100",
-      "headline": "Tata Elxsi Q2 Results Review: JPMorgan Cuts Target Price, Motilal Oswal Maintains 'Sell'",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/tata-elxsi-q2-results-review-jpmorgan-cuts-target-price-motilal-oswal-maintains-sell-12182126#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T03:22:40Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "JPMorgan cut the target price for Tata Elxsi following Q2 results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "JPMorgan cut the target price for Tata Elxsi following Q2 results.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Elxsi",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-087",
-      "headline": "Australian court dismisses Cosette appeal to drop Mayne Pharma takeover",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/government/australian-court-dismisses-cosette-appeal-drop-mayne-pharma-takeover-2026-10-14/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T02:30:34Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Australian court ruling clears the path for Mayne Pharma's takeover of Cosette.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Australian court ruling clears the path for Mayne Pharma's takeover of Cosette.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mayne Pharma",
-          "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "Cosette",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "mid",
@@ -218715,9 +218710,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3446080,
-    "news_picked_today": 147,
-    "news_dropped_today": 2157
+    "news_seen_today": 3600211,
+    "news_picked_today": 152,
+    "news_dropped_today": 2224
   },
   "book_momentum": {
     "live_count": 8,
