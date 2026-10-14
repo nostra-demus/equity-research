@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T11:00:03Z",
+  "generated_at": "2026-10-14T11:05:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-229",
@@ -597,6 +597,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-244",
+      "headline": "Leela Palaces Hotels Q2 Results: Profit rises 27% to ₹95 crore, revenue jumps 33%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/leela-palaces-hotels-q2-results-share-price-profit-rises-revenue-jumps-managementt-room-rates-expansion-20011748.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T10:24:59Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Leela Palaces Hotels reported a 27% profit increase to ₹95 crore and 33% revenue growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Leela Palaces Hotels reported a 27% profit increase to ₹95 crore and 33% revenue growth.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Leela Palaces Hotels",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1931,55 +1980,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-038",
-      "headline": "Getty Images to keep Seattle HQ as it goes private through bankruptcy",
-      "headline_en": null,
-      "url": "https://www.geekwire.com/2026/getty-images-to-keep-seattle-hq-as-it-goes-private-through-bankruptcy/",
-      "source_name": "GeekWire",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T00:53:00Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Getty Images is undergoing a bankruptcy process to go private.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Getty Images is undergoing a bankruptcy process to go private.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Getty Images",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -176490,76 +176490,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-014dbf1d39d3",
-      "idea_version": "IDEAV-5510dd59339cf996",
-      "idea_version_started_at": "2026-10-13T09:12:26Z",
-      "ticker": "6645.T",
-      "company": "Omron Corp",
-      "exchange": "Tokyo Stock Exchange",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Omron's acquisition of OnLogic expands its AI robotics portfolio, likely boosting future revenue.",
-      "why_now": "Announcement dated 2026-10-12 provides a fresh M&A catalyst.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bb54a18bfe0a"
-      ],
-      "primary_source_event_id": "EVT-bb54a18bfe0a",
-      "source_headlines": [
-        "Japan's Omron to buy US-based OnLogic for $630m in physical AI push"
-      ],
-      "source_headline": "Japan's Omron to buy US-based OnLogic for $630m in physical AI push",
-      "source_url": "https://asia.nikkei.com/business/business-deals/japan-s-omron-to-buy-us-based-onlogic-for-630m-in-physical-ai-push",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-12T23:03:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-13T09:12:26Z",
-      "updated_at": "2026-10-13T09:12:26Z",
-      "decay_at": "2026-10-14T11:03:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-6da37c6084e5",
       "idea_version": "IDEAV-330fc2e88fdf24a9",
       "idea_version_started_at": "2026-10-14T08:35:25Z",
@@ -178694,6 +178624,76 @@
       "surfaced_at": "2026-10-12T10:33:47Z",
       "updated_at": "2026-10-12T10:33:47Z",
       "decay_at": "2026-10-13T19:24:24Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-014dbf1d39d3",
+      "idea_version": "IDEAV-5510dd59339cf996",
+      "idea_version_started_at": "2026-10-13T09:12:26Z",
+      "ticker": "6645.T",
+      "company": "Omron Corp",
+      "exchange": "Tokyo Stock Exchange",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Omron's acquisition of OnLogic expands its AI robotics portfolio, likely boosting future revenue.",
+      "why_now": "Announcement dated 2026-10-12 provides a fresh M&A catalyst.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-bb54a18bfe0a"
+      ],
+      "primary_source_event_id": "EVT-bb54a18bfe0a",
+      "source_headlines": [
+        "Japan's Omron to buy US-based OnLogic for $630m in physical AI push"
+      ],
+      "source_headline": "Japan's Omron to buy US-based OnLogic for $630m in physical AI push",
+      "source_url": "https://asia.nikkei.com/business/business-deals/japan-s-omron-to-buy-us-based-onlogic-for-630m-in-physical-ai-push",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-12T23:03:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-13T09:12:26Z",
+      "updated_at": "2026-10-13T09:12:26Z",
+      "decay_at": "2026-10-14T11:03:50Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -181935,14 +181935,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 550,
+    "total_count": 551,
     "shown_count": 499,
-    "hidden_count": 51,
+    "hidden_count": 52,
     "side_counts": {
       "long": {
-        "total_count": 288,
+        "total_count": 289,
         "shown_count": 250,
-        "hidden_count": 38
+        "hidden_count": 39
       },
       "short": {
         "total_count": 263,
@@ -181966,6 +181966,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-014dbf1d39d3",
+        "idea_version": "IDEAV-5510dd59339cf996",
+        "idea_version_started_at": "2026-10-13T09:12:26Z",
+        "ticker": "6645.T",
+        "company": "Omron Corp",
+        "exchange": "Tokyo Stock Exchange",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Omron's acquisition of OnLogic expands its AI robotics portfolio, likely boosting future revenue.",
+        "why_now": "Announcement dated 2026-10-12 provides a fresh M&A catalyst.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-bb54a18bfe0a"
+        ],
+        "primary_source_event_id": "EVT-bb54a18bfe0a",
+        "source_headlines": [
+          "Japan's Omron to buy US-based OnLogic for $630m in physical AI push"
+        ],
+        "source_headline": "Japan's Omron to buy US-based OnLogic for $630m in physical AI push",
+        "source_url": "https://asia.nikkei.com/business/business-deals/japan-s-omron-to-buy-us-based-onlogic-for-630m-in-physical-ai-push",
+        "source_name": "Nikkei Asia",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-12T23:03:50Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-13T09:12:26Z",
+        "updated_at": "2026-10-13T09:12:26Z",
+        "decay_at": "2026-10-14T11:03:50Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-14T11:03:50Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1a38d7aae72f",
         "idea_version": "IDEAV-02e095ec7a14628d",
@@ -210288,80 +210361,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-aadc0ff37abc",
-        "idea_version": "IDEAV-f0209184942afc7f",
-        "idea_version_started_at": "2026-09-30T13:55:27Z",
-        "ticker": "HRL",
-        "company": "Hormel Foods Corporation",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The $1.06 billion acquisition of Brakebush Brothers expands Hormel's portfolio in the value-added poultry segment, providing immediate scale and product diversification.",
-        "why_now": "The deal was announced on 2026-09-30.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 74,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 7,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0c7dced7746f",
-          "EVT-b0b7932f5d67"
-        ],
-        "primary_source_event_id": "EVT-0c7dced7746f",
-        "source_headlines": [
-          "Hormel Foods to Buy Brakebush Brothers for About $1.06 Billion",
-          "Hormel Foods to buy Brakebush in deal valued at $1.06 billion"
-        ],
-        "source_headline": "Hormel Foods to Buy Brakebush Brothers for About $1.06 Billion",
-        "source_url": "https://www.wsj.com/business/deals/hormel-foods-to-buy-brakebush-brothers-for-about-1-06-billion-6adef7ff?mod=pls_whats_news_us_business_f",
-        "source_name": "The Wall Street Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-30T11:01:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-30T13:55:27Z",
-        "updated_at": "2026-09-30T13:55:27Z",
-        "decay_at": "2026-10-01T23:01:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-03T11:15:28Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-a8364208c07a",
         "idea_version": "IDEAV-ab886b11ae43d6d9",
         "idea_version_started_at": "2026-09-30T10:14:44Z",
@@ -219132,7 +219131,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1584,
-    "live_count": 32,
+    "live_count": 31,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -219151,9 +219150,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6213975,
-    "news_picked_today": 373,
-    "news_dropped_today": 11891
+    "news_seen_today": 6232922,
+    "news_picked_today": 391,
+    "news_dropped_today": 11921
   },
   "book_momentum": {
     "live_count": 8,
