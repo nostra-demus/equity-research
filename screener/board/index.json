@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T02:36:27Z",
+  "generated_at": "2026-10-14T02:42:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-037",
@@ -1424,6 +1424,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261014-087",
+      "headline": "Australian court dismisses Cosette appeal to drop Mayne Pharma takeover",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/government/australian-court-dismisses-cosette-appeal-drop-mayne-pharma-takeover-2026-10-14/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T02:30:34Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Australian court ruling clears the path for Mayne Pharma's takeover of Cosette.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Australian court ruling clears the path for Mayne Pharma's takeover of Cosette.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mayne Pharma",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "Cosette",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261014-049",
       "headline": "Regulator 'will resign' if any political interference in Man City case",
       "headline_en": null,
@@ -1897,55 +1951,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-045",
-      "headline": "SCHEDULE 13D/A - Crescent Energy Co (0001866175) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1866175/000114036126039479/0001140361-26-039479-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-14T01:15:21Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Crescent Energy Co filed an amended Schedule 13D, indicating a change in significant shareholder position.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "Crescent Energy Co filed an amended Schedule 13D, indicating a change in significant shareholder position.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Crescent Energy Co",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -218550,9 +218555,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1782140,
-    "news_picked_today": 97,
-    "news_dropped_today": 1223
+    "news_seen_today": 1845884,
+    "news_picked_today": 99,
+    "news_dropped_today": 1269
   },
   "book_momentum": {
     "live_count": 8,
