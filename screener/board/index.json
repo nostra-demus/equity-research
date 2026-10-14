@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T19:16:38Z",
+  "generated_at": "2026-10-14T19:59:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-370",
@@ -1098,6 +1098,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261014-402",
+      "headline": "Now that Character.AI is going bankrupt, what happens to all of its users’ data?",
+      "headline_en": null,
+      "url": "https://www.theverge.com/policy/1011417/new-york-ag-characterai-bankruptcy",
+      "source_name": "The Verge",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T18:47:54Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Character.AI is reportedly filing for bankruptcy, representing a total loss of equity value and significant operational disruption.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Character.AI is reportedly filing for bankruptcy, representing a total loss of equity value and significant operational disruption.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Character.AI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261014-386",
       "headline": "Getty Images to go private, planning 'prepackaged' bankruptcy amid $2.1 billion debt- Here's what we know",
       "headline_en": null,
@@ -1936,55 +1985,6 @@
           "name": "Getty Images",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-271",
-      "headline": "Tata Technologies Q2 Results: Net Profit Falls 5% To Rs 171 Crore As Margins Contract",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/tata-technologies-q2-results-net-profit-falls-5-to-rs-171-crore-as-margins-contract-12184396#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T11:28:18Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Tata Technologies reported a 5% decline in net profit to Rs 171 crore due to margin contraction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tata Technologies reported a 5% decline in net profit to Rs 171 crore due to margin contraction.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Technologies",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -219450,9 +219450,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9929578,
-    "news_picked_today": 832,
-    "news_dropped_today": 16976
+    "news_seen_today": 10463852,
+    "news_picked_today": 857,
+    "news_dropped_today": 17287
   },
   "book_momentum": {
     "live_count": 8,
