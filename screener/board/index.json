@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T22:44:31Z",
+  "generated_at": "2026-10-14T22:45:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-412",
@@ -176148,6 +176148,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-b0586fbde26d",
+      "idea_version": "IDEAV-f117cb658b12bf91",
+      "idea_version_started_at": "2026-10-14T22:44:48Z",
+      "ticker": "NFLX",
+      "company": "Netflix",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Large-scale layoffs of 1,000 employees suggest significant cost-cutting measures necessitated by slowing subscriber growth or margin pressure.",
+      "why_now": "The layoffs were reported today, October 14, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 71,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-224be32b4bff",
+        "EVT-c269b3ef2643"
+      ],
+      "primary_source_event_id": "EVT-224be32b4bff",
+      "source_headlines": [
+        "Netflix Cuts 1,000 Jobs After Earlier Layoff Warnings",
+        "Netflix Eliminates About 1,000 Jobs in Biggest Cuts Since 2022"
+      ],
+      "source_headline": "Netflix Cuts 1,000 Jobs After Earlier Layoff Warnings",
+      "source_url": "https://www.forbes.com/sites/rickellis/2026/10/14/netflix-cuts-1000-jobs-after-earlier-layoff-warnings/",
+      "source_name": "Forbes",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-14T13:31:21Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-14T22:44:48Z",
+      "updated_at": "2026-10-14T22:44:48Z",
+      "decay_at": "2026-10-16T01:31:21Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-d42db65b6b2f",
       "idea_version": "IDEAV-5277018282cf5049",
       "idea_version_started_at": "2026-10-13T23:04:58Z",
@@ -178063,76 +178134,6 @@
       "surfaced_at": "2026-10-12T13:49:38Z",
       "updated_at": "2026-10-12T13:49:38Z",
       "decay_at": "2026-10-14T01:11:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-521e020bb493",
-      "idea_version": "IDEAV-2047f3026f26d5aa",
-      "idea_version_started_at": "2026-10-11T22:04:00Z",
-      "ticker": "AMZN",
-      "company": "Amazon.com, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Amazon's potential $7 billion acquisition of AI startup Decart enhances its proprietary AI model and technology capabilities for AWS, driving future enterprise cloud revenue and platform stickiness.",
-      "why_now": "Reported on October 11, 2026, as live talks reported by the Wall Street Journal, providing an immediate M&A catalyst for the stock.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-16c15c9d25aa"
-      ],
-      "primary_source_event_id": "EVT-16c15c9d25aa",
-      "source_headlines": [
-        "Amazon is in talks to buy US$7 billion AI startup Decart, WSJ reports"
-      ],
-      "source_headline": "Amazon is in talks to buy US$7 billion AI startup Decart, WSJ reports",
-      "source_url": "https://www.businesstimes.com.sg/companies-markets/amazon-talks-buy-us7-billion-ai-startup-decart-wsj-reports",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-11T21:51:58Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/AMZN_2026-07-20",
-        "latest_decision": null,
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-10-11T20:32:52Z",
-      "updated_at": "2026-10-11T22:04:00Z",
-      "decay_at": "2026-10-13T09:51:58Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -180639,77 +180640,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-058bf2ed3c4b",
-      "idea_version": "IDEAV-69c8b8da119e9913",
-      "idea_version_started_at": "2026-10-11T22:58:39Z",
-      "ticker": "FAU",
-      "company": "Frontier Energy",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of the Ida Valley Project expands the company's asset base into a highly prospective region, potentially increasing its long-term resource valuation.",
-      "why_now": "The acquisition was formally announced via an ASX filing on 2026-10-11.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d80716f7b5b8"
-      ],
-      "primary_source_event_id": "EVT-d80716f7b5b8",
-      "source_headlines": [
-        "FAU: FAU to Acquire Highly Prospective Ida Valley Project [price-sensitive]"
-      ],
-      "source_headline": "FAU: FAU to Acquire Highly Prospective Ida Valley Project [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FAU?key=2924-03147006-6A1348663",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-11T22:38:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-11T22:58:39Z",
-      "updated_at": "2026-10-11T22:58:39Z",
-      "decay_at": "2026-10-13T10:38:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-27493c72d311",
       "idea_version": "IDEAV-20f169f36e098382",
       "idea_version_started_at": "2026-10-12T03:58:15Z",
@@ -180992,77 +180922,6 @@
       "surfaced_at": "2026-10-13T14:10:50Z",
       "updated_at": "2026-10-13T14:10:50Z",
       "decay_at": "2026-10-14T13:42:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-7ec0f1c395e9",
-      "idea_version": "IDEAV-b8589836ee24aba4",
-      "idea_version_started_at": "2026-10-12T02:28:00Z",
-      "ticker": "09887",
-      "company": "Leads Biolabs",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "FDA Fast Track designation accelerates the regulatory pathway for LBL-024, potentially shortening the time to commercialization for a key pipeline asset in biliary tract cancer.",
-      "why_now": "The designation was officially announced via HKEX filing on 2026-10-11.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-541311d21991"
-      ],
-      "primary_source_event_id": "EVT-541311d21991",
-      "source_headlines": [
-        "LEADS BIOLABS-B (09887): VOLUNTARY ANNOUNCEMENT LBL-024 (OPAMTISTOMIG, PD-L1/4-1BB BISPECIFIC ANTIBODY) GRANTED FAST TRACK DESIGNATION BY THE U.S. FDA FOR FIRST-LINE TREATMENT OF ADVANCED BILIARY TRACT CANCER"
-      ],
-      "source_headline": "LEADS BIOLABS-B (09887): VOLUNTARY ANNOUNCEMENT LBL-024 (OPAMTISTOMIG, PD-L1/4-1BB BISPECIFIC ANTIBODY) GRANTED FAST TRACK DESIGNATION BY THE U.S. FDA FOR FIRST-LINE TREATMENT OF ADVANCED BILIARY TRACT CANCER",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101200001.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 93,
-      "newest_source_at": "2026-10-11T22:04:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-12T02:28:00Z",
-      "updated_at": "2026-10-12T02:28:00Z",
-      "decay_at": "2026-10-13T10:04:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -182300,14 +182159,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 562,
+    "total_count": 559,
     "shown_count": 499,
-    "hidden_count": 63,
+    "hidden_count": 60,
     "side_counts": {
       "long": {
-        "total_count": 294,
+        "total_count": 291,
         "shown_count": 250,
-        "hidden_count": 44
+        "hidden_count": 41
       },
       "short": {
         "total_count": 269,
@@ -182317,12 +182176,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1003,
+      "evicted_count": 1006,
       "oldest_retained_at": "2026-09-16T02:45:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 661,
-          "oldest_retained_at": "2026-09-29T18:43:25Z"
+          "evicted_count": 664,
+          "oldest_retained_at": "2026-09-29T23:22:00Z"
         },
         "short": {
           "evicted_count": 342,
@@ -186870,8 +186729,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-13T10:38:07Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-14T22:44:52Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -186944,8 +186803,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-13T10:04:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-14T22:44:52Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -187017,8 +186876,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-13T09:51:58Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-14T22:44:52Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -219502,8 +219361,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1591,
-    "live_count": 25,
+    "surfaced_total": 1592,
+    "live_count": 26,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,

@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-b0586fbde26d",
+  "idea_version": "IDEAV-f117cb658b12bf91",
+  "idea_version_started_at": "2026-10-14T22:44:48Z",
+  "ticker": "NFLX",
+  "company": "Netflix",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "Large-scale layoffs of 1,000 employees suggest significant cost-cutting measures necessitated by slowing subscriber growth or margin pressure.",
+  "why_now": "The layoffs were reported today, October 14, 2026.",
+  "conviction": 55,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 71,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 18,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 7,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-224be32b4bff",
+    "EVT-c269b3ef2643"
+  ],
+  "primary_source_event_id": "EVT-224be32b4bff",
+  "source_headlines": [
+    "Netflix Cuts 1,000 Jobs After Earlier Layoff Warnings",
+    "Netflix Eliminates About 1,000 Jobs in Biggest Cuts Since 2022"
+  ],
+  "source_headline": "Netflix Cuts 1,000 Jobs After Earlier Layoff Warnings",
+  "source_url": "https://www.forbes.com/sites/rickellis/2026/10/14/netflix-cuts-1000-jobs-after-earlier-layoff-warnings/",
+  "source_name": "Forbes",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-14T13:31:21Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-14T22:44:48Z",
+  "updated_at": "2026-10-14T22:44:48Z",
+  "decay_at": "2026-10-16T01:31:21Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
