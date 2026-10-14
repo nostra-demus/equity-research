@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T00:12:36Z",
+  "generated_at": "2026-10-14T00:19:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-002",
@@ -247,6 +247,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261014-013",
+      "headline": "SoftBank junk bond sale raises stakes for CEO Son’s all-in AI bet",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/softbank-junk-bond-sale-raises-stakes-for-ceo-sons-all-in-ai-bet",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T00:05:00Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "SoftBank is issuing junk bonds to fund its AI investment strategy, increasing its financial leverage and risk profile.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "SoftBank is issuing junk bonds to fund its AI investment strategy, increasing its financial leverage and risk profile.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SoftBank Group",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261014-012",
       "headline": "BRETON (01333): PLACING OF NEW H SHARES UNDER GENERAL MANDATE",
       "headline_en": null,
@@ -291,6 +340,104 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-014",
+      "headline": "SWL TOUR (06157): GLOBAL OFFERING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1014/2026101400023.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-13T22:13:00Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Company is conducting a global offering of shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Company is conducting a global offering of shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SWL TOUR",
+          "ticker": "06157",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-016",
+      "headline": "AKESO (09926): PLACING OF NEW SHARES UNDER GENERAL MANDATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1014/2026101400009.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-13T22:06:00Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Company is placing new shares, which is dilutive to existing shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Company is placing new shares, which is dilutive to existing shareholders.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AKESO",
+          "ticker": "09926",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -438,6 +585,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-015",
+      "headline": "SEM HLDGS (09929): VOLUNTARY ANNOUNCEMENT BUSINESS UPDATE FOR THE THREE QUARTERS OF FINANCIAL YEAR 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1014/2026101400019.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-13T22:07:00Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Company provided a business update for the first three quarters of FY2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "Company provided a business update for the first three quarters of FY2026.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SEM HLDGS",
+          "ticker": "09929",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-018",
+      "headline": "DUIBA (01753): VOLUNTARY ANNOUNCEMENT BUSINESS UPDATE ON THE AI SHORT DRAMA BUSINESS FOR THE THIRD QUARTER OF 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1014/2026101400003.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-13T22:02:00Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Company provided a business update on its AI short drama business for Q3 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "Company provided a business update on its AI short drama business for Q3 2026.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DUIBA",
+          "ticker": "01753",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -176240,83 +176485,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a47a7aa2b95e",
-      "idea_version": "IDEAV-4d1f05a24dff205a",
-      "idea_version_started_at": "2026-10-12T13:14:45Z",
-      "ticker": "HCLTECH",
-      "company": "HCL Technologies Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 21% jump in profit and raised its FY27 revenue growth guidance to 2.5-4%, signaling stronger-than-expected operational momentum.",
-      "why_now": "The earnings release and guidance upgrade were published on October 12, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 10,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bd96e11f53fe",
-        "EVT-3bbcaea83b8b",
-        "EVT-aaf955fce750",
-        "EVT-9ffb126418c7"
-      ],
-      "primary_source_event_id": "EVT-bd96e11f53fe",
-      "source_headlines": [
-        "HCL Technologies Limited: HCL Technologies Limited has informed the Exchange regarding a press release dated October 12, 2026, titled \"Investor Release Q2 FY 2027\".",
-        "HCLTech raises FY27 revenue growth guidance to 2.5-4%; Q2 profit beats estimates",
-        "HCL Tech Q2 result 2026, dividend: PAT jumps 21% to ₹5132 cr, revenue up 97%; dividend ₹12",
-        "HCLTech Declares Dividend Of Rs 12 Per Share As Q2 Profit Rises; Check Record Date"
-      ],
-      "source_headline": "HCL Technologies Limited: HCL Technologies Limited has informed the Exchange regarding a press release dated October 12, 2026, titled \"Investor Release Q2 FY 2027\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/HCLTECH_12102026170757_InvestorRelease_5.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-12T12:14:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-12T13:14:45Z",
-      "updated_at": "2026-10-12T13:14:45Z",
-      "decay_at": "2026-10-14T00:14:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-026b016aaebf",
       "idea_version": "IDEAV-f9345ef6d367f75f",
       "idea_version_started_at": "2026-10-13T14:10:50Z",
@@ -177303,6 +177471,83 @@
       "surfaced_at": "2026-10-13T05:16:42Z",
       "updated_at": "2026-10-13T05:16:42Z",
       "decay_at": "2026-10-13T22:47:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-a47a7aa2b95e",
+      "idea_version": "IDEAV-4d1f05a24dff205a",
+      "idea_version_started_at": "2026-10-12T13:14:45Z",
+      "ticker": "HCLTECH",
+      "company": "HCL Technologies Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 21% jump in profit and raised its FY27 revenue growth guidance to 2.5-4%, signaling stronger-than-expected operational momentum.",
+      "why_now": "The earnings release and guidance upgrade were published on October 12, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-bd96e11f53fe",
+        "EVT-3bbcaea83b8b",
+        "EVT-aaf955fce750",
+        "EVT-9ffb126418c7"
+      ],
+      "primary_source_event_id": "EVT-bd96e11f53fe",
+      "source_headlines": [
+        "HCL Technologies Limited: HCL Technologies Limited has informed the Exchange regarding a press release dated October 12, 2026, titled \"Investor Release Q2 FY 2027\".",
+        "HCLTech raises FY27 revenue growth guidance to 2.5-4%; Q2 profit beats estimates",
+        "HCL Tech Q2 result 2026, dividend: PAT jumps 21% to ₹5132 cr, revenue up 97%; dividend ₹12",
+        "HCLTech Declares Dividend Of Rs 12 Per Share As Q2 Profit Rises; Check Record Date"
+      ],
+      "source_headline": "HCL Technologies Limited: HCL Technologies Limited has informed the Exchange regarding a press release dated October 12, 2026, titled \"Investor Release Q2 FY 2027\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/HCLTECH_12102026170757_InvestorRelease_5.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-12T12:14:43Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-12T13:14:45Z",
+      "updated_at": "2026-10-12T13:14:45Z",
+      "decay_at": "2026-10-14T00:14:43Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -179832,14 +180077,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 543,
+    "total_count": 544,
     "shown_count": 499,
-    "hidden_count": 44,
+    "hidden_count": 45,
     "side_counts": {
       "long": {
-        "total_count": 285,
+        "total_count": 286,
         "shown_count": 250,
-        "hidden_count": 35
+        "hidden_count": 36
       },
       "short": {
         "total_count": 259,
@@ -179863,6 +180108,86 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a47a7aa2b95e",
+        "idea_version": "IDEAV-4d1f05a24dff205a",
+        "idea_version_started_at": "2026-10-12T13:14:45Z",
+        "ticker": "HCLTECH",
+        "company": "HCL Technologies Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported a 21% jump in profit and raised its FY27 revenue growth guidance to 2.5-4%, signaling stronger-than-expected operational momentum.",
+        "why_now": "The earnings release and guidance upgrade were published on October 12, 2026.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 10,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-bd96e11f53fe",
+          "EVT-3bbcaea83b8b",
+          "EVT-aaf955fce750",
+          "EVT-9ffb126418c7"
+        ],
+        "primary_source_event_id": "EVT-bd96e11f53fe",
+        "source_headlines": [
+          "HCL Technologies Limited: HCL Technologies Limited has informed the Exchange regarding a press release dated October 12, 2026, titled \"Investor Release Q2 FY 2027\".",
+          "HCLTech raises FY27 revenue growth guidance to 2.5-4%; Q2 profit beats estimates",
+          "HCL Tech Q2 result 2026, dividend: PAT jumps 21% to ₹5132 cr, revenue up 97%; dividend ₹12",
+          "HCLTech Declares Dividend Of Rs 12 Per Share As Q2 Profit Rises; Check Record Date"
+        ],
+        "source_headline": "HCL Technologies Limited: HCL Technologies Limited has informed the Exchange regarding a press release dated October 12, 2026, titled \"Investor Release Q2 FY 2027\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/HCLTECH_12102026170757_InvestorRelease_5.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-12T12:14:43Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-12T13:14:45Z",
+        "updated_at": "2026-10-12T13:14:45Z",
+        "decay_at": "2026-10-14T00:14:43Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-14T00:14:43Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-8f7774ecdbc6",
         "idea_version": "IDEAV-375b8318c6bfd98e",
@@ -207808,81 +208133,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-5dcc3d54eb17",
-        "idea_version": "IDEAV-f9bb4ed7308d2599",
-        "idea_version_started_at": "2026-09-30T08:50:19Z",
-        "ticker": "NLCINDIA",
-        "company": "NLC India",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported a 38.91% increase in profit after tax to ₹3,769 crore and declared a 38.5% dividend, signaling strong operational performance and shareholder value.",
-        "why_now": "The earnings and dividend announcement occurred on 2026-09-30.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-802381ba2dff"
-        ],
-        "primary_source_event_id": "EVT-802381ba2dff",
-        "source_headlines": [
-          "NLC India Declares 38.5% Dividend For FY26, Profit After Tax Up 38.91% To ₹3,769 Crore"
-        ],
-        "source_headline": "NLC India Declares 38.5% Dividend For FY26, Profit After Tax Up 38.91% To ₹3,769 Crore",
-        "source_url": "https://www.freepressjournal.in/business/nlc-india-declares-385-dividend-for-fy26-profit-after-tax-up-3891-to-3769-crore",
-        "source_name": "Free Press Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-30T05:20:22Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-30T08:50:19Z",
-        "updated_at": "2026-09-30T08:50:19Z",
-        "decay_at": "2026-10-01T17:20:22Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-03T05:21:53Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-669e750ceb07",
         "idea_version": "IDEAV-318316218afa88ad",
         "idea_version_started_at": "2026-09-30T05:39:46Z",
@@ -217030,7 +217280,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1571,
-    "live_count": 29,
+    "live_count": 28,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -217040,7 +217290,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3579,
+    "inbox_unconsumed": 3584,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -217049,9 +217299,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 129889,
-    "news_picked_today": 12,
-    "news_dropped_today": 84
+    "news_seen_today": 173191,
+    "news_picked_today": 13,
+    "news_dropped_today": 131
   },
   "book_momentum": {
     "live_count": 8,
