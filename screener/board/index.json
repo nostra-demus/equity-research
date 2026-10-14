@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T01:29:51Z",
+  "generated_at": "2026-10-14T01:33:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-037",
@@ -193,55 +193,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-003",
-      "headline": "HANG YICK HLDGS (01894): OFFER DOCUMENT RELATING TO CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY RAINBOW CAPITAL (HK) LIMITED FOR AND ON BEHALF OF NGAI WA PING TO ACQUIRE 30,000,000 SHARES IN HANG YICK HOLDINGS COMPANY LIMITED (STOCK CODE: 1894) (OTHER THAN THOSE ALREADY OWNED BY NGAI WA PING AND PARTIES ACTING IN CONCERT WITH HIM)",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1014/2026101400001.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-13T22:02:00Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Hang Yick Holdings issued the formal offer document for a partial cash acquisition of 30 million shares.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Hang Yick Holdings issued the formal offer document for a partial cash acquisition of 30 million shares.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hang Yick Holdings",
-          "ticker": "01894",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1074,6 +1025,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261014-045",
+      "headline": "SCHEDULE 13D/A - Crescent Energy Co (0001866175) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1866175/000114036126039479/0001140361-26-039479-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-14T01:15:21Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Crescent Energy Co filed an amended Schedule 13D, indicating a change in significant shareholder position.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 76,
+      "triage_reason": "Crescent Energy Co filed an amended Schedule 13D, indicating a change in significant shareholder position.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Crescent Energy Co",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261014-043",
       "headline": "SCHEDULE 13D/A - Independence Energy Aggregator L.P. (0001868340) (Filed by)",
       "headline_en": null,
@@ -1466,6 +1466,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261014-046",
+      "headline": "Statement on the Commission’s Approval of a Proposed Rule Change to Permit the Listing of Binary Options Overlying Key Performance Indicators",
+      "headline_en": null,
+      "url": "https://www.sec.gov/newsroom/speeches-statements/atkins-101326-statement-commissions-approval-proposed-rule-change-permit-listing-binary-options-overlying-key",
+      "source_name": "U.S. SEC (Speeches & Statements)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-14T01:30:17Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "The SEC approved a rule change to permit the listing of binary options on key performance indicators, impacting market structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "The SEC approved a rule change to permit the listing of binary options on key performance indicators, impacting market structure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261014-025",
       "headline": "SCHEDULE 13D/A - Silvercrest Asset Management Group Inc. (0001549966) (Subject)",
       "headline_en": null,
@@ -1596,6 +1639,55 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-044",
+      "headline": "Nordique Critical Metals Announces TSXV Final Approval for its Acquisition of Option to Earn Up to 80% Interest in the Kwyjibo Rare Earth Project in Québec; Files Amended 2026 Kwyjibo PEA Report",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/10/14/3380297/0/en/nordique-critical-metals-announces-tsxv-final-approval-for-its-acquisition-of-option-to-earn-up-to-80-interest-in-the-kwyjibo-rare-earth-project-in-qu%C3%A9bec-files-amended-2026-kwyjib.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-14T01:23:00Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Nordique Critical Metals received final approval to acquire an 80% interest in the Kwyjibo Rare Earth Project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Nordique Critical Metals received final approval to acquire an 80% interest in the Kwyjibo Rare Earth Project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nordique Critical Metals",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1841,104 +1933,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-001",
-      "headline": "Trump Administration Asks Court to Let It Re-Evaluate Revolution Wind's COP",
-      "headline_en": null,
-      "url": "https://maritime-executive.com/article/trump-administration-asks-court-to-let-it-re-evaluate-revolution-wind-s-cop",
-      "source_name": "Maritime Executive",
-      "input_nature": "shipping_rate_move",
-      "found_at": "2026-10-13T21:51:29Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "The Trump administration is seeking to re-evaluate the Construction and Operations Plan for the Revolution Wind project, creating regulatory uncertainty for the development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "The Trump administration is seeking to re-evaluate the Construction and Operations Plan for the Revolution Wind project, creating regulatory uncertainty for the development.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -33,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "official_data",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Revolution Wind",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-032",
-      "headline": "IGL: Notification regarding unquoted securities - IGL",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IGL?key=2924-03148146-2A1703950",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-14T00:27:13Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Routine notification regarding unquoted securities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 49,
-      "triage_reason": "Routine notification regarding unquoted securities.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IGL",
-          "ticker": "IGL",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -176030,75 +176024,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5c23343bcf9d",
-      "idea_version": "IDEAV-1646fdf367040156",
-      "idea_version_started_at": "2026-10-12T15:24:05Z",
-      "ticker": "GD",
-      "company": "General Dynamics",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The Department of War certified production capacity for a guided-missile destroyer at Bath Iron Works, a subsidiary of General Dynamics, suggesting increased future revenue from defense contracts.",
-      "why_now": "The certification of production capacity is a new development.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 76,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1e8f57b5b992"
-      ],
-      "primary_source_event_id": "EVT-1e8f57b5b992",
-      "source_headlines": [
-        "Department of War Certifies Production Capacity for Second Guided-Missile Destroyer at Maine's Bath Iron Works"
-      ],
-      "source_headline": "Department of War Certifies Production Capacity for Second Guided-Missile Destroyer at Maine's Bath Iron Works",
-      "source_url": "https://www.war.gov/News/Releases/Release/Article/4623902/department-of-war-certifies-production-capacity-for-second-guided-missile-destr/",
-      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-12T13:30:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-12T15:24:05Z",
-      "updated_at": "2026-10-12T15:24:05Z",
-      "decay_at": "2026-10-14T01:30:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-ab675b24d137",
       "idea_version": "IDEAV-b4003ca2a21d5f59",
       "idea_version_started_at": "2026-10-13T14:10:50Z",
@@ -177949,6 +177874,75 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-5c23343bcf9d",
+      "idea_version": "IDEAV-1646fdf367040156",
+      "idea_version_started_at": "2026-10-12T15:24:05Z",
+      "ticker": "GD",
+      "company": "General Dynamics",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The Department of War certified production capacity for a guided-missile destroyer at Bath Iron Works, a subsidiary of General Dynamics, suggesting increased future revenue from defense contracts.",
+      "why_now": "The certification of production capacity is a new development.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 76,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1e8f57b5b992"
+      ],
+      "primary_source_event_id": "EVT-1e8f57b5b992",
+      "source_headlines": [
+        "Department of War Certifies Production Capacity for Second Guided-Missile Destroyer at Maine's Bath Iron Works"
+      ],
+      "source_headline": "Department of War Certifies Production Capacity for Second Guided-Missile Destroyer at Maine's Bath Iron Works",
+      "source_url": "https://www.war.gov/News/Releases/Release/Article/4623902/department-of-war-certifies-production-capacity-for-second-guided-missile-destr/",
+      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-12T13:30:07Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-12T15:24:05Z",
+      "updated_at": "2026-10-12T15:24:05Z",
+      "decay_at": "2026-10-14T01:30:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-c9da0ae18daf",
@@ -181400,14 +181394,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 547,
+    "total_count": 548,
     "shown_count": 499,
-    "hidden_count": 48,
+    "hidden_count": 49,
     "side_counts": {
       "long": {
-        "total_count": 287,
+        "total_count": 288,
         "shown_count": 250,
-        "hidden_count": 37
+        "hidden_count": 38
       },
       "short": {
         "total_count": 261,
@@ -181431,6 +181425,78 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5c23343bcf9d",
+        "idea_version": "IDEAV-1646fdf367040156",
+        "idea_version_started_at": "2026-10-12T15:24:05Z",
+        "ticker": "GD",
+        "company": "General Dynamics",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The Department of War certified production capacity for a guided-missile destroyer at Bath Iron Works, a subsidiary of General Dynamics, suggesting increased future revenue from defense contracts.",
+        "why_now": "The certification of production capacity is a new development.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 76,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1e8f57b5b992"
+        ],
+        "primary_source_event_id": "EVT-1e8f57b5b992",
+        "source_headlines": [
+          "Department of War Certifies Production Capacity for Second Guided-Missile Destroyer at Maine's Bath Iron Works"
+        ],
+        "source_headline": "Department of War Certifies Production Capacity for Second Guided-Missile Destroyer at Maine's Bath Iron Works",
+        "source_url": "https://www.war.gov/News/Releases/Release/Article/4623902/department-of-war-certifies-production-capacity-for-second-guided-missile-destr/",
+        "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-12T13:30:07Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-12T15:24:05Z",
+        "updated_at": "2026-10-12T15:24:05Z",
+        "decay_at": "2026-10-14T01:30:07Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-14T01:30:07Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d2450dbed90f",
         "idea_version": "IDEAV-db8d71c76461c102",
@@ -209532,80 +209598,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-d99505bc75b0",
-        "idea_version": "IDEAV-11208c4dd4e3a05e",
-        "idea_version_started_at": "2026-09-30T09:32:50Z",
-        "ticker": "LTFOODS",
-        "company": "LT Foods Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is acquiring a controlling stake in Netherlands-based Leev.nu B.V., which expands its footprint in the European organic and healthy snack market.",
-        "why_now": "The share purchase agreement was officially executed and disclosed on September 30, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-dbc35d8909ce"
-        ],
-        "primary_source_event_id": "EVT-dbc35d8909ce",
-        "source_headlines": [
-          "LT Foods Limited: Intimation under Regulation 30 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 in respect of Execution of Share Purchase Agreement for acquisition of controlling stake in Leev.nu B.V., Netherlands"
-        ],
-        "source_headline": "LT Foods Limited: Intimation under Regulation 30 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 in respect of Execution of Share Purchase Agreement for acquisition of controlling stake in Leev.nu B.V., Netherlands",
-        "source_url": "https://nsearchives.nseindia.com/corporate/532783_30092026142730_intimation.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 98,
-        "newest_source_at": "2026-09-30T08:57:42Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-30T09:32:50Z",
-        "updated_at": "2026-09-30T09:32:50Z",
-        "decay_at": "2026-10-01T20:57:42Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-03T09:06:49Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-669e750ceb07",
         "idea_version": "IDEAV-318316218afa88ad",
         "idea_version_started_at": "2026-09-30T05:39:46Z",
@@ -218599,7 +218591,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1574,
-    "live_count": 28,
+    "live_count": 27,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -218618,9 +218610,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 969987,
-    "news_picked_today": 43,
-    "news_dropped_today": 677
+    "news_seen_today": 1012931,
+    "news_picked_today": 46,
+    "news_dropped_today": 698
   },
   "book_momentum": {
     "live_count": 8,
