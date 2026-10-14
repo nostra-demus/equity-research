@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T02:11:01Z",
+  "generated_at": "2026-10-14T02:15:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-037",
@@ -634,6 +634,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-077",
+      "headline": "South Korean carmaker Hyundai plans 'strategic' investment of $15.5 billion in India by 2032",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/14/korea-india-hyundai-cars-investment.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T02:04:47Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "South Korean carmaker Hyundai plans a strategic investment of $15.5 billion in India by 2032.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "South Korean carmaker Hyundai plans a strategic investment of $15.5 billion in India by 2032.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyundai",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1896,55 +1945,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-047",
-      "headline": "MSV: FY27 Q1 results briefing",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MSV?key=2924-03148197-2A1703970",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-14T01:29:08Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Routine quarterly results briefing announcement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Routine quarterly results briefing announcement.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MSV",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -218549,9 +218549,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1463154,
-    "news_picked_today": 69,
-    "news_dropped_today": 963
+    "news_seen_today": 1505934,
+    "news_picked_today": 87,
+    "news_dropped_today": 1065
   },
   "book_momentum": {
     "live_count": 8,
