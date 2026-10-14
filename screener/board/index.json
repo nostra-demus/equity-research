@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T14:49:28Z",
+  "generated_at": "2026-10-14T14:55:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-344",
@@ -999,6 +999,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261014-369",
+      "headline": "Fairfax to buy IDBI stake: CCEA clears Rs 53,000 crore deal; all you need to know",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/canadas-fairfax-to-buy-60-2-stake-in-idbi-bank-for-rs-53000-crore-largest-fdi-in-an-indian-bank/articleshow/134944820.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T14:16:54Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Government approval of a major ₹53,000 crore acquisition deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Government approval of a major ₹53,000 crore acquisition deal.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IDBI Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Fairfax",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261014-363",
       "headline": "Bank of America shares drop 8% after third-quarter revenue miss and regulatory penalty",
       "headline_en": null,
@@ -1934,55 +1988,6 @@
           "name": "Bank of America",
           "ticker": "BAC",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-278",
-      "headline": "ASML expects demand to exceed capacity through 2028, raises sales outlook",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-asml-results-and-sales-outlook-demand-through-2028/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T11:10:55Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "ASML raised its sales outlook, citing demand exceeding capacity through 2028.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ASML raised its sales outlook, citing demand exceeding capacity through 2028.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ASML",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "mega",
@@ -219016,9 +219021,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8266565,
-    "news_picked_today": 674,
-    "news_dropped_today": 14518
+    "news_seen_today": 8342336,
+    "news_picked_today": 689,
+    "news_dropped_today": 14527
   },
   "book_momentum": {
     "live_count": 8,
