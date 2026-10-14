@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T10:14:54Z",
+  "generated_at": "2026-10-14T10:23:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-183",
@@ -504,6 +504,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261014-215",
+      "headline": "BHEL Q2 results: Defence PSU stock jumps 5% to record high as net profit soars 120%; check key highlights, share trend",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/bhel-q2-results-defence-psu-stock-jumps-5-to-record-high-as-net-profit-soars-120-check-key-highlights-share-trend-11791971434067.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T09:57:44Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "BHEL reported a 120% increase in net profit for Q2, significantly exceeding expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BHEL reported a 120% increase in net profit for Q2, significantly exceeding expectations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bharat Heavy Electricals Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261014-193",
       "headline": "NoonTalk needs continued financial support from CEO Dasmond Koh, auditors warn",
       "headline_en": null,
@@ -646,6 +695,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-227",
+      "headline": "BHEL Q2 Results: Profit Jumps More than Twofold To Rs 821 Crore, Margin Expands",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/bhel-q2-results-profit-jumps-more-than-twofold-margin-expands-12183471#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T08:37:03Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "BHEL reported a profit jump of more than twofold to ₹821 crore with margin expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BHEL reported a profit jump of more than twofold to ₹821 crore with margin expansion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bharat Heavy Electricals Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1879,104 +1977,6 @@
           "name": "Haymaker Sponsor IV LLC",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-035",
-      "headline": "SCHEDULE 13D/A - Suncrete, Inc. (0002094433) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2094433/000110465926115657/0001104659-26-115657-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-14T00:49:06Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Suncrete, Inc. filed a Schedule 13D/A, indicating a significant change in ownership or investor intent.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Suncrete, Inc. filed a Schedule 13D/A, indicating a significant change in ownership or investor intent.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Suncrete, Inc.",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-128",
-      "headline": "BOC: Half Yearly Report and Accounts [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BOC?key=2924-03148302-3A704084",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-14T05:04:04Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Half-yearly financial reports are primary disclosures of company performance and financial health.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Half-yearly financial reports are primary disclosures of company performance and financial health.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BOC Limited",
-          "ticker": "BOC",
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "unknown",
@@ -219151,9 +219151,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5931685,
-    "news_picked_today": 344,
-    "news_dropped_today": 10624
+    "news_seen_today": 5951151,
+    "news_picked_today": 366,
+    "news_dropped_today": 10722
   },
   "book_momentum": {
     "live_count": 8,
