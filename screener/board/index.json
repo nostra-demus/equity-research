@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T02:33:13Z",
+  "generated_at": "2026-10-14T02:36:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-037",
@@ -541,6 +541,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261014-086",
+      "headline": "MYX: Supreme Court Decision in Cosette Proceedings [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MYX?key=2924-03148230-3A704071",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-14T02:29:58Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "The Supreme Court has issued a decision in the Cosette proceedings, which the company has flagged as price-sensitive.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "The Supreme Court has issued a decision in the Cosette proceedings, which the company has flagged as price-sensitive.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mayne Pharma Group Limited",
+          "ticker": "MYX",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261014-008",
       "headline": "SCHEDULE 13D - Canagold Resources Ltd. (0000868822) (Subject)",
       "headline_en": null,
@@ -929,6 +978,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-084",
+      "headline": "Dr B.R. Shetty Files $15 Billion Damages Suit Against Bank Of Baroda, Alleges Collusion In NMC Healthcare Fraud",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/dr-br-shetty-files-15-billion-damages-suit-against-bank-of-baroda-alleges-collusion-in-nmc-healthcare-fraud",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T01:56:50Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Dr. B.R. Shetty has filed a $15 billion damages suit against Bank of Baroda alleging collusion in the NMC Healthcare fraud.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Dr. B.R. Shetty has filed a $15 billion damages suit against Bank of Baroda alleging collusion in the NMC Healthcare fraud.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of Baroda",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1845,104 +1943,6 @@
           "name": "Crescent Energy Co",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-043",
-      "headline": "SCHEDULE 13D/A - Independence Energy Aggregator L.P. (0001868340) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1868340/000114036126039479/0001140361-26-039479-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-14T01:15:21Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "An amended Schedule 13D filing indicates a change in ownership or intent by a significant shareholder.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "An amended Schedule 13D filing indicates a change in ownership or intent by a significant shareholder.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Independence Energy Aggregator L.P.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-009",
-      "headline": "361 DEGREES (01361): BUSINESS UPDATE FOR THE THIRD QUARTER OF 2026 AND SUPPLEMENTAL ANNOUNCEMENT IN RELATION TO THE 2025 ANNUAL REPORT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1014/2026101400065.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-13T23:36:00Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "361 Degrees released a business update for the third quarter of 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "361 Degrees released a business update for the third quarter of 2026.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "361 Degrees",
-          "ticker": "01361",
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "mid",
@@ -218550,9 +218550,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1718399,
-    "news_picked_today": 94,
-    "news_dropped_today": 1202
+    "news_seen_today": 1782140,
+    "news_picked_today": 97,
+    "news_dropped_today": 1223
   },
   "book_momentum": {
     "live_count": 8,
