@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T06:12:17Z",
+  "generated_at": "2026-10-14T06:18:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-142",
@@ -1533,6 +1533,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261014-145",
+      "headline": "Adani Power Limited: Adani Power Limited has informed the Exchange about Letter of Award",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ADANIPOWER_14102026105706_APLLoAfromUttarakhand13102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-14T05:27:14Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Adani Power received a Letter of Award, indicating a new contract win.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Adani Power received a Letter of Award, indicating a new contract win.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Power",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261014-050",
       "headline": "RHC: Becoming a substantial holder",
       "headline_en": null,
@@ -1922,56 +1971,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-096",
-      "headline": "Palliser Pushes Samsung to Buy Back Discounted Preferred Shares",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=278765",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T06:47:54Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Palliser Capital is pressuring Samsung to initiate a share buyback for preferred shares, which could impact capital allocation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Palliser Capital is pressuring Samsung to initiate a share buyback for preferred shares, which could impact capital allocation.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "ownership_activist",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung Electronics",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -218930,9 +218929,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4636370,
-    "news_picked_today": 209,
-    "news_dropped_today": 2743
+    "news_seen_today": 4730099,
+    "news_picked_today": 212,
+    "news_dropped_today": 2788
   },
   "book_momentum": {
     "live_count": 8,
