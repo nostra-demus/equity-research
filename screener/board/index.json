@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T02:16:20Z",
+  "generated_at": "2026-10-14T02:20:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-037",
@@ -680,6 +680,55 @@
           "name": "Hyundai",
           "ticker": null,
           "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-078",
+      "headline": "Taiwan agrees to buy 30% of gas from Alaska LNG project, Trump says",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/14/taiwan-alaska-lng-project-trump-.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T02:09:00Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Taiwan agreed to purchase 30% of gas from the Alaska LNG project, representing a significant commercial agreement for the project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Taiwan agreed to purchase 30% of gas from the Alaska LNG project, representing a significant commercial agreement for the project.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alaska LNG",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -1896,55 +1945,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-058",
-      "headline": "PLS: Notification of cessation of securities - PLS",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PLS?key=2924-03148205-6A1349164",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-14T01:45:28Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Pilbara Minerals announced the cancellation of securities, which is a routine capital structure adjustment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 71,
-      "triage_reason": "Pilbara Minerals announced the cancellation of securities, which is a routine capital structure adjustment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pilbara Minerals",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -218549,9 +218549,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1505934,
-    "news_picked_today": 87,
-    "news_dropped_today": 1065
+    "news_seen_today": 1548478,
+    "news_picked_today": 88,
+    "news_dropped_today": 1088
   },
   "book_momentum": {
     "live_count": 8,
