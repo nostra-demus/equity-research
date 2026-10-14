@@ -1,0 +1,85 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-10-13T21:10:17Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-fa713f07e3b3",
+    "idea_version": "IDEAV-545a6900b8f1ea12",
+    "idea_version_started_at": "2026-10-11T15:32:54Z",
+    "ticker": "BAE",
+    "company": "BAE Systems",
+    "exchange": "LSE",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "long",
+    "pair_with": null,
+    "reason": "The company is a major defense contractor that could benefit from increased geopolitical tensions and potential demand for its products following missile strikes in Saudi Arabia.",
+    "why_now": "Missile strikes on Riyadh airport and surrounding areas occurred on October 10, 2026, raising regional security concerns.",
+    "conviction": 40,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 23,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 10,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "price and market expectations",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "unknown",
+    "thesis_type": "macro_conditional",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-f4e6340ec246",
+      "EVT-2b83f336105e",
+      "EVT-fb85cc879929",
+      "EVT-314c093c3d5d"
+    ],
+    "primary_source_event_id": "EVT-f4e6340ec246",
+    "source_headlines": [
+      "Riyadh airport suspends operations after missile strike injures dozens",
+      "Riyadh airport attacked again as missile strike wounds passengers, flights diverted",
+      "Saudi airport attacked again: Missile strike reported, many wounded; passengers evacuated, flights diverted",
+      "Saudi Arabia Suspends Riyadh Airport Operations After Attack"
+    ],
+    "source_headline": "Riyadh airport suspends operations after missile strike injures dozens",
+    "source_url": "https://www.ft.com/content/391ddf3f-b233-41fd-819b-fcdbfb0ed010?syn-25a6b1a6=1",
+    "source_name": "Financial Times — Middle East",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-10T18:28:09Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-10-11T15:32:54Z",
+    "updated_at": "2026-10-11T15:32:54Z",
+    "decay_at": "2026-10-12T06:28:09Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

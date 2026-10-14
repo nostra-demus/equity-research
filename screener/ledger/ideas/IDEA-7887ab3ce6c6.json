@@ -1,0 +1,72 @@
+{
+  "idea_id": "IDEA-7887ab3ce6c6",
+  "idea_version": "IDEAV-4ecbc763c0cbe847",
+  "idea_version_started_at": "2026-10-12T10:33:47Z",
+  "ticker": "YRD",
+  "company": "Yiren Digital",
+  "exchange": "NYSE",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The detention of the chairman following massive product defaults creates severe governance risk and potential for operational collapse.",
+  "why_now": "The news of the detention broke on 2026-10-12, representing an immediate existential threat to the firm.",
+  "conviction": 75,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 66,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 20,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "governance_turnaround",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-47f16d460fcc"
+  ],
+  "primary_source_event_id": "EVT-47f16d460fcc",
+  "source_headlines": [
+    "Beijing police detain Yiren Digital chairman after massive product defaults"
+  ],
+  "source_headline": "Beijing police detain Yiren Digital chairman after massive product defaults",
+  "source_url": "https://www.scmp.com/business/banking-finance/article/3370569/beijing-police-detain-yiren-digital-chairman-after-massive-product-defaults?utm_source=rss_feed",
+  "source_name": "South China Morning Post",
+  "materiality_max": 98,
+  "newest_source_at": "2026-10-12T07:24:24Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-12T10:33:47Z",
+  "updated_at": "2026-10-12T10:33:47Z",
+  "decay_at": "2026-10-13T19:24:24Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
