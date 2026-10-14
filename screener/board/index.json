@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T22:59:24Z",
+  "generated_at": "2026-10-14T23:08:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-413",
@@ -1196,6 +1196,111 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261014-441",
+      "headline": "CVS, DOJ reach $315M settlement in opioid prescription case",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/payers/cvs-doj-reach-315m-settlement-opioid-prescription-case",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T22:36:44Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "CVS Health agreed to $315M settlement with DOJ for opioid prescription violations, a quantified enforcement action affecting liability, cash flow, and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CVS Health agreed to $315M settlement with DOJ for opioid prescription violations, a quantified enforcement action affecting liability, cash flow, and regulatory risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CVS Health",
+          "ticker": "CVS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-442",
+      "headline": "Humana, BlackRock strike $2.8B deal to manage CenterWell clinics",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/payers/humana-blackrock-strike-28b-deal-manage-centerwell-clinics",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T22:36:44Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Humana and BlackRock announced $2.8B deal for BlackRock to manage CenterWell clinic operations, a major capital redeployment affecting Humana's operational structure and asset allocation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Humana and BlackRock announced $2.8B deal for BlackRock to manage CenterWell clinic operations, a major capital redeployment affecting Humana's operational structure and asset allocation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "commercial",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Humana",
+          "ticker": "HUM",
+          "listing_country": "US"
+        },
+        {
+          "name": "BlackRock",
+          "ticker": "BLK",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261014-423",
       "headline": "Canadian firm to buy IDBI Bank's 60% stake",
       "headline_en": null,
@@ -1885,104 +1990,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-355",
-      "headline": "Netflix Eliminates About 1,000 Jobs in Biggest Cuts Since 2022",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/media/netflix-eliminates-about-6-of-staff-in-biggest-cuts-since-2022-0a2d8ec3?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T13:07:00Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Netflix is eliminating approximately 1,000 jobs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Netflix is eliminating approximately 1,000 jobs.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Netflix",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-334",
-      "headline": "Bajaj Consumer Q2 Results: Net Profit Jumps 66% To Rs 70 Crore, Revenue Rises 26%",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/bajaj-consumer-q2-results-net-profit-jumps-66-to-rs-70-crore-revenue-rises-26-12184963#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T12:55:01Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Bajaj Consumer reported a 66% jump in net profit to Rs 70 crore and a 26% revenue increase.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bajaj Consumer reported a 66% jump in net profit to Rs 70 crore and a 26% revenue increase.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bajaj Consumer Care",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219376,9 +219383,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11433401,
-    "news_picked_today": 985,
-    "news_dropped_today": 20207
+    "news_seen_today": 11448637,
+    "news_picked_today": 1004,
+    "news_dropped_today": 20380
   },
   "book_momentum": {
     "live_count": 8,
