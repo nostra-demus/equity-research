@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T01:50:13Z",
+  "generated_at": "2026-10-14T01:53:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-037",
@@ -1754,6 +1754,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261014-056",
+      "headline": "Ceigall India Limited: Ceigall India Limited has informed the Exchange about Issuance of Completion Certificate for EPC Project",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ceigall_13102026120155_Intimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-13T06:32:03Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "The company received a completion certificate for an EPC project, indicating successful project delivery.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "The company received a completion certificate for an EPC project, indicating successful project delivery.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ceigall India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261014-027",
       "headline": "LMG: Update - Proposed issue of securities - LMG",
       "headline_en": null,
@@ -1895,49 +1944,6 @@
           "listing_country": "US"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-046",
-      "headline": "Statement on the Commission’s Approval of a Proposed Rule Change to Permit the Listing of Binary Options Overlying Key Performance Indicators",
-      "headline_en": null,
-      "url": "https://www.sec.gov/newsroom/speeches-statements/atkins-101326-statement-commissions-approval-proposed-rule-change-permit-listing-binary-options-overlying-key",
-      "source_name": "U.S. SEC (Speeches & Statements)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-14T01:30:17Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "The SEC approved a rule change to permit the listing of binary options on key performance indicators, impacting market structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "The SEC approved a rule change to permit the listing of binary options on key performance indicators, impacting market structure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -218542,9 +218548,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1206244,
-    "news_picked_today": 57,
-    "news_dropped_today": 807
+    "news_seen_today": 1270486,
+    "news_picked_today": 58,
+    "news_dropped_today": 830
   },
   "book_momentum": {
     "live_count": 8,
