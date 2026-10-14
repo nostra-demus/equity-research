@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T13:49:42Z",
+  "generated_at": "2026-10-14T13:50:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261014-344",
@@ -999,6 +999,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261014-359",
+      "headline": "IDBI Bank's ₹52,878-crore sale to Fairfax gets govt nod: A 9-year journey from financial crisis to restructuring",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/idbi-banks-52-878-crore-sale-to-fairfax-gets-govt-nod-a-9-year-journey-from-financial-crisis-to-restructuring-11791980368342.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T13:36:05Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "The government has approved the sale of IDBI Bank for ₹52,878 crore, a major M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The government has approved the sale of IDBI Bank for ₹52,878 crore, a major M&A event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IDBI Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-357",
+      "headline": "Pickleball facility franchisor files for bankruptcy amid bubble concerns",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/latest-news/the-picklr-files-for-bankruptcy-amid-bubble-concerns",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T13:33:00Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "A franchisor has filed for bankruptcy, indicating a total loss of equity value for shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A franchisor has filed for bankruptcy, indicating a total loss of equity value for shareholders.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pickleball",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261014-356",
       "headline": "Netflix Cuts 1,000 Jobs After Earlier Layoff Warnings",
       "headline_en": null,
@@ -1043,6 +1141,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261014-360",
+      "headline": "Aegis Logistics to acquire 89.8% stake in Dubai-based Tristar for ₹7700 crore",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/economy/logistics/aegis-logistics-to-acquire-898-stake-in-dubai-based-tristar-for-7700-crore/article71583721.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T13:26:48Z",
+      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
+      "prelim_note": "Aegis Logistics is acquiring a majority stake in Tristar for ₹7700 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Aegis Logistics is acquiring a majority stake in Tristar for ₹7700 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aegis Logistics",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1843,153 +1990,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-244",
-      "headline": "Leela Palaces Hotels Q2 Results: Profit rises 27% to ₹95 crore, revenue jumps 33%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/leela-palaces-hotels-q2-results-share-price-profit-rises-revenue-jumps-managementt-room-rates-expansion-20011748.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T10:24:59Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Leela Palaces Hotels reported a 27% profit increase to ₹95 crore and 33% revenue growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Leela Palaces Hotels reported a 27% profit increase to ₹95 crore and 33% revenue growth.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Leela Palaces Hotels",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-247",
-      "headline": "BHEL Q2 FY27 Results: Net Profit Jumps 119% To ₹821 Crore; Revenue Rises 24% To ₹9,300 Crore",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/bhel-q2-fy27-results-net-profit-jumps-119-to-821-crore-revenue-rises-24-to-9300-crore",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T10:12:42Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "BHEL reported a 119% jump in net profit to ₹821 crore and 24% revenue growth, significantly beating expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BHEL reported a 119% jump in net profit to ₹821 crore and 24% revenue growth, significantly beating expectations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bharat Heavy Electricals Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261014-255",
-      "headline": "Aegis Logistics to acquire 89.8% stake in Dubai-based Tristar Holdings for $809 million",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/transportation/shipping-/-transport/aegis-logistics-to-acquire-89-8-stake-in-dubai-based-tristar-holdings-for-809-million/articleshow/134938383.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T09:58:42Z",
-      "sweep_file": "screener/inbox/2026-10-14_sweep.json",
-      "prelim_note": "Aegis Logistics is acquiring an 89.8% stake in Tristar Holdings for $809 million, a significant expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Aegis Logistics is acquiring an 89.8% stake in Tristar Holdings for $809 million, a significant expansion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aegis Logistics",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219018,9 +219018,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7612631,
-    "news_picked_today": 622,
-    "news_dropped_today": 14354
+    "news_seen_today": 7649383,
+    "news_picked_today": 632,
+    "news_dropped_today": 14368
   },
   "book_momentum": {
     "live_count": 8,
