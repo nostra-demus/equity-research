@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T12:31:31Z",
+  "generated_at": "2026-10-15T12:32:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-436",
@@ -1136,6 +1136,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-453",
+      "headline": "Wipro Q2 Results: Net Profit Slips To Rs 3,200 Crore",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/wipro-q2-results-net-profit-slips-to-rs-3-200-crore-12189451#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T11:27:55Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Wipro reported a Q2 net profit of Rs 3,200 crore, representing a decline in profitability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Wipro reported a Q2 net profit of Rs 3,200 crore, representing a decline in profitability.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wipro",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-425",
       "headline": "Panasonic Recalls 640,000 Washer-Dryers over Fire Risk",
       "headline_en": null,
@@ -1921,56 +1970,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-237",
-      "headline": "ICICI Lombard Q2 net profit growth 15.5%; Rs 7 dividend announced",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/icici-lombard-q2-net-profit-growth-15-5-rs-7-dividend-announced/articleshow/134955213.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T01:51:21Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "ICICI Lombard reported a 15.5% net profit growth and announced a dividend of Rs 7 per share.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ICICI Lombard reported a 15.5% net profit growth and announced a dividend of Rs 7 per share.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ICICI Lombard",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220069,9 +220068,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5356577,
-    "news_picked_today": 1090,
-    "news_dropped_today": 6878
+    "news_seen_today": 5376592,
+    "news_picked_today": 1096,
+    "news_dropped_today": 6896
   },
   "book_momentum": {
     "live_count": 8,
