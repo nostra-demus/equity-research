@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-15T17:28:45Z",
+  "generated_at": "2026-10-15T17:41:20Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261015-577",
+      "headline": "Jarvis Investment Management Limited enters special administration",
+      "headline_en": null,
+      "url": "https://www.fca.org.uk/news/news-stories/jarvis-investment-management-limited-enters-special-administration",
+      "source_name": "UK Financial Conduct Authority (FCA) — News",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-15T17:17:07Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Jarvis Investment Management Limited has entered special administration, indicating insolvency.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jarvis Investment Management Limited has entered special administration, indicating insolvency.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jarvis Investment Management Limited",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261015-569",
       "headline": "ePayments Systems Limited enters special administration",
@@ -1916,55 +1965,6 @@
           "name": "CoreWeave",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-521",
-      "headline": "GTCR, Elliott Acquire Software Firm CCC for $4.6 Billion",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-15/gtcr-elliott-acquire-software-firm-ccc-for-4-6-billion",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T13:37:44Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "GTCR and Elliott agreed to acquire CCC for $4.6 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GTCR and Elliott agreed to acquire CCC for $4.6 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CCC",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -219994,9 +219994,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9284375,
-    "news_picked_today": 1419,
-    "news_dropped_today": 9021
+    "news_seen_today": 9492674,
+    "news_picked_today": 1429,
+    "news_dropped_today": 9107
   },
   "book_momentum": {
     "live_count": 8,
