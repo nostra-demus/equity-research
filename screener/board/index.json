@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T02:02:30Z",
+  "generated_at": "2026-10-15T02:10:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-027",
@@ -649,6 +649,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-173",
+      "headline": "Yemen's Houthis vow more attacks on Saudi airports, oil facilities after Aramco HQ hit",
+      "headline_en": null,
+      "url": "https://japantoday.com/category/world/yemen%27s-houthis-vow-more-attacks-on-saudi-airports-oil-facilities-after-aramco-hq-hit2",
+      "source_name": "Japan Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T21:36:34Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Houthi attacks on Saudi Aramco facilities represent a direct supply shock risk to global oil infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Houthi attacks on Saudi Aramco facilities represent a direct supply shock risk to global oil infrastructure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-155",
       "headline": "Japan to invest up to $21 billion in two U.S. chip factories to be run by GlobalFoundries",
       "headline_en": null,
@@ -846,6 +895,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-167",
+      "headline": "Vanda says anxiety drug failed main goal of late-stage study, puts program on hold",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/vanda-says-anxiety-drug-failed-main-goal-late-stage-study-puts-program-hold-2026-10-14/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T21:40:20Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Vanda Pharmaceuticals announced that its anxiety drug failed its primary endpoint in a late-stage study and the program is being halted.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Vanda Pharmaceuticals announced that its anxiety drug failed its primary endpoint in a late-stage study and the program is being halted.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vanda Pharmaceuticals",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1490,6 +1588,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-176",
+      "headline": "Canadian Lender Cash Today Inc. Under Scrutiny as 44,000 Loans Vanish",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-14/canadian-lender-cash-today-inc-under-scrutiny-as-44-000-loans-vanish",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T21:29:59Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Canadian Lender Cash Today Inc. is under scrutiny following the disappearance of 44,000 loans, indicating significant operational and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Canadian Lender Cash Today Inc. is under scrutiny following the disappearance of 44,000 loans, indicating significant operational and regulatory risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cash Today Inc.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-152",
       "headline": "OpenAI Faces Fresh Legal Challenge As Eight US States Sue Over ChatGPT",
       "headline_en": null,
@@ -1691,6 +1839,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-181",
+      "headline": "Stock Market Today, Oct. 14: CoreWeave Plummets on Gartner Neocloud Warning and Bond Yield Surge",
+      "headline_en": null,
+      "url": "https://www.fool.com/coverage/stock-market-today/2026/10/14/stock-market-today-oct-14-coreweave-plummets-on-gartner-neocloud-warning-and-bond-yield-surge/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T21:28:36Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "CoreWeave stock plummeted following a Gartner Neocloud warning and broader market bond yield surge.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "CoreWeave stock plummeted following a Gartner Neocloud warning and broader market bond yield surge.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CoreWeave",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-029",
       "headline": "NEW WORLD DEV NWD (MTN) N2802 NWD (MTN) N2706 NWCL N2701 (00017 05149 05321 05343): ANNOUNCEMENT OF EARLY RESULTS IN CONNECTION WITH THE EARLY TENDER DATE AND EARLY PAYMENT DATE IN RELATION TO THE EXCHANGE OFFERS",
       "headline_en": null,
@@ -1784,204 +1981,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-034",
-      "headline": "KTR alleges ₹10,000-crore irregularities in Singareni, demands CBI probe",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/national/ktr-alleges-10000-crore-irregularities-in-singareni-demands-cbi-probe/article71585669.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T23:45:59Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Allegations of ₹10,000-crore irregularities in Singareni Collieries Company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Allegations of ₹10,000-crore irregularities in Singareni Collieries Company.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Singareni Collieries Company",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-156",
-      "headline": "Anthropic tells investors quarterly revenue up nearly 50% to $16.8bn ahead of IPO",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/11632d03-358c-454b-af95-d06d4072932b?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T00:59:36Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Anthropic discloses quarterly revenue of $16.8 billion, up ~50%, directly informing IPO investor allocation decisions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Anthropic discloses quarterly revenue of $16.8 billion, up ~50%, directly informing IPO investor allocation decisions.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-091",
-      "headline": "777 Partners’ Co-Founder Wander Signals Guilty Plea in Filing",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-14/777-partners-co-founder-wander-signals-guilty-plea-in-filing",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T22:36:28Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Co-founder of PE firm 777 Partners signaled guilty plea filing, creating governance and legal risk, but 777 Partners is not a listed equity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Co-founder of PE firm 777 Partners signaled guilty plea filing, creating governance and legal risk, but 777 Partners is not a listed equity.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "777 Partners",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-085",
-      "headline": "Coalition of states sue OpenAI, alleging it misled users on safety",
-      "headline_en": null,
-      "url": "https://thehill.com/policy/technology/6149365-states-sue-openai-safety/",
-      "source_name": "The Hill — Business News",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T21:53:13Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "A coalition of states is suing OpenAI over alleged misleading safety claims, creating legal and regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "A coalition of states is suing OpenAI over alleged misleading safety claims, creating legal and regulatory risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -178282,76 +178281,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c6c88bb7ea3e",
-      "idea_version": "IDEAV-18ef8f3c9a75bd4b",
-      "idea_version_started_at": "2026-10-13T21:10:09Z",
-      "ticker": "ACI",
-      "company": "Albertsons",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The withdrawal of full-year guidance and the initiation of a business review signal significant operational instability and potential margin compression.",
-      "why_now": "The announcement was made today, October 13, 2026, creating immediate uncertainty regarding the company's financial trajectory.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-dc5e8d403f91"
-      ],
-      "primary_source_event_id": "EVT-dc5e8d403f91",
-      "source_headlines": [
-        "Albertsons Pulls Full-Year Guidance, Plans Business Review"
-      ],
-      "source_headline": "Albertsons Pulls Full-Year Guidance, Plans Business Review",
-      "source_url": "https://www.wsj.com/business/retail/albertsons-pulls-fy-guidance-plans-business-review-9d71facf?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-13T14:10:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-13T21:10:09Z",
-      "updated_at": "2026-10-13T21:10:09Z",
-      "decay_at": "2026-10-15T02:10:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3d9be100b359",
       "idea_version": "IDEAV-cc32091157fb53b7",
       "idea_version_started_at": "2026-10-14T00:48:30Z",
@@ -180128,6 +180057,76 @@
       "surfaced_at": "2026-10-12T13:49:38Z",
       "updated_at": "2026-10-12T13:49:38Z",
       "decay_at": "2026-10-14T01:11:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-c6c88bb7ea3e",
+      "idea_version": "IDEAV-18ef8f3c9a75bd4b",
+      "idea_version_started_at": "2026-10-13T21:10:09Z",
+      "ticker": "ACI",
+      "company": "Albertsons",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The withdrawal of full-year guidance and the initiation of a business review signal significant operational instability and potential margin compression.",
+      "why_now": "The announcement was made today, October 13, 2026, creating immediate uncertainty regarding the company's financial trajectory.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dc5e8d403f91"
+      ],
+      "primary_source_event_id": "EVT-dc5e8d403f91",
+      "source_headlines": [
+        "Albertsons Pulls Full-Year Guidance, Plans Business Review"
+      ],
+      "source_headline": "Albertsons Pulls Full-Year Guidance, Plans Business Review",
+      "source_url": "https://www.wsj.com/business/retail/albertsons-pulls-fy-guidance-plans-business-review-9d71facf?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-13T14:10:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-13T21:10:09Z",
+      "updated_at": "2026-10-13T21:10:09Z",
+      "decay_at": "2026-10-15T02:10:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -183222,9 +183221,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 546,
+    "total_count": 547,
     "shown_count": 499,
-    "hidden_count": 47,
+    "hidden_count": 48,
     "side_counts": {
       "long": {
         "total_count": 281,
@@ -183232,9 +183231,9 @@
         "hidden_count": 31
       },
       "short": {
-        "total_count": 266,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 17
       }
     },
     "retention": {
@@ -183253,6 +183252,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c6c88bb7ea3e",
+        "idea_version": "IDEAV-18ef8f3c9a75bd4b",
+        "idea_version_started_at": "2026-10-13T21:10:09Z",
+        "ticker": "ACI",
+        "company": "Albertsons",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The withdrawal of full-year guidance and the initiation of a business review signal significant operational instability and potential margin compression.",
+        "why_now": "The announcement was made today, October 13, 2026, creating immediate uncertainty regarding the company's financial trajectory.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-dc5e8d403f91"
+        ],
+        "primary_source_event_id": "EVT-dc5e8d403f91",
+        "source_headlines": [
+          "Albertsons Pulls Full-Year Guidance, Plans Business Review"
+        ],
+        "source_headline": "Albertsons Pulls Full-Year Guidance, Plans Business Review",
+        "source_url": "https://www.wsj.com/business/retail/albertsons-pulls-fy-guidance-plans-business-review-9d71facf?mod=pls_whats_news_us_business_f",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-13T14:10:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-13T21:10:09Z",
+        "updated_at": "2026-10-13T21:10:09Z",
+        "decay_at": "2026-10-15T02:10:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-15T02:10:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-202a8192fb17",
         "idea_version": "IDEAV-562910d1519f4bc1",
@@ -220343,87 +220415,12 @@
         "archived_at": "2026-09-19T14:23:47Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-1cca59b30c7a",
-        "idea_version": "IDEAV-e6e492d5833b6b1a",
-        "idea_version_started_at": "2026-09-17T10:57:20Z",
-        "ticker": "BDEV",
-        "company": "Barratt Developments",
-        "exchange": "LSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company is slowing land acquisition and cutting its sales outlook, signaling a significant deterioration in housing market demand and margin pressure.",
-        "why_now": "The guidance change was announced today, September 16, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-8cb36e2164e2"
-        ],
-        "primary_source_event_id": "EVT-8cb36e2164e2",
-        "source_headlines": [
-          "Britain’s biggest housebuilder slows land buying and cuts home sales outlook"
-        ],
-        "source_headline": "Britain’s biggest housebuilder slows land buying and cuts home sales outlook",
-        "source_url": "https://www.independent.co.uk/news/business/iran-britain-government-b3051176.html",
-        "source_name": "The Independent — Business",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-16T11:27:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-17T10:57:20Z",
-        "updated_at": "2026-09-17T10:57:20Z",
-        "decay_at": "2026-09-17T23:27:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-19T12:40:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1594,
-    "live_count": 26,
+    "live_count": 25,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -220442,9 +220439,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 363055,
-    "news_picked_today": 268,
-    "news_dropped_today": 1196
+    "news_seen_today": 376147,
+    "news_picked_today": 287,
+    "news_dropped_today": 1273
   },
   "book_momentum": {
     "live_count": 8,
