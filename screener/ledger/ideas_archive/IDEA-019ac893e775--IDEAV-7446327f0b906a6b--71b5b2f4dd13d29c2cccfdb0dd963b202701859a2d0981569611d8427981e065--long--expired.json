@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-01T07:26:49Z",
+  "archived_at": "2026-10-15T00:16:57Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-190511cb49a3",
-    "idea_version": "IDEAV-5418382e2129c394",
-    "idea_version_started_at": "2026-09-28T11:25:05Z",
-    "ticker": "TTE",
-    "company": "TotalEnergies",
-    "exchange": "NYSE",
+    "idea_id": "IDEA-019ac893e775",
+    "idea_version": "IDEAV-7446327f0b906a6b",
+    "idea_version_started_at": "2026-10-12T00:19:13Z",
+    "ticker": "3DP",
+    "company": "Pointerra Limited",
+    "exchange": "ASX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "long",
     "pair_with": null,
-    "reason": "The company is increasing its capital return to shareholders by raising its fourth-quarter share buyback program to $2.5 billion.",
-    "why_now": "The announcement was made on 2026-09-28, signaling immediate capital allocation priorities.",
-    "conviction": 75,
+    "reason": "The company has initiated a formal share buy-back program, which typically provides a floor for the share price and increases earnings per share by reducing the total share count.",
+    "why_now": "The notification of the buy-back was filed on October 11, 2026, signaling immediate execution potential.",
+    "conviction": 55,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 14,
-      "impact": 18,
+      "evidence": 25,
+      "impact": 11,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -53,26 +52,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-27efe42f63f1"
+      "EVT-ab297f30bfb3"
     ],
-    "primary_source_event_id": "EVT-27efe42f63f1",
+    "primary_source_event_id": "EVT-ab297f30bfb3",
     "source_headlines": [
-      "TotalEnergies raises fourth-quarter share buybacks to $2.5 billion"
+      "3DP: Notification of buy-back - 3DP"
     ],
-    "source_headline": "TotalEnergies raises fourth-quarter share buybacks to $2.5 billion",
-    "source_url": "https://www.reuters.com/business/energy/totalenergies-increases-q4-share-buybacks-25-billion-2026-09-28/",
-    "source_name": "Reuters — Latest (news sitemap)",
-    "materiality_max": 100,
-    "newest_source_at": "2026-09-28T07:03:54Z",
+    "source_headline": "3DP: Notification of buy-back - 3DP",
+    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.3DP?key=2924-03147080-6A1348698",
+    "source_name": "ASX (Australia Exchange Filing)",
+    "materiality_max": 63,
+    "newest_source_at": "2026-10-11T23:56:48Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-26T11:48:12Z",
-    "updated_at": "2026-09-28T11:25:05Z",
-    "decay_at": "2026-09-29T19:03:54Z",
+    "surfaced_at": "2026-10-12T00:19:13Z",
+    "updated_at": "2026-10-12T00:19:13Z",
+    "decay_at": "2026-10-13T11:56:48Z",
     "status": "live",
     "promoted_signal_id": null
   }
