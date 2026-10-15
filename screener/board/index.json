@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T07:03:57Z",
+  "generated_at": "2026-10-15T08:27:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-328",
@@ -1697,6 +1697,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-332",
+      "headline": "Indian Bank: Indian Bank has submitted to the Exchange, Approval of Unaudited (Reviewed) Standalone and Consolidated Financial Results of the Bank for the Second Quarter and Half Year of FY 2026-27 ended on September 30, 2026 and Fund Raising Plan other than Equity Capital",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/INDIANB_15102026125328_SE_Q2_FY27Result.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T07:24:44Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Bank reported quarterly results and announced a fund-raising plan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Bank reported quarterly results and announced a fund-raising plan.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Indian Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-167",
       "headline": "Vanda says anxiety drug failed main goal of late-stage study, puts program on hold",
       "headline_en": null,
@@ -1741,6 +1791,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-340",
+      "headline": "CAY: Resignation of Chief Financial Officer and Company Secretary",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CAY?key=2924-03148968-6A1349467",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T08:10:14Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "CFO resignation is a material management change.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "CFO resignation is a material management change.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "executive_exit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CAY",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1888,104 +1987,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-140",
-      "headline": "NTPC seeks ₹1.5-trillion Rosatom tie-up for six nuclear reactors",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/india/ntpc-rosatom-nuclear-reactors-2047-11791883992876.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T00:30:56Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "NTPC seeks ₹1.5-trillion tie-up with Rosatom for six nuclear reactors — a major capacity-expansion plan that could alter capex phasing, capital structure, and geopolitical risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "NTPC seeks ₹1.5-trillion tie-up with Rosatom for six nuclear reactors — a major capacity-expansion plan that could alter capex phasing, capital structure, and geopolitical risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NTPC",
-          "ticker": "NTPC",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-233",
-      "headline": "KPG: ASX Conditional Approval of Delisting",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KPG?key=2924-03148798-2A1704243",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-15T02:01:58Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "KPG has received conditional approval to delist from the ASX, which is a significant change in capital structure and liquidity for shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "KPG has received conditional approval to delist from the ASX, which is a significant change in capital structure and liquidity for shareholders.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KPG",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -178007,75 +178008,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-5dcef043aea8",
-      "idea_version": "IDEAV-815920f2a7efaf9c",
-      "idea_version_started_at": "2026-10-14T00:48:30Z",
-      "ticker": "BAC",
-      "company": "Bank of America",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The OCC has imposed a $750 million penalty for deficient anti-money laundering compliance, which will directly impact quarterly earnings and reflects ongoing regulatory oversight costs.",
-      "why_now": "The assessment was officially announced by the OCC on October 13, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 78,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e4ccaff3fbe4"
-      ],
-      "primary_source_event_id": "EVT-e4ccaff3fbe4",
-      "source_headlines": [
-        "OCC Imposes $750 Million Assessment Against Bank of America for Deficient BSA/AML Compliance"
-      ],
-      "source_headline": "OCC Imposes $750 Million Assessment Against Bank of America for Deficient BSA/AML Compliance",
-      "source_url": "https://www.occ.gov/news-issuances/news-releases/2026/nr-occ-2026-89.html",
-      "source_name": "Office of the Comptroller of the Currency — News Releases",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-13T20:15:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-14T00:48:30Z",
-      "updated_at": "2026-10-14T00:48:30Z",
-      "decay_at": "2026-10-15T08:15:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5f8e4c75be94",
       "idea_version": "IDEAV-00dd1eb7eab5b8cb",
       "idea_version_started_at": "2026-10-14T04:53:47Z",
@@ -179853,6 +179785,75 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-5dcef043aea8",
+      "idea_version": "IDEAV-815920f2a7efaf9c",
+      "idea_version_started_at": "2026-10-14T00:48:30Z",
+      "ticker": "BAC",
+      "company": "Bank of America",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The OCC has imposed a $750 million penalty for deficient anti-money laundering compliance, which will directly impact quarterly earnings and reflects ongoing regulatory oversight costs.",
+      "why_now": "The assessment was officially announced by the OCC on October 13, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 78,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e4ccaff3fbe4"
+      ],
+      "primary_source_event_id": "EVT-e4ccaff3fbe4",
+      "source_headlines": [
+        "OCC Imposes $750 Million Assessment Against Bank of America for Deficient BSA/AML Compliance"
+      ],
+      "source_headline": "OCC Imposes $750 Million Assessment Against Bank of America for Deficient BSA/AML Compliance",
+      "source_url": "https://www.occ.gov/news-issuances/news-releases/2026/nr-occ-2026-89.html",
+      "source_name": "Office of the Comptroller of the Currency — News Releases",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-13T20:15:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-14T00:48:30Z",
+      "updated_at": "2026-10-14T00:48:30Z",
+      "decay_at": "2026-10-15T08:15:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-5c23343bcf9d",
@@ -182651,9 +182652,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 539,
     "shown_count": 499,
-    "hidden_count": 39,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
         "total_count": 273,
@@ -182661,9 +182662,9 @@
         "hidden_count": 23
       },
       "short": {
-        "total_count": 266,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 17
       }
     },
     "retention": {
@@ -182682,6 +182683,78 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5dcef043aea8",
+        "idea_version": "IDEAV-815920f2a7efaf9c",
+        "idea_version_started_at": "2026-10-14T00:48:30Z",
+        "ticker": "BAC",
+        "company": "Bank of America",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The OCC has imposed a $750 million penalty for deficient anti-money laundering compliance, which will directly impact quarterly earnings and reflects ongoing regulatory oversight costs.",
+        "why_now": "The assessment was officially announced by the OCC on October 13, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 78,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e4ccaff3fbe4"
+        ],
+        "primary_source_event_id": "EVT-e4ccaff3fbe4",
+        "source_headlines": [
+          "OCC Imposes $750 Million Assessment Against Bank of America for Deficient BSA/AML Compliance"
+        ],
+        "source_headline": "OCC Imposes $750 Million Assessment Against Bank of America for Deficient BSA/AML Compliance",
+        "source_url": "https://www.occ.gov/news-issuances/news-releases/2026/nr-occ-2026-89.html",
+        "source_name": "Office of the Comptroller of the Currency — News Releases",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-13T20:15:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-14T00:48:30Z",
+        "updated_at": "2026-10-14T00:48:30Z",
+        "decay_at": "2026-10-15T08:15:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-15T08:15:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-e4cdfb1096c4",
         "idea_version": "IDEAV-530e7fab1ecccb2e",
@@ -219769,86 +219842,12 @@
         "archived_at": "2026-09-20T11:25:10Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-a31f38029430",
-        "idea_version": "IDEAV-f72a489a1e831551",
-        "idea_version_started_at": "2026-09-18T00:05:46Z",
-        "ticker": "JBHT",
-        "company": "J.B. Hunt Transport Services",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company issued a negative earnings warning for the third quarter, signaling margin compression and weaker demand.",
-        "why_now": "The warning was released on 2026-09-16, and the stock has already reacted, but the fundamental downgrade suggests further downside.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 55,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 23,
-          "specificity": 15,
-          "timing": 6,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1aae26b4532a"
-        ],
-        "primary_source_event_id": "EVT-1aae26b4532a",
-        "source_headlines": [
-          "J.B. Hunt stock plunges 10% after company warns third-quarter earnings will fall"
-        ],
-        "source_headline": "J.B. Hunt stock plunges 10% after company warns third-quarter earnings will fall",
-        "source_url": "https://www.cnbc.com/2026/09/16/jb-hunt-stock-jbht-earnings.html",
-        "source_name": "CNBC",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-16T13:17:09Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-17T10:57:20Z",
-        "updated_at": "2026-09-18T00:05:46Z",
-        "decay_at": "2026-09-18T01:17:09Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-19T14:23:47Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1598,
-    "live_count": 26,
+    "live_count": 25,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -219867,9 +219866,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1889330,
-    "news_picked_today": 679,
-    "news_dropped_today": 5153
+    "news_seen_today": 2806579,
+    "news_picked_today": 694,
+    "news_dropped_today": 5162
   },
   "book_momentum": {
     "live_count": 8,
