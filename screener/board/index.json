@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-15T16:37:14Z",
+  "generated_at": "2026-10-15T16:41:13Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261015-569",
+      "headline": "ePayments Systems Limited enters special administration",
+      "headline_en": null,
+      "url": "https://www.fca.org.uk/news/news-stories/epayments-systems-limited-enters-special-administration",
+      "source_name": "UK Financial Conduct Authority (FCA) — News",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-15T16:27:04Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "ePayments Systems Limited has entered special administration, indicating insolvency.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ePayments Systems Limited has entered special administration, indicating insolvency.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ePayments Systems Limited",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261015-562",
       "headline": "Go Digit General Insurance Limited: Go Digit General Insurance Limited has informed the Exchange regarding a press release dated October 14, 2026, titled \"Fairfax Declared Strategic Buyer in Auction to Acquire Interest in IDBI Bank; Plans to Contribute Digit Insurance and IIFL Capital to IDBI Bank\".",
@@ -1915,60 +1964,6 @@
           "name": "CCC Intelligent Solutions",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-497",
-      "headline": "Fairfax to bring IIFL Capital, Digit under IDBI Bank after ₹52,878 crore acquisition, build financial services group",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/fairfax-to-bring-iifl-capital-digit-under-idbi-bank-after-rs-52-878-crore-acquisition-build-financial-services-group-11792069285653.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T13:14:14Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Fairfax is acquiring IDBI Bank for ₹52,878 crore to consolidate financial services.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Fairfax is acquiring IDBI Bank for ₹52,878 crore to consolidate financial services.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fairfax",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "IDBI Bank",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -219996,9 +219991,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8535686,
-    "news_picked_today": 1382,
-    "news_dropped_today": 8722
+    "news_seen_today": 8577142,
+    "news_picked_today": 1384,
+    "news_dropped_today": 8744
   },
   "book_momentum": {
     "live_count": 8,
