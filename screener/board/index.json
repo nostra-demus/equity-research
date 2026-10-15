@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T08:35:27Z",
+  "generated_at": "2026-10-15T08:42:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-328",
@@ -178148,6 +178148,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-edc3bf4b7b70",
+      "idea_version": "IDEAV-35705391f7c3c226",
+      "idea_version_started_at": "2026-10-15T08:41:58Z",
+      "ticker": "VNDA",
+      "company": "Vanda Pharmaceuticals",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The failure of the late-stage study for its anxiety drug removes a key pipeline asset and future revenue driver, forcing the company to halt the program.",
+      "why_now": "The clinical trial failure was announced on 2026-10-14.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f6aeabfd32d2"
+      ],
+      "primary_source_event_id": "EVT-f6aeabfd32d2",
+      "source_headlines": [
+        "Vanda says anxiety drug failed main goal of late-stage study, puts program on hold"
+      ],
+      "source_headline": "Vanda says anxiety drug failed main goal of late-stage study, puts program on hold",
+      "source_url": "https://www.reuters.com/business/healthcare-pharmaceuticals/vanda-says-anxiety-drug-failed-main-goal-late-stage-study-puts-program-hold-2026-10-14/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 95,
+      "newest_source_at": "2026-10-14T21:40:20Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-15T08:41:58Z",
+      "updated_at": "2026-10-15T08:41:58Z",
+      "decay_at": "2026-10-16T09:40:20Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-3d9be100b359",
       "idea_version": "IDEAV-cc32091157fb53b7",
       "idea_version_started_at": "2026-10-14T00:48:30Z",
@@ -178353,6 +178423,78 @@
       "surfaced_at": "2026-10-14T08:35:25Z",
       "updated_at": "2026-10-14T08:35:25Z",
       "decay_at": "2026-10-15T17:21:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-0265087a6e9a",
+      "idea_version": "IDEAV-fde2e6e557fc9647",
+      "idea_version_started_at": "2026-10-15T08:41:58Z",
+      "ticker": "ICICIGI",
+      "company": "ICICI Lombard",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 15.5% growth in Q2 net profit and declared a dividend of Rs 7, signaling strong operational performance and capital return.",
+      "why_now": "The earnings and dividend announcement occurred on 2026-10-15.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a4ec8d2bf1a6"
+      ],
+      "primary_source_event_id": "EVT-a4ec8d2bf1a6",
+      "source_headlines": [
+        "ICICI Lombard Q2 net profit growth 15.5%; Rs 7 dividend announced"
+      ],
+      "source_headline": "ICICI Lombard Q2 net profit growth 15.5%; Rs 7 dividend announced",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/icici-lombard-q2-net-profit-growth-15-5-rs-7-dividend-announced/articleshow/134955213.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-15T01:51:21Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-15T08:41:58Z",
+      "updated_at": "2026-10-15T08:41:58Z",
+      "decay_at": "2026-10-16T13:51:21Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -180340,76 +180482,6 @@
       "surfaced_at": "2026-10-12T18:34:22Z",
       "updated_at": "2026-10-12T18:34:22Z",
       "decay_at": "2026-10-14T05:13:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-7887ab3ce6c6",
-      "idea_version": "IDEAV-4ecbc763c0cbe847",
-      "idea_version_started_at": "2026-10-12T10:33:47Z",
-      "ticker": "YRD",
-      "company": "Yiren Digital",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The detention of the chairman following massive product defaults creates severe governance risk and potential for operational collapse.",
-      "why_now": "The news of the detention broke on 2026-10-12, representing an immediate existential threat to the firm.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-47f16d460fcc"
-      ],
-      "primary_source_event_id": "EVT-47f16d460fcc",
-      "source_headlines": [
-        "Beijing police detain Yiren Digital chairman after massive product defaults"
-      ],
-      "source_headline": "Beijing police detain Yiren Digital chairman after massive product defaults",
-      "source_url": "https://www.scmp.com/business/banking-finance/article/3370569/beijing-police-detain-yiren-digital-chairman-after-massive-product-defaults?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "materiality_max": 98,
-      "newest_source_at": "2026-10-12T07:24:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-12T10:33:47Z",
-      "updated_at": "2026-10-12T10:33:47Z",
-      "decay_at": "2026-10-13T19:24:24Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -182652,9 +182724,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 539,
+    "total_count": 538,
     "shown_count": 499,
-    "hidden_count": 40,
+    "hidden_count": 39,
     "side_counts": {
       "long": {
         "total_count": 273,
@@ -182662,14 +182734,14 @@
         "hidden_count": 23
       },
       "short": {
-        "total_count": 267,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 16
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1033,
+      "evicted_count": 1034,
       "oldest_retained_at": "2026-09-16T11:34:00Z",
       "side_counts": {
         "long": {
@@ -182677,7 +182749,7 @@
           "oldest_retained_at": "2026-10-01T11:52:59Z"
         },
         "short": {
-          "evicted_count": 346,
+          "evicted_count": 347,
           "oldest_retained_at": "2026-09-16T11:34:00Z"
         }
       }
@@ -185654,8 +185726,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-13T19:24:24Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-15T08:42:04Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -219846,8 +219918,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1598,
-    "live_count": 25,
+    "surfaced_total": 1600,
+    "live_count": 27,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -219866,7 +219938,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2896981,
+    "news_seen_today": 2951847,
     "news_picked_today": 724,
     "news_dropped_today": 5180
   },
