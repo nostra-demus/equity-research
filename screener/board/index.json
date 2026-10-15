@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T09:52:17Z",
+  "generated_at": "2026-10-15T09:54:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-386",
@@ -1597,6 +1597,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-406",
+      "headline": "GUANGDONG INV (00270): Committed Revolving Loan Facility in the Principal Amount of HK$1,750,000,000 and Disclosure Pursuant to Rule 13.18 of the Listing Rules",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1015/2026101500471.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T09:08:00Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Guangdong Investment secured a HK$1.75 billion revolving loan facility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Guangdong Investment secured a HK$1.75 billion revolving loan facility.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GUANGDONG INV",
+          "ticker": "00270",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-141",
       "headline": "Mukesh Ambani's Jio sets price band for India IPO",
       "headline_en": null,
@@ -1941,60 +1990,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-400",
-      "headline": "TCS Completes 100% Acquisition Of BBY Services India LLP, Company Becomes Wholly Owned Subsidiary",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/tcs-completes-100-acquisition-of-bby-services-india-llp-company-becomes-wholly-owned-subsidiary",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T08:52:12Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "TCS completed the 100% acquisition of BBY Services India LLP, making it a wholly owned subsidiary.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "TCS completed the 100% acquisition of BBY Services India LLP, making it a wholly owned subsidiary.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Consultancy Services",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "BBY Services India LLP",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219945,9 +219940,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3624982,
-    "news_picked_today": 835,
-    "news_dropped_today": 5741
+    "news_seen_today": 3661998,
+    "news_picked_today": 842,
+    "news_dropped_today": 5758
   },
   "book_momentum": {
     "live_count": 8,
