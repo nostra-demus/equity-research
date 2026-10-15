@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T09:30:47Z",
+  "generated_at": "2026-10-15T09:33:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-386",
@@ -1946,51 +1946,55 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261015-155",
-      "headline": "Japan to invest up to $21 billion in two U.S. chip factories to be run by GlobalFoundries",
+      "inbox_id": "INB-20261015-400",
+      "headline": "TCS Completes 100% Acquisition Of BBY Services India LLP, Company Becomes Wholly Owned Subsidiary",
       "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/10/15/companies/japan-21-billion-investment-us-chip/",
-      "source_name": "The Japan Times",
+      "url": "https://www.freepressjournal.in/business/tcs-completes-100-acquisition-of-bby-services-india-llp-company-becomes-wholly-owned-subsidiary",
+      "source_name": "Free Press Journal",
       "input_nature": "news_headline",
-      "found_at": "2026-10-15T01:14:00Z",
+      "found_at": "2026-10-15T08:52:12Z",
       "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Japan announces up to $21 billion investment in two U.S. chip factories operated by GlobalFoundries, signaling major semiconductor-capacity expansion with supply-chain and geopolitical implications.",
+      "prelim_note": "TCS completed the 100% acquisition of BBY Services India LLP, making it a wholly owned subsidiary.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 97,
-      "triage_reason": "Japan announces up to $21 billion investment in two U.S. chip factories operated by GlobalFoundries, signaling major semiconductor-capacity expansion with supply-chain and geopolitical implications.",
-      "region": "US",
+      "triage_reason": "TCS completed the 100% acquisition of BBY Services India LLP, making it a wholly owned subsidiary.",
+      "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 72,
+      "materiality_pre_score": 65,
       "rank_factors": {
-        "materiality": 72,
+        "materiality": 65,
         "source_tier": 0,
-        "scope": 6,
-        "event": 6,
+        "scope": 5,
+        "event": 9,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 5,
         "quantified": 6,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
+        "event_id": "mna",
+        "size_bucket": "mega"
       },
       "event_types": [
-        "capex",
-        "macro_sector"
+        "mna"
       ],
-      "issuer_linkage": "secondary",
+      "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "GlobalFoundries",
-          "ticker": "GFS",
-          "listing_country": "US"
+          "name": "Tata Consultancy Services",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "BBY Services India LLP",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220010,9 +220014,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3423383,
-    "news_picked_today": 822,
-    "news_dropped_today": 5610
+    "news_seen_today": 3459863,
+    "news_picked_today": 826,
+    "news_dropped_today": 5630
   },
   "book_momentum": {
     "live_count": 8,
