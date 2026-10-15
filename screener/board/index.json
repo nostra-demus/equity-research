@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-15T04:46:16Z",
+  "generated_at": "2026-10-15T04:51:06Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261015-274",
+      "headline": "AXISCADES Technologies Limited: AXISCADES Technologies Limited has informed the Exchange regarding a press release dated October 15, 2026, titled \"AXISCADES XIDA to acquire Silicon Valley-based ITSJ business a ready-made US base inside the AI hardware supply chain\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/AXISCADES_15102026091042_PressRelease_15102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T03:42:40Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "AXISCADES Technologies is acquiring a Silicon Valley-based business to expand its US AI hardware footprint.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AXISCADES Technologies is acquiring a Silicon Valley-based business to expand its US AI hardware footprint.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AXISCADES Technologies Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261015-027",
       "headline": "FINELAND LIVING (09978): COMPOSITE DOCUMENT FOR UNCONDITIONAL MANDATORY CASH OFFER BY ALTUS INVESTMENTS LIMITED FOR AND ON BEHALF OF THE OFFEROR FOR ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED OR AGREED TO BE ACQUIRED BY THE OFFEROR AND THE OFFEROR CONCERT PARTIES)",
@@ -1933,56 +1982,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-050",
-      "headline": "RAFFLESINTERIOR (01376): (1) THE CONDUCT OF MR. DING HING HUI, MR. TAN JUNDA ANTHONY REGARDING THE HANDOVER OF NGAI CHIN CONSTRUCTION PTE LTD. (2) DISCOVERY OF ENTRENCHED PROVISIONS OF THE CONSTITUTION OF NGAI CHIN CONSTRUCTION PTE LTD., GIVING SPECIAL VETO POWER TO MR. LO LEK CHEW AND MR LOW LEK HUAT AND (3) CONTINUED SUSPENSION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1015/2026101500007.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-14T22:12:00Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "The company reports governance issues, internal disputes, and continued trading suspension, indicating significant operational and legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "The company reports governance issues, internal disputes, and continued trading suspension, indicating significant operational and legal risk.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Raffles Interior",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220007,9 +220006,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 741623,
-    "news_picked_today": 582,
-    "news_dropped_today": 3186
+    "news_seen_today": 765724,
+    "news_picked_today": 593,
+    "news_dropped_today": 3247
   },
   "book_momentum": {
     "live_count": 8,
