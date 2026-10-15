@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T14:13:30Z",
+  "generated_at": "2026-10-15T14:15:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-532",
@@ -1130,6 +1130,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-533",
+      "headline": "CoreWeave Risk Gauge Hits Record, Pricing 60% Odds of Default",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-15/coreweave-risk-gauge-hits-record-pricing-60-odds-of-default",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T14:01:51Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Market pricing indicates a 60% probability of default for CoreWeave, signaling severe credit distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Market pricing indicates a 60% probability of default for CoreWeave, signaling severe credit distress.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CoreWeave",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-521",
       "headline": "GTCR, Elliott Acquire Software Firm CCC for $4.6 Billion",
       "headline_en": null,
@@ -1928,55 +1977,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-428",
-      "headline": "IonQ raises $2 billion from the buyer that paid $93 a share last year",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/investing/ionq-sells-2-billion-to-heights-capital-at-deep-discount",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T11:37:00Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "IonQ raised $2 billion in capital.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "IonQ raised $2 billion in capital.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IonQ",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220069,9 +220069,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6701072,
-    "news_picked_today": 1266,
-    "news_dropped_today": 7638
+    "news_seen_today": 6742472,
+    "news_picked_today": 1268,
+    "news_dropped_today": 7660
   },
   "book_momentum": {
     "live_count": 8,
