@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T12:42:26Z",
+  "generated_at": "2026-10-15T12:44:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-458",
@@ -1135,6 +1135,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-469",
+      "headline": "IRFC Q2 results 2026, dividend: Navratna PSU declares highest-ever dividend; Profit rises 10% to ₹1,958 cr",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/irfc-q2-results-2026-dividend-maharatna-psu-declares-highest-ever-dividend-profit-rises-10-to-rs-1-958-cr-11792066355251.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T12:16:11Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "IRFC reported 10% profit growth to ₹1,958 cr and declared a dividend.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IRFC reported 10% profit growth to ₹1,958 cr and declared a dividend.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IRFC",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-465",
+      "headline": "AtlasClear To Acquire Ark Financial Services For Up To $24.5 Mln",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/atlasclear-acquire-ark-financial-services-245-mln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T12:09:02Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "AtlasClear to acquire Ark Financial Services for $24.5 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AtlasClear to acquire Ark Financial Services for $24.5 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AtlasClear",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-431",
       "headline": "Tech Mahindra Q2 results: Net profit jumps 32.7% to ₹1,586 crore, revenue rises 15.6%",
       "headline_en": null,
@@ -1867,109 +1966,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-292",
-      "headline": "Reliance Industries shares gain after Jio announces price band for India's largest IPO",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/reliance-industries-ril-share-price-jio-platforms-ipo-price-band-dates-shareholder-quota-discount-lot-timeline-20012099.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T03:48:01Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Reliance Industries is moving forward with the IPO of Jio, which is described as India's largest IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Reliance Industries is moving forward with the IPO of Jio, which is described as India's largest IPO.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Jio",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-235",
-      "headline": "NoonTalk needs continued financial support from CEO Dasmond Koh, auditors warn",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/noontalk-needs-continued-financial-support-ceo-dasmond-koh-auditors-warn",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T02:32:04Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Auditors have issued a warning regarding NoonTalk's ability to continue as a going concern without financial support from its CEO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Auditors have issued a warning regarding NoonTalk's ability to continue as a going concern without financial support from its CEO.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NoonTalk",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220068,9 +220064,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5517310,
-    "news_picked_today": 1110,
-    "news_dropped_today": 6954
+    "news_seen_today": 5537600,
+    "news_picked_today": 1120,
+    "news_dropped_today": 6968
   },
   "book_momentum": {
     "live_count": 8,
