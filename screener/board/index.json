@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T14:15:55Z",
+  "generated_at": "2026-10-15T14:28:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-532",
@@ -1130,6 +1130,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-537",
+      "headline": "Intuit To Buy Sequence, Shares Jump",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/intuit-buy-sequence-shares-jump",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T14:02:22Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Intuit announced the acquisition of Sequence.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Intuit announced the acquisition of Sequence.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intuit",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-533",
       "headline": "CoreWeave Risk Gauge Hits Record, Pricing 60% Odds of Default",
       "headline_en": null,
@@ -1925,55 +1974,6 @@
           "name": "Tech Mahindra",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-476",
-      "headline": "Penske Automotive Inks $16.3 Bln Merger Deal With Penske, Mitsui To Go Private; PAG Shares Up 8%",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/penske-automotive-inks-163-bln-merger-deal-penske-mitsui-go-private-pag-shares-8",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T11:43:28Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Penske Automotive announced a $16.3 billion merger deal to go private, significantly impacting shareholder value.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Penske Automotive announced a $16.3 billion merger deal to go private, significantly impacting shareholder value.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Penske Automotive",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -180502,77 +180502,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3db24171678d",
-      "idea_version": "IDEAV-2476dd0fe7baf0b5",
-      "idea_version_started_at": "2026-10-14T05:13:31Z",
-      "ticker": "LRV",
-      "company": "Larvotto Resources",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The first shipment of concentrate from the Hillgrove project marks a transition from exploration to revenue-generating operations.",
-      "why_now": "The filing was released on October 14, 2026, confirming the start of commercial production.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2062507ca080"
-      ],
-      "primary_source_event_id": "EVT-2062507ca080",
-      "source_headlines": [
-        "LRV: First Concentrate Shipped from Hillgrove [price-sensitive]"
-      ],
-      "source_headline": "LRV: First Concentrate Shipped from Hillgrove [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LRV?key=2924-03148227-6A1349174",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 90,
-      "newest_source_at": "2026-10-14T02:24:08Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-14T05:13:31Z",
-      "updated_at": "2026-10-14T05:13:31Z",
-      "decay_at": "2026-10-15T14:24:08Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5dcef043aea8",
       "idea_version": "IDEAV-815920f2a7efaf9c",
       "idea_version_started_at": "2026-10-14T00:48:30Z",
@@ -182419,6 +182348,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-3db24171678d",
+      "idea_version": "IDEAV-2476dd0fe7baf0b5",
+      "idea_version_started_at": "2026-10-14T05:13:31Z",
+      "ticker": "LRV",
+      "company": "Larvotto Resources",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The first shipment of concentrate from the Hillgrove project marks a transition from exploration to revenue-generating operations.",
+      "why_now": "The filing was released on October 14, 2026, confirming the start of commercial production.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2062507ca080"
+      ],
+      "primary_source_event_id": "EVT-2062507ca080",
+      "source_headlines": [
+        "LRV: First Concentrate Shipped from Hillgrove [price-sensitive]"
+      ],
+      "source_headline": "LRV: First Concentrate Shipped from Hillgrove [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LRV?key=2924-03148227-6A1349174",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 90,
+      "newest_source_at": "2026-10-14T02:24:08Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-14T05:13:31Z",
+      "updated_at": "2026-10-14T05:13:31Z",
+      "decay_at": "2026-10-15T14:24:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-5ef7cac32b21",
       "idea_version": "IDEAV-47c37289bd6a2c31",
       "idea_version_started_at": "2026-10-13T09:12:26Z",
@@ -182859,14 +182859,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 531,
+    "total_count": 532,
     "shown_count": 499,
-    "hidden_count": 32,
+    "hidden_count": 33,
     "side_counts": {
       "long": {
-        "total_count": 267,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 18
       },
       "short": {
         "total_count": 265,
@@ -182890,6 +182890,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3db24171678d",
+        "idea_version": "IDEAV-2476dd0fe7baf0b5",
+        "idea_version_started_at": "2026-10-14T05:13:31Z",
+        "ticker": "LRV",
+        "company": "Larvotto Resources",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The first shipment of concentrate from the Hillgrove project marks a transition from exploration to revenue-generating operations.",
+        "why_now": "The filing was released on October 14, 2026, confirming the start of commercial production.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2062507ca080"
+        ],
+        "primary_source_event_id": "EVT-2062507ca080",
+        "source_headlines": [
+          "LRV: First Concentrate Shipped from Hillgrove [price-sensitive]"
+        ],
+        "source_headline": "LRV: First Concentrate Shipped from Hillgrove [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LRV?key=2924-03148227-6A1349174",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 90,
+        "newest_source_at": "2026-10-14T02:24:08Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-14T05:13:31Z",
+        "updated_at": "2026-10-14T05:13:31Z",
+        "decay_at": "2026-10-15T14:24:08Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-15T14:24:08Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-5f8e4c75be94",
         "idea_version": "IDEAV-00dd1eb7eab5b8cb",
@@ -211431,79 +211505,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-193acec1f3b7",
-        "idea_version": "IDEAV-f4a1bce45870f66c",
-        "idea_version_started_at": "2026-10-01T20:03:17Z",
-        "ticker": "MAT",
-        "company": "Mattel",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Authentic Brands Group has expressed takeover interest in Mattel, which typically triggers a premium valuation adjustment in M&A scenarios.",
-        "why_now": "The report of takeover interest surfaced on 2026-10-01, creating an immediate catalyst for price appreciation based on potential acquisition premiums.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 66,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-63928cc4261e"
-        ],
-        "primary_source_event_id": "EVT-63928cc4261e",
-        "source_headlines": [
-          "Barbie-Maker Mattel Draws Takeover Interest From Authentic Brands Group"
-        ],
-        "source_headline": "Barbie-Maker Mattel Draws Takeover Interest From Authentic Brands Group",
-        "source_url": "https://www.wsj.com/business/retail/barbie-maker-mattel-draws-takeover-interest-from-authentic-brands-group-21270470?mod=pls_whats_news_us_business_f",
-        "source_name": "The Wall Street Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-01T18:32:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-01T20:03:17Z",
-        "updated_at": "2026-10-01T20:03:17Z",
-        "decay_at": "2026-10-03T06:32:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-04T19:04:56Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-fcc665b98933",
         "idea_version": "IDEAV-5cd3b330cd494a3e",
         "idea_version_started_at": "2026-10-01T19:27:53Z",
@@ -220050,7 +220051,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1614,
-    "live_count": 36,
+    "live_count": 35,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -220069,9 +220070,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6742472,
-    "news_picked_today": 1268,
-    "news_dropped_today": 7660
+    "news_seen_today": 6887207,
+    "news_picked_today": 1277,
+    "news_dropped_today": 7747
   },
   "book_momentum": {
     "live_count": 8,
