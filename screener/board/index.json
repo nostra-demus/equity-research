@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T06:27:03Z",
+  "generated_at": "2026-10-15T06:42:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-293",
@@ -1293,6 +1293,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-312",
+      "headline": "Zydus Lifesciences Limited: Zydus Lifesciences Limited has informed the Exchange regarding a press release dated October 15, 2026, titled \"Zydus Sunshine Lifesciences signs agreement with Board of Investment, Sri Lanka to establish a pharmaceutical manufacturing facility in Sri Lanka\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/Cadilahc_15102026113006_PressRelease15102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T06:00:32Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Zydus Lifesciences is expanding its manufacturing footprint by establishing a new facility in Sri Lanka.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Zydus Lifesciences is expanding its manufacturing footprint by establishing a new facility in Sri Lanka.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zydus Lifesciences Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-272",
       "headline": "BDX: Letter to Genetic Signatures Ltd Shareholders",
       "headline_en": null,
@@ -1938,55 +1987,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-248",
-      "headline": "AI giant Anthropic sees revenue surge ahead of stock market listing",
-      "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/cqzjx448vxkgo?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T01:56:32Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Anthropic reports a revenue surge ahead of a potential IPO, signaling strong growth for the AI firm.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Anthropic reports a revenue surge ahead of a potential IPO, signaling strong growth for the AI firm.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219868,9 +219868,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1554557,
-    "news_picked_today": 656,
-    "news_dropped_today": 4072
+    "news_seen_today": 1659572,
+    "news_picked_today": 660,
+    "news_dropped_today": 4164
   },
   "book_momentum": {
     "live_count": 8,
