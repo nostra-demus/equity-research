@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T02:10:40Z",
+  "generated_at": "2026-10-15T02:20:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-027",
@@ -445,6 +445,55 @@
           "name": "GlobalFoundries",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-215",
+      "headline": "Mohamed Alabbar unveils up to $17bn Syria investment plans as Emaar reveals $40.8bn property backlog",
+      "headline_en": null,
+      "url": "https://www.arabianbusiness.com/real-estate/mohamed-alabbar-syria-investment-emaar-dubai",
+      "source_name": "Arabian Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T20:54:50Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Significant investment plans ($17bn) in Syria and a large property backlog ($40.8bn) indicate major business activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Significant investment plans ($17bn) in Syria and a large property backlog ($40.8bn) indicate major business activity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Emaar",
+          "ticker": null,
+          "listing_country": "AE"
         }
       ],
       "size_bucket": "large",
@@ -1391,6 +1440,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-232",
+      "headline": "Morgan Stanley tops estimates as equities trading revenue beats expectations by $909 million",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/14/morgan-stanley-ms-q3-2026-earnings.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T20:22:09Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Morgan Stanley beat earnings estimates with equities trading revenue exceeding expectations by $909 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Morgan Stanley beat earnings estimates with equities trading revenue exceeding expectations by $909 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Morgan Stanley",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-050",
       "headline": "RAFFLESINTERIOR (01376): (1) THE CONDUCT OF MR. DING HING HUI, MR. TAN JUNDA ANTHONY REGARDING THE HANDOVER OF NGAI CHIN CONSTRUCTION PTE LTD. (2) DISCOVERY OF ENTRENCHED PROVISIONS OF THE CONSTITUTION OF NGAI CHIN CONSTRUCTION PTE LTD., GIVING SPECIAL VETO POWER TO MR. LO LEK CHEW AND MR LOW LEK HUAT AND (3) CONTINUED SUSPENSION OF TRADING",
       "headline_en": null,
@@ -1638,6 +1736,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-192",
+      "headline": "CBI Arrests MIL Executive Director, 2 Others In Bribery Case; ₹2.23 Crore Cash Seized",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/mumbai/cbi-arrests-mil-executive-director-2-others-in-bribery-case-223-crore-cash-seized",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T21:02:43Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "An executive director of MIL was arrested in a bribery case involving the seizure of ₹2.23 crore in cash.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "An executive director of MIL was arrested in a bribery case involving the seizure of ₹2.23 crore in cash.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MIL",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-152",
       "headline": "OpenAI Faces Fresh Legal Challenge As Eight US States Sue Over ChatGPT",
       "headline_en": null,
@@ -1834,153 +1981,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-181",
-      "headline": "Stock Market Today, Oct. 14: CoreWeave Plummets on Gartner Neocloud Warning and Bond Yield Surge",
-      "headline_en": null,
-      "url": "https://www.fool.com/coverage/stock-market-today/2026/10/14/stock-market-today-oct-14-coreweave-plummets-on-gartner-neocloud-warning-and-bond-yield-surge/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T21:28:36Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "CoreWeave stock plummeted following a Gartner Neocloud warning and broader market bond yield surge.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "CoreWeave stock plummeted following a Gartner Neocloud warning and broader market bond yield surge.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CoreWeave",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-029",
-      "headline": "NEW WORLD DEV NWD (MTN) N2802 NWD (MTN) N2706 NWCL N2701 (00017 05149 05321 05343): ANNOUNCEMENT OF EARLY RESULTS IN CONNECTION WITH THE EARLY TENDER DATE AND EARLY PAYMENT DATE IN RELATION TO THE EXCHANGE OFFERS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1015/2026101500021.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-14T23:11:00Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "New World Development announced early results for its exchange offers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "New World Development announced early results for its exchange offers.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "New World Development",
-          "ticker": "00017",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-117",
-      "headline": "Taihan Cable wins 120 bln-won HVAC system order in U.S.",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261015002900320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T00:41:04Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Taihan Cable secured a 120 billion won HVAC system order in the U.S.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Taihan Cable secured a 120 billion won HVAC system order in the U.S.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Taihan Cable & Solution",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220439,9 +220439,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 376147,
-    "news_picked_today": 287,
-    "news_dropped_today": 1273
+    "news_seen_today": 402139,
+    "news_picked_today": 349,
+    "news_dropped_today": 1451
   },
   "book_momentum": {
     "live_count": 8,
