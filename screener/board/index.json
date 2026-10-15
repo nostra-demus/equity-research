@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-15T22:26:15Z",
+  "generated_at": "2026-10-15T22:34:15Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261015-604",
+      "headline": "AHC: Austco Healthcare to acquire CareTech Systems [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AHC?key=2924-03149169-3A704259",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T22:17:57Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Austco Healthcare is acquiring CareTech Systems to expand its operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Austco Healthcare is acquiring CareTech Systems to expand its operations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Austco Healthcare",
+          "ticker": "AHC",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261015-603",
       "headline": "DYL: Update - Tumas Project, Namibia [price-sensitive]",
@@ -1932,55 +1981,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-568",
-      "headline": "Labcorp to buy BioReference assets for up to $872M",
-      "headline_en": null,
-      "url": "https://www.medtechdive.com/news/labcorp-to-buy-bioreference-assets-for-up-to-872m/833116/",
-      "source_name": "MedTech Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T15:18:59Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Labcorp to acquire assets for $872M.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Labcorp to acquire assets for $872M.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Labcorp",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220228,9 +220228,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 13083470,
-    "news_picked_today": 1682,
-    "news_dropped_today": 11422
+    "news_seen_today": 13209281,
+    "news_picked_today": 1686,
+    "news_dropped_today": 11490
   },
   "book_momentum": {
     "live_count": 8,
