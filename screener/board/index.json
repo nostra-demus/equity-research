@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-15T12:15:42Z",
+  "generated_at": "2026-10-15T12:17:52Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261015-432",
+      "headline": "Yes Bank Limited: The Exchange has sought clarification from Yes Bank Limited with respect to recent news item captioned Yes Bank share price sees sharp fall of 10% after Supreme Court ruling on Rs.8,400 crore AT-1 bond write-off. The response from the Company is attached.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/YESBANK_15102026173107_NSEResponse15102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T12:01:37Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Yes Bank shares fell 10% following a Supreme Court ruling regarding an Rs 8,400 crore AT-1 bond write-off.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Yes Bank shares fell 10% following a Supreme Court ruling regarding an Rs 8,400 crore AT-1 bond write-off.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yes Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261015-419",
       "headline": "SOMERLEY CAP (08439): JOINT ANNOUNCEMENT COMPLETION OF THE SALE AND PURCHASE AGREEMENT AND MANDATORY UNCONDITIONAL CASH OFFERS BY EDDID CAPITAL LIMITED AND RED SUN CAPITAL LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND THE PARTIES ACTING IN CONCERT WITH IT) AND TO CANCEL ALL OUTSTANDING OPTIONS OF THE COMPANY",
@@ -782,6 +831,105 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-431",
+      "headline": "Tech Mahindra Q2 results: Net profit jumps 32.7% to ₹1,586 crore, revenue rises 15.6%",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/tech-mahindra-q2-results-net-profit-jumps-327-to-1586-crore-revenue-rises-156/article71587972.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T11:55:17Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Tech Mahindra reported Q2 net profit of Rs 1,586 crore, up 32.7%, with revenue growth of 15.6%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tech Mahindra reported Q2 net profit of Rs 1,586 crore, up 32.7%, with revenue growth of 15.6%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tech Mahindra",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-429",
+      "headline": "Tech Mahindra Q2 Results: Net profit jumps 33% YoY to Rs 1,586 crore; co declares Rs 15/share dividend, 1:1 bonus issue",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/tech-mahindra-q2-results-net-profit-jumps-33-yoy-to-rs-1586-crore-co-declares-rs-15/share-dividend-11-bonus-issue/articleshow/134966850.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T11:44:04Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Tech Mahindra reported a 33% YoY net profit increase to Rs 1,586 crore and announced a Rs 15/share dividend and 1:1 bonus issue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tech Mahindra reported a 33% YoY net profit increase to Rs 1,586 crore and announced a Rs 15/share dividend and 1:1 bonus issue.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tech Mahindra",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1823,158 +1971,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-070",
-      "headline": "Cabinet clears way for Watsa's Fairfax's Rs 52,878 crore deal for 60.72% stake in IDBI Bank",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/cabinet-clears-way-for-watsa-fairfax-rs-52878-crore-deal-for-60-72-stake-in-idbi-bank-lic/articleshow/134950380.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Cabinet approved Fairfax's Rs 52,878 crore acquisition of a 60.72% stake in IDBI Bank.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Cabinet approved Fairfax's Rs 52,878 crore acquisition of a 60.72% stake in IDBI Bank.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IDBI Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Fairfax",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-102",
-      "headline": "Anthropic's Q3 revenue surges 45% to nearly $17 billion",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/finance/anthropics-q3-revenue-surges-45-nearly-17-billion-2026-10-14/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T22:27:14Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Anthropic reported a 45% surge in Q3 revenue to nearly $17 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Anthropic reported a 45% surge in Q3 revenue to nearly $17 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-099",
-      "headline": "GlobalFoundries to open 2 new chip plants in New York with $21 billion in financing from Japan",
-      "headline_en": null,
-      "url": "https://japantoday.com/category/tech/globalfoundries-to-open-2-new-chip-plants-in-new-york-with-21-billion-in-financing-from-japan",
-      "source_name": "Japan Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T21:39:39Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "GlobalFoundries is planning to open two new chip plants in New York with $21 billion in financing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GlobalFoundries is planning to open two new chip plants in New York with $21 billion in financing.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GlobalFoundries",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220073,9 +220069,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5157143,
-    "news_picked_today": 1063,
-    "news_dropped_today": 6785
+    "news_seen_today": 5177090,
+    "news_picked_today": 1068,
+    "news_dropped_today": 6804
   },
   "book_momentum": {
     "live_count": 8,
