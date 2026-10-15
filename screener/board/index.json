@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T20:36:56Z",
+  "generated_at": "2026-10-15T20:39:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-583",
@@ -1533,6 +1533,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-590",
+      "headline": "Proofpoint to buy Varonis Systems in $6.3 billion all-cash deal",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/proofpoint-buy-varonis-systems-63-billion-all-cash-deal-2026-10-15/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T20:22:54Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Proofpoint to acquire Varonis Systems in a $6.3 billion all-cash deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Proofpoint to acquire Varonis Systems in a $6.3 billion all-cash deal.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Proofpoint",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Varonis Systems",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-586",
       "headline": "Wellness Company Hain Celestial Said to Eye Potential Bankruptcy",
       "headline_en": null,
@@ -1931,49 +1985,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-552",
-      "headline": "MoD signs ₹4,106 crore deals to acquire secured dedicated satellite communication capability & heavy weight torpedoes",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/national/mod-signs-4106-crore-deals-to-acquire-secured-dedicated-satellite-communication-capability-heavy-weight-torpedoes/article71588969.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T15:02:42Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Ministry of Defence signed ₹4,106 crore deals for satellite communication and torpedoes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ministry of Defence signed ₹4,106 crore deals for satellite communication and torpedoes.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220218,9 +220229,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11607131,
-    "news_picked_today": 1572,
-    "news_dropped_today": 10548
+    "news_seen_today": 11670303,
+    "news_picked_today": 1578,
+    "news_dropped_today": 10566
   },
   "book_momentum": {
     "live_count": 8,
