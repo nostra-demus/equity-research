@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T01:41:30Z",
+  "generated_at": "2026-10-15T01:45:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-027",
@@ -1096,6 +1096,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-158",
+      "headline": "TTT: Re-structuring targets A$3.0 million in annualized savings [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TTT?key=2924-03148787-3A704176",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T01:19:43Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Company targets A$3 million in annualized savings through restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Company targets A$3 million in annualized savings through restructuring.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TTT",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-161",
+      "headline": "New World’s Debt Swap Falls Short of Cap by Early Deadline",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-15/new-world-s-debt-swap-falls-short-of-cap-by-early-deadline",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T01:07:06Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "New World Development's debt swap failed to meet its target by the early deadline, signaling potential liquidity stress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "New World Development's debt swap failed to meet its target by the early deadline, signaling potential liquidity stress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "New World Development",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-050",
       "headline": "RAFFLESINTERIOR (01376): (1) THE CONDUCT OF MR. DING HING HUI, MR. TAN JUNDA ANTHONY REGARDING THE HANDOVER OF NGAI CHIN CONSTRUCTION PTE LTD. (2) DISCOVERY OF ENTRENCHED PROVISIONS OF THE CONSTITUTION OF NGAI CHIN CONSTRUCTION PTE LTD., GIVING SPECIAL VETO POWER TO MR. LO LEK CHEW AND MR LOW LEK HUAT AND (3) CONTINUED SUSPENSION OF TRADING",
       "headline_en": null,
@@ -1386,6 +1484,55 @@
         },
         {
           "name": "Sohar Health",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-157",
+      "headline": "Vic public servants failed to inform minister of suspected $285m fraud",
+      "headline_en": null,
+      "url": "https://www.afr.com/politics/federal/vic-public-servants-failed-to-inform-minister-of-suspected-285m-fraud-20261015-p615sv?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T01:20:15Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Public servants failed to report a suspected $285 million fraud, indicating significant internal control and governance failures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Public servants failed to report a suspected $285 million fraud, indicating significant internal control and governance failures.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Victorian Government",
           "ticker": null,
           "listing_country": null
         }
@@ -1831,154 +1978,6 @@
           "name": "J&T Express",
           "ticker": null,
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-104",
-      "headline": "Canada Threatens to Force Cleveland-Cliffs (CLF) to Sell Assets Over Layoffs",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-14/canada-threatens-to-force-cleveland-cliffs-clf-to-sell-assets-over-layoffs",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T21:55:55Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Canadian government threatens to force Cleveland-Cliffs to sell assets due to layoffs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Canadian government threatens to force Cleveland-Cliffs to sell assets due to layoffs.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cleveland-Cliffs",
-          "ticker": "CLF",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-093",
-      "headline": "Cisco make-me-root email bug exploited as a 0-day by unknown crims",
-      "headline_en": null,
-      "url": "https://www.theregister.com/security/2026/10/14/cisco-make-me-root-email-bug-exploited-as-a-0-day-by-unknown-crims/5303168",
-      "source_name": "The Register",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T21:40:29Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "A critical email vulnerability (make-me-root 0-day) actively exploited in Cisco systems plausibly alters operational and customer-trust risk; impact on churn and remediation costs unquantified.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "A critical email vulnerability (make-me-root 0-day) actively exploited in Cisco systems plausibly alters operational and customer-trust risk; impact on churn and remediation costs unquantified.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 8,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "cybersecurity",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cisco",
-          "ticker": "CSCO",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-111",
-      "headline": "CoreWeave Shares Plunge as CEO Expresses Confidence",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-10-15/coreweave-shares-plunge-as-ceo-expresses-confidence-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T00:38:40Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "CoreWeave shares fell despite CEO confidence, reflecting market volatility in the AI infrastructure sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "CoreWeave shares fell despite CEO confidence, reflecting market volatility in the AI infrastructure sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CoreWeave",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -220444,9 +220443,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 296284,
-    "news_picked_today": 220,
-    "news_dropped_today": 932
+    "news_seen_today": 323248,
+    "news_picked_today": 226,
+    "news_dropped_today": 974
   },
   "book_momentum": {
     "live_count": 8,
