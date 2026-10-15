@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T15:19:35Z",
+  "generated_at": "2026-10-15T15:20:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-538",
@@ -1179,6 +1179,98 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-549",
+      "headline": "L&T Finance Q2 results: Net profit jumps 33% to ₹975 crore as retail loans grow",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/lt-finance-q2-results-net-profit-jumps-33-to-rs975-crore-as-retail-loans-grow-20012958.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T15:08:13Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "L&T Finance reported a 33% jump in net profit to ₹975 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "L&T Finance reported a 33% jump in net profit to ₹975 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "L&T Finance",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-552",
+      "headline": "MoD signs ₹4,106 crore deals to acquire secured dedicated satellite communication capability & heavy weight torpedoes",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/national/mod-signs-4106-crore-deals-to-acquire-secured-dedicated-satellite-communication-capability-heavy-weight-torpedoes/article71588969.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T15:02:42Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Ministry of Defence signed ₹4,106 crore deals for satellite communication and torpedoes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ministry of Defence signed ₹4,106 crore deals for satellite communication and torpedoes.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-545",
       "headline": "Jio Financial Services Q2 Results: PAT drops 51% YoY to Rs 340 crore; NII soars 165%",
       "headline_en": null,
@@ -1878,104 +1970,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-527",
-      "headline": "Kimberly-Clark posts preliminary results above estimates, China clears formamide claims",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/kimberly-clark-posts-preliminary-quarterly-results-above-estimates-2026-10-15/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T12:05:00Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Kimberly-Clark reported preliminary results exceeding analyst estimates.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Kimberly-Clark reported preliminary results exceeding analyst estimates.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kimberly-Clark",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-470",
-      "headline": "Exclusive: Stand raises $70 million at $1 billion valuation to price wildfire risk by treating homes like airplanes in flight",
-      "headline_en": null,
-      "url": "https://fortune.com/2026/10/15/stand-insurance-wildfire-unicorn-raises-70-million-1-billion-valuation/",
-      "source_name": "Fortune",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T12:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Stand raised $70 million at a $1 billion valuation, indicating significant capital inflow and unicorn status.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Stand raised $70 million at a $1 billion valuation, indicating significant capital inflow and unicorn status.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Stand",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219856,9 +219850,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7574927,
-    "news_picked_today": 1311,
-    "news_dropped_today": 8073
+    "news_seen_today": 7595981,
+    "news_picked_today": 1322,
+    "news_dropped_today": 8086
   },
   "book_momentum": {
     "live_count": 8,
