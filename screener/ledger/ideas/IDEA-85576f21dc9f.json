@@ -1,0 +1,74 @@
+{
+  "idea_id": "IDEA-85576f21dc9f",
+  "idea_version": "IDEAV-69cdc7b7ed2d2638",
+  "idea_version_started_at": "2026-10-15T10:07:38Z",
+  "ticker": "FBR",
+  "company": "Famous Brands",
+  "exchange": "JSE",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The company issued a profit warning indicating an expected drop of up to 33% in interim earnings, reflecting significant margin compression or revenue headwinds.",
+  "why_now": "The warning was issued on October 15, 2026, and the market has yet to fully digest the impact on the full-year outlook.",
+  "conviction": 70,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 19,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-6be73d502c2e"
+  ],
+  "primary_source_event_id": "EVT-6be73d502c2e",
+  "source_headlines": [
+    "Famous Brands warns of up to 33% drop in interim earnings"
+  ],
+  "source_headline": "Famous Brands warns of up to 33% drop in interim earnings",
+  "source_url": "https://www.moneyweb.co.za/news/companies-and-deals/famous-brands-warns-of-up-to-33-drop-in-interim-earnings/",
+  "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-15T08:09:36Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-15T10:07:38Z",
+  "updated_at": "2026-10-15T10:07:38Z",
+  "decay_at": "2026-10-16T20:09:36Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
