@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T16:03:03Z",
+  "generated_at": "2026-10-15T16:07:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-557",
@@ -1277,6 +1277,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-561",
+      "headline": "Mankind Pharma to acquire 70% stake in Belgium’s ACTx for €48 million",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/mankind-pharma-to-acquire-70-stake-in-belgiums-actx-for-48-million/article71589310.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T15:56:03Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Mankind Pharma is acquiring a 70% stake in Belgium-based ACTx for 48 million euros.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mankind Pharma is acquiring a 70% stake in Belgium-based ACTx for 48 million euros.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mankind Pharma",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-560",
       "headline": "Q2 Results LIVE Updates: L&T Fin profit up 33%; CCL Products net profit up 29%",
       "headline_en": null,
@@ -1915,55 +1964,6 @@
       "companies": [
         {
           "name": "Angel One",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-487",
-      "headline": "Alok Industries Q2 FY27 Results: Net Loss Widens To Rs 208.42 Crore Despite 15% Revenue Growth",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/alok-industries-q2-fy27-results-net-loss-widens-to-rs-20842-crore-despite-15-revenue-growth",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T12:41:04Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Alok Industries reported a net loss of Rs 208.42 crore for Q2 FY27.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Alok Industries reported a net loss of Rs 208.42 crore for Q2 FY27.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alok Industries",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -219993,9 +219993,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8056210,
-    "news_picked_today": 1360,
-    "news_dropped_today": 8432
+    "news_seen_today": 8098132,
+    "news_picked_today": 1361,
+    "news_dropped_today": 8479
   },
   "book_momentum": {
     "live_count": 8,
