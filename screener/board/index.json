@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T00:37:26Z",
+  "generated_at": "2026-10-15T00:48:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-027",
@@ -203,6 +203,261 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-070",
+      "headline": "Cabinet clears way for Watsa's Fairfax's Rs 52,878 crore deal for 60.72% stake in IDBI Bank",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/cabinet-clears-way-for-watsa-fairfax-rs-52878-crore-deal-for-60-72-stake-in-idbi-bank-lic/articleshow/134950380.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Cabinet approved Fairfax's Rs 52,878 crore acquisition of a 60.72% stake in IDBI Bank.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cabinet approved Fairfax's Rs 52,878 crore acquisition of a 60.72% stake in IDBI Bank.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IDBI Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Fairfax",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-099",
+      "headline": "GlobalFoundries to open 2 new chip plants in New York with $21 billion in financing from Japan",
+      "headline_en": null,
+      "url": "https://japantoday.com/category/tech/globalfoundries-to-open-2-new-chip-plants-in-new-york-with-21-billion-in-financing-from-japan",
+      "source_name": "Japan Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T21:39:39Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "GlobalFoundries is planning to open two new chip plants in New York with $21 billion in financing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GlobalFoundries is planning to open two new chip plants in New York with $21 billion in financing.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GlobalFoundries",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-066",
+      "headline": "Anthropic’s Quarterly Revenue Jumped 45% to Nearly $17 Billion",
+      "headline_en": null,
+      "url": "https://www.wsj.com/tech/ai/anthropics-quarterly-revenue-jumped-45-to-nearly-17-billion-1c7e28b8?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T00:17:00Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Anthropic reported a 45% quarterly revenue increase to nearly $17 billion, indicating rapid growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Anthropic reported a 45% quarterly revenue increase to nearly $17 billion, indicating rapid growth.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-100",
+      "headline": "Anthropic revenue jumps to $16.8 billion in third quarter, FT reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/technology/anthropic-revenue-jumps-168-billion-third-quarter-ft-reports-2026-10-14/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T22:14:31Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Anthropic reported a significant revenue jump to $16.8 billion in the third quarter.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Anthropic reported a significant revenue jump to $16.8 billion in the third quarter.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-092",
+      "headline": "Ambani’s Jio seeks to raise $3.2B in what could be India’s biggest IPO",
+      "headline_en": null,
+      "url": "https://techcrunch.com/2026/10/14/ambanis-jio-seeks-to-raise-3-2b-in-what-could-be-indias-biggest-ipo/",
+      "source_name": "TechCrunch",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T21:48:20Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Reliance Industries' Jio subsidiary seeking to raise $3.2B in India's largest IPO, a major capital-redeployment and spin-off transaction affecting parent's leverage, capital structure, and liquidity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Reliance Industries' Jio subsidiary seeking to raise $3.2B in India's largest IPO, a major capital-redeployment and spin-off transaction affecting parent's leverage, capital structure, and liquidity.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 3,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Industries",
+          "ticker": "RIL",
+          "listing_country": "IN"
+        },
+        {
+          "name": "Jio",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-044",
       "headline": "FBU: Fletcher Building welcomes Hunua Quarry Fast Track approval",
       "headline_en": null,
@@ -252,50 +507,99 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261015-018",
-      "headline": "Anthropic revenue jumps to US$16.8 billion in Q3 before IPO",
+      "inbox_id": "INB-20261015-069",
+      "headline": "Sebi confirms interim curbs on Rajesh Exports, promoter over alleged fund routing",
       "headline_en": null,
-      "url": "https://www.straitstimes.com/business/anthropic-revenue-jumps-to-us16-8-billion-in-q3-before-ipo",
-      "source_name": "The Straits Times",
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/sebi-confirms-interim-curbs-on-rajesh-exports-promoter-over-alleged-fund-routing/articleshow/134954527.cms",
+      "source_name": "The Economic Times",
       "input_nature": "news_headline",
-      "found_at": "2026-10-14T23:16:00Z",
+      "found_at": "2026-10-15T00:08:14Z",
       "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Anthropic reported revenue of $16.8 billion for Q3, a significant figure ahead of a potential IPO.",
+      "prelim_note": "SEBI confirmed interim curbs on Rajesh Exports and its promoter regarding alleged fund routing.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 93,
-      "triage_reason": "Anthropic reported revenue of $16.8 billion for Q3, a significant figure ahead of a potential IPO.",
-      "region": "GLOBAL",
+      "triage_reason": "SEBI confirmed interim curbs on Rajesh Exports and its promoter regarding alleged fund routing.",
+      "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
         "materiality": 75,
         "source_tier": 0,
         "scope": 6,
-        "event": 5,
-        "size": 2,
+        "event": 6,
+        "size": 1,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Anthropic",
+          "name": "Rajesh Exports",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-082",
+      "headline": "Bending Spoons Shares Surge 35% After Berkshire Hathaway Invests Another $330 Mln",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/bending-spoons-shares-surge-35-after-berkshire-hathaway-invests-another-330-mln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T21:50:44Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "$330 million capital investment by Berkshire Hathaway is a quantified, confirmed capital infusion that materially strengthens balance sheet and signals investor confidence.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "$330 million capital investment by Berkshire Hathaway is a quantified, confirmed capital infusion that materially strengthens balance sheet and signals investor confidence.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bending Spoons",
           "ticker": null,
           "listing_country": null
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -346,6 +650,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-071",
+      "headline": "Novo Holdings, GIC, Axight look to back AIG Hospitals; Founders aim to pare 10-12% stake at Rs 24,000 cr valuation",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/healthcare/biotech/healthcare/novo-holdings-gic-axight-look-to-back-aig-hospitals-founders-aim-to-pare-10-12-stake-at-rs-24000-cr-valuation/articleshow/134950407.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Founders of AIG Hospitals are seeking to sell a 10-12% stake at a Rs 24,000 crore valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Founders of AIG Hospitals are seeking to sell a 10-12% stake at a Rs 24,000 crore valuation.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AIG Hospitals",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -454,6 +807,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-096",
+      "headline": "GlobalFoundries to be recipient of Japan's 3rd batch of US investment",
+      "headline_en": null,
+      "url": "https://mainichi.jp/english/articles/20261015/p2g/00m/0bu/003000c",
+      "source_name": "The Mainichi",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T22:40:23Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "GlobalFoundries confirmed as recipient of US subsidy (CHIPS Act) for Japan semiconductor fab expansion, supporting foundry capacity and future earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "GlobalFoundries confirmed as recipient of US subsidy (CHIPS Act) for Japan semiconductor fab expansion, supporting foundry capacity and future earnings.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 58,
+      "rank_factors": {
+        "materiality": 58,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 12,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GlobalFoundries",
+          "ticker": "GFS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-029",
       "headline": "NEW WORLD DEV NWD (MTN) N2802 NWD (MTN) N2706 NWCL N2701 (00017 05149 05321 05343): ANNOUNCEMENT OF EARLY RESULTS IN CONNECTION WITH THE EARLY TENDER DATE AND EARLY PAYMENT DATE IN RELATION TO THE EXCHANGE OFFERS",
       "headline_en": null,
@@ -552,6 +954,154 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-091",
+      "headline": "777 Partners’ Co-Founder Wander Signals Guilty Plea in Filing",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-14/777-partners-co-founder-wander-signals-guilty-plea-in-filing",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T22:36:28Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Co-founder of PE firm 777 Partners signaled guilty plea filing, creating governance and legal risk, but 777 Partners is not a listed equity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Co-founder of PE firm 777 Partners signaled guilty plea filing, creating governance and legal risk, but 777 Partners is not a listed equity.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "777 Partners",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-085",
+      "headline": "Coalition of states sue OpenAI, alleging it misled users on safety",
+      "headline_en": null,
+      "url": "https://thehill.com/policy/technology/6149365-states-sue-openai-safety/",
+      "source_name": "The Hill — Business News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T21:53:13Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "A coalition of states is suing OpenAI over alleged misleading safety claims, creating legal and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "A coalition of states is suing OpenAI over alleged misleading safety claims, creating legal and regulatory risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-083",
+      "headline": "Netflix To Cut About 1,000 Jobs As Streaming Giant Sharpens Focus On Growth",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/netflix-cut-about-1000-jobs-streaming-giant-sharpens-focus-growth",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T21:48:50Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Netflix is cutting approximately 1,000 jobs as part of a strategic shift.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Netflix is cutting approximately 1,000 jobs as part of a strategic shift.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Netflix",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-048",
       "headline": "J&T EXPRESS-W (01519): VOLUNTARY ANNOUNCEMENT QUARTERLY OPERATING STATEMENTFOR THE THIRD QUARTER OF 2026",
       "headline_en": null,
@@ -596,6 +1146,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-093",
+      "headline": "Cisco make-me-root email bug exploited as a 0-day by unknown crims",
+      "headline_en": null,
+      "url": "https://www.theregister.com/security/2026/10/14/cisco-make-me-root-email-bug-exploited-as-a-0-day-by-unknown-crims/5303168",
+      "source_name": "The Register",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T21:40:29Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "A critical email vulnerability (make-me-root 0-day) actively exploited in Cisco systems plausibly alters operational and customer-trust risk; impact on churn and remediation costs unquantified.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "A critical email vulnerability (make-me-root 0-day) actively exploited in Cisco systems plausibly alters operational and customer-trust risk; impact on churn and remediation costs unquantified.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 8,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "cybersecurity",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cisco",
+          "ticker": "CSCO",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -736,6 +1336,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-090",
+      "headline": "Rocket Lab’s stock slides as the company pushes back Neutron’s first launch",
+      "headline_en": null,
+      "url": "https://www.marketwatch.com/bulletins/redirect/go?g=f8f40eb8-34d7-4eff-84ad-a769ac721048&mod=mw_rss_bulletins",
+      "source_name": "MarketWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T22:37:47Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Rocket Lab confirmed delay of Neutron vehicle launch affects revenue timing and execution credibility for a space-launch company dependent on rocket sales.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Rocket Lab confirmed delay of Neutron vehicle launch affects revenue timing and execution credibility for a space-launch company dependent on rocket sales.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rocket Lab",
+          "ticker": "RKLB",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-058",
       "headline": "Japanese data analytics startup Solafune to launch AI satellite",
       "headline_en": null,
@@ -780,6 +1430,148 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-072",
+      "headline": "Iambic, an AI drug discovery specialist, banks $150M in an IPO",
+      "headline_en": null,
+      "url": "https://www.biopharmadive.com/news/iambic-ipo-price-ai-drug-discovery/832771/",
+      "source_name": "BioPharma Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T00:08:00Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Iambic raised $150 million in an IPO for its AI drug discovery platform.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Iambic raised $150 million in an IPO for its AI drug discovery platform.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Iambic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-089",
+      "headline": "White House Turns to Korean War-Era Law as Diesel Prices Stay Above $6",
+      "headline_en": null,
+      "url": "https://oilprice.com/Energy/Crude-Oil/White-House-Turns-to-Korean-War-Era-Law-as-Diesel-Prices-Stay-Above-6.html",
+      "source_name": "OilPrice.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T22:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "White House invokes Korean War-era law in response to diesel prices sustained above $6 per gallon, signaling supply stress and potential operational cost/margin impact for transportation, logistics, and energy sectors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "White House invokes Korean War-era law in response to diesel prices sustained above $6 per gallon, signaling supply stress and potential operational cost/margin impact for transportation, logistics, and energy sectors.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 64,
+      "rank_factors": {
+        "materiality": 64,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 6,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-084",
+      "headline": "Stock Market Today, Oct. 14: CoreWeave Plummets on Gartner Neocloud Warning and Bond Yield Surge",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/stock-market-today-oct-14-coreweave-plummets-gartner-neocloud-warning-and-bond-yield-surge",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-14T21:48:36Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "CoreWeave is experiencing a significant stock decline following a negative industry report and broader market bond yield pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "CoreWeave is experiencing a significant stock decline following a negative industry report and broader market bond yield pressure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CoreWeave",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1128,86 +1920,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261015-001",
-      "headline": "GlobalFoundries selected to operate two new semiconductor fabs in New York under landmark U.S.-Japan initiative | GFS Stock News",
+      "inbox_id": "INB-20261015-073",
+      "headline": "Dubai Media Incorporated signs deal to reach 450,000 hotel rooms in 12,000 hotels worldwide",
       "headline_en": null,
-      "url": "https://www.stocktitan.net/news/GFS/global-foundries-selected-to-operate-two-new-semiconductor-fabs-in-9vtglnyxspcq.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-14T12:30:00Z",
+      "url": "https://www.emirates247.com/business/dubai-media-incorporated-signs-deal-to-reach-450000-hotel-rooms-in-12000-hotels-worldwide/6761",
+      "source_name": "Emirates 24|7 — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T00:15:00Z",
       "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "GlobalFoundries was selected to operate two new semiconductor fabs, representing a significant capacity expansion and strategic government-backed initiative.",
+      "prelim_note": "Dubai Media Incorporated signed a deal to reach 450,000 hotel rooms in 12,000 hotels, but the company's baseline business scale and the deal's financial materiality relative to current revenue are unstated.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "GlobalFoundries was selected to operate two new semiconductor fabs, representing a significant capacity expansion and strategic government-backed initiative.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GlobalFoundries",
-          "ticker": "GFS",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-049",
-      "headline": "TIANLI INT HLDG (01773): VOLUNTARY ANNOUNCEMENT UPDATE ON BUSINESS DEVELOPMENT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1015/2026101500011.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-14T22:29:00Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "The company is providing a voluntary update on business development, which may contain new operational information.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "The company is providing a voluntary update on business development, which may contain new operational information.",
-      "region": "CN",
+      "triage_score": 66,
+      "triage_reason": "Dubai Media Incorporated signed a deal to reach 450,000 hotel rooms in 12,000 hotels, but the company's baseline business scale and the deal's financial materiality relative to current revenue are unstated.",
+      "region": "OTHER",
       "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
+      "materiality_pre_score": 55,
       "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
+        "materiality": 55,
+        "source_tier": 0,
         "scope": 6,
         "event": 0,
-        "size": -1,
-        "recency": 4,
+        "size": 0,
+        "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
+        "source_tier_id": "news",
         "event_id": null,
-        "size_bucket": "small"
+        "size_bucket": "unknown"
       },
       "event_types": [
         "commercial"
@@ -1215,704 +1958,11 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Tianli International Holdings",
+          "name": "Dubai Media Incorporated",
           "ticker": null,
-          "listing_country": "CN"
+          "listing_country": "AE"
         }
       ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-037",
-      "headline": "Nvidia CEO says he would cut off buyers who build unsafe AI",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/nvidia-ceo-says-he-would-cut-off-buyers-who-build-unsafe-ai",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T23:50:00Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "CEO commentary on AI safety standards is a qualitative statement rather than a material operational shift.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "CEO commentary on AI safety standards is a qualitative statement rather than a material operational shift.",
-      "region": "GLOBAL",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-021",
-      "headline": "Canadian cybersecurity executive arrested by FBI was in legal battle with former business partner",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-canadian-cybersecurity-executive-arrested-by-fbi-was-in-legal-battle/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T23:23:30Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "A cybersecurity executive was arrested by the FBI amid a legal dispute.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 60,
-      "triage_reason": "A cybersecurity executive was arrested by the FBI amid a legal dispute.",
-      "region": "GLOBAL",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-015",
-      "headline": "Ultragenyx Enters into Agreement to Sell Rare Pediatric Disease Priority Review Voucher for $203 Million | RARE Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/RARE/ultragenyx-enters-into-agreement-to-sell-rare-pediatric-disease-70jx51ilwbcj.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-14T12:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Ultragenyx is selling a priority review voucher for $203 million, a significant cash inflow.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 59,
-      "triage_reason": "Ultragenyx is selling a priority review voucher for $203 million, a significant cash inflow.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ultragenyx",
-          "ticker": "RARE",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-056",
-      "headline": "India, Canada push to conclude trade pact as Jaishankar meets Anita Anand",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/india-canada-push-to-conclude-trade-pact-as-jaishankar-meets-anita-anand/article71585664.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T23:56:27Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "India and Canada are actively negotiating a trade pact, which could impact bilateral trade flows and sector-specific tariffs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "India and Canada are actively negotiating a trade pact, which could impact bilateral trade flows and sector-specific tariffs.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-062",
-      "headline": "Senate banking committee calls for tax changes to help small- and medium-sized businesses",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-senate-banking-committee-report-tax-changes-small-businesses/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T23:57:13Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "The Canadian Senate is proposing tax changes to support small- and medium-sized businesses, which could impact corporate tax structures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 56,
-      "triage_reason": "The Canadian Senate is proposing tax changes to support small- and medium-sized businesses, which could impact corporate tax structures.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-017",
-      "headline": "Former FDA officials blast DOGE as ‘one of the biggest disasters in American history’",
-      "headline_en": null,
-      "url": "https://www.statnews.com/2026/10/14/former-fda-commissioners-say-recruit-defend-support-agency-workforce/?utm_campaign=rss",
-      "source_name": "STAT News",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T23:23:20Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Former FDA officials are criticizing the proposed Department of Government Efficiency (DOGE) initiative.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 56,
-      "triage_reason": "Former FDA officials are criticizing the proposed Department of Government Efficiency (DOGE) initiative.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-033",
-      "headline": "IIT Kanpur to set up defence drone hub, targets $1 billion in fundraising",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/science/iit-kanpur-to-set-up-defence-drone-hub-targets-1-billion-in-fundraising/article71585670.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T23:51:27Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "IIT Kanpur plans to set up a defence drone hub with a $1 billion fundraising target.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "IIT Kanpur plans to set up a defence drone hub with a $1 billion fundraising target.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-059",
-      "headline": "AI-armed hackers tear through corporate Japan’s neglected defences",
-      "headline_en": null,
-      "url": "https://www.scmp.com/week-asia/economics/article/3370875/ai-armed-hackers-tear-through-corporate-japans-neglected-defences?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T00:00:13Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Reports of AI-armed hackers targeting Japanese corporate infrastructure highlight a significant operational risk for the sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Reports of AI-armed hackers targeting Japanese corporate infrastructure highlight a significant operational risk for the sector.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-012",
-      "headline": "Rithm Capital Closes $375 Million Securitization, the Largest Multifamily-Only RTL Securitization to Date | RITM Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/RITM/rithm-capital-closes-375-million-securitization-the-largest-lhv9l2dp8d8r.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-14T12:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Rithm Capital closed a $375 million securitization, enhancing its financing capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Rithm Capital closed a $375 million securitization, enhancing its financing capacity.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rithm Capital",
-          "ticker": "RITM",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-053",
-      "headline": "BDG Law Group Provides Notice Following Data Security Incident",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/bdg-law-group-provides-notice-following-data-security-incident-302908204.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-15T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "BDG Law Group reported a data security incident, creating potential legal and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 49,
-      "triage_reason": "BDG Law Group reported a data security incident, creating potential legal and operational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BDG Law Group",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-009",
-      "headline": "Terra Secures $183.75 Million Refinancing for The Offices at THE WELL Bay Harbor Islands From Monroe Capital’s Real Estate Platform | WD Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/WD/terra-secures-183-75-million-refinancing-for-the-offices-at-the-well-t3drttd8gb0b.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-14T12:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Terra secured $183.75 million in refinancing, improving its capital structure and liquidity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 49,
-      "triage_reason": "Terra secured $183.75 million in refinancing, improving its capital structure and liquidity.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Terra",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-005",
-      "headline": "newcleo Inaugurates Advanced Nuclear Fuel Engineering and Testing Center in France, Furthering the Industrial Deployment of its MOX Fuel Program.",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/10/14/3380730/0/en/newcleo-inaugurates-advanced-nuclear-fuel-engineering-and-testing-center-in-france-furthering-the-industrial-deployment-of-its-mox-fuel-program.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-14T12:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "newcleo inaugurated a new nuclear fuel engineering and testing center in France, marking a significant industrial investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 48,
-      "triage_reason": "newcleo inaugurated a new nuclear fuel engineering and testing center in France, marking a significant industrial investment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "newcleo",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-007",
-      "headline": "Brightray Signs Letter of Intent for Planned 10MW AI Data Center Project in the United States | BUUU Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/BUUU/brightray-signs-letter-of-intent-for-planned-10mw-ai-data-center-vkt1lopv2q41.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-14T12:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Brightray announced a 10MW AI data center project, representing a significant capital investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 48,
-      "triage_reason": "Brightray announced a 10MW AI data center project, representing a significant capital investment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brightray",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-013",
-      "headline": "Boron One Holdings Inc. Announces Positive Preliminary Economic Assessment (PEA) for Its Piskanja Boron Project | ERVFF Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/ERVFF/boron-one-holdings-inc-announces-positive-preliminary-economic-ff50p3xf7786.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-14T12:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Boron One announced a positive Preliminary Economic Assessment for its project, a key milestone for mining development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Boron One announced a positive Preliminary Economic Assessment for its project, a key milestone for mining development.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Boron One Holdings Inc.",
-          "ticker": "ERVFF",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-061",
-      "headline": "Kyiv’s fifth winter: ‘Nobody is sleeping, everyone is strung out’",
-      "headline_en": null,
-      "url": "https://www.afr.com/world/europe/kyiv-s-fifth-winter-nobody-is-sleeping-everyone-is-strung-out-20261015-p61546?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T23:57:39Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "The ongoing conflict in Ukraine continues to escalate, creating severe geopolitical and economic instability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "The ongoing conflict in Ukraine continues to escalate, creating severe geopolitical and economic instability.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -220810,9 +220860,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 157709,
-    "news_picked_today": 62,
-    "news_dropped_today": 274
+    "news_seen_today": 171871,
+    "news_picked_today": 100,
+    "news_dropped_today": 452
   },
   "book_momentum": {
     "live_count": 8,
