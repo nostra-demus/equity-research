@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T12:44:29Z",
+  "generated_at": "2026-10-15T12:47:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-458",
@@ -1234,6 +1234,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-470",
+      "headline": "Exclusive: Stand raises $70 million at $1 billion valuation to price wildfire risk by treating homes like airplanes in flight",
+      "headline_en": null,
+      "url": "https://fortune.com/2026/10/15/stand-insurance-wildfire-unicorn-raises-70-million-1-billion-valuation/",
+      "source_name": "Fortune",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T12:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Stand raised $70 million at a $1 billion valuation, indicating significant capital inflow and unicorn status.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Stand raised $70 million at a $1 billion valuation, indicating significant capital inflow and unicorn status.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Stand",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-431",
       "headline": "Tech Mahindra Q2 results: Net profit jumps 32.7% to ₹1,586 crore, revenue rises 15.6%",
       "headline_en": null,
@@ -1325,6 +1374,55 @@
           "name": "Tech Mahindra",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-476",
+      "headline": "Penske Automotive Inks $16.3 Bln Merger Deal With Penske, Mitsui To Go Private; PAG Shares Up 8%",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/penske-automotive-inks-163-bln-merger-deal-penske-mitsui-go-private-pag-shares-8",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T11:43:28Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Penske Automotive announced a $16.3 billion merger deal to go private, significantly impacting shareholder value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Penske Automotive announced a $16.3 billion merger deal to go private, significantly impacting shareholder value.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Penske Automotive",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1868,104 +1966,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-320",
-      "headline": "EQT AB To Acquire U.S.-based Stockbridge For $375 Mln Base Price, Expanding Real Estate",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/eqt-ab-acquire-us-based-stockbridge-375-mln-base-price-expanding-real-estate",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T04:59:29Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "EQT AB is acquiring Stockbridge for $375 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "EQT AB is acquiring Stockbridge for $375 million.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EQT AB",
-          "ticker": null,
-          "listing_country": "SE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-277",
-      "headline": "Q2 Results: MRPL registers PAT at ₹1,881; up 194%",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/mrpl-q2s-registers-pat-at-1881-up-by-194/article71584951.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T04:35:01Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "MRPL reported a Q2 profit of ₹1,881 crore, a 194% increase.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "MRPL reported a Q2 profit of ₹1,881 crore, a 194% increase.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mangalore Refinery and Petrochemicals",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220064,9 +220064,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5537600,
-    "news_picked_today": 1120,
-    "news_dropped_today": 6968
+    "news_seen_today": 5557977,
+    "news_picked_today": 1128,
+    "news_dropped_today": 6984
   },
   "book_momentum": {
     "live_count": 8,
