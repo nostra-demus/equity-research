@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T21:46:46Z",
+  "generated_at": "2026-10-15T21:47:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-583",
@@ -1936,50 +1936,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261015-594",
-      "headline": "8-K - VARONIS SYSTEMS INC (0001361113) (Filer)",
+      "inbox_id": "INB-20261015-600",
+      "headline": "AAI: Form 8-K, Items 2.02 and 9.01 [price-sensitive]",
       "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1361113/000121390026109901/0001213900-26-109901-index.htm",
-      "source_name": "SEC EDGAR — Latest 8-K (Current Reports)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-15T21:20:40Z",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AAI?key=2924-03149026-3A704213",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T21:21:17Z",
       "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Varonis Systems filed an 8-K, which requires review for potential material operational or financial disclosures.",
+      "prelim_note": "Company filed a price-sensitive 8-K regarding earnings results.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Varonis Systems filed an 8-K, which requires review for potential material operational or financial disclosures.",
-      "region": "US",
+      "triage_score": 94,
+      "triage_reason": "Company filed a price-sensitive 8-K regarding earnings results.",
+      "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 50,
+      "materiality_pre_score": 60,
       "rank_factors": {
-        "materiality": 50,
+        "materiality": 60,
         "source_tier": 8,
         "scope": 6,
-        "event": 2,
-        "size": 2,
+        "event": 5,
+        "size": 0,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "large"
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "operations"
+        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "VARONIS SYSTEMS INC",
+          "name": "AAI",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": "AU"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220154,9 +220154,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12661691,
-    "news_picked_today": 1629,
-    "news_dropped_today": 11139
+    "news_seen_today": 12682872,
+    "news_picked_today": 1636,
+    "news_dropped_today": 11156
   },
   "book_momentum": {
     "live_count": 8,
