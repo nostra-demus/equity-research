@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T16:49:28Z",
+  "generated_at": "2026-10-15T16:53:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-569",
@@ -1434,6 +1434,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-576",
+      "headline": "Brunello Cucinelli raises 2026 outlook after beating Q3 sales forecasts",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/retail-consumer/brunello-cucinelli-raises-2026-outlook-after-beating-q3-sales-forecasts-2026-10-15/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T16:31:56Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Brunello Cucinelli raised its 2026 outlook after beating Q3 sales forecasts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Brunello Cucinelli raised its 2026 outlook after beating Q3 sales forecasts.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brunello Cucinelli",
+          "ticker": null,
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-574",
+      "headline": "Sri Lotus Developers Q2 results: Net profit jumps 78% as pre-sales rise 83%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/sri-lotus-developers-q2-results-net-profit-jumps-78-as-pre-sales-rise-83-20013029.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T16:27:49Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Sri Lotus Developers reported a 78% jump in net profit and 83% rise in pre-sales.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sri Lotus Developers reported a 78% jump in net profit and 83% rise in pre-sales.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sri Lotus Developers",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-561",
       "headline": "Mankind Pharma to acquire 70% stake in Belgium’s ACTx for €48 million",
       "headline_en": null,
@@ -1864,104 +1963,6 @@
       "companies": [
         {
           "name": "CCC",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-510",
-      "headline": "IIFL Finance Q2 results: Net profit more than doubles to ₹766 crore, gold loans drive growth",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/iifl-finance-q2-results-net-profit-more-than-doubles-to-rs766-crore-gold-loans-drive-growth-20012903.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T13:23:01Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Net profit more than doubling to ₹766 crore is a significant earnings beat.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Net profit more than doubling to ₹766 crore is a significant earnings beat.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IIFL Finance",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-531",
-      "headline": "CCC Intelligent Solutions To Be Acquired By GTCR, Elliott In $6.1 Bln Deal",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/ccc-intelligent-solutions-be-acquired-gtcr-elliott-61-bln-deal",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T13:15:13Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "CCC Intelligent Solutions is being acquired by GTCR and Elliott in a $6.1 billion deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CCC Intelligent Solutions is being acquired by GTCR and Elliott in a $6.1 billion deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CCC Intelligent Solutions",
           "ticker": null,
           "listing_country": "US"
         }
@@ -219993,9 +219994,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8701340,
-    "news_picked_today": 1388,
-    "news_dropped_today": 8812
+    "news_seen_today": 8763692,
+    "news_picked_today": 1395,
+    "news_dropped_today": 8829
   },
   "book_momentum": {
     "live_count": 8,
