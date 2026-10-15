@@ -1,6 +1,114 @@
 {
-  "generated_at": "2026-10-15T16:29:27Z",
+  "generated_at": "2026-10-15T16:32:01Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261015-562",
+      "headline": "Go Digit General Insurance Limited: Go Digit General Insurance Limited has informed the Exchange regarding a press release dated October 14, 2026, titled \"Fairfax Declared Strategic Buyer in Auction to Acquire Interest in IDBI Bank; Plans to Contribute Digit Insurance and IIFL Capital to IDBI Bank\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/GODIGITGI_15102026214442_GDGIL_Reg30_Press_Release.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T16:15:34Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Fairfax is acquiring a stake in IDBI Bank and plans to contribute Go Digit Insurance and IIFL Capital to the entity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Fairfax is acquiring a stake in IDBI Bank and plans to contribute Go Digit Insurance and IIFL Capital to the entity.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Go Digit General Insurance Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "IDBI Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-564",
+      "headline": "Power Finance Corporation Limited: Intimation of receipt of No Objection certificate from Reserve Bank of India ( RBI ) in relation to proposed scheme of merger of REC Limited ( Company or Transferor Company ) with and into Power Finance Corporation Limited ( Transferee Company ) and their respective shareholders and creditors under sections 230-232 and other applicable provisions of the Companies Act, 2013 ( Scheme )",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PFC2023_15102026213836_INTIMATIONNOC15102026SIGNED.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T16:09:12Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "PFC received RBI approval for the merger with REC Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PFC received RBI approval for the merger with REC Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Power Finance Corporation Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "REC Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261015-557",
       "headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Post facto intimation of the 9th (Ninth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)",
@@ -1380,6 +1488,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-568",
+      "headline": "Labcorp to buy BioReference assets for up to $872M",
+      "headline_en": null,
+      "url": "https://www.medtechdive.com/news/labcorp-to-buy-bioreference-assets-for-up-to-872m/833116/",
+      "source_name": "MedTech Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T15:18:59Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Labcorp to acquire assets for $872M.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Labcorp to acquire assets for $872M.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Labcorp",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-549",
       "headline": "L&T Finance Q2 results: Net profit jumps 33% to ₹975 crore as retail loans grow",
       "headline_en": null,
@@ -1815,160 +1972,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-486",
-      "headline": "Q2 Results LIVE Updates: Tech Mahindra approves dividend, bonus; Alok Industries net loss ₹208.4 crore",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/q2-results-live-updates-jio-financial-polycab-nestle-tech-mah-wipro-hdfc-life-amc-angel-one-cyient-dlm-share-price-liveblog-20012205.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T12:52:17Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Tech Mahindra announced dividend and bonus, while Alok Industries reported a net loss of ₹208.4 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tech Mahindra announced dividend and bonus, while Alok Industries reported a net loss of ₹208.4 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tech Mahindra",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Alok Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-499",
-      "headline": "CCC Intelligent Solutions to go private in $6.1 billion takeover deal",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/gtcr-elliott-buy-ccc-intelligent-solutions-61-billion-deal-2026-10-15/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T12:51:38Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "CCC Intelligent Solutions is being taken private in a $6.1 billion deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CCC Intelligent Solutions is being taken private in a $6.1 billion deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CCC Intelligent Solutions",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-481",
-      "headline": "Angel One Q2 profit rises 45% as client funding book hits record ₹7,450 crore, declares dividend",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/angel-one-q2-profit-up-45-pc-client-funding-book-record-rs-7450-crore-dividend-declared-20012859.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T12:43:27Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Angel One reported a 45% profit increase and declared a dividend.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Angel One reported a 45% profit increase and declared a dividend.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Angel One",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219993,9 +219996,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8410570,
-    "news_picked_today": 1372,
-    "news_dropped_today": 8636
+    "news_seen_today": 8452462,
+    "news_picked_today": 1380,
+    "news_dropped_today": 8652
   },
   "book_momentum": {
     "live_count": 8,
