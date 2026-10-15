@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-15T10:19:01Z",
+  "generated_at": "2026-10-15T10:24:52Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261015-409",
+      "headline": "Wipro Limited: Wipro Limited has submitted to the Exchange, the financial results for the period ended September 30, 2026.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/Wipro_Secretarial_15102026154647_Reg33Financials.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T10:17:35Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Wipro released its financial results for the period ended September 30, 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Wipro released its financial results for the period ended September 30, 2026.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wipro Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261015-408",
       "headline": "Indian Railway Finance Corporation Limited: Indian Railway Finance Corporation Limited has informed the Exchange regarding a press release dated October 15, 2026, titled \"IRFC announces highest-ever H1 FY 2026-27 results, with revenue growth exceeding 20% and net profit grown by more than 10%\".",
@@ -1936,55 +1985,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-394",
-      "headline": "Hitech Corporation Limited: Hitech Corporation Limited has informed the Exchange about Receipt of post offer public announcement ( Post Offer PA ) issued in accordance Regulation 17(4) and other applicable provisions of Securities and Exchange Board of India (Delisting of Equity Shares) Regulations, 2021, as amended ( SEBI Delisting Regulations ) for the delisting of the equity shares of Hitech Corporation Limited (\"the Company )",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/HITECHCORP_15102026144533_Reg_30__PA_of_success_disclosure.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-15T09:18:46Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Hitech Corporation has completed the post-offer public announcement for the delisting of its equity shares.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Hitech Corporation has completed the post-offer public announcement for the delisting of its equity shares.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hitech Corporation Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220081,9 +220081,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3850227,
-    "news_picked_today": 870,
-    "news_dropped_today": 5898
+    "news_seen_today": 3907890,
+    "news_picked_today": 875,
+    "news_dropped_today": 5917
   },
   "book_momentum": {
     "live_count": 8,
