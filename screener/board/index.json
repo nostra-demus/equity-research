@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T13:35:14Z",
+  "generated_at": "2026-10-15T13:39:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-458",
@@ -1081,6 +1081,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-510",
+      "headline": "IIFL Finance Q2 results: Net profit more than doubles to ₹766 crore, gold loans drive growth",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/iifl-finance-q2-results-net-profit-more-than-doubles-to-rs766-crore-gold-loans-drive-growth-20012903.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T13:23:01Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Net profit more than doubling to ₹766 crore is a significant earnings beat.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Net profit more than doubling to ₹766 crore is a significant earnings beat.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IIFL Finance",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-497",
       "headline": "Fairfax to bring IIFL Capital, Digit under IDBI Bank after ₹52,878 crore acquisition, build financial services group",
       "headline_en": null,
@@ -1923,55 +1972,6 @@
       "companies": [
         {
           "name": "HDFC Life",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-415",
-      "headline": "Wipro Q2 Results: IT services firm guides for Q3 revenue growth to be between -1.5% to 0.5%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/wipro-q2-results-guidance-for-q3-ebit-margin-cc-revenue-deal-wins-share-price-20012705.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T10:29:27Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Wipro provided weak Q3 revenue growth guidance of -1.5% to 0.5%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Wipro provided weak Q3 revenue growth guidance of -1.5% to 0.5%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Wipro",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -219999,9 +219999,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6183588,
-    "news_picked_today": 1187,
-    "news_dropped_today": 7381
+    "news_seen_today": 6224798,
+    "news_picked_today": 1199,
+    "news_dropped_today": 7393
   },
   "book_momentum": {
     "live_count": 8,
