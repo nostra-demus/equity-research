@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-15T10:12:30Z",
+  "generated_at": "2026-10-15T10:15:51Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261015-408",
+      "headline": "Indian Railway Finance Corporation Limited: Indian Railway Finance Corporation Limited has informed the Exchange regarding a press release dated October 15, 2026, titled \"IRFC announces highest-ever H1 FY 2026-27 results, with revenue growth exceeding 20% and net profit grown by more than 10%\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/IRFC_15102026153907_outcomeofmeeting15102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T10:09:16Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "IRFC reported H1 FY2026-27 revenue growth exceeding 20% and net profit growth of more than 10%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IRFC reported H1 FY2026-27 revenue growth exceeding 20% and net profit growth of more than 10%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Indian Railway Finance Corporation Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261015-407",
       "headline": "Yes Bank Limited: The Exchange has sought clarification from Yes Bank Limited with respect to recent news item captioned Yes Bank share price sees sharp fall of 10% after Supreme Court ruling on Rs.8,400 crore AT-1 bond write-off. The response from the Company is awaited.",
@@ -1936,55 +1985,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-312",
-      "headline": "Zydus Lifesciences Limited: Zydus Lifesciences Limited has informed the Exchange regarding a press release dated October 15, 2026, titled \"Zydus Sunshine Lifesciences signs agreement with Board of Investment, Sri Lanka to establish a pharmaceutical manufacturing facility in Sri Lanka\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/Cadilahc_15102026113006_PressRelease15102026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-15T06:00:32Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Zydus Lifesciences is expanding its manufacturing footprint by establishing a new facility in Sri Lanka.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Zydus Lifesciences is expanding its manufacturing footprint by establishing a new facility in Sri Lanka.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zydus Lifesciences Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220081,9 +220081,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3792587,
-    "news_picked_today": 860,
-    "news_dropped_today": 5860
+    "news_seen_today": 3830939,
+    "news_picked_today": 869,
+    "news_dropped_today": 5875
   },
   "book_momentum": {
     "live_count": 8,
