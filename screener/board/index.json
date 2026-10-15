@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-15T22:57:24Z",
+  "generated_at": "2026-10-15T23:06:27Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261015-609",
+      "headline": "M4M: Macro Completes Acquisition of Yandi South Iron Ore Project [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.M4M?key=2924-03149241-6A1349558",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T22:58:17Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Macro Metals completed the acquisition of the Yandi South Iron Ore Project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Macro Metals completed the acquisition of the Yandi South Iron Ore Project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Macro Metals",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261015-605",
       "headline": "HLO: HLO FY27 Guidance [price-sensitive]",
@@ -1927,55 +1976,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-574",
-      "headline": "Sri Lotus Developers Q2 results: Net profit jumps 78% as pre-sales rise 83%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/sri-lotus-developers-q2-results-net-profit-jumps-78-as-pre-sales-rise-83-20013029.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T16:27:49Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Sri Lotus Developers reported a 78% jump in net profit and 83% rise in pre-sales.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sri Lotus Developers reported a 78% jump in net profit and 83% rise in pre-sales.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sri Lotus Developers",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220223,9 +220223,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 13562915,
-    "news_picked_today": 1719,
-    "news_dropped_today": 11745
+    "news_seen_today": 13666522,
+    "news_picked_today": 1725,
+    "news_dropped_today": 11811
   },
   "book_momentum": {
     "live_count": 8,
