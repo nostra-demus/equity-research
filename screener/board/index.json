@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-15T14:48:02Z",
+  "generated_at": "2026-10-15T14:51:55Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261015-538",
+      "headline": "ELATE HOLDINGS (00076): VERY SUBSTANTIAL ACQUISITION OF 69% ISSUED SHARES OF THE TARGET COMPANY AND VERY SUBSTANTIAL DISPOSAL OF MUP AND GOLD BULLION AS CONSIDERATION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1015/2026101501344.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T14:43:00Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Elate Holdings announced a very substantial acquisition of 69% of a target company and a disposal of assets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Elate Holdings announced a very substantial acquisition of 69% of a target company and a disposal of assets.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Elate Holdings",
+          "ticker": "00076",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261015-532",
       "headline": "Mankind Pharma Limited: Mankind Pharma Limited has informed the Exchange regarding a press release dated October 15, 2026, titled \"Press Release titled Mankind Pharma to Acquire Majority Stake in Armed Cell Therapeutics, Marking Strategic Entry into Next-Generation CAR-T Therapies \".",
@@ -1917,56 +1966,6 @@
       },
       "event_types": [
         "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tech Mahindra",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-429",
-      "headline": "Tech Mahindra Q2 Results: Net profit jumps 33% YoY to Rs 1,586 crore; co declares Rs 15/share dividend, 1:1 bonus issue",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/tech-mahindra-q2-results-net-profit-jumps-33-yoy-to-rs-1586-crore-co-declares-rs-15/share-dividend-11-bonus-issue/articleshow/134966850.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T11:44:04Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Tech Mahindra reported a 33% YoY net profit increase to Rs 1,586 crore and announced a Rs 15/share dividend and 1:1 bonus issue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tech Mahindra reported a 33% YoY net profit increase to Rs 1,586 crore and announced a Rs 15/share dividend and 1:1 bonus issue.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -220070,9 +220069,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7177903,
-    "news_picked_today": 1290,
-    "news_dropped_today": 7878
+    "news_seen_today": 7219653,
+    "news_picked_today": 1293,
+    "news_dropped_today": 7899
   },
   "book_momentum": {
     "live_count": 8,
