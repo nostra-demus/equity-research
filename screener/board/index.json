@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T08:47:08Z",
+  "generated_at": "2026-10-15T08:50:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-328",
@@ -340,6 +340,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-385",
+      "headline": "TSMC CEO sees no sign of a slowdown as chip foundry reports record profit",
+      "headline_en": null,
+      "url": "https://www.marketwatch.com/story/tsmc-ceo-sees-no-sign-of-a-slowdown-as-chip-foundry-reports-record-profit-17a065d3?mod=mw_rss_topstories",
+      "source_name": "MarketWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T08:42:00Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "TSMC reported record profits and signaled continued demand, which is a significant indicator for the global semiconductor sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TSMC reported record profits and signaled continued demand, which is a significant indicator for the global semiconductor sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TSMC",
+          "ticker": null,
+          "listing_country": "TW"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1935,55 +1984,6 @@
           "name": "Indian Bank",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-371",
-      "headline": "EQT to acquire US real estate group Stockbridge",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/179f6911-cf9b-4fea-98e4-f635e8e8c563?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T07:27:36Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "EQT is acquiring US real estate group Stockbridge.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "EQT is acquiring US real estate group Stockbridge.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EQT",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -219938,9 +219938,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3006557,
-    "news_picked_today": 752,
-    "news_dropped_today": 5224
+    "news_seen_today": 3024471,
+    "news_picked_today": 758,
+    "news_dropped_today": 5242
   },
   "book_momentum": {
     "live_count": 8,
