@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T02:56:53Z",
+  "generated_at": "2026-10-15T03:05:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-027",
@@ -193,6 +193,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-250",
+      "headline": "Hyundai Motor to invest $15.5 billion in India by 2032",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/hyundai-motor-to-invest-15-5-billion-in-india-by-2032/articleshow/134955345.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T02:10:09Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Hyundai Motor announced a significant $15.5 billion capital investment in India through 2032.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hyundai Motor announced a significant $15.5 billion capital investment in India through 2032.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyundai Motor",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1293,6 +1342,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-253",
+      "headline": "Anthropic says it is profitable: What Claude-maker's Q3 revenue of $16.8 Billion does and does not show",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/anthropic-says-it-is-profitable-what-claude-makers-q3-revenue-of-16-8-billion-does-and-does-not-show-11792027192211.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T02:15:29Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Anthropic reports profitability and $16.8 billion in Q3 revenue, indicating significant scale.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Anthropic reports profitability and $16.8 billion in Q3 revenue, indicating significant scale.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-248",
       "headline": "AI giant Anthropic sees revenue surge ahead of stock market listing",
       "headline_en": null,
@@ -1878,105 +1976,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-039",
-      "headline": "New World expects to issue $189 million of new notes after early debt exchange results",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/new-world-expects-issue-189-million-new-notes-after-early-debt-exchange-results-2026-10-14/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T23:53:11Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "New World is issuing $189 million in new notes as part of a debt exchange.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "New World is issuing $189 million in new notes as part of a debt exchange.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "New World Development",
-          "ticker": null,
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-176",
-      "headline": "Canadian Lender Cash Today Inc. Under Scrutiny as 44,000 Loans Vanish",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-14/canadian-lender-cash-today-inc-under-scrutiny-as-44-000-loans-vanish",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T21:29:59Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Canadian Lender Cash Today Inc. is under scrutiny following the disappearance of 44,000 loans, indicating significant operational and regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Canadian Lender Cash Today Inc. is under scrutiny following the disappearance of 44,000 loans, indicating significant operational and regulatory risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cash Today Inc.",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220293,9 +220292,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 515902,
-    "news_picked_today": 400,
-    "news_dropped_today": 1784
+    "news_seen_today": 553675,
+    "news_picked_today": 414,
+    "news_dropped_today": 1818
   },
   "book_momentum": {
     "live_count": 8,
