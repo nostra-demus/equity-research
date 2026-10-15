@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T09:28:47Z",
+  "generated_at": "2026-10-15T09:30:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-386",
@@ -1489,6 +1489,65 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-396",
+      "headline": "CICC (03908): ANNOUNCEMENT - UPDATES ON PROGRESS RELATING TO THE MAJOR TRANSACTION AND SPECIFIC MANDATE TO ISSUE CICC A SHARES FOR THE PROPOSED MERGERS OF CICC, DONGXING SECURITIES AND CINDA SECURITIES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1015/2026101500545.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T09:20:00Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "CICC provided an update on its major transaction involving the proposed mergers with Dongxing Securities and Cinda Securities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "CICC provided an update on its major transaction involving the proposed mergers with Dongxing Securities and Cinda Securities.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CICC",
+          "ticker": "03908",
+          "listing_country": "CN"
+        },
+        {
+          "name": "Dongxing Securities",
+          "ticker": null,
+          "listing_country": "CN"
+        },
+        {
+          "name": "Cinda Securities",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-154",
       "headline": "Fairfax’s $6 Billion Bank Deal Signals Zest for Indian Assets",
       "headline_en": null,
@@ -1734,6 +1793,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-394",
+      "headline": "Hitech Corporation Limited: Hitech Corporation Limited has informed the Exchange about Receipt of post offer public announcement ( Post Offer PA ) issued in accordance Regulation 17(4) and other applicable provisions of Securities and Exchange Board of India (Delisting of Equity Shares) Regulations, 2021, as amended ( SEBI Delisting Regulations ) for the delisting of the equity shares of Hitech Corporation Limited (\"the Company )",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/HITECHCORP_15102026144533_Reg_30__PA_of_success_disclosure.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T09:18:46Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Hitech Corporation has completed the post-offer public announcement for the delisting of its equity shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Hitech Corporation has completed the post-offer public announcement for the delisting of its equity shares.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hitech Corporation Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-312",
       "headline": "Zydus Lifesciences Limited: Zydus Lifesciences Limited has informed the Exchange regarding a press release dated October 15, 2026, titled \"Zydus Sunshine Lifesciences signs agreement with Board of Investment, Sri Lanka to establish a pharmaceutical manufacturing facility in Sri Lanka\".",
       "headline_en": null,
@@ -1880,104 +1988,6 @@
           "name": "GlobalFoundries",
           "ticker": "GFS",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-100",
-      "headline": "Anthropic revenue jumps to $16.8 billion in third quarter, FT reports",
-      "headline_en": null,
-      "url": "https://www.reuters.com/technology/anthropic-revenue-jumps-168-billion-third-quarter-ft-reports-2026-10-14/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T22:14:31Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Anthropic reported a significant revenue jump to $16.8 billion in the third quarter.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Anthropic reported a significant revenue jump to $16.8 billion in the third quarter.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-388",
-      "headline": "PLS: Becoming a substantial holder",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PLS?key=2924-03148960-6A1349464",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-15T07:53:54Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Pilbara Minerals reported a change in substantial holding, indicating institutional activity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Pilbara Minerals reported a change in substantial holding, indicating institutional activity.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pilbara Minerals",
-          "ticker": "PLS",
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -220000,9 +220010,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3405206,
-    "news_picked_today": 814,
-    "news_dropped_today": 5594
+    "news_seen_today": 3423383,
+    "news_picked_today": 822,
+    "news_dropped_today": 5610
   },
   "book_momentum": {
     "live_count": 8,
