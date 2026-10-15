@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T21:31:13Z",
+  "generated_at": "2026-10-15T21:33:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-583",
@@ -181144,76 +181144,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-1a38d7aae72f",
-      "idea_version": "IDEAV-02e095ec7a14628d",
-      "idea_version_started_at": "2026-10-13T05:16:42Z",
-      "ticker": "PEP",
-      "company": "PepsiCo",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is cutting estimates due to slumping soda sales, indicating weakening consumer demand and margin pressure.",
-      "why_now": "The news was reported on October 12, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0102830d2340"
-      ],
-      "primary_source_event_id": "EVT-0102830d2340",
-      "source_headlines": [
-        "PepsiCo Cuts Estimates for Poppi Payout While Soda Sales Slump"
-      ],
-      "source_headline": "PepsiCo Cuts Estimates for Poppi Payout While Soda Sales Slump",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-10-12/pepsico-cuts-estimates-for-poppi-payout-while-soda-sales-slump",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-12T20:16:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-08T12:13:45Z",
-      "updated_at": "2026-10-13T05:16:42Z",
-      "decay_at": "2026-10-14T08:16:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-6da37c6084e5",
       "idea_version": "IDEAV-330fc2e88fdf24a9",
       "idea_version_started_at": "2026-10-14T08:35:25Z",
@@ -183015,9 +182945,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 533,
+    "total_count": 532,
     "shown_count": 499,
-    "hidden_count": 34,
+    "hidden_count": 33,
     "side_counts": {
       "long": {
         "total_count": 271,
@@ -183025,23 +182955,23 @@
         "hidden_count": 21
       },
       "short": {
-        "total_count": 263,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 12
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1050,
-      "oldest_retained_at": "2026-09-17T02:47:00Z",
+      "evicted_count": 1051,
+      "oldest_retained_at": "2026-09-17T02:59:00Z",
       "side_counts": {
         "long": {
           "evicted_count": 696,
           "oldest_retained_at": "2026-10-01T21:30:00Z"
         },
         "short": {
-          "evicted_count": 354,
-          "oldest_retained_at": "2026-09-17T02:47:00Z"
+          "evicted_count": 355,
+          "oldest_retained_at": "2026-09-17T02:59:00Z"
         }
       }
     },
@@ -185563,8 +185493,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-14T08:16:02Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-15T21:33:25Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -220229,7 +220159,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12491871,
+    "news_seen_today": 12513093,
     "news_picked_today": 1614,
     "news_dropped_today": 11058
   },
