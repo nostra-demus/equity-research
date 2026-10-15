@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T11:44:01Z",
+  "generated_at": "2026-10-15T11:51:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-419",
@@ -782,6 +782,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-428",
+      "headline": "IonQ raises $2 billion from the buyer that paid $93 a share last year",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/investing/ionq-sells-2-billion-to-heights-capital-at-deep-discount",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T11:37:00Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "IonQ raised $2 billion in capital.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IonQ raised $2 billion in capital.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IonQ",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-425",
+      "headline": "Panasonic Recalls 640,000 Washer-Dryers over Fire Risk",
+      "headline_en": null,
+      "url": "https://www.nippon.com/en/news/yjj2026101500820/",
+      "source_name": "nippon.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T11:24:59Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Panasonic is recalling 640,000 units due to a fire risk, representing a significant operational and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Panasonic is recalling 640,000 units due to a fire risk, representing a significant operational and reputational risk.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Panasonic",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1874,114 +1972,6 @@
           "name": "GlobalFoundries",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-215",
-      "headline": "Mohamed Alabbar unveils up to $17bn Syria investment plans as Emaar reveals $40.8bn property backlog",
-      "headline_en": null,
-      "url": "https://www.arabianbusiness.com/real-estate/mohamed-alabbar-syria-investment-emaar-dubai",
-      "source_name": "Arabian Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T20:54:50Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Significant investment plans ($17bn) in Syria and a large property backlog ($40.8bn) indicate major business activity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Significant investment plans ($17bn) in Syria and a large property backlog ($40.8bn) indicate major business activity.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Emaar",
-          "ticker": null,
-          "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-396",
-      "headline": "CICC (03908): ANNOUNCEMENT - UPDATES ON PROGRESS RELATING TO THE MAJOR TRANSACTION AND SPECIFIC MANDATE TO ISSUE CICC A SHARES FOR THE PROPOSED MERGERS OF CICC, DONGXING SECURITIES AND CINDA SECURITIES",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1015/2026101500545.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-15T09:20:00Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "CICC provided an update on its major transaction involving the proposed mergers with Dongxing Securities and Cinda Securities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "CICC provided an update on its major transaction involving the proposed mergers with Dongxing Securities and Cinda Securities.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CICC",
-          "ticker": "03908",
-          "listing_country": "CN"
-        },
-        {
-          "name": "Dongxing Securities",
-          "ticker": null,
-          "listing_country": "CN"
-        },
-        {
-          "name": "Cinda Securities",
-          "ticker": null,
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "large",
@@ -220083,9 +220073,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4725197,
-    "news_picked_today": 998,
-    "news_dropped_today": 6538
+    "news_seen_today": 4803303,
+    "news_picked_today": 1016,
+    "news_dropped_today": 6640
   },
   "book_momentum": {
     "live_count": 8,
