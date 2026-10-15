@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T08:43:39Z",
+  "generated_at": "2026-10-15T08:47:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-328",
@@ -1844,6 +1844,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-383",
+      "headline": "Delta Corp Limited: Delta Corp Limited has informed the Exchange about Action(s) taken or orders passed",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DELTACORP_15102026130405_DCL15102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T07:34:37Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Company reported regulatory action or order passed against it.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Company reported regulatory action or order passed against it.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Delta Corp Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-332",
       "headline": "Indian Bank: Indian Bank has submitted to the Exchange, Approval of Unaudited (Reviewed) Standalone and Consolidated Financial Results of the Bank for the Second Quarter and Half Year of FY 2026-27 ended on September 30, 2026 and Fund Raising Plan other than Equity Capital",
       "headline_en": null,
@@ -1938,55 +1987,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-167",
-      "headline": "Vanda says anxiety drug failed main goal of late-stage study, puts program on hold",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/vanda-says-anxiety-drug-failed-main-goal-late-stage-study-puts-program-hold-2026-10-14/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T21:40:20Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Vanda Pharmaceuticals announced that its anxiety drug failed its primary endpoint in a late-stage study and the program is being halted.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Vanda Pharmaceuticals announced that its anxiety drug failed its primary endpoint in a late-stage study and the program is being halted.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vanda Pharmaceuticals",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219938,9 +219938,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2988595,
-    "news_picked_today": 738,
-    "news_dropped_today": 5190
+    "news_seen_today": 3006557,
+    "news_picked_today": 752,
+    "news_dropped_today": 5224
   },
   "book_momentum": {
     "live_count": 8,
