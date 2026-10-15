@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-15T10:27:51Z",
+  "generated_at": "2026-10-15T10:30:04Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261015-410",
+      "headline": "Wipro Limited: Wipro Limited has informed the Exchange regarding a press release dated October 15, 2026, titled \"Wipro announces results for the Quarter ended September 30, 2026\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/Wipro_Secretarial_15102026155126_PressRelease.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T10:21:42Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Wipro released its quarterly financial results for the period ending September 30, 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Wipro released its quarterly financial results for the period ending September 30, 2026.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wipro Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261015-409",
       "headline": "Wipro Limited: Wipro Limited has submitted to the Exchange, the financial results for the period ended September 30, 2026.",
@@ -1936,55 +1985,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-173",
-      "headline": "Yemen's Houthis vow more attacks on Saudi airports, oil facilities after Aramco HQ hit",
-      "headline_en": null,
-      "url": "https://japantoday.com/category/world/yemen%27s-houthis-vow-more-attacks-on-saudi-airports-oil-facilities-after-aramco-hq-hit2",
-      "source_name": "Japan Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T21:36:34Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Houthi attacks on Saudi Aramco facilities represent a direct supply shock risk to global oil infrastructure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Houthi attacks on Saudi Aramco facilities represent a direct supply shock risk to global oil infrastructure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220081,9 +220081,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3927175,
-    "news_picked_today": 880,
-    "news_dropped_today": 5936
+    "news_seen_today": 3965673,
+    "news_picked_today": 887,
+    "news_dropped_today": 5953
   },
   "book_momentum": {
     "live_count": 8,
