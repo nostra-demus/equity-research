@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-15T11:12:51Z",
+  "generated_at": "2026-10-15T11:15:52Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261015-417",
+      "headline": "Hitech Corporation Limited: Hitech Corporation Limited has informed the Exchange about Receipt of Post Offer Public Announcement (\"Post Offer PA\") issued in accordance Regulation 17(4) and other applicable provisions of SEBI Delisting Regulations for the delisting of the equity shares of Hitech Corporation Limited",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/HITECHCORP_15102026163811_Reg_30__PA_of_success_disclosure2.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T11:08:22Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Hitech Corporation Limited has received the post-offer public announcement for the delisting of its equity shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hitech Corporation Limited has received the post-offer public announcement for the delisting of its equity shares.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hitech Corporation Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261015-411",
       "headline": "Opening of Offer to Buy – Acquisition Window (Takeover) of J. A. FINANCE LIMITED",
@@ -1933,55 +1982,6 @@
           "name": "GUANGDONG INV",
           "ticker": "00270",
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-141",
-      "headline": "Mukesh Ambani's Jio sets price band for India IPO",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/india/mukesh-ambanis-jio-sets-price-band-india-ipo-2026-10-15/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T00:31:32Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Jio setting a price band for its IPO is a major capital market event for a large entity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Jio setting a price band for its IPO is a major capital market event for a large entity.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jio",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -220083,9 +220083,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4409666,
-    "news_picked_today": 952,
-    "news_dropped_today": 6320
+    "news_seen_today": 4429291,
+    "news_picked_today": 959,
+    "news_dropped_today": 6337
   },
   "book_momentum": {
     "live_count": 8,
