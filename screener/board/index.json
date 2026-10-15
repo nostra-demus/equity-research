@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T15:04:27Z",
+  "generated_at": "2026-10-15T15:08:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-538",
@@ -1179,6 +1179,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-545",
+      "headline": "Jio Financial Services Q2 Results: PAT drops 51% YoY to Rs 340 crore; NII soars 165%",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/jio-financial-services-q2-results-pat-drops-51-yoy-to-rs-340-crore-nii-up-132/articleshow/134970520.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T14:45:23Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Jio Financial Services reported a 51% YoY drop in PAT to Rs 340 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jio Financial Services reported a 51% YoY drop in PAT to Rs 340 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jio Financial Services",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-537",
       "headline": "Intuit To Buy Sequence, Shares Jump",
       "headline_en": null,
@@ -1927,55 +1976,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-431",
-      "headline": "Tech Mahindra Q2 results: Net profit jumps 32.7% to ₹1,586 crore, revenue rises 15.6%",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/tech-mahindra-q2-results-net-profit-jumps-327-to-1586-crore-revenue-rises-156/article71587972.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T11:55:17Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Tech Mahindra reported Q2 net profit of Rs 1,586 crore, up 32.7%, with revenue growth of 15.6%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tech Mahindra reported Q2 net profit of Rs 1,586 crore, up 32.7%, with revenue growth of 15.6%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tech Mahindra",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180429,78 +180429,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5a48fe233c01",
-      "idea_version": "IDEAV-7ea17e8b6013f4f9",
-      "idea_version_started_at": "2026-10-14T05:54:12Z",
-      "ticker": "TKA",
-      "company": "Thyssenkrupp AG",
-      "exchange": "XETRA",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The largest shareholder is actively pushing for a steel spin-off, which would unlock value by separating the capital-intensive steel business from the industrial services segment.",
-      "why_now": "The shareholder's public statement today, October 14, 2026, signals a renewed and specific window for corporate restructuring.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 17,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ea4f8f4347fc"
-      ],
-      "primary_source_event_id": "EVT-ea4f8f4347fc",
-      "source_headlines": [
-        "Thyssenkrupp's largest shareholder sees 'window of opportunity' for steel spin-off"
-      ],
-      "source_headline": "Thyssenkrupp's largest shareholder sees 'window of opportunity' for steel spin-off",
-      "source_url": "https://www.reuters.com/business/aerospace-defense/thyssenkrupps-largest-shareholder-sees-window-opportunity-steel-spin-off-2026-10-14/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 91,
-      "newest_source_at": "2026-10-14T03:04:53Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-14T05:54:12Z",
-      "updated_at": "2026-10-14T05:54:12Z",
-      "decay_at": "2026-10-15T15:04:53Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5dcef043aea8",
       "idea_version": "IDEAV-815920f2a7efaf9c",
       "idea_version_started_at": "2026-10-14T00:48:30Z",
@@ -182347,6 +182275,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-5a48fe233c01",
+      "idea_version": "IDEAV-7ea17e8b6013f4f9",
+      "idea_version_started_at": "2026-10-14T05:54:12Z",
+      "ticker": "TKA",
+      "company": "Thyssenkrupp AG",
+      "exchange": "XETRA",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The largest shareholder is actively pushing for a steel spin-off, which would unlock value by separating the capital-intensive steel business from the industrial services segment.",
+      "why_now": "The shareholder's public statement today, October 14, 2026, signals a renewed and specific window for corporate restructuring.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 17,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ea4f8f4347fc"
+      ],
+      "primary_source_event_id": "EVT-ea4f8f4347fc",
+      "source_headlines": [
+        "Thyssenkrupp's largest shareholder sees 'window of opportunity' for steel spin-off"
+      ],
+      "source_headline": "Thyssenkrupp's largest shareholder sees 'window of opportunity' for steel spin-off",
+      "source_url": "https://www.reuters.com/business/aerospace-defense/thyssenkrupps-largest-shareholder-sees-window-opportunity-steel-spin-off-2026-10-14/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 91,
+      "newest_source_at": "2026-10-14T03:04:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-14T05:54:12Z",
+      "updated_at": "2026-10-14T05:54:12Z",
+      "decay_at": "2026-10-15T15:04:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-3db24171678d",
       "idea_version": "IDEAV-2476dd0fe7baf0b5",
       "idea_version_started_at": "2026-10-14T05:13:31Z",
@@ -182858,14 +182858,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 532,
+    "total_count": 533,
     "shown_count": 499,
-    "hidden_count": 33,
+    "hidden_count": 34,
     "side_counts": {
       "long": {
-        "total_count": 268,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 19
       },
       "short": {
         "total_count": 265,
@@ -182889,6 +182889,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5a48fe233c01",
+        "idea_version": "IDEAV-7ea17e8b6013f4f9",
+        "idea_version_started_at": "2026-10-14T05:54:12Z",
+        "ticker": "TKA",
+        "company": "Thyssenkrupp AG",
+        "exchange": "XETRA",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The largest shareholder is actively pushing for a steel spin-off, which would unlock value by separating the capital-intensive steel business from the industrial services segment.",
+        "why_now": "The shareholder's public statement today, October 14, 2026, signals a renewed and specific window for corporate restructuring.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 17,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ea4f8f4347fc"
+        ],
+        "primary_source_event_id": "EVT-ea4f8f4347fc",
+        "source_headlines": [
+          "Thyssenkrupp's largest shareholder sees 'window of opportunity' for steel spin-off"
+        ],
+        "source_headline": "Thyssenkrupp's largest shareholder sees 'window of opportunity' for steel spin-off",
+        "source_url": "https://www.reuters.com/business/aerospace-defense/thyssenkrupps-largest-shareholder-sees-window-opportunity-steel-spin-off-2026-10-14/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 91,
+        "newest_source_at": "2026-10-14T03:04:53Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-14T05:54:12Z",
+        "updated_at": "2026-10-14T05:54:12Z",
+        "decay_at": "2026-10-15T15:04:53Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-15T15:04:53Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3db24171678d",
         "idea_version": "IDEAV-2476dd0fe7baf0b5",
@@ -211285,79 +211360,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-205d9d4ce667",
-        "idea_version": "IDEAV-b18cf34bc2da95d4",
-        "idea_version_started_at": "2026-10-02T00:48:43Z",
-        "ticker": "DELL",
-        "company": "Dell Technologies",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Dell is partnering with JERA on a $15 billion data center project, providing a significant long-term revenue tailwind for their infrastructure and server business.",
-        "why_now": "The partnership was announced on October 1, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 66,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-263c236157f0"
-        ],
-        "primary_source_event_id": "EVT-263c236157f0",
-        "source_headlines": [
-          "Japan's largest power producer teams with Dell on $15bn data center"
-        ],
-        "source_headline": "Japan's largest power producer teams with Dell on $15bn data center",
-        "source_url": "https://asia.nikkei.com/business/technology/artificial-intelligence/japan-s-largest-power-producer-teams-with-dell-on-15bn-data-center",
-        "source_name": "Nikkei Asia",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-01T22:03:22Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-02T00:48:43Z",
-        "updated_at": "2026-10-02T00:48:43Z",
-        "decay_at": "2026-10-03T10:03:22Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-04T22:10:08Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-1ce33e97dd06",
         "idea_version": "IDEAV-f6865f601d5843d9",
         "idea_version_started_at": "2026-10-01T22:02:01Z",
@@ -220050,7 +220052,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1614,
-    "live_count": 35,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -220069,9 +220071,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7365716,
-    "news_picked_today": 1298,
-    "news_dropped_today": 8038
+    "news_seen_today": 7428401,
+    "news_picked_today": 1311,
+    "news_dropped_today": 8049
   },
   "book_momentum": {
     "live_count": 8,
