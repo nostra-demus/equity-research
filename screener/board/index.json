@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T03:05:48Z",
+  "generated_at": "2026-10-15T03:14:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-027",
@@ -242,6 +242,104 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-262",
+      "headline": "Ambani’s Jio Seeks $108 Billion Valuation in Landmark India IPO",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/telecom/ambanis-jio-seeks-108-billion-valuation-in-landmark-india-ipo-29e18192?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T02:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Jio is seeking a $108 billion valuation for a landmark IPO, a massive capital market event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jio is seeking a $108 billion valuation for a landmark IPO, a massive capital market event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Jio",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-267",
+      "headline": "Anthropic revenue jumps to $16.8 billion in third quarter",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/anthropic-revenue-jumps-to-16-8-billion-dollari-n-third-quarter-ipo-artificial-intelligence-20012215.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T01:55:49Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Anthropic reported Q3 revenue of $16.8 billion, a material earnings disclosure requiring confirmation of public listing status.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anthropic reported Q3 revenue of $16.8 billion, a material earnings disclosure requiring confirmation of public listing status.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -994,55 +1092,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261015-163",
-      "headline": "Anthropic revenue jumps to $16.8bn in third quarter",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/11632d03-358c-454b-af95-d06d4072932b?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T22:06:31Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Anthropic reported quarterly revenue of $16.8 billion, indicating significant growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Anthropic reported quarterly revenue of $16.8 billion, indicating significant growth.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20261015-092",
       "headline": "Ambani’s Jio seeks to raise $3.2B in what could be India’s biggest IPO",
       "headline_en": null,
@@ -1386,6 +1435,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-260",
+      "headline": "SK Hynix conditions new US factory on more US chip equipment exports to China, sources say",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/asia-pacific/sk-hynix-conditions-new-us-factory-more-us-chip-equipment-exports-china-sources-2026-10-15/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T02:02:52Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "SK Hynix is conditioning a new US factory on US chip equipment export policy to China, creating significant geopolitical and operational uncertainty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "SK Hynix is conditioning a new US factory on US chip equipment export policy to China, creating significant geopolitical and operational uncertainty.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK Hynix",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1834,148 +1933,55 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261015-143",
-      "headline": "Disney embraces A.I. with proposed Character.ai bankruptcy sale",
+      "inbox_id": "INB-20261015-266",
+      "headline": "Meta- and Google-backed Jio Platforms to raise up to $3.2 billion in historic IPO in India",
       "headline_en": null,
-      "url": "https://www.thestreet.com/technology/disney-embraces-a-i-with-proposed-character-ai-bankruptcy-sale",
-      "source_name": "TheStreet",
+      "url": "https://www.cnbc.com/2026/10/15/jio-ipo-meta-google-ambani-musk.html",
+      "source_name": "CNBC",
       "input_nature": "news_headline",
-      "found_at": "2026-10-15T01:13:00Z",
+      "found_at": "2026-10-15T01:56:53Z",
       "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Disney is reportedly interested in acquiring assets from the bankrupt Character.ai.",
+      "prelim_note": "Jio Platforms to raise $3.2 billion via historic IPO in India, a material capital action affecting Reliance Industries' capital structure and public-market footprint.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 91,
-      "triage_reason": "Disney is reportedly interested in acquiring assets from the bankrupt Character.ai.",
-      "region": "US",
+      "triage_reason": "Jio Platforms to raise $3.2 billion via historic IPO in India, a material capital action affecting Reliance Industries' capital structure and public-market footprint.",
+      "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 80,
         "source_tier": 0,
         "scope": 5,
-        "event": 9,
+        "event": 0,
         "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
+        "recency": 4,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "mna",
+        "event_id": null,
         "size_bucket": "mega"
       },
       "event_types": [
-        "mna"
+        "capital_actions"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Walt Disney Co",
+          "name": "Jio Platforms Limited",
           "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-238",
-      "headline": "CoreWeave shares tank 15% on AI debt concerns, but CEO remains defiant",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/coreweave-shares-tank-15-on-ai-debt-concerns-but-ceo-remains-defiant-20012254.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T02:34:47Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "CoreWeave shares reportedly dropped 15% amid concerns over its debt levels used to fund AI infrastructure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "CoreWeave shares reportedly dropped 15% amid concerns over its debt levels used to fund AI infrastructure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
+          "listing_country": "IN"
+        },
         {
-          "name": "CoreWeave",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-071",
-      "headline": "Novo Holdings, GIC, Axight look to back AIG Hospitals; Founders aim to pare 10-12% stake at Rs 24,000 cr valuation",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/healthcare/biotech/healthcare/novo-holdings-gic-axight-look-to-back-aig-hospitals-founders-aim-to-pare-10-12-stake-at-rs-24000-cr-valuation/articleshow/134950407.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Founders of AIG Hospitals are seeking to sell a 10-12% stake at a Rs 24,000 crore valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Founders of AIG Hospitals are seeking to sell a 10-12% stake at a Rs 24,000 crore valuation.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AIG Hospitals",
+          "name": "Reliance Industries Limited",
           "ticker": null,
           "listing_country": "IN"
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220292,9 +220298,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 553675,
-    "news_picked_today": 414,
-    "news_dropped_today": 1818
+    "news_seen_today": 566218,
+    "news_picked_today": 447,
+    "news_dropped_today": 1953
   },
   "book_momentum": {
     "live_count": 8,
