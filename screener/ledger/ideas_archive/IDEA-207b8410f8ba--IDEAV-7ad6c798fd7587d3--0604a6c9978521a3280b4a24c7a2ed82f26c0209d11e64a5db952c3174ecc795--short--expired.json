@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-18T00:05:50Z",
+  "archived_at": "2026-10-15T09:47:19Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-c216e8a1a5f7",
-    "idea_version": "IDEAV-6295c63f05186693",
-    "idea_version_started_at": "2026-09-15T02:26:35Z",
-    "ticker": "00370.HK",
-    "company": "HK Robotics",
-    "exchange": "HKEX",
+    "idea_id": "IDEA-207b8410f8ba",
+    "idea_version": "IDEAV-7ad6c798fd7587d3",
+    "idea_version_started_at": "2026-10-12T11:48:12Z",
+    "ticker": "01125",
+    "company": "LAI FUNG HOLD",
+    "exchange": null,
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "A rights issue on the basis of one share for every two held represents significant dilution to existing equity holders.",
-    "why_now": "The filing was released on 2026-09-14, and the stock will likely trade down to reflect the dilutive impact of the new shares.",
-    "conviction": 70,
+    "reason": "LAI FUNG HOLD issued a profit warning, indicating a substantial decline in its financial performance for the period.",
+    "why_now": "The company released a profit warning today, October 12, 2026, signaling weaker-than-expected earnings.",
+    "conviction": 60,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
-    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 25,
-      "impact": 15,
+      "impact": 21,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -52,26 +52,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-043e88dd4355"
+      "EVT-db4c2e23303a"
     ],
-    "primary_source_event_id": "EVT-043e88dd4355",
+    "primary_source_event_id": "EVT-db4c2e23303a",
     "source_headlines": [
-      "HK ROBOTICS (00370): RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY TWO (2) EXISTING SHARES HELD ON THE RECORD DATE"
+      "LAI FUNG HOLD (01125): PROFIT WARNING"
     ],
-    "source_headline": "HK ROBOTICS (00370): RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY TWO (2) EXISTING SHARES HELD ON THE RECORD DATE",
-    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091500059.pdf",
+    "source_headline": "LAI FUNG HOLD (01125): PROFIT WARNING",
+    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101200527.pdf",
     "source_name": "HKEXnews (HK Exchange Filing)",
-    "materiality_max": 88,
-    "newest_source_at": "2026-09-14T23:34:00Z",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-12T09:23:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-15T02:26:35Z",
-    "updated_at": "2026-09-15T02:26:35Z",
-    "decay_at": "2026-09-16T11:34:00Z",
+    "surfaced_at": "2026-10-12T11:48:12Z",
+    "updated_at": "2026-10-12T11:48:12Z",
+    "decay_at": "2026-10-13T21:23:00Z",
     "status": "live",
     "promoted_signal_id": null
   }
