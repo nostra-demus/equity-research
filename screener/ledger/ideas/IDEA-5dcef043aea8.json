@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-5dcef043aea8",
-  "idea_version": "IDEAV-815920f2a7efaf9c",
-  "idea_version_started_at": "2026-10-14T00:48:30Z",
+  "idea_version": "IDEAV-4564d1ae4eef05e4",
+  "idea_version_started_at": "2026-10-15T21:58:41Z",
   "ticker": "BAC",
   "company": "Bank of America",
   "exchange": "NYSE",
@@ -11,14 +11,14 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "The OCC has imposed a $750 million penalty for deficient anti-money laundering compliance, which will directly impact quarterly earnings and reflects ongoing regulatory oversight costs.",
-  "why_now": "The assessment was officially announced by the OCC on October 13, 2026.",
+  "reason": "A $1.2 billion penalty from the US Treasury directly impacts the bank's bottom line and capital reserves, representing a significant non-recurring expense.",
+  "why_now": "The penalty was announced on October 15, 2026, and the market will need to digest the immediate impact on quarterly earnings.",
   "conviction": 70,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 78,
+  "trade_score": 67,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
-    "evidence": 25,
+    "evidence": 14,
     "impact": 21,
     "specificity": 15,
     "timing": 10,
@@ -30,6 +30,7 @@
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -46,17 +47,17 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-e4ccaff3fbe4"
+    "EVT-ddbaa24fa9a4"
   ],
-  "primary_source_event_id": "EVT-e4ccaff3fbe4",
+  "primary_source_event_id": "EVT-ddbaa24fa9a4",
   "source_headlines": [
-    "OCC Imposes $750 Million Assessment Against Bank of America for Deficient BSA/AML Compliance"
+    "US Treasury announces $1.2 bn penalty against Bank of America"
   ],
-  "source_headline": "OCC Imposes $750 Million Assessment Against Bank of America for Deficient BSA/AML Compliance",
-  "source_url": "https://www.occ.gov/news-issuances/news-releases/2026/nr-occ-2026-89.html",
-  "source_name": "Office of the Comptroller of the Currency — News Releases",
+  "source_headline": "US Treasury announces $1.2 bn penalty against Bank of America",
+  "source_url": "https://www.qatar-tribune.com/article/259385/business/us-treasury-announces-12-bn-penalty-against-bank-of-america",
+  "source_name": "Qatar Tribune — Business",
   "materiality_max": 100,
-  "newest_source_at": "2026-10-13T20:15:00Z",
+  "newest_source_at": "2026-10-15T21:26:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -64,8 +65,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-10-14T00:48:30Z",
-  "updated_at": "2026-10-14T00:48:30Z",
-  "decay_at": "2026-10-15T08:15:00Z",
+  "updated_at": "2026-10-15T21:58:41Z",
+  "decay_at": "2026-10-17T09:26:00Z",
   "status": "live",
   "promoted_signal_id": null
 }
