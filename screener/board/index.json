@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T03:26:51Z",
+  "generated_at": "2026-10-15T03:36:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-027",
@@ -993,6 +993,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-272",
+      "headline": "BDX: Letter to Genetic Signatures Ltd Shareholders",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BDX?key=2924-03148832-2A1704264",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T03:13:13Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Letter to shareholders of Genetic Signatures Ltd from BDX indicates material corporate action; likely M&A precursor or strategic transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Letter to shareholders of Genetic Signatures Ltd from BDX indicates material corporate action; likely M&A precursor or strategic transaction.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "strategic_review",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Genetic Signatures Ltd",
+          "ticker": "GIS",
+          "listing_country": "AU"
+        },
+        {
+          "name": "BDX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-155",
       "headline": "Japan to invest up to $21 billion in two U.S. chip factories to be run by GlobalFoundries",
       "headline_en": null,
@@ -1928,60 +1983,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-266",
-      "headline": "Meta- and Google-backed Jio Platforms to raise up to $3.2 billion in historic IPO in India",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/15/jio-ipo-meta-google-ambani-musk.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T01:56:53Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Jio Platforms to raise $3.2 billion via historic IPO in India, a material capital action affecting Reliance Industries' capital structure and public-market footprint.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Jio Platforms to raise $3.2 billion via historic IPO in India, a material capital action affecting Reliance Industries' capital structure and public-market footprint.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jio Platforms Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Reliance Industries Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220296,9 +220297,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 590951,
-    "news_picked_today": 472,
-    "news_dropped_today": 2120
+    "news_seen_today": 603210,
+    "news_picked_today": 502,
+    "news_dropped_today": 2282
   },
   "book_momentum": {
     "live_count": 8,
