@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-15T14:08:00Z",
+  "generated_at": "2026-10-15T14:11:07Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261015-532",
+      "headline": "Mankind Pharma Limited: Mankind Pharma Limited has informed the Exchange regarding a press release dated October 15, 2026, titled \"Press Release titled Mankind Pharma to Acquire Majority Stake in Armed Cell Therapeutics, Marking Strategic Entry into Next-Generation CAR-T Therapies \".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MANKIND1_15102026193306_Outcomefinalsd.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T14:03:16Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Mankind Pharma is acquiring a majority stake in Armed Cell Therapeutics to enter the CAR-T therapy market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mankind Pharma is acquiring a majority stake in Armed Cell Therapeutics to enter the CAR-T therapy market.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mankind Pharma Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261015-458",
       "headline": "Arvee Laboratories (India) Limited: Arvee Laboratories (India) Limited has informed the Exchange about Delay/default in the payment of fines/penalties/dues etc. to authority",
@@ -1928,55 +1977,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-453",
-      "headline": "Wipro Q2 Results: Net Profit Slips To Rs 3,200 Crore",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/wipro-q2-results-net-profit-slips-to-rs-3-200-crore-12189451#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T11:27:55Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Wipro reported a Q2 net profit of Rs 3,200 crore, representing a decline in profitability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Wipro reported a Q2 net profit of Rs 3,200 crore, representing a decline in profitability.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Wipro",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220069,9 +220069,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6618302,
-    "news_picked_today": 1248,
-    "news_dropped_today": 7560
+    "news_seen_today": 6680300,
+    "news_picked_today": 1253,
+    "news_dropped_today": 7579
   },
   "book_momentum": {
     "live_count": 8,
