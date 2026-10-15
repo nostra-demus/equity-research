@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T13:49:16Z",
+  "generated_at": "2026-10-15T13:51:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-458",
@@ -1081,6 +1081,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-521",
+      "headline": "GTCR, Elliott Acquire Software Firm CCC for $4.6 Billion",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-15/gtcr-elliott-acquire-software-firm-ccc-for-4-6-billion",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T13:37:44Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "GTCR and Elliott agreed to acquire CCC for $4.6 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GTCR and Elliott agreed to acquire CCC for $4.6 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CCC",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-510",
       "headline": "IIFL Finance Q2 results: Net profit more than doubles to ₹766 crore, gold loans drive growth",
       "headline_en": null,
@@ -1928,55 +1977,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-421",
-      "headline": "HDFC Life Q2 results: Net profit rises nearly14% to ₹508 crore, net premium income jumps almost 16%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/hdfc-life-q2-results-net-profit-rises-nearly14-pc-to-rs-508-crore-net-premium-income-jumps-almost-16-pc-20012785.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T11:23:59Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "HDFC Life reported a 14% rise in net profit to ₹508 crore and a 16% jump in net premium income for Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "HDFC Life reported a 14% rise in net profit to ₹508 crore and a 16% jump in net premium income for Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HDFC Life",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219999,9 +219999,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6368983,
-    "news_picked_today": 1202,
-    "news_dropped_today": 7462
+    "news_seen_today": 6410453,
+    "news_picked_today": 1214,
+    "news_dropped_today": 7474
   },
   "book_momentum": {
     "live_count": 8,
