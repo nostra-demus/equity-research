@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-02T20:03:43Z",
+  "archived_at": "2026-10-15T04:46:03Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-910e844f0490",
-    "idea_version": "IDEAV-14070cecb744368d",
-    "idea_version_started_at": "2026-09-29T16:42:06Z",
-    "ticker": "SDR",
-    "company": "Schroders",
-    "exchange": "LSE",
+    "idea_id": "IDEA-1aeb23b16c7e",
+    "idea_version": "IDEAV-cb2c73fb1a174ba3",
+    "idea_version_started_at": "2026-10-12T03:38:04Z",
+    "ticker": "OV8",
+    "company": "Sheng Siong",
+    "exchange": "SGX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
-    "direction": "long",
+    "direction": "short",
     "pair_with": null,
-    "reason": "The court has sanctioned the cash bid for Schroders, effectively setting a floor for the share price at the offer value.",
-    "why_now": "The court sanction was announced on 2026-09-29, making the acquisition process near-final.",
-    "conviction": 85,
+    "reason": "Maybank downgraded the stock and cut its target price due to deteriorating outlook, which typically triggers institutional selling.",
+    "why_now": "The downgrade was reported on 2026-10-12, and the stock has already begun to react with a 3% decline.",
+    "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 19,
+      "impact": 14,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "priced-in risk",
       "independent confirmation",
       "live price, liquidity, and consensus"
     ],
@@ -49,31 +48,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "priced",
+    "priced_in": "room",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-d2552b78141e"
+      "EVT-4095a883cb91"
     ],
-    "primary_source_event_id": "EVT-d2552b78141e",
+    "primary_source_event_id": "EVT-4095a883cb91",
     "source_headlines": [
-      "Court Sanctions Nuveen's Recommended Cash Bid For Schroders"
+      "Sheng Siong shares fall 3% after Maybank downgrade, target price cut"
     ],
-    "source_headline": "Court Sanctions Nuveen's Recommended Cash Bid For Schroders",
-    "source_url": "https://www.nasdaq.com/articles/court-sanctions-nuveens-recommended-cash-bid-schroders",
-    "source_name": "Nasdaq",
-    "materiality_max": 100,
-    "newest_source_at": "2026-09-29T15:10:51Z",
+    "source_headline": "Sheng Siong shares fall 3% after Maybank downgrade, target price cut",
+    "source_url": "https://www.businesstimes.com.sg/companies-markets/sheng-siong-shares-fall-3-after-maybank-downgrade-target-price-cut",
+    "source_name": "The Business Times (Singapore)",
+    "materiality_max": 95,
+    "newest_source_at": "2026-10-12T02:59:40Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-29T16:42:06Z",
-    "updated_at": "2026-09-29T16:42:06Z",
-    "decay_at": "2026-10-01T03:10:51Z",
+    "surfaced_at": "2026-10-12T03:38:04Z",
+    "updated_at": "2026-10-12T03:38:04Z",
+    "decay_at": "2026-10-13T14:59:40Z",
     "status": "live",
     "promoted_signal_id": null
   }
