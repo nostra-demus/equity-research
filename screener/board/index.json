@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T01:06:54Z",
+  "generated_at": "2026-10-15T01:12:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-027",
@@ -404,6 +404,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-141",
+      "headline": "Mukesh Ambani's Jio sets price band for India IPO",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/india/mukesh-ambanis-jio-sets-price-band-india-ipo-2026-10-15/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T00:31:32Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Jio setting a price band for its IPO is a major capital market event for a large entity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Jio setting a price band for its IPO is a major capital market event for a large entity.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jio",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-066",
       "headline": "Anthropic’s Quarterly Revenue Jumped 45% to Nearly $17 Billion",
       "headline_en": null,
@@ -698,6 +747,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-140",
+      "headline": "NTPC seeks ₹1.5-trillion Rosatom tie-up for six nuclear reactors",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/india/ntpc-rosatom-nuclear-reactors-2047-11791883992876.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T00:30:56Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "NTPC seeks ₹1.5-trillion tie-up with Rosatom for six nuclear reactors — a major capacity-expansion plan that could alter capex phasing, capital structure, and geopolitical risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "NTPC seeks ₹1.5-trillion tie-up with Rosatom for six nuclear reactors — a major capacity-expansion plan that could alter capex phasing, capital structure, and geopolitical risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NTPC",
+          "ticker": "NTPC",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1870,105 +1968,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-090",
-      "headline": "Rocket Lab’s stock slides as the company pushes back Neutron’s first launch",
-      "headline_en": null,
-      "url": "https://www.marketwatch.com/bulletins/redirect/go?g=f8f40eb8-34d7-4eff-84ad-a769ac721048&mod=mw_rss_bulletins",
-      "source_name": "MarketWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-14T22:37:47Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Rocket Lab confirmed delay of Neutron vehicle launch affects revenue timing and execution credibility for a space-launch company dependent on rocket sales.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Rocket Lab confirmed delay of Neutron vehicle launch affects revenue timing and execution credibility for a space-launch company dependent on rocket sales.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations",
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rocket Lab",
-          "ticker": "RKLB",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-058",
-      "headline": "Japanese data analytics startup Solafune to launch AI satellite",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/aerospace-defense-industries/japanese-data-analytics-startup-solafune-to-launch-ai-satellite",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T00:21:46Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Startup Solafune is launching an AI satellite, marking a significant product development milestone for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Startup Solafune is launching an AI satellite, marking a significant product development milestone for the company.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 25,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Solafune",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220431,9 +220430,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 213795,
-    "news_picked_today": 151,
-    "news_dropped_today": 617
+    "news_seen_today": 241357,
+    "news_picked_today": 175,
+    "news_dropped_today": 689
   },
   "book_momentum": {
     "live_count": 8,
