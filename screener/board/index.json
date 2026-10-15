@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T15:27:09Z",
+  "generated_at": "2026-10-15T15:34:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-538",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261015-556",
+      "headline": "Prestige Estates Projects Limited: Prestige Estates Projects Limited has informed the Exchange about Consummation of transaction in Hospitality Portfolio through strategic partnership.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PRESTIGE_15102026200700_PEPL_SE_Disclosure.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T14:37:33Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Consummation of a strategic partnership in the hospitality portfolio represents a significant capital and operational shift.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Consummation of a strategic partnership in the hospitality portfolio represents a significant capital and operational shift.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prestige Estates Projects Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1921,55 +1970,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-465",
-      "headline": "AtlasClear To Acquire Ark Financial Services For Up To $24.5 Mln",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/atlasclear-acquire-ark-financial-services-245-mln",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T12:09:02Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "AtlasClear to acquire Ark Financial Services for $24.5 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "AtlasClear to acquire Ark Financial Services for $24.5 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AtlasClear",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219850,9 +219850,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7679729,
-    "news_picked_today": 1329,
-    "news_dropped_today": 8175
+    "news_seen_today": 7763266,
+    "news_picked_today": 1334,
+    "news_dropped_today": 8242
   },
   "book_momentum": {
     "live_count": 8,
