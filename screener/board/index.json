@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T10:02:47Z",
+  "generated_at": "2026-10-15T10:07:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-407",
@@ -179930,77 +179930,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-bc0beacad2eb",
-      "idea_version": "IDEAV-30cf9e9a4f104e94",
-      "idea_version_started_at": "2026-10-14T04:53:47Z",
-      "ticker": "09926.HK",
-      "company": "AKESO",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is executing a new share placement under a general mandate, which will dilute existing equity holders.",
-      "why_now": "The filing was released on 2026-10-13, and the market will likely price in the dilution effect immediately upon trading resumption.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5db6368c112a"
-      ],
-      "primary_source_event_id": "EVT-5db6368c112a",
-      "source_headlines": [
-        "AKESO (09926): PLACING OF NEW SHARES UNDER GENERAL MANDATE"
-      ],
-      "source_headline": "AKESO (09926): PLACING OF NEW SHARES UNDER GENERAL MANDATE",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1014/2026101400009.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 88,
-      "newest_source_at": "2026-10-13T22:06:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-14T04:53:47Z",
-      "updated_at": "2026-10-14T04:53:47Z",
-      "decay_at": "2026-10-15T10:06:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5dcef043aea8",
       "idea_version": "IDEAV-815920f2a7efaf9c",
       "idea_version_started_at": "2026-10-14T00:48:30Z",
@@ -182570,6 +182499,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-bc0beacad2eb",
+      "idea_version": "IDEAV-30cf9e9a4f104e94",
+      "idea_version_started_at": "2026-10-14T04:53:47Z",
+      "ticker": "09926.HK",
+      "company": "AKESO",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is executing a new share placement under a general mandate, which will dilute existing equity holders.",
+      "why_now": "The filing was released on 2026-10-13, and the market will likely price in the dilution effect immediately upon trading resumption.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5db6368c112a"
+      ],
+      "primary_source_event_id": "EVT-5db6368c112a",
+      "source_headlines": [
+        "AKESO (09926): PLACING OF NEW SHARES UNDER GENERAL MANDATE"
+      ],
+      "source_headline": "AKESO (09926): PLACING OF NEW SHARES UNDER GENERAL MANDATE",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1014/2026101400009.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 88,
+      "newest_source_at": "2026-10-13T22:06:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-14T04:53:47Z",
+      "updated_at": "2026-10-14T04:53:47Z",
+      "decay_at": "2026-10-15T10:06:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-59c7281c1c23",
       "idea_version": "IDEAV-7f5c8dd849972385",
       "idea_version_started_at": "2026-10-13T09:12:26Z",
@@ -182724,9 +182724,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 537,
+    "total_count": 538,
     "shown_count": 499,
-    "hidden_count": 38,
+    "hidden_count": 39,
     "side_counts": {
       "long": {
         "total_count": 273,
@@ -182734,9 +182734,9 @@
         "hidden_count": 23
       },
       "short": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       }
     },
     "retention": {
@@ -182755,6 +182755,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-bc0beacad2eb",
+        "idea_version": "IDEAV-30cf9e9a4f104e94",
+        "idea_version_started_at": "2026-10-14T04:53:47Z",
+        "ticker": "09926.HK",
+        "company": "AKESO",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company is executing a new share placement under a general mandate, which will dilute existing equity holders.",
+        "why_now": "The filing was released on 2026-10-13, and the market will likely price in the dilution effect immediately upon trading resumption.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5db6368c112a"
+        ],
+        "primary_source_event_id": "EVT-5db6368c112a",
+        "source_headlines": [
+          "AKESO (09926): PLACING OF NEW SHARES UNDER GENERAL MANDATE"
+        ],
+        "source_headline": "AKESO (09926): PLACING OF NEW SHARES UNDER GENERAL MANDATE",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1014/2026101400009.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 88,
+        "newest_source_at": "2026-10-13T22:06:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-14T04:53:47Z",
+        "updated_at": "2026-10-14T04:53:47Z",
+        "decay_at": "2026-10-15T10:06:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-15T10:06:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3d9be100b359",
         "idea_version": "IDEAV-cc32091157fb53b7",
@@ -219837,86 +219911,12 @@
         "archived_at": "2026-09-20T11:25:10Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-3e37a6bd1d90",
-        "idea_version": "IDEAV-7fcf6a663bad55ee",
-        "idea_version_started_at": "2026-09-17T11:22:21Z",
-        "ticker": "00513.HK",
-        "company": "Continental Holdings",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company issued a profit warning, signaling deteriorating margins or revenue shortfalls that will likely lead to downward earnings revisions.",
-        "why_now": "The profit warning was filed on 2026-09-17, making this a live catalyst for immediate repricing.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-571a3e0b9e93"
-        ],
-        "primary_source_event_id": "EVT-571a3e0b9e93",
-        "source_headlines": [
-          "CONTINENTAL H (00513): PROFIT WARNING"
-        ],
-        "source_headline": "CONTINENTAL H (00513): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0917/2026091700353.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-17T04:25:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-17T11:22:21Z",
-        "updated_at": "2026-09-17T11:22:21Z",
-        "decay_at": "2026-09-18T16:25:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-20T11:25:10Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1602,
-    "live_count": 28,
+    "live_count": 27,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -219935,9 +219935,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3735783,
-    "news_picked_today": 845,
-    "news_dropped_today": 5827
+    "news_seen_today": 3754597,
+    "news_picked_today": 853,
+    "news_dropped_today": 5843
   },
   "book_momentum": {
     "live_count": 8,
