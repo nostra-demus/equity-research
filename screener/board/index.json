@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T12:49:54Z",
+  "generated_at": "2026-10-15T12:57:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-458",
@@ -177987,75 +177987,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-5f8e4c75be94",
-      "idea_version": "IDEAV-00dd1eb7eab5b8cb",
-      "idea_version_started_at": "2026-10-14T04:53:47Z",
-      "ticker": "RRL.AX",
-      "company": "Regis Resources Limited",
-      "exchange": "Australian",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The Federal Court's invalidation of the s10 declaration for the McPhillamys gold project creates significant regulatory uncertainty and potential project abandonment, directly threatening the company's primary growth asset.",
-      "why_now": "The court ruling was issued on 2026-10-14, creating an immediate and material negative impact on the company's valuation.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 76,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-19b34ce6ce6f"
-      ],
-      "primary_source_event_id": "EVT-19b34ce6ce6f",
-      "source_headlines": [
-        "RRL: Federal Court Rules McPhillamys s10 Declaration Invalid [price-sensitive]"
-      ],
-      "source_headline": "RRL: Federal Court Rules McPhillamys s10 Declaration Invalid [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RRL?key=2924-03148159-6A1349139",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-14T00:50:33Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-14T04:53:47Z",
-      "updated_at": "2026-10-14T04:53:47Z",
-      "decay_at": "2026-10-15T12:50:33Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b0586fbde26d",
       "idea_version": "IDEAV-f117cb658b12bf91",
       "idea_version_started_at": "2026-10-14T22:44:48Z",
@@ -179978,6 +179909,75 @@
       "surfaced_at": "2026-10-14T00:48:30Z",
       "updated_at": "2026-10-14T00:48:30Z",
       "decay_at": "2026-10-15T08:15:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-5f8e4c75be94",
+      "idea_version": "IDEAV-00dd1eb7eab5b8cb",
+      "idea_version_started_at": "2026-10-14T04:53:47Z",
+      "ticker": "RRL.AX",
+      "company": "Regis Resources Limited",
+      "exchange": "Australian",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The Federal Court's invalidation of the s10 declaration for the McPhillamys gold project creates significant regulatory uncertainty and potential project abandonment, directly threatening the company's primary growth asset.",
+      "why_now": "The court ruling was issued on 2026-10-14, creating an immediate and material negative impact on the company's valuation.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 76,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-19b34ce6ce6f"
+      ],
+      "primary_source_event_id": "EVT-19b34ce6ce6f",
+      "source_headlines": [
+        "RRL: Federal Court Rules McPhillamys s10 Declaration Invalid [price-sensitive]"
+      ],
+      "source_headline": "RRL: Federal Court Rules McPhillamys s10 Declaration Invalid [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RRL?key=2924-03148159-6A1349139",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-14T00:50:33Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-14T04:53:47Z",
+      "updated_at": "2026-10-14T04:53:47Z",
+      "decay_at": "2026-10-15T12:50:33Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -182851,9 +182851,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 540,
+    "total_count": 541,
     "shown_count": 499,
-    "hidden_count": 41,
+    "hidden_count": 42,
     "side_counts": {
       "long": {
         "total_count": 274,
@@ -182861,9 +182861,9 @@
         "hidden_count": 24
       },
       "short": {
-        "total_count": 267,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 18
       }
     },
     "retention": {
@@ -182882,6 +182882,78 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5f8e4c75be94",
+        "idea_version": "IDEAV-00dd1eb7eab5b8cb",
+        "idea_version_started_at": "2026-10-14T04:53:47Z",
+        "ticker": "RRL.AX",
+        "company": "Regis Resources Limited",
+        "exchange": "Australian",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The Federal Court's invalidation of the s10 declaration for the McPhillamys gold project creates significant regulatory uncertainty and potential project abandonment, directly threatening the company's primary growth asset.",
+        "why_now": "The court ruling was issued on 2026-10-14, creating an immediate and material negative impact on the company's valuation.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 76,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-19b34ce6ce6f"
+        ],
+        "primary_source_event_id": "EVT-19b34ce6ce6f",
+        "source_headlines": [
+          "RRL: Federal Court Rules McPhillamys s10 Declaration Invalid [price-sensitive]"
+        ],
+        "source_headline": "RRL: Federal Court Rules McPhillamys s10 Declaration Invalid [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RRL?key=2924-03148159-6A1349139",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-14T00:50:33Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-14T04:53:47Z",
+        "updated_at": "2026-10-14T04:53:47Z",
+        "decay_at": "2026-10-15T12:50:33Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-15T12:50:33Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-11e71885e916",
         "idea_version": "IDEAV-2fbc227795adbe78",
@@ -219965,87 +220037,12 @@
         "archived_at": "2026-09-20T13:45:14Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-01a3bdc0a127",
-        "idea_version": "IDEAV-f26a5945be582be6",
-        "idea_version_started_at": "2026-09-17T16:21:54Z",
-        "ticker": "GBF",
-        "company": "Bilfinger SE",
-        "exchange": "XETRA",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company issued a profit warning and announced restructuring layoffs, indicating significant operational headwinds and margin compression.",
-        "why_now": "The news was released on 2026-09-17, and the stock is likely still adjusting to the lowered outlook.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-287b5f6f9185"
-        ],
-        "primary_source_event_id": "EVT-287b5f6f9185",
-        "source_headlines": [
-          "Bilfinger Shares Fall 20% on Lowered Outlook, Job Cuts"
-        ],
-        "source_headline": "Bilfinger Shares Fall 20% on Lowered Outlook, Job Cuts",
-        "source_url": "https://www.wsj.com/business/earnings/bilfinger-shares-fall-20-on-lowered-outlook-job-cuts-c843f681?mod=pls_whats_news_us_business_f",
-        "source_name": "The Wall Street Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-17T09:37:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-17T16:21:54Z",
-        "updated_at": "2026-09-17T16:21:54Z",
-        "decay_at": "2026-09-18T21:37:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-20T11:25:10Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1604,
-    "live_count": 27,
+    "live_count": 26,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -220064,9 +220061,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5598311,
-    "news_picked_today": 1133,
-    "news_dropped_today": 7027
+    "news_seen_today": 5718197,
+    "news_picked_today": 1137,
+    "news_dropped_today": 7095
   },
   "book_momentum": {
     "live_count": 8,
