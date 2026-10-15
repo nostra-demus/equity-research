@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T17:43:08Z",
+  "generated_at": "2026-10-15T17:49:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-577",
@@ -1483,6 +1483,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-580",
+      "headline": "Solar Industries to acquire Sivasakthi Industrial Explosives for ₹115.02 crore",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/companies/solar-industries-to-acquire-sivasakthi-industrial-explosives-for-rs-115-02-crore-20013022.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T17:39:39Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Solar Industries will acquire Sivasakthi Industrial Explosives for ₹115.02 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Solar Industries will acquire Sivasakthi Industrial Explosives for ₹115.02 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Solar Industries",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Sivasakthi Industrial Explosives",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-576",
       "headline": "Brunello Cucinelli raises 2026 outlook after beating Q3 sales forecasts",
       "headline_en": null,
@@ -1919,55 +1973,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-533",
-      "headline": "CoreWeave Risk Gauge Hits Record, Pricing 60% Odds of Default",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-15/coreweave-risk-gauge-hits-record-pricing-60-odds-of-default",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T14:01:51Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Market pricing indicates a 60% probability of default for CoreWeave, signaling severe credit distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Market pricing indicates a 60% probability of default for CoreWeave, signaling severe credit distress.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CoreWeave",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -219994,9 +219999,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9513585,
-    "news_picked_today": 1432,
-    "news_dropped_today": 9128
+    "news_seen_today": 9617780,
+    "news_picked_today": 1443,
+    "news_dropped_today": 9165
   },
   "book_momentum": {
     "live_count": 8,
