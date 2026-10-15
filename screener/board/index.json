@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T12:47:33Z",
+  "generated_at": "2026-10-15T12:49:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-458",
@@ -1081,6 +1081,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-481",
+      "headline": "Angel One Q2 profit rises 45% as client funding book hits record ₹7,450 crore, declares dividend",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/angel-one-q2-profit-up-45-pc-client-funding-book-record-rs-7450-crore-dividend-declared-20012859.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T12:43:27Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Angel One reported a 45% profit increase and declared a dividend.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Angel One reported a 45% profit increase and declared a dividend.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Angel One",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-452",
       "headline": "Labcorp to buy select assets from Opko Health unit for up to $872 million",
       "headline_en": null,
@@ -1916,56 +1966,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-305",
-      "headline": "MRPL Q2 Net Profit Surges 194% To ₹1,881 Crore, Declares ₹3 Interim Dividend",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/mrpl-q2-net-profit-surges-194-to-1881-crore-declares-3-interim-dividend",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T05:01:20Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "MRPL reported a 194% surge in Q2 net profit to ₹1,881 crore and declared a ₹3 interim dividend.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "MRPL reported a 194% surge in Q2 net profit to ₹1,881 crore and declared a ₹3 interim dividend.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mangalore Refinery and Petrochemicals Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220064,9 +220064,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5557977,
-    "news_picked_today": 1128,
-    "news_dropped_today": 6984
+    "news_seen_today": 5598311,
+    "news_picked_today": 1133,
+    "news_dropped_today": 7027
   },
   "book_momentum": {
     "live_count": 8,
