@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-15T12:17:52Z",
+  "generated_at": "2026-10-15T12:21:40Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261015-435",
+      "headline": "TRANSTECH OPTEL (09963): MAJOR AND CONNECTED TRANSACTION IN RELATION TO THE ACQUISITION OF 49% OF THE ISSUED SHARE CAPITAL OF HAO TAI INVESTMENT INVOLVING THE ISSUE OF CONSIDERATION SHARES UNDER SPECIFIC MANDATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1015/2026101501142.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T12:14:00Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Company announced a major acquisition of 49% of Hao Tai Investment involving the issuance of consideration shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced a major acquisition of 49% of Hao Tai Investment involving the issuance of consideration shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TRANSTECH OPTEL",
+          "ticker": "09963",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261015-432",
       "headline": "Yes Bank Limited: The Exchange has sought clarification from Yes Bank Limited with respect to recent news item captioned Yes Bank share price sees sharp fall of 10% after Supreme Court ruling on Rs.8,400 crore AT-1 bond write-off. The response from the Company is attached.",
@@ -1917,60 +1966,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-057",
-      "headline": "Brookfield, NextEra to Build $100 Billion AI Hub on Cold War Nuclear Site",
-      "headline_en": null,
-      "url": "https://oilprice.com/Energy/Energy-General/Brookfield-NextEra-to-Build-100-Billion-AI-Hub-on-Cold-War-Nuclear-Site.html",
-      "source_name": "OilPrice.com",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Brookfield and NextEra announced a $100 billion investment to build an AI hub, representing a massive capital expenditure project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Brookfield and NextEra announced a $100 billion investment to build an AI hub, representing a massive capital expenditure project.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brookfield",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "NextEra",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220069,9 +220064,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5177090,
-    "news_picked_today": 1068,
-    "news_dropped_today": 6804
+    "news_seen_today": 5216912,
+    "news_picked_today": 1072,
+    "news_dropped_today": 6824
   },
   "book_momentum": {
     "live_count": 8,
