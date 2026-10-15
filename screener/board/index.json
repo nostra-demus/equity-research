@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T20:13:22Z",
+  "generated_at": "2026-10-15T20:16:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-583",
@@ -1533,6 +1533,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261015-586",
+      "headline": "Wellness Company Hain Celestial Said to Eye Potential Bankruptcy",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-15/wellness-company-hain-celestial-said-to-eye-potential-bankruptcy",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T19:51:48Z",
+      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
+      "prelim_note": "Hain Celestial is reportedly exploring potential bankruptcy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hain Celestial is reportedly exploring potential bankruptcy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hain Celestial",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261015-580",
       "headline": "Solar Industries to acquire Sivasakthi Industrial Explosives for ₹115.02 crore",
       "headline_en": null,
@@ -1925,55 +1974,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261015-545",
-      "headline": "Jio Financial Services Q2 Results: PAT drops 51% YoY to Rs 340 crore; NII soars 165%",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/jio-financial-services-q2-results-pat-drops-51-yoy-to-rs-340-crore-nii-up-132/articleshow/134970520.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T14:45:23Z",
-      "sweep_file": "screener/inbox/2026-10-15_sweep.json",
-      "prelim_note": "Jio Financial Services reported a 51% YoY drop in PAT to Rs 340 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Jio Financial Services reported a 51% YoY drop in PAT to Rs 340 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jio Financial Services",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -220218,9 +220218,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11313989,
-    "news_picked_today": 1545,
-    "news_dropped_today": 10383
+    "news_seen_today": 11334770,
+    "news_picked_today": 1548,
+    "news_dropped_today": 10404
   },
   "book_momentum": {
     "live_count": 8,
