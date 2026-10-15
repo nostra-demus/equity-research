@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-15T02:43:02Z",
+  "generated_at": "2026-10-15T02:47:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261015-027",
@@ -178422,6 +178422,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-e07345b47c7f",
+      "idea_version": "IDEAV-29343a0846017038",
+      "idea_version_started_at": "2026-10-15T02:47:20Z",
+      "ticker": "01773",
+      "company": "Tianli International Holdings",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A profit warning indicates deteriorating margins or revenue shortfalls, which typically leads to downward earnings revisions.",
+      "why_now": "The profit warning was filed on October 14, 2026, and the market has yet to fully digest the impact on forward earnings.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cf3ac50db465"
+      ],
+      "primary_source_event_id": "EVT-cf3ac50db465",
+      "source_headlines": [
+        "TIANLI INT HLDG (01773): PROFIT WARNING"
+      ],
+      "source_headline": "TIANLI INT HLDG (01773): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1015/2026101500009.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-14T22:22:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-15T02:47:20Z",
+      "updated_at": "2026-10-15T02:47:20Z",
+      "decay_at": "2026-10-16T10:22:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-3c36e437e038",
       "idea_version": "IDEAV-30539ff95fa15421",
       "idea_version_started_at": "2026-10-15T01:06:33Z",
@@ -179421,6 +179492,77 @@
       "surfaced_at": "2026-10-13T23:04:58Z",
       "updated_at": "2026-10-13T23:04:58Z",
       "decay_at": "2026-10-15T04:27:21Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-73bf913da657",
+      "idea_version": "IDEAV-f77ec95fb3a33bf7",
+      "idea_version_started_at": "2026-10-15T02:47:20Z",
+      "ticker": "FBU",
+      "company": "Fletcher Building",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The fast-track approval of the Hunua Quarry project removes a significant regulatory bottleneck, allowing the company to unlock long-term aggregate supply and revenue potential.",
+      "why_now": "The regulatory approval was confirmed in an exchange filing on October 15, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-272def03df7e"
+      ],
+      "primary_source_event_id": "EVT-272def03df7e",
+      "source_headlines": [
+        "FBU: Fletcher Building welcomes Hunua Quarry Fast Track approval"
+      ],
+      "source_headline": "FBU: Fletcher Building welcomes Hunua Quarry Fast Track approval",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FBU?key=2924-03148759-2A1704229",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 94,
+      "newest_source_at": "2026-10-15T00:04:48Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-15T02:47:20Z",
+      "updated_at": "2026-10-15T02:47:20Z",
+      "decay_at": "2026-10-16T12:04:48Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -180477,76 +180619,6 @@
       "surfaced_at": "2026-10-08T12:13:45Z",
       "updated_at": "2026-10-13T05:16:42Z",
       "decay_at": "2026-10-14T08:16:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-4b467da5d4b8",
-      "idea_version": "IDEAV-0769238bbac11fe4",
-      "idea_version_started_at": "2026-10-12T02:43:21Z",
-      "ticker": "TSM",
-      "company": "Taiwan Semiconductor Manufacturing Company",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "TSMC is capturing significant margin expansion from the sustained surge in demand for AI-specific high-performance computing chips.",
-      "why_now": "The company is expected to report its sixth consecutive quarter of record profits, with the earnings release imminent.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9d597305f0de"
-      ],
-      "primary_source_event_id": "EVT-9d597305f0de",
-      "source_headlines": [
-        "TSMC expected to report sixth straight quarter of record profit thanks to AI boom"
-      ],
-      "source_headline": "TSMC expected to report sixth straight quarter of record profit thanks to AI boom",
-      "source_url": "https://www.livemint.com/companies/tsmc-expected-to-report-sixth-straight-quarter-of-record-profit-thanks-to-ai-boom-11791771103421.html",
-      "source_name": "Mint",
-      "materiality_max": 93,
-      "newest_source_at": "2026-10-12T02:11:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-12T02:43:21Z",
-      "updated_at": "2026-10-12T02:43:21Z",
-      "decay_at": "2026-10-13T14:11:43Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -182709,77 +182781,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-5dcbd52d3d62",
-      "idea_version": "IDEAV-81766fd1a8f82794",
-      "idea_version_started_at": "2026-10-12T02:08:33Z",
-      "ticker": "M2R",
-      "company": "M2R",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "M2R has provided a positive update on gold drilling at its Gidji JV Project, suggesting potential for increased resource estimates or future production.",
-      "why_now": "The company filed a price-sensitive update on its gold drilling results today, indicating new information for the market.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 14,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ca802e1348a7"
-      ],
-      "primary_source_event_id": "EVT-ca802e1348a7",
-      "source_headlines": [
-        "M2R: Gidji JV Project - Gold Drilling Update [price-sensitive]"
-      ],
-      "source_headline": "M2R: Gidji JV Project - Gold Drilling Update [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.M2R?key=2924-03147112-6A1348710",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 91,
-      "newest_source_at": "2026-10-12T01:23:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-12T02:08:33Z",
-      "updated_at": "2026-10-12T02:08:33Z",
-      "decay_at": "2026-10-13T13:23:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-5ef7cac32b21",
       "idea_version": "IDEAV-47c37289bd6a2c31",
       "idea_version_started_at": "2026-10-13T09:12:26Z",
@@ -182845,149 +182846,6 @@
       "surfaced_at": "2026-10-13T09:12:26Z",
       "updated_at": "2026-10-13T09:12:26Z",
       "decay_at": "2026-10-14T12:10:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-287a48e812bd",
-      "idea_version": "IDEAV-06bfe70fee34ea59",
-      "idea_version_started_at": "2026-10-12T02:43:21Z",
-      "ticker": "CPN",
-      "company": "Caspin Resources",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The 45% increase in the Mineral Resource Estimate (MRE) at the Kelpie Tin Deposit significantly enhances the net asset value of the company's core project.",
-      "why_now": "The official amended exchange filing confirming the resource upgrade was released on 2026-10-12.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5d42ca0db448"
-      ],
-      "primary_source_event_id": "EVT-5d42ca0db448",
-      "source_headlines": [
-        "CPN: 45% Increase to MRE at Kelpie Tin Deposit - Amended [price-sensitive]"
-      ],
-      "source_headline": "CPN: 45% Increase to MRE at Kelpie Tin Deposit - Amended [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CPN?key=2924-03147125-6A1348714",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 90,
-      "newest_source_at": "2026-10-12T02:05:53Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-12T02:43:21Z",
-      "updated_at": "2026-10-12T02:43:21Z",
-      "decay_at": "2026-10-13T14:05:53Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-9716a5634f9d",
-      "idea_version": "IDEAV-8dc32f373e9e5b1b",
-      "idea_version_started_at": "2026-10-12T02:08:33Z",
-      "ticker": "700",
-      "company": "Tencent",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Tencent's plan to sell dollar and offshore yuan bonds under its note programme could improve its capital structure or fund strategic initiatives at potentially favorable rates.",
-      "why_now": "Reuters reported today that Tencent plans a bond sale, indicating an imminent capital markets transaction.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b65fd114d7e6"
-      ],
-      "primary_source_event_id": "EVT-b65fd114d7e6",
-      "source_headlines": [
-        "Tencent plans dollar, offshore yuan bond sale under note programme"
-      ],
-      "source_headline": "Tencent plans dollar, offshore yuan bond sale under note programme",
-      "source_url": "https://www.reuters.com/world/asia-pacific/tencent-plans-dollar-offshore-yuan-bond-sale-under-note-programme-2026-10-12/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 90,
-      "newest_source_at": "2026-10-12T01:19:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-12T02:08:33Z",
-      "updated_at": "2026-10-12T02:08:33Z",
-      "decay_at": "2026-10-13T13:19:05Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -183221,14 +183079,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 547,
+    "total_count": 543,
     "shown_count": 499,
-    "hidden_count": 48,
+    "hidden_count": 44,
     "side_counts": {
       "long": {
-        "total_count": 281,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 31
+        "hidden_count": 27
       },
       "short": {
         "total_count": 267,
@@ -183238,12 +183096,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1021,
+      "evicted_count": 1025,
       "oldest_retained_at": "2026-09-16T10:32:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 676,
-          "oldest_retained_at": "2026-09-30T23:40:07Z"
+          "evicted_count": 680,
+          "oldest_retained_at": "2026-10-01T01:54:20Z"
         },
         "short": {
           "evicted_count": 345,
@@ -186597,8 +186455,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-13T14:11:43Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-15T02:47:27Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -186671,8 +186529,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-13T14:05:53Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-15T02:47:27Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -186745,8 +186603,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-13T13:23:43Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-15T02:47:27Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -186820,8 +186678,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-13T13:19:05Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-15T02:47:27Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -220419,8 +220277,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1594,
-    "live_count": 25,
+    "surfaced_total": 1596,
+    "live_count": 27,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -220439,7 +220297,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 477767,
+    "news_seen_today": 490538,
     "news_picked_today": 380,
     "news_dropped_today": 1660
   },
