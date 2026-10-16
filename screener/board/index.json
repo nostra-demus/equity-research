@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-10-16T09:49:23Z",
+  "generated_at": "2026-10-16T09:59:12Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261016-240",
+      "headline": "Mangalam Drugs And Organics Limited: Mangalam Drugs And Organics Limited has informed the Exchange about Fraud/Default/Arrest",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MANGALAM_16102026151114_SEBD37.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T09:41:29Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "The company has reported a fraud, default, or arrest, which is a material risk event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company has reported a fraud, default, or arrest, which is a material risk event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mangalam Drugs And Organics Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261016-233",
       "headline": "E2E Networks Limited: E2E Networks Limited has informed the Exchange regarding a press release dated October 16, 2026, titled \"E2E Networks Reports Q2 FY 27 Results: Revenue 5.1x YoY to ₹2,238 Mn; EBITDA Margin Expands to 76.6%; PAT ₹727 Mn \".",
@@ -590,6 +640,104 @@
           "name": "OCT (Asia)",
           "ticker": "03366",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-244",
+      "headline": "Ujjivan SFB Q2 Results: Net Profit Triples, NII Jumps 35%",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/ujjivan-sfb-q2-results-net-profit-triples-nii-jumps-35-12194259#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T09:46:02Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Ujjivan SFB reported a tripling of net profit and a 35% jump in NII for Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ujjivan SFB reported a tripling of net profit and a 35% jump in NII for Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ujjivan Small Finance Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-243",
+      "headline": "Ujjivan SFB posts record Q2 profit of ₹365 crore, on track to achieve 2% RoA guidance",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/ujjivan-sfb-q2-results-record-profit-to-achieve-2-pc-roa-guidance-preferential-issue-20013618.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T09:42:51Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Ujjivan SFB reported a record Q2 profit of 365 crore rupees.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ujjivan SFB reported a record Q2 profit of 365 crore rupees.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ujjivan Small Finance Bank",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -1846,147 +1994,6 @@
           "name": "Vraj Iron and Steel Limited",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-132",
-      "headline": "CPSC Eliminates Unnecessary Fuel Additive Regulations, Saving American Businesses Up to $10.7 Billion",
-      "headline_en": null,
-      "url": "https://www.cpsc.gov/Newsroom/News-Releases/2027/CPSC-Eliminates-Unnecessary-Fuel-Additive-Regulations-Saving-American-Businesses-Up-to-10-7-Billion",
-      "source_name": "U.S. CPSC — News Releases",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-16T05:19:40Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "The CPSC eliminated fuel additive regulations, projected to save businesses up to $10.7 billion in compliance costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "The CPSC eliminated fuel additive regulations, projected to save businesses up to $10.7 billion in compliance costs.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-050",
-      "headline": "MEX: Quarterly Activities/Appendix 5B Cash Flow Report [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MEX?key=2924-03149318-6A1349580",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T01:34:43Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Quarterly cash flow reports are price-sensitive disclosures that provide insight into the company's liquidity and operational performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Quarterly cash flow reports are price-sensitive disclosures that provide insight into the company's liquidity and operational performance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MEX",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-019",
-      "headline": "YUNJI-NEW (02670): INSIDE INFORMATION ANNOUNCEMENT TERMINATION OF INVESTOR VOTING AGREEMENTS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101600039.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Termination of investor voting agreements is a material change in corporate governance and ownership structure for Yunji.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Termination of investor voting agreements is a material change in corporate governance and ownership structure for Yunji.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yunji",
-          "ticker": "02670",
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "small",
@@ -222220,9 +222227,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6979032,
-    "news_picked_today": 364,
-    "news_dropped_today": 4220
+    "news_seen_today": 7105297,
+    "news_picked_today": 375,
+    "news_dropped_today": 4257
   },
   "book_momentum": {
     "live_count": 8,
