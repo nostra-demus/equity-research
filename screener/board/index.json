@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T06:54:21Z",
+  "generated_at": "2026-10-16T06:58:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261016-145",
@@ -1480,6 +1480,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261016-151",
+      "headline": "DEE Development Engineers Limited: DEE Development Engineers Limited has informed the Exchange about Framework Agreement for Supply of pipping solutions to the Nuclear Power Sector.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DDEL_16102026113922_NSEBSE_Reg30_Nuclear.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T06:11:07Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "DEE Development Engineers signed a framework agreement to supply piping solutions to the nuclear power sector, indicating a new commercial contract.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "DEE Development Engineers signed a framework agreement to supply piping solutions to the nuclear power sector, indicating a new commercial contract.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DEE Development Engineers Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261016-067",
       "headline": "Nestle India Q2 Review: Brokerages Cut Earnings Estimates, Target Price As Q2 Beat Fails To Ease Inflation Fears",
       "headline_en": null,
@@ -1908,55 +1957,6 @@
           "name": "Tech Mahindra",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-103",
-      "headline": "Hybe shares jump 10% as K-pop sensation BTS' tour lifts earnings hopes",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/16/bts-concerts-hybe-katseye-cortis.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T03:53:48Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Hybe shares rose 10% on market optimism regarding future earnings potential driven by BTS tour expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Hybe shares rose 10% on market optimism regarding future earnings potential driven by BTS tour expectations.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hybe",
-          "ticker": null,
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -221976,9 +221976,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4640729,
-    "news_picked_today": 202,
-    "news_dropped_today": 2990
+    "news_seen_today": 4710429,
+    "news_picked_today": 204,
+    "news_dropped_today": 3060
   },
   "book_momentum": {
     "live_count": 8,
