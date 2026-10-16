@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T01:50:54Z",
+  "generated_at": "2026-10-16T02:15:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261016-017",
@@ -1710,6 +1710,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261016-055",
+      "headline": "Oil prices dip marginally as US weighs easing sanctions on ‘shadow fleet’ tankers",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/international-business/oil-prices-dip-marginally-as-us-weighs-easing-sanctions-on-shadow-fleet-tankers/articleshow/134980028.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T01:49:20Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "US consideration of easing sanctions on 'shadow fleet' tankers could increase global oil supply and lower prices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "US consideration of easing sanctions on 'shadow fleet' tankers could increase global oil supply and lower prices.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector",
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261016-009",
       "headline": "Mizuho Upgrades Array Technologies to Outperform from Neutral",
       "headline_en": null,
@@ -1901,55 +1945,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-016",
-      "headline": "YUNJI-NEW (02670): VOLUNTARY ANNOUNCEMENT VOLUNTARY EXTENSION OF LOCK-UP UNDERTAKINGS BY MEMBERS OF MANAGEMENT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101600043.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T00:01:00Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Yunji management voluntarily extended lock-up undertakings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Yunji management voluntarily extended lock-up undertakings.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yunji",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -221895,9 +221890,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1300008,
-    "news_picked_today": 57,
-    "news_dropped_today": 831
+    "news_seen_today": 1654073,
+    "news_picked_today": 58,
+    "news_dropped_today": 950
   },
   "book_momentum": {
     "live_count": 8,
