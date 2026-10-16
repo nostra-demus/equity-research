@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T00:51:53Z",
+  "generated_at": "2026-10-16T00:56:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261016-017",
@@ -244,6 +244,55 @@
         {
           "name": "Yunji",
           "ticker": "02670",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-035",
+      "headline": "VISTAR HOLDINGS (08535): TRADING HALT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1016/2026101501232.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T00:41:00Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Trading halt on Vistar Holdings indicates a pending material announcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Trading halt on Vistar Holdings indicates a pending material announcement.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "VISTAR HOLDINGS",
+          "ticker": "08535",
           "listing_country": "CN"
         }
       ],
@@ -792,6 +841,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261016-036",
+      "headline": "MSGUMIN@EC2612A MS-CATL@EP2612A MS-WUXI@EC2612A MS-WUXI@EC2611A MSZHJIN@EC2610A MSBAIDU@EP2611A MS-LINK@EC2611A MSROBSN@EC2611A MS-NIO @EC2611A MS#HKEX RC2610A MS#HSBC RC2611C (13028 13538 18743 26126 27811 28694 28849 29313 29319 50842 58566): EXCHANGE NOTICE - SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101600071.htm",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T00:37:00Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Suspension of trading for multiple structured products linked to various underlying stocks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "Suspension of trading for multiple structured products linked to various underlying stocks.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261016-014",
       "headline": "SCHEDULE 13D/A - Alaunos Therapeutics, Inc. (0001107421) (Subject)",
       "headline_en": null,
@@ -1277,6 +1369,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-034",
+      "headline": "Inside the TVS family dispute: How a business restructuring left Lakshmi with the smaller business",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/people/tvs-family-feud-lakshmi-venu-sudarshan-venu-11791972848647.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T00:37:55Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "The TVS family restructuring is a long-standing historical matter and does not represent a new material event for the current business operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "The TVS family restructuring is a long-standing historical matter and does not represent a new material event for the current business operations.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TVS",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -181820,78 +181961,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-dbad30ae5c0f",
-      "idea_version": "IDEAV-59347acf71dafbd6",
-      "idea_version_started_at": "2026-10-14T20:04:17Z",
-      "ticker": "BAJAJCON",
-      "company": "Bajaj Consumer Care",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 66% jump in net profit to Rs 70 crore and a 26% increase in revenue, indicating strong operational momentum.",
-      "why_now": "The Q2 results were released on October 14, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9572d429d6b1"
-      ],
-      "primary_source_event_id": "EVT-9572d429d6b1",
-      "source_headlines": [
-        "Bajaj Consumer Q2 Results: Net Profit Jumps 66% To Rs 70 Crore, Revenue Rises 26%"
-      ],
-      "source_headline": "Bajaj Consumer Q2 Results: Net Profit Jumps 66% To Rs 70 Crore, Revenue Rises 26%",
-      "source_url": "https://www.ndtvprofit.com/markets/bajaj-consumer-q2-results-net-profit-jumps-66-to-rs-70-crore-revenue-rises-26-12184963#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-14T12:55:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-14T20:04:17Z",
-      "updated_at": "2026-10-14T20:04:17Z",
-      "decay_at": "2026-10-16T00:55:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-520be705f9e6",
       "idea_version": "IDEAV-c67dfb1b007004eb",
       "idea_version_started_at": "2026-10-14T16:36:34Z",
@@ -181957,77 +182026,6 @@
       "surfaced_at": "2026-10-14T16:36:34Z",
       "updated_at": "2026-10-14T16:36:34Z",
       "decay_at": "2026-10-16T01:05:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-9d322ec65604",
-      "idea_version": "IDEAV-24dc4ee7e83ada71",
-      "idea_version_started_at": "2026-10-14T16:36:34Z",
-      "ticker": "01813",
-      "company": "KWG Group",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "KWG Group is facing a winding-up petition hearing, indicating severe financial distress that could lead to liquidation.",
-      "why_now": "An update on the winding-up petition hearing was filed today, October 14, 2026, signaling an active and critical event.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2e74092a0aea"
-      ],
-      "primary_source_event_id": "EVT-2e74092a0aea",
-      "source_headlines": [
-        "KWG GROUP KWG GROUP N2701 (01813 40117): UPDATE ON WINDING-UP PETITION HEARING"
-      ],
-      "source_headline": "KWG GROUP KWG GROUP N2701 (01813 40117): UPDATE ON WINDING-UP PETITION HEARING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1014/2026101401199.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-14T12:56:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-14T16:36:34Z",
-      "updated_at": "2026-10-14T16:36:34Z",
-      "decay_at": "2026-10-16T00:56:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -182667,6 +182665,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-dbad30ae5c0f",
+      "idea_version": "IDEAV-59347acf71dafbd6",
+      "idea_version_started_at": "2026-10-14T20:04:17Z",
+      "ticker": "BAJAJCON",
+      "company": "Bajaj Consumer Care",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 66% jump in net profit to Rs 70 crore and a 26% increase in revenue, indicating strong operational momentum.",
+      "why_now": "The Q2 results were released on October 14, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9572d429d6b1"
+      ],
+      "primary_source_event_id": "EVT-9572d429d6b1",
+      "source_headlines": [
+        "Bajaj Consumer Q2 Results: Net Profit Jumps 66% To Rs 70 Crore, Revenue Rises 26%"
+      ],
+      "source_headline": "Bajaj Consumer Q2 Results: Net Profit Jumps 66% To Rs 70 Crore, Revenue Rises 26%",
+      "source_url": "https://www.ndtvprofit.com/markets/bajaj-consumer-q2-results-net-profit-jumps-66-to-rs-70-crore-revenue-rises-26-12184963#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-14T12:55:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-14T20:04:17Z",
+      "updated_at": "2026-10-14T20:04:17Z",
+      "decay_at": "2026-10-16T00:55:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-8a9a155c8086",
       "idea_version": "IDEAV-15f70bc15c440897",
       "idea_version_started_at": "2026-10-14T16:36:34Z",
@@ -182735,6 +182805,77 @@
       "surfaced_at": "2026-10-14T16:36:34Z",
       "updated_at": "2026-10-14T16:36:34Z",
       "decay_at": "2026-10-16T00:44:32Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-9d322ec65604",
+      "idea_version": "IDEAV-24dc4ee7e83ada71",
+      "idea_version_started_at": "2026-10-14T16:36:34Z",
+      "ticker": "01813",
+      "company": "KWG Group",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "KWG Group is facing a winding-up petition hearing, indicating severe financial distress that could lead to liquidation.",
+      "why_now": "An update on the winding-up petition hearing was filed today, October 14, 2026, signaling an active and critical event.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2e74092a0aea"
+      ],
+      "primary_source_event_id": "EVT-2e74092a0aea",
+      "source_headlines": [
+        "KWG GROUP KWG GROUP N2701 (01813 40117): UPDATE ON WINDING-UP PETITION HEARING"
+      ],
+      "source_headline": "KWG GROUP KWG GROUP N2701 (01813 40117): UPDATE ON WINDING-UP PETITION HEARING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1014/2026101401199.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-14T12:56:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-14T16:36:34Z",
+      "updated_at": "2026-10-14T16:36:34Z",
+      "decay_at": "2026-10-16T00:56:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -184328,19 +184469,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 529,
+    "total_count": 531,
     "shown_count": 499,
-    "hidden_count": 30,
+    "hidden_count": 32,
     "side_counts": {
       "long": {
-        "total_count": 270,
+        "total_count": 271,
         "shown_count": 250,
-        "hidden_count": 20
+        "hidden_count": 21
       },
       "short": {
-        "total_count": 260,
+        "total_count": 261,
         "shown_count": 250,
-        "hidden_count": 10
+        "hidden_count": 11
       }
     },
     "retention": {
@@ -184359,6 +184500,155 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-9d322ec65604",
+        "idea_version": "IDEAV-24dc4ee7e83ada71",
+        "idea_version_started_at": "2026-10-14T16:36:34Z",
+        "ticker": "01813",
+        "company": "KWG Group",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "KWG Group is facing a winding-up petition hearing, indicating severe financial distress that could lead to liquidation.",
+        "why_now": "An update on the winding-up petition hearing was filed today, October 14, 2026, signaling an active and critical event.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2e74092a0aea"
+        ],
+        "primary_source_event_id": "EVT-2e74092a0aea",
+        "source_headlines": [
+          "KWG GROUP KWG GROUP N2701 (01813 40117): UPDATE ON WINDING-UP PETITION HEARING"
+        ],
+        "source_headline": "KWG GROUP KWG GROUP N2701 (01813 40117): UPDATE ON WINDING-UP PETITION HEARING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1014/2026101401199.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-14T12:56:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-14T16:36:34Z",
+        "updated_at": "2026-10-14T16:36:34Z",
+        "decay_at": "2026-10-16T00:56:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-16T00:56:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-dbad30ae5c0f",
+        "idea_version": "IDEAV-59347acf71dafbd6",
+        "idea_version_started_at": "2026-10-14T20:04:17Z",
+        "ticker": "BAJAJCON",
+        "company": "Bajaj Consumer Care",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported a 66% jump in net profit to Rs 70 crore and a 26% increase in revenue, indicating strong operational momentum.",
+        "why_now": "The Q2 results were released on October 14, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9572d429d6b1"
+        ],
+        "primary_source_event_id": "EVT-9572d429d6b1",
+        "source_headlines": [
+          "Bajaj Consumer Q2 Results: Net Profit Jumps 66% To Rs 70 Crore, Revenue Rises 26%"
+        ],
+        "source_headline": "Bajaj Consumer Q2 Results: Net Profit Jumps 66% To Rs 70 Crore, Revenue Rises 26%",
+        "source_url": "https://www.ndtvprofit.com/markets/bajaj-consumer-q2-results-net-profit-jumps-66-to-rs-70-crore-revenue-rises-26-12184963#publisher=newsstand",
+        "source_name": "NDTV Profit",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-14T12:55:01Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-14T20:04:17Z",
+        "updated_at": "2026-10-14T20:04:17Z",
+        "decay_at": "2026-10-16T00:55:01Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-16T00:55:01Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d9ce787618db",
         "idea_version": "IDEAV-5b81c7ae489e1e69",
@@ -212388,79 +212678,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-c26051237597",
-        "idea_version": "IDEAV-bb0d9e087fb208d9",
-        "idea_version_started_at": "2026-10-03T00:50:03Z",
-        "ticker": "TSLA",
-        "company": "Tesla",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Securing $30 billion in new credit provides the liquidity necessary to accelerate AI infrastructure and capital expenditure projects, potentially boosting long-term growth capacity.",
-        "why_now": "The credit facility was reported on October 2, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 67,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-42daf3819148"
-        ],
-        "primary_source_event_id": "EVT-42daf3819148",
-        "source_headlines": [
-          "Tesla Just Lined Up $30 Billion in Credit: What It Means for AI, Capex, and the Investment Case"
-        ],
-        "source_headline": "Tesla Just Lined Up $30 Billion in Credit: What It Means for AI, Capex, and the Investment Case",
-        "source_url": "https://www.fool.com/investing/2026/10/02/tesla-just-lined-up-30-billion-in-credit-what-it-m/?source=iedfolrf0000001",
-        "source_name": "The Motley Fool",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-02T19:30:00Z",
-        "prior_coverage": {
-          "has_run": true,
-          "latest_run": "analyses/TSLA_2026-07-25",
-          "latest_decision": "Short Candidate",
-          "data_pool_present": true
-        },
-        "surfaced_at": "2026-10-03T00:50:03Z",
-        "updated_at": "2026-10-03T00:50:03Z",
-        "decay_at": "2026-10-04T07:30:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-05T20:12:25Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-0157f621dab9",
         "idea_version": "IDEAV-76e7c56cd73c4042",
         "idea_version_started_at": "2026-10-03T06:51:27Z",
@@ -221447,88 +221664,12 @@
         "archived_at": "2026-09-21T04:44:19Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-73b4f77f750c",
-        "idea_version": "IDEAV-ee3711c65ab635ac",
-        "idea_version_started_at": "2026-09-18T03:01:04Z",
-        "ticker": "AIRASIA",
-        "company": "AirAsia",
-        "exchange": null,
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company is facing a severe liquidity crisis and funding shortfall, evidenced by a 21% share price collapse, which suggests a high risk of equity dilution or insolvency.",
-        "why_now": "The stock is currently experiencing extreme volatility and negative momentum as of 2026-09-18 due to mounting default fears.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-99e5208382c9"
-        ],
-        "primary_source_event_id": "EVT-99e5208382c9",
-        "source_headlines": [
-          "Malaysia's AirAsia shares tumble 21% as funding fears mount"
-        ],
-        "source_headline": "Malaysia's AirAsia shares tumble 21% as funding fears mount",
-        "source_url": "https://asia.nikkei.com/business/transportation/malaysia-s-airasia-shares-tumble-21-as-funding-fears-mount",
-        "source_name": "Nikkei Asia",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-18T01:24:12Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-18T03:01:04Z",
-        "updated_at": "2026-09-18T03:01:04Z",
-        "decay_at": "2026-09-19T13:24:12Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-21T01:35:22Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1623,
-    "live_count": 36,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -221538,7 +221679,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3680,
+    "inbox_unconsumed": 3683,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -221547,9 +221688,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 585429,
-    "news_picked_today": 33,
-    "news_dropped_today": 351
+    "news_seen_today": 645399,
+    "news_picked_today": 36,
+    "news_dropped_today": 372
   },
   "book_momentum": {
     "live_count": 8,
