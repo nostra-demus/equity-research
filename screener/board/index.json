@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T00:31:33Z",
+  "generated_at": "2026-10-16T00:35:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261016-017",
@@ -96,6 +96,60 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-028",
+      "headline": "Fairfax wins nod to acquire IDBI Bank, but faces challenge of shifting its public-sector culture",
+      "headline_en": null,
+      "url": "https://www.livemint.com/industry/banking/idbi-bank-privatisation-impact-on-employees-11792062346781.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T00:30:15Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Fairfax has received regulatory approval to acquire IDBI Bank, a major M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Fairfax has received regulatory approval to acquire IDBI Bank, a major M&A event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IDBI Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Fairfax Financial",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -221177,7 +221231,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3674,
+    "inbox_unconsumed": 3675,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -221186,9 +221240,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 364199,
-    "news_picked_today": 27,
-    "news_dropped_today": 189
+    "news_seen_today": 444818,
+    "news_picked_today": 28,
+    "news_dropped_today": 236
   },
   "book_momentum": {
     "live_count": 8,
