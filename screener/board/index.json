@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-10-16T10:57:43Z",
+  "generated_at": "2026-10-16T11:00:19Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261016-292",
+      "headline": "AUSTRAX HLDGS (02680): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101601106.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T10:54:00Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Austrax Holdings issued a profit warning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Austrax Holdings issued a profit warning.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AUSTRAX HLDGS",
+          "ticker": "02680",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261016-259",
       "headline": "PUBLIC FIN HOLD (00626): PROFIT WARNING",
@@ -1942,55 +1992,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-023",
-      "headline": "CHINAGOLDINTL (02099): CONTINUING CONNECTED TRANSACTION AND MAJOR TRANSACTION, AND RECORD DATE OF THE EXTRAORDINARY GENERAL MEETING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101600033.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-15T23:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "China Gold International announced a major connected transaction requiring shareholder approval.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "China Gold International announced a major connected transaction requiring shareholder approval.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "China Gold International",
-          "ticker": "02099",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -222218,9 +222219,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7875436,
-    "news_picked_today": 455,
-    "news_dropped_today": 4657
+    "news_seen_today": 7928004,
+    "news_picked_today": 464,
+    "news_dropped_today": 4672
   },
   "book_momentum": {
     "live_count": 8,
