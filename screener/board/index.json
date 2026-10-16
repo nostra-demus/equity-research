@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T05:26:59Z",
+  "generated_at": "2026-10-16T05:32:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261016-108",
@@ -800,6 +800,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-132",
+      "headline": "CPSC Eliminates Unnecessary Fuel Additive Regulations, Saving American Businesses Up to $10.7 Billion",
+      "headline_en": null,
+      "url": "https://www.cpsc.gov/Newsroom/News-Releases/2027/CPSC-Eliminates-Unnecessary-Fuel-Additive-Regulations-Saving-American-Businesses-Up-to-10-7-Billion",
+      "source_name": "U.S. CPSC — News Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-16T05:19:40Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "The CPSC eliminated fuel additive regulations, projected to save businesses up to $10.7 billion in compliance costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "The CPSC eliminated fuel additive regulations, projected to save businesses up to $10.7 billion in compliance costs.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1933,50 +1976,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-130",
-      "headline": "Indonesian Stocks Dive as MSCI Weighs Downgrade to Standalone Market",
-      "headline_en": null,
-      "url": "https://www.wsj.com/finance/investing/indonesian-stocks-dive-as-msci-weighs-downgrade-to-standalone-market-406133fc?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T05:17:00Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "MSCI is considering a downgrade of the Indonesian market to 'standalone', which would trigger significant passive fund outflows.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "MSCI is considering a downgrade of the Indonesian market to 'standalone', which would trigger significant passive fund outflows.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -221779,9 +221778,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3702198,
-    "news_picked_today": 175,
-    "news_dropped_today": 2441
+    "news_seen_today": 3760653,
+    "news_picked_today": 178,
+    "news_dropped_today": 2486
   },
   "book_momentum": {
     "live_count": 8,
