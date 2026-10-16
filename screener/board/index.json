@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T07:19:39Z",
+  "generated_at": "2026-10-16T08:05:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261016-145",
@@ -1000,6 +1000,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261016-180",
+      "headline": "Mankind Pharma To Acquire 70% Stake In Cancer Therapy Firm ACTx, ₹511 Crore Deal Marks Entry Into Advanced Cancer Treatments",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/mankind-pharma-to-acquire-70-stake-in-cancer-therapy-firm-actx-511-crore-deal-marks-entry-into-advanced-cancer-treatments",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T07:16:15Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Mankind Pharma to acquire 70% of cancer therapy firm ACTx for Rs 511 crore, a named, quantified strategic M&A deal entering advanced cancer treatments.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Mankind Pharma to acquire 70% of cancer therapy firm ACTx for Rs 511 crore, a named, quantified strategic M&A deal entering advanced cancer treatments.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mankind Pharma",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "ACTx",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261016-174",
       "headline": "Money transfer firm Wise raises revenue growth outlook as cross-border volumes jump",
       "headline_en": null,
@@ -1918,49 +1972,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-134",
-      "headline": "Notice of OFAC Sanctions Action",
-      "headline_en": null,
-      "url": "https://www.federalregister.gov/documents/2026/10/16/2026-21212/notice-of-ofac-sanctions-action",
-      "source_name": "Federal Register — Latest Documents",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-16T04:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "OFAC sanctions actions represent significant regulatory and operational risk for affected entities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "OFAC sanctions actions represent significant regulatory and operational risk for affected entities.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -221977,9 +221988,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5069058,
-    "news_picked_today": 249,
-    "news_dropped_today": 3783
+    "news_seen_today": 5712854,
+    "news_picked_today": 261,
+    "news_dropped_today": 3819
   },
   "book_momentum": {
     "live_count": 8,
