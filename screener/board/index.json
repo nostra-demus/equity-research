@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T05:32:24Z",
+  "generated_at": "2026-10-16T05:36:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20261016-108",
@@ -1383,6 +1383,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261016-134",
+      "headline": "Notice of OFAC Sanctions Action",
+      "headline_en": null,
+      "url": "https://www.federalregister.gov/documents/2026/10/16/2026-21212/notice-of-ofac-sanctions-action",
+      "source_name": "Federal Register — Latest Documents",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-16T04:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "OFAC sanctions actions represent significant regulatory and operational risk for affected entities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "OFAC sanctions actions represent significant regulatory and operational risk for affected entities.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261016-102",
       "headline": "Magellanic Cloud Limited: Magellanic Cloud Limited has informed the Exchange regarding a press release dated October 16, 2026, titled \"Magellanic Cloud Limited's Wholly Owned Subsidiary Provigil Surveillance Limited, Receives Purchase Order for an order worth Rs 29.13 Crore from Northern Railway Moradabad Division\".",
       "headline_en": null,
@@ -1927,55 +1970,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-106",
-      "headline": "Persistent Systems shares fall 5% after Q2 results - Bulls see market cap doubling, bears see 27% fall",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/persistent-systems-share-price-q2-result-reaction-buy-sell-bulls-market-cap-double-bears-see-sharp-fall-20013142.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T03:55:11Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Persistent Systems shares fell 5% following Q2 results, reflecting mixed analyst sentiment on valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Persistent Systems shares fell 5% following Q2 results, reflecting mixed analyst sentiment on valuation.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Persistent Systems",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -221778,9 +221772,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3760653,
-    "news_picked_today": 178,
-    "news_dropped_today": 2486
+    "news_seen_today": 3819456,
+    "news_picked_today": 183,
+    "news_dropped_today": 2505
   },
   "book_momentum": {
     "live_count": 8,
