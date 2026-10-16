@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T00:38:28Z",
+  "generated_at": "2026-10-16T00:51:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261016-017",
@@ -1331,6 +1331,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261016-033",
+      "headline": "Nestle better insulated from cost inflation than rural-heavy rivals: ICICI Sec's Manoj Menon",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/mark-to-market/nestle-better-insulated-from-cost-inflation-than-rural-heavy-rivals-icici-secs-manoj-menon-11792069898168.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T00:31:00Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Analyst commentary on competitive positioning is not a material event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Analyst commentary on competitive positioning is not a material event.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nestle",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261016-022",
       "headline": "VRC: Volt Advances Engagement for Alabama Activities",
       "headline_en": null,
@@ -1375,6 +1424,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-032",
+      "headline": "Houthi missiles strike Yemen presidential palace, killing five",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/world/2026/oct/15/houthi-missiles-strike-aden-yemen",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T00:27:21Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "A Houthi missile strike on a presidential palace represents a significant geopolitical escalation in the Middle East.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "A Houthi missile strike on a presidential palace represents a significant geopolitical escalation in the Middle East.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -181800,80 +181892,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-8a9a155c8086",
-      "idea_version": "IDEAV-15f70bc15c440897",
-      "idea_version_started_at": "2026-10-14T16:36:34Z",
-      "ticker": "FAIRFAX",
-      "company": "Fairfax Financial",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Fairfax Financial is acquiring a 60.72% stake in IDBI Bank for ₹52,878 crore, which could be a strategic growth move.",
-      "why_now": "The acquisition news was reported today, October 14, 2026, marking the culmination of a nine-year journey for IDBI Bank.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8a58a00cf054",
-        "EVT-4583e05aa1c3"
-      ],
-      "primary_source_event_id": "EVT-8a58a00cf054",
-      "source_headlines": [
-        "Fairfax To Acquire 60.72% Stake In IDBI Bank For ₹52,878 Crore",
-        "IDBI Bank Stake Sale For ₹52,878 Crore, How Nine-Year Journey From RBI Restrictions To Fairfax Takeover Unfolded"
-      ],
-      "source_headline": "Fairfax To Acquire 60.72% Stake In IDBI Bank For ₹52,878 Crore",
-      "source_url": "https://www.freepressjournal.in/business/fairfax-to-acquire-6072-stake-in-idbi-bank-for-52878-crore",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-14T12:44:32Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-14T16:36:34Z",
-      "updated_at": "2026-10-14T16:36:34Z",
-      "decay_at": "2026-10-16T00:44:32Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9d322ec65604",
       "idea_version": "IDEAV-24dc4ee7e83ada71",
       "idea_version_started_at": "2026-10-14T16:36:34Z",
@@ -181939,77 +181957,6 @@
       "surfaced_at": "2026-10-14T16:36:34Z",
       "updated_at": "2026-10-14T16:36:34Z",
       "decay_at": "2026-10-16T00:56:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-d9ce787618db",
-      "idea_version": "IDEAV-5b81c7ae489e1e69",
-      "idea_version_started_at": "2026-10-14T16:36:34Z",
-      "ticker": "03323",
-      "company": "China National Building Material",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "CNBM issued a profit alert, indicating that its upcoming earnings will be lower than previously expected.",
-      "why_now": "The profit alert was filed today, October 14, 2026, providing immediate negative guidance for investors.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ab6ed0f5038d"
-      ],
-      "primary_source_event_id": "EVT-ab6ed0f5038d",
-      "source_headlines": [
-        "CNBM (03323): PROFIT ALERT"
-      ],
-      "source_headline": "CNBM (03323): PROFIT ALERT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1014/2026101401181.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-14T12:48:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-14T16:36:34Z",
-      "updated_at": "2026-10-14T16:36:34Z",
-      "decay_at": "2026-10-16T00:48:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -182643,6 +182590,151 @@
       "surfaced_at": "2026-10-14T08:35:25Z",
       "updated_at": "2026-10-14T08:35:25Z",
       "decay_at": "2026-10-15T17:21:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-8a9a155c8086",
+      "idea_version": "IDEAV-15f70bc15c440897",
+      "idea_version_started_at": "2026-10-14T16:36:34Z",
+      "ticker": "FAIRFAX",
+      "company": "Fairfax Financial",
+      "exchange": "BSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Fairfax Financial is acquiring a 60.72% stake in IDBI Bank for ₹52,878 crore, which could be a strategic growth move.",
+      "why_now": "The acquisition news was reported today, October 14, 2026, marking the culmination of a nine-year journey for IDBI Bank.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8a58a00cf054",
+        "EVT-4583e05aa1c3"
+      ],
+      "primary_source_event_id": "EVT-8a58a00cf054",
+      "source_headlines": [
+        "Fairfax To Acquire 60.72% Stake In IDBI Bank For ₹52,878 Crore",
+        "IDBI Bank Stake Sale For ₹52,878 Crore, How Nine-Year Journey From RBI Restrictions To Fairfax Takeover Unfolded"
+      ],
+      "source_headline": "Fairfax To Acquire 60.72% Stake In IDBI Bank For ₹52,878 Crore",
+      "source_url": "https://www.freepressjournal.in/business/fairfax-to-acquire-6072-stake-in-idbi-bank-for-52878-crore",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-14T12:44:32Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-14T16:36:34Z",
+      "updated_at": "2026-10-14T16:36:34Z",
+      "decay_at": "2026-10-16T00:44:32Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d9ce787618db",
+      "idea_version": "IDEAV-5b81c7ae489e1e69",
+      "idea_version_started_at": "2026-10-14T16:36:34Z",
+      "ticker": "03323",
+      "company": "China National Building Material",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "CNBM issued a profit alert, indicating that its upcoming earnings will be lower than previously expected.",
+      "why_now": "The profit alert was filed today, October 14, 2026, providing immediate negative guidance for investors.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ab6ed0f5038d"
+      ],
+      "primary_source_event_id": "EVT-ab6ed0f5038d",
+      "source_headlines": [
+        "CNBM (03323): PROFIT ALERT"
+      ],
+      "source_headline": "CNBM (03323): PROFIT ALERT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1014/2026101401181.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-14T12:48:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-14T16:36:34Z",
+      "updated_at": "2026-10-14T16:36:34Z",
+      "decay_at": "2026-10-16T00:48:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -184165,19 +184257,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 527,
+    "total_count": 529,
     "shown_count": 499,
-    "hidden_count": 28,
+    "hidden_count": 30,
     "side_counts": {
       "long": {
-        "total_count": 269,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 19
+        "hidden_count": 20
       },
       "short": {
-        "total_count": 259,
+        "total_count": 260,
         "shown_count": 250,
-        "hidden_count": 9
+        "hidden_count": 10
       }
     },
     "retention": {
@@ -184196,6 +184288,157 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d9ce787618db",
+        "idea_version": "IDEAV-5b81c7ae489e1e69",
+        "idea_version_started_at": "2026-10-14T16:36:34Z",
+        "ticker": "03323",
+        "company": "China National Building Material",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "CNBM issued a profit alert, indicating that its upcoming earnings will be lower than previously expected.",
+        "why_now": "The profit alert was filed today, October 14, 2026, providing immediate negative guidance for investors.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ab6ed0f5038d"
+        ],
+        "primary_source_event_id": "EVT-ab6ed0f5038d",
+        "source_headlines": [
+          "CNBM (03323): PROFIT ALERT"
+        ],
+        "source_headline": "CNBM (03323): PROFIT ALERT",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1014/2026101401181.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-14T12:48:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-14T16:36:34Z",
+        "updated_at": "2026-10-14T16:36:34Z",
+        "decay_at": "2026-10-16T00:48:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-16T00:48:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-8a9a155c8086",
+        "idea_version": "IDEAV-15f70bc15c440897",
+        "idea_version_started_at": "2026-10-14T16:36:34Z",
+        "ticker": "FAIRFAX",
+        "company": "Fairfax Financial",
+        "exchange": "BSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Fairfax Financial is acquiring a 60.72% stake in IDBI Bank for ₹52,878 crore, which could be a strategic growth move.",
+        "why_now": "The acquisition news was reported today, October 14, 2026, marking the culmination of a nine-year journey for IDBI Bank.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8a58a00cf054",
+          "EVT-4583e05aa1c3"
+        ],
+        "primary_source_event_id": "EVT-8a58a00cf054",
+        "source_headlines": [
+          "Fairfax To Acquire 60.72% Stake In IDBI Bank For ₹52,878 Crore",
+          "IDBI Bank Stake Sale For ₹52,878 Crore, How Nine-Year Journey From RBI Restrictions To Fairfax Takeover Unfolded"
+        ],
+        "source_headline": "Fairfax To Acquire 60.72% Stake In IDBI Bank For ₹52,878 Crore",
+        "source_url": "https://www.freepressjournal.in/business/fairfax-to-acquire-6072-stake-in-idbi-bank-for-52878-crore",
+        "source_name": "Free Press Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-14T12:44:32Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-14T16:36:34Z",
+        "updated_at": "2026-10-14T16:36:34Z",
+        "decay_at": "2026-10-16T00:44:32Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-16T00:44:32Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d39de226be65",
         "idea_version": "IDEAV-5e87e4cd92cb8dbb",
@@ -212147,80 +212390,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-d0204447ec5b",
-        "idea_version": "IDEAV-e68d5007fb13244c",
-        "idea_version_started_at": "2026-10-03T00:50:03Z",
-        "ticker": "BAYRY",
-        "company": "Bayer AG",
-        "exchange": "OQX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is committing $2.2 billion to a new US pharmaceutical manufacturing facility, signaling a strategic pivot toward expanding its high-margin US footprint.",
-        "why_now": "The investment was officially announced on October 2, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 74,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 7,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-34e30d7673d7",
-          "EVT-38748157c702"
-        ],
-        "primary_source_event_id": "EVT-34e30d7673d7",
-        "source_headlines": [
-          "USA: 'Fastest-growing market' — Bayer invests $2.2 billion in new US plant",
-          "Bayer to invest $2.2 billion in new US pharma site"
-        ],
-        "source_headline": "USA: „Am schnellsten wachsender Markt“ – Bayer investiert 2,2 Milliarden Dollar in neues US-Werk",
-        "source_url": "https://www.handelsblatt.com/unternehmen/industrie/usa-bayer-investiert-22-milliarden-dollar-in-neues-us-werk/100259162.html",
-        "source_name": "Handelsblatt",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-02T19:19:02Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-03T00:50:03Z",
-        "updated_at": "2026-10-03T00:50:03Z",
-        "decay_at": "2026-10-04T07:19:02Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-05T20:12:25Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-0157f621dab9",
         "idea_version": "IDEAV-76e7c56cd73c4042",
         "idea_version_started_at": "2026-10-03T06:51:27Z",
@@ -221283,86 +221452,12 @@
         "archived_at": "2026-09-21T01:35:22Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-d10a45580c7f",
-        "idea_version": "IDEAV-8d5ad6a0e2dfb984",
-        "idea_version_started_at": "2026-09-17T20:23:46Z",
-        "ticker": "ON",
-        "company": "ON Semiconductor",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company faces a significant $30 billion revenue shortfall, suggesting structural demand issues or loss of market share in key segments.",
-        "why_now": "The stock plummeted 9% on 2026-09-17 following management's attempt to address the shortfall, indicating market skepticism.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 55,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e7e74a4f42f0"
-        ],
-        "primary_source_event_id": "EVT-e7e74a4f42f0",
-        "source_headlines": [
-          "CEO Claims Investors Got It Wrong on $30 Billion Shortfall as ON Stock Plummets 9%"
-        ],
-        "source_headline": "CEO Claims Investors Got It Wrong on $30 Billion Shortfall as ON Stock Plummets 9%",
-        "source_url": "https://247wallst.com/investing/2026/09/17/ceo-claims-investors-got-it-wrong-on-30-billion-shortfall-as-on-stock-plummets-9/",
-        "source_name": "24/7 Wall St.",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-17T16:35:16Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-17T20:23:46Z",
-        "updated_at": "2026-09-17T20:23:46Z",
-        "decay_at": "2026-09-19T04:35:16Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-20T17:25:22Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1622,
-    "live_count": 37,
+    "live_count": 35,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -221372,7 +221467,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3678,
+    "inbox_unconsumed": 3680,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -221381,9 +221476,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 485070,
-    "news_picked_today": 31,
-    "news_dropped_today": 257
+    "news_seen_today": 585429,
+    "news_picked_today": 33,
+    "news_dropped_today": 351
   },
   "book_momentum": {
     "live_count": 8,
