@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T01:44:50Z",
+  "generated_at": "2026-10-16T01:47:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261016-017",
@@ -96,6 +96,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-051",
+      "headline": "Capital World’s ability to keep operating depends on completing Mustafa mall deal, auditors say",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/capital-worlds-ability-to-keep-operating-depends-on-completing-mustafa-mall-deal-auditors-say",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T01:40:00Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Auditors have raised going-concern doubts regarding Capital World's ability to operate, contingent on a specific mall deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Auditors have raised going-concern doubts regarding Capital World's ability to operate, contingent on a specific mall deal.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Capital World",
+          "ticker": null,
+          "listing_country": "MY"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1894,49 +1943,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-041",
-      "headline": "Hong Kong’s IPO fraud clampdown sends shock waves across financial sector",
-      "headline_en": null,
-      "url": "https://www.scmp.com/business/banking-finance/article/3371074/hong-kongs-ipo-fraud-clampdown-sends-shock-waves-across-financial-sector?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T01:06:30Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Regulatory crackdown on IPO fraud in Hong Kong creates operational and compliance risk for the financial sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "Regulatory crackdown on IPO fraud in Hong Kong creates operational and compliance risk for the financial sector.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -221883,9 +221889,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1240829,
-    "news_picked_today": 51,
-    "news_dropped_today": 789
+    "news_seen_today": 1280289,
+    "news_picked_today": 52,
+    "news_dropped_today": 812
   },
   "book_momentum": {
     "live_count": 8,
