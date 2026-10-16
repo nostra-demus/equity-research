@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-16T00:02:26Z",
+  "generated_at": "2026-10-16T00:09:58Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261016-004",
+      "headline": "ICBC (01398): Announcement on the Completion of the Issuance of 2026 Tier 2 Capital Notes (Series 6) (Bond Connect)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1015/2026101500679.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T09:39:00Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "ICBC completed the issuance of 2026 Tier 2 capital notes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "ICBC completed the issuance of 2026 Tier 2 capital notes.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ICBC",
+          "ticker": "01398",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-003",
+      "headline": "DATANG ENVIRO (01272): ANNOUNCEMENT - ISSUE OF THE SECOND TRANCHE SUPER SHORT-TERM COMMERCIAL PAPER FOR THE YEAR OF 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1015/2026101500687.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T09:40:00Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Datang Enviro issued a second tranche of super short-term commercial paper.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 71,
+      "triage_reason": "Datang Enviro issued a second tranche of super short-term commercial paper.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Datang Enviro",
+          "ticker": "01272",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261016-001",
       "headline": "TIANJIN CAPITAL (01065): CONNECTED TRANSACTION IN RELATION TO PROVISION OF LOAN TO HBGJTC",
@@ -180530,77 +180628,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d39de226be65",
-      "idea_version": "IDEAV-5e87e4cd92cb8dbb",
-      "idea_version_started_at": "2026-10-14T15:32:35Z",
-      "ticker": "IDBI",
-      "company": "IDBI Bank Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The cabinet approval of a strategic stake sale to Fairfax for Rs 52,878 crore acts as a major catalyst for valuation re-rating and structural transformation.",
-      "why_now": "The news of the cabinet approval surfaced today, October 14, 2026, with the company currently awaiting formal response to exchange queries.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-18e2ed8f2399"
-      ],
-      "primary_source_event_id": "EVT-18e2ed8f2399",
-      "source_headlines": [
-        "IDBI Bank Limited: The Exchange has sought clarification from IDBI Bank Limited with respect to recent news item captioned Cabinet Approves IDBI Bank Stake Sale To Fairfax For Rs 52,878 Crore; FM Calls It Strategic Restructuring. The response from the Company is awaited."
-      ],
-      "source_headline": "IDBI Bank Limited: The Exchange has sought clarification from IDBI Bank Limited with respect to recent news item captioned Cabinet Approves IDBI Bank Stake Sale To Fairfax For Rs 52,878 Crore; FM Calls It Strategic Restructuring. The response from the Company is awaited.",
-      "source_url": "https://www.nseindia.com/companies-listing/corporate-filings-announcements?symbol=IDBI&seq=106817473",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-14T12:05:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-14T15:32:35Z",
-      "updated_at": "2026-10-14T15:32:35Z",
-      "decay_at": "2026-10-16T00:05:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-ae786a1903f6",
       "idea_version": "IDEAV-0bf73dbd730ac529",
       "idea_version_started_at": "2026-10-15T04:45:55Z",
@@ -181370,6 +181397,77 @@
       "surfaced_at": "2026-10-14T15:32:35Z",
       "updated_at": "2026-10-14T15:32:35Z",
       "decay_at": "2026-10-15T23:28:18Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d39de226be65",
+      "idea_version": "IDEAV-5e87e4cd92cb8dbb",
+      "idea_version_started_at": "2026-10-14T15:32:35Z",
+      "ticker": "IDBI",
+      "company": "IDBI Bank Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The cabinet approval of a strategic stake sale to Fairfax for Rs 52,878 crore acts as a major catalyst for valuation re-rating and structural transformation.",
+      "why_now": "The news of the cabinet approval surfaced today, October 14, 2026, with the company currently awaiting formal response to exchange queries.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-18e2ed8f2399"
+      ],
+      "primary_source_event_id": "EVT-18e2ed8f2399",
+      "source_headlines": [
+        "IDBI Bank Limited: The Exchange has sought clarification from IDBI Bank Limited with respect to recent news item captioned Cabinet Approves IDBI Bank Stake Sale To Fairfax For Rs 52,878 Crore; FM Calls It Strategic Restructuring. The response from the Company is awaited."
+      ],
+      "source_headline": "IDBI Bank Limited: The Exchange has sought clarification from IDBI Bank Limited with respect to recent news item captioned Cabinet Approves IDBI Bank Stake Sale To Fairfax For Rs 52,878 Crore; FM Calls It Strategic Restructuring. The response from the Company is awaited.",
+      "source_url": "https://www.nseindia.com/companies-listing/corporate-filings-announcements?symbol=IDBI&seq=106817473",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-14T12:05:46Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-14T15:32:35Z",
+      "updated_at": "2026-10-14T15:32:35Z",
+      "decay_at": "2026-10-16T00:05:46Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -183106,14 +183204,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 532,
+    "total_count": 533,
     "shown_count": 499,
-    "hidden_count": 33,
+    "hidden_count": 34,
     "side_counts": {
       "long": {
-        "total_count": 271,
+        "total_count": 272,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 22
       },
       "short": {
         "total_count": 262,
@@ -183137,6 +183235,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d39de226be65",
+        "idea_version": "IDEAV-5e87e4cd92cb8dbb",
+        "idea_version_started_at": "2026-10-14T15:32:35Z",
+        "ticker": "IDBI",
+        "company": "IDBI Bank Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The cabinet approval of a strategic stake sale to Fairfax for Rs 52,878 crore acts as a major catalyst for valuation re-rating and structural transformation.",
+        "why_now": "The news of the cabinet approval surfaced today, October 14, 2026, with the company currently awaiting formal response to exchange queries.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-18e2ed8f2399"
+        ],
+        "primary_source_event_id": "EVT-18e2ed8f2399",
+        "source_headlines": [
+          "IDBI Bank Limited: The Exchange has sought clarification from IDBI Bank Limited with respect to recent news item captioned Cabinet Approves IDBI Bank Stake Sale To Fairfax For Rs 52,878 Crore; FM Calls It Strategic Restructuring. The response from the Company is awaited."
+        ],
+        "source_headline": "IDBI Bank Limited: The Exchange has sought clarification from IDBI Bank Limited with respect to recent news item captioned Cabinet Approves IDBI Bank Stake Sale To Fairfax For Rs 52,878 Crore; FM Calls It Strategic Restructuring. The response from the Company is awaited.",
+        "source_url": "https://www.nseindia.com/companies-listing/corporate-filings-announcements?symbol=IDBI&seq=106817473",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-14T12:05:46Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-14T15:32:35Z",
+        "updated_at": "2026-10-14T15:32:35Z",
+        "decay_at": "2026-10-16T00:05:46Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-16T00:05:46Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-bb082e7d696f",
         "idea_version": "IDEAV-0e313c4b31e78e08",
@@ -211088,81 +211260,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-c293b0c4a5d4",
-        "idea_version": "IDEAV-2750ca3bdbc60c7f",
-        "idea_version_started_at": "2026-10-03T01:29:52Z",
-        "ticker": "BAYN",
-        "company": "Bayer AG",
-        "exchange": "XETRA",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Bayer is investing $2.2 billion in a new US plant to capture growth in its fastest-growing market, expanding its long-term production capacity and regional footprint.",
-        "why_now": "The announcement of this major $2.2 billion capital expenditure commitment acts as a live directional catalyst.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-34e30d7673d7"
-        ],
-        "primary_source_event_id": "EVT-34e30d7673d7",
-        "source_headlines": [
-          "USA: 'Fastest-growing market' — Bayer invests $2.2 billion in new US plant"
-        ],
-        "source_headline": "USA: „Am schnellsten wachsender Markt“ – Bayer investiert 2,2 Milliarden Dollar in neues US-Werk",
-        "source_url": "https://www.handelsblatt.com/unternehmen/industrie/usa-bayer-investiert-22-milliarden-dollar-in-neues-us-werk/100259162.html",
-        "source_name": "Handelsblatt",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-02T19:10:06Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-03T01:29:52Z",
-        "updated_at": "2026-10-03T01:29:52Z",
-        "decay_at": "2026-10-04T07:10:06Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-05T20:12:25Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-0157f621dab9",
         "idea_version": "IDEAV-76e7c56cd73c4042",
         "idea_version_started_at": "2026-10-03T06:51:27Z",
@@ -220304,7 +220401,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1621,
-    "live_count": 37,
+    "live_count": 36,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -220314,7 +220411,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3649,
+    "inbox_unconsumed": 3651,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -220323,9 +220420,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 20265,
-    "news_picked_today": 2,
-    "news_dropped_today": 22
+    "news_seen_today": 101167,
+    "news_picked_today": 4,
+    "news_dropped_today": 92
   },
   "book_momentum": {
     "live_count": 8,
