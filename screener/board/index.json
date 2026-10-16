@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T09:43:23Z",
+  "generated_at": "2026-10-16T09:49:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261016-233",
@@ -1607,6 +1607,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261016-238",
+      "headline": "Shoppers Stop Limited: Shoppers Stop Limited has informed the Exchange regarding a press release dated October 16, 2026, titled \"Profitability Turnaround Continues; EBITDA momentum accelerates\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SHOPERSTOP_16102026143017_DisclosurePSInvtPSD.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T09:02:09Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Shoppers Stop reported accelerating EBITDA momentum and a continued profitability turnaround.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Shoppers Stop reported accelerating EBITDA momentum and a continued profitability turnaround.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shoppers Stop Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261016-174",
       "headline": "Money transfer firm Wise raises revenue growth outlook as cross-border volumes jump",
       "headline_en": null,
@@ -1941,55 +1990,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-156",
-      "headline": "Bajaj Housing Finance Q2 Results: Focus on asset quality, guidance after 25% growth in disbursements, AUM",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/bajaj-housing-finance-q2-results-nii-profit-loan-growth-disbursements-aum-asset-quality-margins-fy27-outlook-20013413.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T06:38:15Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Bajaj Housing Finance reported 25% growth in disbursements and AUM.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Bajaj Housing Finance reported 25% growth in disbursements and AUM.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bajaj Housing Finance",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -222220,9 +222220,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6878144,
-    "news_picked_today": 356,
-    "news_dropped_today": 4108
+    "news_seen_today": 6979032,
+    "news_picked_today": 364,
+    "news_dropped_today": 4220
   },
   "book_momentum": {
     "live_count": 8,
