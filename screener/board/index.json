@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-16T14:13:23Z",
+  "generated_at": "2026-10-16T15:29:09Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261016-339",
+      "headline": "COOLPAD GROUP (02369): PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY TWO (2) EXISTING SHARES HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS AND PROPOSED CHANGE IN BOARD LOT SIZE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101601510.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T14:57:00Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Coolpad Group proposed a rights issue on the basis of one rights share for every two existing shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Coolpad Group proposed a rights issue on the basis of one rights share for every two existing shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "COOLPAD GROUP",
+          "ticker": "02369",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261016-335",
       "headline": "Advent Hotels International Limited: Advent Hotels International Limited has informed the Exchange about Update on completion of acquisition of balance 25% equity shareholding in BD&P Hotels (India) Private Limited and its becoming a Wholly Owned Subsidiary of the Company.",
@@ -1946,55 +1995,6 @@
           "name": "Fairfax Financial",
           "ticker": null,
           "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-268",
-      "headline": "COSCO SHIP PORT (01199): VOLUNTARY ANNOUNCEMENT - POTENTIAL DISPOSAL OF 25% EQUITY INTEREST IN QINGDAO PORT DONGJIAKOU ORE TERMINAL CO., LTD. THROUGH PUBLIC TENDER",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101600762.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T09:38:00Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "The company is initiating a potential disposal of a 25% equity interest in a subsidiary through public tender.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "The company is initiating a potential disposal of a 25% equity interest in a subsidiary through public tender.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "COSCO SHIP PORT",
-          "ticker": "01199",
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "large",
@@ -222220,7 +222220,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10981466,
+    "news_seen_today": 12276484,
     "news_picked_today": 528,
     "news_dropped_today": 4728
   },
