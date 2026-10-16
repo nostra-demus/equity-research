@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-10-16T10:23:26Z",
+  "generated_at": "2026-10-16T10:34:25Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261016-259",
+      "headline": "PUBLIC FIN HOLD (00626): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101600976.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T10:24:00Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Profit warning indicates a material negative impact on earnings expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Profit warning indicates a material negative impact on earnings expectations.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PUBLIC FIN HOLD",
+          "ticker": "00626",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261016-240",
       "headline": "Mangalam Drugs And Organics Limited: Mangalam Drugs And Organics Limited has informed the Exchange about Fraud/Default/Arrest",
@@ -96,6 +146,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-269",
+      "headline": "GD LAND (00124): Positive Profit Alert",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101600756.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T09:36:00Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "The company issued a positive profit alert, indicating improved financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company issued a positive profit alert, indicating improved financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GD LAND",
+          "ticker": "00124",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1456,20 +1555,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261016-220",
-      "headline": "CHINA MER PORT (00144): Voluntary Announcement - Potential Disposal of 25% Equity Interest in Qingdao Port Dongjiakou Ore Terminal Co., Ltd. through Public Tender",
+      "inbox_id": "INB-20261016-268",
+      "headline": "COSCO SHIP PORT (01199): VOLUNTARY ANNOUNCEMENT - POTENTIAL DISPOSAL OF 25% EQUITY INTEREST IN QINGDAO PORT DONGJIAKOU ORE TERMINAL CO., LTD. THROUGH PUBLIC TENDER",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101600366.pdf",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101600762.pdf",
       "source_name": "HKEXnews (HK Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T08:36:00Z",
+      "found_at": "2026-10-16T09:38:00Z",
       "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Potential disposal of a 25% equity interest in a terminal asset.",
+      "prelim_note": "The company is initiating a potential disposal of a 25% equity interest in a subsidiary through public tender.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 99,
-      "triage_reason": "Potential disposal of a 25% equity interest in a terminal asset.",
+      "triage_reason": "The company is initiating a potential disposal of a 25% equity interest in a subsidiary through public tender.",
       "region": "CN",
       "relevance": "material",
       "materiality_pre_score": 60,
@@ -1494,8 +1593,8 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "CHINA MER PORT",
-          "ticker": "000144",
+          "name": "COSCO SHIP PORT",
+          "ticker": "01199",
           "listing_country": "CN"
         }
       ],
@@ -1853,20 +1952,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261016-238",
-      "headline": "Shoppers Stop Limited: Shoppers Stop Limited has informed the Exchange regarding a press release dated October 16, 2026, titled \"Profitability Turnaround Continues; EBITDA momentum accelerates\".",
+      "inbox_id": "INB-20261016-257",
+      "headline": "Bajaj Housing Finance Limited: Bajaj Housing Finance Limited has submitted to the Exchange, the unaudited financial results for the quarter and half year ended September 30, 2026.",
       "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/SHOPERSTOP_16102026143017_DisclosurePSInvtPSD.pdf",
+      "url": "https://nsearchives.nseindia.com/corporate/BHFL_16102026155133_outcomesetuploading.pdf",
       "source_name": "BSE / NSE Exchange Filing",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T09:02:09Z",
+      "found_at": "2026-10-16T10:23:30Z",
       "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Shoppers Stop reported accelerating EBITDA momentum and a continued profitability turnaround.",
+      "prelim_note": "Release of unaudited financial results for the quarter and half year ended September 30, 2026.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Shoppers Stop reported accelerating EBITDA momentum and a continued profitability turnaround.",
+      "triage_score": 96,
+      "triage_reason": "Release of unaudited financial results for the quarter and half year ended September 30, 2026.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 60,
@@ -1875,7 +1974,7 @@
         "source_tier": 8,
         "scope": 6,
         "event": 5,
-        "size": 1,
+        "size": 2,
         "recency": 5,
         "materiality_label_floor": 10,
         "quantified": 0,
@@ -1883,7 +1982,7 @@
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
         "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
+        "size_bucket": "large"
       },
       "event_types": [
         "earnings_revenue_margin"
@@ -1891,107 +1990,9 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Shoppers Stop Limited",
+          "name": "Bajaj Housing Finance Limited",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-247",
-      "headline": "DP World eyes $5 bn India investment, warns West Asia crisis is rewiring global trade",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/dp-world-eyes-5-bn-india-investment-warns-west-asia-crisis-is-rewiring-global-trade/articleshow/134990040.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T09:45:16Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "DP World is planning a $5 billion investment in India.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "DP World is planning a $5 billion investment in India.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DP World",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-174",
-      "headline": "Money transfer firm Wise raises revenue growth outlook as cross-border volumes jump",
-      "headline_en": null,
-      "url": "https://www.reuters.com/technology/money-transfer-firm-wise-raises-revenue-growth-outlook-cross-border-volumes-jump-2026-10-16/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T06:57:05Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Wise raised its revenue growth outlook due to increased cross-border transaction volumes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Wise raised its revenue growth outlook due to increased cross-border transaction volumes.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Wise",
-          "ticker": null,
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -222225,9 +222226,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7383720,
-    "news_picked_today": 400,
-    "news_dropped_today": 4424
+    "news_seen_today": 7537170,
+    "news_picked_today": 415,
+    "news_dropped_today": 4457
   },
   "book_momentum": {
     "live_count": 8,
