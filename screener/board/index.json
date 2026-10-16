@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-16T20:13:26Z",
+  "generated_at": "2026-10-16T20:19:25Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261016-520",
+      "headline": "SC TO-T/A - Beretta Holding S.A. (0002086731) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2086731/000119380526001376/0001193805-26-001376-index.htm",
+      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-16T20:05:38Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Beretta Holding S.A. is conducting a third-party tender offer for Sturm Ruger & Co Inc.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Beretta Holding S.A. is conducting a third-party tender offer for Sturm Ruger & Co Inc.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sturm Ruger & Co Inc",
+          "ticker": "RGR",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-521",
+      "headline": "SC TO-T/A - STURM RUGER & CO INC (0000095029) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/95029/000119380526001376/0001193805-26-001376-index.htm",
+      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-16T20:05:38Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Sturm Ruger & Co Inc is the subject of a third-party tender offer by Beretta Holding S.A.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sturm Ruger & Co Inc is the subject of a third-party tender offer by Beretta Holding S.A.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sturm Ruger & Co Inc",
+          "ticker": "RGR",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261016-339",
       "headline": "COOLPAD GROUP (02369): PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY TWO (2) EXISTING SHARES HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS AND PROPOSED CHANGE IN BOARD LOT SIZE",
@@ -1899,104 +1997,6 @@
       "companies": [
         {
           "name": "Crompton Greaves Consumer Electricals",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-244",
-      "headline": "Ujjivan SFB Q2 Results: Net Profit Triples, NII Jumps 35%",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/ujjivan-sfb-q2-results-net-profit-triples-nii-jumps-35-12194259#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T09:46:02Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Ujjivan SFB reported a tripling of net profit and a 35% jump in NII for Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ujjivan SFB reported a tripling of net profit and a 35% jump in NII for Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ujjivan Small Finance Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-243",
-      "headline": "Ujjivan SFB posts record Q2 profit of ₹365 crore, on track to achieve 2% RoA guidance",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/ujjivan-sfb-q2-results-record-profit-to-achieve-2-pc-roa-guidance-preferential-issue-20013618.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T09:42:51Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Ujjivan SFB reported a record Q2 profit of 365 crore rupees.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ujjivan SFB reported a record Q2 profit of 365 crore rupees.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ujjivan Small Finance Bank",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -222229,9 +222229,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 17106756,
-    "news_picked_today": 792,
-    "news_dropped_today": 6600
+    "news_seen_today": 17219227,
+    "news_picked_today": 794,
+    "news_dropped_today": 6646
   },
   "book_momentum": {
     "live_count": 8,
