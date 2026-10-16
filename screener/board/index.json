@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-10-16T03:07:08Z",
+  "generated_at": "2026-10-16T03:12:09Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261016-074",
+      "headline": "Wipro Limited: Wipro Limited has informed the Exchange that pursuant to Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 and para 202.05 read with para 202.06 of the NYSE Listed Company Manual, it is hereby informed that Wipro Limited through its step-down subsidiary - Wipro IT Services, LLC has signed a definitive agreement to acquire 20% shareholding in FLARRE.AI, Inc. on October 15, 2026.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/Wipro_Secretarial_16102026083110_Reg30SEIntimation16102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T03:01:42Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Wipro Limited is acquiring a 20% stake in FLARRE.AI, Inc.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Wipro Limited is acquiring a 20% stake in FLARRE.AI, Inc.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wipro Limited",
+          "ticker": "507685",
+          "listing_country": "IN"
+        },
+        {
+          "name": "FLARRE.AI, Inc.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261016-017",
       "headline": "KEYMED BIO-B (02162): INSIDE INFORMATION ANNOUNCEMENT-(1) UPDATE ON PRODUCT REVENUE FOR THE FIRST THREE QUARTERS OF 2026 AND (2) NATIONAL MEDICAL PRODUCTS ADMINISTRATION APPROVES THE NEW INDICATION MARKETING APPLICATION FOR STAPOKIBART FOR THE TREATMENT OF MODERATE-TO-SEVERE ATOPIC DERMATITIS IN ADOLESCENTS",
@@ -1892,55 +1946,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-053",
-      "headline": "NC6: Change in substantial holding",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NC6?key=2924-03148965-6A1349466",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-15T08:01:24Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Change in substantial holding indicates a shift in ownership structure for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Change in substantial holding indicates a shift in ownership structure for the company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nuchev Ltd",
-          "ticker": "NC6",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -221886,7 +221891,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2301646,
+    "news_seen_today": 2320965,
     "news_picked_today": 84,
     "news_dropped_today": 1356
   },
