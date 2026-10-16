@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-16T03:22:10Z",
+  "generated_at": "2026-10-16T03:26:02Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261016-078",
+      "headline": "Yes Bank Limited: Yes Bank Limited has informed the Exchange about disclosure regarding judgment of the Hon ble Supreme Court of India in relation to Additional Tier-1 Bonds",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/YESBANK_16102026084642_YBL_Stock_Exchange_Intimation_AT-1_Judgement_Oct_2026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T03:17:41Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Yes Bank Limited disclosed a judgment from the Supreme Court of India regarding Additional Tier-1 Bonds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Yes Bank Limited disclosed a judgment from the Supreme Court of India regarding Additional Tier-1 Bonds.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yes Bank Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261016-074",
       "headline": "Wipro Limited: Wipro Limited has informed the Exchange that pursuant to Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 and para 202.05 read with para 202.06 of the NYSE Listed Company Manual, it is hereby informed that Wipro Limited through its step-down subsidiary - Wipro IT Services, LLC has signed a definitive agreement to acquire 20% shareholding in FLARRE.AI, Inc. on October 15, 2026.",
@@ -150,6 +199,60 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-088",
+      "headline": "Japan's Mitsui to spend $1.5bn on bid to take Penske Automotive private",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/business-deals/japan-s-mitsui-to-spend-1.5bn-on-bid-to-take-penske-automotive-private",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T03:24:29Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Mitsui's $1.5bn bid to take Penske Automotive private is a significant M&A transaction that will impact both companies' capital structure and operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mitsui's $1.5bn bid to take Penske Automotive private is a significant M&A transaction that will impact both companies' capital structure and operations.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mitsui",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "Penske Automotive",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -848,6 +951,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261016-085",
+      "headline": "Australian lithium miner PLS green-lights expansion",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/markets/commodities/australian-lithium-miner-pls-green-lights-expansion",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T03:24:29Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Pilbara Minerals has approved an expansion plan to boost its lithium production capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Pilbara Minerals has approved an expansion plan to boost its lithium production capacity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pilbara Minerals",
+          "ticker": "PLS",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261016-026",
       "headline": "IDREAMSKY (01119): PLACING OF NEW SHARES UNDER GENERAL MANDATE",
       "headline_en": null,
@@ -892,6 +1044,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-076",
+      "headline": "Centre cuts windfall tax on diesel exports, raises levy on petrol",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/windfall-tax-diesel-exports-petrol-exports-atf-west-asia-war-crude-oil-prices-oil-marketing-companies-11792117561587.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T03:12:09Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "The Indian government adjusted windfall taxes on fuel exports, which impacts the margins of oil marketing and refining companies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "The Indian government adjusted windfall taxes on fuel exports, which impacts the margins of oil marketing and refining companies.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -942,6 +1137,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-077",
+      "headline": "Alpha Alternatives raises over Rs 6,000 crore for first infrastructure fund",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/alpha-alternatives-raises-6000-crore/articleshow/134980480.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T02:19:17Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Alpha Alternatives raised over Rs 6,000 crore for its first infrastructure fund, indicating significant capital deployment into the sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Alpha Alternatives raised over Rs 6,000 crore for its first infrastructure fund, indicating significant capital deployment into the sector.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alpha Alternatives",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1192,55 +1436,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-056",
-      "headline": "Alpha Alternatives Raises `6,000 crore",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/alpha-alternatives-raises-6000-crore/articleshow/134980480.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T02:19:17Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Alpha Alternatives raised 6,000 crore in capital.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Alpha Alternatives raised 6,000 crore in capital.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alpha Alternatives",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1706,20 +1901,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261016-063",
-      "headline": "FHS: Change of Auditor",
+      "inbox_id": "INB-20261016-079",
+      "headline": "CWY: Response to ASX Price Query [price-sensitive]",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FHS?key=2924-03149345-3A704298",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CWY?key=2924-03149362-3A704301",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T02:30:48Z",
+      "found_at": "2026-10-16T03:08:48Z",
       "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Change of auditor is a standard corporate governance event that warrants monitoring.",
+      "prelim_note": "A company responded to an ASX price query, indicating potential market sensitivity.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 73,
-      "triage_reason": "Change of auditor is a standard corporate governance event that warrants monitoring.",
+      "triage_reason": "A company responded to an ASX price query, indicating potential market sensitivity.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 50,
@@ -1735,217 +1930,21 @@
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "management",
+        "event_id": "regulatory",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "management"
+        "regulatory"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "FHS",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-005",
-      "headline": "BMH: Resignation and Appointment of Executive Director",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BMH?key=2924-03149274-6A1349563",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-15T23:44:17Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "The company announced a change in its executive director, which is a standard but material management update.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "The company announced a change in its executive director, which is a standard but material management update.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BMH",
-          "ticker": null,
+          "name": "CWY",
+          "ticker": "CWY",
           "listing_country": "AU"
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-046",
-      "headline": "EBR: Amended Appointment of Chief Medical Officer",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EBR?key=2924-03149311-3A704293",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T01:18:18Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "EBR announced an amended appointment for its Chief Medical Officer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "EBR announced an amended appointment for its Chief Medical Officer.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EBR Systems",
-          "ticker": "EBR",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-040",
-      "headline": "ELV: Planned Board Transition Announced",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ELV?key=2924-03149288-2A1704528",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T00:49:53Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Elixir Energy announced a planned board transition, which is a routine governance update.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "Elixir Energy announced a planned board transition, which is a routine governance update.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Elixir Energy",
-          "ticker": "ELV",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-003",
-      "headline": "DATANG ENVIRO (01272): ANNOUNCEMENT - ISSUE OF THE SECOND TRANCHE SUPER SHORT-TERM COMMERCIAL PAPER FOR THE YEAR OF 2026",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1015/2026101500687.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-15T09:40:00Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Datang Enviro issued a second tranche of super short-term commercial paper.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 71,
-      "triage_reason": "Datang Enviro issued a second tranche of super short-term commercial paper.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Datang Enviro",
-          "ticker": "01272",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -221891,9 +221890,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2436535,
-    "news_picked_today": 89,
-    "news_dropped_today": 1471
+    "news_seen_today": 2474984,
+    "news_picked_today": 105,
+    "news_dropped_today": 1575
   },
   "book_momentum": {
     "live_count": 8,
