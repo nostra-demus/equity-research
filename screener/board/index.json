@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T01:12:51Z",
+  "generated_at": "2026-10-16T01:24:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261016-017",
@@ -180354,6 +180354,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-d6a9504a0851",
+      "idea_version": "IDEAV-d406d1e636fd4713",
+      "idea_version_started_at": "2026-10-16T01:24:24Z",
+      "ticker": "AGSTRANS",
+      "company": "AGS Transact Technologies Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has officially entered the Corporate Insolvency Resolution Process, signaling a high probability of equity wipeout or severe dilution for shareholders.",
+      "why_now": "The filing was released on 2026-10-14, making the insolvency process live and active.",
+      "conviction": 90,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6b8eac583256"
+      ],
+      "primary_source_event_id": "EVT-6b8eac583256",
+      "source_headlines": [
+        "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+      ],
+      "source_headline": "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "source_url": "https://nsearchives.nseindia.com/corporate/AGSTRA_14102026202024_Intimation_to_BSE_And_NSE_-_19th_Coc_meeting_-_Preponement.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-14T14:51:52Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-16T01:24:24Z",
+      "updated_at": "2026-10-16T01:24:24Z",
+      "decay_at": "2026-10-16T02:51:52Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-e9dd060b2328",
       "idea_version": "IDEAV-dade782e1a5b8c28",
       "idea_version_started_at": "2026-10-16T00:20:15Z",
@@ -183932,78 +184004,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-ba81c0b2f5d4",
-      "idea_version": "IDEAV-db96fb09ed44dae1",
-      "idea_version_started_at": "2026-10-13T14:10:50Z",
-      "ticker": "JMAT",
-      "company": "Jardine Matheson",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its earnings guidance for 2026, indicating improved financial performance.",
-      "why_now": "The guidance was raised on October 13, 2026, providing a current catalyst for the stock.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-05775b6dc42f"
-      ],
-      "primary_source_event_id": "EVT-05775b6dc42f",
-      "source_headlines": [
-        "Jardine Matheson raises 2026 earnings guidance as high as US$5.65 per share"
-      ],
-      "source_headline": "Jardine Matheson raises 2026 earnings guidance as high as US$5.65 per share",
-      "source_url": "https://www.businesstimes.com.sg/companies-markets/jardine-matheson-raises-2026-earnings-guidance-high-us5-65-share",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-13T00:58:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-13T14:10:50Z",
-      "updated_at": "2026-10-13T14:10:50Z",
-      "decay_at": "2026-10-14T12:58:52Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-bcfe3a2924a3",
       "idea_version": "IDEAV-3c94b90729487e24",
       "idea_version_started_at": "2026-10-13T14:10:50Z",
@@ -184658,14 +184658,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 532,
+    "total_count": 531,
     "shown_count": 499,
-    "hidden_count": 33,
+    "hidden_count": 32,
     "side_counts": {
       "long": {
-        "total_count": 272,
+        "total_count": 271,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 21
       },
       "short": {
         "total_count": 261,
@@ -184675,12 +184675,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1057,
+      "evicted_count": 1058,
       "oldest_retained_at": "2026-09-17T20:48:50Z",
       "side_counts": {
         "long": {
-          "evicted_count": 699,
-          "oldest_retained_at": "2026-10-02T05:10:33Z"
+          "evicted_count": 700,
+          "oldest_retained_at": "2026-10-02T08:59:05Z"
         },
         "short": {
           "evicted_count": 358,
@@ -187139,8 +187139,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-14T12:58:52Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-16T01:24:28Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -221858,8 +221858,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1623,
-    "live_count": 33,
+    "surfaced_total": 1624,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -221878,9 +221878,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 864425,
+    "news_seen_today": 1022883,
     "news_picked_today": 43,
-    "news_dropped_today": 581
+    "news_dropped_today": 629
   },
   "book_momentum": {
     "live_count": 8,
