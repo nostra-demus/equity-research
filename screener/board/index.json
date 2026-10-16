@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T19:42:40Z",
+  "generated_at": "2026-10-16T19:56:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261016-339",
@@ -149,6 +149,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-518",
+      "headline": "GUOTAI JUNAN I (01788): JOINT ANNOUNCEMENT UPDATE ON PROGRESS ON THE FULFILMENT OF THE PRE-CONDITION IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 673 OF THE COMPANIES ORDINANCE AND (2) PROPOSED WITHDRAWAL OF LISTING OF THE SHARES OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101601350.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T12:59:00Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Guotai Junan International provided an update on the pre-conditions for its proposed privatization and delisting.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Guotai Junan International provided an update on the pre-conditions for its proposed privatization and delisting.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Guotai Junan International",
+          "ticker": "01788",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1958,56 +2007,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-211",
-      "headline": "Yes Bank May Face ₹5,400 Crore Earnings Hit After SC order Quashes ₹8,415 Crore AT1 Bond Write-Off",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/yes-bank-may-face-5400-crore-earnings-hit-after-sc-order-quashes-8415-crore-at1-bond-write-off",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T08:28:38Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Yes Bank faces a potential earnings hit of ₹5,400 crore following a Supreme Court order regarding AT1 bond write-offs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Yes Bank faces a potential earnings hit of ₹5,400 crore following a Supreme Court order regarding AT1 bond write-offs.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yes Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -222235,7 +222234,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 16848292,
+    "news_seen_today": 16878837,
     "news_picked_today": 743,
     "news_dropped_today": 6265
   },
