@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T00:35:29Z",
+  "generated_at": "2026-10-16T00:38:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261016-017",
@@ -346,6 +346,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-030",
+      "headline": "Rocket Lab's Neutron Won't Launch Until 2027. Is the Stock a Buy 65% Below Its Record?",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/rocket-labs-neutron-wont-launch-until-2027-stock-buy-65-below-its-record",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T23:48:02Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Rocket Lab delayed the launch of its Neutron rocket to 2027, pushing back a key commercial milestone.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Rocket Lab delayed the launch of its Neutron rocket to 2027, pushing back a key commercial milestone.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rocket Lab",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1369,6 +1418,98 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-031",
+      "headline": "Russia and Ukraine trade strikes as Trump ‘energy ceasefire’ collapses",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/world/2026/oct/15/us-effort-to-get-russia-ukraine-energy-ceasefire-collapses",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-15T23:57:20Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Escalation in the Russia-Ukraine conflict following the collapse of a potential energy ceasefire poses significant geopolitical and energy market risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Escalation in the Russia-Ukraine conflict following the collapse of a potential energy ceasefire poses significant geopolitical and energy market risks.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-029",
+      "headline": "Lindian Resources' Kangankunde Rare Earths Project Advances Towards December First Production",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/lindian-resources-kangankunde-rare-earths-project-advances-towards-december-first-production-302910733.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T00:15:00Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Lindian Resources is moving toward first production at its Kangankunde Rare Earths project in December 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "Lindian Resources is moving toward first production at its Kangankunde Rare Earths project in December 2026.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lindian Resources",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -221231,7 +221372,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3675,
+    "inbox_unconsumed": 3678,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -221240,9 +221381,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 444818,
-    "news_picked_today": 28,
-    "news_dropped_today": 236
+    "news_seen_today": 485070,
+    "news_picked_today": 31,
+    "news_dropped_today": 257
   },
   "book_momentum": {
     "live_count": 8,
