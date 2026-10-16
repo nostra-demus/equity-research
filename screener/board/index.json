@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T08:27:40Z",
+  "generated_at": "2026-10-16T08:30:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261016-181",
@@ -450,13 +450,13 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261016-182",
-      "headline": "Q2 Results Live Updates: Federal Bank net profit up 45.1%; Federal Bank, PNB, LTM report today",
+      "inbox_id": "INB-20261016-185",
+      "headline": "Q2 Results Live Updates: Federal Bank net profit up 45.1%; PNB, LTM report today",
       "headline_en": null,
       "url": "https://www.cnbctv18.com/market/q2-results-live-updates-federal-bank-pnb-ltm-urban-co-jio-fin-persistent-wipro-tech-mah-360-angel-one-ujjivan-ltf-share-price-liveblog-20013133.htm",
       "source_name": "CNBC-TV18",
       "input_nature": "news_headline",
-      "found_at": "2026-10-16T07:54:31Z",
+      "found_at": "2026-10-16T08:03:03Z",
       "sweep_file": "screener/inbox/2026-10-16_sweep.json",
       "prelim_note": "Federal Bank reported a 45.1% increase in net profit for Q2.",
       "dedup_status": "new",
@@ -1879,6 +1879,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261016-188",
+      "headline": "India's Persistent Systems plans debut rupee debt sale to fund acquisition, bankers say",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/india/indias-persistent-systems-plans-debut-rupee-debt-sale-fund-acquisition-bankers-2026-10-16/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T07:42:41Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Persistent Systems plans its first rupee-denominated debt issuance to fund an acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Persistent Systems plans its first rupee-denominated debt issuance to fund an acquisition.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Persistent Systems",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261016-151",
       "headline": "DEE Development Engineers Limited: DEE Development Engineers Limited has informed the Exchange about Framework Agreement for Supply of pipping solutions to the Nuclear Power Sector.",
       "headline_en": null,
@@ -1923,56 +1973,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-067",
-      "headline": "Nestle India Q2 Review: Brokerages Cut Earnings Estimates, Target Price As Q2 Beat Fails To Ease Inflation Fears",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/nestle-india-q2-review-brokerages-cut-earnings-estimates-target-price-as-q2-beat-fails-to-ease-inflation-fears-12192764#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T01:58:31Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Brokerages cut earnings estimates and target prices for Nestle India due to persistent inflation concerns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Brokerages cut earnings estimates and target prices for Nestle India due to persistent inflation concerns.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nestle India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -221989,9 +221989,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5981474,
-    "news_picked_today": 269,
-    "news_dropped_today": 3835
+    "news_seen_today": 6030688,
+    "news_picked_today": 278,
+    "news_dropped_today": 3850
   },
   "book_momentum": {
     "live_count": 8,
