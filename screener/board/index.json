@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T05:36:00Z",
+  "generated_at": "2026-10-16T05:47:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261016-108",
@@ -297,6 +297,104 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-139",
+      "headline": "Schneider Electric raises 2026 targets again on booming data centre demand",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/schneider-electric-raises-2026-targets-again-booming-data-centre-demand-2026-10-16/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T05:31:03Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Schneider Electric raised its 2026 targets due to sustained data center demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Schneider Electric raised its 2026 targets due to sustained data center demand.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Schneider Electric",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-137",
+      "headline": "Schneider Hikes Guidance Again on Soaring Data-Center Demand",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-16/schneider-hikes-guidance-again-on-soaring-data-center-demand",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T05:30:16Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Schneider Electric raised its financial guidance again, citing strong demand from data centers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Schneider Electric raised its financial guidance again, citing strong demand from data centers.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Schneider Electric",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1862,114 +1960,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-125",
-      "headline": "Karur Vysya Bank shares jump 6% to hit a 52-week high after Q2 results - Should you buy? Rationale, target price",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/karur-vysya-bank-shares-jump-6-to-hit-a-52-week-high-after-q2-results-should-you-buy-rationale-target-price-11792125152481.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T05:02:23Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Karur Vysya Bank shares rose 6% to a 52-week high following positive Q2 results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Karur Vysya Bank shares rose 6% to a 52-week high following positive Q2 results.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Karur Vysya Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-104",
-      "headline": "Q2 Results Today Live: DLF, LTM, Oberoi, PNB, Urban Company, Ujjivan SFB, Federal Bank to announce Q2 results, Tech Mahindra shares up 5% after Q2, Wipro up 2%, Jio, Nestle, HDFC Life, Persistent Systems in red, Cyient DLM tanks 15%",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/q2-results-today-live-updates-urban-company-wipro-tech-mahindra-jio-dlf-ltm-oberoi-realty-punjab-national-bank-ujjivan-sfb-himadri-speciality-chemical-fedreal-bank-results-nestle-irfc-hdfc-iifl-16-oct/article71587596.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T04:03:26Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Multiple Indian companies reported Q2 results, with Tech Mahindra and Wipro showing positive movement while Cyient DLM declined 15%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Multiple Indian companies reported Q2 results, with Tech Mahindra and Wipro showing positive movement while Cyient DLM declined 15%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tech Mahindra",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Wipro",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Cyient DLM",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -221772,9 +221762,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3819456,
-    "news_picked_today": 183,
-    "news_dropped_today": 2505
+    "news_seen_today": 3936636,
+    "news_picked_today": 188,
+    "news_dropped_today": 2596
   },
   "book_momentum": {
     "live_count": 8,
