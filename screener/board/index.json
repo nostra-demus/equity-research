@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T10:06:50Z",
+  "generated_at": "2026-10-16T10:18:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261016-240",
@@ -640,6 +640,55 @@
           "name": "OCT (Asia)",
           "ticker": "03366",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-252",
+      "headline": "Crompton Greaves Q2 Results: Profit beats estimates, jumps 68% on record export sales",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/crompton-greaves-q2-results-profit-beats-estimates-jumps-68-pc-record-export-sales-20013645.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T10:06:05Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Crompton Greaves reported a 68% jump in Q2 profit, beating analyst estimates.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Crompton Greaves reported a 68% jump in Q2 profit, beating analyst estimates.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Crompton Greaves Consumer Electricals",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -1804,6 +1853,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261016-247",
+      "headline": "DP World eyes $5 bn India investment, warns West Asia crisis is rewiring global trade",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/dp-world-eyes-5-bn-india-investment-warns-west-asia-crisis-is-rewiring-global-trade/articleshow/134990040.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T09:45:16Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "DP World is planning a $5 billion investment in India.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "DP World is planning a $5 billion investment in India.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DP World",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261016-174",
       "headline": "Money transfer firm Wise raises revenue growth outlook as cross-border volumes jump",
       "headline_en": null,
@@ -1898,105 +1996,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-066",
-      "headline": "Yes Bank Faces Capital Risk After AT-1 Verdict; Citi Cuts Target, Morgan Stanley Retains 'Underweight'",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/yes-bank-at1-bond-verdict-citi-target-cut-morgan-stanley-retains-underweights-stock-hit-lower-circuit-sensex-today-bse-nse-bank-stocks-12192793#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T02:18:25Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Yes Bank faces capital risk following an AT-1 bond verdict, compounded by analyst downgrades.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Yes Bank faces capital risk following an AT-1 bond verdict, compounded by analyst downgrades.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yes Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-208",
-      "headline": "Vraj Iron and Steel Limited: Vraj Iron and Steel Limited has informed the Exchange about Addendum Of Fresh Terms Of Reference (TOR) For The Greenfield Steel Plant Project Of The Company From Moef&CC.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/VISL_16102026134413_Additional_Intimation_.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T08:15:17Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Vraj Iron and Steel received updated terms of reference for its greenfield steel plant project from the Ministry of Environment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Vraj Iron and Steel received updated terms of reference for its greenfield steel plant project from the Ministry of Environment.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vraj Iron and Steel Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -222227,9 +222226,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7206372,
-    "news_picked_today": 382,
-    "news_dropped_today": 4322
+    "news_seen_today": 7358204,
+    "news_picked_today": 392,
+    "news_dropped_today": 4384
   },
   "book_momentum": {
     "live_count": 8,
