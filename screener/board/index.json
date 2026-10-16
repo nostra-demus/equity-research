@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-16T11:49:08Z",
+  "generated_at": "2026-10-16T13:02:37Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261016-324",
+      "headline": "SECUREKLOUD TECHNOLOGIES LIMITED: SECUREKLOUD TECHNOLOGIES LIMITED has informed the Exchange about Default",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SECURKLOUD_16102026181614_E31_IB_CC_default_SD.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T12:46:57Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Company has officially informed the exchange regarding a default.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company has officially informed the exchange regarding a default.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SECUREKLOUD TECHNOLOGIES LIMITED",
+          "ticker": "SREEL",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-327",
+      "headline": "TV Vision Limited: TV Vision Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TVVISION_16102026175700_Intimation_of_3rd_CoC_Meeting_sd.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T12:27:08Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Company is undergoing Corporate Insolvency Resolution Process (CIRP).",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company is undergoing Corporate Insolvency Resolution Process (CIRP).",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TV Vision Limited",
+          "ticker": "TVVISION",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261016-305",
       "headline": "REDCO GROUP (01622): PROGRESS OF PROPOSED DEBT RESTRUCTURING",
@@ -1851,31 +1949,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261016-278",
-      "headline": "LENS (06613): INSIDE INFORMATION - ANNOUNCEMENT ON THE PROGRESS OF THE ACQUISITION OF EQUITY INTERESTS IN PMG INTERNATIONAL CO., LTD.",
+      "inbox_id": "INB-20261016-331",
+      "headline": "CHI MER LAND (00978): VOLUNTARY ANNOUNCEMENT - ACQUISITION OF EQUITY INTERESTS IN TARGET COMPANY",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101601040.pdf",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101601340.pdf",
       "source_name": "HKEXnews (HK Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T10:34:00Z",
+      "found_at": "2026-10-16T12:53:00Z",
       "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Update on the acquisition of equity interests in PMG International Co., Ltd.",
+      "prelim_note": "Announcement of an acquisition of equity interests in a target company.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 98,
-      "triage_reason": "Update on the acquisition of equity interests in PMG International Co., Ltd.",
+      "triage_reason": "Announcement of an acquisition of equity interests in a target company.",
       "region": "CN",
       "relevance": "material",
-      "materiality_pre_score": 65,
+      "materiality_pre_score": 60,
       "rank_factors": {
-        "materiality": 65,
+        "materiality": 60,
         "source_tier": 8,
         "scope": 5,
         "event": 9,
         "size": 1,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
@@ -1889,110 +1987,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "LENS",
-          "ticker": "06613",
-          "listing_country": "CN"
+          "name": "CHINA MERCHANTS LAND LIMITED",
+          "ticker": "00978",
+          "listing_country": "HK"
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-039",
-      "headline": "AEI: Pause in Trading [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AEI?key=2924-03149291-2A1704529",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T00:54:03Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "AERIS Environmental Ltd has requested a trading halt pending a price-sensitive announcement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "AERIS Environmental Ltd has requested a trading halt pending a price-sensitive announcement.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "strategic_review",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AERIS Environmental Ltd",
-          "ticker": "AEI",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-300",
-      "headline": "Bharat Forge Limited: Bharat Forge Limited has informed the Exchange about Acquisition",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/ANILSHINDE_16102026170442_SEIntimation_further_investment_KSSL_AEL.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T11:36:58Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Bharat Forge Limited informed the Exchange about an acquisition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Bharat Forge Limited informed the Exchange about an acquisition.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bharat Forge Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -182285,77 +182285,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-73bf913da657",
-      "idea_version": "IDEAV-f77ec95fb3a33bf7",
-      "idea_version_started_at": "2026-10-15T02:47:20Z",
-      "ticker": "FBU",
-      "company": "Fletcher Building",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The fast-track approval of the Hunua Quarry project removes a significant regulatory bottleneck, allowing the company to unlock long-term aggregate supply and revenue potential.",
-      "why_now": "The regulatory approval was confirmed in an exchange filing on October 15, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-272def03df7e"
-      ],
-      "primary_source_event_id": "EVT-272def03df7e",
-      "source_headlines": [
-        "FBU: Fletcher Building welcomes Hunua Quarry Fast Track approval"
-      ],
-      "source_headline": "FBU: Fletcher Building welcomes Hunua Quarry Fast Track approval",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FBU?key=2924-03148759-2A1704229",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 94,
-      "newest_source_at": "2026-10-15T00:04:48Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-15T02:47:20Z",
-      "updated_at": "2026-10-15T02:47:20Z",
-      "decay_at": "2026-10-16T12:04:48Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5e41e1261439",
       "idea_version": "IDEAV-8de72e84948dc7b7",
       "idea_version_started_at": "2026-10-16T04:42:08Z",
@@ -184637,6 +184566,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-73bf913da657",
+      "idea_version": "IDEAV-f77ec95fb3a33bf7",
+      "idea_version_started_at": "2026-10-15T02:47:20Z",
+      "ticker": "FBU",
+      "company": "Fletcher Building",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The fast-track approval of the Hunua Quarry project removes a significant regulatory bottleneck, allowing the company to unlock long-term aggregate supply and revenue potential.",
+      "why_now": "The regulatory approval was confirmed in an exchange filing on October 15, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-272def03df7e"
+      ],
+      "primary_source_event_id": "EVT-272def03df7e",
+      "source_headlines": [
+        "FBU: Fletcher Building welcomes Hunua Quarry Fast Track approval"
+      ],
+      "source_headline": "FBU: Fletcher Building welcomes Hunua Quarry Fast Track approval",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FBU?key=2924-03148759-2A1704229",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 94,
+      "newest_source_at": "2026-10-15T00:04:48Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-15T02:47:20Z",
+      "updated_at": "2026-10-15T02:47:20Z",
+      "decay_at": "2026-10-16T12:04:48Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-67e788b795cf",
       "idea_version": "IDEAV-6525009ab95c2fa5",
       "idea_version_started_at": "2026-10-14T08:35:25Z",
@@ -185003,14 +185003,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 531,
+    "total_count": 532,
     "shown_count": 499,
-    "hidden_count": 32,
+    "hidden_count": 33,
     "side_counts": {
       "long": {
-        "total_count": 268,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 19
       },
       "short": {
         "total_count": 264,
@@ -185034,6 +185034,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-73bf913da657",
+        "idea_version": "IDEAV-f77ec95fb3a33bf7",
+        "idea_version_started_at": "2026-10-15T02:47:20Z",
+        "ticker": "FBU",
+        "company": "Fletcher Building",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The fast-track approval of the Hunua Quarry project removes a significant regulatory bottleneck, allowing the company to unlock long-term aggregate supply and revenue potential.",
+        "why_now": "The regulatory approval was confirmed in an exchange filing on October 15, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-272def03df7e"
+        ],
+        "primary_source_event_id": "EVT-272def03df7e",
+        "source_headlines": [
+          "FBU: Fletcher Building welcomes Hunua Quarry Fast Track approval"
+        ],
+        "source_headline": "FBU: Fletcher Building welcomes Hunua Quarry Fast Track approval",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FBU?key=2924-03148759-2A1704229",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 94,
+        "newest_source_at": "2026-10-15T00:04:48Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-15T02:47:20Z",
+        "updated_at": "2026-10-15T02:47:20Z",
+        "decay_at": "2026-10-16T12:04:48Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-16T12:04:48Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3c36e437e038",
         "idea_version": "IDEAV-30539ff95fa15421",
@@ -213285,81 +213359,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-7c0521e054d8",
-        "idea_version": "IDEAV-fde4c5d9dfff6d40",
-        "idea_version_started_at": "2026-10-03T05:21:46Z",
-        "ticker": "HAL",
-        "company": "Hindustan Aeronautics Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Acquiring the remaining 50% stake in HATSOFF allows the company to consolidate full control over its simulation and training assets, improving long-term margins.",
-        "why_now": "The acquisition announcement was made on October 3, 2026, initiating the integration process.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-94ee88c0780a"
-        ],
-        "primary_source_event_id": "EVT-94ee88c0780a",
-        "source_headlines": [
-          "HAL To Acquire Remaining 50% Stake In HATSOFF, Making It A Wholly-Owned Subsidiary"
-        ],
-        "source_headline": "HAL To Acquire Remaining 50% Stake In HATSOFF, Making It A Wholly-Owned Subsidiary",
-        "source_url": "https://www.freepressjournal.in/business/hal-to-acquire-remaining-50-stake-in-hatsoff-making-it-a-wholly-owned-subsidiary",
-        "source_name": "Free Press Journal",
-        "materiality_max": 97,
-        "newest_source_at": "2026-10-03T04:36:52Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-03T05:21:46Z",
-        "updated_at": "2026-10-03T05:21:46Z",
-        "decay_at": "2026-10-04T16:36:52Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-06T04:37:25Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-6f55bf31e25a",
         "idea_version": "IDEAV-39e7b2d1cbe42911",
         "idea_version_started_at": "2026-10-03T04:30:05Z",
@@ -222201,7 +222200,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1636,
-    "live_count": 38,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -222220,9 +222219,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8546234,
-    "news_picked_today": 489,
-    "news_dropped_today": 4719
+    "news_seen_today": 9777355,
+    "news_picked_today": 508,
+    "news_dropped_today": 4724
   },
   "book_momentum": {
     "live_count": 8,
