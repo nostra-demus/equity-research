@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T01:29:18Z",
+  "generated_at": "2026-10-16T01:36:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261016-017",
@@ -96,6 +96,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-047",
+      "headline": "‘It Is Truly a Cesspool’: Dave Ramsey Targets Bank of America After Its $1.2 Billion Fine",
+      "headline_en": null,
+      "url": "https://247wallst.com/personal-finance/2026/10/15/it-is-truly-a-cesspool-dave-ramsey-targets-bank-of-america-after-its-1-2-billion-fine/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T01:30:45Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Bank of America received a $1.2 billion fine, which is a significant regulatory enforcement action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bank of America received a $1.2 billion fine, which is a significant regulatory enforcement action.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of America",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -346,6 +395,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-049",
+      "headline": "AEI: Trading Halt [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AEI?key=2924-03149315-2A1704540",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T01:30:08Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "AEI announced a trading halt pending a price-sensitive announcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "AEI announced a trading halt pending a price-sensitive announcement.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AEI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1563,6 +1661,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261016-048",
+      "headline": "S-1MEF - CITY THERAPEUTICS, INC. (0002143850) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2143850/000110465926116363/0001104659-26-116363-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-16T01:32:54Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "City Therapeutics filed an S-1MEF, indicating a registration for a securities offering.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "City Therapeutics filed an S-1MEF, indicating a registration for a securities offering.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "City Therapeutics, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261016-016",
       "headline": "YUNJI-NEW (02670): VOLUNTARY ANNOUNCEMENT VOLUNTARY EXTENSION OF LOCK-UP UNDERTAKINGS BY MEMBERS OF MANAGEMENT",
       "headline_en": null,
@@ -1787,153 +1934,6 @@
         {
           "name": "Victory Securities",
           "ticker": "08540",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-015",
-      "headline": "YUNJI-NEW (02670): VOLUNTARY ANNOUNCEMENT BUSINESS DEVELOPMENT UPDATE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101600045.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T00:02:00Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Yunji provided a voluntary business development update.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "Yunji provided a voluntary business development update.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yunji",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-034",
-      "headline": "Inside the TVS family dispute: How a business restructuring left Lakshmi with the smaller business",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/people/tvs-family-feud-lakshmi-venu-sudarshan-venu-11791972848647.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T00:37:55Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "The TVS family restructuring is a long-standing historical matter and does not represent a new material event for the current business operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "The TVS family restructuring is a long-standing historical matter and does not represent a new material event for the current business operations.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TVS",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-002",
-      "headline": "SHANDONG MOLONG (00568): CHANGE OF THE REGISTERED CAPITAL OF THE COMPANY AND AMENDMENTS TO ARTICLES OF ASSOCIATION",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1015/2026101500705.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-15T09:48:00Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Company is amending its registered capital and articles of association, which is a routine corporate governance update.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 54,
-      "triage_reason": "Company is amending its registered capital and articles of association, which is a routine corporate governance update.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shandong Molong",
-          "ticker": "00568",
           "listing_country": "CN"
         }
       ],
@@ -179938,77 +179938,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-b0586fbde26d",
-      "idea_version": "IDEAV-f117cb658b12bf91",
-      "idea_version_started_at": "2026-10-14T22:44:48Z",
-      "ticker": "NFLX",
-      "company": "Netflix",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Large-scale layoffs of 1,000 employees suggest significant cost-cutting measures necessitated by slowing subscriber growth or margin pressure.",
-      "why_now": "The layoffs were reported today, October 14, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 71,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-224be32b4bff",
-        "EVT-c269b3ef2643"
-      ],
-      "primary_source_event_id": "EVT-224be32b4bff",
-      "source_headlines": [
-        "Netflix Cuts 1,000 Jobs After Earlier Layoff Warnings",
-        "Netflix Eliminates About 1,000 Jobs in Biggest Cuts Since 2022"
-      ],
-      "source_headline": "Netflix Cuts 1,000 Jobs After Earlier Layoff Warnings",
-      "source_url": "https://www.forbes.com/sites/rickellis/2026/10/14/netflix-cuts-1000-jobs-after-earlier-layoff-warnings/",
-      "source_name": "Forbes",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-14T13:31:21Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-14T22:44:48Z",
-      "updated_at": "2026-10-14T22:44:48Z",
-      "decay_at": "2026-10-16T01:31:21Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5dcef043aea8",
       "idea_version": "IDEAV-4564d1ae4eef05e4",
       "idea_version_started_at": "2026-10-15T21:58:41Z",
@@ -182440,6 +182369,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-b0586fbde26d",
+      "idea_version": "IDEAV-f117cb658b12bf91",
+      "idea_version_started_at": "2026-10-14T22:44:48Z",
+      "ticker": "NFLX",
+      "company": "Netflix",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Large-scale layoffs of 1,000 employees suggest significant cost-cutting measures necessitated by slowing subscriber growth or margin pressure.",
+      "why_now": "The layoffs were reported today, October 14, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 71,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-224be32b4bff",
+        "EVT-c269b3ef2643"
+      ],
+      "primary_source_event_id": "EVT-224be32b4bff",
+      "source_headlines": [
+        "Netflix Cuts 1,000 Jobs After Earlier Layoff Warnings",
+        "Netflix Eliminates About 1,000 Jobs in Biggest Cuts Since 2022"
+      ],
+      "source_headline": "Netflix Cuts 1,000 Jobs After Earlier Layoff Warnings",
+      "source_url": "https://www.forbes.com/sites/rickellis/2026/10/14/netflix-cuts-1000-jobs-after-earlier-layoff-warnings/",
+      "source_name": "Forbes",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-14T13:31:21Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-14T22:44:48Z",
+      "updated_at": "2026-10-14T22:44:48Z",
+      "decay_at": "2026-10-16T01:31:21Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-ab675b24d137",
       "idea_version": "IDEAV-b4003ca2a21d5f59",
       "idea_version_started_at": "2026-10-13T14:10:50Z",
@@ -184664,9 +184664,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 531,
+    "total_count": 532,
     "shown_count": 499,
-    "hidden_count": 32,
+    "hidden_count": 33,
     "side_counts": {
       "long": {
         "total_count": 271,
@@ -184674,9 +184674,9 @@
         "hidden_count": 21
       },
       "short": {
-        "total_count": 261,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 12
       }
     },
     "retention": {
@@ -184695,6 +184695,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b0586fbde26d",
+        "idea_version": "IDEAV-f117cb658b12bf91",
+        "idea_version_started_at": "2026-10-14T22:44:48Z",
+        "ticker": "NFLX",
+        "company": "Netflix",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Large-scale layoffs of 1,000 employees suggest significant cost-cutting measures necessitated by slowing subscriber growth or margin pressure.",
+        "why_now": "The layoffs were reported today, October 14, 2026.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 71,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-224be32b4bff",
+          "EVT-c269b3ef2643"
+        ],
+        "primary_source_event_id": "EVT-224be32b4bff",
+        "source_headlines": [
+          "Netflix Cuts 1,000 Jobs After Earlier Layoff Warnings",
+          "Netflix Eliminates About 1,000 Jobs in Biggest Cuts Since 2022"
+        ],
+        "source_headline": "Netflix Cuts 1,000 Jobs After Earlier Layoff Warnings",
+        "source_url": "https://www.forbes.com/sites/rickellis/2026/10/14/netflix-cuts-1000-jobs-after-earlier-layoff-warnings/",
+        "source_name": "Forbes",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-14T13:31:21Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-14T22:44:48Z",
+        "updated_at": "2026-10-14T22:44:48Z",
+        "decay_at": "2026-10-16T01:31:21Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-16T01:31:21Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-520be705f9e6",
         "idea_version": "IDEAV-c67dfb1b007004eb",
@@ -221785,87 +221859,12 @@
         "archived_at": "2026-09-21T08:26:31Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-50561c4c019b",
-        "idea_version": "IDEAV-9645f40d68ed9f35",
-        "idea_version_started_at": "2026-09-18T12:42:52Z",
-        "ticker": "KORE",
-        "company": "Kore Digital",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company faces severe regulatory action from SEBI, including a ban on key executives and allegations of significant revenue misstatement, which threatens its operational viability.",
-        "why_now": "The regulatory enforcement action was announced on September 18, 2026, triggering an immediate market reaction.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a504278852f9"
-        ],
-        "primary_source_event_id": "EVT-a504278852f9",
-        "source_headlines": [
-          "Kore Digital shares crash 10% as Sebi alleges Rs 541 cr revenue misstatement, bars CEO, CFO and MD from capital market"
-        ],
-        "source_headline": "Kore Digital shares crash 10% as Sebi alleges Rs 541 cr revenue misstatement, bars CEO, CFO and MD from capital market",
-        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/kore-digital-shares-crash-10-as-sebi-alleges-rs-541-cr-revenue-misstatement-bars-ceo-cfo-and-md-from-capital-market/articleshow/134325722.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-18T04:36:50Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-18T12:42:52Z",
-        "updated_at": "2026-09-18T12:42:52Z",
-        "decay_at": "2026-09-19T16:36:50Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-21T04:44:19Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1624,
-    "live_count": 34,
+    "live_count": 33,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -221884,9 +221883,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1102262,
-    "news_picked_today": 46,
-    "news_dropped_today": 674
+    "news_seen_today": 1181509,
+    "news_picked_today": 49,
+    "news_dropped_today": 719
   },
   "book_momentum": {
     "live_count": 8,
