@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-10-16T13:02:37Z",
+  "generated_at": "2026-10-16T14:13:23Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261016-335",
+      "headline": "Advent Hotels International Limited: Advent Hotels International Limited has informed the Exchange about Update on completion of acquisition of balance 25% equity shareholding in BD&P Hotels (India) Private Limited and its becoming a Wholly Owned Subsidiary of the Company.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ADVENTHTL_16102026184937_seintimationupdate.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T13:19:49Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Advent Hotels International Limited has completed the acquisition of the remaining 25% equity in BD&P Hotels (India) Private Limited, making it a wholly owned subsidiary.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Advent Hotels International Limited has completed the acquisition of the remaining 25% equity in BD&P Hotels (India) Private Limited, making it a wholly owned subsidiary.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Advent Hotels International Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "BD&P Hotels (India) Private Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261016-324",
       "headline": "SECUREKLOUD TECHNOLOGIES LIMITED: SECUREKLOUD TECHNOLOGIES LIMITED has informed the Exchange about Default",
@@ -1944,55 +1998,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-331",
-      "headline": "CHI MER LAND (00978): VOLUNTARY ANNOUNCEMENT - ACQUISITION OF EQUITY INTERESTS IN TARGET COMPANY",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101601340.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T12:53:00Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Announcement of an acquisition of equity interests in a target company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Announcement of an acquisition of equity interests in a target company.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CHINA MERCHANTS LAND LIMITED",
-          "ticker": "00978",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180344,76 +180349,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-9366923719a6",
-      "idea_version": "IDEAV-d16af03da2baa999",
-      "idea_version_started_at": "2026-10-15T04:45:55Z",
-      "ticker": "GFS",
-      "company": "GlobalFoundries",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is set to receive a significant portion of a $21 billion Japanese government investment to support its U.S. chip manufacturing facilities, directly subsidizing capital expenditure and capacity expansion.",
-      "why_now": "The announcement was made on 2026-10-15, providing a fresh catalyst for long-term capacity growth.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 64,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2b981c54eb25"
-      ],
-      "primary_source_event_id": "EVT-2b981c54eb25",
-      "source_headlines": [
-        "Japan to invest up to $21 billion in two U.S. chip factories to be run by GlobalFoundries"
-      ],
-      "source_headline": "Japan to invest up to $21 billion in two U.S. chip factories to be run by GlobalFoundries",
-      "source_url": "https://www.japantimes.co.jp/business/2026/10/15/companies/japan-21-billion-investment-us-chip/",
-      "source_name": "The Japan Times",
-      "materiality_max": 97,
-      "newest_source_at": "2026-10-15T01:14:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-15T04:45:55Z",
-      "updated_at": "2026-10-15T04:45:55Z",
-      "decay_at": "2026-10-16T13:14:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-81aca63b0d76",
       "idea_version": "IDEAV-cfffd3dc2df7beed",
       "idea_version_started_at": "2026-10-16T09:32:13Z",
@@ -182141,78 +182076,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0265087a6e9a",
-      "idea_version": "IDEAV-fde2e6e557fc9647",
-      "idea_version_started_at": "2026-10-15T08:41:58Z",
-      "ticker": "ICICIGI",
-      "company": "ICICI Lombard",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 15.5% growth in Q2 net profit and declared a dividend of Rs 7, signaling strong operational performance and capital return.",
-      "why_now": "The earnings and dividend announcement occurred on 2026-10-15.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a4ec8d2bf1a6"
-      ],
-      "primary_source_event_id": "EVT-a4ec8d2bf1a6",
-      "source_headlines": [
-        "ICICI Lombard Q2 net profit growth 15.5%; Rs 7 dividend announced"
-      ],
-      "source_headline": "ICICI Lombard Q2 net profit growth 15.5%; Rs 7 dividend announced",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/icici-lombard-q2-net-profit-growth-15-5-rs-7-dividend-announced/articleshow/134955213.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-15T01:51:21Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-15T08:41:58Z",
-      "updated_at": "2026-10-15T08:41:58Z",
-      "decay_at": "2026-10-16T13:51:21Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9f21c6ea90d3",
       "idea_version": "IDEAV-faa25187dfe754c9",
       "idea_version_started_at": "2026-10-16T09:32:13Z",
@@ -183133,6 +182996,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-9366923719a6",
+      "idea_version": "IDEAV-d16af03da2baa999",
+      "idea_version_started_at": "2026-10-15T04:45:55Z",
+      "ticker": "GFS",
+      "company": "GlobalFoundries",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is set to receive a significant portion of a $21 billion Japanese government investment to support its U.S. chip manufacturing facilities, directly subsidizing capital expenditure and capacity expansion.",
+      "why_now": "The announcement was made on 2026-10-15, providing a fresh catalyst for long-term capacity growth.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 64,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2b981c54eb25"
+      ],
+      "primary_source_event_id": "EVT-2b981c54eb25",
+      "source_headlines": [
+        "Japan to invest up to $21 billion in two U.S. chip factories to be run by GlobalFoundries"
+      ],
+      "source_headline": "Japan to invest up to $21 billion in two U.S. chip factories to be run by GlobalFoundries",
+      "source_url": "https://www.japantimes.co.jp/business/2026/10/15/companies/japan-21-billion-investment-us-chip/",
+      "source_name": "The Japan Times",
+      "materiality_max": 97,
+      "newest_source_at": "2026-10-15T01:14:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-15T04:45:55Z",
+      "updated_at": "2026-10-15T04:45:55Z",
+      "decay_at": "2026-10-16T13:14:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-4e4abdc55d24",
       "idea_version": "IDEAV-d6091653d5bc0ad2",
       "idea_version_started_at": "2026-10-16T00:51:39Z",
@@ -183341,6 +183274,78 @@
       "surfaced_at": "2026-10-16T01:24:24Z",
       "updated_at": "2026-10-16T01:24:24Z",
       "decay_at": "2026-10-16T02:51:52Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-0265087a6e9a",
+      "idea_version": "IDEAV-fde2e6e557fc9647",
+      "idea_version_started_at": "2026-10-15T08:41:58Z",
+      "ticker": "ICICIGI",
+      "company": "ICICI Lombard",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 15.5% growth in Q2 net profit and declared a dividend of Rs 7, signaling strong operational performance and capital return.",
+      "why_now": "The earnings and dividend announcement occurred on 2026-10-15.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a4ec8d2bf1a6"
+      ],
+      "primary_source_event_id": "EVT-a4ec8d2bf1a6",
+      "source_headlines": [
+        "ICICI Lombard Q2 net profit growth 15.5%; Rs 7 dividend announced"
+      ],
+      "source_headline": "ICICI Lombard Q2 net profit growth 15.5%; Rs 7 dividend announced",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/icici-lombard-q2-net-profit-growth-15-5-rs-7-dividend-announced/articleshow/134955213.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-15T01:51:21Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-15T08:41:58Z",
+      "updated_at": "2026-10-15T08:41:58Z",
+      "decay_at": "2026-10-16T13:51:21Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -185003,14 +185008,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 532,
+    "total_count": 534,
     "shown_count": 499,
-    "hidden_count": 33,
+    "hidden_count": 35,
     "side_counts": {
       "long": {
-        "total_count": 269,
+        "total_count": 271,
         "shown_count": 250,
-        "hidden_count": 19
+        "hidden_count": 21
       },
       "short": {
         "total_count": 264,
@@ -185034,6 +185039,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0265087a6e9a",
+        "idea_version": "IDEAV-fde2e6e557fc9647",
+        "idea_version_started_at": "2026-10-15T08:41:58Z",
+        "ticker": "ICICIGI",
+        "company": "ICICI Lombard",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported a 15.5% growth in Q2 net profit and declared a dividend of Rs 7, signaling strong operational performance and capital return.",
+        "why_now": "The earnings and dividend announcement occurred on 2026-10-15.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a4ec8d2bf1a6"
+        ],
+        "primary_source_event_id": "EVT-a4ec8d2bf1a6",
+        "source_headlines": [
+          "ICICI Lombard Q2 net profit growth 15.5%; Rs 7 dividend announced"
+        ],
+        "source_headline": "ICICI Lombard Q2 net profit growth 15.5%; Rs 7 dividend announced",
+        "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/icici-lombard-q2-net-profit-growth-15-5-rs-7-dividend-announced/articleshow/134955213.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-15T01:51:21Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-15T08:41:58Z",
+        "updated_at": "2026-10-15T08:41:58Z",
+        "decay_at": "2026-10-16T13:51:21Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-16T13:51:21Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-9366923719a6",
+        "idea_version": "IDEAV-d16af03da2baa999",
+        "idea_version_started_at": "2026-10-15T04:45:55Z",
+        "ticker": "GFS",
+        "company": "GlobalFoundries",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is set to receive a significant portion of a $21 billion Japanese government investment to support its U.S. chip manufacturing facilities, directly subsidizing capital expenditure and capacity expansion.",
+        "why_now": "The announcement was made on 2026-10-15, providing a fresh catalyst for long-term capacity growth.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 64,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2b981c54eb25"
+        ],
+        "primary_source_event_id": "EVT-2b981c54eb25",
+        "source_headlines": [
+          "Japan to invest up to $21 billion in two U.S. chip factories to be run by GlobalFoundries"
+        ],
+        "source_headline": "Japan to invest up to $21 billion in two U.S. chip factories to be run by GlobalFoundries",
+        "source_url": "https://www.japantimes.co.jp/business/2026/10/15/companies/japan-21-billion-investment-us-chip/",
+        "source_name": "The Japan Times",
+        "materiality_max": 97,
+        "newest_source_at": "2026-10-15T01:14:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-15T04:45:55Z",
+        "updated_at": "2026-10-15T04:45:55Z",
+        "decay_at": "2026-10-16T13:14:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-16T13:14:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-73bf913da657",
         "idea_version": "IDEAV-f77ec95fb3a33bf7",
@@ -213207,158 +213360,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-a499ce26ab02",
-        "idea_version": "IDEAV-8636f9e4a86b6c91",
-        "idea_version_started_at": "2026-10-03T06:10:08Z",
-        "ticker": "SBIN",
-        "company": "State Bank of India",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The SBI-led consortium's submission to the Bombay High Court confirms a massive ₹8,752 crore is still recoverable from the Mallya case, supporting potential future write-backs or provisions reversals.",
-        "why_now": "The legal update in the Bombay High Court on October 3, 2024, provides a specific figure for potential recovery that counters previous lower estimates.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 7,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c81fe26d75ba",
-          "EVT-78842051d04e"
-        ],
-        "primary_source_event_id": "EVT-c81fe26d75ba",
-        "source_headlines": [
-          "Vijay Mallya debt recovery: SBI-led consortium of banks tells Bombay High Court ₹8,752 crore still recoverable",
-          "SBI-led consortium tells Bombay HC Mallya owes over ₹8,700 crore; counters his claim of recovering more than dues"
-        ],
-        "source_headline": "Vijay Mallya debt recovery: SBI-led consortium of banks tells Bombay High Court ₹8,752 crore still recoverable",
-        "source_url": "https://www.cnbctv18.com/india/vijay-mallya-debt-recovery-sbi-led-consortium-of-banks-tells-bombay-high-court-8752-crore-rupees-still-recoverable-20003769.htm",
-        "source_name": "CNBC-TV18",
-        "materiality_max": 90,
-        "newest_source_at": "2026-10-03T04:49:07Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-03T01:50:22Z",
-        "updated_at": "2026-10-03T06:10:08Z",
-        "decay_at": "2026-10-04T16:49:07Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-06T05:17:11Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-c02e0d12e628",
-        "idea_version": "IDEAV-28363c909906636d",
-        "idea_version_started_at": "2026-10-03T04:54:52Z",
-        "ticker": "6502",
-        "company": "Toshiba",
-        "exchange": "TSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Toshiba plans to double its hard-disk drive supply to address the memory gap for AI chips, which should significantly boost its revenue and market share in a high-growth segment.",
-        "why_now": "This strategic decision to double supply is a live operational change announced on October 3, 2026, directly responding to current AI market demand.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-599efe4b103b"
-        ],
-        "primary_source_event_id": "EVT-599efe4b103b",
-        "source_headlines": [
-          "Toshiba to double hard-disk drive supply to fill AI chip memory gap"
-        ],
-        "source_headline": "Toshiba to double hard-disk drive supply to fill AI chip memory gap",
-        "source_url": "https://asia.nikkei.com/business/electronics/toshiba-to-double-hard-disk-drive-supply-to-fill-ai-chip-memory-gap",
-        "source_name": "Nikkei Asia",
-        "materiality_max": 94,
-        "newest_source_at": "2026-10-03T04:43:42Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-03T04:54:52Z",
-        "updated_at": "2026-10-03T04:54:52Z",
-        "decay_at": "2026-10-04T16:43:42Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-06T05:17:11Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-6f55bf31e25a",
         "idea_version": "IDEAV-39e7b2d1cbe42911",
         "idea_version_started_at": "2026-10-03T04:30:05Z",
@@ -222200,7 +222201,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1636,
-    "live_count": 37,
+    "live_count": 35,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -222219,9 +222220,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9777355,
-    "news_picked_today": 508,
-    "news_dropped_today": 4724
+    "news_seen_today": 10981466,
+    "news_picked_today": 528,
+    "news_dropped_today": 4728
   },
   "book_momentum": {
     "live_count": 8,
