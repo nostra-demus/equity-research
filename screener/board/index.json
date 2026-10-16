@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T07:02:37Z",
+  "generated_at": "2026-10-16T07:07:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261016-145",
@@ -346,6 +346,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-166",
+      "headline": "IDBI Bank Fairfax Takeover, Know - What Happens To Your Savings Accounts, Fixed Deposits & Money After ₹52,878 Crore Deal?",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/idbi-bank-fairfax-takeover-know-what-happens-to-your-savings-accounts-fixed-deposits-money-after-52878-crore-deal",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T06:40:53Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "IDBI Bank takeover deal valued at ₹52,878 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IDBI Bank takeover deal valued at ₹52,878 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IDBI Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -951,6 +1000,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261016-170",
+      "headline": "International Paper Confirms Unsolicited Bids For EMEA Packaging Unit Alongside Planned Spin-off",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/international-paper-confirms-unsolicited-bids-emea-packaging-unit-alongside-planned-spin",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T05:28:20Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "International Paper confirmed receiving unsolicited bids for its EMEA packaging unit, signaling potential asset divestiture value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "International Paper confirmed receiving unsolicited bids for its EMEA packaging unit, signaling potential asset divestiture value.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "International Paper",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261016-066",
       "headline": "Yes Bank Faces Capital Risk After AT-1 Verdict; Citi Cuts Target, Morgan Stanley Retains 'Underweight'",
       "headline_en": null,
@@ -1137,6 +1236,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-156",
+      "headline": "Bajaj Housing Finance Q2 Results: Focus on asset quality, guidance after 25% growth in disbursements, AUM",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/bajaj-housing-finance-q2-results-nii-profit-loan-growth-disbursements-aum-asset-quality-margins-fy27-outlook-20013413.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T06:38:15Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Bajaj Housing Finance reported 25% growth in disbursements and AUM.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Bajaj Housing Finance reported 25% growth in disbursements and AUM.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bajaj Housing Finance",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1579,6 +1727,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261016-157",
+      "headline": "UCO Bank sees FY27 loan growth exceeding guidance, maintains asset quality targets",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/uco-bank-to-beat-loan-growth-guidance-after-24-7-credit-growth-md-rajendra-kumar-saboo-q2-earnings-results-boardroom-npa-msme-gold-loans-20013434.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T06:39:33Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "UCO Bank expects FY27 loan growth to exceed previous guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "UCO Bank expects FY27 loan growth to exceed previous guidance.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UCO Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261016-097",
       "headline": "TSMC eyes Texas and Musk Terafab project for US expansion",
       "headline_en": null,
@@ -1764,202 +1961,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-072",
-      "headline": "Vascon Engineers Limited: VASCON ENGINEERS LIMITED RECEIVES LETTER OF ACCEPTANCE FROM STATE BANK OF INDIA FOR CONSTRUCTION OF SBILD, RESIDENTIAL FLATS AND OTHER COMMERCIAL OUTFITS AT HINJEWADI, PUNE, MAHARASHTRA AMOUNTING TO RS. 198 CRORE",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/VASCONEQ_16102026081542_16102026LetterofIntent_V1_Sd.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T02:46:03Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Vascon Engineers secured a construction contract worth Rs. 198 crore from State Bank of India.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Vascon Engineers secured a construction contract worth Rs. 198 crore from State Bank of India.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vascon Engineers",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-119",
-      "headline": "Tech Mahindra shares gain 7% after Q2 results; Only largecap IT stock with positive YTD returns",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/tech-mahindra-share-price-q2-result-reaction-buy-sell-target-bonus-dividend-returns-valuations-20013216.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T04:37:26Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Tech Mahindra shares rose 7% following the release of Q2 results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Tech Mahindra shares rose 7% following the release of Q2 results.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tech Mahindra",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-123",
-      "headline": "Wipro Stock Climbs More Than 4% After Healthy Q2 Results",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/wipro-share-price-today-stock-climbs-after-healthy-q2-results-12193063#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T04:09:59Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Wipro stock rose over 4% following healthy Q2 results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Wipro stock rose over 4% following healthy Q2 results.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Wipro",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-107",
-      "headline": "Tech Mahindra Shares Rise 3% After Q2 Results, Jefferies Upgrades Stock",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/tech-mahindra-shares-rise-3-after-q2-results-jefferies-upgrades-stock-12193066#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T03:54:56Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Tech Mahindra shares rose 3% after Q2 results and a Jefferies analyst upgrade.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Tech Mahindra shares rose 3% after Q2 results and a Jefferies analyst upgrade.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tech Mahindra",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -221976,9 +221977,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4783029,
-    "news_picked_today": 209,
-    "news_dropped_today": 3511
+    "news_seen_today": 4878517,
+    "news_picked_today": 232,
+    "news_dropped_today": 3584
   },
   "book_momentum": {
     "live_count": 8,
