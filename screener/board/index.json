@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T03:12:09Z",
+  "generated_at": "2026-10-16T03:14:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261016-074",
@@ -548,6 +548,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-075",
+      "headline": "3M to argue Australia's $1.4 billion 'forever chemicals' lawsuit legally flawed, court hears",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/environment/3m-argue-australias-14-billion-forever-chemicals-lawsuit-legally-flawed-court-2026-10-16/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T03:04:01Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "3M is contesting a $1.4 billion lawsuit regarding 'forever chemicals' in Australia, representing a significant potential legal liability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "3M is contesting a $1.4 billion lawsuit regarding 'forever chemicals' in Australia, representing a significant potential legal liability.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "3M",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1897,55 +1946,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-069",
-      "headline": "Sumitomo Life considering acquisitions in southeast Asia and U.S.",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/10/16/companies/sumitomo-life-target-acquisitions-southeast-asia/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T02:34:00Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Sumitomo Life is exploring potential acquisitions in Southeast Asia and the U.S.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 71,
-      "triage_reason": "Sumitomo Life is exploring potential acquisitions in Southeast Asia and the U.S.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sumitomo Life",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -221891,9 +221891,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2320965,
-    "news_picked_today": 84,
-    "news_dropped_today": 1356
+    "news_seen_today": 2359549,
+    "news_picked_today": 87,
+    "news_dropped_today": 1401
   },
   "book_momentum": {
     "live_count": 8,
