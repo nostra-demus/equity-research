@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-15T23:58:34Z",
+  "generated_at": "2026-10-16T00:02:26Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261016-001",
+      "headline": "TIANJIN CAPITAL (01065): CONNECTED TRANSACTION IN RELATION TO PROVISION OF LOAN TO HBGJTC",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1015/2026101500711.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T09:49:00Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Tianjin Capital is providing a loan to a connected party, which is a reportable transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "Tianjin Capital is providing a loan to a connected party, which is a reportable transaction.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tianjin Capital",
+          "ticker": "01065",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-002",
+      "headline": "SHANDONG MOLONG (00568): CHANGE OF THE REGISTERED CAPITAL OF THE COMPANY AND AMENDMENTS TO ARTICLES OF ASSOCIATION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1015/2026101500705.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-15T09:48:00Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Company is amending its registered capital and articles of association, which is a routine corporate governance update.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 54,
+      "triage_reason": "Company is amending its registered capital and articles of association, which is a routine corporate governance update.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shandong Molong",
+          "ticker": "00568",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261015-609",
       "headline": "M4M: Macro Completes Acquisition of Yandi South Iron Ore Project [price-sensitive]",
@@ -220216,7 +220314,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3647,
+    "inbox_unconsumed": 3649,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -220225,9 +220323,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 14323615,
-    "news_picked_today": 1773,
-    "news_dropped_today": 12315
+    "news_seen_today": 20265,
+    "news_picked_today": 2,
+    "news_dropped_today": 22
   },
   "book_momentum": {
     "live_count": 8,
