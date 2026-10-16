@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T04:47:04Z",
+  "generated_at": "2026-10-16T04:49:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261016-108",
@@ -1339,6 +1339,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261016-119",
+      "headline": "Tech Mahindra shares gain 7% after Q2 results; Only largecap IT stock with positive YTD returns",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/tech-mahindra-share-price-q2-result-reaction-buy-sell-target-bonus-dividend-returns-valuations-20013216.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T04:37:26Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Tech Mahindra shares rose 7% following the release of Q2 results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Tech Mahindra shares rose 7% following the release of Q2 results.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tech Mahindra",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-123",
+      "headline": "Wipro Stock Climbs More Than 4% After Healthy Q2 Results",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/wipro-share-price-today-stock-climbs-after-healthy-q2-results-12193063#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T04:09:59Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Wipro stock rose over 4% following healthy Q2 results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Wipro stock rose over 4% following healthy Q2 results.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wipro",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261016-107",
       "headline": "Tech Mahindra Shares Rise 3% After Q2 Results, Jefferies Upgrades Stock",
       "headline_en": null,
@@ -1880,104 +1978,6 @@
           "name": "Saudi Aramco",
           "ticker": null,
           "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-095",
-      "headline": "Japan's Kioxia sheds two-thirds of peak market value as China chip rivals emerge",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/tech/semiconductors/japan-s-kioxia-sheds-two-thirds-of-peak-market-value-as-china-chip-rivals-emerge",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T03:50:43Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Kioxia has lost two-thirds of its peak market value due to increasing competition from Chinese chip rivals.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Kioxia has lost two-thirds of its peak market value due to increasing competition from Chinese chip rivals.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kioxia",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-054",
-      "headline": "Tesla reveals next-generation Roadster after almost a decade of delays",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/15/tesla-roadster-reveal-what-to-know-about-the-delayed-ev.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T01:34:51Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Tesla's reveal of the next-generation Roadster is a significant product development update for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Tesla's reveal of the next-generation Roadster is a significant product development update for the company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla Inc",
-          "ticker": "TSLA",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -221783,9 +221783,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3275367,
-    "news_picked_today": 158,
-    "news_dropped_today": 2098
+    "news_seen_today": 3313349,
+    "news_picked_today": 164,
+    "news_dropped_today": 2140
   },
   "book_momentum": {
     "live_count": 8,
