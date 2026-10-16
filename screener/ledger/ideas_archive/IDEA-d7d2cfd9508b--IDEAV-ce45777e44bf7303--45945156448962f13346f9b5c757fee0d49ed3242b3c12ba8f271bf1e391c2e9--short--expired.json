@@ -1,28 +1,28 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-03T22:54:34Z",
+  "archived_at": "2026-10-16T04:22:13Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-5fb7af495786",
-    "idea_version": "IDEAV-d8f49ee22b72a862",
-    "idea_version_started_at": "2026-09-30T23:23:27Z",
-    "ticker": "YAL",
-    "company": "Yancoal Australia",
-    "exchange": "ASX",
+    "idea_id": "IDEA-d7d2cfd9508b",
+    "idea_version": "IDEAV-ce45777e44bf7303",
+    "idea_version_started_at": "2026-10-13T14:10:50Z",
+    "ticker": "FNT",
+    "company": "Future Enterprises",
+    "exchange": "NSE",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
-    "direction": "long",
+    "direction": "short",
     "pair_with": null,
-    "reason": "The completion of the Kestrel mine acquisition increases Yancoal's attributable production capacity and reserves, directly enhancing long-term cash flow generation from metallurgical coal assets.",
-    "why_now": "The acquisition was officially confirmed as completed on 2026-09-30, allowing the market to now price in the immediate operational consolidation.",
-    "conviction": 75,
+    "reason": "Bank of India declared its Rs 575 crore exposure to Future Enterprises as fraud, indicating severe financial distress.",
+    "why_now": "The declaration of fraud by Bank of India on October 13, 2026, is a fresh negative catalyst.",
+    "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
+      "evidence": 14,
       "impact": 19,
       "specificity": 7,
       "timing": 10,
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -52,26 +53,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-8cc19299f091"
+      "EVT-2e77c80432e7"
     ],
-    "primary_source_event_id": "EVT-8cc19299f091",
+    "primary_source_event_id": "EVT-2e77c80432e7",
     "source_headlines": [
-      "YAL: Yancoal completes Kestrel acquisition [price-sensitive]"
+      "Bank of India declares Rs 575 crore exposure to Future Enterprises as fraud"
     ],
-    "source_headline": "YAL: Yancoal completes Kestrel acquisition [price-sensitive]",
-    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.YAL?key=2924-03142935-2A1700926",
-    "source_name": "ASX (Australia Exchange Filing)",
-    "materiality_max": 100,
-    "newest_source_at": "2026-09-30T22:47:53Z",
+    "source_headline": "Bank of India declares Rs 575 crore exposure to Future Enterprises as fraud",
+    "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/bank-of-india-declares-rs-575-crore-exposure-to-future-enterprises-as-fraud/articleshow/134905834.cms",
+    "source_name": "The Economic Times",
+    "materiality_max": 94,
+    "newest_source_at": "2026-10-13T01:42:34Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-30T05:39:46Z",
-    "updated_at": "2026-09-30T23:23:27Z",
-    "decay_at": "2026-10-02T10:47:53Z",
+    "surfaced_at": "2026-10-13T14:10:50Z",
+    "updated_at": "2026-10-13T14:10:50Z",
+    "decay_at": "2026-10-14T13:42:34Z",
     "status": "live",
     "promoted_signal_id": null
   }
