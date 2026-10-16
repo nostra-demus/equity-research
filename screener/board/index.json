@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T07:13:46Z",
+  "generated_at": "2026-10-16T07:19:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261016-145",
@@ -1000,6 +1000,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261016-174",
+      "headline": "Money transfer firm Wise raises revenue growth outlook as cross-border volumes jump",
+      "headline_en": null,
+      "url": "https://www.reuters.com/technology/money-transfer-firm-wise-raises-revenue-growth-outlook-cross-border-volumes-jump-2026-10-16/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T06:57:05Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Wise raised its revenue growth outlook due to increased cross-border transaction volumes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Wise raised its revenue growth outlook due to increased cross-border transaction volumes.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wise",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261016-170",
       "headline": "International Paper Confirms Unsolicited Bids For EMEA Packaging Unit Alongside Planned Spin-off",
       "headline_en": null,
@@ -1912,55 +1961,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-102",
-      "headline": "Magellanic Cloud Limited: Magellanic Cloud Limited has informed the Exchange regarding a press release dated October 16, 2026, titled \"Magellanic Cloud Limited's Wholly Owned Subsidiary Provigil Surveillance Limited, Receives Purchase Order for an order worth Rs 29.13 Crore from Northern Railway Moradabad Division\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/MCLOUD_16102026091534_Press_Release.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T03:45:58Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Magellanic Cloud's subsidiary received a purchase order worth Rs 29.13 Crore from Northern Railway.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Magellanic Cloud's subsidiary received a purchase order worth Rs 29.13 Crore from Northern Railway.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Magellanic Cloud",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -221977,9 +221977,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4949914,
-    "news_picked_today": 245,
-    "news_dropped_today": 3691
+    "news_seen_today": 5069058,
+    "news_picked_today": 249,
+    "news_dropped_today": 3783
   },
   "book_momentum": {
     "live_count": 8,
