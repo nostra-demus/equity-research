@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T08:45:07Z",
+  "generated_at": "2026-10-16T08:55:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261016-190",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-207",
+      "headline": "Solara Active Pharma Sciences Limited: Solara Active Pharma Sciences Limited has informed the Exchange regarding a press release dated October 16, 2026, titled \"Solara s Q2 FY27 revenue grows 33% to INR 4,178 Mn and EBITDA more than doubles to INR 769 Mn, its best quarter in five years\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SOLARA_16102026134610_Press_Release_SE.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T08:18:30Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Solara Active Pharma Sciences reported Q2 FY27 revenue growth of 33% to INR 4,178 Mn and EBITDA growth to INR 769 Mn.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Solara Active Pharma Sciences reported Q2 FY27 revenue growth of 33% to INR 4,178 Mn and EBITDA growth to INR 769 Mn.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Solara Active Pharma Sciences Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1400,6 +1449,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261016-208",
+      "headline": "Vraj Iron and Steel Limited: Vraj Iron and Steel Limited has informed the Exchange about Addendum Of Fresh Terms Of Reference (TOR) For The Greenfield Steel Plant Project Of The Company From Moef&CC.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/VISL_16102026134413_Additional_Intimation_.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T08:15:17Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Vraj Iron and Steel received updated terms of reference for its greenfield steel plant project from the Ministry of Environment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Vraj Iron and Steel received updated terms of reference for its greenfield steel plant project from the Ministry of Environment.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vraj Iron and Steel Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261016-132",
       "headline": "CPSC Eliminates Unnecessary Fuel Additive Regulations, Saving American Businesses Up to $10.7 Billion",
       "headline_en": null,
@@ -1885,98 +1983,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-143",
-      "headline": "Wipro Stock Jumps Over 6% On Back Of Strong Q2 Results",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/wipro-stock-jumps-over-6-on-back-of-strong-q2-results",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T05:39:04Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Wipro shares rose over 6% following the release of strong Q2 financial results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Wipro shares rose over 6% following the release of strong Q2 financial results.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Wipro",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-109",
-      "headline": "Middle East conflict: Houthis strike Yemen's presidential palace, US issues new Iran sanctions",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/mena/middle-east-conflict-houthis-strike-yemens-presidential-palace-us-issues-new-iran-sanctions-1.500712575",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T03:45:42Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Escalation of conflict in the Middle East involving a strike on a presidential palace and new US sanctions on Iran represents a significant geopolitical risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Escalation of conflict in the Middle East involving a strike on a presidential palace and new US sanctions on Iran represents a significant geopolitical risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -221993,9 +221999,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6253081,
-    "news_picked_today": 296,
-    "news_dropped_today": 3928
+    "news_seen_today": 6327651,
+    "news_picked_today": 302,
+    "news_dropped_today": 3970
   },
   "book_momentum": {
     "live_count": 8,
