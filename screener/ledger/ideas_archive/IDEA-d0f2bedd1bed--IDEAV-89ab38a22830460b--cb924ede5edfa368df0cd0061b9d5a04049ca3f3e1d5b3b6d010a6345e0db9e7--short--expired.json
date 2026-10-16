@@ -1,31 +1,31 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-19T08:59:21Z",
+  "archived_at": "2026-10-16T00:20:19Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-62acdf0448b6",
-    "idea_version": "IDEAV-0c94fa31c0cfd093",
-    "idea_version_started_at": "2026-09-17T09:06:55Z",
-    "ticker": "SMWH",
-    "company": "WH Smith",
-    "exchange": "LSE",
+    "idea_id": "IDEA-d0f2bedd1bed",
+    "idea_version": "IDEAV-89ab38a22830460b",
+    "idea_version_started_at": "2026-10-13T09:12:26Z",
+    "ticker": "01999.HK",
+    "company": "Man Wah Holdings",
+    "exchange": "HKEX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "The company is experiencing margin compression due to increased discounting, signaling persistent weakness in its retail operations.",
-    "why_now": "The profit warning was issued today, September 16, 2026.",
-    "conviction": 75,
+    "reason": "Profit warning signals lower expected earnings, pressuring the share price.",
+    "why_now": "Inside information filing dated 2026-10-13 delivers the warning.",
+    "conviction": 60,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
-    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 14,
+      "evidence": 25,
       "impact": 21,
       "specificity": 7,
-      "timing": 6,
+      "timing": 10,
       "expression": 0,
       "corroboration": 0,
       "learning_adjustment": 0
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -53,26 +52,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-351fed7207de"
+      "EVT-36b5f0a6bdb3"
     ],
-    "primary_source_event_id": "EVT-351fed7207de",
+    "primary_source_event_id": "EVT-36b5f0a6bdb3",
     "source_headlines": [
-      "WH Smith warns on profit again as discounting hits margins"
+      "MAN WAH HLDGS (01999): INSIDE INFORMATION PROFIT WARNING"
     ],
-    "source_headline": "WH Smith warns on profit again as discounting hits margins",
-    "source_url": "https://www.cityam.com/wh-smith-warns-on-profit-again-as-discounting-hits-margins/",
-    "source_name": "City A.M.",
+    "source_headline": "MAN WAH HLDGS (01999): INSIDE INFORMATION PROFIT WARNING",
+    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1013/2026101300015.pdf",
+    "source_name": "HKEXnews (HK Exchange Filing)",
     "materiality_max": 100,
-    "newest_source_at": "2026-09-16T06:47:36Z",
+    "newest_source_at": "2026-10-13T00:00:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-17T09:06:55Z",
-    "updated_at": "2026-09-17T09:06:55Z",
-    "decay_at": "2026-09-17T18:47:36Z",
+    "surfaced_at": "2026-10-13T09:12:26Z",
+    "updated_at": "2026-10-13T09:12:26Z",
+    "decay_at": "2026-10-14T12:00:00Z",
     "status": "live",
     "promoted_signal_id": null
   }
