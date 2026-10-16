@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-b0586fbde26d",
-  "idea_version": "IDEAV-f117cb658b12bf91",
-  "idea_version_started_at": "2026-10-14T22:44:48Z",
+  "idea_version": "IDEAV-e49a9c3b1cf9a67c",
+  "idea_version_started_at": "2026-10-16T23:31:00Z",
   "ticker": "NFLX",
   "company": "Netflix",
   "exchange": "NASDAQ",
@@ -11,25 +11,26 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "Large-scale layoffs of 1,000 employees suggest significant cost-cutting measures necessitated by slowing subscriber growth or margin pressure.",
-  "why_now": "The layoffs were reported today, October 14, 2026.",
-  "conviction": 55,
+  "reason": "The combination of significant layoffs and the departure of the content chief just days before earnings suggests internal instability and potential negative surprises in the upcoming report.",
+  "why_now": "The news broke today, October 16, 2026, creating immediate uncertainty ahead of the earnings event.",
+  "conviction": 65,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 71,
+  "trade_score": 67,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 18,
+    "impact": 21,
     "specificity": 15,
     "timing": 10,
     "expression": 7,
-    "corroboration": 7,
+    "corroboration": 0,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -46,19 +47,17 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-224be32b4bff",
-    "EVT-c269b3ef2643"
+    "EVT-1d8d0dd0ec21"
   ],
-  "primary_source_event_id": "EVT-224be32b4bff",
+  "primary_source_event_id": "EVT-1d8d0dd0ec21",
   "source_headlines": [
-    "Netflix Cuts 1,000 Jobs After Earlier Layoff Warnings",
-    "Netflix Eliminates About 1,000 Jobs in Biggest Cuts Since 2022"
+    "Netflix Is Cutting About 1,000 Jobs and Its Content Chief Is Out, Days Before Earnings"
   ],
-  "source_headline": "Netflix Cuts 1,000 Jobs After Earlier Layoff Warnings",
-  "source_url": "https://www.forbes.com/sites/rickellis/2026/10/14/netflix-cuts-1000-jobs-after-earlier-layoff-warnings/",
-  "source_name": "Forbes",
+  "source_headline": "Netflix Is Cutting About 1,000 Jobs and Its Content Chief Is Out, Days Before Earnings",
+  "source_url": "https://247wallst.com/investing/2026/10/16/netflix-is-cutting-about-1000-jobs-and-its-content-chief-is-out-days-before-earnings/",
+  "source_name": "24/7 Wall St.",
   "materiality_max": 100,
-  "newest_source_at": "2026-10-14T13:31:21Z",
+  "newest_source_at": "2026-10-16T12:45:11Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -66,8 +65,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-10-14T22:44:48Z",
-  "updated_at": "2026-10-14T22:44:48Z",
-  "decay_at": "2026-10-16T01:31:21Z",
+  "updated_at": "2026-10-16T23:31:00Z",
+  "decay_at": "2026-10-18T00:45:11Z",
   "status": "live",
   "promoted_signal_id": null
 }

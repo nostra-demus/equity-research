@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T23:30:45Z",
+  "generated_at": "2026-10-16T23:31:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261016-520",
@@ -180073,6 +180073,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-b0586fbde26d",
+      "idea_version": "IDEAV-e49a9c3b1cf9a67c",
+      "idea_version_started_at": "2026-10-16T23:31:00Z",
+      "ticker": "NFLX",
+      "company": "Netflix",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The combination of significant layoffs and the departure of the content chief just days before earnings suggests internal instability and potential negative surprises in the upcoming report.",
+      "why_now": "The news broke today, October 16, 2026, creating immediate uncertainty ahead of the earnings event.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1d8d0dd0ec21"
+      ],
+      "primary_source_event_id": "EVT-1d8d0dd0ec21",
+      "source_headlines": [
+        "Netflix Is Cutting About 1,000 Jobs and Its Content Chief Is Out, Days Before Earnings"
+      ],
+      "source_headline": "Netflix Is Cutting About 1,000 Jobs and Its Content Chief Is Out, Days Before Earnings",
+      "source_url": "https://247wallst.com/investing/2026/10/16/netflix-is-cutting-about-1000-jobs-and-its-content-chief-is-out-days-before-earnings/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-16T12:45:11Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-14T22:44:48Z",
+      "updated_at": "2026-10-16T23:31:00Z",
+      "decay_at": "2026-10-18T00:45:11Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-5dcef043aea8",
       "idea_version": "IDEAV-4564d1ae4eef05e4",
       "idea_version_started_at": "2026-10-15T21:58:41Z",
@@ -180137,6 +180207,76 @@
       "surfaced_at": "2026-10-14T00:48:30Z",
       "updated_at": "2026-10-15T21:58:41Z",
       "decay_at": "2026-10-17T09:26:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-be16a3f18c55",
+      "idea_version": "IDEAV-d1c0c6f9653df7b7",
+      "idea_version_started_at": "2026-10-16T23:31:00Z",
+      "ticker": "XOM",
+      "company": "ExxonMobil",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company explicitly guided for a $4.5 billion boost to Q3 earnings driven by improved refining margins, which directly impacts bottom-line profitability.",
+      "why_now": "The guidance was provided today, October 16, 2026, ahead of the formal Q3 earnings release.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-177eb357f896"
+      ],
+      "primary_source_event_id": "EVT-177eb357f896",
+      "source_headlines": [
+        "ExxonMobil Expects Q3 Earnings To Boost By $4.5 Bln From Refining Margins"
+      ],
+      "source_headline": "ExxonMobil Expects Q3 Earnings To Boost By $4.5 Bln From Refining Margins",
+      "source_url": "https://www.nasdaq.com/articles/exxonmobil-expects-q3-earnings-boost-45-bln-refining-margins",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-16T16:38:24Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-16T23:31:00Z",
+      "updated_at": "2026-10-16T23:31:00Z",
+      "decay_at": "2026-10-18T04:38:24Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -180347,6 +180487,148 @@
       "surfaced_at": "2026-10-16T09:10:19Z",
       "updated_at": "2026-10-16T09:10:19Z",
       "decay_at": "2026-10-17T17:28:20Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-0b852ac1558d",
+      "idea_version": "IDEAV-bcd2d2c357d14889",
+      "idea_version_started_at": "2026-10-16T23:31:00Z",
+      "ticker": "02369",
+      "company": "Coolpad Group",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The proposed non-underwritten rights issue is highly dilutive to existing shareholders and signals potential liquidity constraints.",
+      "why_now": "The announcement was made today, October 16, 2026, and typically triggers immediate selling pressure due to dilution concerns.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-367845cc817d"
+      ],
+      "primary_source_event_id": "EVT-367845cc817d",
+      "source_headlines": [
+        "COOLPAD GROUP (02369): PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY TWO (2) EXISTING SHARES HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS AND PROPOSED CHANGE IN BOARD LOT SIZE"
+      ],
+      "source_headline": "COOLPAD GROUP (02369): PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY TWO (2) EXISTING SHARES HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS AND PROPOSED CHANGE IN BOARD LOT SIZE",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101601510.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-16T14:57:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-16T23:31:00Z",
+      "updated_at": "2026-10-16T23:31:00Z",
+      "decay_at": "2026-10-18T02:57:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-f35475470360",
+      "idea_version": "IDEAV-1f36f077994b070b",
+      "idea_version_started_at": "2026-10-16T23:31:00Z",
+      "ticker": "06623",
+      "company": "Lufax Holding Ltd",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, indicating significant deterioration in earnings visibility and financial performance.",
+      "why_now": "The filing was released today, October 16, 2026, signaling immediate negative pressure on the stock.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f5b19d537758"
+      ],
+      "primary_source_event_id": "EVT-f5b19d537758",
+      "source_headlines": [
+        "LUFAX (06623): PROFIT WARNING"
+      ],
+      "source_headline": "LUFAX (06623): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101601156.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-16T11:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-16T23:31:00Z",
+      "updated_at": "2026-10-16T23:31:00Z",
+      "decay_at": "2026-10-17T23:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -182067,77 +182349,6 @@
       "surfaced_at": "2026-10-14T04:53:47Z",
       "updated_at": "2026-10-14T04:53:47Z",
       "decay_at": "2026-10-15T12:50:33Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-b0586fbde26d",
-      "idea_version": "IDEAV-f117cb658b12bf91",
-      "idea_version_started_at": "2026-10-14T22:44:48Z",
-      "ticker": "NFLX",
-      "company": "Netflix",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Large-scale layoffs of 1,000 employees suggest significant cost-cutting measures necessitated by slowing subscriber growth or margin pressure.",
-      "why_now": "The layoffs were reported today, October 14, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 71,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-224be32b4bff",
-        "EVT-c269b3ef2643"
-      ],
-      "primary_source_event_id": "EVT-224be32b4bff",
-      "source_headlines": [
-        "Netflix Cuts 1,000 Jobs After Earlier Layoff Warnings",
-        "Netflix Eliminates About 1,000 Jobs in Biggest Cuts Since 2022"
-      ],
-      "source_headline": "Netflix Cuts 1,000 Jobs After Earlier Layoff Warnings",
-      "source_url": "https://www.forbes.com/sites/rickellis/2026/10/14/netflix-cuts-1000-jobs-after-earlier-layoff-warnings/",
-      "source_name": "Forbes",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-14T13:31:21Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-14T22:44:48Z",
-      "updated_at": "2026-10-14T22:44:48Z",
-      "decay_at": "2026-10-16T01:31:21Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -184291,77 +184502,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-36caf66b30a2",
-      "idea_version": "IDEAV-698170b57ed1112e",
-      "idea_version_started_at": "2026-10-14T01:34:40Z",
-      "ticker": "GRR",
-      "company": "Grange Resources",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The Final Investment Decision (FID) to proceed with the Savage River Underground project secures the company's long-term production profile and resource life.",
-      "why_now": "The official filing confirming the FID was released on October 13, 2026, providing a clear catalyst for production growth.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-173b72f67ffe"
-      ],
-      "primary_source_event_id": "EVT-173b72f67ffe",
-      "source_headlines": [
-        "GRR: FID to deliver the Savage River Underground [price-sensitive]"
-      ],
-      "source_headline": "GRR: FID to deliver the Savage River Underground [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GRR?key=2924-03148079-3A704046",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-13T22:48:53Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-14T01:34:40Z",
-      "updated_at": "2026-10-14T01:34:40Z",
-      "decay_at": "2026-10-15T10:48:53Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-ae786a1903f6",
       "idea_version": "IDEAV-0bf73dbd730ac529",
       "idea_version_started_at": "2026-10-15T04:45:55Z",
@@ -184717,148 +184857,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-11e71885e916",
-      "idea_version": "IDEAV-2fbc227795adbe78",
-      "idea_version_started_at": "2026-10-14T04:53:47Z",
-      "ticker": "01333.HK",
-      "company": "Breton",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The announcement of a new H-share placing under a general mandate will result in immediate equity dilution for existing shareholders.",
-      "why_now": "The filing was released on 2026-10-13, and share placings typically exert downward pressure on the stock price as the market adjusts for the increased share count.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5245bf389a69"
-      ],
-      "primary_source_event_id": "EVT-5245bf389a69",
-      "source_headlines": [
-        "BRETON (01333): PLACING OF NEW H SHARES UNDER GENERAL MANDATE"
-      ],
-      "source_headline": "BRETON (01333): PLACING OF NEW H SHARES UNDER GENERAL MANDATE",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1014/2026101400061.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 89,
-      "newest_source_at": "2026-10-13T23:04:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-14T04:53:47Z",
-      "updated_at": "2026-10-14T04:53:47Z",
-      "decay_at": "2026-10-15T11:04:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-bc0beacad2eb",
-      "idea_version": "IDEAV-30cf9e9a4f104e94",
-      "idea_version_started_at": "2026-10-14T04:53:47Z",
-      "ticker": "09926.HK",
-      "company": "AKESO",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is executing a new share placement under a general mandate, which will dilute existing equity holders.",
-      "why_now": "The filing was released on 2026-10-13, and the market will likely price in the dilution effect immediately upon trading resumption.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5db6368c112a"
-      ],
-      "primary_source_event_id": "EVT-5db6368c112a",
-      "source_headlines": [
-        "AKESO (09926): PLACING OF NEW SHARES UNDER GENERAL MANDATE"
-      ],
-      "source_headline": "AKESO (09926): PLACING OF NEW SHARES UNDER GENERAL MANDATE",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1014/2026101400009.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 88,
-      "newest_source_at": "2026-10-13T22:06:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-14T04:53:47Z",
-      "updated_at": "2026-10-14T04:53:47Z",
-      "decay_at": "2026-10-15T10:06:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -184871,33 +184869,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 539,
+    "total_count": 535,
     "shown_count": 499,
-    "hidden_count": 40,
+    "hidden_count": 36,
     "side_counts": {
       "long": {
-        "total_count": 272,
+        "total_count": 271,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 21
       },
       "short": {
-        "total_count": 268,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 15
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1073,
-      "oldest_retained_at": "2026-09-18T01:17:09Z",
+      "evicted_count": 1076,
+      "oldest_retained_at": "2026-09-18T19:24:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 711,
-          "oldest_retained_at": "2026-10-03T04:53:13Z"
+          "evicted_count": 712,
+          "oldest_retained_at": "2026-10-03T06:32:00Z"
         },
         "short": {
-          "evicted_count": 362,
-          "oldest_retained_at": "2026-09-18T01:17:09Z"
+          "evicted_count": 364,
+          "oldest_retained_at": "2026-09-18T19:24:00Z"
         }
       }
     },
@@ -186543,80 +186541,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-b0586fbde26d",
-        "idea_version": "IDEAV-f117cb658b12bf91",
-        "idea_version_started_at": "2026-10-14T22:44:48Z",
-        "ticker": "NFLX",
-        "company": "Netflix",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Large-scale layoffs of 1,000 employees suggest significant cost-cutting measures necessitated by slowing subscriber growth or margin pressure.",
-        "why_now": "The layoffs were reported today, October 14, 2026.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 71,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 7,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-224be32b4bff",
-          "EVT-c269b3ef2643"
-        ],
-        "primary_source_event_id": "EVT-224be32b4bff",
-        "source_headlines": [
-          "Netflix Cuts 1,000 Jobs After Earlier Layoff Warnings",
-          "Netflix Eliminates About 1,000 Jobs in Biggest Cuts Since 2022"
-        ],
-        "source_headline": "Netflix Cuts 1,000 Jobs After Earlier Layoff Warnings",
-        "source_url": "https://www.forbes.com/sites/rickellis/2026/10/14/netflix-cuts-1000-jobs-after-earlier-layoff-warnings/",
-        "source_name": "Forbes",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-14T13:31:21Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-14T22:44:48Z",
-        "updated_at": "2026-10-14T22:44:48Z",
-        "decay_at": "2026-10-16T01:31:21Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-16T01:31:21Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-520be705f9e6",
         "idea_version": "IDEAV-c67dfb1b007004eb",
         "idea_version_started_at": "2026-10-14T16:36:34Z",
@@ -187727,8 +187651,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-15T11:04:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-16T23:31:12Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -187801,8 +187725,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-15T10:48:53Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-16T23:31:12Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -187875,8 +187799,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-15T10:06:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-16T23:31:12Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -222066,12 +221990,86 @@
         "archived_at": "2026-09-22T09:12:40Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-352ad72e6a27",
+        "idea_version": "IDEAV-01c191d10237dce2",
+        "idea_version_started_at": "2026-09-19T20:48:40Z",
+        "ticker": "WEN",
+        "company": "Wendy's Company",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Meritage Hospitality, a major Wendy's franchisee operating hundreds of locations across 15 states, filed for Chapter 11 bankruptcy, disrupting royalty revenue streams and signaling operator distress in the Wendy's system.",
+        "why_now": "Chapter 11 filing reported on 2026-09-18; franchisee bankruptcy creates immediate uncertainty over store closures and franchise fee/royalty collection.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 74,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-965dc1b03644",
+          "EVT-bcbcc1baeb73"
+        ],
+        "primary_source_event_id": "EVT-965dc1b03644",
+        "source_headlines": [
+          "Wendy's franchisee with hundreds of locations across 15 states files for bankruptcy",
+          "Wendy's Franchisee Meritage Hospitality Files For Chapter 11 Bankruptcy"
+        ],
+        "source_headline": "Wendy's franchisee with hundreds of locations across 15 states files for bankruptcy",
+        "source_url": "https://thehill.com/homenews/6098417-wendys-franchisee-with-hundreds-of-locations-across-15-states-files-for-bankruptcy/",
+        "source_name": "The Hill — Homenews",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-18T21:20:30Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-19T20:48:40Z",
+        "updated_at": "2026-09-19T20:48:40Z",
+        "decay_at": "2026-09-20T09:20:30Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-22T09:12:40Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1641,
-    "live_count": 28,
+    "surfaced_total": 1644,
+    "live_count": 32,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
