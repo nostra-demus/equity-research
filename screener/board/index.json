@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T02:38:57Z",
+  "generated_at": "2026-10-16T03:00:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261016-017",
@@ -351,6 +351,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261016-066",
+      "headline": "Yes Bank Faces Capital Risk After AT-1 Verdict; Citi Cuts Target, Morgan Stanley Retains 'Underweight'",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/yes-bank-at1-bond-verdict-citi-target-cut-morgan-stanley-retains-underweights-stock-hit-lower-circuit-sensex-today-bse-nse-bank-stocks-12192793#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T02:18:25Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Yes Bank faces capital risk following an AT-1 bond verdict, compounded by analyst downgrades.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Yes Bank faces capital risk following an AT-1 bond verdict, compounded by analyst downgrades.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yes Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261016-050",
       "headline": "MEX: Quarterly Activities/Appendix 5B Cash Flow Report [price-sensitive]",
       "headline_en": null,
@@ -547,6 +597,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261016-067",
+      "headline": "Nestle India Q2 Review: Brokerages Cut Earnings Estimates, Target Price As Q2 Beat Fails To Ease Inflation Fears",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/nestle-india-q2-review-brokerages-cut-earnings-estimates-target-price-as-q2-beat-fails-to-ease-inflation-fears-12192764#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T01:58:31Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Brokerages cut earnings estimates and target prices for Nestle India due to persistent inflation concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Brokerages cut earnings estimates and target prices for Nestle India due to persistent inflation concerns.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nestle India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261016-059",
       "headline": "Yes Bank shares in focus after biggest drop in six years; Citi says 'Sell', cuts target",
       "headline_en": null,
@@ -596,6 +696,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261016-072",
+      "headline": "Vascon Engineers Limited: VASCON ENGINEERS LIMITED RECEIVES LETTER OF ACCEPTANCE FROM STATE BANK OF INDIA FOR CONSTRUCTION OF SBILD, RESIDENTIAL FLATS AND OTHER COMMERCIAL OUTFITS AT HINJEWADI, PUNE, MAHARASHTRA AMOUNTING TO RS. 198 CRORE",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/VASCONEQ_16102026081542_16102026LetterofIntent_V1_Sd.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T02:46:03Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Vascon Engineers secured a construction contract worth Rs. 198 crore from State Bank of India.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Vascon Engineers secured a construction contract worth Rs. 198 crore from State Bank of India.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vascon Engineers",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261016-026",
       "headline": "IDREAMSKY (01119): PLACING OF NEW SHARES UNDER GENERAL MANDATE",
       "headline_en": null,
@@ -640,6 +789,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-070",
+      "headline": "JAC shares rebound by daily limit as Maextro V800 brake controversy faces joint probe",
+      "headline_en": null,
+      "url": "https://cnevpost.com/2026/10/16/jac-shares-rebound-as-maextro-v800-brake-probe/",
+      "source_name": "CnEVPost",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T02:34:37Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "JAC faces a joint probe regarding a brake controversy, creating operational and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "JAC faces a joint probe regarding a brake controversy, creating operational and reputational risk.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JAC",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1073,6 +1272,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261016-071",
+      "headline": "Government Raises Windfall Tax On Petrol Exports, Cuts Diesel Duty",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/economy/government-raises-windfall-tax-on-petrol-exports-cuts-diesel-duty-12192697#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T01:17:22Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Government policy change on windfall taxes for petrol and diesel duty impacts energy sector margins.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Government policy change on windfall taxes for petrol and diesel duty impacts energy sector margins.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261016-004",
       "headline": "ICBC (01398): Announcement on the Completion of the Issuance of 2026 Tier 2 Capital Notes (Series 6) (Bond Connect)",
       "headline_en": null,
@@ -1214,6 +1456,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261016-073",
+      "headline": "IMD: IMD 2026 AGM Presentation, Scripts and Trading Update",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IMD?key=2924-03149349-6A1349602",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T02:45:08Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "The company provided a trading update alongside its AGM presentation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "The company provided a trading update alongside its AGM presentation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Imdex Limited",
+          "ticker": "IMD",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261016-011",
       "headline": "SCHEDULE 13D/A - Saba Capital Management, L.P. (0001510281) (Filed by)",
       "headline_en": null,
@@ -1307,6 +1598,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-063",
+      "headline": "FHS: Change of Auditor",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FHS?key=2924-03149345-3A704298",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T02:30:48Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Change of auditor is a standard corporate governance event that warrants monitoring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "Change of auditor is a standard corporate governance event that warrants monitoring.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FHS",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1508,6 +1848,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261016-069",
+      "headline": "Sumitomo Life considering acquisitions in southeast Asia and U.S.",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/10/16/companies/sumitomo-life-target-acquisitions-southeast-asia/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T02:34:00Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Sumitomo Life is exploring potential acquisitions in Southeast Asia and the U.S.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 71,
+      "triage_reason": "Sumitomo Life is exploring potential acquisitions in Southeast Asia and the U.S.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sumitomo Life",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261016-053",
       "headline": "NC6: Change in substantial holding",
       "headline_en": null,
@@ -1552,402 +1941,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-008",
-      "headline": "Musk Settles Lawsuit Over Predetermining Winners For $1 Million Election Giveaways",
-      "headline_en": null,
-      "url": "https://www.forbes.com/sites/antoniopequenoiv/2026/10/15/musk-settles-lawsuit-over-predetermining-winners-for-1-million-election-giveaways/",
-      "source_name": "Forbes",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-15T23:40:16Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Elon Musk settled a lawsuit regarding election-related giveaways.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Elon Musk settled a lawsuit regarding election-related giveaways.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Elon Musk",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-036",
-      "headline": "MSGUMIN@EC2612A MS-CATL@EP2612A MS-WUXI@EC2612A MS-WUXI@EC2611A MSZHJIN@EC2610A MSBAIDU@EP2611A MS-LINK@EC2611A MSROBSN@EC2611A MS-NIO @EC2611A MS#HKEX RC2610A MS#HSBC RC2611C (13028 13538 18743 26126 27811 28694 28849 29313 29319 50842 58566): EXCHANGE NOTICE - SUSPENSION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101600071.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T00:37:00Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Suspension of trading for multiple structured products linked to various underlying stocks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Suspension of trading for multiple structured products linked to various underlying stocks.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-014",
-      "headline": "SCHEDULE 13D/A - Alaunos Therapeutics, Inc. (0001107421) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1107421/000119380526001370/0001193805-26-001370-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-15T23:55:09Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Robert W. Postma filed an amended 13D regarding his stake in Alaunos Therapeutics.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Robert W. Postma filed an amended 13D regarding his stake in Alaunos Therapeutics.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alaunos Therapeutics, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-013",
-      "headline": "SCHEDULE 13D/A - Postma Robert W (0001827847) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1827847/000119380526001370/0001193805-26-001370-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-15T23:55:09Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Robert W. Postma filed an amended 13D regarding his stake in Alaunos Therapeutics.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Robert W. Postma filed an amended 13D regarding his stake in Alaunos Therapeutics.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alaunos Therapeutics, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-058",
-      "headline": "Q2 Results Live Updates: Wipro, Persistent, Jio Fin react to numbers; Federal Bank, PNB, LTM report today",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/q2-results-live-updates-federal-bank-pnb-ltm-urban-co-jio-fin-persistent-wipro-tech-mah-360-angel-one-ujjivan-ltf-share-price-liveblog-20013133.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T02:17:49Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Routine quarterly earnings updates for multiple Indian financial and IT companies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Routine quarterly earnings updates for multiple Indian financial and IT companies.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Wipro",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Persistent Systems",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Jio Financial Services",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-025",
-      "headline": "MONGOL MINING (00975): OPERATIONAL UPDATE FOR THE QUARTER ENDED 30 SEPTEMBER 2026",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101600007.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-15T22:08:00Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Mongol Mining provided a routine quarterly operational update.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Mongol Mining provided a routine quarterly operational update.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mongol Mining",
-          "ticker": "00975",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-001",
-      "headline": "TIANJIN CAPITAL (01065): CONNECTED TRANSACTION IN RELATION TO PROVISION OF LOAN TO HBGJTC",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1015/2026101500711.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-15T09:49:00Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Tianjin Capital is providing a loan to a connected party, which is a reportable transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Tianjin Capital is providing a loan to a connected party, which is a reportable transaction.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tianjin Capital",
-          "ticker": "01065",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-007",
-      "headline": "WaFd Announces Fiscal 2026 Earnings and 22% Increase in EPS | WAFD Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/WAFD/wa-fd-announces-fiscal-2026-earnings-and-22-increase-in-ksb6ugoaa8vi.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "WaFd reported fiscal 2026 earnings with a 22% increase in EPS.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "WaFd reported fiscal 2026 earnings with a 22% increase in EPS.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WaFd",
-          "ticker": "WAFD",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180299,78 +180292,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d6a9504a0851",
-      "idea_version": "IDEAV-d406d1e636fd4713",
-      "idea_version_started_at": "2026-10-16T01:24:24Z",
-      "ticker": "AGSTRANS",
-      "company": "AGS Transact Technologies Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has officially entered the Corporate Insolvency Resolution Process, signaling a high probability of equity wipeout or severe dilution for shareholders.",
-      "why_now": "The filing was released on 2026-10-14, making the insolvency process live and active.",
-      "conviction": 90,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6b8eac583256"
-      ],
-      "primary_source_event_id": "EVT-6b8eac583256",
-      "source_headlines": [
-        "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-      ],
-      "source_headline": "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-      "source_url": "https://nsearchives.nseindia.com/corporate/AGSTRA_14102026202024_Intimation_to_BSE_And_NSE_-_19th_Coc_meeting_-_Preponement.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-14T14:51:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-16T01:24:24Z",
-      "updated_at": "2026-10-16T01:24:24Z",
-      "decay_at": "2026-10-16T02:51:52Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-e9dd060b2328",
       "idea_version": "IDEAV-dade782e1a5b8c28",
       "idea_version_started_at": "2026-10-16T00:20:15Z",
@@ -182871,6 +182792,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-d6a9504a0851",
+      "idea_version": "IDEAV-d406d1e636fd4713",
+      "idea_version_started_at": "2026-10-16T01:24:24Z",
+      "ticker": "AGSTRANS",
+      "company": "AGS Transact Technologies Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has officially entered the Corporate Insolvency Resolution Process, signaling a high probability of equity wipeout or severe dilution for shareholders.",
+      "why_now": "The filing was released on 2026-10-14, making the insolvency process live and active.",
+      "conviction": 90,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6b8eac583256"
+      ],
+      "primary_source_event_id": "EVT-6b8eac583256",
+      "source_headlines": [
+        "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+      ],
+      "source_headline": "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "source_url": "https://nsearchives.nseindia.com/corporate/AGSTRA_14102026202024_Intimation_to_BSE_And_NSE_-_19th_Coc_meeting_-_Preponement.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-14T14:51:52Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-16T01:24:24Z",
+      "updated_at": "2026-10-16T01:24:24Z",
+      "decay_at": "2026-10-16T02:51:52Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-dbad30ae5c0f",
       "idea_version": "IDEAV-59347acf71dafbd6",
       "idea_version_started_at": "2026-10-14T20:04:17Z",
@@ -184674,9 +184667,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 532,
+    "total_count": 533,
     "shown_count": 499,
-    "hidden_count": 33,
+    "hidden_count": 34,
     "side_counts": {
       "long": {
         "total_count": 271,
@@ -184684,9 +184677,9 @@
         "hidden_count": 21
       },
       "short": {
-        "total_count": 262,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 13
       }
     },
     "retention": {
@@ -184705,6 +184698,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d6a9504a0851",
+        "idea_version": "IDEAV-d406d1e636fd4713",
+        "idea_version_started_at": "2026-10-16T01:24:24Z",
+        "ticker": "AGSTRANS",
+        "company": "AGS Transact Technologies Limited",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has officially entered the Corporate Insolvency Resolution Process, signaling a high probability of equity wipeout or severe dilution for shareholders.",
+        "why_now": "The filing was released on 2026-10-14, making the insolvency process live and active.",
+        "conviction": 90,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6b8eac583256"
+        ],
+        "primary_source_event_id": "EVT-6b8eac583256",
+        "source_headlines": [
+          "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+        ],
+        "source_headline": "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+        "source_url": "https://nsearchives.nseindia.com/corporate/AGSTRA_14102026202024_Intimation_to_BSE_And_NSE_-_19th_Coc_meeting_-_Preponement.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-14T14:51:52Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-16T01:24:24Z",
+        "updated_at": "2026-10-16T01:24:24Z",
+        "decay_at": "2026-10-16T02:51:52Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-16T02:51:52Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b0586fbde26d",
         "idea_version": "IDEAV-f117cb658b12bf91",
@@ -221794,87 +221862,12 @@
         "archived_at": "2026-09-22T09:12:40Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-8447af34e57e",
-        "idea_version": "IDEAV-94dbbdd025a9f4e8",
-        "idea_version_started_at": "2026-09-18T12:42:52Z",
-        "ticker": "MTC",
-        "company": "Mothercare",
-        "exchange": "LSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The loss of a major Middle East franchise partner has led management to warn that the company's future is highly uncertain, indicating a potential liquidity or solvency crisis.",
-        "why_now": "The warning was issued on September 18, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-88e3bc5ffe70"
-        ],
-        "primary_source_event_id": "EVT-88e3bc5ffe70",
-        "source_headlines": [
-          "Mothercare warns future ‘highly uncertain’ after Middle East franchise blow"
-        ],
-        "source_headline": "Mothercare warns future ‘highly uncertain’ after Middle East franchise blow",
-        "source_url": "https://www.independent.co.uk/news/business/mothercare-middle-east-iran-london-holly-williams-b3052295.html",
-        "source_name": "The Independent — Business",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-18T07:04:49Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-18T12:42:52Z",
-        "updated_at": "2026-09-18T12:42:52Z",
-        "decay_at": "2026-09-19T19:04:49Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-21T08:26:31Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1624,
-    "live_count": 33,
+    "live_count": 32,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -221893,9 +221886,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1968275,
-    "news_picked_today": 70,
-    "news_dropped_today": 986
+    "news_seen_today": 2262947,
+    "news_picked_today": 81,
+    "news_dropped_today": 1311
   },
   "book_momentum": {
     "live_count": 8,
