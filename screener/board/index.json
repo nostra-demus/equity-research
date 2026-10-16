@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T10:37:26Z",
+  "generated_at": "2026-10-16T10:44:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261016-259",
@@ -1604,6 +1604,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261016-278",
+      "headline": "LENS (06613): INSIDE INFORMATION - ANNOUNCEMENT ON THE PROGRESS OF THE ACQUISITION OF EQUITY INTERESTS IN PMG INTERNATIONAL CO., LTD.",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101601040.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T10:34:00Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Update on the acquisition of equity interests in PMG International Co., Ltd.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Update on the acquisition of equity interests in PMG International Co., Ltd.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LENS",
+          "ticker": "06613",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261016-039",
       "headline": "AEI: Pause in Trading [price-sensitive]",
       "headline_en": null,
@@ -1697,6 +1746,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-289",
+      "headline": "SUNSHINE 100 (02608): VOLUNTARY ANNOUNCMENT UPDATE ON THE WINDING-UP PETITION HEARING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101600856.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T10:01:00Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "The company is providing an update on a winding-up petition, which indicates ongoing financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "The company is providing an update on a winding-up petition, which indicates ongoing financial distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SUNSHINE 100",
+          "ticker": "02608",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1893,109 +1991,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-180",
-      "headline": "Mankind Pharma To Acquire 70% Stake In Cancer Therapy Firm ACTx, ₹511 Crore Deal Marks Entry Into Advanced Cancer Treatments",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/mankind-pharma-to-acquire-70-stake-in-cancer-therapy-firm-actx-511-crore-deal-marks-entry-into-advanced-cancer-treatments",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T07:16:15Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Mankind Pharma to acquire 70% of cancer therapy firm ACTx for Rs 511 crore, a named, quantified strategic M&A deal entering advanced cancer treatments.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Mankind Pharma to acquire 70% of cancer therapy firm ACTx for Rs 511 crore, a named, quantified strategic M&A deal entering advanced cancer treatments.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mankind Pharma",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "ACTx",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-257",
-      "headline": "Bajaj Housing Finance Limited: Bajaj Housing Finance Limited has submitted to the Exchange, the unaudited financial results for the quarter and half year ended September 30, 2026.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/BHFL_16102026155133_outcomesetuploading.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T10:23:30Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Release of unaudited financial results for the quarter and half year ended September 30, 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Release of unaudited financial results for the quarter and half year ended September 30, 2026.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bajaj Housing Finance Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -222224,9 +222219,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7588168,
-    "news_picked_today": 416,
-    "news_dropped_today": 4528
+    "news_seen_today": 7717604,
+    "news_picked_today": 438,
+    "news_dropped_today": 4554
   },
   "book_momentum": {
     "live_count": 8,
