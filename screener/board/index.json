@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T10:18:22Z",
+  "generated_at": "2026-10-16T10:23:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20261016-240",
@@ -1554,6 +1554,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261016-255",
+      "headline": "HXTL (01085): VERY SUBSTANTIAL ACQUISITION IN RELATION TO SHANDONG PROJECT - DELAY IN DESPATCH OF CIRCULAR",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101600906.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T10:11:00Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Delay in dispatch of circular for a very substantial acquisition indicates potential regulatory or procedural hurdles for a major deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Delay in dispatch of circular for a very substantial acquisition indicates potential regulatory or procedural hurdles for a major deal.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HXTL",
+          "ticker": "01085",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261016-232",
       "headline": "CSC DEVELOPMENT (00830): Business Review and Financial Performance for the Third Quarter of 2026",
       "headline_en": null,
@@ -1943,56 +1992,6 @@
           "name": "Wise",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-170",
-      "headline": "International Paper Confirms Unsolicited Bids For EMEA Packaging Unit Alongside Planned Spin-off",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/international-paper-confirms-unsolicited-bids-emea-packaging-unit-alongside-planned-spin",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T05:28:20Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "International Paper confirmed receiving unsolicited bids for its EMEA packaging unit, signaling potential asset divestiture value.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "International Paper confirmed receiving unsolicited bids for its EMEA packaging unit, signaling potential asset divestiture value.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "International Paper",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -182287,77 +182286,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e07345b47c7f",
-      "idea_version": "IDEAV-29343a0846017038",
-      "idea_version_started_at": "2026-10-15T02:47:20Z",
-      "ticker": "01773",
-      "company": "Tianli International Holdings",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A profit warning indicates deteriorating margins or revenue shortfalls, which typically leads to downward earnings revisions.",
-      "why_now": "The profit warning was filed on October 14, 2026, and the market has yet to fully digest the impact on forward earnings.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cf3ac50db465"
-      ],
-      "primary_source_event_id": "EVT-cf3ac50db465",
-      "source_headlines": [
-        "TIANLI INT HLDG (01773): PROFIT WARNING"
-      ],
-      "source_headline": "TIANLI INT HLDG (01773): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1015/2026101500009.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-14T22:22:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-15T02:47:20Z",
-      "updated_at": "2026-10-15T02:47:20Z",
-      "decay_at": "2026-10-16T10:22:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3c36e437e038",
       "idea_version": "IDEAV-30539ff95fa15421",
       "idea_version_started_at": "2026-10-15T01:06:33Z",
@@ -183557,6 +183485,77 @@
       "surfaced_at": "2026-10-16T01:24:24Z",
       "updated_at": "2026-10-16T01:24:24Z",
       "decay_at": "2026-10-16T02:51:52Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-e07345b47c7f",
+      "idea_version": "IDEAV-29343a0846017038",
+      "idea_version_started_at": "2026-10-15T02:47:20Z",
+      "ticker": "01773",
+      "company": "Tianli International Holdings",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A profit warning indicates deteriorating margins or revenue shortfalls, which typically leads to downward earnings revisions.",
+      "why_now": "The profit warning was filed on October 14, 2026, and the market has yet to fully digest the impact on forward earnings.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cf3ac50db465"
+      ],
+      "primary_source_event_id": "EVT-cf3ac50db465",
+      "source_headlines": [
+        "TIANLI INT HLDG (01773): PROFIT WARNING"
+      ],
+      "source_headline": "TIANLI INT HLDG (01773): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1015/2026101500009.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-14T22:22:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-15T02:47:20Z",
+      "updated_at": "2026-10-15T02:47:20Z",
+      "decay_at": "2026-10-16T10:22:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -185006,9 +185005,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 528,
+    "total_count": 529,
     "shown_count": 499,
-    "hidden_count": 29,
+    "hidden_count": 30,
     "side_counts": {
       "long": {
         "total_count": 267,
@@ -185016,9 +185015,9 @@
         "hidden_count": 17
       },
       "short": {
-        "total_count": 262,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 13
       }
     },
     "retention": {
@@ -185037,6 +185036,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e07345b47c7f",
+        "idea_version": "IDEAV-29343a0846017038",
+        "idea_version_started_at": "2026-10-15T02:47:20Z",
+        "ticker": "01773",
+        "company": "Tianli International Holdings",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A profit warning indicates deteriorating margins or revenue shortfalls, which typically leads to downward earnings revisions.",
+        "why_now": "The profit warning was filed on October 14, 2026, and the market has yet to fully digest the impact on forward earnings.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-cf3ac50db465"
+        ],
+        "primary_source_event_id": "EVT-cf3ac50db465",
+        "source_headlines": [
+          "TIANLI INT HLDG (01773): PROFIT WARNING"
+        ],
+        "source_headline": "TIANLI INT HLDG (01773): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1015/2026101500009.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-14T22:22:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-15T02:47:20Z",
+        "updated_at": "2026-10-15T02:47:20Z",
+        "decay_at": "2026-10-16T10:22:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-16T10:22:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-edc3bf4b7b70",
         "idea_version": "IDEAV-35705391f7c3c226",
@@ -222128,86 +222201,12 @@
         "archived_at": "2026-09-22T09:12:40Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-78eedf3845e5",
-        "idea_version": "IDEAV-50f71bad3bacda39",
-        "idea_version_started_at": "2026-09-19T15:58:42Z",
-        "ticker": "01371",
-        "company": "China Ecotourism Group Limited",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company issued a profit alert indicating deteriorating financial performance, which typically precedes further margin compression or liquidity concerns.",
-        "why_now": "The profit alert was filed on September 18, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b34cb61c0e36"
-        ],
-        "primary_source_event_id": "EVT-b34cb61c0e36",
-        "source_headlines": [
-          "CHINA ECOTOUR (01371): Profit Alert"
-        ],
-        "source_headline": "CHINA ECOTOUR (01371): Profit Alert",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0918/2026091801846.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-18T14:23:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-19T15:58:42Z",
-        "updated_at": "2026-09-19T15:58:42Z",
-        "decay_at": "2026-09-20T02:23:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-22T09:12:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1636,
-    "live_count": 41,
+    "live_count": 40,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -222226,9 +222225,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7358204,
-    "news_picked_today": 392,
-    "news_dropped_today": 4384
+    "news_seen_today": 7383720,
+    "news_picked_today": 400,
+    "news_dropped_today": 4424
   },
   "book_momentum": {
     "live_count": 8,
