@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T15:29:09Z",
+  "generated_at": "2026-10-16T16:37:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261016-339",
@@ -42,6 +42,55 @@
         {
           "name": "COOLPAD GROUP",
           "ticker": "02369",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261016-344",
+      "headline": "FU SHOU YUAN (01448): UNCONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY AFG SECURITIES LIMITED FOR AND ON BEHALF OF GONG HAILIN TO ACQUIRE UP TO 115,000,000 SHARES IN FU SHOU YUAN INTERNATIONAL GROUP LIMITED (STOCK CODE: 1448) (A COMPANY INCORPORATED IN THE CAYMAN ISLANDS WITH LIMITED LIABILITY) (1) LEVEL OF ACCEPTANCE ON THE CLOSING DATE; AND (2) CLOSE OF THE PARTIAL OFFER",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101601440.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T14:11:00Z",
+      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
+      "prelim_note": "Gong Hailin made an unconditional voluntary cash partial offer to acquire up to 115,000,000 shares in FU SHOU YUAN INTERNATIONAL GROUP LIMITED.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Gong Hailin made an unconditional voluntary cash partial offer to acquire up to 115,000,000 shares in FU SHOU YUAN INTERNATIONAL GROUP LIMITED.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FU SHOU YUAN INTERNATIONAL GROUP LIMITED",
+          "ticker": "01448",
           "listing_country": "CN"
         }
       ],
@@ -296,55 +345,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261016-295",
-      "headline": ": UNCONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY AFG SECURITIES LIMITED FOR AND ON BEHALF OF GONG HAILIN TO ACQUIRE UP TO 115,000,000 SHARES IN FU SHOU YUAN INTERNATIONAL GROUP LIMITED (STOCK CODE: 1448) (A COMPANY INCORPORATED IN THE CAYMAN ISLANDS WITH LIMITED LIABILITY) (1) LEVEL OF ACCEPTANCE ON THE CLOSING DATE; AND (2) CLOSE OF THE PARTIAL OFFER",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101601120.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T10:55:00Z",
-      "sweep_file": "screener/inbox/2026-10-16_sweep.json",
-      "prelim_note": "Completion of a partial cash offer to acquire 115 million shares of Fu Shou Yuan International Group.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Completion of a partial cash offer to acquire 115 million shares of Fu Shou Yuan International Group.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fu Shou Yuan International Group Limited",
-          "ticker": "1448",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -182005,77 +182005,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-fb9178fa2cb9",
-      "idea_version": "IDEAV-89c97d7642873e7f",
-      "idea_version_started_at": "2026-10-15T09:06:51Z",
-      "ticker": "AXISCADES",
-      "company": "AXISCADES Technologies",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of Silicon Valley-based ITSJ provides the company with an immediate U.S. footprint and entry into the AI hardware supply chain, enhancing its service capabilities.",
-      "why_now": "The acquisition was announced via exchange filing on October 15, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ba2231144155"
-      ],
-      "primary_source_event_id": "EVT-ba2231144155",
-      "source_headlines": [
-        "AXISCADES Technologies Limited: AXISCADES Technologies Limited has informed the Exchange regarding a press release dated October 15, 2026, titled \"AXISCADES XIDA to acquire Silicon Valley-based ITSJ business a ready-made US base inside the AI hardware supply chain\"."
-      ],
-      "source_headline": "AXISCADES Technologies Limited: AXISCADES Technologies Limited has informed the Exchange regarding a press release dated October 15, 2026, titled \"AXISCADES XIDA to acquire Silicon Valley-based ITSJ business a ready-made US base inside the AI hardware supply chain\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/AXISCADES_15102026091042_PressRelease_15102026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-15T03:42:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-15T09:06:51Z",
-      "updated_at": "2026-10-15T09:06:51Z",
-      "decay_at": "2026-10-16T15:42:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9f21c6ea90d3",
       "idea_version": "IDEAV-faa25187dfe754c9",
       "idea_version_started_at": "2026-10-16T09:32:13Z",
@@ -183274,6 +183203,77 @@
       "surfaced_at": "2026-10-16T01:24:24Z",
       "updated_at": "2026-10-16T01:24:24Z",
       "decay_at": "2026-10-16T02:51:52Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-fb9178fa2cb9",
+      "idea_version": "IDEAV-89c97d7642873e7f",
+      "idea_version_started_at": "2026-10-15T09:06:51Z",
+      "ticker": "AXISCADES",
+      "company": "AXISCADES Technologies",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of Silicon Valley-based ITSJ provides the company with an immediate U.S. footprint and entry into the AI hardware supply chain, enhancing its service capabilities.",
+      "why_now": "The acquisition was announced via exchange filing on October 15, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ba2231144155"
+      ],
+      "primary_source_event_id": "EVT-ba2231144155",
+      "source_headlines": [
+        "AXISCADES Technologies Limited: AXISCADES Technologies Limited has informed the Exchange regarding a press release dated October 15, 2026, titled \"AXISCADES XIDA to acquire Silicon Valley-based ITSJ business a ready-made US base inside the AI hardware supply chain\"."
+      ],
+      "source_headline": "AXISCADES Technologies Limited: AXISCADES Technologies Limited has informed the Exchange regarding a press release dated October 15, 2026, titled \"AXISCADES XIDA to acquire Silicon Valley-based ITSJ business a ready-made US base inside the AI hardware supply chain\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/AXISCADES_15102026091042_PressRelease_15102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-15T03:42:40Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-15T09:06:51Z",
+      "updated_at": "2026-10-15T09:06:51Z",
+      "decay_at": "2026-10-16T15:42:40Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -185008,14 +185008,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 534,
+    "total_count": 535,
     "shown_count": 499,
-    "hidden_count": 35,
+    "hidden_count": 36,
     "side_counts": {
       "long": {
-        "total_count": 271,
+        "total_count": 272,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 22
       },
       "short": {
         "total_count": 264,
@@ -185039,6 +185039,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-fb9178fa2cb9",
+        "idea_version": "IDEAV-89c97d7642873e7f",
+        "idea_version_started_at": "2026-10-15T09:06:51Z",
+        "ticker": "AXISCADES",
+        "company": "AXISCADES Technologies",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of Silicon Valley-based ITSJ provides the company with an immediate U.S. footprint and entry into the AI hardware supply chain, enhancing its service capabilities.",
+        "why_now": "The acquisition was announced via exchange filing on October 15, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ba2231144155"
+        ],
+        "primary_source_event_id": "EVT-ba2231144155",
+        "source_headlines": [
+          "AXISCADES Technologies Limited: AXISCADES Technologies Limited has informed the Exchange regarding a press release dated October 15, 2026, titled \"AXISCADES XIDA to acquire Silicon Valley-based ITSJ business a ready-made US base inside the AI hardware supply chain\"."
+        ],
+        "source_headline": "AXISCADES Technologies Limited: AXISCADES Technologies Limited has informed the Exchange regarding a press release dated October 15, 2026, titled \"AXISCADES XIDA to acquire Silicon Valley-based ITSJ business a ready-made US base inside the AI hardware supply chain\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/AXISCADES_15102026091042_PressRelease_15102026.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-15T03:42:40Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-15T09:06:51Z",
+        "updated_at": "2026-10-15T09:06:51Z",
+        "decay_at": "2026-10-16T15:42:40Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-16T15:42:40Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0265087a6e9a",
         "idea_version": "IDEAV-fde2e6e557fc9647",
@@ -213285,81 +213359,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-c403b2e8b2c1",
-        "idea_version": "IDEAV-50d44512c2572292",
-        "idea_version_started_at": "2026-10-03T05:21:46Z",
-        "ticker": "V2RETAIL",
-        "company": "V2 Retail",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported a 28.4% revenue growth to ₹905 crore for Q2, signaling strong consumer demand and effective operational scaling.",
-        "why_now": "The business update was released on October 3, 2026, providing fresh data on quarterly performance.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c4158f6e1577"
-        ],
-        "primary_source_event_id": "EVT-c4158f6e1577",
-        "source_headlines": [
-          "V2 Retail Q2 business update: Revenue growth rises 28.4% to ₹905 crore"
-        ],
-        "source_headline": "V2 Retail Q2 business update: Revenue growth rises 28.4% to ₹905 crore",
-        "source_url": "https://www.cnbctv18.com/market/v2-retail-q2-business-update-fashion-retailer-quarterly-results-revenue-store-sales-20003780.htm",
-        "source_name": "CNBC-TV18",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-03T05:02:52Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-03T05:21:46Z",
-        "updated_at": "2026-10-03T05:21:46Z",
-        "decay_at": "2026-10-04T17:02:52Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-06T05:17:11Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-6f55bf31e25a",
         "idea_version": "IDEAV-39e7b2d1cbe42911",
         "idea_version_started_at": "2026-10-03T04:30:05Z",
@@ -222201,7 +222200,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1636,
-    "live_count": 35,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -222220,9 +222219,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12276484,
-    "news_picked_today": 528,
-    "news_dropped_today": 4728
+    "news_seen_today": 13527688,
+    "news_picked_today": 557,
+    "news_dropped_today": 4771
   },
   "book_momentum": {
     "live_count": 8,
