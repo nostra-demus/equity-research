@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T01:41:28Z",
+  "generated_at": "2026-10-17T01:48:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-022",
@@ -1628,6 +1628,98 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-063",
+      "headline": "William Blair Initiates Coverage of Revolution Medicines at Outperform",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/william-blair-initiates-coverage-revolution-medicines-outperform",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T01:06:53Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "William Blair initiated coverage of Revolution Medicines with an Outperform rating.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "William Blair initiated coverage of Revolution Medicines with an Outperform rating.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Revolution Medicines",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-065",
+      "headline": "Sunil Singhania makes a fresh entry in this defence stock",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/sunil-singhania-sunil-singhania-portfolio-guru-stock-super-investors-11792153559805.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T01:30:24Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Sunil Singhania disclosed a new stake in a defense stock, signaling institutional interest.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Sunil Singhania disclosed a new stake in a defense stock, signaling institutional interest.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-014",
       "headline": "Italy widens flotilla torture probe to include Israeli defence minister, others",
       "headline_en": null,
@@ -1806,98 +1898,6 @@
           "listing_country": "CN"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-055",
-      "headline": "DCB Bank Limited: board meeting 23-Oct-2026 — Board Meeting Intimation",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/xbrl/PRIOR_INTIMATION_2453_WebXMLFile_20261016_163831079.xml",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T11:08:33Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Routine board meeting intimation for DCB Bank.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 60,
-      "triage_reason": "Routine board meeting intimation for DCB Bank.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DCB Bank Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-056",
-      "headline": "Gazette Notification issued by SEBI titled “Securities and Exchange Board of India (Certification of Associated Persons in the Securities Markets) (Amendment) Regulations, 2026”",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261016-21/20261016-21.pdf",
-      "source_name": "BSE India — Notices (RSS)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T11:08:29Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "SEBI issued an amendment to certification regulations for associated persons in the securities market, impacting industry compliance requirements.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 60,
-      "triage_reason": "SEBI issued an amendment to certification regulations for associated persons in the securities market, impacting industry compliance requirements.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -224213,9 +224213,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1560977,
-    "news_picked_today": 66,
-    "news_dropped_today": 750
+    "news_seen_today": 1616161,
+    "news_picked_today": 70,
+    "news_dropped_today": 794
   },
   "book_momentum": {
     "live_count": 8,
