@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-17T00:11:48Z",
+  "generated_at": "2026-10-17T00:24:58Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261017-010",
+      "headline": "Federal Bank logs highest ever net profit at ₹1,386 crore in Q2FY27",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/money-and-banking/federal-bank-logs-highest-ever-net-profit-at-1386-crore-in-q2fy27-due-to-an-increase-in-net-interest-income/article71593320.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T23:36:46Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Federal Bank reported a record net profit of ₹1,386 crore for Q2FY27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Federal Bank reported a record net profit of ₹1,386 crore for Q2FY27.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Federal Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261017-004",
       "headline": "RBI approves amalgamation of Indian branches of Emirates NBD Bank P.J.S.C. with RBL Bank Limited",
@@ -95,6 +144,103 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-011",
+      "headline": "RBI okays Scheme of Amalgamation of Indian branches of Emirates NBD with RBL Bank",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/money-and-banking/rbi-okays-scheme-of-amalgamation-of-indian-branches-of-emirates-nbd-with-rbl-bank/article71593463.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T23:28:57Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "RBI approved the amalgamation of Emirates NBD's Indian branches with RBL Bank.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "RBI approved the amalgamation of Emirates NBD's Indian branches with RBL Bank.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RBL Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Emirates NBD",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-009",
+      "headline": "Brent crude hits $110 a barrel for first time since May as supply concerns mount",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/markets/commodities/brent-crude-hits-110-a-barrel-for-first-time-since-may-as-supply-concerns-mount/article71594804.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T23:41:15Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Brent crude reaching $110 per barrel indicates a significant energy supply shock affecting global inflation and input costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Brent crude reaching $110 per barrel indicates a significant energy supply shock affecting global inflation and input costs.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -278,6 +424,104 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-007",
+      "headline": "Blue Owl Founders Promised a Comeback. The Company’s Share Price Hasn’t Budged.",
+      "headline_en": null,
+      "url": "https://www.wsj.com/finance/blue-owl-stock-price-private-credit-ca6673d9?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Opinion piece on share price performance and management promises.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Opinion piece on share price performance and management promises.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Blue Owl Capital",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-008",
+      "headline": "Anthropic’s $2 trillion IPO dream hits a new reality",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/markets/anthropic-2-trillion-ipo-dream-hits-valuation-reality",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T00:07:00Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Speculative commentary on IPO valuation expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 40,
+      "triage_reason": "Speculative commentary on IPO valuation expectations.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": -8,
+        "scope": 6,
+        "event": -3,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "unconfirmed",
+        "event_id": "rumor",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "rumor"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -222363,7 +222607,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3693,
+    "inbox_unconsumed": 3698,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -222372,9 +222616,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 112750,
-    "news_picked_today": 6,
-    "news_dropped_today": 90
+    "news_seen_today": 309458,
+    "news_picked_today": 11,
+    "news_dropped_today": 181
   },
   "book_momentum": {
     "live_count": 8,
