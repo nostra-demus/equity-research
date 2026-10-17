@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T03:42:43Z",
+  "generated_at": "2026-10-17T03:49:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-100",
@@ -831,6 +831,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-110",
+      "headline": "Align Technology Wins UPC Patent Case Against Angelalign",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/align-technology-wins-upc-patent-case-against-angelalign",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T02:53:01Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Align Technology won a patent case against competitor Angelalign, removing a potential legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Align Technology won a patent case against competitor Angelalign, removing a potential legal risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Align Technology",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-033",
       "headline": "Japan's Toho Gas to generate solar power in US with Texas investment",
       "headline_en": null,
@@ -1623,6 +1672,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-114",
+      "headline": "iPhone Duo UAE orders face 2027 delivery dates as demand surges",
+      "headline_en": null,
+      "url": "https://gulfnews.com/technology/consumer-electronics/iphone-duo-uae-orders-face-2027-delivery-dates-as-demand-surges-1.500713806",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T03:08:26Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Surging demand for iPhones in the UAE is resulting in extended delivery lead times, indicating strong consumer appetite.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Surging demand for iPhones in the UAE is resulting in extended delivery lead times, indicating strong consumer appetite.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-058",
       "headline": "Madhya Pradesh SEIAA Chief Seeks Suspension Of Environment ACS, Two Officials; Demands CBI Probe Into Alleged 237 Environmental Clearance Irregularities",
       "headline_en": null,
@@ -1666,6 +1764,103 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-111",
+      "headline": "Trump pauses Russia-linked tariffs threatening India and China: What it means for India",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/economy/story/trump-pauses-russia-linked-tariffs-threatening-india-and-china-what-it-means-for-india-562214-2026-10-17?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T03:05:40Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "The pause of proposed tariffs on India and China removes a significant trade risk for these economies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "The pause of proposed tariffs on India and China removes a significant trade risk for these economies.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-113",
+      "headline": "TSMC Says AI Chip Demand Is Still Far Above What It Can Supply. That's Why I'd Buy Nvidia Stock.",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/10/16/tsmc-says-ai-chip-demand-is-still-far-above-what-it-can-supply-that-s-why-i-d-buy-nvidia-stock/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T02:57:01Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "TSMC confirms that AI chip demand continues to significantly outpace supply, reinforcing the growth thesis for the semiconductor sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "TSMC confirms that AI chip demand continues to significantly outpace supply, reinforcing the growth thesis for the semiconductor sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TSMC",
+          "ticker": null,
+          "listing_country": "TW"
+        },
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-108",
       "headline": "Trump puts new Russia sanctions that he recently signed into law on hold, citing national interest",
       "headline_en": null,
@@ -1703,190 +1898,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-066",
-      "headline": "Travel booking platform Klook Technology files to withdraw US listing",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/travel-booking-platform-klook-technology-files-to-withdraw-us-listing",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T01:25:00Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Klook Technology has officially withdrawn its plans for a US initial public offering.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Klook Technology has officially withdrawn its plans for a US initial public offering.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Klook Technology",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-037",
-      "headline": "China to add AI, biopharma and solar tech to export control list",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/technology/artificial-intelligence/china-to-add-ai-biopharma-and-solar-tech-to-export-control-list",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T00:49:13Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "New export controls on key tech sectors will impact supply chains.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "New export controls on key tech sectors will impact supply chains.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-018",
-      "headline": "U.S. government warns of new travel ban for Americans",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/travel/united-states-government-reconsider-travel-saudi-arabia",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T00:33:00Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "A new travel ban for Americans represents a significant shift in geopolitical and operational risk for travel and global business sectors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "A new travel ban for Americans represents a significant shift in geopolitical and operational risk for travel and global business sectors.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-061",
-      "headline": "SCHEDULE 13D/A - venBio Global Strategic Fund, L.P. (0001504130) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1504130/000090514826004485/0000905148-26-004485-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-17T01:21:15Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "An amended 13D filing by venBio Global Strategic Fund indicates a change in their investment position.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "An amended 13D filing by venBio Global Strategic Fund indicates a change in their investment position.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "venBio Global Strategic Fund, L.P.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -224201,9 +224212,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3515212,
-    "news_picked_today": 144,
-    "news_dropped_today": 1848
+    "news_seen_today": 3568541,
+    "news_picked_today": 153,
+    "news_dropped_today": 1887
   },
   "book_momentum": {
     "live_count": 8,
