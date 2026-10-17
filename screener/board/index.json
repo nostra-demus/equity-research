@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T14:30:18Z",
+  "generated_at": "2026-10-17T14:34:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-256",
@@ -193,6 +193,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-285",
+      "headline": "ICICI Bank Q2 results: Standalone profit rises 20% to Rs 14,843 crore, NII up 17.7%",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/icici-bank-q2-results-standalone-profit-rises-20-to-rs-14843-crore-nii-up-17-7/articleshow/135015586.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T14:06:36Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "ICICI Bank reported a 20% rise in standalone profit to Rs 14,843 crore and a 17.7% increase in NII.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ICICI Bank reported a 20% rise in standalone profit to Rs 14,843 crore and a 17.7% increase in NII.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ICICI Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1429,6 +1478,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-283",
+      "headline": "Zen Technologies Limited: Zen Technologies Limited has informed the Exchange about Acquisition",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ZENTEC_17102026195446_Cogknit_Reg30_Board_Outcome_17Oct2026__Clean_.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-17T14:24:56Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Zen Technologies announced an acquisition, which is a material corporate development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Zen Technologies announced an acquisition, which is a material corporate development.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zen Technologies Limited",
+          "ticker": "533339",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-278",
       "headline": "Lagnam Spintex Limited: Lagnam Spintex Limited has informed the Exchange regarding a press release dated October 17, 2026, titled \"LAGNAM SPINTEX REPORTS STRONG Q2 & H1 FY27 PERFORMANCE; EBITDA RISES 98% IN Q2 AND 64% IN H1FY27\".",
       "headline_en": null,
@@ -1860,104 +1958,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-171",
-      "headline": "Kalpataru Limited: Kalpataru Limited has informed the Exchange about the Show Cause-cum Demand Notice received by Kalpataru Properties Limited - wholly owned subsidiary of the Company",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/ravi_sah_17102026114752_Reg_30_Disclosure_SCN_KPL.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-17T06:18:35Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Kalpataru Limited received a show cause-cum-demand notice for its subsidiary, indicating potential regulatory or tax liability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Kalpataru Limited received a show cause-cum-demand notice for its subsidiary, indicating potential regulatory or tax liability.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kalpataru Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-276",
-      "headline": "ASSA ABLOY To Divest HID's PKI Business Unit To Vista Equity Partners",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/assa-abloy-divest-hids-pki-business-unit-vista-equity-partners",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T11:54:29Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "ASSA ABLOY is divesting its HID PKI business unit to Vista Equity Partners.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "ASSA ABLOY is divesting its HID PKI business unit to Vista Equity Partners.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ASSA ABLOY",
-          "ticker": null,
-          "listing_country": "SE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -224135,9 +224135,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10980928,
-    "news_picked_today": 567,
-    "news_dropped_today": 7209
+    "news_seen_today": 10995369,
+    "news_picked_today": 573,
+    "news_dropped_today": 7227
   },
   "book_momentum": {
     "live_count": 8,
