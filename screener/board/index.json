@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T04:59:25Z",
+  "generated_at": "2026-10-17T05:04:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-145",
@@ -1837,6 +1837,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-151",
+      "headline": "Trump puts on hold new Russia sanctions he signed into law",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/10/17/trump-puts-on-hold-new-russia-sanctions-he-signed-into-law?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-10-17T04:45:03Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "The US government is delaying the implementation of new sanctions against Russia, which impacts geopolitical risk and trade policy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "The US government is delaying the implementation of new sanctions against Russia, which impacts geopolitical risk and trade policy.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-139",
       "headline": "Duke Health, CaroMont Health seek to jointly build, operate 2 Charlotte-area hospitals",
       "headline_en": null,
@@ -1885,49 +1928,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-107",
-      "headline": "Donald Trump Waives Russia And Iran Sanctions Under Graham Act, Cites US National Interest As India Faces Potential Russian Oil Tariffs",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/donald-trump-waives-russia-and-iran-sanctions-under-graham-act-cites-us-national-interest-as-india-faces-potential-russian-oil-tariffs",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T02:55:34Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Potential Russian oil tariffs pose a significant risk to energy supply chains and trade relations for India.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Potential Russian oil tariffs pose a significant risk to energy supply chains and trade relations for India.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -224028,9 +224028,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4585110,
-    "news_picked_today": 225,
-    "news_dropped_today": 2487
+    "news_seen_today": 4685314,
+    "news_picked_today": 227,
+    "news_dropped_today": 2509
   },
   "book_momentum": {
     "live_count": 8,
