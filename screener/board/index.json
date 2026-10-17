@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-17T06:50:32Z",
+  "generated_at": "2026-10-17T06:59:07Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261017-176",
+      "headline": "Finance Ministry clarifies IDBI Bank divestment history amid ₹52,878-crore sale to Fairfax",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/corporate/story/finance-ministry-clarifies-idbi-bank-divestment-history-amid-rs52878-crore-sale-to-fairfax-562232-2026-10-17?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T06:43:59Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "The Indian Finance Ministry is clarifying the divestment process for IDBI Bank regarding a sale valued at ₹52,878 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Indian Finance Ministry is clarifying the divestment process for IDBI Bank regarding a sale valued at ₹52,878 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IDBI Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261017-145",
       "headline": "DHL Raises FY26 EBIT Outlook After Strong Q3 Performance",
@@ -1871,55 +1920,6 @@
           "name": "Align Technology",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-033",
-      "headline": "Japan's Toho Gas to generate solar power in US with Texas investment",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/energy/japan-s-toho-gas-to-generate-solar-power-in-us-with-texas-investment",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T00:49:13Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Company is expanding operations into the US market via solar investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Company is expanding operations into the US market via solar investment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Toho Gas",
-          "ticker": null,
-          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
@@ -224091,9 +224091,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6074929,
-    "news_picked_today": 281,
-    "news_dropped_today": 3343
+    "news_seen_today": 6138164,
+    "news_picked_today": 294,
+    "news_dropped_today": 3402
   },
   "book_momentum": {
     "live_count": 8,
