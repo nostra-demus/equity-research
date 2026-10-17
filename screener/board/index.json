@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T02:10:07Z",
+  "generated_at": "2026-10-17T02:14:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-022",
@@ -395,6 +395,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-078",
+      "headline": "CCT FORTIS (00138): FURTHER DELAY IN DESPATCH OF THE CIRCULAR IN RELATION TO CONNECTED TRANSACTION IN RELATION TO THE AMENDMENTS TO THE 2025 CONVERTIBLE BONDS DUE 2025",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101601102.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T10:52:00Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "CCT Fortis has further delayed the despatch of a circular related to a connected transaction concerning amendments to its 2025 convertible bonds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "CCT Fortis has further delayed the despatch of a circular related to a connected transaction concerning amendments to its 2025 convertible bonds.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CCT FORTIS",
+          "ticker": "00138",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-024",
       "headline": "Toyota to turn all 50 models into software-defined vehicles by 2030",
       "headline_en": null,
@@ -740,20 +790,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261017-068",
-      "headline": "USA-Trump lève des sanctions liées à la Russie avant leur entrée en vigueur",
-      "headline_en": "USA-Trump lifts Russia-related sanctions before they come into effect",
-      "url": "https://www.reuters.com/fr/affaires/usa-trump-lve-des-sanctions-lies-la-russie-avant-leur-entre-en-vigueur-2026-10-17/",
-      "source_name": "Reuters — Latest (news sitemap)",
+      "inbox_id": "INB-20261017-077",
+      "headline": "Trump waives many Russia-related sanctions, tariffs before they were to take effect under new law",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/us/trump-waives-many-russia-related-sanctions-tariffs-before-they-were-to-take-effect-under-new-law-4186002",
+      "source_name": "Deccan Herald",
       "input_nature": "news_headline",
-      "found_at": "2026-10-17T01:48:23Z",
+      "found_at": "2026-10-17T01:51:11Z",
       "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "The waiver of Russia-related sanctions and tariffs represents a significant shift in US foreign policy and trade regulation.",
+      "prelim_note": "The waiver of Russia-related sanctions and tariffs represents a significant shift in geopolitical and trade policy.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 86,
-      "triage_reason": "The waiver of Russia-related sanctions and tariffs represents a significant shift in US foreign policy and trade regulation.",
+      "triage_reason": "The waiver of Russia-related sanctions and tariffs represents a significant shift in geopolitical and trade policy.",
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -783,13 +833,13 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261017-067",
-      "headline": "Trump waives many Russia-related sanctions, tariffs before they were to take effect under new law",
-      "headline_en": null,
-      "url": "https://www.al-monitor.com/originals/2026/10/trump-waives-many-russia-related-sanctions-tariffs-they-were-take-effect-under",
-      "source_name": "Al-Monitor",
+      "inbox_id": "INB-20261017-068",
+      "headline": "USA-Trump lève des sanctions liées à la Russie avant leur entrée en vigueur",
+      "headline_en": "USA-Trump lifts Russia-related sanctions before they come into effect",
+      "url": "https://www.reuters.com/fr/affaires/usa-trump-lve-des-sanctions-lies-la-russie-avant-leur-entre-en-vigueur-2026-10-17/",
+      "source_name": "Reuters — Latest (news sitemap)",
       "input_nature": "news_headline",
-      "found_at": "2026-10-17T01:46:25Z",
+      "found_at": "2026-10-17T01:48:23Z",
       "sweep_file": "screener/inbox/2026-10-17_sweep.json",
       "prelim_note": "The waiver of Russia-related sanctions and tariffs represents a significant shift in US foreign policy and trade regulation.",
       "dedup_status": "new",
@@ -1864,55 +1914,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-025",
-      "headline": "UBS Upgrades Ionis Pharmaceuticals to Buy from Neutral",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/ubs-upgrades-ionis-pharmaceuticals-buy-neutral",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T00:11:02Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "UBS upgraded Ionis Pharmaceuticals to Buy from Neutral.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "UBS upgraded Ionis Pharmaceuticals to Buy from Neutral.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ionis Pharmaceuticals",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -224228,9 +224229,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1945977,
-    "news_picked_today": 82,
-    "news_dropped_today": 974
+    "news_seen_today": 2028150,
+    "news_picked_today": 88,
+    "news_dropped_today": 1088
   },
   "book_momentum": {
     "live_count": 8,
