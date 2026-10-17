@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T04:00:06Z",
+  "generated_at": "2026-10-17T04:06:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-121",
@@ -1868,50 +1868,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261017-114",
-      "headline": "iPhone Duo UAE orders face 2027 delivery dates as demand surges",
+      "inbox_id": "INB-20261017-129",
+      "headline": "Striking unions at Antofagasta's Centinela copper mine reach preliminary deal, ending strike",
       "headline_en": null,
-      "url": "https://gulfnews.com/technology/consumer-electronics/iphone-duo-uae-orders-face-2027-delivery-dates-as-demand-surges-1.500713806",
-      "source_name": "Gulf News",
+      "url": "https://www.reuters.com/business/world-at-work/striking-unions-antofagastas-centinela-copper-mine-reach-preliminary-deal-ending-2026-10-17/",
+      "source_name": "Reuters — Latest (news sitemap)",
       "input_nature": "news_headline",
-      "found_at": "2026-10-17T03:08:26Z",
+      "found_at": "2026-10-17T02:42:46Z",
       "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Surging demand for iPhones in the UAE is resulting in extended delivery lead times, indicating strong consumer appetite.",
+      "prelim_note": "Antofagasta reaches a preliminary deal to end a strike at its Centinela copper mine, resolving a supply disruption.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Surging demand for iPhones in the UAE is resulting in extended delivery lead times, indicating strong consumer appetite.",
+      "triage_score": 84,
+      "triage_reason": "Antofagasta reaches a preliminary deal to end a strike at its Centinela copper mine, resolving a supply disruption.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 55,
+      "materiality_pre_score": 70,
       "rank_factors": {
-        "materiality": 55,
+        "materiality": 70,
         "source_tier": 0,
         "scope": 6,
-        "event": 0,
+        "event": 2,
         "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
+        "recency": 4,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
+        "event_id": "operations",
+        "size_bucket": "large"
       },
       "event_types": [
-        "commercial"
+        "operations"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Apple",
+          "name": "Antofagasta",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": "GB"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -224225,9 +224225,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3754688,
-    "news_picked_today": 166,
-    "news_dropped_today": 1970
+    "news_seen_today": 3807791,
+    "news_picked_today": 173,
+    "news_dropped_today": 2011
   },
   "book_momentum": {
     "live_count": 8,
