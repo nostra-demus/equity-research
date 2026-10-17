@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T19:59:07Z",
+  "generated_at": "2026-10-17T20:00:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-286",
@@ -242,6 +242,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-299",
+      "headline": "Should You Buy Vistra After an 11% 1-Day Jump on a $4.2 Billion DOE Loan? The Catch Most Investors Are Missing.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/should-you-buy-vistra-after-11-1-day-jump-42-billion-doe-loan-catch-most-investors-are",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T18:50:00Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Vistra secured a $4.2 billion DOE loan, a significant capital event that materially impacts its balance sheet and growth capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vistra secured a $4.2 billion DOE loan, a significant capital event that materially impacts its balance sheet and growth capacity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vistra",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1914,55 +1964,6 @@
       "companies": [
         {
           "name": "Lagnam Spintex Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-150",
-      "headline": "Rashi Peripherals Limited: Rashi Peripherals Limited has informed the Exchange regarding Cessation of Deloitte Haskins and Sells, LLP as one of the Joint Statutory Auditors of the company w.e.f. October 16, 2026.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/RASHI2024_17102026102026_Cessation_of_Auditors_-_SE_Intimation_signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-17T04:51:17Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "The resignation of a joint statutory auditor is a significant governance event that can signal accounting or internal control concerns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "The resignation of a joint statutory auditor is a significant governance event that can signal accounting or internal control concerns.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "executive_exit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rashi Peripherals Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -224282,9 +224283,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 13635189,
-    "news_picked_today": 682,
-    "news_dropped_today": 10070
+    "news_seen_today": 13645440,
+    "news_picked_today": 684,
+    "news_dropped_today": 10092
   },
   "book_momentum": {
     "live_count": 8,
