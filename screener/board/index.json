@@ -1,6 +1,202 @@
 {
-  "generated_at": "2026-10-16T23:58:15Z",
+  "generated_at": "2026-10-17T00:08:17Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261017-004",
+      "headline": "RBI approves amalgamation of Indian branches of Emirates NBD Bank P.J.S.C. with RBL Bank Limited",
+      "headline_en": null,
+      "url": "https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63820",
+      "source_name": "Reserve Bank of India (RBI) — Press Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-16T11:35:00Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "The RBI has approved the amalgamation of Emirates NBD's Indian branches into RBL Bank Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "The RBI has approved the amalgamation of Emirates NBD's Indian branches into RBL Bank Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RBL Bank Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-001",
+      "headline": "JS GLOBAL LIFE (01691): INSIDE INFORMATION - PROPOSED PLEDGE OF SHARES BY CONTROLLING SHAREHOLDER",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101601240.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T11:36:00Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Controlling shareholder proposes a pledge of shares, which can signal liquidity pressure or risk to equity stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Controlling shareholder proposes a pledge of shares, which can signal liquidity pressure or risk to equity stability.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JS Global Life",
+          "ticker": "01691",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-003",
+      "headline": "Maharashtra Scooters Limited: This is to inform you that, pursuant to fresh certificate of incorporation received from Ministry of Corporate Affairs, name of Maharashtra Scooters Limited has been changed to Bajaj Nivesh Limited",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MAHSCOOTER_16102026170330_MSLNAMECHANGEFINAL.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T11:33:58Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Maharashtra Scooters Limited has officially changed its name to Bajaj Nivesh Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "Maharashtra Scooters Limited has officially changed its name to Bajaj Nivesh Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Maharashtra Scooters Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-002",
+      "headline": "EPI (HOLDINGS) (00689): DISCLOSEABLE TRANSACTION IN RELATION TO PROVISION OF LOAN FACILITIES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101601236.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T11:34:00Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "The company is entering into a discloseable transaction involving the provision of loan facilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "The company is entering into a discloseable transaction involving the provision of loan facilities.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EPI (Holdings)",
+          "ticker": "00689",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261016-520",
       "headline": "SC TO-T/A - Beretta Holding S.A. (0002086731) (Filed by)",
@@ -222081,7 +222277,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3687,
+    "inbox_unconsumed": 3691,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -222090,9 +222286,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 21221035,
-    "news_picked_today": 910,
-    "news_dropped_today": 8498
+    "news_seen_today": 84573,
+    "news_picked_today": 4,
+    "news_dropped_today": 44
   },
   "book_momentum": {
     "live_count": 8,
