@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T13:20:47Z",
+  "generated_at": "2026-10-17T13:24:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-256",
@@ -188,6 +188,55 @@
       "companies": [
         {
           "name": "TVS Srichakra Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-279",
+      "headline": "India Cements Q2 Results: Operational gains aid multi-fold profit growth, EBITDA jumps 78%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/india-cements-q2-results-operational-gains-aid-multi-fold-profit-growth-ebitda-jumps-78-pc-20014228.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T13:12:40Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "India Cements reported a 78% jump in EBITDA and multi-fold profit growth for Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "India Cements reported a 78% jump in EBITDA and multi-fold profit growth for Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "India Cements",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -1896,55 +1945,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-167",
-      "headline": "SoftBank is said to weigh buying top U.S. security firm allied",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/10/17/softbank-eyes-top-us-security-firm/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T05:24:00Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "SoftBank is reportedly considering the acquisition of a major US security firm, indicating a significant capital deployment strategy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "SoftBank is reportedly considering the acquisition of a major US security firm, indicating a significant capital deployment strategy.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SoftBank Group",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -224122,9 +224122,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10232464,
-    "news_picked_today": 536,
-    "news_dropped_today": 6544
+    "news_seen_today": 10263278,
+    "news_picked_today": 539,
+    "news_dropped_today": 6565
   },
   "book_momentum": {
     "live_count": 8,
