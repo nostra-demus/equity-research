@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T16:05:40Z",
+  "generated_at": "2026-10-17T16:20:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-286",
@@ -183903,78 +183903,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-7470585394f5",
-      "idea_version": "IDEAV-b50d9f2ebcd1abb7",
-      "idea_version_started_at": "2026-10-16T06:33:20Z",
-      "ticker": "POLYCAB",
-      "company": "Polycab India Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The initiation of a Corporate Insolvency Resolution Process indicates severe financial distress and potential equity wipeout for shareholders.",
-      "why_now": "The filing regarding the insolvency process was made on October 16, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 23,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4a63fb695938"
-      ],
-      "primary_source_event_id": "EVT-4a63fb695938",
-      "source_headlines": [
-        "Polycab India Limited: Polycab India Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-      ],
-      "source_headline": "Polycab India Limited: Polycab India Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-      "source_url": "https://nsearchives.nseindia.com/corporate/POLYCAB_16102026093958_CIRP15102026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-16T04:10:15Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-16T06:33:20Z",
-      "updated_at": "2026-10-16T06:33:20Z",
-      "decay_at": "2026-10-17T16:10:15Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-24912455a063",
       "idea_version": "IDEAV-36591658159913a5",
       "idea_version_started_at": "2026-10-17T14:35:09Z",
@@ -184818,6 +184746,78 @@
       "surfaced_at": "2026-10-16T00:51:39Z",
       "updated_at": "2026-10-16T00:51:39Z",
       "decay_at": "2026-10-16T10:36:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-7470585394f5",
+      "idea_version": "IDEAV-b50d9f2ebcd1abb7",
+      "idea_version_started_at": "2026-10-16T06:33:20Z",
+      "ticker": "POLYCAB",
+      "company": "Polycab India Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The initiation of a Corporate Insolvency Resolution Process indicates severe financial distress and potential equity wipeout for shareholders.",
+      "why_now": "The filing regarding the insolvency process was made on October 16, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 23,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4a63fb695938"
+      ],
+      "primary_source_event_id": "EVT-4a63fb695938",
+      "source_headlines": [
+        "Polycab India Limited: Polycab India Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+      ],
+      "source_headline": "Polycab India Limited: Polycab India Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "source_url": "https://nsearchives.nseindia.com/corporate/POLYCAB_16102026093958_CIRP15102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-16T04:10:15Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-16T06:33:20Z",
+      "updated_at": "2026-10-16T06:33:20Z",
+      "decay_at": "2026-10-17T16:10:15Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -187128,9 +187128,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 537,
+    "total_count": 538,
     "shown_count": 499,
-    "hidden_count": 38,
+    "hidden_count": 39,
     "side_counts": {
       "long": {
         "total_count": 276,
@@ -187138,9 +187138,9 @@
         "hidden_count": 26
       },
       "short": {
-        "total_count": 262,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 13
       }
     },
     "retention": {
@@ -187159,6 +187159,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-7470585394f5",
+        "idea_version": "IDEAV-b50d9f2ebcd1abb7",
+        "idea_version_started_at": "2026-10-16T06:33:20Z",
+        "ticker": "POLYCAB",
+        "company": "Polycab India Limited",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The initiation of a Corporate Insolvency Resolution Process indicates severe financial distress and potential equity wipeout for shareholders.",
+        "why_now": "The filing regarding the insolvency process was made on October 16, 2026.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 23,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4a63fb695938"
+        ],
+        "primary_source_event_id": "EVT-4a63fb695938",
+        "source_headlines": [
+          "Polycab India Limited: Polycab India Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+        ],
+        "source_headline": "Polycab India Limited: Polycab India Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+        "source_url": "https://nsearchives.nseindia.com/corporate/POLYCAB_16102026093958_CIRP15102026.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-16T04:10:15Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-16T06:33:20Z",
+        "updated_at": "2026-10-16T06:33:20Z",
+        "decay_at": "2026-10-17T16:10:15Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-17T16:10:15Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7a94b4122a70",
         "idea_version": "IDEAV-9cbdb2cff1a57055",
@@ -224252,87 +224327,12 @@
         "archived_at": "2026-09-22T18:04:53Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-80566e7fce69",
-        "idea_version": "IDEAV-f82663b3219a08e7",
-        "idea_version_started_at": "2026-09-19T12:40:06Z",
-        "ticker": "NTPC",
-        "company": "NTPC Limited",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The termination of a Rs 413 crore battery energy storage system contract due to contractor default signals operational delays and potential cost overruns in the company's green energy infrastructure rollout.",
-        "why_now": "The contract termination was officially announced on 2026-09-19, creating immediate uncertainty regarding project timelines.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ee9f07b20713"
-        ],
-        "primary_source_event_id": "EVT-ee9f07b20713",
-        "source_headlines": [
-          "NTPC terminates Rs 413 crore Mouda BESS contract after contractor default"
-        ],
-        "source_headline": "NTPC terminates Rs 413 crore Mouda BESS contract after contractor default",
-        "source_url": "https://economictimes.indiatimes.com/industry/energy/power/ntpc-terminates-rs-413-crore-mouda-bess-contract-after-contractor-default/articleshow/134353150.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-19T11:29:57Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-19T12:40:06Z",
-        "updated_at": "2026-09-19T12:40:06Z",
-        "decay_at": "2026-09-20T23:29:57Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-22T11:39:51Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1662,
-    "live_count": 34,
+    "live_count": 33,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -224351,9 +224351,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11957334,
-    "news_picked_today": 603,
-    "news_dropped_today": 8061
+    "news_seen_today": 12087378,
+    "news_picked_today": 604,
+    "news_dropped_today": 8180
   },
   "book_momentum": {
     "live_count": 8,
