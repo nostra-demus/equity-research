@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T00:33:29Z",
+  "generated_at": "2026-10-17T00:34:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-010",
@@ -95,6 +95,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-016",
+      "headline": "TIAN AN ALLIED GROUP (00028 00373): Joint Announcement: Discloseable Transaction - Provision of Financial Assistance",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101601222.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T11:28:00Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Tian An Allied Group announced a discloseable transaction involving the provision of financial assistance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Tian An Allied Group announced a discloseable transaction involving the provision of financial assistance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tian An Allied Group",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -284,6 +333,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-015",
+      "headline": "Intel chief says White House will not meddle in its semiconductor business",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/tech/semiconductors/intel-chief-says-white-house-will-not-meddle-in-its-semiconductor-business",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T00:33:52Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Intel CEO confirms no White House interference in semiconductor business operations, reducing political risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Intel CEO confirms no White House interference in semiconductor business operations, reducing political risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intel",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -560,6 +658,60 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-017",
+      "headline": "Japan's Sumitomo, Hankyu to test Philippine power-saving rail system",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/transportation/japan-s-sumitomo-hankyu-to-test-philippine-power-saving-rail-system",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T00:33:52Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Sumitomo and Hankyu are testing a new power-saving rail system in the Philippines, indicating potential new revenue streams.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Sumitomo and Hankyu are testing a new power-saving rail system in the Philippines, indicating potential new revenue streams.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sumitomo",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "Hankyu",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -222742,7 +222894,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3701,
+    "inbox_unconsumed": 3704,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -222751,9 +222903,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 449589,
-    "news_picked_today": 14,
-    "news_dropped_today": 250
+    "news_seen_today": 477584,
+    "news_picked_today": 17,
+    "news_dropped_today": 271
   },
   "book_momentum": {
     "live_count": 8,
