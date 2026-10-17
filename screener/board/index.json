@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T05:19:17Z",
+  "generated_at": "2026-10-17T05:19:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-145",
@@ -182210,6 +182210,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-1ad902e01f2e",
+      "idea_version": "IDEAV-db07568facd6c5b3",
+      "idea_version_started_at": "2026-10-17T05:19:30Z",
+      "ticker": "STLA",
+      "company": "Stellantis",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Stellantis is committing 40 billion rupees to expand its local manufacturing footprint in India, targeting the launch of 12 new Jeep and Citroën models to capture emerging market demand.",
+      "why_now": "The investment plan was officially announced on 2026-10-17.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-58982217bca2"
+      ],
+      "primary_source_event_id": "EVT-58982217bca2",
+      "source_headlines": [
+        "Stellantis to invest Rs 4k crore, plans 12 Jeep, Citroën models"
+      ],
+      "source_headline": "Stellantis to invest Rs 4k crore, plans 12 Jeep, Citroën models",
+      "source_url": "https://timesofindia.indiatimes.com/business/india-business/stellantis-to-invest-rs-4k-crore-plans-12-jeep-citron-models/articleshow/135006110.cms",
+      "source_name": "The Times of India (Business)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-17T02:18:12Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-17T05:19:30Z",
+      "updated_at": "2026-10-17T05:19:30Z",
+      "decay_at": "2026-10-18T14:18:12Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-11e4ddea4643",
       "idea_version": "IDEAV-f0014b3a1c6ab63b",
       "idea_version_started_at": "2026-10-16T06:33:20Z",
@@ -182414,6 +182484,76 @@
       "surfaced_at": "2026-10-17T03:18:33Z",
       "updated_at": "2026-10-17T03:18:33Z",
       "decay_at": "2026-10-18T12:44:16Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-02b50b318851",
+      "idea_version": "IDEAV-89f58db06d5748a1",
+      "idea_version_started_at": "2026-10-17T05:19:30Z",
+      "ticker": "ALGN",
+      "company": "Align Technology",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Align Technology secured a favorable ruling in the Unified Patent Court against competitor Angelalign, which protects its market share in the clear aligner segment.",
+      "why_now": "The ruling was announced on 2026-10-17, providing immediate legal clarity and competitive advantage.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e08ef536ed2e"
+      ],
+      "primary_source_event_id": "EVT-e08ef536ed2e",
+      "source_headlines": [
+        "Align Technology Wins UPC Patent Case Against Angelalign"
+      ],
+      "source_headline": "Align Technology Wins UPC Patent Case Against Angelalign",
+      "source_url": "https://www.nasdaq.com/articles/align-technology-wins-upc-patent-case-against-angelalign",
+      "source_name": "Nasdaq",
+      "materiality_max": 89,
+      "newest_source_at": "2026-10-17T02:53:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-17T05:19:30Z",
+      "updated_at": "2026-10-17T05:19:30Z",
+      "decay_at": "2026-10-18T14:53:01Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -224003,8 +224143,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1650,
-    "live_count": 31,
+    "surfaced_total": 1652,
+    "live_count": 33,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
