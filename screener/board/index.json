@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T01:15:10Z",
+  "generated_at": "2026-10-17T01:20:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-022",
@@ -861,6 +861,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-053",
+      "headline": "Aegis Logistics Limited: Aegis Logistics Limited has informed the Exchange about Credit Rating",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/AEGISCHEM_16102026163924_ALL_SE_ESGrating_NSE_Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T11:10:21Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Aegis Logistics received a credit rating update, which is a standard disclosure for debt-issuing entities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "Aegis Logistics received a credit rating update, which is a standard disclosure for debt-issuing entities.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "credit_rating_upgrade",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "credit_rating_upgrade"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aegis Logistics Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-048",
       "headline": "LUFAX (06623): APPOINTMENT OF THE CHIEF FINANCIAL OFFICER",
       "headline_en": null,
@@ -1046,6 +1095,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-052",
+      "headline": "BEAUTYFARM MED (02373): DISCLOSEABLE TRANSACTION SUBSCRIPTION OF WEALTH MANAGEMENT PRODUCTS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101601191.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T11:11:00Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "The company disclosed a subscription to wealth management products, which is a routine treasury management activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "The company disclosed a subscription to wealth management products, which is a routine treasury management activity.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BEAUTYFARM MED",
+          "ticker": "02373",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1802,104 +1900,6 @@
           "name": "Blue Owl Capital",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-028",
-      "headline": "Bharat Dynamics Limited: Bharat Dynamics Limited has informed the Exchange regarding Change in Director(s) of the company.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/BDL_16102026165138_Covletter16102026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T11:21:52Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Routine change in board composition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 54,
-      "triage_reason": "Routine change in board composition.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bharat Dynamics Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-051",
-      "headline": "One car, two identities: Fiat unveils SUV that can turn into a pickup truck",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/photo/one-car-two-identities-fiat-unveils-suv-that-can-turn-into-a-pickup-truck-562141-2026-10-17?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T00:45:03Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Fiat has unveiled a new SUV model that converts into a pickup truck.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Fiat has unveiled a new SUV model that converts into a pickup truck.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fiat",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -224217,9 +224217,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1090584,
-    "news_picked_today": 51,
-    "news_dropped_today": 549
+    "news_seen_today": 1173813,
+    "news_picked_today": 55,
+    "news_dropped_today": 569
   },
   "book_momentum": {
     "live_count": 8,
