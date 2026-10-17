@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T10:04:16Z",
+  "generated_at": "2026-10-17T10:12:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-256",
@@ -1373,6 +1373,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-259",
+      "headline": "ICICI Bank Limited: ICICI Bank Limited has submitted to the Exchange, the unaudited financial results of the Bank (standalone and consolidated) for the quarter and six months ended September 30, 2026.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ICICI2022_17102026152039_NSEBSE17102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-17T09:51:44Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Submission of quarterly financial results for a major bank is a material event for investors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Submission of quarterly financial results for a major bank is a material event for investors.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ICICI Bank Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-171",
       "headline": "Kalpataru Limited: Kalpataru Limited has informed the Exchange about the Show Cause-cum Demand Notice received by Kalpataru Properties Limited - wholly owned subsidiary of the Company",
       "headline_en": null,
@@ -1890,55 +1939,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-046",
-      "headline": "Yes Bank to seek Supreme Court review of Rs 8,415 crore AT1 bond write-down verdict",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/yes-bank-to-seek-supreme-court-review-of-rs-8415-crore-at1-bond-write-down-verdict/articleshow/135003185.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T00:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Yes Bank is seeking a Supreme Court review of an 8415 crore rupee AT1 bond write-down, representing a significant legal and financial risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Yes Bank is seeking a Supreme Court review of an 8415 crore rupee AT1 bond write-down, representing a significant legal and financial risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yes Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -224471,9 +224471,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8295501,
-    "news_picked_today": 437,
-    "news_dropped_today": 4891
+    "news_seen_today": 8366561,
+    "news_picked_today": 443,
+    "news_dropped_today": 4957
   },
   "book_momentum": {
     "live_count": 8,
