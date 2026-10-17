@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-17T04:44:14Z",
+  "generated_at": "2026-10-17T04:47:01Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261017-145",
+      "headline": "DHL Raises FY26 EBIT Outlook After Strong Q3 Performance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/dhl-raises-fy26-ebit-outlook-after-strong-q3-performance",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T04:21:48Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "DHL raised its FY26 EBIT outlook following strong Q3 results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DHL raised its FY26 EBIT outlook following strong Q3 results.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DHL Group",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261017-121",
       "headline": "Adnoc funnels billions into boosting gas processing",
@@ -1845,49 +1894,6 @@
       "triage_score": 86,
       "triage_reason": "The waiver of mandated sanctions on Russia represents a significant shift in US foreign policy and geopolitical risk management.",
       "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-097",
-      "headline": "Trump exempts Russia from further sanctions mandated by new law",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/836eddd7-3adc-4cbb-8527-7a0a7a277e50?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T02:31:59Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "The waiver of mandated sanctions on Russia represents a significant shift in US foreign policy and geopolitical risk management.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "The waiver of mandated sanctions on Russia represents a significant shift in US foreign policy and geopolitical risk management.",
-      "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
@@ -224224,9 +224230,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4384194,
-    "news_picked_today": 212,
-    "news_dropped_today": 2380
+    "news_seen_today": 4434560,
+    "news_picked_today": 213,
+    "news_dropped_today": 2403
   },
   "book_momentum": {
     "live_count": 8,
