@@ -1,9 +1,9 @@
 {
   "idea_id": "IDEA-5d7e7121c615",
-  "idea_version": "IDEAV-3495663eb78fd05e",
-  "idea_version_started_at": "2026-10-15T13:17:31Z",
+  "idea_version": "IDEAV-c1be852d90ddf4d0",
+  "idea_version_started_at": "2026-10-17T03:18:33Z",
   "ticker": "YESBANK",
-  "company": "Yes Bank Limited",
+  "company": "Yes Bank",
   "exchange": "NSE",
   "ticker_verified": false,
   "listing_verified": false,
@@ -11,15 +11,15 @@
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "A Supreme Court ruling regarding the write-off of Rs. 8,400 crore in AT-1 bonds creates significant balance sheet uncertainty and potential capital impairment.",
-  "why_now": "The market is reacting to the ruling as of October 15, 2026, with the company currently clarifying the impact.",
+  "reason": "The bank is seeking a Supreme Court review of an ₹8,415 crore AT1 bond write-down, creating significant legal uncertainty and potential capital impairment risk.",
+  "why_now": "The filing for the Supreme Court review was reported on 2026-10-17.",
   "conviction": 65,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
-    "evidence": 25,
-    "impact": 21,
+    "evidence": 14,
+    "impact": 19,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
@@ -32,7 +32,7 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
-    "priced-in risk",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -44,22 +44,22 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "priced",
-  "thesis_type": "balance_sheet_survival",
+  "priced_in": "room",
+  "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-662770cd5a6f"
+    "EVT-d76fdce7ca5a"
   ],
-  "primary_source_event_id": "EVT-662770cd5a6f",
+  "primary_source_event_id": "EVT-d76fdce7ca5a",
   "source_headlines": [
-    "Yes Bank Limited: The Exchange has sought clarification from Yes Bank Limited with respect to recent news item captioned Yes Bank share price sees sharp fall of 10% after Supreme Court ruling on Rs.8,400 crore AT-1 bond write-off. The response from the Company is awaited."
+    "Yes Bank to seek Supreme Court review of Rs 8,415 crore AT1 bond write-down verdict"
   ],
-  "source_headline": "Yes Bank Limited: The Exchange has sought clarification from Yes Bank Limited with respect to recent news item captioned Yes Bank share price sees sharp fall of 10% after Supreme Court ruling on Rs.8,400 crore AT-1 bond write-off. The response from the Company is awaited.",
-  "source_url": "https://www.nseindia.com/companies-listing/corporate-filings-announcements?symbol=YESBANK&seq=106818579",
-  "source_name": "BSE / NSE Exchange Filing",
-  "materiality_max": 100,
-  "newest_source_at": "2026-10-15T09:30:05Z",
+  "source_headline": "Yes Bank to seek Supreme Court review of Rs 8,415 crore AT1 bond write-down verdict",
+  "source_url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/yes-bank-to-seek-supreme-court-review-of-rs-8415-crore-at1-bond-write-down-verdict/articleshow/135003185.cms",
+  "source_name": "The Economic Times",
+  "materiality_max": 94,
+  "newest_source_at": "2026-10-17T00:30:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -67,8 +67,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-10-15T13:17:31Z",
-  "updated_at": "2026-10-15T13:17:31Z",
-  "decay_at": "2026-10-16T21:30:05Z",
+  "updated_at": "2026-10-17T03:18:33Z",
+  "decay_at": "2026-10-18T12:30:00Z",
   "status": "live",
   "promoted_signal_id": null
 }
