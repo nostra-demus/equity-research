@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T05:12:02Z",
+  "generated_at": "2026-10-17T05:14:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-145",
@@ -1837,6 +1837,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-153",
+      "headline": "IDBI Bank Disinvestment: Govt Cites 2003 Act, Delhi HC Ruling On Stake Dilution",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/economy/idbi-bank-disinvestment-govt-cites-2003-act-delhi-hc-ruling-on-stake-dilution-12197964#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T04:51:05Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "The Indian government is clarifying legal frameworks for the planned disinvestment of IDBI Bank.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "The Indian government is clarifying legal frameworks for the planned disinvestment of IDBI Bank.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IDBI Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-151",
       "headline": "Trump puts on hold new Russia sanctions he signed into law",
       "headline_en": null,
@@ -1874,60 +1923,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-139",
-      "headline": "Duke Health, CaroMont Health seek to jointly build, operate 2 Charlotte-area hospitals",
-      "headline_en": null,
-      "url": "https://www.fiercehealthcare.com/providers/duke-health-caromont-health-seek-jointly-build-operate-2-charlotte-area-hospitals",
-      "source_name": "Fierce Healthcare",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T04:08:15Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Duke Health and CaroMont Health are partnering to build two new hospitals in the Charlotte area, representing a significant capital investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Duke Health and CaroMont Health are partnering to build two new hospitals in the Charlotte area, representing a significant capital investment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Duke Health",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "CaroMont Health",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -224028,9 +224023,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4785425,
-    "news_picked_today": 233,
-    "news_dropped_today": 2575
+    "news_seen_today": 4810203,
+    "news_picked_today": 236,
+    "news_dropped_today": 2596
   },
   "book_momentum": {
     "live_count": 8,
