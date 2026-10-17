@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T04:50:51Z",
+  "generated_at": "2026-10-17T04:51:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-145",
@@ -1057,6 +1057,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-149",
+      "headline": "SHIMAO GROUP (00813): Unaudited Operating Statistics for the nine months ended 30 September 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101600740.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T09:33:00Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Release of unaudited operating statistics for the nine months ended 30 September 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Release of unaudited operating statistics for the nine months ended 30 September 2026.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shimao Group",
+          "ticker": "00813",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-024",
       "headline": "Toyota to turn all 50 models into software-defined vehicles by 2030",
       "headline_en": null,
@@ -1851,49 +1900,6 @@
       "triage_score": 86,
       "triage_reason": "The waiver of sanctions on Russian oil reduces geopolitical and trade risk for global energy markets and specific importing nations.",
       "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-096",
-      "headline": "Trump waives Russian sanctions outlined in Graham Act before they took effect",
-      "headline_en": null,
-      "url": "https://thehill.com/homenews/administration/6155621-trump-waives-russian-sanctions-act-tariffs/",
-      "source_name": "The Hill — Homenews",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T02:46:56Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "The waiver of mandated sanctions on Russia represents a significant shift in US foreign policy and geopolitical risk management.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "The waiver of mandated sanctions on Russia represents a significant shift in US foreign policy and geopolitical risk management.",
-      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
@@ -224230,9 +224236,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4459739,
-    "news_picked_today": 215,
-    "news_dropped_today": 2425
+    "news_seen_today": 4484894,
+    "news_picked_today": 219,
+    "news_dropped_today": 2445
   },
   "book_momentum": {
     "live_count": 8,
