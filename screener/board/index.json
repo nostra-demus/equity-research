@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T06:41:18Z",
+  "generated_at": "2026-10-17T06:44:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-145",
@@ -1167,6 +1167,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-175",
+      "headline": "Trump waives several Russia sanctions as row with Zelensky intensifies",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/cxr5yvzv7rp0o?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — World",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T06:39:40Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Geopolitical escalation involving the waiver of Russia sanctions amidst intensifying tensions with Ukraine.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Geopolitical escalation involving the waiver of Russia sanctions amidst intensifying tensions with Ukraine.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-144",
       "headline": "Middle East conflict: Trump lifts Russia energy sanctions, Saudi Arabia intercepts missiles",
       "headline_en": null,
@@ -1877,60 +1920,6 @@
           "name": "Toho Gas",
           "ticker": null,
           "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-050",
-      "headline": "Anthropic offers Blackstone double-digit yield in latest chip financing",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/cb4034e1-475f-40b9-a5f9-256e91aacb89?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T00:47:25Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Anthropic is securing chip financing from Blackstone with a double-digit yield.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Anthropic is securing chip financing from Blackstone with a double-digit yield.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Blackstone",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -224102,9 +224091,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5924439,
-    "news_picked_today": 274,
-    "news_dropped_today": 3278
+    "news_seen_today": 5988981,
+    "news_picked_today": 276,
+    "news_dropped_today": 3300
   },
   "book_momentum": {
     "live_count": 8,
