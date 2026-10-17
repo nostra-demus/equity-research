@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-17T15:00:12Z",
+  "generated_at": "2026-10-17T15:03:36Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261017-286",
+      "headline": "Yes Bank Limited: Press Release and Investor Presentation on the Financial Results for the Quarter (Q2) ended on September 30, 2026",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/YESBANK_17102026201157_SE_Intimation_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-17T14:42:08Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Yes Bank released its Q2 2026 financial results, which is a primary source event for investors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Yes Bank released its Q2 2026 financial results, which is a primary source event for investors.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yes Bank Limited",
+          "ticker": "532648",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261017-256",
       "headline": "IDBI Bank Limited: IDBI Bank Limited has informed the Exchange regarding a press release dated October 17, 2026, titled \"IDBI Bank Limited - Financial Results for the Quarter and Half year ended September 30, 2026\".",
@@ -1909,55 +1958,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-259",
-      "headline": "ICICI Bank Limited: ICICI Bank Limited has submitted to the Exchange, the unaudited financial results of the Bank (standalone and consolidated) for the quarter and six months ended September 30, 2026.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/ICICI2022_17102026152039_NSEBSE17102026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-17T09:51:44Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Submission of quarterly financial results for a major bank is a material event for investors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Submission of quarterly financial results for a major bank is a material event for investors.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ICICI Bank Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -224351,9 +224351,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11265214,
-    "news_picked_today": 580,
-    "news_dropped_today": 7412
+    "news_seen_today": 11307273,
+    "news_picked_today": 584,
+    "news_dropped_today": 7432
   },
   "book_momentum": {
     "live_count": 8,
