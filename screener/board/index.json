@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T00:52:37Z",
+  "generated_at": "2026-10-17T00:55:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-022",
@@ -288,60 +288,6 @@
           "name": "JS Global Life",
           "ticker": "01691",
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-011",
-      "headline": "RBI okays Scheme of Amalgamation of Indian branches of Emirates NBD with RBL Bank",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/rbi-okays-scheme-of-amalgamation-of-indian-branches-of-emirates-nbd-with-rbl-bank/article71593463.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T23:28:57Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "RBI approved the amalgamation of Emirates NBD's Indian branches with RBL Bank.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "RBI approved the amalgamation of Emirates NBD's Indian branches with RBL Bank.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "RBL Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Emirates NBD",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "mid",
@@ -910,6 +856,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-041",
+      "headline": "China's BYD turns to local assembler in Malaysia after shelving plant plan",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/automobiles/electric-vehicles/china-s-byd-turns-to-local-assembler-in-malaysia-after-shelving-plant-plan",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T00:54:16Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "BYD has shelved plans for a direct plant in Malaysia, opting instead for a local assembler, which may impact long-term margin and operational control.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "BYD has shelved plans for a direct plant in Malaysia, opting instead for a local assembler, which may impact long-term margin and operational control.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BYD",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-002",
       "headline": "EPI (HOLDINGS) (00689): DISCLOSEABLE TRANSACTION IN RELATION TO PROVISION OF LOAN FACILITIES",
       "headline_en": null,
@@ -1085,6 +1080,49 @@
       },
       "event_types": [
         "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-040",
+      "headline": "Optical parts maker to triple Malaysian capacity to tackle AI supply crunch",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/spotlight/supply-chain/optical-parts-maker-to-triple-malaysian-capacity-to-tackle-ai-supply-crunch",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T00:54:16Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "An optical parts maker is tripling its Malaysian capacity to address AI-driven supply shortages, indicating significant sector-wide demand growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "An optical parts maker is tripling its Malaysian capacity to address AI-driven supply shortages, indicating significant sector-wide demand growth.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -26,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
       ],
       "issuer_linkage": "sector",
       "companies": [],
@@ -1718,6 +1756,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-042",
+      "headline": "Meloni’s Fiscal Restraint in Italy Is Set to Endure, DBRS Says",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-17/meloni-s-fiscal-restraint-in-italy-is-set-to-endure-dbrs-says",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T00:11:36Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "DBRS expects Italy to maintain fiscal restraint, which is a routine macroeconomic outlook update.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "DBRS expects Italy to maintain fiscal restraint, which is a routine macroeconomic outlook update.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-019",
       "headline": "Iran war live: Trump claims US Navy blockade stops Iranian ships in Hormuz",
       "headline_en": null,
@@ -1798,55 +1879,6 @@
       ],
       "issuer_linkage": "sector",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-008",
-      "headline": "Anthropic’s $2 trillion IPO dream hits a new reality",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/markets/anthropic-2-trillion-ipo-dream-hits-valuation-reality",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T00:07:00Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Speculative commentary on IPO valuation expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 40,
-      "triage_reason": "Speculative commentary on IPO valuation expectations.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": -8,
-        "scope": 6,
-        "event": -3,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "unconfirmed",
-        "event_id": "rumor",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "rumor"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -224079,7 +224111,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3726,
+    "inbox_unconsumed": 3727,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -224088,9 +224120,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 701125,
-    "news_picked_today": 39,
-    "news_dropped_today": 369
+    "news_seen_today": 756898,
+    "news_picked_today": 42,
+    "news_dropped_today": 390
   },
   "book_momentum": {
     "live_count": 8,
