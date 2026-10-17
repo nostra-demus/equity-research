@@ -1,26 +1,26 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-21T08:26:31Z",
+  "archived_at": "2026-10-17T21:55:48Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-8447af34e57e",
-    "idea_version": "IDEAV-94dbbdd025a9f4e8",
-    "idea_version_started_at": "2026-09-18T12:42:52Z",
-    "ticker": "MTC",
-    "company": "Mothercare",
-    "exchange": "LSE",
+    "idea_id": "IDEA-ae786a1903f6",
+    "idea_version": "IDEAV-0bf73dbd730ac529",
+    "idea_version_started_at": "2026-10-15T04:45:55Z",
+    "ticker": "2222.SR",
+    "company": "Saudi Aramco",
+    "exchange": "TSE",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "The loss of a major Middle East franchise partner has led management to warn that the company's future is highly uncertain, indicating a potential liquidity or solvency crisis.",
-    "why_now": "The warning was issued on September 18, 2026.",
-    "conviction": 75,
+    "reason": "Renewed Houthi threats against Saudi oil infrastructure increase the risk of operational disruption and higher security-related capital expenditures.",
+    "why_now": "The threat was reported on 2026-10-14 following an attack on the company's headquarters, creating immediate geopolitical risk.",
+    "conviction": 60,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
-    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
       "impact": 20,
@@ -49,30 +49,30 @@
       "evidenceIds": []
     },
     "priced_in": "room",
-    "thesis_type": "balance_sheet_survival",
+    "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-88e3bc5ffe70"
+      "EVT-7126063b999c"
     ],
-    "primary_source_event_id": "EVT-88e3bc5ffe70",
+    "primary_source_event_id": "EVT-7126063b999c",
     "source_headlines": [
-      "Mothercare warns future ‘highly uncertain’ after Middle East franchise blow"
+      "Yemen's Houthis vow more attacks on Saudi airports, oil facilities after Aramco HQ hit"
     ],
-    "source_headline": "Mothercare warns future ‘highly uncertain’ after Middle East franchise blow",
-    "source_url": "https://www.independent.co.uk/news/business/mothercare-middle-east-iran-london-holly-williams-b3052295.html",
-    "source_name": "The Independent — Business",
-    "materiality_max": 100,
-    "newest_source_at": "2026-09-18T07:04:49Z",
+    "source_headline": "Yemen's Houthis vow more attacks on Saudi airports, oil facilities after Aramco HQ hit",
+    "source_url": "https://japantoday.com/category/world/yemen%27s-houthis-vow-more-attacks-on-saudi-airports-oil-facilities-after-aramco-hq-hit2",
+    "source_name": "Japan Today",
+    "materiality_max": 98,
+    "newest_source_at": "2026-10-14T21:36:34Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-18T12:42:52Z",
-    "updated_at": "2026-09-18T12:42:52Z",
-    "decay_at": "2026-09-19T19:04:49Z",
+    "surfaced_at": "2026-10-15T04:45:55Z",
+    "updated_at": "2026-10-15T04:45:55Z",
+    "decay_at": "2026-10-16T09:36:34Z",
     "status": "live",
     "promoted_signal_id": null
   }
