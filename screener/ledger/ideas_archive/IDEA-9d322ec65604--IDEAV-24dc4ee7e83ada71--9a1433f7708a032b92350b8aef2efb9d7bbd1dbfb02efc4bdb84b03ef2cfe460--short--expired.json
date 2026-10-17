@@ -1,28 +1,28 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-21T01:35:22Z",
+  "archived_at": "2026-10-17T13:20:28Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-73b4f77f750c",
-    "idea_version": "IDEAV-ee3711c65ab635ac",
-    "idea_version_started_at": "2026-09-18T03:01:04Z",
-    "ticker": "AIRASIA",
-    "company": "AirAsia",
-    "exchange": null,
+    "idea_id": "IDEA-9d322ec65604",
+    "idea_version": "IDEAV-24dc4ee7e83ada71",
+    "idea_version_started_at": "2026-10-14T16:36:34Z",
+    "ticker": "01813",
+    "company": "KWG Group",
+    "exchange": "HKEX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "The company is facing a severe liquidity crisis and funding shortfall, evidenced by a 21% share price collapse, which suggests a high risk of equity dilution or insolvency.",
-    "why_now": "The stock is currently experiencing extreme volatility and negative momentum as of 2026-09-18 due to mounting default fears.",
-    "conviction": 70,
+    "reason": "KWG Group is facing a winding-up petition hearing, indicating severe financial distress that could lead to liquidation.",
+    "why_now": "An update on the winding-up petition hearing was filed today, October 14, 2026, signaling an active and critical event.",
+    "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
-    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 14,
+      "evidence": 25,
       "impact": 19,
       "specificity": 7,
       "timing": 10,
@@ -36,8 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "priced-in risk",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -49,31 +47,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "priced",
+    "priced_in": "room",
     "thesis_type": "balance_sheet_survival",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-99e5208382c9"
+      "EVT-2e74092a0aea"
     ],
-    "primary_source_event_id": "EVT-99e5208382c9",
+    "primary_source_event_id": "EVT-2e74092a0aea",
     "source_headlines": [
-      "Malaysia's AirAsia shares tumble 21% as funding fears mount"
+      "KWG GROUP KWG GROUP N2701 (01813 40117): UPDATE ON WINDING-UP PETITION HEARING"
     ],
-    "source_headline": "Malaysia's AirAsia shares tumble 21% as funding fears mount",
-    "source_url": "https://asia.nikkei.com/business/transportation/malaysia-s-airasia-shares-tumble-21-as-funding-fears-mount",
-    "source_name": "Nikkei Asia",
+    "source_headline": "KWG GROUP KWG GROUP N2701 (01813 40117): UPDATE ON WINDING-UP PETITION HEARING",
+    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1014/2026101401199.pdf",
+    "source_name": "HKEXnews (HK Exchange Filing)",
     "materiality_max": 100,
-    "newest_source_at": "2026-09-18T01:24:12Z",
+    "newest_source_at": "2026-10-14T12:56:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-18T03:01:04Z",
-    "updated_at": "2026-09-18T03:01:04Z",
-    "decay_at": "2026-09-19T13:24:12Z",
+    "surfaced_at": "2026-10-14T16:36:34Z",
+    "updated_at": "2026-10-14T16:36:34Z",
+    "decay_at": "2026-10-16T00:56:00Z",
     "status": "live",
     "promoted_signal_id": null
   }
