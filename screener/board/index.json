@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T06:02:31Z",
+  "generated_at": "2026-10-17T06:14:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-145",
@@ -590,6 +590,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-167",
+      "headline": "SoftBank is said to weigh buying top U.S. security firm allied",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/10/17/softbank-eyes-top-us-security-firm/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T05:24:00Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "SoftBank is reportedly considering the acquisition of a major US security firm, indicating a significant capital deployment strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "SoftBank is reportedly considering the acquisition of a major US security firm, indicating a significant capital deployment strategy.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SoftBank Group",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1302,6 +1351,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-164",
+      "headline": "More potteries will go under if Andy Burnham reneges on promised £120m support, Portmeirion boss warns",
+      "headline_en": null,
+      "url": "https://www.thisismoney.co.uk/money/markets/article-16215077/More-potteries-Andy-Burnham-reneges-promised-120m-support-Portmeirion-boss-warns.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T06:00:59Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "The CEO of Portmeirion warns that the potential withdrawal of £120m in government support poses a significant insolvency risk to the pottery sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "The CEO of Portmeirion warns that the potential withdrawal of £120m in government support poses a significant insolvency risk to the pottery sector.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Portmeirion Group",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-024",
       "headline": "Toyota to turn all 50 models into software-defined vehicles by 2030",
       "headline_en": null,
@@ -1823,98 +1921,6 @@
       "launched_signal_id": null,
       "triage_score": 88,
       "triage_reason": "The US budget deficit has reached nearly $2 trillion, signaling significant fiscal pressure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-099",
-      "headline": "Musk approached Trump to slow down Starlink in Ukraine",
-      "headline_en": null,
-      "url": "https://www.afr.com/world/north-america/musk-approached-trump-to-slow-down-starlink-in-ukraine-20261017-p616dc?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T02:15:49Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Reports on geopolitical influence over Starlink operations in a conflict zone, affecting operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Reports on geopolitical influence over Starlink operations in a conflict zone, affecting operational risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-012",
-      "headline": "US budget deficit rises to nearly $2 trillion in 2026, highest in five years",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/world/us-budget-deficit-rises-to-nearly-2-trillion-in-2026-highest-in-five-years/article71595209.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T00:07:51Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "The US budget deficit reached nearly $2 trillion in 2026, representing a five-year high and signaling potential fiscal pressure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "The US budget deficit reached nearly $2 trillion in 2026, representing a five-year high and signaling potential fiscal pressure.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -224178,9 +224184,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5471808,
-    "news_picked_today": 260,
-    "news_dropped_today": 3004
+    "news_seen_today": 5536968,
+    "news_picked_today": 265,
+    "news_dropped_today": 3119
   },
   "book_momentum": {
     "live_count": 8,
