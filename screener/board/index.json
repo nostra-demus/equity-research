@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T00:29:51Z",
+  "generated_at": "2026-10-17T00:33:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-010",
@@ -382,6 +382,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-014",
+      "headline": "Italy widens flotilla torture probe to include Israeli defence minister, others",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/italy-widens-flotilla-torture-probe-include-israeli-defence-minister",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T00:27:00Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Legal investigation into a foreign defense minister creates geopolitical and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Legal investigation into a foreign defense minister creates geopolitical and reputational risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Israeli Ministry of Defense",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -222693,7 +222742,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3700,
+    "inbox_unconsumed": 3701,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -222702,9 +222751,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 393571,
-    "news_picked_today": 13,
-    "news_dropped_today": 227
+    "news_seen_today": 449589,
+    "news_picked_today": 14,
+    "news_dropped_today": 250
   },
   "book_momentum": {
     "live_count": 8,
