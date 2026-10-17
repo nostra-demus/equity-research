@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T12:25:17Z",
+  "generated_at": "2026-10-17T12:25:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-256",
@@ -182572,26 +182572,26 @@
     },
     {
       "idea_id": "IDEA-3d70daa14c61",
-      "idea_version": "IDEAV-31cbb93b5be76cf8",
-      "idea_version_started_at": "2026-10-17T11:50:37Z",
+      "idea_version": "IDEAV-b8e571e6ddb32fd1",
+      "idea_version_started_at": "2026-10-17T12:25:32Z",
       "ticker": "IDBI",
-      "company": "IDBI Bank Limited",
+      "company": "IDBI Bank",
       "exchange": "NSE",
       "direction": "short",
       "pair_with": null,
-      "reason": "IDBI Bank reported a significant 39% year-on-year decline in net profit and a sharp 49% drop in net interest income for Q2, indicating deteriorating margins and operational weakness.",
-      "why_now": "The poor quarterly results were released on October 17, 2026.",
-      "conviction": 80,
+      "reason": "A 39% drop in net profit driven by moderating non-interest income highlights structural weakness in the bank's earnings profile.",
+      "why_now": "The Q2 FY27 results were reported on 2026-10-17, confirming the earnings miss.",
+      "conviction": 70,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 45,
       "trade_score_basis": "event_driven_v3",
       "trade_score_breakdown": {
         "evidence": 14,
-        "impact": 21,
+        "impact": 20,
         "specificity": 7,
         "timing": 10,
         "expression": 0,
-        "corroboration": 7,
+        "corroboration": 0,
         "learning_adjustment": 0
       },
       "trade_readiness": "watch_only",
@@ -182600,6 +182600,7 @@
         "verified listing",
         "live liquidity",
         "dated catalyst",
+        "independent confirmation",
         "live price, liquidity, and consensus"
       ],
       "learning": {
@@ -182616,19 +182617,17 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-4253ea441d06",
-        "EVT-b0570d7d0914"
+        "EVT-bb61637ace33"
       ],
-      "primary_source_event_id": "EVT-4253ea441d06",
+      "primary_source_event_id": "EVT-bb61637ace33",
       "source_headlines": [
-        "IDBI Bank Q2 results: Net profit tanks 39% YoY to Rs 2,205 crore; NII dips 49% YoY",
-        "IDBI Bank Q2 Results: Net Profit Falls 39%, Net Interest Income Jumps Nearly 30%"
+        "IDBI Bank Q2 FY27 results: Net profit falls 39% to ₹2,205 cr as non-interest income moderates"
       ],
-      "source_headline": "IDBI Bank Q2 results: Net profit tanks 39% YoY to Rs 2,205 crore; NII dips 49% YoY",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/idbi-bank-q2-results-net-profit-tanks-39-yoy-to-rs-2205-crore-nii-dips-49-yoy/articleshow/135011867.cms",
-      "source_name": "The Economic Times",
+      "source_headline": "IDBI Bank Q2 FY27 results: Net profit falls 39% to ₹2,205 cr as non-interest income moderates",
+      "source_url": "https://www.thehindubusinessline.com/money-and-banking/idbi-bank-q2-results-net-profit-falls-39-to-2205-cr-as-non-interest-income-moderates/article71596226.ece",
+      "source_name": "The Hindu BusinessLine",
       "materiality_max": 100,
-      "newest_source_at": "2026-10-17T10:14:42Z",
+      "newest_source_at": "2026-10-17T11:56:39Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
@@ -182636,8 +182635,8 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-10-15T10:07:38Z",
-      "updated_at": "2026-10-17T11:50:37Z",
-      "decay_at": "2026-10-18T22:14:42Z",
+      "updated_at": "2026-10-17T12:25:32Z",
+      "decay_at": "2026-10-18T23:56:39Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -187023,77 +187022,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-d39de226be65",
-      "idea_version": "IDEAV-5e87e4cd92cb8dbb",
-      "idea_version_started_at": "2026-10-14T15:32:35Z",
-      "ticker": "IDBI",
-      "company": "IDBI Bank Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The cabinet approval of a strategic stake sale to Fairfax for Rs 52,878 crore acts as a major catalyst for valuation re-rating and structural transformation.",
-      "why_now": "The news of the cabinet approval surfaced today, October 14, 2026, with the company currently awaiting formal response to exchange queries.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-18e2ed8f2399"
-      ],
-      "primary_source_event_id": "EVT-18e2ed8f2399",
-      "source_headlines": [
-        "IDBI Bank Limited: The Exchange has sought clarification from IDBI Bank Limited with respect to recent news item captioned Cabinet Approves IDBI Bank Stake Sale To Fairfax For Rs 52,878 Crore; FM Calls It Strategic Restructuring. The response from the Company is awaited."
-      ],
-      "source_headline": "IDBI Bank Limited: The Exchange has sought clarification from IDBI Bank Limited with respect to recent news item captioned Cabinet Approves IDBI Bank Stake Sale To Fairfax For Rs 52,878 Crore; FM Calls It Strategic Restructuring. The response from the Company is awaited.",
-      "source_url": "https://www.nseindia.com/companies-listing/corporate-filings-announcements?symbol=IDBI&seq=106817473",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-14T12:05:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-14T15:32:35Z",
-      "updated_at": "2026-10-14T15:32:35Z",
-      "decay_at": "2026-10-16T00:05:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-ae786a1903f6",
       "idea_version": "IDEAV-0bf73dbd730ac529",
       "idea_version_started_at": "2026-10-15T04:45:55Z",
@@ -187319,14 +187247,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 537,
     "shown_count": 499,
-    "hidden_count": 39,
+    "hidden_count": 38,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 275,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 25
       },
       "short": {
         "total_count": 263,
@@ -187336,12 +187264,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1084,
+      "evicted_count": 1085,
       "oldest_retained_at": "2026-09-19T04:35:16Z",
       "side_counts": {
         "long": {
-          "evicted_count": 717,
-          "oldest_retained_at": "2026-10-04T07:10:06Z"
+          "evicted_count": 718,
+          "oldest_retained_at": "2026-10-04T07:19:02Z"
         },
         "short": {
           "evicted_count": 367,
@@ -190252,8 +190180,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-16T00:05:46Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-17T12:25:36Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
