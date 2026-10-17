@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T08:31:18Z",
+  "generated_at": "2026-10-17T08:34:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-225",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-246",
+      "headline": "Axis Bank Limited: Axis Bank Limited has informed the Exchange regarding a press release dated October 17, 2026, titled \"Press Release Q2FY27\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/AXISBANK1_17102026130712_PressRelease_IR_PPT_Q2FY27Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-17T07:37:20Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Axis Bank released its Q2FY27 financial results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Axis Bank released its Q2FY27 financial results.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Axis Bank Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1871,49 +1920,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-143",
-      "headline": "Trump waives key sanctions on Russian oil, invokes Section 115 of the Graham Act: Here's what it means for India",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/us-news/trump-waives-key-sanctions-on-russian-oil-invokes-section-115-of-the-graham-act-heres-what-it-means-for-india-11792210114695.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T04:18:14Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "The waiver of sanctions on Russian oil is a significant geopolitical shift affecting energy supply and trade costs for India.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "The waiver of sanctions on Russian oil is a significant geopolitical shift affecting energy supply and trade costs for India.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
@@ -224095,9 +224101,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7224298,
-    "news_picked_today": 382,
-    "news_dropped_today": 4226
+    "news_seen_today": 7242821,
+    "news_picked_today": 384,
+    "news_dropped_today": 4248
   },
   "book_momentum": {
     "live_count": 8,
