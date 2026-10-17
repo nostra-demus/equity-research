@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T03:33:35Z",
+  "generated_at": "2026-10-17T03:38:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-100",
@@ -1267,6 +1267,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-107",
+      "headline": "Donald Trump Waives Russia And Iran Sanctions Under Graham Act, Cites US National Interest As India Faces Potential Russian Oil Tariffs",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/donald-trump-waives-russia-and-iran-sanctions-under-graham-act-cites-us-national-interest-as-india-faces-potential-russian-oil-tariffs",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T02:55:34Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Potential Russian oil tariffs pose a significant risk to energy supply chains and trade relations for India.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Potential Russian oil tariffs pose a significant risk to energy supply chains and trade relations for India.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-101",
       "headline": "Trump waives several Russia sanctions as new US law takes effect",
       "headline_en": null,
@@ -1623,6 +1666,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-108",
+      "headline": "Trump puts new Russia sanctions that he recently signed into law on hold, citing national interest",
+      "headline_en": null,
+      "url": "https://japantoday.com/category/world/trump-puts-new-russia-sanctions-passed-by-congress-on-hold-saying-a-waiver-is-in-the-us-national-interest",
+      "source_name": "Japan Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T03:22:38Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "A change in US sanctions policy regarding Russia has broad geopolitical and market implications.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "A change in US sanctions policy regarding Russia has broad geopolitical and market implications.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-066",
       "headline": "Travel booking platform Klook Technology files to withdraw US listing",
       "headline_en": null,
@@ -1802,104 +1888,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-060",
-      "headline": "SCHEDULE 13D/A - ALX ONCOLOGY HOLDINGS INC (0001810182) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1810182/000090514826004485/0000905148-26-004485-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-17T01:21:15Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "An amended 13D filing indicates a change in the ownership position of a significant shareholder in ALX Oncology Holdings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "An amended 13D filing indicates a change in the ownership position of a significant shareholder in ALX Oncology Holdings.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ALX Oncology Holdings Inc",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-087",
-      "headline": "E-COMMODITIES (01733): DISCLOSEABLE TRANSACTION AND CONNECTED TRANSACTION REGARDING PROVISION OF THE COUNTER-GUARANTEE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101601070.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T10:42:00Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "The company is providing a counter-guarantee, which is classified as a discloseable and connected transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 78,
-      "triage_reason": "The company is providing a counter-guarantee, which is classified as a discloseable and connected transaction.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "E-Commodities",
-          "ticker": "01733",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -224142,9 +224130,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3408444,
-    "news_picked_today": 134,
-    "news_dropped_today": 1810
+    "news_seen_today": 3461850,
+    "news_picked_today": 139,
+    "news_dropped_today": 1829
   },
   "book_momentum": {
     "live_count": 8,
