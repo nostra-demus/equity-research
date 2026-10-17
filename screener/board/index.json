@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T10:20:05Z",
+  "generated_at": "2026-10-17T10:26:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-256",
@@ -1471,6 +1471,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-260",
+      "headline": "Trump waives broad new Russia sanctions and tariffs under Graham Act, citing national interest",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/17/trump-waives-russia-related-sanctions-tariffs-before-they-take-effect-.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T10:20:44Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "The waiver of broad sanctions and tariffs under the Graham Act reduces geopolitical and trade risk for US-Russia relations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "The waiver of broad sanctions and tariffs under the Graham Act reduces geopolitical and trade risk for US-Russia relations.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-170",
       "headline": "Trump waives key Russia sanctions, tariffs before they take effect",
       "headline_en": null,
@@ -1886,56 +1929,6 @@
           "name": "Tian An Allied Group",
           "ticker": null,
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-057",
-      "headline": "Varroc Engineering Limited: Varroc Engineering Limited has informed the Exchange regarding a press release dated October 16, 2026, titled \"Varroc and Forsee Power to Form Joint Venture to Scale EV Battery Solutions in India\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/VARROC_16102026163520_Forsee_Press_Release.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T11:05:28Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Varroc Engineering is forming a joint venture with Forsee Power to scale EV battery solutions in India.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Varroc Engineering is forming a joint venture with Forsee Power to scale EV battery solutions in India.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Varroc Engineering Ltd",
-          "ticker": "541578",
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -224471,9 +224464,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8490481,
-    "news_picked_today": 448,
-    "news_dropped_today": 5024
+    "news_seen_today": 8561037,
+    "news_picked_today": 454,
+    "news_dropped_today": 5066
   },
   "book_momentum": {
     "live_count": 8,
