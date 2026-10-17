@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T06:14:47Z",
+  "generated_at": "2026-10-17T06:28:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-145",
@@ -184508,77 +184508,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-6da37c6084e5",
-      "idea_version": "IDEAV-330fc2e88fdf24a9",
-      "idea_version_started_at": "2026-10-14T08:35:25Z",
-      "ticker": "ASML",
-      "company": "ASML",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Raising guidance for the third time due to AI demand indicates that the company's order book and pricing power are stronger than market expectations.",
-      "why_now": "The guidance update was released on 2026-10-14.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-93805fb577f4"
-      ],
-      "primary_source_event_id": "EVT-93805fb577f4",
-      "source_headlines": [
-        "Chip-Machine Supplier ASML Boosts Guidance for Third Time On Surging AI Demand"
-      ],
-      "source_headline": "Chip-Machine Supplier ASML Boosts Guidance for Third Time On Surging AI Demand",
-      "source_url": "https://www.wsj.com/business/earnings/chip-machine-supplier-asml-boosts-guidance-for-third-time-on-surging-ai-demand-7ea173d9?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-14T05:21:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-14T08:35:25Z",
-      "updated_at": "2026-10-14T08:35:25Z",
-      "decay_at": "2026-10-15T17:21:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d6a9504a0851",
       "idea_version": "IDEAV-d406d1e636fd4713",
       "idea_version_started_at": "2026-10-16T01:24:24Z",
@@ -186959,14 +186888,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 537,
+    "total_count": 536,
     "shown_count": 499,
-    "hidden_count": 38,
+    "hidden_count": 37,
     "side_counts": {
       "long": {
-        "total_count": 275,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 25
+        "hidden_count": 24
       },
       "short": {
         "total_count": 263,
@@ -186976,12 +186905,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1082,
+      "evicted_count": 1083,
       "oldest_retained_at": "2026-09-19T01:39:41Z",
       "side_counts": {
         "long": {
-          "evicted_count": 716,
-          "oldest_retained_at": "2026-10-04T05:12:35Z"
+          "evicted_count": 717,
+          "oldest_retained_at": "2026-10-04T07:10:06Z"
         },
         "short": {
           "evicted_count": 366,
@@ -189822,8 +189751,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-15T17:21:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-17T06:27:56Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -224184,9 +224113,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5536968,
+    "news_seen_today": 5731105,
     "news_picked_today": 265,
-    "news_dropped_today": 3119
+    "news_dropped_today": 3167
   },
   "book_momentum": {
     "live_count": 8,
