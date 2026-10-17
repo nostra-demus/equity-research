@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T11:10:58Z",
+  "generated_at": "2026-10-17T11:23:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-256",
@@ -1281,6 +1281,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-270",
+      "headline": "SpaceX Starlink Cuts Hobbled Ukraine Before Russian Bombardment",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-17/spacex-starlink-cuts-hobbled-ukraine-before-russian-bombardment",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "SpaceX Starlink service disruptions in Ukraine during Russian bombardment represent a significant operational and geopolitical risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "SpaceX Starlink service disruptions in Ukraine during Russian bombardment represent a significant operational and geopolitical risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations",
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-214",
       "headline": "Woman killed, five civilians injured in Houthi shelling and sniper fire",
       "headline_en": null,
@@ -1883,55 +1933,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-182",
-      "headline": "Airworthiness Directives; The Boeing Company Airplanes",
-      "headline_en": null,
-      "url": "https://www.federalregister.gov/documents/2026/10/19/2026-21326/airworthiness-directives-the-boeing-company-airplanes",
-      "source_name": "Federal Register — Latest Documents",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-19T04:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Airworthiness directives for Boeing aircraft represent ongoing regulatory and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Airworthiness directives for Boeing aircraft represent ongoing regulatory and operational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "The Boeing Company",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -224540,9 +224541,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8942671,
-    "news_picked_today": 480,
-    "news_dropped_today": 5496
+    "news_seen_today": 9095118,
+    "news_picked_today": 484,
+    "news_dropped_today": 5588
   },
   "book_momentum": {
     "live_count": 8,
