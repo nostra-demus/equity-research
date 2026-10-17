@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T12:25:54Z",
+  "generated_at": "2026-10-17T12:30:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-256",
@@ -1717,6 +1717,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-276",
+      "headline": "ASSA ABLOY To Divest HID's PKI Business Unit To Vista Equity Partners",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/assa-abloy-divest-hids-pki-business-unit-vista-equity-partners",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T11:54:29Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "ASSA ABLOY is divesting its HID PKI business unit to Vista Equity Partners.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "ASSA ABLOY is divesting its HID PKI business unit to Vista Equity Partners.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ASSA ABLOY",
+          "ticker": null,
+          "listing_country": "SE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-260",
       "headline": "Trump waives broad new Russia sanctions and tariffs under Graham Act, citing national interest",
       "headline_en": null,
@@ -1867,49 +1916,6 @@
       "triage_score": 96,
       "triage_reason": "A major shift in US foreign policy regarding Russia sanctions and tariffs would have significant global economic and geopolitical implications.",
       "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-102",
-      "headline": "Trump Waives Most Russia Sanctions Passed by Congress",
-      "headline_en": null,
-      "url": "https://www.wsj.com/politics/policy/trump-waives-most-russia-sanctions-passed-by-congress-4c36bc93?mod=rss_worldnews",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T03:02:00Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "The waiver of major sanctions against Russia represents a significant shift in geopolitical and trade policy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "The waiver of major sanctions against Russia represents a significant shift in geopolitical and trade policy.",
-      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 85,
       "rank_factors": {
@@ -224469,9 +224475,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9692879,
-    "news_picked_today": 511,
-    "news_dropped_today": 6065
+    "news_seen_today": 9725423,
+    "news_picked_today": 513,
+    "news_dropped_today": 6087
   },
   "book_momentum": {
     "live_count": 8,
