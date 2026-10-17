@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T01:20:44Z",
+  "generated_at": "2026-10-17T01:21:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-022",
@@ -959,6 +959,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-054",
+      "headline": "Landsmill Green Limited: Landsmill Green Limited has informed the Exchange regarding 'Withdrawal of Reclassification Application of Promoters'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/EXCEL_16102026163826_BSE_NSE_Upload.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T11:08:41Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "The company withdrew its application to reclassify its promoters, which affects the regulatory status of its shareholding structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "The company withdrew its application to reclassify its promoters, which affects the regulatory status of its shareholding structure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Landsmill Green Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-009",
       "headline": "Brent crude hits $110 a barrel for first time since May as supply concerns mount",
       "headline_en": null,
@@ -1529,6 +1578,98 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-055",
+      "headline": "DCB Bank Limited: board meeting 23-Oct-2026 — Board Meeting Intimation",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/xbrl/PRIOR_INTIMATION_2453_WebXMLFile_20261016_163831079.xml",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T11:08:33Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Routine board meeting intimation for DCB Bank.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "Routine board meeting intimation for DCB Bank.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DCB Bank Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-056",
+      "headline": "Gazette Notification issued by SEBI titled “Securities and Exchange Board of India (Certification of Associated Persons in the Securities Markets) (Amendment) Regulations, 2026”",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261016-21/20261016-21.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T11:08:29Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "SEBI issued an amendment to certification regulations for associated persons in the securities market, impacting industry compliance requirements.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "SEBI issued an amendment to certification regulations for associated persons in the securities market, impacting industry compliance requirements.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-040",
       "headline": "Optical parts maker to triple Malaysian capacity to tackle AI supply crunch",
       "headline_en": null,
@@ -1757,152 +1898,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-005",
-      "headline": "Centcom commander says naval blockade cost Iran $25B in oil revenue",
-      "headline_en": null,
-      "url": "https://thehill.com/newsletters/defense-national-security/6155474-centcom-commander-says-naval-blockade-cost-iran-25b-in-oil-revenue/",
-      "source_name": "The Hill — Homenews",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T23:12:48Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "A naval blockade has resulted in a quantified $25B loss in oil revenue for Iran, impacting global energy supply dynamics.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "A naval blockade has resulted in a quantified $25B loss in oil revenue for Iran, impacting global energy supply dynamics.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-017",
-      "headline": "Japan's Sumitomo, Hankyu to test Philippine power-saving rail system",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/transportation/japan-s-sumitomo-hankyu-to-test-philippine-power-saving-rail-system",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T00:33:52Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Sumitomo and Hankyu are testing a new power-saving rail system in the Philippines, indicating potential new revenue streams.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "Sumitomo and Hankyu are testing a new power-saving rail system in the Philippines, indicating potential new revenue streams.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sumitomo",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "Hankyu",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-007",
-      "headline": "Blue Owl Founders Promised a Comeback. The Company’s Share Price Hasn’t Budged.",
-      "headline_en": null,
-      "url": "https://www.wsj.com/finance/blue-owl-stock-price-private-credit-ca6673d9?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Opinion piece on share price performance and management promises.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "Opinion piece on share price performance and management promises.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Blue Owl Capital",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -224217,9 +224212,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1173813,
-    "news_picked_today": 55,
-    "news_dropped_today": 569
+    "news_seen_today": 1229227,
+    "news_picked_today": 58,
+    "news_dropped_today": 590
   },
   "book_momentum": {
     "live_count": 8,
