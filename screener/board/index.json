@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T03:05:19Z",
+  "generated_at": "2026-10-17T03:08:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-100",
@@ -345,6 +345,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-102",
+      "headline": "Trump Waives Most Russia Sanctions Passed by Congress",
+      "headline_en": null,
+      "url": "https://www.wsj.com/politics/policy/trump-waives-most-russia-sanctions-passed-by-congress-4c36bc93?mod=rss_worldnews",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T03:02:00Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "The waiver of major sanctions against Russia represents a significant shift in geopolitical and trade policy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "The waiver of major sanctions against Russia represents a significant shift in geopolitical and trade policy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1857,55 +1900,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-069",
-      "headline": "SCHEDULE 13D/A - Hilltop Holdings Inc. (0001265131) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1265131/000119312526424467/0001193125-26-424467-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-17T01:52:26Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "A Schedule 13D/A filing indicates a change in significant shareholding for Hilltop Holdings Inc.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "A Schedule 13D/A filing indicates a change in significant shareholding for Hilltop Holdings Inc.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hilltop Holdings Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -183549,79 +183543,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b5d8689162af",
-      "idea_version": "IDEAV-a2190305b54caf21",
-      "idea_version_started_at": "2026-10-15T18:08:38Z",
-      "ticker": "LTF",
-      "company": "L&T Finance",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A 33% jump in net profit driven by retail loan growth indicates strong execution and effective balance sheet management in the current credit environment.",
-      "why_now": "The Q2 earnings were released on October 15, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5053538f5082"
-      ],
-      "primary_source_event_id": "EVT-5053538f5082",
-      "source_headlines": [
-        "L&T Finance Q2 results: Net profit jumps 33% to ₹975 crore as retail loans grow"
-      ],
-      "source_headline": "L&T Finance Q2 results: Net profit jumps 33% to ₹975 crore as retail loans grow",
-      "source_url": "https://www.cnbctv18.com/market/earnings/lt-finance-q2-results-net-profit-jumps-33-to-rs975-crore-as-retail-loans-grow-20012958.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-15T15:08:13Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-15T18:08:38Z",
-      "updated_at": "2026-10-15T18:08:38Z",
-      "decay_at": "2026-10-17T03:08:13Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-127874aade22",
       "idea_version": "IDEAV-625599fac8ef9ef4",
       "idea_version_started_at": "2026-10-15T17:28:05Z",
@@ -184613,6 +184534,79 @@
       "surfaced_at": "2026-10-16T00:20:15Z",
       "updated_at": "2026-10-16T00:20:15Z",
       "decay_at": "2026-10-17T02:03:16Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-b5d8689162af",
+      "idea_version": "IDEAV-a2190305b54caf21",
+      "idea_version_started_at": "2026-10-15T18:08:38Z",
+      "ticker": "LTF",
+      "company": "L&T Finance",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A 33% jump in net profit driven by retail loan growth indicates strong execution and effective balance sheet management in the current credit environment.",
+      "why_now": "The Q2 earnings were released on October 15, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5053538f5082"
+      ],
+      "primary_source_event_id": "EVT-5053538f5082",
+      "source_headlines": [
+        "L&T Finance Q2 results: Net profit jumps 33% to ₹975 crore as retail loans grow"
+      ],
+      "source_headline": "L&T Finance Q2 results: Net profit jumps 33% to ₹975 crore as retail loans grow",
+      "source_url": "https://www.cnbctv18.com/market/earnings/lt-finance-q2-results-net-profit-jumps-33-to-rs975-crore-as-retail-loans-grow-20012958.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-15T15:08:13Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-15T18:08:38Z",
+      "updated_at": "2026-10-15T18:08:38Z",
+      "decay_at": "2026-10-17T03:08:13Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -186996,14 +186990,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 539,
     "shown_count": 499,
-    "hidden_count": 39,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
-        "total_count": 274,
+        "total_count": 275,
         "shown_count": 250,
-        "hidden_count": 24
+        "hidden_count": 25
       },
       "short": {
         "total_count": 265,
@@ -187027,6 +187021,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b5d8689162af",
+        "idea_version": "IDEAV-a2190305b54caf21",
+        "idea_version_started_at": "2026-10-15T18:08:38Z",
+        "ticker": "LTF",
+        "company": "L&T Finance",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "A 33% jump in net profit driven by retail loan growth indicates strong execution and effective balance sheet management in the current credit environment.",
+        "why_now": "The Q2 earnings were released on October 15, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5053538f5082"
+        ],
+        "primary_source_event_id": "EVT-5053538f5082",
+        "source_headlines": [
+          "L&T Finance Q2 results: Net profit jumps 33% to ₹975 crore as retail loans grow"
+        ],
+        "source_headline": "L&T Finance Q2 results: Net profit jumps 33% to ₹975 crore as retail loans grow",
+        "source_url": "https://www.cnbctv18.com/market/earnings/lt-finance-q2-results-net-profit-jumps-33-to-rs975-crore-as-retail-loans-grow-20012958.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-15T15:08:13Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-15T18:08:38Z",
+        "updated_at": "2026-10-15T18:08:38Z",
+        "decay_at": "2026-10-17T03:08:13Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-17T03:08:13Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-e9dd060b2328",
         "idea_version": "IDEAV-dade782e1a5b8c28",
@@ -215127,79 +215197,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-48413a08f7ae",
-        "idea_version": "IDEAV-29103cd9a7b08a45",
-        "idea_version_started_at": "2026-10-03T10:55:05Z",
-        "ticker": "REGN",
-        "company": "Regeneron",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Regeneron is part of a $1B upfront deal related to weight loss drugs, suggesting potential for future revenue growth.",
-        "why_now": "The deal was announced today, providing a current catalyst.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a12c0ef1853a"
-        ],
-        "primary_source_event_id": "EVT-a12c0ef1853a",
-        "source_headlines": [
-          "Eli Lilly’s best-ever weight loss data; Sanofi, Regeneron re-up for $1B upfront; and more"
-        ],
-        "source_headline": "Eli Lilly’s best-ever weight loss data; Sanofi, Regeneron re-up for $1B upfront; and more",
-        "source_url": "https://endpoints.news/eli-lillys-best-ever-weight-loss-data-sanofi-regeneron-re-up-for-1b-upfront-and-more/",
-        "source_name": "Endpoints News",
-        "materiality_max": 96,
-        "newest_source_at": "2026-10-03T10:00:09Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-01T10:19:20Z",
-        "updated_at": "2026-10-03T10:55:05Z",
-        "decay_at": "2026-10-04T22:00:09Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-06T10:47:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c4367824b313",
         "idea_version": "IDEAV-b9e02035854b9685",
         "idea_version_started_at": "2026-10-03T12:06:09Z",
@@ -224202,7 +224199,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1648,
-    "live_count": 32,
+    "live_count": 31,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -224221,9 +224218,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2951707,
-    "news_picked_today": 122,
-    "news_dropped_today": 1486
+    "news_seen_today": 3005683,
+    "news_picked_today": 123,
+    "news_dropped_today": 1509
   },
   "book_momentum": {
     "live_count": 8,
