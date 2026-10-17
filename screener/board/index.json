@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T02:52:12Z",
+  "generated_at": "2026-10-17T02:55:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-095",
@@ -1083,6 +1083,92 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-096",
+      "headline": "Trump waives Russian sanctions outlined in Graham Act before they took effect",
+      "headline_en": null,
+      "url": "https://thehill.com/homenews/administration/6155621-trump-waives-russian-sanctions-act-tariffs/",
+      "source_name": "The Hill — Homenews",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T02:46:56Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "The waiver of mandated sanctions on Russia represents a significant shift in US foreign policy and geopolitical risk management.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "The waiver of mandated sanctions on Russia represents a significant shift in US foreign policy and geopolitical risk management.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-097",
+      "headline": "Trump exempts Russia from further sanctions mandated by new law",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/836eddd7-3adc-4cbb-8527-7a0a7a277e50?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T02:31:59Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "The waiver of mandated sanctions on Russia represents a significant shift in US foreign policy and geopolitical risk management.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "The waiver of mandated sanctions on Russia represents a significant shift in US foreign policy and geopolitical risk management.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-077",
       "headline": "Trump waives many Russia-related sanctions, tariffs before they were to take effect under new law",
       "headline_en": null,
@@ -1820,104 +1906,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-053",
-      "headline": "Aegis Logistics Limited: Aegis Logistics Limited has informed the Exchange about Credit Rating",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/AEGISCHEM_16102026163924_ALL_SE_ESGrating_NSE_Signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T11:10:21Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Aegis Logistics received a credit rating update, which is a standard disclosure for debt-issuing entities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "Aegis Logistics received a credit rating update, which is a standard disclosure for debt-issuing entities.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "credit_rating_upgrade",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "credit_rating_upgrade"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aegis Logistics Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-084",
-      "headline": "GP Petroleums Limited: GP Petroleums Limited has informed the Exchange regarding Corrigendum to Notice of Postal Ballot for seeking approval of members for issue of Optionally Convertible Debentures on a preferential basis by way of private placement through postal ballot process.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/GULFPETRO_16102026160905_CorrigendumPostalBallot2026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T10:43:36Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "The company is seeking shareholder approval for a private placement of Optionally Convertible Debentures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 71,
-      "triage_reason": "The company is seeking shareholder approval for a private placement of Optionally Convertible Debentures.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GP Petroleums Limited",
-          "ticker": "532543",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -224233,9 +224221,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2762453,
-    "news_picked_today": 107,
-    "news_dropped_today": 1381
+    "news_seen_today": 2789529,
+    "news_picked_today": 109,
+    "news_dropped_today": 1403
   },
   "book_momentum": {
     "live_count": 8,
