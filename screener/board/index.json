@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T00:34:59Z",
+  "generated_at": "2026-10-17T00:40:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-010",
@@ -286,6 +286,99 @@
       },
       "event_types": [
         "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-021",
+      "headline": "Starlink says it is ready to offer high-speed internet in India, cites government approvals",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/starlink-says-it-is-ready-to-offer-high-speed-internet-in-india-cites-government-approvals/article71594332.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T00:18:08Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Starlink's readiness to offer high-speed internet in India following government approvals signals a major market entry and competitive shift in the Indian telecom sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Starlink's readiness to offer high-speed internet in India following government approvals signals a major market entry and competitive shift in the Indian telecom sector.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Starlink",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-018",
+      "headline": "U.S. government warns of new travel ban for Americans",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/travel/united-states-government-reconsider-travel-saudi-arabia",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T00:33:00Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "A new travel ban for Americans represents a significant shift in geopolitical and operational risk for travel and global business sectors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "A new travel ban for Americans represents a significant shift in geopolitical and operational risk for travel and global business sectors.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -620,6 +713,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-020",
+      "headline": "ISRO completes Gaganyaan separation tests ahead of first uncrewed mission in 2026",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/science/isro-completes-gaganyaan-separation-tests-ahead-of-first-uncrewed-mission-in-2026/article71594337.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T00:23:20Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Successful testing for the Gaganyaan mission marks operational progress for ISRO, though it is a government entity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Successful testing for the Gaganyaan mission marks operational progress for ISRO, though it is a government entity.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ISRO",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-005",
       "headline": "Centcom commander says naval blockade cost Iran $25B in oil revenue",
       "headline_en": null,
@@ -761,6 +903,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-019",
+      "headline": "Iran war live: Trump claims US Navy blockade stops Iranian ships in Hormuz",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/liveblog/2026/10/17/draft-2?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-10-17T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Claims of a US Navy blockade in the Strait of Hormuz represent a major geopolitical escalation and potential supply shock for global energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Claims of a US Navy blockade in the Strait of Hormuz represent a major geopolitical escalation and potential supply shock for global energy markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -222894,7 +223079,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3704,
+    "inbox_unconsumed": 3708,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -222903,9 +223088,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 477584,
-    "news_picked_today": 17,
-    "news_dropped_today": 271
+    "news_seen_today": 533536,
+    "news_picked_today": 21,
+    "news_dropped_today": 291
   },
   "book_momentum": {
     "live_count": 8,
