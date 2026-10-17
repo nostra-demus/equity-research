@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T14:04:16Z",
+  "generated_at": "2026-10-17T14:10:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-256",
@@ -193,6 +193,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-280",
+      "headline": "Q2 Results LIVE Updates: Yes Bank Net profit at ₹1,080 crore; Provisions fall, other income up",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/q2-results-live-updates-hdfc-icici-axis-yes-bank-central-bank-idbi-india-cements-bajaj-health-share-price-liveblog-20014006.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T14:01:56Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Yes Bank reported a net profit of ₹1,080 crore for Q2, with improved income and lower provisions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Yes Bank reported a net profit of ₹1,080 crore for Q2, with improved income and lower provisions.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yes Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1889,49 +1938,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-170",
-      "headline": "Trump waives key Russia sanctions, tariffs before they take effect",
-      "headline_en": null,
-      "url": "https://www.emirates247.com/world/trump-waives-russia-sanctions-and-tariffs-under-2026-law-citing-us-national-interest/6848",
-      "source_name": "Emirates 24|7 — Flash News (general)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T06:12:00Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "The waiver of sanctions and tariffs on Russia is a significant policy shift affecting international trade and energy markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "The waiver of sanctions and tariffs on Russia is a significant policy shift affecting international trade and energy markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
@@ -224122,9 +224128,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10732859,
-    "news_picked_today": 557,
-    "news_dropped_today": 6883
+    "news_seen_today": 10777277,
+    "news_picked_today": 559,
+    "news_dropped_today": 6929
   },
   "book_momentum": {
     "live_count": 8,
