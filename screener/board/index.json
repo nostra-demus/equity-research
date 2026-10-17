@@ -1,38 +1,38 @@
 {
-  "generated_at": "2026-10-17T08:37:47Z",
+  "generated_at": "2026-10-17T08:41:27Z",
   "inbox": [
     {
-      "inbox_id": "INB-20261017-225",
-      "headline": "Central Bank of India: Central Bank of India has submitted to the Exchange, the financial results for the period ended September 30, 2026.",
+      "inbox_id": "INB-20261017-247",
+      "headline": "HDFC Bank Limited: HDFC Bank Limited has submitted to the Exchange, the financial results for the period ended September 30, 2026.",
       "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/CENTRALBK_17102026131852_Final_SE_Outcome.pdf",
+      "url": "https://nsearchives.nseindia.com/corporate/HDFCBANK_17102026135520_OutcomeofBMResults_17oct2026.pdf",
       "source_name": "BSE / NSE Exchange Filing",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-10-17T07:49:47Z",
+      "found_at": "2026-10-17T08:26:22Z",
       "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Central Bank of India submitted its Q2 financial results for the period ended September 30, 2026.",
+      "prelim_note": "HDFC Bank has officially filed its quarterly financial results for the period ending September 30, 2026.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Central Bank of India submitted its Q2 financial results for the period ended September 30, 2026.",
+      "triage_reason": "HDFC Bank has officially filed its quarterly financial results for the period ending September 30, 2026.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 80,
       "rank_factors": {
         "materiality": 80,
         "source_tier": 8,
-        "scope": 2,
+        "scope": 6,
         "event": 5,
-        "size": 1,
+        "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "policy",
+        "scope_id": "single_name",
         "source_tier_id": "primary_filing",
         "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
+        "size_bucket": "mega"
       },
       "event_types": [
         "earnings_revenue_margin"
@@ -40,12 +40,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Central Bank of India",
-          "ticker": null,
+          "name": "HDFC Bank Limited",
+          "ticker": "HDFCBANK",
           "listing_country": "IN"
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -144,6 +144,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-248",
+      "headline": "Q2 Results LIVE Updates: HDFC Bank net profit at ₹19,509 crore; Net NPA falls from June",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/q2-results-live-updates-hdfc-icici-axis-yes-bank-central-bank-idbi-india-cements-bajaj-health-share-price-liveblog-20014006.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T08:36:15Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "HDFC Bank reported a net profit of ₹19,509 crore for Q2, with an improvement in asset quality as net NPA declined.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HDFC Bank reported a net profit of ₹19,509 crore for Q2, with an improvement in asset quality as net NPA declined.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HDFC Bank Limited",
+          "ticker": "HDFCBANK",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1877,49 +1926,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-144",
-      "headline": "Middle East conflict: Trump lifts Russia energy sanctions, Saudi Arabia intercepts missiles",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/mena/middle-east-conflict-trump-lifts-russia-energy-sanctions-saudi-arabia-intercepts-missiles-1.500713832",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T04:27:36Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Geopolitical escalation involving missile interceptions in Saudi Arabia and significant shifts in US energy sanctions policy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Geopolitical escalation involving missile interceptions in Saudi Arabia and significant shifts in US energy sanctions policy.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
@@ -224244,9 +224250,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7261284,
-    "news_picked_today": 384,
-    "news_dropped_today": 4248
+    "news_seen_today": 7279712,
+    "news_picked_today": 387,
+    "news_dropped_today": 4269
   },
   "book_momentum": {
     "live_count": 8,
