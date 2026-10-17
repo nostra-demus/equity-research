@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T12:50:12Z",
+  "generated_at": "2026-10-17T12:53:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-256",
@@ -1281,6 +1281,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-278",
+      "headline": "Lagnam Spintex Limited: Lagnam Spintex Limited has informed the Exchange regarding a press release dated October 17, 2026, titled \"LAGNAM SPINTEX REPORTS STRONG Q2 & H1 FY27 PERFORMANCE; EBITDA RISES 98% IN Q2 AND 64% IN H1FY27\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/LAGNAM_17102026174451_PressRelease171026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-17T12:15:25Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Company reported strong Q2 performance with EBITDA rising 98% in Q2 and 64% in H1FY27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Company reported strong Q2 performance with EBITDA rising 98% in Q2 and 64% in H1FY27.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lagnam Spintex Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-150",
       "headline": "Rashi Peripherals Limited: Rashi Peripherals Limited has informed the Exchange regarding Cessation of Deloitte Haskins and Sells, LLP as one of the Joint Statutory Auditors of the company w.e.f. October 16, 2026.",
       "headline_en": null,
@@ -1896,49 +1945,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-130",
-      "headline": "Trump signs executive order waiving new Russia sanctions, tariffs",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/americas/trump-signs-executive-order-waiving-new-russia-sanctions-tariffs-1.500713793",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T03:46:30Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "A major shift in US foreign policy regarding Russia sanctions and tariffs would have significant global economic and geopolitical implications.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "A major shift in US foreign policy regarding Russia sanctions and tariffs would have significant global economic and geopolitical implications.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -224475,9 +224481,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9918514,
-    "news_picked_today": 521,
-    "news_dropped_today": 6247
+    "news_seen_today": 9950394,
+    "news_picked_today": 524,
+    "news_dropped_today": 6268
   },
   "book_momentum": {
     "live_count": 8,
