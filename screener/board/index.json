@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T01:13:38Z",
+  "generated_at": "2026-10-17T01:15:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-022",
@@ -493,6 +493,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-050",
+      "headline": "Anthropic offers Blackstone double-digit yield in latest chip financing",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/cb4034e1-475f-40b9-a5f9-256e91aacb89?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T00:47:25Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Anthropic is securing chip financing from Blackstone with a double-digit yield.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Anthropic is securing chip financing from Blackstone with a double-digit yield.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Blackstone",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-012",
       "headline": "US budget deficit rises to nearly $2 trillion in 2026, highest in five years",
       "headline_en": null,
@@ -799,6 +853,55 @@
           "name": "Clear Channel Outdoor Holdings, Inc.",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-048",
+      "headline": "LUFAX (06623): APPOINTMENT OF THE CHIEF FINANCIAL OFFICER",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101601200.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T11:12:00Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Lufax has appointed a new Chief Financial Officer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "Lufax has appointed a new Chief Financial Officer.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LUFAX",
+          "ticker": "06623",
+          "listing_country": "CN"
         }
       ],
       "size_bucket": "mid",
@@ -1756,64 +1859,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261017-023",
-      "headline": "CalPERS, other institutional investors step up scrutiny of AI governance",
+      "inbox_id": "INB-20261017-051",
+      "headline": "One car, two identities: Fiat unveils SUV that can turn into a pickup truck",
       "headline_en": null,
-      "url": "https://asia.nikkei.com/business/technology/artificial-intelligence/calpers-other-institutional-investors-step-up-scrutiny-of-ai-governance",
-      "source_name": "Nikkei Asia",
+      "url": "https://www.businesstoday.in/latest/photo/one-car-two-identities-fiat-unveils-suv-that-can-turn-into-a-pickup-truck-562141-2026-10-17?utm_source=rssfeed",
+      "source_name": "Business Today",
       "input_nature": "news_headline",
-      "found_at": "2026-10-17T00:44:16Z",
+      "found_at": "2026-10-17T00:45:03Z",
       "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Institutional investors are increasing scrutiny on AI governance, representing a shift in ESG and operational risk expectations for the tech sector.",
+      "prelim_note": "Fiat has unveiled a new SUV model that converts into a pickup truck.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Institutional investors are increasing scrutiny on AI governance, representing a shift in ESG and operational risk expectations for the tech sector.",
-      "region": "GLOBAL",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-029",
-      "headline": "UBS Initiates Coverage of Rapport Therapeutics at Buy",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/ubs-initiates-coverage-rapport-therapeutics-buy",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T00:23:47Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Analyst initiation is routine market color.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Analyst initiation is routine market color.",
-      "region": "US",
+      "triage_score": 53,
+      "triage_reason": "Fiat has unveiled a new SUV model that converts into a pickup truck.",
+      "region": "IN",
       "relevance": "relevant_non_material",
       "materiality_pre_score": 40,
       "rank_factors": {
@@ -1821,7 +1881,7 @@
         "source_tier": 0,
         "scope": 6,
         "event": 0,
-        "size": 0,
+        "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
@@ -1829,69 +1889,20 @@
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": null,
-        "size_bucket": "unknown"
+        "size_bucket": "large"
       },
       "event_types": [
-        "macro_sector"
+        "product"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Rapport Therapeutics",
+          "name": "Fiat",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-030",
-      "headline": "JP Morgan Initiates Coverage of Praxis Precision Medicines at Overweight",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/jp-morgan-initiates-coverage-praxis-precision-medicines-overweight",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T00:22:20Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Analyst initiation is routine market color.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Analyst initiation is routine market color.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Praxis Precision Medicines",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -224206,9 +224217,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1062817,
-    "news_picked_today": 47,
-    "news_dropped_today": 529
+    "news_seen_today": 1090584,
+    "news_picked_today": 51,
+    "news_dropped_today": 549
   },
   "book_momentum": {
     "live_count": 8,
