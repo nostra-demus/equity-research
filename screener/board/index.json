@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T21:25:11Z",
+  "generated_at": "2026-10-17T21:36:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-286",
@@ -242,6 +242,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-301",
+      "headline": "California Wyndham hotel operator files for Chapter 11 bankruptcy",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/travel/california-wyndham-hotel-operator-files-for-chapter-11-bankruptcy",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T21:26:45Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "A Chapter 11 bankruptcy filing is a material event indicating insolvency for the operator.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A Chapter 11 bankruptcy filing is a material event indicating insolvency for the operator.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wyndham",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1920,55 +1969,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-278",
-      "headline": "Lagnam Spintex Limited: Lagnam Spintex Limited has informed the Exchange regarding a press release dated October 17, 2026, titled \"LAGNAM SPINTEX REPORTS STRONG Q2 & H1 FY27 PERFORMANCE; EBITDA RISES 98% IN Q2 AND 64% IN H1FY27\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/LAGNAM_17102026174451_PressRelease171026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-17T12:15:25Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Company reported strong Q2 performance with EBITDA rising 98% in Q2 and 64% in H1FY27.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Company reported strong Q2 performance with EBITDA rising 98% in Q2 and 64% in H1FY27.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lagnam Spintex Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -224351,9 +224351,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 14203746,
-    "news_picked_today": 697,
-    "news_dropped_today": 10919
+    "news_seen_today": 14266906,
+    "news_picked_today": 706,
+    "news_dropped_today": 11006
   },
   "book_momentum": {
     "live_count": 8,
