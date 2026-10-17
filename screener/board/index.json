@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T22:23:28Z",
+  "generated_at": "2026-10-17T22:28:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-286",
@@ -183480,77 +183480,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2d1d04912e52",
-      "idea_version": "IDEAV-1698d0a79a02802e",
-      "idea_version_started_at": "2026-10-16T21:35:39Z",
-      "ticker": "00626",
-      "company": "Public Financial Holdings",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, signaling a decline in profitability.",
-      "why_now": "The announcement was filed on October 16, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6112a779e0bc"
-      ],
-      "primary_source_event_id": "EVT-6112a779e0bc",
-      "source_headlines": [
-        "PUBLIC FIN HOLD (00626): PROFIT WARNING"
-      ],
-      "source_headline": "PUBLIC FIN HOLD (00626): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101600976.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-16T10:24:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-16T21:35:39Z",
-      "updated_at": "2026-10-16T21:35:39Z",
-      "decay_at": "2026-10-17T22:24:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-24912455a063",
       "idea_version": "IDEAV-36591658159913a5",
       "idea_version_started_at": "2026-10-17T14:35:09Z",
@@ -184464,6 +184393,77 @@
       "surfaced_at": "2026-10-16T21:35:39Z",
       "updated_at": "2026-10-16T21:35:39Z",
       "decay_at": "2026-10-17T21:38:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-2d1d04912e52",
+      "idea_version": "IDEAV-1698d0a79a02802e",
+      "idea_version_started_at": "2026-10-16T21:35:39Z",
+      "ticker": "00626",
+      "company": "Public Financial Holdings",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, signaling a decline in profitability.",
+      "why_now": "The announcement was filed on October 16, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6112a779e0bc"
+      ],
+      "primary_source_event_id": "EVT-6112a779e0bc",
+      "source_headlines": [
+        "PUBLIC FIN HOLD (00626): PROFIT WARNING"
+      ],
+      "source_headline": "PUBLIC FIN HOLD (00626): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101600976.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-16T10:24:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-16T21:35:39Z",
+      "updated_at": "2026-10-16T21:35:39Z",
+      "decay_at": "2026-10-17T22:24:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -186918,9 +186918,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 541,
+    "total_count": 542,
     "shown_count": 499,
-    "hidden_count": 42,
+    "hidden_count": 43,
     "side_counts": {
       "long": {
         "total_count": 281,
@@ -186928,9 +186928,9 @@
         "hidden_count": 31
       },
       "short": {
-        "total_count": 261,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 12
       }
     },
     "retention": {
@@ -186949,6 +186949,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-2d1d04912e52",
+        "idea_version": "IDEAV-1698d0a79a02802e",
+        "idea_version_started_at": "2026-10-16T21:35:39Z",
+        "ticker": "00626",
+        "company": "Public Financial Holdings",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning, signaling a decline in profitability.",
+        "why_now": "The announcement was filed on October 16, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6112a779e0bc"
+        ],
+        "primary_source_event_id": "EVT-6112a779e0bc",
+        "source_headlines": [
+          "PUBLIC FIN HOLD (00626): PROFIT WARNING"
+        ],
+        "source_headline": "PUBLIC FIN HOLD (00626): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101600976.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-16T10:24:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-16T21:35:39Z",
+        "updated_at": "2026-10-16T21:35:39Z",
+        "decay_at": "2026-10-17T22:24:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-17T22:24:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-286d271adaa1",
         "idea_version": "IDEAV-73630a20c2f4d123",
@@ -224042,85 +224116,12 @@
         "archived_at": "2026-09-22T18:04:53Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-b3663a1d7f5b",
-        "idea_version": "IDEAV-667be2091d91183e",
-        "idea_version_started_at": "2026-09-20T01:29:10Z",
-        "ticker": "G",
-        "company": "Genpact",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The Karnataka High Court upheld an Enforcement Directorate seizure order regarding a Rs 7,635.9 crore transfer, creating significant legal and liquidity risk for the firm.",
-        "why_now": "The court ruling was issued on 2026-09-19, creating immediate regulatory and financial uncertainty.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 16,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-de1c9526ece3"
-        ],
-        "primary_source_event_id": "EVT-de1c9526ece3",
-        "source_headlines": [
-          "Genpact Case: Karnataka HC Upholds ED Seizure Order Over Alleged Rs 7,635.9 Crore Transfer"
-        ],
-        "source_headline": "Genpact Case: Karnataka HC Upholds ED Seizure Order Over Alleged Rs 7,635.9 Crore Transfer",
-        "source_url": "https://www.ndtvprofit.com/business/genpact-case-karnataka-hc-upholds-ed-seizure-order-over-alleged-rs-7-635-9-crore-transfer-12069567#publisher=newsstand",
-        "source_name": "NDTV Profit",
-        "materiality_max": 86,
-        "newest_source_at": "2026-09-19T15:09:50Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-20T01:29:10Z",
-        "updated_at": "2026-09-20T01:29:10Z",
-        "decay_at": "2026-09-21T03:09:50Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-22T18:04:53Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1663,
-    "live_count": 27,
+    "live_count": 26,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -224139,9 +224140,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 14537549,
-    "news_picked_today": 721,
-    "news_dropped_today": 11351
+    "news_seen_today": 14571477,
+    "news_picked_today": 723,
+    "news_dropped_today": 11397
   },
   "book_momentum": {
     "live_count": 8,
