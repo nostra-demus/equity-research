@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T09:13:07Z",
+  "generated_at": "2026-10-17T09:14:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-247",
@@ -144,6 +144,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-251",
+      "headline": "HDFC Bank Q2 Results: Net profit rises 5% to ₹19,610 crore, NII jumps 10% in last quarter under outgoing CEO Jagdishan",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/hdfc-bank-q2-results-net-profit-rises-5-to-rs-19-610-crore-nii-jumps-10-in-last-quarter-under-outgoing-ceo-jagdishan-11792226165605.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T08:46:54Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "HDFC Bank reported a 5% rise in net profit to ₹19,610 crore and a 10% increase in NII.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HDFC Bank reported a 5% rise in net profit to ₹19,610 crore and a 10% increase in NII.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HDFC Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1502,6 +1551,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-250",
+      "headline": "TES: Cancel - Dividend/Distribution - TES",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TES?key=2924-03149594-2A1704664",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-17T09:08:10Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "TES cancelled a dividend distribution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "TES cancelled a dividend distribution.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "dividend_cut",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "dividend_cut"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TES",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-016",
       "headline": "TIAN AN ALLIED GROUP (00028 00373): Joint Announcement: Discloseable Transaction - Provision of Financial Assistance",
       "headline_en": null,
@@ -1842,103 +1940,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-243",
-      "headline": "Q2FY27 Results Live Updates: Axis Bank Provisions Fall By Over 50%, Ixigo's Net Profit Jumps Multifold",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/q2fy27-results-live-updates-hdfc-bank-icici-bank-axis-bank-idbi-bank-yes-bank-india-cements-to-announce-earnings-12197871#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T07:42:47Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Axis Bank provisions fell over 50% and Ixigo reported multifold profit growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Axis Bank provisions fell over 50% and Ixigo reported multifold profit growth.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Axis Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Ixigo",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-175",
-      "headline": "Trump waives several Russia sanctions as row with Zelensky intensifies",
-      "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/cxr5yvzv7rp0o?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — World",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T06:39:40Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Geopolitical escalation involving the waiver of Russia sanctions amidst intensifying tensions with Ukraine.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Geopolitical escalation involving the waiver of Russia sanctions amidst intensifying tensions with Ukraine.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -224400,9 +224401,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7609643,
-    "news_picked_today": 403,
-    "news_dropped_today": 4469
+    "news_seen_today": 7646139,
+    "news_picked_today": 411,
+    "news_dropped_today": 4485
   },
   "book_momentum": {
     "live_count": 8,
