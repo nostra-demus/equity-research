@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T00:40:36Z",
+  "generated_at": "2026-10-17T00:41:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-010",
@@ -181491,6 +181491,223 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-abd218ca6c78",
+      "idea_version": "IDEAV-79c95922e202d7c8",
+      "idea_version_started_at": "2026-10-17T00:40:56Z",
+      "ticker": "RGR",
+      "company": "Sturm Ruger & Co Inc",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The filing of an SC TO-T/A indicates an active third-party tender offer process, which typically provides a floor or premium potential for shareholders.",
+      "why_now": "The SEC filing was updated on 2026-10-16.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0509e6d1723f",
+        "EVT-ed51c00f5029"
+      ],
+      "primary_source_event_id": "EVT-0509e6d1723f",
+      "source_headlines": [
+        "SC TO-T/A - Beretta Holding S.A. (0002086731) (Filed by)",
+        "SC TO-T/A - STURM RUGER & CO INC (0000095029) (Subject)"
+      ],
+      "source_headline": "SC TO-T/A - Beretta Holding S.A. (0002086731) (Filed by)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2086731/000119380526001376/0001193805-26-001376-index.htm",
+      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-16T20:05:38Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-17T00:40:56Z",
+      "updated_at": "2026-10-17T00:40:56Z",
+      "decay_at": "2026-10-18T08:05:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-1e4e902899de",
+      "idea_version": "IDEAV-534a8f8d889a705c",
+      "idea_version_started_at": "2026-10-17T00:40:56Z",
+      "ticker": "CROMPTON",
+      "company": "Crompton Greaves Consumer Electricals Ltd",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A 65% surge in Q2 profit to ₹124 crore indicates significant margin expansion and successful execution in the consumer electricals segment.",
+      "why_now": "The Q2 results were released on 2026-10-16.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4c0fead40a53"
+      ],
+      "primary_source_event_id": "EVT-4c0fead40a53",
+      "source_headlines": [
+        "Crompton Greaves Consumer Electricals Ltd Q2 Results: Profit surges 65% to Rs 124 crore"
+      ],
+      "source_headline": "Crompton Greaves Consumer Electricals Ltd Q2 Results: Profit surges 65% to Rs 124 crore",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/crompton-greaves-q2-results-profit-surges-65-to-rs-124-crore/articleshow/134998426.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-16T15:33:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-16T21:35:39Z",
+      "updated_at": "2026-10-17T00:40:56Z",
+      "decay_at": "2026-10-18T03:33:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-9d6049b683f8",
+      "idea_version": "IDEAV-2a379b3d6dfb212c",
+      "idea_version_started_at": "2026-10-17T00:40:56Z",
+      "ticker": "DLF",
+      "company": "DLF Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported strong Q2 FY27 earnings with a 23% revenue increase and declared a ₹8 dividend, signaling robust operational cash flow and shareholder return commitment.",
+      "why_now": "The earnings and dividend announcement occurred on 2026-10-16.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-414796f644c5",
+        "EVT-5c8d30ca1923"
+      ],
+      "primary_source_event_id": "EVT-414796f644c5",
+      "source_headlines": [
+        "DLF's Standalone Q2 FY27 Net Profit Hits ₹800.32 Crore, Consolidated Profit At ₹1,301.35 Crore; Company Declares ₹8 Dividend",
+        "Q2 Results Highlights: Himadri Specialty profit jumps 29%, DLF revenue rises 23%"
+      ],
+      "source_headline": "DLF's Standalone Q2 FY27 Net Profit Hits ₹800.32 Crore, Consolidated Profit At ₹1,301.35 Crore; Company Declares ₹8 Dividend",
+      "source_url": "https://www.freepressjournal.in/business/dlfs-standalone-q2-fy27-net-profit-hits-80032-crore-consolidated-profit-at-130135-crore-company-declares-8-dividend",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-16T16:59:28Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-17T00:40:56Z",
+      "updated_at": "2026-10-17T00:40:56Z",
+      "decay_at": "2026-10-18T04:59:28Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-0b852ac1558d",
       "idea_version": "IDEAV-bcd2d2c357d14889",
       "idea_version_started_at": "2026-10-16T23:31:00Z",
@@ -181627,79 +181844,6 @@
       "surfaced_at": "2026-10-16T23:31:00Z",
       "updated_at": "2026-10-16T23:31:00Z",
       "decay_at": "2026-10-17T23:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-1e4e902899de",
-      "idea_version": "IDEAV-f927eac134d4a074",
-      "idea_version_started_at": "2026-10-16T21:35:39Z",
-      "ticker": "CROMPTON",
-      "company": "Crompton Greaves Consumer Electricals",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Q2 profit jumped 68% driven by record export sales, beating market estimates.",
-      "why_now": "The results were reported on October 16, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2b610d65f01b"
-      ],
-      "primary_source_event_id": "EVT-2b610d65f01b",
-      "source_headlines": [
-        "Crompton Greaves Q2 Results: Profit beats estimates, jumps 68% on record export sales"
-      ],
-      "source_headline": "Crompton Greaves Q2 Results: Profit beats estimates, jumps 68% on record export sales",
-      "source_url": "https://www.cnbctv18.com/market/earnings/crompton-greaves-q2-results-profit-beats-estimates-jumps-68-pc-record-export-sales-20013645.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-16T10:06:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-16T21:35:39Z",
-      "updated_at": "2026-10-16T21:35:39Z",
-      "decay_at": "2026-10-17T22:06:05Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -182637,78 +182781,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d30e04c100e8",
-      "idea_version": "IDEAV-a1b57c13034af575",
-      "idea_version_started_at": "2026-10-15T15:44:28Z",
-      "ticker": "ALOKINDS",
-      "company": "Alok Industries",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported a widening net loss of ₹208.42 crore in Q2 FY27, signaling persistent operational inefficiencies and margin pressure despite revenue growth.",
-      "why_now": "The Q2 results were released today, October 15, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-977d087ab3b5"
-      ],
-      "primary_source_event_id": "EVT-977d087ab3b5",
-      "source_headlines": [
-        "Alok Industries Q2 FY27 Results: Net Loss Widens To Rs 208.42 Crore Despite 15% Revenue Growth"
-      ],
-      "source_headline": "Alok Industries Q2 FY27 Results: Net Loss Widens To Rs 208.42 Crore Despite 15% Revenue Growth",
-      "source_url": "https://www.freepressjournal.in/business/alok-industries-q2-fy27-results-net-loss-widens-to-rs-20842-crore-despite-15-revenue-growth",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-15T12:41:04Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-15T15:44:28Z",
-      "updated_at": "2026-10-15T15:44:28Z",
-      "decay_at": "2026-10-17T00:41:04Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f617abaee25b",
       "idea_version": "IDEAV-e47b3c3f13c8bb7b",
       "idea_version_started_at": "2026-10-15T15:44:28Z",
@@ -183628,6 +183700,78 @@
       "surfaced_at": "2026-10-16T01:24:24Z",
       "updated_at": "2026-10-16T01:24:24Z",
       "decay_at": "2026-10-16T02:51:52Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d30e04c100e8",
+      "idea_version": "IDEAV-a1b57c13034af575",
+      "idea_version_started_at": "2026-10-15T15:44:28Z",
+      "ticker": "ALOKINDS",
+      "company": "Alok Industries",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a widening net loss of ₹208.42 crore in Q2 FY27, signaling persistent operational inefficiencies and margin pressure despite revenue growth.",
+      "why_now": "The Q2 results were released today, October 15, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-977d087ab3b5"
+      ],
+      "primary_source_event_id": "EVT-977d087ab3b5",
+      "source_headlines": [
+        "Alok Industries Q2 FY27 Results: Net Loss Widens To Rs 208.42 Crore Despite 15% Revenue Growth"
+      ],
+      "source_headline": "Alok Industries Q2 FY27 Results: Net Loss Widens To Rs 208.42 Crore Despite 15% Revenue Growth",
+      "source_url": "https://www.freepressjournal.in/business/alok-industries-q2-fy27-results-net-loss-widens-to-rs-20842-crore-despite-15-revenue-growth",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-15T12:41:04Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-15T15:44:28Z",
+      "updated_at": "2026-10-15T15:44:28Z",
+      "decay_at": "2026-10-17T00:41:04Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -185867,9 +186011,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 536,
+    "total_count": 537,
     "shown_count": 499,
-    "hidden_count": 37,
+    "hidden_count": 38,
     "side_counts": {
       "long": {
         "total_count": 272,
@@ -185877,9 +186021,9 @@
         "hidden_count": 22
       },
       "short": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       }
     },
     "retention": {
@@ -185898,6 +186042,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d30e04c100e8",
+        "idea_version": "IDEAV-a1b57c13034af575",
+        "idea_version_started_at": "2026-10-15T15:44:28Z",
+        "ticker": "ALOKINDS",
+        "company": "Alok Industries",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company reported a widening net loss of ₹208.42 crore in Q2 FY27, signaling persistent operational inefficiencies and margin pressure despite revenue growth.",
+        "why_now": "The Q2 results were released today, October 15, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-977d087ab3b5"
+        ],
+        "primary_source_event_id": "EVT-977d087ab3b5",
+        "source_headlines": [
+          "Alok Industries Q2 FY27 Results: Net Loss Widens To Rs 208.42 Crore Despite 15% Revenue Growth"
+        ],
+        "source_headline": "Alok Industries Q2 FY27 Results: Net Loss Widens To Rs 208.42 Crore Despite 15% Revenue Growth",
+        "source_url": "https://www.freepressjournal.in/business/alok-industries-q2-fy27-results-net-loss-widens-to-rs-20842-crore-despite-15-revenue-growth",
+        "source_name": "Free Press Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-15T12:41:04Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-15T15:44:28Z",
+        "updated_at": "2026-10-15T15:44:28Z",
+        "decay_at": "2026-10-17T00:41:04Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-17T00:41:04Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-e7a3930800c6",
         "idea_version": "IDEAV-034d4ae77e00c29f",
@@ -222990,86 +223209,12 @@
         "archived_at": "2026-09-22T09:12:40Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-352ad72e6a27",
-        "idea_version": "IDEAV-01c191d10237dce2",
-        "idea_version_started_at": "2026-09-19T20:48:40Z",
-        "ticker": "WEN",
-        "company": "Wendy's Company",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Meritage Hospitality, a major Wendy's franchisee operating hundreds of locations across 15 states, filed for Chapter 11 bankruptcy, disrupting royalty revenue streams and signaling operator distress in the Wendy's system.",
-        "why_now": "Chapter 11 filing reported on 2026-09-18; franchisee bankruptcy creates immediate uncertainty over store closures and franchise fee/royalty collection.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 74,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 7,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-965dc1b03644",
-          "EVT-bcbcc1baeb73"
-        ],
-        "primary_source_event_id": "EVT-965dc1b03644",
-        "source_headlines": [
-          "Wendy's franchisee with hundreds of locations across 15 states files for bankruptcy",
-          "Wendy's Franchisee Meritage Hospitality Files For Chapter 11 Bankruptcy"
-        ],
-        "source_headline": "Wendy's franchisee with hundreds of locations across 15 states files for bankruptcy",
-        "source_url": "https://thehill.com/homenews/6098417-wendys-franchisee-with-hundreds-of-locations-across-15-states-files-for-bankruptcy/",
-        "source_name": "The Hill — Homenews",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-18T21:20:30Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-19T20:48:40Z",
-        "updated_at": "2026-09-19T20:48:40Z",
-        "decay_at": "2026-09-20T09:20:30Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-22T09:12:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1644,
-    "live_count": 31,
+    "surfaced_total": 1646,
+    "live_count": 32,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
