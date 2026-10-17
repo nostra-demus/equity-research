@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T03:08:36Z",
+  "generated_at": "2026-10-17T03:18:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-100",
@@ -984,6 +984,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-104",
+      "headline": "Trillion dollar gap: US budget deficit swells to nearly $2 tn in fiscal 2026",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/international-business/trillion-dollar-gap-us-budget-deficit-swells-to-nearly-2-tn-in-fiscal-2026/articleshow/135006143.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T02:40:31Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "The US budget deficit has reached nearly $2 trillion, signaling significant fiscal pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "The US budget deficit has reached nearly $2 trillion, signaling significant fiscal pressure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-099",
       "headline": "Musk approached Trump to slow down Starlink in Ukraine",
       "headline_en": null,
@@ -1857,49 +1900,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-034",
-      "headline": "BOJ's Ueda says inflation can't be allowed to rise further",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/economy/bank-of-japan/boj-s-ueda-says-inflation-can-t-be-allowed-to-rise-further",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T00:49:13Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Central bank commentary on inflation policy impacts broader market expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "Central bank commentary on inflation policy impacts broader market expectations.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -224218,9 +224218,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3005683,
-    "news_picked_today": 123,
-    "news_dropped_today": 1509
+    "news_seen_today": 3167303,
+    "news_picked_today": 127,
+    "news_dropped_today": 1601
   },
   "book_momentum": {
     "live_count": 8,
