@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T00:24:58Z",
+  "generated_at": "2026-10-17T00:29:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-010",
@@ -203,6 +203,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-012",
+      "headline": "US budget deficit rises to nearly $2 trillion in 2026, highest in five years",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/world/us-budget-deficit-rises-to-nearly-2-trillion-in-2026-highest-in-five-years/article71595209.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T00:07:51Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "The US budget deficit reached nearly $2 trillion in 2026, representing a five-year high and signaling potential fiscal pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "The US budget deficit reached nearly $2 trillion in 2026, representing a five-year high and signaling potential fiscal pressure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-009",
       "headline": "Brent crude hits $110 a barrel for first time since May as supply concerns mount",
       "headline_en": null,
@@ -380,6 +423,49 @@
         "regulatory"
       ],
       "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-013",
+      "headline": "New rules to regulate volatile airfares to be published in two weeks, Centre tells SC",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/new-rules-to-regulate-volatile-airfares-to-be-published-in-two-weeks-centre-tells-sc/article71593127.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T23:37:22Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "The Indian government plans to introduce new regulations on airfares within two weeks, which may impact airline pricing flexibility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "The Indian government plans to introduce new regulations on airfares within two weeks, which may impact airline pricing flexibility.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -222607,7 +222693,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3698,
+    "inbox_unconsumed": 3700,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -222616,9 +222702,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 309458,
-    "news_picked_today": 11,
-    "news_dropped_today": 181
+    "news_seen_today": 393571,
+    "news_picked_today": 13,
+    "news_dropped_today": 227
   },
   "book_momentum": {
     "live_count": 8,
