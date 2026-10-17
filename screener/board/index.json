@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T04:39:19Z",
+  "generated_at": "2026-10-17T04:44:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-121",
@@ -874,6 +874,49 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-144",
+      "headline": "Middle East conflict: Trump lifts Russia energy sanctions, Saudi Arabia intercepts missiles",
+      "headline_en": null,
+      "url": "https://gulfnews.com/world/mena/middle-east-conflict-trump-lifts-russia-energy-sanctions-saudi-arabia-intercepts-missiles-1.500713832",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T04:27:36Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Geopolitical escalation involving missile interceptions in Saudi Arabia and significant shifts in US energy sanctions policy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Geopolitical escalation involving missile interceptions in Saudi Arabia and significant shifts in US energy sanctions policy.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1844,49 +1887,6 @@
       "launched_signal_id": null,
       "triage_score": 86,
       "triage_reason": "The waiver of mandated sanctions on Russia represents a significant shift in US foreign policy and geopolitical risk management.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-077",
-      "headline": "Trump waives many Russia-related sanctions, tariffs before they were to take effect under new law",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/world/us/trump-waives-many-russia-related-sanctions-tariffs-before-they-were-to-take-effect-under-new-law-4186002",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T01:51:11Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "The waiver of Russia-related sanctions and tariffs represents a significant shift in geopolitical and trade policy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "The waiver of Russia-related sanctions and tariffs represents a significant shift in geopolitical and trade policy.",
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -224224,9 +224224,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4308547,
-    "news_picked_today": 208,
-    "news_dropped_today": 2360
+    "news_seen_today": 4384194,
+    "news_picked_today": 212,
+    "news_dropped_today": 2380
   },
   "book_momentum": {
     "live_count": 8,
