@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T08:27:53Z",
+  "generated_at": "2026-10-17T08:31:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-225",
@@ -149,37 +149,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261017-232",
-      "headline": "Axis Bank Q2 Results: Net profit jumps 38% YoY to Rs 7,003 crore, NII rises 12%",
+      "inbox_id": "INB-20261017-242",
+      "headline": "Axis Bank Q2 Results: Net Profit Rises 37%, Provisions Fall By Over 50% To Rs 1,694 Crore",
       "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/axis-bank-q2-results-net-profit-jumps-38-yoy-to-rs-7003-crore-nii-rises-12/articleshow/135009892.cms",
-      "source_name": "The Economic Times",
+      "url": "https://www.ndtvprofit.com/markets/axis-bank-q2-results-net-profit-rises-37-provisions-fall-by-over-50-to-rs-1-694-crore-12198433#publisher=newsstand",
+      "source_name": "NDTV Profit",
       "input_nature": "news_headline",
-      "found_at": "2026-10-17T07:42:58Z",
+      "found_at": "2026-10-17T07:57:29Z",
       "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Axis Bank reported a 38% YoY jump in net profit to Rs 7,003 crore and a 12% rise in NII.",
+      "prelim_note": "Axis Bank reported 37% net profit growth and a 50% reduction in provisions to Rs 1,694 crore.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Axis Bank reported a 38% YoY jump in net profit to Rs 7,003 crore and a 12% rise in NII.",
+      "triage_reason": "Axis Bank reported 37% net profit growth and a 50% reduction in provisions to Rs 1,694 crore.",
       "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 85,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 85,
+        "materiality": 80,
         "source_tier": 0,
         "scope": 6,
         "event": 5,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
+        "size_bucket": "mega"
       },
       "event_types": [
         "earnings_revenue_margin"
@@ -187,12 +187,61 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Axis Bank Limited",
+          "name": "Axis Bank",
           "ticker": null,
           "listing_country": "IN"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-245",
+      "headline": "Axis Bank Reports 38% Surge In Q2 FY27 Profit, Quarterly Earnings Reach ₹7,003 Crore",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/axis-bank-reports-38-surge-in-q2-fy27-profit-quarterly-earnings-reach-7003-crore",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T07:49:57Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Axis Bank reported 38% profit surge to ₹7,003 crore in Q2 FY27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Axis Bank reported 38% profit surge to ₹7,003 crore in Q2 FY27.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Axis Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1700,6 +1749,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-243",
+      "headline": "Q2FY27 Results Live Updates: Axis Bank Provisions Fall By Over 50%, Ixigo's Net Profit Jumps Multifold",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/q2fy27-results-live-updates-hdfc-bank-icici-bank-axis-bank-idbi-bank-yes-bank-india-cements-to-announce-earnings-12197871#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T07:42:47Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Axis Bank provisions fell over 50% and Ixigo reported multifold profit growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Axis Bank provisions fell over 50% and Ixigo reported multifold profit growth.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Axis Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Ixigo",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-175",
       "headline": "Trump waives several Russia sanctions as row with Zelensky intensifies",
       "headline_en": null,
@@ -1824,98 +1927,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-088",
-      "headline": "Trump pauses Russian sanctions package after striking diesel deal with Putin",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/world/united-states-canada/article/3371222/trump-pauses-russian-sanctions-package-after-striking-diesel-deal-putin?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T02:26:19Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "A major geopolitical shift involving the lifting of sanctions and a diesel deal between the US and Russia significantly impacts global energy markets and geopolitical risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "A major geopolitical shift involving the lifting of sanctions and a diesel deal between the US and Russia significantly impacts global energy markets and geopolitical risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-149",
-      "headline": "SHIMAO GROUP (00813): Unaudited Operating Statistics for the nine months ended 30 September 2026",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101600740.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T09:33:00Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Release of unaudited operating statistics for the nine months ended 30 September 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Release of unaudited operating statistics for the nine months ended 30 September 2026.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shimao Group",
-          "ticker": "00813",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -224084,9 +224095,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7187160,
-    "news_picked_today": 366,
-    "news_dropped_today": 4218
+    "news_seen_today": 7224298,
+    "news_picked_today": 382,
+    "news_dropped_today": 4226
   },
   "book_momentum": {
     "live_count": 8,
