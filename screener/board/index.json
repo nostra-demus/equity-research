@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T04:15:01Z",
+  "generated_at": "2026-10-17T04:17:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-121",
@@ -825,6 +825,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-141",
+      "headline": "SHOUCHENG (00697): VOLUNTARY ANNOUNCEMENT - REGARDING THE INVESTMENT IN METAPWR ELECTRONICS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101600950.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T10:20:00Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "The company announced a new investment in MetaPWR Electronics.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "The company announced a new investment in MetaPWR Electronics.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shoucheng Holdings",
+          "ticker": "00697",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1862,61 +1911,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-093",
-      "headline": "Elon Musk's Starlink responds to Reliance, says ‘ready to connect India’ with high-speed internet",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/telecom/telecom-news/elon-musks-starlink-responds-to-reliance-says-ready-to-connect-india-with-high-speed-internet/articleshow/135005865.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T01:44:55Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Starlink is actively competing with Reliance Jio for the Indian satellite broadband market, representing a significant shift in competitive landscape.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Starlink is actively competing with Reliance Jio for the Indian satellite broadband market, representing a significant shift in competitive landscape.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Starlink",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -224229,9 +224223,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3913735,
-    "news_picked_today": 191,
-    "news_dropped_today": 2065
+    "news_seen_today": 3966623,
+    "news_picked_today": 193,
+    "news_dropped_today": 2087
   },
   "book_momentum": {
     "live_count": 8,
