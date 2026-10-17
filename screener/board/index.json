@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T01:10:26Z",
+  "generated_at": "2026-10-17T01:13:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-022",
@@ -581,6 +581,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-047",
+      "headline": "Trump Waives Russia Energy Tariffs, Sanctions in Graham Law",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-17/trump-waives-russia-energy-tariffs-sanctions-in-graham-law",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T00:49:44Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "The waiver of energy tariffs and sanctions on Russia represents a significant shift in trade policy with potential global energy market implications.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "The waiver of energy tariffs and sanctions on Russia represents a significant shift in trade policy with potential global energy market implications.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1846,55 +1889,6 @@
           "name": "Praxis Precision Medicines",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-027",
-      "headline": "Ashoka Buildcon Limited: Ashoka Buildcon Limited has informed the Exchange about ESG Ratings",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/ASHOKA_16102026165113_509_ABL_BSE_NSE_ESG_Ratings_161026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T11:21:46Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "ESG rating disclosure is routine corporate reporting.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 49,
-      "triage_reason": "ESG rating disclosure is routine corporate reporting.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ashoka Buildcon Limited",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
@@ -224212,9 +224206,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1007247,
-    "news_picked_today": 46,
-    "news_dropped_today": 506
+    "news_seen_today": 1062817,
+    "news_picked_today": 47,
+    "news_dropped_today": 529
   },
   "book_momentum": {
     "live_count": 8,
