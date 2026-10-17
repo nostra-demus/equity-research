@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T17:04:35Z",
+  "generated_at": "2026-10-17T17:06:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-286",
@@ -247,6 +247,153 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-295",
+      "headline": "Axis Bank Q2 profit rises 37.6% to ₹7,003 crore as provisions fall 52.2%",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/money-and-banking/axis-bank-q2-profit-rises-376-to-7003-crore-as-provisions-fall-522/article71596969.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T16:52:17Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Axis Bank reported a 37.6% increase in Q2 profit to ₹7,003 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Axis Bank reported a 37.6% increase in Q2 profit to ₹7,003 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Axis Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-296",
+      "headline": "HDFC Bank reports 5% increase in Q2FY27 standalone net profit at ₹19,510 crore",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/money-and-banking/hdfc-bank-reports-5-increase-in-q2fy27-standalone-net-profit-at-19510-crore/article71595932.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T16:51:46Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "HDFC Bank reported a 5% increase in Q2FY27 standalone net profit to ₹19,510 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HDFC Bank reported a 5% increase in Q2FY27 standalone net profit to ₹19,510 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HDFC Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-293",
+      "headline": "Yes Bank Q2 profit jumps 65%; AT-1 bond ruling impact yet to be assessed, asset quality stable",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/yes-bank-q2-results-core-income-profit-margin-nim-npa-at1-bond-issue-impact-share-price-20014049.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T16:35:12Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "Yes Bank reported a 65% jump in Q2 profit, indicating significant earnings growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Yes Bank reported a 65% jump in Q2 profit, indicating significant earnings growth.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yes Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-288",
       "headline": "Meet Aayush Agarwal: Snabbit boss explains why ‘house help’ firm suffered ₹168 cr loss on ₹12 cr revenue in FY26",
       "headline_en": null,
@@ -291,55 +438,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-292",
-      "headline": "HDFC Bank reports muted 4.70% increase in Q2 standalone net profit at ₹19,510 cr",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/hdfc-bank-reports-muted-470-increase-in-q2-standalone-net-profit-at-19510-cr/article71597174.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T15:50:27Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "HDFC Bank reported a muted 4.70% increase in Q2 standalone net profit at 19,510 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "HDFC Bank reported a muted 4.70% increase in Q2 standalone net profit at 19,510 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HDFC Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1866,98 +1964,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-214",
-      "headline": "Woman killed, five civilians injured in Houthi shelling and sniper fire",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/woman-killed-five-civilians-injured-houthi-shelling-and-sniper-fire",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T05:37:12Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Ongoing Houthi shelling and sniper fire indicate a persistent and escalating security risk in the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Ongoing Houthi shelling and sniper fire indicate a persistent and escalating security risk in the region.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-036",
-      "headline": "GCash parent prices Philippine IPO at record $966m",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/markets/ipo/gcash-parent-prices-philippine-ipo-at-record-966m",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T00:49:13Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Large IPO pricing at $966m.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Large IPO pricing at $966m.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GCash",
-          "ticker": null,
-          "listing_country": "PH"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -224279,9 +224285,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12427825,
-    "news_picked_today": 613,
-    "news_dropped_today": 8627
+    "news_seen_today": 12440152,
+    "news_picked_today": 618,
+    "news_dropped_today": 8646
   },
   "book_momentum": {
     "live_count": 8,
