@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T06:37:51Z",
+  "generated_at": "2026-10-17T06:41:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-145",
@@ -1640,6 +1640,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261017-173",
+      "headline": "PRG: Passing of Director Dato Sri Tee Lip Sin",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PRG?key=2924-03149556-6A1349728",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-16T08:06:14Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "The passing of a director is a significant governance event for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "The passing of a director is a significant governance event for the company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PRG",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261017-117",
       "headline": "Adnoc Onshore seeks bids for Bu Hasa field EOR project",
       "headline_en": null,
@@ -1885,56 +1934,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-075",
-      "headline": "S. DRAGON (08493): (1) QUARTERLY UPDATE ON BUSINESS PROGRESS AND STATUS OF RESUMPTION; (2) QUARTERLY PROGRESS UPDATE ON THE ACTION PLAN TO ADDRESS THE DISCLAIMER OF OPINION IN THE 2025 ANNUAL REPORT; AND (3) CONTINUED SUSPENSION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1016/2026101601138.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T10:56:00Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "S. Dragon continues to face trading suspension and is struggling to address a disclaimer of opinion in its 2025 annual report, signaling significant governance and financial reporting risks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "S. Dragon continues to face trading suspension and is struggling to address a disclaimer of opinion in its 2025 annual report, signaling significant governance and financial reporting risks.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "S. Dragon",
-          "ticker": "08493",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -224103,9 +224102,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5881617,
-    "news_picked_today": 272,
-    "news_dropped_today": 3256
+    "news_seen_today": 5924439,
+    "news_picked_today": 274,
+    "news_dropped_today": 3278
   },
   "book_momentum": {
     "live_count": 8,
