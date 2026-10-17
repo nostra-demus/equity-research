@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T10:53:31Z",
+  "generated_at": "2026-10-17T11:00:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-256",
@@ -223,6 +223,55 @@
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ICICI Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-267",
+      "headline": "ICICI Bank Reports 22% Year-On-Year Rise In Q2 Net Profit, Quarterly Earnings Reach ₹16,333 Crore",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/icici-bank-reports-22-year-on-year-rise-in-q2-net-profit-quarterly-earnings-reach-16333-crore",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T10:16:23Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "ICICI Bank reported a 22% YoY increase in Q2 net profit to ₹16,333 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ICICI Bank reported a 22% YoY increase in Q2 net profit to ₹16,333 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1883,55 +1932,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-183",
-      "headline": "Airworthiness Directives; Airbus SAS Airplanes",
-      "headline_en": null,
-      "url": "https://www.federalregister.gov/documents/2026/10/19/2026-21325/airworthiness-directives-airbus-sas-airplanes",
-      "source_name": "Federal Register — Latest Documents",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-19T04:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "Airworthiness directives for Airbus aircraft represent ongoing regulatory and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Airworthiness directives for Airbus aircraft represent ongoing regulatory and operational risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Airbus SAS",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -224540,9 +224540,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8822413,
-    "news_picked_today": 475,
-    "news_dropped_today": 5357
+    "news_seen_today": 8891356,
+    "news_picked_today": 478,
+    "news_dropped_today": 5426
   },
   "book_momentum": {
     "live_count": 8,
