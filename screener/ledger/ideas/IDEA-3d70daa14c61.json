@@ -1,9 +1,9 @@
 {
   "idea_id": "IDEA-3d70daa14c61",
-  "idea_version": "IDEAV-3bd94814fcc25569",
-  "idea_version_started_at": "2026-10-15T10:07:38Z",
+  "idea_version": "IDEAV-31cbb93b5be76cf8",
+  "idea_version_started_at": "2026-10-17T11:50:37Z",
   "ticker": "IDBI",
-  "company": "IDBI Bank",
+  "company": "IDBI Bank Limited",
   "exchange": "NSE",
   "ticker_verified": false,
   "listing_verified": false,
@@ -11,14 +11,14 @@
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "The market is reacting negatively to the government's strategic stake sale to Fairfax, which often leads to dilution concerns or downward pressure on the stock price following a large-scale divestment announcement.",
-  "why_now": "The cabinet approval and subsequent 7% drop in share price on October 15, 2026, indicate a live market dislocation.",
-  "conviction": 65,
+  "reason": "IDBI Bank reported a significant 39% year-on-year decline in net profit and a sharp 49% drop in net interest income for Q2, indicating deteriorating margins and operational weakness.",
+  "why_now": "The poor quarterly results were released on October 17, 2026.",
+  "conviction": 80,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
-    "evidence": 25,
+    "evidence": 14,
     "impact": 21,
     "specificity": 7,
     "timing": 10,
@@ -32,7 +32,6 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
-    "priced-in risk",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -44,24 +43,24 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "priced",
+  "priced_in": "room",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-f89e36f10c39",
-    "EVT-4c6129f67185"
+    "EVT-4253ea441d06",
+    "EVT-b0570d7d0914"
   ],
-  "primary_source_event_id": "EVT-f89e36f10c39",
+  "primary_source_event_id": "EVT-4253ea441d06",
   "source_headlines": [
-    "IDBI Bank Limited: The Exchange has sought clarification from IDBI Bank Limited with respect to recent news item captioned Cabinet Approves IDBI Bank Stake Sale To Fairfax For Rs 52,878 Crore; FM Calls It Strategic Restructuring. The response from the Company is attached.",
-    "India’s IDBI Bank falls 7% as government announces $5.5 billion stake sale to Canada's Fairfax"
+    "IDBI Bank Q2 results: Net profit tanks 39% YoY to Rs 2,205 crore; NII dips 49% YoY",
+    "IDBI Bank Q2 Results: Net Profit Falls 39%, Net Interest Income Jumps Nearly 30%"
   ],
-  "source_headline": "IDBI Bank Limited: The Exchange has sought clarification from IDBI Bank Limited with respect to recent news item captioned Cabinet Approves IDBI Bank Stake Sale To Fairfax For Rs 52,878 Crore; FM Calls It Strategic Restructuring. The response from the Company is attached.",
-  "source_url": "https://nsearchives.nseindia.com/corporate/MANESHJ_15102026102815_NSE_Clarification_15102026.pdf",
-  "source_name": "BSE / NSE Exchange Filing",
+  "source_headline": "IDBI Bank Q2 results: Net profit tanks 39% YoY to Rs 2,205 crore; NII dips 49% YoY",
+  "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/idbi-bank-q2-results-net-profit-tanks-39-yoy-to-rs-2205-crore-nii-dips-49-yoy/articleshow/135011867.cms",
+  "source_name": "The Economic Times",
   "materiality_max": 100,
-  "newest_source_at": "2026-10-15T06:12:04Z",
+  "newest_source_at": "2026-10-17T10:14:42Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -69,8 +68,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-10-15T10:07:38Z",
-  "updated_at": "2026-10-15T10:07:38Z",
-  "decay_at": "2026-10-16T18:12:04Z",
+  "updated_at": "2026-10-17T11:50:37Z",
+  "decay_at": "2026-10-18T22:14:42Z",
   "status": "live",
   "promoted_signal_id": null
 }
