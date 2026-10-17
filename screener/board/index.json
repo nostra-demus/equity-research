@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T04:21:01Z",
+  "generated_at": "2026-10-17T04:25:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-121",
@@ -874,6 +874,49 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-143",
+      "headline": "Trump waives key sanctions on Russian oil, invokes Section 115 of the Graham Act: Here's what it means for India",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/us-news/trump-waives-key-sanctions-on-russian-oil-invokes-section-115-of-the-graham-act-heres-what-it-means-for-india-11792210114695.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T04:18:14Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "The waiver of sanctions on Russian oil is a significant geopolitical shift affecting energy supply and trade costs for India.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "The waiver of sanctions on Russian oil is a significant geopolitical shift affecting energy supply and trade costs for India.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1844,49 +1887,6 @@
       "launched_signal_id": null,
       "triage_score": 86,
       "triage_reason": "The waiver of Russia-related sanctions and tariffs represents a significant shift in geopolitical and trade policy.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-068",
-      "headline": "USA-Trump lève des sanctions liées à la Russie avant leur entrée en vigueur",
-      "headline_en": "USA-Trump lifts Russia-related sanctions before they come into effect",
-      "url": "https://www.reuters.com/fr/affaires/usa-trump-lve-des-sanctions-lies-la-russie-avant-leur-entre-en-vigueur-2026-10-17/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T01:48:23Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "The waiver of Russia-related sanctions and tariffs represents a significant shift in US foreign policy and trade regulation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "The waiver of Russia-related sanctions and tariffs represents a significant shift in US foreign policy and trade regulation.",
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -224223,9 +224223,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4019463,
-    "news_picked_today": 194,
-    "news_dropped_today": 2110
+    "news_seen_today": 4098719,
+    "news_picked_today": 196,
+    "news_dropped_today": 2156
   },
   "book_momentum": {
     "live_count": 8,
