@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-17T09:19:41Z",
+  "generated_at": "2026-10-17T09:25:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261017-247",
@@ -144,6 +144,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261017-255",
+      "headline": "HDFC Bank Q2 Results: Net Profit Below Estimates, Provisions Rise Marginally",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/hdfc-bank-q2-results-net-profit-below-estimates-provisions-rise-marginally-12198605#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T09:11:08Z",
+      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
+      "prelim_note": "HDFC Bank reported Q2 net profit below analyst estimates with a marginal increase in provisions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HDFC Bank reported Q2 net profit below analyst estimates with a marginal increase in provisions.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HDFC Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1890,56 +1939,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261017-078",
-      "headline": "CCT FORTIS (00138): FURTHER DELAY IN DESPATCH OF THE CIRCULAR IN RELATION TO CONNECTED TRANSACTION IN RELATION TO THE AMENDMENTS TO THE 2025 CONVERTIBLE BONDS DUE 2025",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101601102.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-16T10:52:00Z",
-      "sweep_file": "screener/inbox/2026-10-17_sweep.json",
-      "prelim_note": "CCT Fortis has further delayed the despatch of a circular related to a connected transaction concerning amendments to its 2025 convertible bonds.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "CCT Fortis has further delayed the despatch of a circular related to a connected transaction concerning amendments to its 2025 convertible bonds.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CCT FORTIS",
-          "ticker": "00138",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -224401,9 +224400,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7719072,
-    "news_picked_today": 414,
-    "news_dropped_today": 4530
+    "news_seen_today": 7791895,
+    "news_picked_today": 428,
+    "news_dropped_today": 4636
   },
   "book_momentum": {
     "live_count": 8,
