@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T01:33:15Z",
+  "generated_at": "2026-10-18T01:37:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-053",
@@ -1327,6 +1327,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-086",
+      "headline": "Vale Base Metals completes transaction to establish new ownership of Thompson Mine Complex",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/vale-base-metals-completes-transaction-to-establish-new-ownership-of-thompson-mine-complex-302911257.html",
+      "source_name": "PR Newswire — Acquisitions, Mergers & Takeovers",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T12:36:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Vale Base Metals completed the transaction to establish new ownership of the Thompson Mine Complex, a significant asset restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "Vale Base Metals completed the transaction to establish new ownership of the Thompson Mine Complex, a significant asset restructuring.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vale Base Metals",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-082",
       "headline": "Listings in south-east Asia gain momentum with $1bn IPO",
       "headline_en": null,
@@ -1579,55 +1628,6 @@
       "launched_signal_id": null,
       "triage_score": 50,
       "triage_reason": "Vale Base Metals finalized the ownership restructuring of the Thompson mining complex.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vale Base Metals",
-          "ticker": null,
-          "listing_country": "BR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-085",
-      "headline": "Vale Base Metals completes transaction to establish new ownership of Thompson Mine Complex",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/vale-base-metals-completes-transaction-to-establish-new-ownership-of-thompson-mine-complex-302911267.html",
-      "source_name": "PR Newswire — Acquisitions, Mergers & Takeovers",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T12:45:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Vale Base Metals completed the transaction to finalize new ownership of the Thompson Mine Complex.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "Vale Base Metals completed the transaction to finalize new ownership of the Thompson Mine Complex.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 60,
@@ -225955,9 +225955,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 443413,
-    "news_picked_today": 96,
-    "news_dropped_today": 600
+    "news_seen_today": 457217,
+    "news_picked_today": 97,
+    "news_dropped_today": 623
   },
   "book_momentum": {
     "live_count": 8,
