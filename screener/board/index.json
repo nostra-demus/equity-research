@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T05:12:15Z",
+  "generated_at": "2026-10-18T05:14:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-263",
@@ -1516,6 +1516,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-271",
+      "headline": "Cancer Medicines To Get Cheaper By Up To 70%, Govt Caps Trade Margins On 137 Anti-Cancer Drugs At 30%",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/cancer-medicines-to-get-cheaper-by-up-to-70-govt-caps-trade-margins-on-137-anti-cancer-drugs-at-30",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T04:28:27Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Government caps trade margins on 137 anti-cancer drugs at 30%, reducing prices by up to 70%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Government caps trade margins on 137 anti-cancer drugs at 30%, reducing prices by up to 70%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-016",
       "headline": "Reliance and Blinkit executives face FIR in food safety case",
       "headline_en": null,
@@ -1908,56 +1951,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-009",
-      "headline": "Mercury Alarm Over 900 Tonnes Of Union Carbide Waste Ash In Pithampur, MPPCB Files High Court Report",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/bhopal/mercury-alarm-over-900-tonnes-of-union-carbide-waste-ash-in-pithampur-mppcb-files-high-court-report",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T20:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "MPPCB filed a report regarding 900 tonnes of hazardous waste, indicating potential regulatory and environmental liability for the site operator.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "MPPCB filed a report regarding 900 tonnes of hazardous waste, indicating potential regulatory and environmental liability for the site operator.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Union Carbide",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226608,9 +226601,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1389074,
-    "news_picked_today": 385,
-    "news_dropped_today": 1775
+    "news_seen_today": 1394214,
+    "news_picked_today": 388,
+    "news_dropped_today": 1796
   },
   "book_momentum": {
     "live_count": 8,
