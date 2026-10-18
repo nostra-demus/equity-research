@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T02:21:12Z",
+  "generated_at": "2026-10-18T02:27:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-053",
@@ -46,6 +46,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-122",
+      "headline": "Nidec to seek damages from founder and executives over accounting fraud",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/10/18/companies/nidec-legal-measures/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T01:35:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Nidec is pursuing legal action against its founder and executives for accounting fraud, indicating significant governance and internal control issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Nidec is pursuing legal action against its founder and executives for accounting fraud, indicating significant governance and internal control issues.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nidec",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1430,6 +1480,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-123",
+      "headline": "Persistent meldet für das 2. Quartal des Geschäftsjahres 2027 einen Umsatz von 487,6 Mio. USD - ein Wachstum von 20,0 % gegenüber dem Vorjahreszeitraum.",
+      "headline_en": "Persistent reports revenue of $487.6 million for the second quarter of fiscal year 2027 - 20.0% growth compared to the same period last year.",
+      "url": "https://www.prnewswire.com/news-releases/persistent-meldet-fur-das-2--quartal-des-geschaftsjahres-2027-einen-umsatz-von-487-6-mio-usd--ein-wachstum-von-20-0--gegenuber-dem-vorjahreszeitraum-302911158.html",
+      "source_name": "PR Newswire — Earnings",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T10:29:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Persistent reported Q2 2027 revenue of $487.6 million, representing 20% year-over-year growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Persistent reported Q2 2027 revenue of $487.6 million, representing 20% year-over-year growth.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Persistent",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-097",
       "headline": "One million Australians in ‘unsustainable’ super funds: APRA",
       "headline_en": null,
@@ -1836,103 +1935,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-057",
-      "headline": "TVS and Chetak face a new rival: This electric scooter promises a 250 km range",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/photo/tvs-and-chetak-face-a-new-rival-this-electric-scooter-promises-a-250-km-range-562123-2026-10-18?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T00:30:07Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "New electric scooter competition with a 250 km range poses a threat to existing market share of TVS and Bajaj Auto.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "New electric scooter competition with a 250 km range poses a threat to existing market share of TVS and Bajaj Auto.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "TVS Motor",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Bajaj Auto",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-083",
-      "headline": "West Bengal CM forms high-level panel to review safety at Durga Puja pandals after 19 die at Chorbagan stampede",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/india/west-bengal/west-bengal-cm-forms-high-level-panel-to-review-safety-at-durga-puja-pandals-after-19-die-at-chorbagan-stampede-4186845",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T01:16:58Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "A stampede resulting in 19 deaths and subsequent government safety reviews indicates operational and regulatory risk for public event management in the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 56,
-      "triage_reason": "A stampede resulting in 19 deaths and subsequent government safety reviews indicates operational and regulatory risk for public event management in the region.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226005,9 +226007,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 678865,
-    "news_picked_today": 155,
-    "news_dropped_today": 901
+    "news_seen_today": 698419,
+    "news_picked_today": 157,
+    "news_dropped_today": 923
   },
   "book_momentum": {
     "live_count": 8,
