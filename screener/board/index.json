@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T01:19:15Z",
+  "generated_at": "2026-10-18T01:20:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-053",
@@ -851,6 +851,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-080",
+      "headline": "Panzani and Cerealis Join Forces to Create a Major European Food Group",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/panzani-and-cerealis-join-forces-to-create-a-major-european-food-group-302911264.html",
+      "source_name": "PR Newswire — Acquisitions, Mergers & Takeovers",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T13:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Panzani and Cerealis are merging to create a major European food group, a significant consolidation event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Panzani and Cerealis are merging to create a major European food group, a significant consolidation event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Panzani",
+          "ticker": null,
+          "listing_country": "FR"
+        },
+        {
+          "name": "Cerealis",
+          "ticker": null,
+          "listing_country": "TN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-056",
       "headline": "Maruti Suzuki festive offers: Grand Vitara gets benefits of up to Rs 1.36 lakh, but conditions apply",
       "headline_en": null,
@@ -938,6 +992,55 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-078",
+      "headline": "Buffalo Potash Receives Approval to Construct and Operate Disley Initial Production Module | BLPTF Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/BLPTF/buffalo-potash-receives-approval-to-construct-and-operate-disley-6797st0mwmxl.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T13:05:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Buffalo Potash received approval to construct and operate a production module, representing a significant capital investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "Buffalo Potash received approval to construct and operate a production module, representing a significant capital investment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Buffalo Potash",
+          "ticker": "BLPTF",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1629,6 +1732,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-079",
+      "headline": "Westcove Advises Clinical Research of West Florida in its Partnership with Fengate Private Equity",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/westcove-advises-clinical-research-of-west-florida-in-its-partnership-with-fengate-private-equity-302910408.html",
+      "source_name": "PR Newswire — Financial Services & Investing",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T13:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Clinical Research of West Florida entered a partnership with Fengate Private Equity, indicating a significant capital or ownership event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 48,
+      "triage_reason": "Clinical Research of West Florida entered a partnership with Fengate Private Equity, indicating a significant capital or ownership event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Clinical Research of West Florida",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-019",
       "headline": "XCF Global Completes Business Combination with Southern Energy Renewables and DevvStream, Creating Vertically Integrated Alternative Energy Platform | SAFX Stock News",
       "headline_en": null,
@@ -1818,147 +1970,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-006",
-      "headline": "Iran war live: Tankers hit in Hormuz; Israeli settlers attack EU diplomats",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/liveblog/2026/10/18/iran-war-live-tankers-hit-in-hormuz-israeli-settlers-attack-eu-diplomats?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-10-18T00:00:11Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Reports of tankers being hit in the Strait of Hormuz represent a significant escalation in a critical global energy transit chokepoint.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Reports of tankers being hit in the Strait of Hormuz represent a significant escalation in a critical global energy transit chokepoint.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-063",
-      "headline": "ImmunityBio Reports Phase 3 Data Showing 84% Cystectomy Avoidance at Three Years and Complete Responses Beyond 53 Months with ANKTIVA® Plus BCG in BCG-Unresponsive NMIBC With CIS, With or Without Papillary Tumors | IBRX Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/IBRX/immunity-bio-reports-phase-3-data-showing-84-cystectomy-avoidance-at-2osh4wuyc064.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T15:49:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "ImmunityBio reported positive Phase 3 clinical trial data for ANKTIVA in bladder cancer treatment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 46,
-      "triage_reason": "ImmunityBio reported positive Phase 3 clinical trial data for ANKTIVA in bladder cancer treatment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ImmunityBio",
-          "ticker": "IBRX",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-064",
-      "headline": "Two Women Hospitalized with E. coli O157:H7 Sue Trader Joe's Over Tarragon Chicken Salad Wraps; Complaint Names the Product and the Retailer that FDA and USDA Have Not",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/two-women-hospitalized-with-e-coli-o157h7-sue-trader-joes-over-tarragon-chicken-salad-wraps-complaint-names-the-product-and-the-retailer-that-fda-and-usda-have-not-302910826.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T15:26:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Trader Joe's is being sued for an E. coli outbreak linked to a specific product, creating potential legal and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 46,
-      "triage_reason": "Trader Joe's is being sued for an E. coli outbreak linked to a specific product, creating potential legal and reputational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Trader Joe's",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -225961,9 +225972,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 387364,
-    "news_picked_today": 80,
-    "news_dropped_today": 496
+    "news_seen_today": 394461,
+    "news_picked_today": 87,
+    "news_dropped_today": 513
   },
   "book_momentum": {
     "live_count": 8,
