@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T06:31:41Z",
+  "generated_at": "2026-10-18T06:35:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-332",
@@ -985,6 +985,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-359",
+      "headline": "China proposes export controls on solar-manufacturing technologies",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/autos-transportation/china-proposes-export-controls-solar-manufacturing-technologies-2026-10-18/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T06:22:59Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "China's proposed export controls on solar-manufacturing technology represent a significant supply chain risk for the global solar industry.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "China's proposed export controls on solar-manufacturing technology represent a significant supply chain risk for the global solar industry.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-203",
       "headline": "Punjab & Sind Bank records 40% rise in net profit in Q2",
       "headline_en": null,
@@ -1808,69 +1852,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261018-296",
-      "headline": "Mega Jio Platforms IPO to lead Rs 31,663 crore offerings this week; 9 listings lined up",
+      "inbox_id": "INB-20261018-354",
+      "headline": "Kerala HC temporarily halts further construction at beach near Vizhinjam by VISL",
       "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/ipos/fpos/mega-jio-platforms-ipo-to-lead-rs-31663-crore-offerings-this-week-9-listings-lined-up/articleshow/135024121.cms",
-      "source_name": "The Economic Times",
+      "url": "https://www.thehindubusinessline.com/news/kerala-hc-temporarily-halts-further-construction-at-beach-near-vizhinjam-by-visl/article71599266.ece",
+      "source_name": "The Hindu BusinessLine",
       "input_nature": "news_headline",
-      "found_at": "2026-10-18T05:11:00Z",
+      "found_at": "2026-10-18T06:21:02Z",
       "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Jio Platforms is preparing for a major IPO as part of a Rs 31,663 crore market offering week.",
+      "prelim_note": "Kerala High Court halted construction at Vizhinjam by VISL due to environmental issues.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 88,
-      "triage_reason": "Jio Platforms is preparing for a major IPO as part of a Rs 31,663 crore market offering week.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jio Platforms",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-264",
-      "headline": "HDFC Bank PAT ticks up 5% amid pressure",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/hdfc-bank-pat-ticks-up-5-amid-pressure/articleshow/135023863.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T04:38:20Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "HDFC Bank reported a 5% profit increase amid margin pressure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "HDFC Bank reported a 5% profit increase amid margin pressure.",
+      "triage_reason": "Kerala High Court halted construction at Vizhinjam by VISL due to environmental issues.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 60,
@@ -1878,79 +1873,80 @@
         "materiality": 60,
         "source_tier": 0,
         "scope": 6,
-        "event": 5,
-        "size": 2,
+        "event": 6,
+        "size": 1,
         "recency": 5,
         "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "regulatory",
+        "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "HDFC Bank",
+          "name": "Vizhinjam International Seaport Ltd",
           "ticker": null,
           "listing_country": "IN"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261018-160",
-      "headline": "Macquarie Capital veteran exits amid further staff cuts",
+      "inbox_id": "INB-20261018-355",
+      "headline": "Kerala HC orders halt to construction at Vizhinjam beach over missing environmental clearance",
       "headline_en": null,
-      "url": "https://www.afr.com/companies/financial-services/macquarie-capital-veteran-exits-amid-further-staff-cuts-20261018-p616g4?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
+      "url": "https://economictimes.indiatimes.com/industry/transportation/shipping-/-transport/kerala-hc-orders-halt-to-construction-at-vizhinjam-beach-over-missing-environmental-clearance/articleshow/135024791.cms",
+      "source_name": "The Economic Times",
       "input_nature": "news_headline",
-      "found_at": "2026-10-18T03:31:59Z",
+      "found_at": "2026-10-18T06:08:26Z",
       "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Macquarie Capital is undergoing staff cuts and a veteran executive has exited.",
+      "prelim_note": "Kerala High Court ordered a halt to construction at Vizhinjam beach due to missing environmental clearance.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 88,
-      "triage_reason": "Macquarie Capital is undergoing staff cuts and a veteran executive has exited.",
-      "region": "GLOBAL",
+      "triage_reason": "Kerala High Court ordered a halt to construction at Vizhinjam beach due to missing environmental clearance.",
+      "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 55,
+      "materiality_pre_score": 60,
       "rank_factors": {
-        "materiality": 55,
+        "materiality": 60,
         "source_tier": 0,
         "scope": 6,
-        "event": 5,
-        "size": 2,
+        "event": 6,
+        "size": 1,
         "recency": 5,
-        "materiality_label_floor": 15,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "large"
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
       },
       "event_types": [
-        "restructuring_layoffs",
-        "executive_exit"
+        "regulatory",
+        "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Macquarie Group",
+          "name": "Vizhinjam International Seaport Ltd",
           "ticker": null,
-          "listing_country": "AU"
+          "listing_country": "IN"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226666,9 +226662,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1635188,
-    "news_picked_today": 542,
-    "news_dropped_today": 2194
+    "news_seen_today": 1644014,
+    "news_picked_today": 553,
+    "news_dropped_today": 2231
   },
   "book_momentum": {
     "live_count": 8,
