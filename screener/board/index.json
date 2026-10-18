@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T19:57:58Z",
+  "generated_at": "2026-10-18T20:06:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-587",
@@ -240,6 +240,55 @@
           "name": "Haier India",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-683",
+      "headline": "Anthropic commits billions to a 'public benefit fund'",
+      "headline_en": null,
+      "url": "https://www.businessinsider.com/anthropic-public-benefit-fund-2026-10",
+      "source_name": "Business Insider",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T18:48:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Anthropic is committing billions of dollars to a public benefit fund, representing a significant capital allocation that impacts cash flow and financial resources.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anthropic is committing billions of dollars to a public benefit fund, representing a significant capital allocation that impacts cash flow and financial resources.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -1929,56 +1978,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-412",
-      "headline": "Indo Rama Synthetics Posts 201.8% PAT Rise To ₹74.1 Crore In Q2 FY27; Plans ₹200 Crore Investment",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/indo-rama-synthetics-posts-2018-pat-rise-to-741-crore-in-q2-fy27-plans-200-crore-investment",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T04:03:20Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Indo Rama Synthetics reported a 201.8% PAT rise to ₹74.1 crore and announced a ₹200 crore investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Indo Rama Synthetics reported a 201.8% PAT rise to ₹74.1 crore and announced a ₹200 crore investment.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Indo Rama Synthetics",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -225888,9 +225887,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2283412,
-    "news_picked_today": 1747,
-    "news_dropped_today": 5683
+    "news_seen_today": 2283442,
+    "news_picked_today": 1756,
+    "news_dropped_today": 5704
   },
   "book_momentum": {
     "live_count": 8,
