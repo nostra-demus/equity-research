@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T00:18:58Z",
+  "generated_at": "2026-10-18T00:22:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-016",
@@ -406,6 +406,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-033",
+      "headline": "Viatris Receives U.S. FDA Approval for RYZUMVI® for the Treatment of Presbyopia | VTRS Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/VTRS/viatris-receives-u-s-fda-approval-for-ryzumvi-for-the-treatment-of-hydthso0blvn.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T20:05:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "FDA approval for RYZUMVI provides a new revenue stream for Viatris.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "FDA approval for RYZUMVI provides a new revenue stream for Viatris.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Viatris",
+          "ticker": "VTRS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-011",
       "headline": "Dubai Municipality and Emaar Malls explore new retail and lifestyle destinations",
       "headline_en": null,
@@ -748,6 +797,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-032",
+      "headline": "VBM completa la transacción para establecer una nueva estructura de propiedad del complejo minero Thompson",
+      "headline_en": "VBM completes transaction to establish new ownership structure for the Thompson mining complex",
+      "url": "https://www.prnewswire.com/news-releases/vbm-completa-la-transaccion-para-establecer-una-nueva-estructura-de-propiedad-del-complejo-minero-thompson-302911622.html",
+      "source_name": "PR Newswire — Acquisitions, Mergers & Takeovers",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T20:08:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "VBM completed a transaction to restructure ownership of the Thompson mining complex.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 48,
+      "triage_reason": "VBM completed a transaction to restructure ownership of the Thompson mining complex.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "VBM",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1170,6 +1268,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-034",
+      "headline": "Nanox Provides Business Update and Furnishes Certain Preliminary Unaudited Financial Data for Third Quarter Ended September 30, 2026 | NNOX Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/NNOX/nanox-provides-business-update-and-furnishes-certain-preliminary-mvt52absno8o.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T20:05:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Company provided preliminary unaudited financial data for Q3 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 44,
+      "triage_reason": "Company provided preliminary unaudited financial data for Q3 2026.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nanox",
+          "ticker": "NNOX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-007",
       "headline": "SKYRIZI® (risankizumab) and RINVOQ® (upadacitinib) Data Highlight Long-Term Clinical and Endoscopic Outcomes Across Inflammatory Bowel Disease (IBD) at UEGW 2026 | ABBV Stock News",
       "headline_en": null,
@@ -1308,6 +1455,55 @@
         {
           "name": "GreenPower",
           "ticker": "GP",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-031",
+      "headline": "Fort Technology Announces Receipt of Nasdaq Notification Regarding Minimum Bid Price Requirement | FORT Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/FORT/fort-technology-announces-receipt-of-nasdaq-notification-regarding-zr2eksr7js0x.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T20:15:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Receipt of a Nasdaq deficiency notice regarding minimum bid price indicates potential delisting risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 43,
+      "triage_reason": "Receipt of a Nasdaq deficiency notice regarding minimum bid price indicates potential delisting risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fort Technology",
+          "ticker": "FORT",
           "listing_country": "US"
         }
       ],
@@ -225601,7 +225797,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3757,
+    "inbox_unconsumed": 3761,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -225610,9 +225806,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 76965,
-    "news_picked_today": 31,
-    "news_dropped_today": 137
+    "news_seen_today": 84499,
+    "news_picked_today": 35,
+    "news_dropped_today": 157
   },
   "book_momentum": {
     "live_count": 8,
