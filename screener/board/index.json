@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T06:35:48Z",
+  "generated_at": "2026-10-18T06:38:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-332",
@@ -735,6 +735,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-360",
+      "headline": "India's HDFC Bank quarterly profit rises 4.7%, narrowly misses estimates as treasury income slumps",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/india/indias-hdfc-bank-quarterly-profit-rises-47-narrowly-misses-estimates-treasury-2026-10-17/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T08:54:18Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "HDFC Bank reported a quarterly profit rise of 4.7%, which missed analyst estimates due to a slump in treasury income.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HDFC Bank reported a quarterly profit rise of 4.7%, which missed analyst estimates due to a slump in treasury income.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HDFC Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1866,56 +1915,6 @@
       "launched_signal_id": null,
       "triage_score": 88,
       "triage_reason": "Kerala High Court halted construction at Vizhinjam by VISL due to environmental issues.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vizhinjam International Seaport Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-355",
-      "headline": "Kerala HC orders halt to construction at Vizhinjam beach over missing environmental clearance",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/transportation/shipping-/-transport/kerala-hc-orders-halt-to-construction-at-vizhinjam-beach-over-missing-environmental-clearance/articleshow/135024791.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T06:08:26Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Kerala High Court ordered a halt to construction at Vizhinjam beach due to missing environmental clearance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Kerala High Court ordered a halt to construction at Vizhinjam beach due to missing environmental clearance.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 60,
@@ -226662,9 +226661,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1644014,
-    "news_picked_today": 553,
-    "news_dropped_today": 2231
+    "news_seen_today": 1652748,
+    "news_picked_today": 557,
+    "news_dropped_today": 2251
   },
   "book_momentum": {
     "live_count": 8,
