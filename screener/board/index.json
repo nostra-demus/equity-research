@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T03:08:35Z",
+  "generated_at": "2026-10-18T03:11:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-053",
@@ -139,6 +139,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-140",
+      "headline": "Systems Limited invests $10m in Egypt, targets further growth in 2027",
+      "headline_en": null,
+      "url": "https://www.dailynewsegypt.com/2026/10/17/systems-limited-invests-10m-in-egypt-targets-further-growth-in-2027/",
+      "source_name": "Daily News Egypt — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T18:00:13Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Systems Limited announced a $10m investment in Egypt to support growth through 2027.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Systems Limited announced a $10m investment in Egypt to support growth through 2027.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Systems Limited",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -542,6 +591,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-142",
+      "headline": "MIDYAN Developments invests EGP 12bn across three sectors over four years",
+      "headline_en": null,
+      "url": "https://www.dailynewsegypt.com/2026/10/17/midyan-developments-invests-egp-12bn-across-three-sectors-over-four-years/",
+      "source_name": "Daily News Egypt — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T17:57:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "MIDYAN Developments announced a EGP 12bn investment plan across three sectors over four years.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "MIDYAN Developments announced a EGP 12bn investment plan across three sectors over four years.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MIDYAN Developments",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1873,92 +1971,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-097",
-      "headline": "One million Australians in ‘unsustainable’ super funds: APRA",
-      "headline_en": null,
-      "url": "https://www.afr.com/politics/federal/one-million-australians-in-unsustainable-super-funds-apra-20261018-p616fm?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T02:01:51Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "APRA report identifies one million Australians in unsustainable super funds, signaling potential regulatory intervention or sector reform.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "APRA report identifies one million Australians in unsustainable super funds, signaling potential regulatory intervention or sector reform.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-091",
-      "headline": "Rubio says Russia sanctions pause to 'analyse' impact on global economy",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/rubio-says-russia-sanctions-pause-analyse-impact-global-economy-1",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T01:55:31Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Potential pause in Russia sanctions to analyze global economic impact suggests a shift in US foreign policy approach.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "Potential pause in Russia sanctions to analyze global economic impact suggests a shift in US foreign policy approach.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226030,9 +226042,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 874674,
-    "news_picked_today": 191,
-    "news_dropped_today": 1177
+    "news_seen_today": 886886,
+    "news_picked_today": 196,
+    "news_dropped_today": 1196
   },
   "book_momentum": {
     "live_count": 8,
