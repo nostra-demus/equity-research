@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-18T06:41:22Z",
+  "generated_at": "2026-10-18T06:45:43Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261018-362",
+      "headline": "Vedanta Limited: Vedanta Limited has informed the Exchange regarding a press release dated October 18, 2026, titled \"Vedanta Ltd Doubles Zinc Production Capacity in South Africa with US$ 600 Mn investment\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/VEDL_18102026120209_SEintimationGamsbergExpansionfinalsigned.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-18T06:34:01Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Vedanta is doubling zinc production capacity in South Africa with a US$ 600 million investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vedanta is doubling zinc production capacity in South Africa with a US$ 600 million investment.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vedanta Limited",
+          "ticker": "500295",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261018-332",
       "headline": "Zen Technologies Limited: Zen Technologies Limited has informed the Exchange regarding a press release dated October 18, 2026, titled \"Zen Technologies to acquire majority stake in Cogknit Semantics, an indigenous developer of Battlefield Management Systems.\".",
@@ -1896,56 +1945,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-354",
-      "headline": "Kerala HC temporarily halts further construction at beach near Vizhinjam by VISL",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/kerala-hc-temporarily-halts-further-construction-at-beach-near-vizhinjam-by-visl/article71599266.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T06:21:02Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Kerala High Court halted construction at Vizhinjam by VISL due to environmental issues.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Kerala High Court halted construction at Vizhinjam by VISL due to environmental issues.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vizhinjam International Seaport Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226661,9 +226660,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1661482,
-    "news_picked_today": 563,
-    "news_dropped_today": 2269
+    "news_seen_today": 1674496,
+    "news_picked_today": 575,
+    "news_dropped_today": 2281
   },
   "book_momentum": {
     "live_count": 8,
