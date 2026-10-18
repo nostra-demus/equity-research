@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T05:47:47Z",
+  "generated_at": "2026-10-18T05:49:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-282",
@@ -592,6 +592,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-305",
+      "headline": "ICICI Bank Q2 net profit jumps 22% to Rs 16,333 crore",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/business/companies/icici-bank-q2-net-profit-jumps-22-to-rs-16333-crore-4186309",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T11:19:32Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "ICICI Bank reported a 22% jump in Q2 net profit to Rs 16,333 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "ICICI Bank reported a 22% jump in Q2 net profit to Rs 16,333 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ICICI Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-223",
       "headline": "Central Bank of India’s Q2 profit jumps 21% YoY to Rs 1,469 crore",
       "headline_en": null,
@@ -830,6 +879,55 @@
           "name": "Central Bank of India",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-313",
+      "headline": "Rocket Lab Just Booked Its Biggest Contract Ever (Again)",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/10/17/rocket-lab-just-booked-its-biggest-contract-ever-a/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T11:07:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Rocket Lab booked its biggest contract ever again, indicating significant revenue growth and market success.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Rocket Lab booked its biggest contract ever again, indicating significant revenue growth and market success.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rocket Lab",
+          "ticker": "RKLB",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mid",
@@ -1850,103 +1948,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-271",
-      "headline": "Cancer Medicines To Get Cheaper By Up To 70%, Govt Caps Trade Margins On 137 Anti-Cancer Drugs At 30%",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/cancer-medicines-to-get-cheaper-by-up-to-70-govt-caps-trade-margins-on-137-anti-cancer-drugs-at-30",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T04:28:27Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Government caps trade margins on 137 anti-cancer drugs at 30%, reducing prices by up to 70%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Government caps trade margins on 137 anti-cancer drugs at 30%, reducing prices by up to 70%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-016",
-      "headline": "Reliance and Blinkit executives face FIR in food safety case",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/cons-products/food/reliance-consumer-and-blinkit-executives-face-fir-in-food-safety-case/articleshow/135019135.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T18:30:27Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Executives at Reliance and Blinkit are facing an FIR in a food safety case, which poses potential legal and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Executives at Reliance and Blinkit are facing an FIR in a food safety case, which poses potential legal and reputational risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Blinkit",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226594,9 +226595,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1488389,
-    "news_picked_today": 435,
-    "news_dropped_today": 1941
+    "news_seen_today": 1497995,
+    "news_picked_today": 463,
+    "news_dropped_today": 1985
   },
   "book_momentum": {
     "live_count": 8,
