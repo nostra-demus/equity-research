@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T08:47:49Z",
+  "generated_at": "2026-10-18T08:50:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-362",
@@ -1194,6 +1194,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-514",
+      "headline": "Poland scrambles aircraft as Russia launches strikes on Ukraine, Polish military says",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/aerospace-defense/poland-scrambles-aircraft-russia-launches-strikes-ukraine-polish-military-says-2026-10-18/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T08:33:44Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Russian strikes on Ukraine and the scrambling of Polish aircraft represent a significant geopolitical escalation in the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Russian strikes on Ukraine and the scrambling of Polish aircraft represent a significant geopolitical escalation in the region.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-182",
       "headline": "Yes Bank reports robust 65% jump in net profit at ₹1,080 cr",
       "headline_en": null,
@@ -1901,55 +1944,6 @@
         "size": 1,
         "recency": 1,
         "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Central Bank of India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-369",
-      "headline": "Central Bank Of India’s Q2 FY27 Consolidated Net Profit Rose 40.58 Per Cent Year-On-Year To ₹1,718.60 Crore",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/central-bank-of-indias-q2-fy27-consolidated-net-profit-rose-4058-per-cent-year-on-year-to-171860-crore",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T08:09:19Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Central Bank of India reported a 40.58% YoY increase in net profit to ₹1,718.60 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Central Bank of India reported a 40.58% YoY increase in net profit to ₹1,718.60 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
@@ -226681,9 +226675,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1981598,
-    "news_picked_today": 891,
-    "news_dropped_today": 3117
+    "news_seen_today": 1987482,
+    "news_picked_today": 895,
+    "news_dropped_today": 3137
   },
   "book_momentum": {
     "live_count": 8,
