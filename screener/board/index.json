@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T06:58:47Z",
+  "generated_at": "2026-10-18T07:05:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-362",
@@ -887,6 +887,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-412",
+      "headline": "Indo Rama Synthetics Posts 201.8% PAT Rise To ₹74.1 Crore In Q2 FY27; Plans ₹200 Crore Investment",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/indo-rama-synthetics-posts-2018-pat-rise-to-741-crore-in-q2-fy27-plans-200-crore-investment",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T04:03:20Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Indo Rama Synthetics reported a 201.8% PAT rise to ₹74.1 crore and announced a ₹200 crore investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Indo Rama Synthetics reported a 201.8% PAT rise to ₹74.1 crore and announced a ₹200 crore investment.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Indo Rama Synthetics",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-182",
       "headline": "Yes Bank reports robust 65% jump in net profit at ₹1,080 cr",
       "headline_en": null,
@@ -1034,6 +1084,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-459",
+      "headline": "Yes Bank’s CET1 ratio to take 250-basis-point hit after AT1 bond ruling",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/money-and-banking/yes-banks-cet1-ratio-to-take-250-basis-point-hit-after-at1-bond-ruling/article71592712.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T23:10:29Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Yes Bank faces a 250-basis-point hit to its CET1 ratio following an AT1 bond ruling.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Yes Bank faces a 250-basis-point hit to its CET1 ratio following an AT1 bond ruling.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yes Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-495",
+      "headline": "Anthropic signs onto $10-billion Nova Scotia data centre project",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-anthropic-signs-onto-10-billion-nova-scotia-data-centre-project/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T22:13:12Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Anthropic is participating in a $10-billion data center project in Nova Scotia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Anthropic is participating in a $10-billion data center project in Nova Scotia.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-223",
       "headline": "Central Bank of India’s Q2 profit jumps 21% YoY to Rs 1,469 crore",
       "headline_en": null,
@@ -1122,6 +1270,153 @@
       "companies": [
         {
           "name": "IDBI Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-451",
+      "headline": "PNB’s net profit rises 13% in Q2; plans to launch special campaign for RD amid bearish stock mkt",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/money-and-banking/pnbs-net-profit-rises-13-in-q2-plans-to-launch-special-campaign-for-rd-amid-bearish-stock-mkt/article71593092.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T23:25:35Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Punjab National Bank reported a 13% increase in Q2 net profit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Punjab National Bank reported a 13% increase in Q2 net profit.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Punjab National Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-409",
+      "headline": "Himadri Speciality Chemical Consolidated Net Profit Rises 31% To ₹231.32 Crore",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/himadri-speciality-chemical-consolidated-net-profit-rises-31-to-23132-crore",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T04:39:53Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Himadri Speciality Chemical reported a 31% increase in net profit to ₹231.32 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Himadri Speciality Chemical reported a 31% increase in net profit to ₹231.32 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Himadri Speciality Chemical",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-435",
+      "headline": "Federal Bank net profit jumps 45% in Q2",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/business/federal-bank-net-profit-jumps-45-in-q2-4185714",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T01:10:11Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Federal Bank reported a 45% jump in Q2 net profit, a significant quantified earnings beat.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Federal Bank reported a 45% jump in Q2 net profit, a significant quantified earnings beat.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Federal Bank",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -1422,6 +1717,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-469",
+      "headline": "Drone strike kills 30 at cattle market in Sudan's Darfur",
+      "headline_en": null,
+      "url": "https://www.newarab.com/news/drone-strike-kills-30-cattle-market-sudans-darfur",
+      "source_name": "The New Arab",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T23:00:16Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "A drone strike in Sudan represents a significant geopolitical escalation in a conflict-prone region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "A drone strike in Sudan represents a significant geopolitical escalation in a conflict-prone region.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-313",
       "headline": "Rocket Lab Just Booked Its Biggest Contract Ever (Again)",
       "headline_en": null,
@@ -1466,6 +1804,49 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-480",
+      "headline": "U.S. budget deficit swells to almost $2 trillion for fiscal 2026, up 12% in a single year",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/16/us-budget-deficit-2026.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T22:34:29Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "US budget deficit reaching $2 trillion, a 12% increase, signals significant fiscal pressure and potential long-term sovereign credit implications.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "US budget deficit reaching $2 trillion, a 12% increase, signals significant fiscal pressure and potential long-term sovereign credit implications.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1551,399 +1932,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-295",
-      "headline": "Oil India Limited: Oil India Limited has informed the Exchange regarding a press release dated October 18, 2026, titled \"OIL Achieves a Landmark Milestone with Signing of Special CBM Block RSC\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/OIL_18102026110758_PressRelease_signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-18T05:38:13Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Oil India Limited signed a contract for a new Coal Bed Methane (CBM) block, representing a strategic operational expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Oil India Limited signed a contract for a new Coal Bed Methane (CBM) block, representing a strategic operational expansion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Oil India Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-284",
-      "headline": "Reliance Jio IPO: LIC, leading MFs, AMCs and global investors eye issue, say reports | Check latest GMP price today",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/ipo/reliance-jio-ipo-lic-leading-mfs-amcs-and-global-investors-eye-issue-say-reports-check-latest-gmp-price-today-11792299184449.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T05:26:48Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Reports of major institutional interest in a potential Reliance Jio IPO indicate significant market anticipation for a large-scale capital event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Reports of major institutional interest in a potential Reliance Jio IPO indicate significant market anticipation for a large-scale capital event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Jio",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-140",
-      "headline": "Systems Limited invests $10m in Egypt, targets further growth in 2027",
-      "headline_en": null,
-      "url": "https://www.dailynewsegypt.com/2026/10/17/systems-limited-invests-10m-in-egypt-targets-further-growth-in-2027/",
-      "source_name": "Daily News Egypt — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T18:00:13Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Systems Limited announced a $10m investment in Egypt to support growth through 2027.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Systems Limited announced a $10m investment in Egypt to support growth through 2027.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Systems Limited",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-340",
-      "headline": "Spanish mining firm set to list in London as pressure mounts on self-storage group Big Yellow to put itself up for sale and quit capital's stock exchange",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16216623/Spanish-mining-firm-set-list-London-pressure-mounts-self-storage-group-Big-Yellow-sale-quit-capitals-stock-exchange.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T06:01:02Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Big Yellow is facing pressure to consider a sale and delisting.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Big Yellow is facing pressure to consider a sale and delisting.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Big Yellow Group",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-335",
-      "headline": "Tata Trusts Spends ₹1,556 Crore In FY26, Noel Tata Unveils Plan For 40–50 Not-For-Profit Hospitals Across India",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/tata-trusts-spends-1556-crore-in-fy26-noel-tata-unveils-plan-for-4050-not-for-profit-hospitals-across-india",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T05:22:53Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Tata Trusts announced a significant expansion plan to build 40-50 not-for-profit hospitals across India.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Tata Trusts announced a significant expansion plan to build 40-50 not-for-profit hospitals across India.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Trusts",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-212",
-      "headline": "Tata Trusts to build 40-50 hospitals, focus on measurable impact: Noel Tata",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/tata-trusts-to-build-40-50-hospitals-focus-on-measurable-impact-noel-tata-11792295305604.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T04:14:07Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Tata Trusts announced plans to build 40-50 hospitals, representing a significant capital investment in the Indian healthcare sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Tata Trusts announced plans to build 40-50 hospitals, representing a significant capital investment in the Indian healthcare sector.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Trusts",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-052",
-      "headline": "Citi Just Downgraded Bill Ackman's Pershing Square Stock to Sell, Citing a $45 Price Target Versus Its $60 Peak. Is PS Stock Overvalued After Its April IPO Rally?",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/citi-just-downgraded-bill-ackmans-pershing-square-stock-sell-citing-45-price-target-versus",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T23:25:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Citi downgraded Pershing Square to Sell with a $45 price target.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Citi downgraded Pershing Square to Sell with a $45 price target.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "credit_rating_downgrade",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "credit_rating_downgrade"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pershing Square",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-231",
-      "headline": "CoreWeave Woes Risk Shutting Down AI Junk Market: Credit Weekly",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-17/coreweave-woes-risk-shutting-down-ai-junk-market-credit-weekly",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T14:27:13Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "CoreWeave's credit risk poses a potential systemic threat to the AI-linked junk bond market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "CoreWeave's credit risk poses a potential systemic threat to the AI-linked junk bond market.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CoreWeave",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -226660,9 +226648,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1725322,
-    "news_picked_today": 613,
-    "news_dropped_today": 2363
+    "news_seen_today": 1733672,
+    "news_picked_today": 839,
+    "news_dropped_today": 2905
   },
   "book_momentum": {
     "live_count": 8,
