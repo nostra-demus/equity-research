@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T08:56:17Z",
+  "generated_at": "2026-10-18T08:59:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-362",
@@ -149,6 +149,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-519",
+      "headline": "Vedanta invests $600 million to double zinc production capacity in South Africa",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/companies/vedanta-invests-usd-600-million-to-double-zinc-production-capacity-in-south-africa-20014384.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T08:43:17Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Vedanta is investing $600 million to double its zinc production capacity in South Africa.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vedanta is investing $600 million to double its zinc production capacity in South Africa.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vedanta",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-513",
       "headline": "Zen Technologies to acquire majority stake in defence tech firm Cogknit Semantics for ₹135.15 crore",
       "headline_en": null,
@@ -248,55 +297,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-512",
-      "headline": "Vedanta doubles zinc production capacity in South Africa with $600 million investment",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/indl-goods/svs/chem-/-fertilisers/vedanta-doubles-zinc-production-capacity-in-south-africa-with-600-million-investment/articleshow/135025241.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T06:58:08Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Vedanta is investing $600 million to double zinc production capacity in South Africa.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Vedanta is investing $600 million to double zinc production capacity in South Africa.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vedanta",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226675,9 +226675,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2001929,
-    "news_picked_today": 900,
-    "news_dropped_today": 3180
+    "news_seen_today": 2007655,
+    "news_picked_today": 905,
+    "news_dropped_today": 3199
   },
   "book_momentum": {
     "live_count": 8,
