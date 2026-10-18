@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T00:26:58Z",
+  "generated_at": "2026-10-18T00:29:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-016",
@@ -251,6 +251,60 @@
           "name": "Hyundai Motor",
           "ticker": null,
           "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-039",
+      "headline": "Sterne Kessler Client Netlist Negotiates $600 Million Settlement with Micron Technology",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20261016154549/en/Sterne-Kessler-Client-Netlist-Negotiates-600-Million-Settlement-with-Micron-Technology/?feedref=JjAwJuNHiystnCoBq_hl-adS5VAKkf1zsgyV8tTPInVcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTVXw2Oldt-3VQjUwU4Zj5HZBSvR87oUDgbHejiywQBpbg==",
+      "source_name": "Business Wire — Lawsuit News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T17:24:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Netlist negotiated a $600 million settlement with Micron Technology.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Netlist negotiated a $600 million settlement with Micron Technology.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Netlist",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Micron Technology",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -225781,7 +225835,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3765,
+    "inbox_unconsumed": 3766,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -225790,9 +225844,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 106994,
-    "news_picked_today": 39,
-    "news_dropped_today": 177
+    "news_seen_today": 114469,
+    "news_picked_today": 40,
+    "news_dropped_today": 200
   },
   "book_momentum": {
     "live_count": 8,
