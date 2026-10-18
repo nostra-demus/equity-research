@@ -1,6 +1,105 @@
 {
-  "generated_at": "2026-10-18T06:06:21Z",
+  "generated_at": "2026-10-18T06:09:47Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261018-332",
+      "headline": "Zen Technologies Limited: Zen Technologies Limited has informed the Exchange regarding a press release dated October 18, 2026, titled \"Zen Technologies to acquire majority stake in Cogknit Semantics, an indigenous developer of Battlefield Management Systems.\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ZENTEC_18102026112012_PressRelease18102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-18T05:50:44Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Zen Technologies is acquiring a majority stake in Cogknit Semantics to expand its defense technology capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Zen Technologies is acquiring a majority stake in Cogknit Semantics to expand its defense technology capabilities.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zen Technologies Limited",
+          "ticker": "533339",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-333",
+      "headline": "Yes Bank Q2 Profit Jumps 63% To ₹1,084 Crore, AT1 Bond Ruling Could Turn Earnings Into ₹5,217 Crore Loss",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/yes-bank-q2-profit-jumps-63-to-1084-crore-at1-bond-ruling-could-turn-earnings-into-5217-crore-loss",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T05:37:15Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Yes Bank reported a 63% profit jump to ₹1,084 crore, but faces a potential ₹5,217 crore loss due to an AT1 bond ruling.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Yes Bank reported a 63% profit jump to ₹1,084 crore, but faces a potential ₹5,217 crore loss due to an AT1 bond ruling.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yes Bank",
+          "ticker": "YESBANK",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261018-282",
       "headline": "Brookfield’s $4.1b Reliance Worldwide bid survives ‘go-shop’ clause",
@@ -1850,103 +1949,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-319",
-      "headline": "Egypt's Sisi calls for emergency parliament session to approve possible defence of Saudi Arabia",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/mena/egypts-sisi-calls-for-emergency-parliament-session-to-approve-possible-defence-of-saudi-arabia-1.500714123",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T10:44:28Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Egypt calling an emergency parliament session to discuss potential military defense of Saudi Arabia signals a major regional escalation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Egypt calling an emergency parliament session to discuss potential military defense of Saudi Arabia signals a major regional escalation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-216",
-      "headline": "Jio Platforms IPO RHP: From financials to spectrum portfolio | 10 key things to know before subscribing",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/ipo/jio-platforms-ipo-rhp-from-financials-to-spectrum-portfolio-10-key-things-to-know-before-subscribing-11792293777990.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T04:23:58Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Details from the Red Herring Prospectus (RHP) for the Jio Platforms IPO provide critical financial and spectrum data for investors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Details from the Red Herring Prospectus (RHP) for the Jio Platforms IPO provide critical financial and spectrum data for investors.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Industries",
-          "ticker": "RELIANCE",
-          "listing_country": "IN"
-        },
-        {
-          "name": "Jio Platforms",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226594,9 +226596,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1549596,
-    "news_picked_today": 502,
-    "news_dropped_today": 2090
+    "news_seen_today": 1568004,
+    "news_picked_today": 506,
+    "news_dropped_today": 2110
   },
   "book_momentum": {
     "live_count": 8,
