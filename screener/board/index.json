@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T09:21:43Z",
+  "generated_at": "2026-10-18T09:28:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-362",
@@ -141,6 +141,55 @@
           "name": "Mouwasat",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-526",
+      "headline": "Yes Bank says AT1 bond verdict could mean Rs 5,217 crore Q2 loss",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/sumitomo-backed-yes-bank-pegs-at1-bond-verdict-hit-at-rs-5217-crore/articleshow/135026370.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T08:55:09Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Yes Bank warned that a court verdict on AT1 bonds could result in a quantified Q2 loss of Rs 5,217 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Yes Bank warned that a court verdict on AT1 bonds could result in a quantified Q2 loss of Rs 5,217 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yes Bank",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -1531,6 +1580,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-554",
+      "headline": "Jensen Huang's Nvidia Lost $200 Billion in Value After OpenAI's Revenue Run Rate Came Up $18 Billion Below Expectations. Is This AI-Jitters Sell-Off a Buying Opportunity?",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/10/16/jensen-huangs-nvidia-lost-200-billion-in-value-aft/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T18:31:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Nvidia losing $200 billion in value after OpenAI's revenue run rate came in below expectations indicates a significant market reaction to AI sector performance and investor sentiment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Nvidia losing $200 billion in value after OpenAI's revenue run rate came in below expectations indicates a significant market reaction to AI sector performance and investor sentiment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-223",
       "headline": "Central Bank of India’s Q2 profit jumps 21% YoY to Rs 1,469 crore",
       "headline_en": null,
@@ -1678,6 +1782,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-529",
+      "headline": "Yes Bank flags 250-bps impact on core capital ratio after Supreme Court upholds AT-1 bond write-off ruling",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/yes-bank-flags-250-bps-impact-in-core-capital-ratio-after-supreme-court-upholds-at-1-bond-write-off-ruling-11792175520924.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T18:51:54Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Yes Bank confirms a significant 250-bps hit to its core capital ratio following a Supreme Court ruling on AT-1 bonds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Yes Bank confirms a significant 250-bps hit to its core capital ratio following a Supreme Court ruling on AT-1 bonds.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yes Bank",
+          "ticker": "YESBANK",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-521",
       "headline": "Foxtel questions emerge just 18 months after Dazn’s $3.4b takeover",
       "headline_en": null,
@@ -1820,148 +1974,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-359",
-      "headline": "China proposes export controls on solar-manufacturing technologies",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/autos-transportation/china-proposes-export-controls-solar-manufacturing-technologies-2026-10-18/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T06:22:59Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "China's proposed export controls on solar-manufacturing technology represent a significant supply chain risk for the global solar industry.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "China's proposed export controls on solar-manufacturing technology represent a significant supply chain risk for the global solar industry.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-203",
-      "headline": "Punjab & Sind Bank records 40% rise in net profit in Q2",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/punjab-sind-bank-records-40-rise-in-net-profit-in-q2/article71597071.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T14:52:37Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Punjab & Sind Bank reported a 40% increase in net profit for Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Punjab & Sind Bank reported a 40% increase in net profit for Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Punjab & Sind Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-053",
-      "headline": "Department of War's Office of Strategic Capital Signs $80 Million Conditional Loan Commitment with Antheia, Inc.",
-      "headline_en": null,
-      "url": "https://www.war.gov/News/Releases/Release/Article/4628105/department-of-wars-office-of-strategic-capital-signs-80-million-conditional-loa/",
-      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-18T00:55:17Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Antheia, Inc. secured an $80 million conditional loan commitment from the U.S. Department of War.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Antheia, Inc. secured an $80 million conditional loan commitment from the U.S. Department of War.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Antheia, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226601,9 +226613,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2054081,
-    "news_picked_today": 951,
-    "news_dropped_today": 3321
+    "news_seen_today": 2062010,
+    "news_picked_today": 989,
+    "news_dropped_today": 3403
   },
   "book_momentum": {
     "live_count": 8,
