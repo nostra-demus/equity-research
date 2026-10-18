@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T02:31:30Z",
+  "generated_at": "2026-10-18T02:33:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-053",
@@ -1842,6 +1842,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-126",
+      "headline": "Chinese turn on LVMH again, this time over moon cakes",
+      "headline_en": null,
+      "url": "https://www.afr.com/world/asia/chinese-turn-on-lvmh-again-this-time-over-moon-cakes-20261018-p6164l?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T02:25:52Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Negative consumer sentiment in China towards LVMH poses a potential risk to brand equity and sales in a key market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Negative consumer sentiment in China towards LVMH poses a potential risk to brand equity and sales in a key market.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LVMH",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-033",
       "headline": "Viatris Receives U.S. FDA Approval for RYZUMVI® for the Treatment of Presbyopia | VTRS Stock News",
       "headline_en": null,
@@ -1886,55 +1935,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-114",
-      "headline": "Turkish Airlines and CFM sign MOU for more than 600 LEAP-1B engines | GE Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/GE/turkish-airlines-and-cfm-sign-mou-for-more-than-600-leap-1b-9ts4swkqkzqw.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T10:47:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "GE Aerospace (via CFM) signed a major MOU for over 600 engines, representing significant future revenue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "GE Aerospace (via CFM) signed a major MOU for over 600 engines, representing significant future revenue.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "General Electric",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226007,9 +226007,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 724255,
-    "news_picked_today": 162,
-    "news_dropped_today": 966
+    "news_seen_today": 737088,
+    "news_picked_today": 164,
+    "news_dropped_today": 988
   },
   "book_momentum": {
     "live_count": 8,
