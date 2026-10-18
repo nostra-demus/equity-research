@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T11:51:51Z",
+  "generated_at": "2026-10-18T11:54:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-573",
@@ -1489,6 +1489,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-580",
+      "headline": "Kimberly-Clark Readies Bond Sale Ahead of Tylenol Maker Purchase",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-16/kimberly-clark-preps-bond-sale-ahead-of-tylenol-maker-purchase",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T14:26:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Kimberly-Clark is issuing debt to fund an acquisition, impacting capital structure and growth strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kimberly-Clark is issuing debt to fund an acquisition, impacting capital structure and growth strategy.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kimberly-Clark",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-557",
       "headline": "Two Palestinian fishermen injured in Israeli drone attack as shelling continues across Gaza",
       "headline_en": null,
@@ -1914,55 +1964,6 @@
       "companies": [
         {
           "name": "Central Bank of India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-331",
-      "headline": "IDBI Bank Q2 net profit falls 39% to Rs 2,205 crore on lower other income",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/idbi-bank-q2-net-profit-falls-39-to-rs-2205-crore-on-lower-other-income/articleshow/135011823.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T10:11:06Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "IDBI Bank reported a 39% decline in Q2 net profit to Rs 2,205 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "IDBI Bank reported a 39% decline in Q2 net profit to Rs 2,205 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IDBI Bank",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -226608,9 +226609,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2255380,
-    "news_picked_today": 1319,
-    "news_dropped_today": 4369
+    "news_seen_today": 2257058,
+    "news_picked_today": 1329,
+    "news_dropped_today": 4383
   },
   "book_momentum": {
     "live_count": 8,
