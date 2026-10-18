@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T09:19:48Z",
+  "generated_at": "2026-10-18T09:21:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-362",
@@ -184430,17 +184430,88 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-3a8aa320e39f",
+      "idea_version": "IDEAV-d90e13e9f79b1ec8",
+      "idea_version_started_at": "2026-10-18T09:21:18Z",
+      "ticker": "ZENTEC",
+      "company": "Zen Technologies Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of Cogknit Semantics expands the company's capabilities in Battlefield Management Systems, a high-growth segment of the defense sector.",
+      "why_now": "The acquisition was formally announced via exchange filing on October 18, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fb571193532d"
+      ],
+      "primary_source_event_id": "EVT-fb571193532d",
+      "source_headlines": [
+        "Zen Technologies Limited: Zen Technologies Limited has informed the Exchange regarding a press release dated October 18, 2026, titled \"Zen Technologies to acquire majority stake in Cogknit Semantics, an indigenous developer of Battlefield Management Systems.\"."
+      ],
+      "source_headline": "Zen Technologies Limited: Zen Technologies Limited has informed the Exchange regarding a press release dated October 18, 2026, titled \"Zen Technologies to acquire majority stake in Cogknit Semantics, an indigenous developer of Battlefield Management Systems.\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/ZENTEC_18102026112012_PressRelease18102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-18T05:50:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-18T09:21:18Z",
+      "updated_at": "2026-10-18T09:21:18Z",
+      "decay_at": "2026-10-19T17:50:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-5d7e7121c615",
-      "idea_version": "IDEAV-397e7127ad98bf5f",
-      "idea_version_started_at": "2026-10-18T06:31:16Z",
+      "idea_version": "IDEAV-646320f56e5cd23a",
+      "idea_version_started_at": "2026-10-18T09:21:18Z",
       "ticker": "YESBANK",
       "company": "Yes Bank",
       "exchange": "NSE",
       "direction": "short",
       "pair_with": null,
-      "reason": "The bank faces a potential ₹8,415 crore liability from an AT1 bond litigation that would effectively wipe out its recent quarterly profit and force a significant loss.",
-      "why_now": "The Supreme Court litigation status was updated on October 17-18, 2026.",
-      "conviction": 65,
+      "reason": "A legal ruling regarding AT1 bonds threatens to wipe out reported quarterly profits and impose a 250-basis-point hit to the bank's Common Equity Tier 1 capital ratio.",
+      "why_now": "The ruling's impact was clarified in reports dated October 16-18, 2026, creating immediate balance sheet uncertainty.",
+      "conviction": 75,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 45,
       "trade_score_basis": "event_driven_v3",
@@ -184471,17 +184542,17 @@
         "evidenceIds": []
       },
       "priced_in": "room",
-      "thesis_type": "company_specific",
+      "thesis_type": "balance_sheet_survival",
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
         "EVT-2b961b9a4748",
-        "EVT-2205754ad888"
+        "EVT-5ef689dccdd4"
       ],
       "primary_source_event_id": "EVT-2b961b9a4748",
       "source_headlines": [
         "Yes Bank Q2 Profit Jumps 63% To ₹1,084 Crore, AT1 Bond Ruling Could Turn Earnings Into ₹5,217 Crore Loss",
-        "Yes Bank To Move To Supreme Court Over ₹8,415 Cr AT1 Bonds"
+        "Yes Bank’s CET1 ratio to take 250-basis-point hit after AT1 bond ruling"
       ],
       "source_headline": "Yes Bank Q2 Profit Jumps 63% To ₹1,084 Crore, AT1 Bond Ruling Could Turn Earnings Into ₹5,217 Crore Loss",
       "source_url": "https://www.freepressjournal.in/business/yes-bank-q2-profit-jumps-63-to-1084-crore-at1-bond-ruling-could-turn-earnings-into-5217-crore-loss",
@@ -184495,8 +184566,79 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-10-15T13:17:31Z",
-      "updated_at": "2026-10-18T06:31:16Z",
+      "updated_at": "2026-10-18T09:21:18Z",
       "decay_at": "2026-10-19T17:37:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-839f0c1525a6",
+      "idea_version": "IDEAV-439afa84964b4e07",
+      "idea_version_started_at": "2026-10-18T09:21:18Z",
+      "ticker": "VEDL",
+      "company": "Vedanta Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A $600 million investment to double zinc production capacity in South Africa provides a clear path to increased long-term output and revenue growth.",
+      "why_now": "The capital expenditure plan was officially announced on October 18, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d5e11fc50a99"
+      ],
+      "primary_source_event_id": "EVT-d5e11fc50a99",
+      "source_headlines": [
+        "Vedanta Limited: Vedanta Limited has informed the Exchange regarding a press release dated October 18, 2026, titled \"Vedanta Ltd Doubles Zinc Production Capacity in South Africa with US$ 600 Mn investment\"."
+      ],
+      "source_headline": "Vedanta Limited: Vedanta Limited has informed the Exchange regarding a press release dated October 18, 2026, titled \"Vedanta Ltd Doubles Zinc Production Capacity in South Africa with US$ 600 Mn investment\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/VEDL_18102026120209_SEintimationGamsbergExpansionfinalsigned.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-18T06:34:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-18T09:21:18Z",
+      "updated_at": "2026-10-18T09:21:18Z",
+      "decay_at": "2026-10-19T18:34:01Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -188664,149 +188806,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-2c109db2c7c3",
-      "idea_version": "IDEAV-bee481a31d95fa79",
-      "idea_version_started_at": "2026-10-15T13:17:31Z",
-      "ticker": "543614",
-      "company": "Tips Music Limited",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported strong Q2 FY2027 results with 35% year-over-year revenue growth and 23% PAT growth, indicating sustained momentum in its music catalog monetization.",
-      "why_now": "The earnings were released via official exchange filing on October 15, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a3f00f9857a1"
-      ],
-      "primary_source_event_id": "EVT-a3f00f9857a1",
-      "source_headlines": [
-        "Tips Music Limited: Tips Music Limited has informed the Exchange regarding a press release dated October 15, 2026, titled \"TIPS reports stellar quarter - For Q2 FY2027 Revenue Growth of 35% y-o-y & PAT Growth of 23% y-o-y\"."
-      ],
-      "source_headline": "Tips Music Limited: Tips Music Limited has informed the Exchange regarding a press release dated October 15, 2026, titled \"TIPS reports stellar quarter - For Q2 FY2027 Revenue Growth of 35% y-o-y & PAT Growth of 23% y-o-y\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/TIPSINDLTD_15102026140402_TIPSMUSIC_Q2PRESS_RELEASEP.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-15T08:34:41Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-15T13:17:31Z",
-      "updated_at": "2026-10-15T13:17:31Z",
-      "decay_at": "2026-10-16T20:34:41Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-4b467da5d4b8",
-      "idea_version": "IDEAV-4fb1d15c00d42b41",
-      "idea_version_started_at": "2026-10-15T13:17:31Z",
-      "ticker": "TSM",
-      "company": "TSMC",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Record profits and management commentary indicating no signs of a slowdown confirm continued high demand for advanced semiconductor manufacturing capacity.",
-      "why_now": "The CEO's comments were reported on October 15, 2026, following the latest earnings release.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "sector_cycle",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9289d99fdfe7"
-      ],
-      "primary_source_event_id": "EVT-9289d99fdfe7",
-      "source_headlines": [
-        "TSMC CEO sees no sign of a slowdown as chip foundry reports record profit"
-      ],
-      "source_headline": "TSMC CEO sees no sign of a slowdown as chip foundry reports record profit",
-      "source_url": "https://www.marketwatch.com/story/tsmc-ceo-sees-no-sign-of-a-slowdown-as-chip-foundry-reports-record-profit-17a065d3?mod=mw_rss_topstories",
-      "source_name": "MarketWatch",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-15T08:42:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-15T13:17:31Z",
-      "updated_at": "2026-10-15T13:17:31Z",
-      "decay_at": "2026-10-16T20:42:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-81f2ba838519",
       "idea_version": "IDEAV-1485534241172639",
       "idea_version_started_at": "2026-10-15T13:17:31Z",
@@ -188872,78 +188871,6 @@
       "surfaced_at": "2026-10-15T13:17:31Z",
       "updated_at": "2026-10-15T13:17:31Z",
       "decay_at": "2026-10-16T22:09:16Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-85576f21dc9f",
-      "idea_version": "IDEAV-69cdc7b7ed2d2638",
-      "idea_version_started_at": "2026-10-15T10:07:38Z",
-      "ticker": "FBR",
-      "company": "Famous Brands",
-      "exchange": "JSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning indicating an expected drop of up to 33% in interim earnings, reflecting significant margin compression or revenue headwinds.",
-      "why_now": "The warning was issued on October 15, 2026, and the market has yet to fully digest the impact on the full-year outlook.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6be73d502c2e"
-      ],
-      "primary_source_event_id": "EVT-6be73d502c2e",
-      "source_headlines": [
-        "Famous Brands warns of up to 33% drop in interim earnings"
-      ],
-      "source_headline": "Famous Brands warns of up to 33% drop in interim earnings",
-      "source_url": "https://www.moneyweb.co.za/news/companies-and-deals/famous-brands-warns-of-up-to-33-drop-in-interim-earnings/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-15T08:09:36Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-15T10:07:38Z",
-      "updated_at": "2026-10-15T10:07:38Z",
-      "decay_at": "2026-10-16T20:09:36Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -189460,33 +189387,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 546,
+    "total_count": 543,
     "shown_count": 499,
-    "hidden_count": 47,
+    "hidden_count": 44,
     "side_counts": {
       "long": {
-        "total_count": 284,
+        "total_count": 282,
         "shown_count": 250,
-        "hidden_count": 34
+        "hidden_count": 32
       },
       "short": {
-        "total_count": 263,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 12
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1102,
-      "oldest_retained_at": "2026-09-20T03:27:14Z",
+      "evicted_count": 1105,
+      "oldest_retained_at": "2026-09-20T06:23:38Z",
       "side_counts": {
         "long": {
-          "evicted_count": 728,
-          "oldest_retained_at": "2026-10-04T18:33:11Z"
+          "evicted_count": 730,
+          "oldest_retained_at": "2026-10-04T19:03:17Z"
         },
         "short": {
-          "evicted_count": 374,
-          "oldest_retained_at": "2026-09-20T03:27:14Z"
+          "evicted_count": 375,
+          "oldest_retained_at": "2026-09-20T06:23:38Z"
         }
       }
     },
@@ -192834,8 +192761,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-16T20:42:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-18T09:21:28Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -192908,8 +192835,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-16T20:34:41Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-18T09:21:28Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -192983,8 +192910,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-16T20:09:36Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-18T09:21:28Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -226654,8 +226581,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1679,
-    "live_count": 30,
+    "surfaced_total": 1681,
+    "live_count": 32,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -226674,7 +226601,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2051427,
+    "news_seen_today": 2054081,
     "news_picked_today": 951,
     "news_dropped_today": 3321
   },
