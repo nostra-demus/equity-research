@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T02:57:00Z",
+  "generated_at": "2026-10-18T03:00:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-053",
@@ -1264,6 +1264,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-138",
+      "headline": "International Seaways Expands VLCC Fleet Through Strategic Combination with Bruton Limited. | INSW Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/INSW/international-seaways-expands-vlcc-fleet-through-strategic-tsxiuyarot5s.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T06:30:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "International Seaways is expanding its fleet through a strategic combination with Bruton Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "International Seaways is expanding its fleet through a strategic combination with Bruton Limited.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "International Seaways",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-065",
       "headline": "Panzani i Cerealis łączą siły, aby stworzyć dużą europejską grupę spożywczą",
       "headline_en": "Panzani and Cerealis join forces to create a large European food group",
@@ -1886,49 +1935,6 @@
       "launched_signal_id": null,
       "triage_score": 61,
       "triage_reason": "Potential pause in Russia sanctions to analyze global economic impact suggests a shift in US foreign policy approach.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-090",
-      "headline": "President wants 60 days to assess impact of Russia sanctions law: Rubio",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/world/president-wants-60-days-to-assess-impact-of-russia-sanctions-law-rubio/article71598977.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T01:49:50Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Senator Rubio's request for a 60-day assessment of Russia sanctions indicates potential policy shifts affecting global trade and compliance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "Senator Rubio's request for a 60-day assessment of Russia sanctions indicates potential policy shifts affecting global trade and compliance.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 50,
@@ -226024,9 +226030,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 825186,
-    "news_picked_today": 178,
-    "news_dropped_today": 1094
+    "news_seen_today": 837658,
+    "news_picked_today": 183,
+    "news_dropped_today": 1113
   },
   "book_momentum": {
     "live_count": 8,
