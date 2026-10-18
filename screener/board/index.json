@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T01:31:12Z",
+  "generated_at": "2026-10-18T01:33:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-053",
@@ -486,6 +486,49 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-084",
+      "headline": "Venezuela Sees Nearly $76 Billion Oil Investment Over Five Years",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-18/venezuela-sees-nearly-76-billion-oil-investment-over-five-years",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T00:48:28Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Venezuela announced a $76 billion oil investment plan over five years to boost production.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "Venezuela announced a $76 billion oil investment plan over five years to boost production.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1571,6 +1614,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-085",
+      "headline": "Vale Base Metals completes transaction to establish new ownership of Thompson Mine Complex",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/vale-base-metals-completes-transaction-to-establish-new-ownership-of-thompson-mine-complex-302911267.html",
+      "source_name": "PR Newswire — Acquisitions, Mergers & Takeovers",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T12:45:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Vale Base Metals completed the transaction to finalize new ownership of the Thompson Mine Complex.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 50,
+      "triage_reason": "Vale Base Metals completed the transaction to finalize new ownership of the Thompson Mine Complex.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vale Base Metals",
+          "ticker": null,
+          "listing_country": "BR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-008",
       "headline": "Align Technology Wins Significant Patent Infringement Case Against Angelalign at Unified Patent Court",
       "headline_en": null,
@@ -1862,104 +1954,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-019",
-      "headline": "XCF Global Completes Business Combination with Southern Energy Renewables and DevvStream, Creating Vertically Integrated Alternative Energy Platform | SAFX Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/SAFX/xcf-global-completes-business-combination-with-southern-energy-9qxfvpc1zmd2.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T21:25:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Completion of a business combination to create a vertically integrated platform is a significant corporate structural change.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Completion of a business combination to create a vertically integrated platform is a significant corporate structural change.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "XCF Global",
-          "ticker": "SAFX",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-026",
-      "headline": "Hyperscale Data Announces Plan for its askROI Subsidiary to Go Public in the Second or Third Quarter of 2027",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/hyperscale-data-announces-plan-for-its-askroi-subsidiary-to-go-public-in-the-second-or-third-quarter-of-2027-302911628.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T20:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Plan to spin off a subsidiary for an IPO is a significant strategic move to unlock value.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Plan to spin off a subsidiary for an IPO is a significant strategic move to unlock value.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hyperscale Data",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -225961,9 +225955,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 429530,
-    "news_picked_today": 94,
-    "news_dropped_today": 578
+    "news_seen_today": 443413,
+    "news_picked_today": 96,
+    "news_dropped_today": 600
   },
   "book_momentum": {
     "live_count": 8,
