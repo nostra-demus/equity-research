@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T02:27:11Z",
+  "generated_at": "2026-10-18T02:28:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-053",
@@ -1480,6 +1480,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-124",
+      "headline": "Citizens Financial Group, Inc. Reports Third Quarter 2026 Net Income of $636 million, up 29% YoY, and EPS of $1.41, up 34% YoY and 8% QoQ | CFG Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/CFG/citizens-financial-group-inc-reports-third-quarter-2026-net-income-f4l1oeuyvboo.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T10:20:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Citizens Financial Group reported Q3 2026 net income of $636 million, up 29% YoY, and EPS of $1.41, up 34% YoY.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Citizens Financial Group reported Q3 2026 net income of $636 million, up 29% YoY, and EPS of $1.41, up 34% YoY.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Citizens Financial Group",
+          "ticker": "CFG",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-123",
       "headline": "Persistent meldet für das 2. Quartal des Geschäftsjahres 2027 einen Umsatz von 487,6 Mio. USD - ein Wachstum von 20,0 % gegenüber dem Vorjahreszeitraum.",
       "headline_en": "Persistent reports revenue of $487.6 million for the second quarter of fiscal year 2027 - 20.0% growth compared to the same period last year.",
@@ -1886,55 +1935,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-115",
-      "headline": "Turkish Airlines and CFM sign MOU for more than 600 LEAP-1B engines",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/10/16/3382483/0/en/turkish-airlines-and-cfm-sign-mou-for-more-than-600-leap-1b-engines.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T10:47:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Turkish Airlines signed a major MOU for over 600 LEAP-1B engines.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "Turkish Airlines signed a major MOU for over 600 LEAP-1B engines.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Turkish Airlines",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226007,9 +226007,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 698419,
-    "news_picked_today": 157,
-    "news_dropped_today": 923
+    "news_seen_today": 711345,
+    "news_picked_today": 161,
+    "news_dropped_today": 943
   },
   "book_momentum": {
     "live_count": 8,
