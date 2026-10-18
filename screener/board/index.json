@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T08:36:49Z",
+  "generated_at": "2026-10-18T08:39:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-362",
@@ -194,6 +194,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-512",
+      "headline": "Vedanta doubles zinc production capacity in South Africa with $600 million investment",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/indl-goods/svs/chem-/-fertilisers/vedanta-doubles-zinc-production-capacity-in-south-africa-with-600-million-investment/articleshow/135025241.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T06:58:08Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Vedanta is investing $600 million to double zinc production capacity in South Africa.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vedanta is investing $600 million to double zinc production capacity in South Africa.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vedanta",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1909,55 +1958,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-313",
-      "headline": "Rocket Lab Just Booked Its Biggest Contract Ever (Again)",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/10/17/rocket-lab-just-booked-its-biggest-contract-ever-a/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T11:07:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Rocket Lab booked its biggest contract ever again, indicating significant revenue growth and market success.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Rocket Lab booked its biggest contract ever again, indicating significant revenue growth and market success.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rocket Lab",
-          "ticker": "RKLB",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226670,9 +226670,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1957616,
-    "news_picked_today": 872,
-    "news_dropped_today": 3040
+    "news_seen_today": 1963594,
+    "news_picked_today": 878,
+    "news_dropped_today": 3058
   },
   "book_momentum": {
     "live_count": 8,
