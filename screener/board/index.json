@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T05:55:47Z",
+  "generated_at": "2026-10-18T05:57:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-282",
@@ -1316,6 +1316,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-327",
+      "headline": "Yes Bank To Move To Supreme Court Over ₹8,415 Cr AT1 Bonds",
+      "headline_en": null,
+      "url": "https://www.outlookbusiness.com/corporate/yes-bank-to-move-to-supreme-court-over-8415-cr-at1-bonds",
+      "source_name": "Outlook Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T10:29:06Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Yes Bank is escalating a legal dispute over ₹8,415 crore in AT1 bonds to the Supreme Court, creating significant financial and legal uncertainty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Yes Bank is escalating a legal dispute over ₹8,415 crore in AT1 bonds to the Supreme Court, creating significant financial and legal uncertainty.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yes Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-296",
       "headline": "Mega Jio Platforms IPO to lead Rs 31,663 crore offerings this week; 9 listings lined up",
       "headline_en": null,
@@ -1892,55 +1941,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-249",
-      "headline": "Anthropic’s Dario Amodei is steering a possible $2 trillion IPO—but he says up to 40% of his time goes to making sure company culture is good",
-      "headline_en": null,
-      "url": "https://fortune.com/article/anthropic-ceo-dario-amodei-company-culture-40-percent-ipo-ai-tech-leadership/",
-      "source_name": "Fortune",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T13:28:57Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Anthropic is preparing for a potential $2 trillion IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Anthropic is preparing for a potential $2 trillion IPO.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226588,9 +226588,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1512263,
-    "news_picked_today": 480,
-    "news_dropped_today": 2016
+    "news_seen_today": 1526336,
+    "news_picked_today": 489,
+    "news_dropped_today": 2031
   },
   "book_momentum": {
     "live_count": 8,
