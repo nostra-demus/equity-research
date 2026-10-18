@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T07:12:49Z",
+  "generated_at": "2026-10-18T07:15:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-362",
@@ -991,6 +991,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-504",
+      "headline": "Sound Inpatient Nears $1 Billion Private Debt After Pulling Loan",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-16/sound-inpatient-nears-1-billion-private-debt-after-pulling-loan",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T19:47:31Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Sound Inpatient is seeking nearly $1 billion in private debt after pulling a syndicated loan offering.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sound Inpatient is seeking nearly $1 billion in private debt after pulling a syndicated loan offering.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sound Inpatient Physicians",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-182",
       "headline": "Yes Bank reports robust 65% jump in net profit at ₹1,080 cr",
       "headline_en": null,
@@ -1889,49 +1939,6 @@
         "recency": 0,
         "materiality_label_floor": 5,
         "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-285",
-      "headline": "Zelenskyy hints at potential meeting with Putin in US during G20 summit as Trump waives Russian Oil tariffs",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/world/zelenskyy-hints-at-potential-meeting-with-putin-in-us-during-g20-summit-as-trump-waives-russian-oil-tariffs/article71599073.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T05:21:56Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "A potential meeting between Zelenskyy and Putin combined with a waiver on Russian oil tariffs represents a major geopolitical shift with global market implications.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "A potential meeting between Zelenskyy and Putin combined with a waiver on Russian oil tariffs represents a major geopolitical shift with global market implications.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
         "source_tier_id": "news",
@@ -226659,9 +226666,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1750684,
-    "news_picked_today": 847,
-    "news_dropped_today": 2945
+    "news_seen_today": 1757334,
+    "news_picked_today": 852,
+    "news_dropped_today": 2964
   },
   "book_momentum": {
     "live_count": 8,
