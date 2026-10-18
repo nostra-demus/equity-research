@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T12:18:49Z",
+  "generated_at": "2026-10-18T12:20:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-587",
@@ -1588,6 +1588,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-595",
+      "headline": "AkzoNobel, Axalta offer remedies in bid for EU approval for $25 billion deal",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/akzonobel-axalta-offer-remedies-bid-eu-approval-25-billion-deal-2026-10-16/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T13:57:39Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "AkzoNobel and Axalta are offering remedies to secure approval for a $25 billion M&A deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AkzoNobel and Axalta are offering remedies to secure approval for a $25 billion M&A deal.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AkzoNobel",
+          "ticker": null,
+          "listing_country": "NL"
+        },
+        {
+          "name": "Axalta Coating Systems",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-557",
       "headline": "Two Palestinian fishermen injured in Israeli drone attack as shelling continues across Gaza",
       "headline_en": null,
@@ -1914,61 +1968,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-554",
-      "headline": "Jensen Huang's Nvidia Lost $200 Billion in Value After OpenAI's Revenue Run Rate Came Up $18 Billion Below Expectations. Is This AI-Jitters Sell-Off a Buying Opportunity?",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/10/16/jensen-huangs-nvidia-lost-200-billion-in-value-aft/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T18:31:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Nvidia losing $200 billion in value after OpenAI's revenue run rate came in below expectations indicates a significant market reaction to AI sector performance and investor sentiment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Nvidia losing $200 billion in value after OpenAI's revenue run rate came in below expectations indicates a significant market reaction to AI sector performance and investor sentiment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226609,9 +226608,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2269321,
-    "news_picked_today": 1392,
-    "news_dropped_today": 4512
+    "news_seen_today": 2269966,
+    "news_picked_today": 1398,
+    "news_dropped_today": 4530
   },
   "book_momentum": {
     "live_count": 8,
