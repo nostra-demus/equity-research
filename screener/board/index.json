@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T02:13:15Z",
+  "generated_at": "2026-10-18T02:16:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-053",
@@ -1602,6 +1602,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-114",
+      "headline": "Turkish Airlines and CFM sign MOU for more than 600 LEAP-1B engines | GE Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/GE/turkish-airlines-and-cfm-sign-mou-for-more-than-600-leap-1b-9ts4swkqkzqw.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T10:47:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "GE Aerospace (via CFM) signed a major MOU for over 600 engines, representing significant future revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "GE Aerospace (via CFM) signed a major MOU for over 600 engines, representing significant future revenue.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "General Electric",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-115",
+      "headline": "Turkish Airlines and CFM sign MOU for more than 600 LEAP-1B engines",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/10/16/3382483/0/en/turkish-airlines-and-cfm-sign-mou-for-more-than-600-leap-1b-engines.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T10:47:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Turkish Airlines signed a major MOU for over 600 LEAP-1B engines.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Turkish Airlines signed a major MOU for over 600 LEAP-1B engines.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Turkish Airlines",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-057",
       "headline": "TVS and Chetak face a new rival: This electric scooter promises a 250 km range",
       "headline_en": null,
@@ -1835,98 +1933,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-092",
-      "headline": "AI race puts $3.5trn at write-down risk, Gartner warns",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/ai/ai-race-puts-3-5trn-at-write-down-risk-gartner-warns/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T02:00:42Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Gartner warns of a $3.5 trillion write-down risk related to AI investments, signaling potential sector-wide valuation adjustments.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "Gartner warns of a $3.5 trillion write-down risk related to AI investments, signaling potential sector-wide valuation adjustments.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-099",
-      "headline": "Investeringsforeningen Sparinvest suspenderer handel af alle afdelinger",
-      "headline_en": "Sparinvest Investment Association suspends trading of all departments",
-      "url": "https://www.globenewswire.com/news-release/2026/10/16/3382514/0/en/investeringsforeningen-sparinvest-suspenderer-handel-af-alle-afdelinger.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T11:27:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Sparinvest has suspended trading of all its funds, indicating a significant liquidity or operational issue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 54,
-      "triage_reason": "Sparinvest has suspended trading of all its funds, indicating a significant liquidity or operational issue.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sparinvest",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -225788,9 +225794,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 639525,
-    "news_picked_today": 142,
-    "news_dropped_today": 866
+    "news_seen_today": 652671,
+    "news_picked_today": 147,
+    "news_dropped_today": 885
   },
   "book_momentum": {
     "live_count": 8,
