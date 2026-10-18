@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T09:31:18Z",
+  "generated_at": "2026-10-18T09:33:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-362",
@@ -1292,6 +1292,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-557",
+      "headline": "Two Palestinian fishermen injured in Israeli drone attack as shelling continues across Gaza",
+      "headline_en": null,
+      "url": "https://www.gulf-times.com/article/736046/region/two-palestinian-fishermen-injured-in-israeli-drone-attack-as-shelling-continues-across-gaza",
+      "source_name": "Gulf Times — Region",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T09:26:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Ongoing military conflict and drone attacks in the region represent a significant geopolitical escalation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Ongoing military conflict and drone attacks in the region represent a significant geopolitical escalation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-514",
       "headline": "Poland scrambles aircraft as Russia launches strikes on Ukraine, Polish military says",
       "headline_en": null,
@@ -1920,55 +1963,6 @@
       "companies": [
         {
           "name": "Himadri Speciality Chemical",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-435",
-      "headline": "Federal Bank net profit jumps 45% in Q2",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/business/federal-bank-net-profit-jumps-45-in-q2-4185714",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T01:10:11Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Federal Bank reported a 45% jump in Q2 net profit, a significant quantified earnings beat.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Federal Bank reported a 45% jump in Q2 net profit, a significant quantified earnings beat.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Federal Bank",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -226613,9 +226607,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2067006,
-    "news_picked_today": 994,
-    "news_dropped_today": 3422
+    "news_seen_today": 2074395,
+    "news_picked_today": 1000,
+    "news_dropped_today": 3440
   },
   "book_momentum": {
     "live_count": 8,
