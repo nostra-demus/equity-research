@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T00:23:06Z",
+  "generated_at": "2026-10-18T00:26:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-016",
@@ -1133,6 +1133,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-037",
+      "headline": "Gauzy Announces $7 Million Private Placement Led by Management to Fund Court-Approved Settlement | GAUZ Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/GAUZ/gauzy-announces-7-million-private-placement-led-by-management-to-7c8a2346i149.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T20:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Gauzy is raising $7 million via private placement to fund a court-approved settlement, indicating legal costs and dilution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 45,
+      "triage_reason": "Gauzy is raising $7 million via private placement to fund a court-approved settlement, indicating legal costs and dilution.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gauzy",
+          "ticker": "GAUZ",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-015",
       "headline": "Israeli settlers attack European diplomats, beat up French mayor in West Bank",
       "headline_en": null,
@@ -1308,6 +1357,55 @@
         {
           "name": "Nanox",
           "ticker": "NNOX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-035",
+      "headline": "Nanox Provides Business Update and Furnishes Certain Preliminary Unaudited Financial Data for Third Quarter Ended September 30, 2026",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/10/16/3382787/0/en/nanox-provides-business-update-and-furnishes-certain-preliminary-unaudited-financial-data-for-third-quarter-ended-september-30-2026.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T20:05:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Nanox provided preliminary unaudited financial data for Q3 2026, which is a material update for investors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 44,
+      "triage_reason": "Nanox provided preliminary unaudited financial data for Q3 2026, which is a material update for investors.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nanox",
+          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -1607,6 +1705,104 @@
         {
           "name": "Alcon",
           "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-036",
+      "headline": "Viatris Receives U.S. FDA Approval for RYZUMVI® for the Treatment of Presbyopia",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/viatris-receives-us-fda-approval-for-ryzumvi-for-the-treatment-of-presbyopia-302911593.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T20:05:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "FDA approval of RYZUMVI provides a new revenue stream for Viatris.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 42,
+      "triage_reason": "FDA approval of RYZUMVI provides a new revenue stream for Viatris.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Viatris",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-038",
+      "headline": "FDA Approves Alcon’s BRYTLY Redness Reliever Eye Drops for Up to 12 Hours of Whiter, Brighter-Looking Eyes | ALC Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/ALC/fda-approves-alcon-s-brytly-redness-reliever-eye-drops-for-up-to-12-z06lcjpnk5yk.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T19:57:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "FDA approval of BRYTLY eye drops expands Alcon's product portfolio.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 42,
+      "triage_reason": "FDA approval of BRYTLY eye drops expands Alcon's product portfolio.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alcon",
+          "ticker": "ALC",
           "listing_country": "US"
         }
       ],
@@ -225585,7 +225781,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3761,
+    "inbox_unconsumed": 3765,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -225594,9 +225790,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 84499,
-    "news_picked_today": 35,
-    "news_dropped_today": 157
+    "news_seen_today": 106994,
+    "news_picked_today": 39,
+    "news_dropped_today": 177
   },
   "book_momentum": {
     "live_count": 8,
