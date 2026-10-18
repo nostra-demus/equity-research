@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T00:22:30Z",
+  "generated_at": "2026-10-18T00:23:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-016",
@@ -183782,76 +183782,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-be16a3f18c55",
-      "idea_version": "IDEAV-d1c0c6f9653df7b7",
-      "idea_version_started_at": "2026-10-16T23:31:00Z",
-      "ticker": "XOM",
-      "company": "ExxonMobil",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company explicitly guided for a $4.5 billion boost to Q3 earnings driven by improved refining margins, which directly impacts bottom-line profitability.",
-      "why_now": "The guidance was provided today, October 16, 2026, ahead of the formal Q3 earnings release.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-177eb357f896"
-      ],
-      "primary_source_event_id": "EVT-177eb357f896",
-      "source_headlines": [
-        "ExxonMobil Expects Q3 Earnings To Boost By $4.5 Bln From Refining Margins"
-      ],
-      "source_headline": "ExxonMobil Expects Q3 Earnings To Boost By $4.5 Bln From Refining Margins",
-      "source_url": "https://www.nasdaq.com/articles/exxonmobil-expects-q3-earnings-boost-45-bln-refining-margins",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-16T16:38:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-16T23:31:00Z",
-      "updated_at": "2026-10-16T23:31:00Z",
-      "decay_at": "2026-10-18T04:38:24Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-1ad902e01f2e",
       "idea_version": "IDEAV-db07568facd6c5b3",
       "idea_version_started_at": "2026-10-17T05:19:30Z",
@@ -183992,6 +183922,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-be16a3f18c55",
+      "idea_version": "IDEAV-317a3dc01d327751",
+      "idea_version_started_at": "2026-10-18T00:22:45Z",
+      "ticker": "XOM",
+      "company": "ExxonMobil",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company pre-announced a $4.5 billion boost to Q3 earnings specifically driven by improved refining margins.",
+      "why_now": "The announcement was made on 2026-10-16, ahead of the full Q3 earnings report.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-177eb357f896"
+      ],
+      "primary_source_event_id": "EVT-177eb357f896",
+      "source_headlines": [
+        "ExxonMobil Expects Q3 Earnings To Boost By $4.5 Bln From Refining Margins"
+      ],
+      "source_headline": "ExxonMobil Expects Q3 Earnings To Boost By $4.5 Bln From Refining Margins",
+      "source_url": "https://www.nasdaq.com/articles/exxonmobil-expects-q3-earnings-boost-45-bln-refining-margins",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-16T16:38:24Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-16T23:31:00Z",
+      "updated_at": "2026-10-18T00:22:45Z",
+      "decay_at": "2026-10-18T04:38:24Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-02b50b318851",
       "idea_version": "IDEAV-89f58db06d5748a1",
       "idea_version_started_at": "2026-10-17T05:19:30Z",
@@ -184063,16 +184063,16 @@
     },
     {
       "idea_id": "IDEA-abd218ca6c78",
-      "idea_version": "IDEAV-79c95922e202d7c8",
-      "idea_version_started_at": "2026-10-17T00:40:56Z",
+      "idea_version": "IDEAV-369bf127ef86271f",
+      "idea_version_started_at": "2026-10-18T00:22:45Z",
       "ticker": "RGR",
       "company": "Sturm Ruger & Co Inc",
       "exchange": "NYSE",
       "direction": "long",
       "pair_with": null,
-      "reason": "The filing of an SC TO-T/A indicates an active third-party tender offer process, which typically provides a floor or premium potential for shareholders.",
-      "why_now": "The SEC filing was updated on 2026-10-16.",
-      "conviction": 65,
+      "reason": "The company is the subject of a third-party tender offer, which typically provides a floor for the share price near the offer value.",
+      "why_now": "The SC TO-T/A filing on 2026-10-16 confirms the active status of the tender offer.",
+      "conviction": 85,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 60,
       "trade_score_basis": "event_driven_v3",
@@ -184080,7 +184080,7 @@
         "evidence": 25,
         "impact": 20,
         "specificity": 15,
-        "timing": 10,
+        "timing": 6,
         "expression": 7,
         "corroboration": 0,
         "learning_adjustment": 0
@@ -184126,8 +184126,80 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-10-17T00:40:56Z",
-      "updated_at": "2026-10-17T00:40:56Z",
+      "updated_at": "2026-10-18T00:22:45Z",
       "decay_at": "2026-10-18T08:05:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-913c9c5d1968",
+      "idea_version": "IDEAV-b30bb1cbef1f3145",
+      "idea_version_started_at": "2026-10-18T00:22:45Z",
+      "ticker": "01788",
+      "company": "Guotai Junan International",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is undergoing a privatization process via a scheme of arrangement, which creates a defined exit price for shareholders.",
+      "why_now": "The filing on 2026-10-16 provides an update on the progress of pre-conditions for the privatization.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cc0e842bb968"
+      ],
+      "primary_source_event_id": "EVT-cc0e842bb968",
+      "source_headlines": [
+        "GUOTAI JUNAN I (01788): JOINT ANNOUNCEMENT UPDATE ON PROGRESS ON THE FULFILMENT OF THE PRE-CONDITION IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 673 OF THE COMPANIES ORDINANCE AND (2) PROPOSED WITHDRAWAL OF LISTING OF THE SHARES OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED"
+      ],
+      "source_headline": "GUOTAI JUNAN I (01788): JOINT ANNOUNCEMENT UPDATE ON PROGRESS ON THE FULFILMENT OF THE PRE-CONDITION IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 673 OF THE COMPANIES ORDINANCE AND (2) PROPOSED WITHDRAWAL OF LISTING OF THE SHARES OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101601350.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-16T12:59:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-18T00:22:45Z",
+      "updated_at": "2026-10-18T00:22:45Z",
+      "decay_at": "2026-10-18T00:59:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -185706,77 +185778,6 @@
       "surfaced_at": "2026-10-15T04:45:55Z",
       "updated_at": "2026-10-15T04:45:55Z",
       "decay_at": "2026-10-16T13:14:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-4e4abdc55d24",
-      "idea_version": "IDEAV-d6091653d5bc0ad2",
-      "idea_version_started_at": "2026-10-16T00:51:39Z",
-      "ticker": "CVS",
-      "company": "CVS Health",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A $315 million settlement related to opioid litigation represents a direct cash outflow and ongoing legal overhang that impacts net income.",
-      "why_now": "The settlement was announced on October 14, 2026, and represents a finalized liability that the market must now account for.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-10a47785aacf"
-      ],
-      "primary_source_event_id": "EVT-10a47785aacf",
-      "source_headlines": [
-        "CVS, DOJ reach $315M settlement in opioid prescription case"
-      ],
-      "source_headline": "CVS, DOJ reach $315M settlement in opioid prescription case",
-      "source_url": "https://www.fiercehealthcare.com/payers/cvs-doj-reach-315m-settlement-opioid-prescription-case",
-      "source_name": "Fierce Healthcare",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-14T22:36:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-16T00:51:39Z",
-      "updated_at": "2026-10-16T00:51:39Z",
-      "decay_at": "2026-10-16T10:36:44Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -187791,148 +187792,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-e07345b47c7f",
-      "idea_version": "IDEAV-29343a0846017038",
-      "idea_version_started_at": "2026-10-15T02:47:20Z",
-      "ticker": "01773",
-      "company": "Tianli International Holdings",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A profit warning indicates deteriorating margins or revenue shortfalls, which typically leads to downward earnings revisions.",
-      "why_now": "The profit warning was filed on October 14, 2026, and the market has yet to fully digest the impact on forward earnings.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cf3ac50db465"
-      ],
-      "primary_source_event_id": "EVT-cf3ac50db465",
-      "source_headlines": [
-        "TIANLI INT HLDG (01773): PROFIT WARNING"
-      ],
-      "source_headline": "TIANLI INT HLDG (01773): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1015/2026101500009.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-14T22:22:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-15T02:47:20Z",
-      "updated_at": "2026-10-15T02:47:20Z",
-      "decay_at": "2026-10-16T10:22:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-3c36e437e038",
-      "idea_version": "IDEAV-30539ff95fa15421",
-      "idea_version_started_at": "2026-10-15T01:06:33Z",
-      "ticker": "MFD",
-      "company": "MFD",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The reinstatement of FY26 guidance following the completion of a restructuring program signals management's renewed confidence in operational stability and cost control.",
-      "why_now": "The guidance update was filed on October 14, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e3d88e8aca53"
-      ],
-      "primary_source_event_id": "EVT-e3d88e8aca53",
-      "source_headlines": [
-        "MFD: Correction - FY26 Guidance Reinstated & Restructure Complete [price-sensitive]"
-      ],
-      "source_headline": "MFD: Correction - FY26 Guidance Reinstated & Restructure Complete [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MFD?key=2924-03148728-3A704168",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-14T22:51:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-15T01:06:33Z",
-      "updated_at": "2026-10-15T01:06:33Z",
-      "decay_at": "2026-10-16T10:51:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-9267af00f480",
       "idea_version": "IDEAV-04d59087014ac64c",
       "idea_version_started_at": "2026-10-17T01:10:08Z",
@@ -188141,77 +188000,6 @@
       "surfaced_at": "2026-10-17T03:38:30Z",
       "updated_at": "2026-10-17T03:38:30Z",
       "decay_at": "2026-10-17T23:05:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-73bf913da657",
-      "idea_version": "IDEAV-f77ec95fb3a33bf7",
-      "idea_version_started_at": "2026-10-15T02:47:20Z",
-      "ticker": "FBU",
-      "company": "Fletcher Building",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The fast-track approval of the Hunua Quarry project removes a significant regulatory bottleneck, allowing the company to unlock long-term aggregate supply and revenue potential.",
-      "why_now": "The regulatory approval was confirmed in an exchange filing on October 15, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-272def03df7e"
-      ],
-      "primary_source_event_id": "EVT-272def03df7e",
-      "source_headlines": [
-        "FBU: Fletcher Building welcomes Hunua Quarry Fast Track approval"
-      ],
-      "source_headline": "FBU: Fletcher Building welcomes Hunua Quarry Fast Track approval",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FBU?key=2924-03148759-2A1704229",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 94,
-      "newest_source_at": "2026-10-15T00:04:48Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-15T02:47:20Z",
-      "updated_at": "2026-10-15T02:47:20Z",
-      "decay_at": "2026-10-16T12:04:48Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -188586,33 +188374,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 545,
+    "total_count": 541,
     "shown_count": 499,
-    "hidden_count": 46,
+    "hidden_count": 42,
     "side_counts": {
       "long": {
-        "total_count": 283,
+        "total_count": 281,
         "shown_count": 250,
-        "hidden_count": 33
+        "hidden_count": 31
       },
       "short": {
-        "total_count": 263,
+        "total_count": 261,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 11
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1094,
-      "oldest_retained_at": "2026-09-20T02:02:00Z",
+      "evicted_count": 1098,
+      "oldest_retained_at": "2026-09-20T03:27:14Z",
       "side_counts": {
         "long": {
-          "evicted_count": 722,
-          "oldest_retained_at": "2026-10-04T13:00:07Z"
+          "evicted_count": 724,
+          "oldest_retained_at": "2026-10-04T16:43:42Z"
         },
         "short": {
-          "evicted_count": 372,
-          "oldest_retained_at": "2026-09-20T02:02:00Z"
+          "evicted_count": 374,
+          "oldest_retained_at": "2026-09-20T03:27:14Z"
         }
       }
     },
@@ -191814,8 +191602,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-16T12:04:48Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-18T00:22:55Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -191888,8 +191676,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-16T10:51:07Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-18T00:22:55Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -191962,8 +191750,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-16T10:36:44Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-18T00:22:55Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -192036,8 +191824,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-16T10:22:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-18T00:22:55Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -225786,8 +225574,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1663,
-    "live_count": 23,
+    "surfaced_total": 1664,
+    "live_count": 24,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,

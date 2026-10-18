@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-06T01:22:14Z",
+  "archived_at": "2026-10-18T00:22:55Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-33746bc60cea",
-    "idea_version": "IDEAV-604188cce3edb361",
-    "idea_version_started_at": "2026-10-03T02:50:18Z",
-    "ticker": "6504",
-    "company": "Fuji Electric",
-    "exchange": "TSE",
+    "idea_id": "IDEA-e07345b47c7f",
+    "idea_version": "IDEAV-29343a0846017038",
+    "idea_version_started_at": "2026-10-15T02:47:20Z",
+    "ticker": "01773",
+    "company": "Tianli International Holdings",
+    "exchange": "HKEX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
-    "direction": "long",
+    "direction": "short",
     "pair_with": null,
-    "reason": "Fuji Electric is diversifying its revenue stream by pivoting its cooling technology expertise from vending machines to data center thermal management, addressing a high-growth infrastructure market.",
-    "why_now": "The company's strategic pivot was confirmed in a major news report on 2026-10-03, signaling a new growth engine for the firm.",
+    "reason": "A profit warning indicates deteriorating margins or revenue shortfalls, which typically leads to downward earnings revisions.",
+    "why_now": "The profit warning was filed on October 14, 2026, and the market has yet to fully digest the impact on forward earnings.",
     "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 14,
-      "impact": 14,
+      "evidence": 25,
+      "impact": 19,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -53,26 +52,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-adea3e3e8b11"
+      "EVT-cf3ac50db465"
     ],
-    "primary_source_event_id": "EVT-adea3e3e8b11",
+    "primary_source_event_id": "EVT-cf3ac50db465",
     "source_headlines": [
-      "Chill out: Japan’s top vending machine maker now cools data centres"
+      "TIANLI INT HLDG (01773): PROFIT WARNING"
     ],
-    "source_headline": "Chill out: Japan’s top vending machine maker now cools data centres",
-    "source_url": "https://www.ft.com/content/f76adfdd-295e-4d00-ad90-b52b7aab098c?syn-25a6b1a6=1",
-    "source_name": "Financial Times",
-    "materiality_max": 83,
-    "newest_source_at": "2026-10-03T01:00:07Z",
+    "source_headline": "TIANLI INT HLDG (01773): PROFIT WARNING",
+    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1015/2026101500009.pdf",
+    "source_name": "HKEXnews (HK Exchange Filing)",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-14T22:22:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-03T02:50:18Z",
-    "updated_at": "2026-10-03T02:50:18Z",
-    "decay_at": "2026-10-04T13:00:07Z",
+    "surfaced_at": "2026-10-15T02:47:20Z",
+    "updated_at": "2026-10-15T02:47:20Z",
+    "decay_at": "2026-10-16T10:22:00Z",
     "status": "live",
     "promoted_signal_id": null
   }
