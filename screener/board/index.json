@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-10-18T12:07:54Z",
+  "generated_at": "2026-10-18T12:09:45Z",
   "inbox": [
     {
-      "inbox_id": "INB-20261018-573",
+      "inbox_id": "INB-20261018-587",
       "headline": "Amber Enterprises India Limited: Pursuant to Regulation 30 of SEBI LODR Regulations, we wish to inform the exchange that, IL JIN Electronics (India) Limited, a material subsidiary of the Company has entered into a Share Swap Agreement on 18th October 2026, in terms of the said agreement IL JIN shall acquire 1,75,680 equity share of Power-One Micro Systems Private Limited, representing its balance 40% equity stake on fully dilutive basis, from existing equity shareholders of Power-one and shall i",
       "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/AMBER_18102026164959_Power_One.pdf",
+      "url": "https://nsearchives.nseindia.com/corporate/AMBER_18102026170840_Power_One.pdf",
       "source_name": "BSE / NSE Exchange Filing",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-10-18T11:20:14Z",
+      "found_at": "2026-10-18T11:39:16Z",
       "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Amber Enterprises' subsidiary is acquiring the remaining 40% stake in Power-One Micro Systems Private Limited.",
+      "prelim_note": "Amber Enterprises' subsidiary is acquiring the remaining 40% stake in Power-One Micro Systems, moving to full ownership.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Amber Enterprises' subsidiary is acquiring the remaining 40% stake in Power-One Micro Systems Private Limited.",
+      "triage_reason": "Amber Enterprises' subsidiary is acquiring the remaining 40% stake in Power-One Micro Systems, moving to full ownership.",
       "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 65,
+      "materiality_pre_score": 60,
       "rank_factors": {
-        "materiality": 65,
+        "materiality": 60,
         "source_tier": 8,
         "scope": 5,
         "event": 9,
         "size": 1,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 10,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "multi_name",
@@ -41,7 +41,7 @@
       "companies": [
         {
           "name": "Amber Enterprises India Limited",
-          "ticker": "AMBER",
+          "ticker": null,
           "listing_country": "IN"
         }
       ],
@@ -144,6 +144,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-590",
+      "headline": "Sumitomo-backed Yes Bank faces up to ₹5,200 crore earnings hit as SC upholds squashing of its AT-1 bonds write-off",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/sumitomobacked-yes-bank-faces-up-to-5-200-crore-earnings-hit-as-sc-upholds-squashing-of-its-at-1-bonds-writeoff-11792316431134.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T11:25:28Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Yes Bank faces a quantified ₹5,200 crore earnings hit following a Supreme Court ruling regarding AT-1 bonds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Yes Bank faces a quantified ₹5,200 crore earnings hit following a Supreme Court ruling regarding AT-1 bonds.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yes Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1917,55 +1966,6 @@
           "name": "OpenAI",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-586",
-      "headline": "Hyundai plans ₹8,528-crore global R&D centre in Telangana; CM orders fast-tracking of approvals",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/hyundai-rs-8528-crore-global-rd-cm-orders-fast-tracking-approvals-20013852.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T14:11:50Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Hyundai is investing ₹8,528 crore in a new global R&D centre in Telangana.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Hyundai is investing ₹8,528 crore in a new global R&D centre in Telangana.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hyundai Motor",
-          "ticker": null,
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "mega",
@@ -226609,9 +226609,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2263825,
-    "news_picked_today": 1367,
-    "news_dropped_today": 4441
+    "news_seen_today": 2264566,
+    "news_picked_today": 1376,
+    "news_dropped_today": 4456
   },
   "book_momentum": {
     "live_count": 8,
