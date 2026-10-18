@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T02:47:34Z",
+  "generated_at": "2026-10-18T02:50:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-053",
@@ -1627,6 +1627,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-134",
+      "headline": "Aviation Capital Group Grows Portfolio with Order for 75 Airbus A320neo Family Aircraft, the Largest Order in ACG's History",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/aviation-capital-group-grows-portfolio-with-order-for-75-airbus-a320neo-family-aircraft-the-largest-order-in-acgs-history-302911033.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T07:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Aviation Capital Group placed a record order for 75 Airbus A320neo aircraft, representing a significant capital commitment and commercial expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Aviation Capital Group placed a record order for 75 Airbus A320neo aircraft, representing a significant capital commitment and commercial expansion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aviation Capital Group",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Airbus",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-123",
       "headline": "Persistent meldet für das 2. Quartal des Geschäftsjahres 2027 einen Umsatz von 487,6 Mio. USD - ein Wachstum von 20,0 % gegenüber dem Vorjahreszeitraum.",
       "headline_en": "Persistent reports revenue of $487.6 million for the second quarter of fiscal year 2027 - 20.0% growth compared to the same period last year.",
@@ -1896,49 +1951,6 @@
         "regulatory"
       ],
       "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-096",
-      "headline": "Voice phishing cases detected by major banks double in 2025",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261018000700320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T01:45:35Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Doubling of voice phishing cases in 2025 increases operational and regulatory risk for major Korean banks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "Doubling of voice phishing cases in 2025 increases operational and regulatory risk for major Korean banks.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -226013,9 +226025,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 781436,
-    "news_picked_today": 177,
-    "news_dropped_today": 1071
+    "news_seen_today": 793974,
+    "news_picked_today": 178,
+    "news_dropped_today": 1094
   },
   "book_momentum": {
     "live_count": 8,
