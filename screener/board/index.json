@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T01:37:16Z",
+  "generated_at": "2026-10-18T01:40:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-053",
@@ -577,6 +577,55 @@
           "name": "Hyundai Motor",
           "ticker": null,
           "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-088",
+      "headline": "Hitachi Energy invests $479 million CAD to bring critical transformer manufacturing capability to Canada",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/hitachi-energy-invests-479-million-cad-to-bring-critical-transformer-manufacturing-capability-to-canada-302911216.html",
+      "source_name": "PR Newswire — General Business",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T12:30:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Hitachi Energy is investing $479 million CAD to expand transformer manufacturing capacity in Canada.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "Hitachi Energy is investing $479 million CAD to expand transformer manufacturing capacity in Canada.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hitachi Energy",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -1902,55 +1951,6 @@
           "name": "VBM",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-079",
-      "headline": "Westcove Advises Clinical Research of West Florida in its Partnership with Fengate Private Equity",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/westcove-advises-clinical-research-of-west-florida-in-its-partnership-with-fengate-private-equity-302910408.html",
-      "source_name": "PR Newswire — Financial Services & Investing",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T13:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Clinical Research of West Florida entered a partnership with Fengate Private Equity, indicating a significant capital or ownership event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 48,
-      "triage_reason": "Clinical Research of West Florida entered a partnership with Fengate Private Equity, indicating a significant capital or ownership event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Clinical Research of West Florida",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "unknown",
@@ -225955,9 +225955,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 457217,
-    "news_picked_today": 97,
-    "news_dropped_today": 623
+    "news_seen_today": 477829,
+    "news_picked_today": 101,
+    "news_dropped_today": 667
   },
   "book_momentum": {
     "live_count": 8,
