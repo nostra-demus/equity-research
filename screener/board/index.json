@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T06:16:47Z",
+  "generated_at": "2026-10-18T06:19:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-332",
@@ -838,6 +838,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-344",
+      "headline": "HDFC Bank Net Profit Climbs 5.5% To ₹20,700 Crore In September Quarter",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/hdfc-bank-net-profit-climbs-55-to-20700-crore-in-september-quarter",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T09:37:41Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "HDFC Bank reported a 5.5% increase in net profit to ₹20,700 crore for the September quarter.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "HDFC Bank reported a 5.5% increase in net profit to ₹20,700 crore for the September quarter.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HDFC Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-223",
       "headline": "Central Bank of India’s Q2 profit jumps 21% YoY to Rs 1,469 crore",
       "headline_en": null,
@@ -1415,6 +1464,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-340",
+      "headline": "Spanish mining firm set to list in London as pressure mounts on self-storage group Big Yellow to put itself up for sale and quit capital's stock exchange",
+      "headline_en": null,
+      "url": "https://www.thisismoney.co.uk/money/markets/article-16216623/Spanish-mining-firm-set-list-London-pressure-mounts-self-storage-group-Big-Yellow-sale-quit-capitals-stock-exchange.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T06:01:02Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Big Yellow is facing pressure to consider a sale and delisting.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Big Yellow is facing pressure to consider a sale and delisting.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Big Yellow Group",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-335",
       "headline": "Tata Trusts Spends ₹1,556 Crore In FY26, Noel Tata Unveils Plan For 40–50 Not-For-Profit Hospitals Across India",
       "headline_en": null,
@@ -1660,6 +1759,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-350",
+      "headline": "Thane Accident: Steel Reinforcement Cage From Elevated Road Project Falls On Moving Car At Kopri Bridge; MMRDA Fines Contractor ₹2 Crore | VIDEO",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/mumbai/thane-accident-steel-reinforcement-cage-from-elevated-road-project-falls-on-moving-car-at-kopri-bridge-mmrda-fines-contractor-2-crore-video-mumbai-news",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T09:30:14Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "MMRDA fined a contractor ₹2 crore following a construction accident.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "MMRDA fined a contractor ₹2 crore following a construction accident.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 20,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MMRDA",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-296",
       "headline": "Mega Jio Platforms IPO to lead Rs 31,663 crore offerings this week; 9 listings lined up",
       "headline_en": null,
@@ -1803,152 +1951,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-094",
-      "headline": "Bajaj Auto-owned KTM opens new motorcycle assembly plant in Brazil",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/bajaj-auto-owned-ktm-opens-new-motorcycle-assembly-plant-in-brazil/article71598985.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T01:55:02Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Bajaj Auto's subsidiary KTM is expanding its manufacturing footprint with a new assembly plant in Brazil.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Bajaj Auto's subsidiary KTM is expanding its manufacturing footprint with a new assembly plant in Brazil.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bajaj Auto",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "KTM",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-044",
-      "headline": "'True innovation is never democratic': Ferrari CEO at India debut of its first EV, the Luce | Exclusive",
-      "headline_en": null,
-      "url": "https://www.hindustantimes.com/business/true-innovation-is-never-democratic-ferrari-ceo-benedetto-vigna-at-india-debut-of-its-first-ev-the-luce-exclusive-interview-101792256718232.html",
-      "source_name": "Hindustan Times (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T00:38:25Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Ferrari announced the India debut of its first EV, the Luce.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Ferrari announced the India debut of its first EV, the Luce.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ferrari",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-188",
-      "headline": "Egyptian parliament to hold emergency session as Sisi seeks approval to defend Saudi Arabia",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/egyptian-parliament-hold-emergency-session-sisi-seeks-approval-defend",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T15:38:29Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Egyptian parliament holding an emergency session regarding potential military defense of Saudi Arabia signals a significant geopolitical escalation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Egyptian parliament holding an emergency session regarding potential military defense of Saudi Arabia signals a significant geopolitical escalation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226596,9 +226598,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1581717,
-    "news_picked_today": 515,
-    "news_dropped_today": 2149
+    "news_seen_today": 1586264,
+    "news_picked_today": 527,
+    "news_dropped_today": 2161
   },
   "book_momentum": {
     "live_count": 8,
