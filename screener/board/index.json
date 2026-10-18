@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T01:25:07Z",
+  "generated_at": "2026-10-18T01:27:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-053",
@@ -1149,6 +1149,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-083",
+      "headline": "West Bengal CM forms high-level panel to review safety at Durga Puja pandals after 19 die at Chorbagan stampede",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/india/west-bengal/west-bengal-cm-forms-high-level-panel-to-review-safety-at-durga-puja-pandals-after-19-die-at-chorbagan-stampede-4186845",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T01:16:58Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "A stampede resulting in 19 deaths and subsequent government safety reviews indicates operational and regulatory risk for public event management in the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "A stampede resulting in 19 deaths and subsequent government safety reviews indicates operational and regulatory risk for public event management in the region.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-055",
       "headline": "YouTube’s new rules pose survival test for India’s clipping firms",
       "headline_en": null,
@@ -1236,6 +1279,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-082",
+      "headline": "Listings in south-east Asia gain momentum with $1bn IPO",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/a2b83aa7-49e0-4735-b115-d406fcb24de8?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T01:00:06Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "A $1bn IPO indicates a significant increase in capital market activity in the Southeast Asian region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 54,
+      "triage_reason": "A $1bn IPO indicates a significant increase in capital market activity in the Southeast Asian region.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -26,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1874,103 +1960,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-073",
-      "headline": "Bolagsverket har lämnat tillstånd att verkställa fusionsplanen mellan Flerie och Biosergen",
-      "headline_en": "The Swedish Companies Registration Office has granted permission to execute the merger plan between Flerie and Biosergen",
-      "url": "https://news.cision.com/se/biosergen-ab/r/bolagsverket-har-lamnat-tillstand-att-verkstalla-fusionsplanen-mellan-flerie-och-biosergen,c4409981",
-      "source_name": "Cision — Sweden Regulatory & Company News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T14:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "The Swedish Companies Registration Office has approved the merger plan between Flerie and Biosergen, a material corporate action.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "The Swedish Companies Registration Office has approved the merger plan between Flerie and Biosergen, a material corporate action.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Flerie",
-          "ticker": null,
-          "listing_country": "SE"
-        },
-        {
-          "name": "Biosergen",
-          "ticker": null,
-          "listing_country": "SE"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-081",
-      "headline": "Saudi-led forces try to break Houthi siege of Taiz with airstrikes",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/18/saudi-led-forces-try-to-break-houthi-siege-of-taiz-with-airstrikes?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-10-18T01:12:44Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Escalation of military conflict in Yemen increases regional geopolitical risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Escalation of military conflict in Yemen increases regional geopolitical risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -225972,9 +225961,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 401495,
-    "news_picked_today": 88,
-    "news_dropped_today": 536
+    "news_seen_today": 422537,
+    "news_picked_today": 91,
+    "news_dropped_today": 557
   },
   "book_momentum": {
     "live_count": 8,
