@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T05:46:18Z",
+  "generated_at": "2026-10-18T05:47:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-282",
@@ -924,6 +924,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-295",
+      "headline": "Oil India Limited: Oil India Limited has informed the Exchange regarding a press release dated October 18, 2026, titled \"OIL Achieves a Landmark Milestone with Signing of Special CBM Block RSC\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/OIL_18102026110758_PressRelease_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-18T05:38:13Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Oil India Limited signed a contract for a new Coal Bed Methane (CBM) block, representing a strategic operational expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Oil India Limited signed a contract for a new Coal Bed Methane (CBM) block, representing a strategic operational expansion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oil India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-284",
       "headline": "Reliance Jio IPO: LIC, leading MFs, AMCs and global investors eye issue, say reports | Check latest GMP price today",
       "headline_en": null,
@@ -1164,6 +1213,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-296",
+      "headline": "Mega Jio Platforms IPO to lead Rs 31,663 crore offerings this week; 9 listings lined up",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/ipos/fpos/mega-jio-platforms-ipo-to-lead-rs-31663-crore-offerings-this-week-9-listings-lined-up/articleshow/135024121.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T05:11:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Jio Platforms is preparing for a major IPO as part of a Rs 31,663 crore market offering week.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Jio Platforms is preparing for a major IPO as part of a Rs 31,663 crore market offering week.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jio Platforms",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1849,104 +1947,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-239",
-      "headline": "Lagnam Spintex Reports Strong Q2 & H1 Fy27 Performance; Ebitda Rises 98% In Q2 And 64% In H1fy27",
-      "headline_en": null,
-      "url": "https://www.outlookbusiness.com/spotlight/news-wire/lagnam-spintex-reports-strong-q2-h1-fy27-performance-ebitda-rises-98-in-q2-and-64-in-h1fy27",
-      "source_name": "Outlook Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T14:09:21Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Lagnam Spintex reported a 98% increase in Q2 EBITDA, indicating significant operational improvement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Lagnam Spintex reported a 98% increase in Q2 EBITDA, indicating significant operational improvement.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lagnam Spintex",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-240",
-      "headline": "ServiceNow Has a $30 Billion-Plus 2030 Target. Can It Get There?",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/servicenow-has-30-billion-plus-2030-target-can-it-get-there",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T13:50:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "ServiceNow has set a specific long-term revenue target of over $30 billion by 2030.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "ServiceNow has set a specific long-term revenue target of over $30 billion by 2030.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ServiceNow",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226594,9 +226594,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1478639,
-    "news_picked_today": 424,
-    "news_dropped_today": 1904
+    "news_seen_today": 1488389,
+    "news_picked_today": 435,
+    "news_dropped_today": 1941
   },
   "book_momentum": {
     "live_count": 8,
