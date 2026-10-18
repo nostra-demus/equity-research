@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T12:58:54Z",
+  "generated_at": "2026-10-18T13:03:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-587",
@@ -1740,6 +1740,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-617",
+      "headline": "Bharat Forge to invest ₹240 crore in defence arm, fund ammunition facility",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/companies/bharat-forge-to-invest-rs240-crore-in-defence-arm-fund-ammunition-facility-20013800.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T13:03:01Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Bharat Forge will invest ₹240 crore in its defence arm to fund an ammunition facility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bharat Forge will invest ₹240 crore in its defence arm to fund an ammunition facility.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bharat Forge",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-636",
+      "headline": "BREAKING NEWS: Mitsubishi Electric to sell 50% stake in auto equipment unit to Hon Hai",
+      "headline_en": null,
+      "url": "https://english.kyodonews.net/articles/-/88485",
+      "source_name": "Kyodo News (Japan Wire)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T12:40:50Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Mitsubishi Electric is selling a 50% stake in its auto equipment unit to Hon Hai (Foxconn), a major strategic divestment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mitsubishi Electric is selling a 50% stake in its auto equipment unit to Hon Hai (Foxconn), a major strategic divestment.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mitsubishi Electric",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "Hon Hai Precision Industry",
+          "ticker": null,
+          "listing_country": "TW"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-557",
       "headline": "Two Palestinian fishermen injured in Israeli drone attack as shelling continues across Gaza",
       "headline_en": null,
@@ -1870,104 +1973,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-305",
-      "headline": "ICICI Bank Q2 net profit jumps 22% to Rs 16,333 crore",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/business/companies/icici-bank-q2-net-profit-jumps-22-to-rs-16333-crore-4186309",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T11:19:32Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "ICICI Bank reported a 22% jump in Q2 net profit to Rs 16,333 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "ICICI Bank reported a 22% jump in Q2 net profit to Rs 16,333 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ICICI Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-344",
-      "headline": "HDFC Bank Net Profit Climbs 5.5% To ₹20,700 Crore In September Quarter",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/hdfc-bank-net-profit-climbs-55-to-20700-crore-in-september-quarter",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T09:37:41Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "HDFC Bank reported a 5.5% increase in net profit to ₹20,700 crore for the September quarter.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "HDFC Bank reported a 5.5% increase in net profit to ₹20,700 crore for the September quarter.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HDFC Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226177,9 +226182,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2281939,
-    "news_picked_today": 1476,
-    "news_dropped_today": 4740
+    "news_seen_today": 2282096,
+    "news_picked_today": 1514,
+    "news_dropped_today": 4822
   },
   "book_momentum": {
     "live_count": 8,
