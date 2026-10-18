@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T23:20:57Z",
+  "generated_at": "2026-10-18T23:25:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-739",
@@ -605,6 +605,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-780",
+      "headline": "Japan’s Daiichi Life unit tables offer to take over Australia’s Challenger",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/australias-challenger-gets-takeover-bid-from-unit-of-japans-daiichi-life",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T23:14:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Daiichi Life has tabled a takeover offer for Challenger, representing a major M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Daiichi Life has tabled a takeover offer for Challenger, representing a major M&A event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Challenger",
+          "ticker": "CGF",
+          "listing_country": "AU"
+        },
+        {
+          "name": "Daiichi Life",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-775",
       "headline": "Viking Therapeutics Just Raised $575 Million. Here's What It Means for the Obesity Stock's Next Chapter.",
       "headline_en": null,
@@ -857,60 +911,6 @@
           "name": "TAL",
           "ticker": null,
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-704",
-      "headline": "Australia's Challenger gets takeover bid from unit of Japan's Daiichi Life",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/australias-challenger-gets-takeover-bid-unit-japans-daiichi-life-2026-10-18/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T21:45:41Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Challenger received a takeover bid from a unit of Daiichi Life.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Challenger received a takeover bid from a unit of Daiichi Life.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Challenger",
-          "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "Daiichi Life",
-          "ticker": null,
-          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
@@ -226502,9 +226502,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2284103,
-    "news_picked_today": 1985,
-    "news_dropped_today": 6136
+    "news_seen_today": 2284115,
+    "news_picked_today": 1990,
+    "news_dropped_today": 6143
   },
   "book_momentum": {
     "live_count": 8,
