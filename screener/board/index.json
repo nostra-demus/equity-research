@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T14:53:05Z",
+  "generated_at": "2026-10-18T15:06:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-587",
@@ -193,6 +193,56 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-662",
+      "headline": "MP's Nepanagar Nepa Mill Faces Major Crisis As Coal Shortage Halts Newsprint Production, Seeks ₹674 Crore Relief",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/indore/mps-nepanagar-nepa-mill-faces-major-crisis-as-coal-shortage-halts-newsprint-production-seeks-674-crore-relief",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T14:30:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Nepa Mill faces a production halt due to coal shortages and is seeking ₹674 crore in relief, indicating severe financial and operational distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nepa Mill faces a production halt due to coal shortages and is seeking ₹674 crore in relief, indicating severe financial and operational distress.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nepa Mill",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1932,60 +1982,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-636",
-      "headline": "BREAKING NEWS: Mitsubishi Electric to sell 50% stake in auto equipment unit to Hon Hai",
-      "headline_en": null,
-      "url": "https://english.kyodonews.net/articles/-/88485",
-      "source_name": "Kyodo News (Japan Wire)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T12:40:50Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Mitsubishi Electric is selling a 50% stake in its auto equipment unit to Hon Hai (Foxconn), a major strategic divestment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Mitsubishi Electric is selling a 50% stake in its auto equipment unit to Hon Hai (Foxconn), a major strategic divestment.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mitsubishi Electric",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "Hon Hai Precision Industry",
-          "ticker": null,
-          "listing_country": "TW"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226046,9 +226042,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2282702,
-    "news_picked_today": 1598,
-    "news_dropped_today": 5122
+    "news_seen_today": 2282757,
+    "news_picked_today": 1613,
+    "news_dropped_today": 5162
   },
   "book_momentum": {
     "live_count": 8,
