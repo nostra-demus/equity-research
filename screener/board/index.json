@@ -1,6 +1,105 @@
 {
-  "generated_at": "2026-10-18T03:25:37Z",
+  "generated_at": "2026-10-18T03:58:38Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261018-176",
+      "headline": "SC Ruling On AT-1 Bonds Flips Yes Bank's Q2 Profit Into A Potential Rs 5,217 Crore Loss",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/yes-bank-q2-results-sc-ruling-on-at-1-bonds-flips-yes-banks-q2-profit-into-a-potential-rs-5-217-crore-loss-12201151#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T02:33:21Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "A Supreme Court ruling forces a potential Rs 5,217 crore loss, directly impacting the bank's capital structure and earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A Supreme Court ruling forces a potential Rs 5,217 crore loss, directly impacting the bank's capital structure and earnings.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yes Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-182",
+      "headline": "Yes Bank reports robust 65% jump in net profit at ₹1,080 cr",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/money-and-banking/yes-bank-reports-robust-65-jump-in-net-profit-at-1080-cr/article71597394.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T16:01:44Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Yes Bank reported a 65% jump in net profit to ₹1,080 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Yes Bank reported a 65% jump in net profit to ₹1,080 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yes Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261018-053",
       "headline": "Department of War's Office of Strategic Capital Signs $80 Million Conditional Loan Commitment with Antheia, Inc.",
@@ -242,6 +341,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-160",
+      "headline": "Macquarie Capital veteran exits amid further staff cuts",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/financial-services/macquarie-capital-veteran-exits-amid-further-staff-cuts-20261018-p616g4?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T03:31:59Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Macquarie Capital is undergoing staff cuts and a veteran executive has exited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Macquarie Capital is undergoing staff cuts and a veteran executive has exited.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Macquarie Group",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-094",
       "headline": "Bajaj Auto-owned KTM opens new motorcycle assembly plant in Brazil",
       "headline_en": null,
@@ -345,6 +494,147 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-188",
+      "headline": "Egyptian parliament to hold emergency session as Sisi seeks approval to defend Saudi Arabia",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/egyptian-parliament-hold-emergency-session-sisi-seeks-approval-defend",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T15:38:29Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Egyptian parliament holding an emergency session regarding potential military defense of Saudi Arabia signals a significant geopolitical escalation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Egyptian parliament holding an emergency session regarding potential military defense of Saudi Arabia signals a significant geopolitical escalation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-192",
+      "headline": "Yes Bank Q2 profit rises but AT1 ruling not booked as further appeal weighed",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/india/yes-bank-q2-profit-rises-at1-ruling-not-booked-further-appeal-weighed-2026-10-17/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T15:18:49Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Yes Bank reported a rise in Q2 profit, though legal uncertainty regarding AT1 bonds persists.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Yes Bank reported a rise in Q2 profit, though legal uncertainty regarding AT1 bonds persists.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yes Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-193",
+      "headline": "SBI, Subsidiaries’ Customer Data Allegedly On Dark Web: 3.75 Lakh Records, 2,722 Documents Claimed In Data Breach",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/sbi-subsidiaries-customer-data-allegedly-on-dark-web-375-lakh-records-2722-documents-claimed-in-data-breach",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T15:13:17Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "A data breach involving 3.75 lakh records and 2,722 documents poses significant operational and reputational risk to SBI.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "A data breach involving 3.75 lakh records and 2,722 documents poses significant operational and reputational risk to SBI.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "State Bank of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-154",
       "headline": "All Toyota models to be software-based by 2030",
       "headline_en": null,
@@ -389,6 +679,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-191",
+      "headline": "Trump suspende sanções e tarifas relacionadas à Rússia antes da entrada em vigor nos termos de nova lei",
+      "headline_en": "Trump suspends sanctions and tariffs related to Russia before they come into effect under the terms of a new law",
+      "url": "https://www.reuters.com/pt/mundo/6L46DI2SCNMIRF6M2USOPH73TM-2026-10-17/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T15:20:03Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Trump suspends sanctions and tariffs related to Russia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Trump suspends sanctions and tariffs related to Russia.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -754,6 +1087,405 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-179",
+      "headline": "FSSAI Issues Notices to Nestle India, HUL Over Allegedly Misleading Product Claims, Labelling Violations",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/fssai-issues-notices-to-nestle-india-hul-over-allegedly-misleading-product-claims-labelling-violations-12200174#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T16:09:29Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "FSSAI issued notices to Nestle India and HUL for alleged misleading claims, posing regulatory and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "FSSAI issued notices to Nestle India and HUL for alleged misleading claims, posing regulatory and reputational risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nestle India",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Hindustan Unilever",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-183",
+      "headline": "Yes Bank Q2 profit beats estimates, but Supreme Court's AT1 bond ruling impact not booked as lender weighs further appeal",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/yes-bank-q2-profit-beats-estimates-but-supreme-courts-at1-bond-ruling-impact-not-booked-as-lender-weighs-further-appeal/articleshow/135016631.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T16:00:11Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Yes Bank Q2 profit beat estimates, but the bank faces significant uncertainty regarding a Supreme Court ruling on AT1 bonds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Yes Bank Q2 profit beat estimates, but the bank faces significant uncertainty regarding a Supreme Court ruling on AT1 bonds.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yes Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-196",
+      "headline": "Tesla Just Won in Court: Self-Driving Buyers Can’t Sue as a Class",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/10/17/tesla-just-won-in-court-self-driving-buyers-cant-sue-as-a-class/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T15:10:22Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "A court ruling preventing class-action lawsuits regarding Tesla's self-driving technology reduces legal liability risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "A court ruling preventing class-action lawsuits regarding Tesla's self-driving technology reduces legal liability risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-185",
+      "headline": "FSSAI issues notices to Nestlé India, HUL over misleading claims, non-compliance",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/companies/fssai-issues-notices-nestle-india-hul-over-misleading-claims-non-compliance-20014261.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T15:48:32Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "FSSAI issued notices to Nestlé India and HUL regarding misleading claims and non-compliance, posing potential regulatory and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "FSSAI issued notices to Nestlé India and HUL regarding misleading claims and non-compliance, posing potential regulatory and reputational risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nestlé India",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Hindustan Unilever",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-170",
+      "headline": "Saudi helicopter crashes in Najran, killing two crew members",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/saudi-helicopter-crashes-due-technical-malfunction-coalition-spokesman",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T03:34:59Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "A Saudi military helicopter crash resulting in two fatalities is a significant operational and geopolitical event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "A Saudi military helicopter crash resulting in two fatalities is a significant operational and geopolitical event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Arabian Armed Forces",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-173",
+      "headline": "AH-6i Saudi helicopter crashes in Najran; 2 officers killed: Spokesperson",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/world/mena/us-israel-iran-lebanon-war-live-updates-october-18-2026",
+      "source_name": "Khaleej Times — Top / General",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T03:24:32Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "A Saudi military helicopter crash resulting in two fatalities is a significant operational and geopolitical event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "A Saudi military helicopter crash resulting in two fatalities is a significant operational and geopolitical event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Arabian Armed Forces",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-174",
+      "headline": "Saudi-led coalition says helicopter crash in Najran kills two crew members",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/middle-east/saudi-led-coalition-says-helicopter-crash-najran-kills-two-crew-members-2026-10-18/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T03:18:23Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "A Saudi military helicopter crash resulting in two fatalities is a significant operational and geopolitical event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "A Saudi military helicopter crash resulting in two fatalities is a significant operational and geopolitical event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Arabian Armed Forces",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-166",
+      "headline": "₹200 Crore School Furniture Procurement Row In Madhya Pradesh! RSK's ₹44.35 Crore Direct Orders Raise Questions",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/bhopal/200-crore-school-furniture-procurement-row-in-madhya-pradesh-rsks-4435-crore-direct-orders-raise-questions",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T03:15:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "A procurement row involving 200 crore INR in Madhya Pradesh raises concerns regarding public sector corruption and governance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "A procurement row involving 200 crore INR in Madhya Pradesh raises concerns regarding public sector corruption and governance.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-043",
       "headline": "Nuclear reactor in northeastern Japan shut down to replace leaking valve",
       "headline_en": null,
@@ -890,6 +1622,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-186",
+      "headline": "Stellantis workers begin two-day vote on strike mandate",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-stellantis-workers-begin-two-day-vote-on-strike-mandate/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T15:48:45Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Stellantis workers are voting on a strike mandate, which could disrupt production and operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Stellantis workers are voting on a strike mandate, which could disrupt production and operations.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Stellantis",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1036,252 +1817,85 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261018-145",
-      "headline": "Autobauer: Die Anti-Porsche-Strategie – AMG präsentiert erstmals SUV-Sportwagen als reines E-Auto",
-      "headline_en": "Automaker: The anti-Porsche strategy – AMG presents SUV sports car as a pure electric vehicle for the first time",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/autobauer-amg-praesentiert-erstmals-suv-sportwagen-als-reines-e-auto/100261064.html",
-      "source_name": "Handelsblatt",
+      "inbox_id": "INB-20261018-195",
+      "headline": "Nestlé India & Hindustan Unilever face FSSAI notices over misleading claims, non-compliance; what regulator flagged in Resource Renal and Horlicks Mother's Plus",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/cons-products/food/nestl-india-and-hindustan-unilever-face-fssai-notices-over-alleged-misleading-claims-non-compliance/articleshow/135016192.cms",
+      "source_name": "The Economic Times",
       "input_nature": "news_headline",
-      "found_at": "2026-10-17T17:01:24Z",
+      "found_at": "2026-10-17T15:10:48Z",
       "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Mercedes-AMG is launching its first dedicated electric SUV, marking a strategic shift in its product portfolio to compete in the EV segment.",
+      "prelim_note": "FSSAI issued notices to Nestle India and Hindustan Unilever regarding misleading claims, creating regulatory and reputational risk.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Mercedes-AMG is launching its first dedicated electric SUV, marking a strategic shift in its product portfolio to compete in the EV segment.",
-      "region": "OTHER",
+      "triage_score": 81,
+      "triage_reason": "FSSAI issued notices to Nestle India and Hindustan Unilever regarding misleading claims, creating regulatory and reputational risk.",
+      "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 60,
       "rank_factors": {
         "materiality": 60,
         "source_tier": 0,
-        "scope": 6,
-        "event": 0,
+        "scope": 2,
+        "event": 6,
         "size": 2,
-        "recency": 2,
+        "recency": 1,
         "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "policy",
         "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
       },
       "event_types": [
-        "product"
+        "regulatory",
+        "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Mercedes-Benz",
+          "name": "Nestle India",
           "ticker": null,
-          "listing_country": "DE"
+          "listing_country": "IN"
+        },
+        {
+          "name": "Hindustan Unilever",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261018-147",
-      "headline": "U.S. debt interest payments hit $3 billion a day and jumped 8% in fiscal 2026 — faster than total federal spending, revenue and GDP growth",
+      "inbox_id": "INB-20261018-197",
+      "headline": "Antofagasta Workers to End Strike, Easing Chile Copper Tensions",
       "headline_en": null,
-      "url": "https://fortune.com/2026/10/17/us-debt-interest-payments-fiscal-2026-1-trillion-federal-spending-revenue-gdp-growth-treasury-yields/",
-      "source_name": "Fortune",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T16:50:02Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "US debt interest payments reaching $3 billion per day represents a significant fiscal burden that could impact future government spending and economic growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "US debt interest payments reaching $3 billion per day represents a significant fiscal burden that could impact future government spending and economic growth.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-153",
-      "headline": "New property purchase disclosure rule in Japan sparks fears it may curb foreign investment",
-      "headline_en": null,
-      "url": "https://www.scmp.com/business/article/3371224/new-property-purchase-disclosure-rule-japan-sparks-fears-it-may-curb-foreign-investment?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T03:00:07Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "New property disclosure rules in Japan could deter foreign capital inflows into the real estate sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "New property disclosure rules in Japan could deter foreign capital inflows into the real estate sector.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-093",
-      "headline": "Venezuela signs 61 oil agreements, expects $76 billion in investments over five years",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/international-business/venezuela-signs-61-oil-agreements-expects-76-billion-in-investments-over-five-years/articleshow/135022743.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T01:50:24Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Venezuela signed 61 oil agreements expecting $76 billion in investments over five years, a major capital expansion for the sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 74,
-      "triage_reason": "Venezuela signed 61 oil agreements expecting $76 billion in investments over five years, a major capital expansion for the sector.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-084",
-      "headline": "Venezuela Sees Nearly $76 Billion Oil Investment Over Five Years",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-18/venezuela-sees-nearly-76-billion-oil-investment-over-five-years",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-17/antofagasta-workers-to-end-strike-easing-chile-copper-tensions",
       "source_name": "Bloomberg",
       "input_nature": "news_headline",
-      "found_at": "2026-10-18T00:48:28Z",
+      "found_at": "2026-10-17T15:07:53Z",
       "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Venezuela announced a $76 billion oil investment plan over five years to boost production.",
+      "prelim_note": "Antofagasta workers ending a strike resolves a supply disruption risk for copper production in Chile.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Venezuela announced a $76 billion oil investment plan over five years to boost production.",
+      "triage_score": 81,
+      "triage_reason": "Antofagasta workers ending a strike resolves a supply disruption risk for copper production in Chile.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 70,
       "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-004",
-      "headline": "(News Focus) Hyundai Motor steps up physical AI push amid Chinese competition, stock slump",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261016007500320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T00:00:08Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Hyundai is increasing investment in physical AI to maintain competitiveness against Chinese rivals.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Hyundai is increasing investment in physical AI to maintain competitiveness against Chinese rivals.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
+        "materiality": 70,
         "source_tier": 0,
         "scope": 6,
         "event": 2,
         "size": 2,
-        "recency": 5,
+        "recency": 1,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
@@ -1291,15 +1905,14 @@
         "size_bucket": "large"
       },
       "event_types": [
-        "operations",
-        "product"
+        "operations"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Hyundai Motor",
+          "name": "Antofagasta",
           "ticker": null,
-          "listing_country": "KR"
+          "listing_country": "CL"
         }
       ],
       "size_bucket": "large",
@@ -1308,663 +1921,43 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261018-088",
-      "headline": "Hitachi Energy invests $479 million CAD to bring critical transformer manufacturing capability to Canada",
+      "inbox_id": "INB-20261018-165",
+      "headline": "'Won't Spare Anyone': Bengal CM Orders Probe After Kolkata Pandal Stampede Kills 19",
       "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/hitachi-energy-invests-479-million-cad-to-bring-critical-transformer-manufacturing-capability-to-canada-302911216.html",
-      "source_name": "PR Newswire — General Business",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T12:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Hitachi Energy is investing $479 million CAD to expand transformer manufacturing capacity in Canada.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Hitachi Energy is investing $479 million CAD to expand transformer manufacturing capacity in Canada.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hitachi Energy",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-039",
-      "headline": "Sterne Kessler Client Netlist Negotiates $600 Million Settlement with Micron Technology",
-      "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20261016154549/en/Sterne-Kessler-Client-Netlist-Negotiates-600-Million-Settlement-with-Micron-Technology/?feedref=JjAwJuNHiystnCoBq_hl-adS5VAKkf1zsgyV8tTPInVcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTVXw2Oldt-3VQjUwU4Zj5HZBSvR87oUDgbHejiywQBpbg==",
-      "source_name": "Business Wire — Lawsuit News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T17:24:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Netlist negotiated a $600 million settlement with Micron Technology.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Netlist negotiated a $600 million settlement with Micron Technology.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Netlist",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Micron Technology",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-003",
-      "headline": "Ralph Lauren has its wealthy shoppers to thank as retail softens",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/investing/stocks/ralph-lauren-bank-of-america-reaffirms-buy-wealthy-shoppers-resilient-spending",
-      "source_name": "TheStreet",
+      "url": "https://www.ndtvprofit.com/india/wont-spare-anyone-bengal-cm-orders-probe-after-kolkata-pandal-stampede-kills-19-12201110#publisher=newsstand",
+      "source_name": "NDTV Profit",
       "input_nature": "news_headline",
-      "found_at": "2026-10-18T00:07:00Z",
+      "found_at": "2026-10-18T02:24:09Z",
       "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Ralph Lauren is demonstrating resilience in the luxury retail sector due to its affluent customer base.",
+      "prelim_note": "A stampede resulting in 19 deaths at a public event in Kolkata has triggered a government probe, impacting local operational risk.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Ralph Lauren is demonstrating resilience in the luxury retail sector due to its affluent customer base.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ralph Lauren",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-155",
-      "headline": "Big Walk game developers rule out Xbox release over BDS listing",
-      "headline_en": null,
-      "url": "https://www.newarab.com/news/big-walk-game-developers-rule-out-xbox-release-over-bds-listing",
-      "source_name": "The New Arab",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T16:35:26Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Big Walk game developers ruled out an Xbox release over a BDS listing, potentially impacting product reach.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Big Walk game developers ruled out an Xbox release over a BDS listing, potentially impacting product reach.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Big Walk",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-014",
-      "headline": "ROSEN, A LEADING INVESTOR RIGHTS LAW FIRM, Encourages Duolingo, Inc. Investors to Secure Counsel Before Important Deadline in Securities Class Action - DUOL",
-      "headline_en": null,
-      "url": "https://markets.businessinsider.com/news/stocks/rosen-a-leading-investor-rights-law-firm-encourages-duolingo-inc.-investors-to-secure-counsel-before-important-deadline-in-securities-class-action-duol-1036636485",
-      "source_name": "Business Insider",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T18:37:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Securities class action lawsuit deadline alert indicates potential legal risk for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Securities class action lawsuit deadline alert indicates potential legal risk for the company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Duolingo",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-159",
-      "headline": "FSSAI issues notices to Nestlé India, HUL over misleading products; What are the claims?",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/india/fssai-issues-notices-to-nestl-india-hul-over-misleading-products-what-are-the-claims-11792252684689.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T16:20:35Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Notices from FSSAI over misleading products can lead to fines, product recalls, and reputational damage for major consumer goods companies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Notices from FSSAI over misleading products can lead to fines, product recalls, and reputational damage for major consumer goods companies.",
+      "triage_score": 80,
+      "triage_reason": "A stampede resulting in 19 deaths at a public event in Kolkata has triggered a government probe, impacting local operational risk.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 55,
       "rank_factors": {
         "materiality": 55,
         "source_tier": 0,
-        "scope": 5,
+        "scope": 2,
         "event": 4,
         "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
+        "recency": 4,
+        "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
+        "scope_id": "policy",
         "source_tier_id": "news",
         "event_id": "regulatory",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "regulatory",
-        "product"
+        "regulatory"
       ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nestlé India",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "HUL",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-120",
-      "headline": "Investeringsforeningen Multi Manager Invest suspender handel med alle afdelinger",
-      "headline_en": "Investeringsforeningen Multi Manager Invest suspends trading with all departments",
-      "url": "https://www.globenewswire.com/news-release/2026/10/16/3382475/0/da/investeringsforeningen-multi-manager-invest-suspender-handel-med-alle-afdelinger.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T10:39:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Investment fund suspends trading across all departments, indicating a liquidity or solvency crisis.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Investment fund suspends trading across all departments, indicating a liquidity or solvency crisis.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Investeringsforeningen Multi Manager Invest",
-          "ticker": null,
-          "listing_country": "DK"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-121",
-      "headline": "Investeringsforeningen Nykredit Invest Balance suspender handel med alle afdelinger",
-      "headline_en": "Investeringsforeningen Nykredit Invest Balance suspends trading with all departments",
-      "url": "https://www.globenewswire.com/news-release/2026/10/16/3382474/0/en/investeringsforeningen-nykredit-invest-balance-suspender-handel-med-alle-afdelinger.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T10:37:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Investment fund suspends trading across all departments, indicating a liquidity or solvency crisis.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Investment fund suspends trading across all departments, indicating a liquidity or solvency crisis.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Investeringsforeningen Nykredit Invest Balance",
-          "ticker": null,
-          "listing_country": "DK"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-012",
-      "headline": "YSS DEADLINE ALERT: ROSEN, RECOGNIZED INVESTOR COUNSEL, Encourages York Space Systems Inc. Investors to Secure Counsel Before Important October 30 Deadline in Securities Class Action - YSS",
-      "headline_en": null,
-      "url": "https://markets.businessinsider.com/news/stocks/yss-deadline-alert-rosen-recognized-investor-counsel-encourages-york-space-systems-inc.-investors-to-secure-counsel-before-important-october-30-deadline-in-securities-class-action-yss-1036636518",
-      "source_name": "Business Insider",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T19:10:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Securities class action lawsuit deadline alert indicates potential legal risk for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Securities class action lawsuit deadline alert indicates potential legal risk for the company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "York Space Systems",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-138",
-      "headline": "International Seaways Expands VLCC Fleet Through Strategic Combination with Bruton Limited. | INSW Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/INSW/international-seaways-expands-vlcc-fleet-through-strategic-tsxiuyarot5s.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T06:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "International Seaways is expanding its fleet through a strategic combination with Bruton Limited.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "International Seaways is expanding its fleet through a strategic combination with Bruton Limited.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "International Seaways",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-065",
-      "headline": "Panzani i Cerealis łączą siły, aby stworzyć dużą europejską grupę spożywczą",
-      "headline_en": "Panzani and Cerealis join forces to create a large European food group",
-      "url": "https://www.prnewswire.com/news-releases/panzani-i-cerealis-cz-siy-aby-stworzy-du-europejsk-grup-spoywcz-302911385.html",
-      "source_name": "PR Newswire — Acquisitions, Mergers & Takeovers",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T15:19:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Panzani and Cerealis are merging to create a large European food group.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Panzani and Cerealis are merging to create a large European food group.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Panzani",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Cerealis",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-074",
-      "headline": "Panzani et Cerealis s'associent pour créer un grand groupe alimentaire européen.",
-      "headline_en": "Panzani and Cerealis partner to create a major European food group.",
-      "url": "https://www.prnewswire.com/news-releases/panzani-et-cerealis-sassocient-pour-creer-un-grand-groupe-alimentaire-europeen-302911313.html",
-      "source_name": "PR Newswire — Acquisitions, Mergers & Takeovers",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T13:47:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Panzani and Cerealis are merging to create a major European food group.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Panzani and Cerealis are merging to create a major European food group.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Panzani",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Cerealis",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-080",
-      "headline": "Panzani and Cerealis Join Forces to Create a Major European Food Group",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/panzani-and-cerealis-join-forces-to-create-a-major-european-food-group-302911264.html",
-      "source_name": "PR Newswire — Acquisitions, Mergers & Takeovers",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T13:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Panzani and Cerealis are merging to create a major European food group, a significant consolidation event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Panzani and Cerealis are merging to create a major European food group, a significant consolidation event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Panzani",
-          "ticker": null,
-          "listing_country": "FR"
-        },
-        {
-          "name": "Cerealis",
-          "ticker": null,
-          "listing_country": "TN"
-        }
-      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -184576,78 +184569,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-1e4e902899de",
-      "idea_version": "IDEAV-09de71681050edb7",
-      "idea_version_started_at": "2026-10-18T00:40:50Z",
-      "ticker": "CROMPTON",
-      "company": "Crompton Greaves Consumer Electricals Ltd",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 65% surge in Q2 profit to Rs 124 crore, indicating strong operational performance.",
-      "why_now": "The earnings results were released on 2026-10-16, providing a fresh fundamental catalyst.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4c0fead40a53"
-      ],
-      "primary_source_event_id": "EVT-4c0fead40a53",
-      "source_headlines": [
-        "Crompton Greaves Consumer Electricals Ltd Q2 Results: Profit surges 65% to Rs 124 crore"
-      ],
-      "source_headline": "Crompton Greaves Consumer Electricals Ltd Q2 Results: Profit surges 65% to Rs 124 crore",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/crompton-greaves-q2-results-profit-surges-65-to-rs-124-crore/articleshow/134998426.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-16T15:33:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-16T21:35:39Z",
-      "updated_at": "2026-10-18T00:40:50Z",
-      "decay_at": "2026-10-18T03:33:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-10df37279447",
       "idea_version": "IDEAV-d5c5f864d6c6d212",
       "idea_version_started_at": "2026-10-17T18:25:41Z",
@@ -186148,6 +186069,78 @@
       "surfaced_at": "2026-10-16T23:31:00Z",
       "updated_at": "2026-10-18T02:00:52Z",
       "decay_at": "2026-10-18T02:57:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-1e4e902899de",
+      "idea_version": "IDEAV-09de71681050edb7",
+      "idea_version_started_at": "2026-10-18T00:40:50Z",
+      "ticker": "CROMPTON",
+      "company": "Crompton Greaves Consumer Electricals Ltd",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 65% surge in Q2 profit to Rs 124 crore, indicating strong operational performance.",
+      "why_now": "The earnings results were released on 2026-10-16, providing a fresh fundamental catalyst.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4c0fead40a53"
+      ],
+      "primary_source_event_id": "EVT-4c0fead40a53",
+      "source_headlines": [
+        "Crompton Greaves Consumer Electricals Ltd Q2 Results: Profit surges 65% to Rs 124 crore"
+      ],
+      "source_headline": "Crompton Greaves Consumer Electricals Ltd Q2 Results: Profit surges 65% to Rs 124 crore",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/crompton-greaves-q2-results-profit-surges-65-to-rs-124-crore/articleshow/134998426.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-16T15:33:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-16T21:35:39Z",
+      "updated_at": "2026-10-18T00:40:50Z",
+      "decay_at": "2026-10-18T03:33:01Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -188816,14 +188809,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 543,
+    "total_count": 544,
     "shown_count": 499,
-    "hidden_count": 44,
+    "hidden_count": 45,
     "side_counts": {
       "long": {
-        "total_count": 280,
+        "total_count": 281,
         "shown_count": 250,
-        "hidden_count": 30
+        "hidden_count": 31
       },
       "short": {
         "total_count": 264,
@@ -188847,6 +188840,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-1e4e902899de",
+        "idea_version": "IDEAV-09de71681050edb7",
+        "idea_version_started_at": "2026-10-18T00:40:50Z",
+        "ticker": "CROMPTON",
+        "company": "Crompton Greaves Consumer Electricals Ltd",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported a 65% surge in Q2 profit to Rs 124 crore, indicating strong operational performance.",
+        "why_now": "The earnings results were released on 2026-10-16, providing a fresh fundamental catalyst.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4c0fead40a53"
+        ],
+        "primary_source_event_id": "EVT-4c0fead40a53",
+        "source_headlines": [
+          "Crompton Greaves Consumer Electricals Ltd Q2 Results: Profit surges 65% to Rs 124 crore"
+        ],
+        "source_headline": "Crompton Greaves Consumer Electricals Ltd Q2 Results: Profit surges 65% to Rs 124 crore",
+        "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/crompton-greaves-q2-results-profit-surges-65-to-rs-124-crore/articleshow/134998426.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-16T15:33:01Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-16T21:35:39Z",
+        "updated_at": "2026-10-18T00:40:50Z",
+        "decay_at": "2026-10-18T03:33:01Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-18T03:33:01Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0b852ac1558d",
         "idea_version": "IDEAV-b846ee605c075730",
@@ -216485,79 +216553,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-04bd73d1842b",
-        "idea_version": "IDEAV-403ffc34dc9c2234",
-        "idea_version_started_at": "2026-10-04T08:40:09Z",
-        "ticker": "YESBANK.NS",
-        "company": "YES Bank",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "YES Bank reported a 24% year-over-year surge in loans to ₹3 lakh crore and a 20% increase in deposits, indicating strong business growth.",
-        "why_now": "The Q2 business update provides current financial performance metrics, making the growth story live now.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 67,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-151edcdda774"
-        ],
-        "primary_source_event_id": "EVT-151edcdda774",
-        "source_headlines": [
-          "YES Bank Q2 Business Update: Loans surge 24% to ₹3 lakh crore; deposits up 20% YoY"
-        ],
-        "source_headline": "YES Bank Q2 Business Update: Loans surge 24% to ₹3 lakh crore; deposits up 20% YoY",
-        "source_url": "https://www.cnbctv18.com/market/stocks/yes-bank-share-price-q2-business-update-loans-surge-24-to-rs-3-lakh-crore-deposits-up-20-yoy-20004109.htm",
-        "source_name": "CNBC-TV18",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-04T08:36:36Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-04T08:40:09Z",
-        "updated_at": "2026-10-04T08:40:09Z",
-        "decay_at": "2026-10-05T20:36:36Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-07T10:57:38Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-b520e6e5e5f6",
         "idea_version": "IDEAV-2df1283f54ee5e2c",
         "idea_version_started_at": "2026-10-04T08:14:49Z",
@@ -226018,7 +226013,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1668,
-    "live_count": 24,
+    "live_count": 23,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -226037,9 +226032,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 965511,
-    "news_picked_today": 220,
-    "news_dropped_today": 1292
+    "news_seen_today": 1114744,
+    "news_picked_today": 264,
+    "news_dropped_today": 1416
   },
   "book_momentum": {
     "live_count": 8,
