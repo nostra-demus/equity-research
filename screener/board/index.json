@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T06:46:48Z",
+  "generated_at": "2026-10-18T06:49:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-362",
@@ -838,6 +838,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-366",
+      "headline": "Axis Bank quarterly profit rises 37.6%, but misses estimates on higher costs",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/money-and-banking/axis-bank-quarterly-profit-rises-376-but-misses-estimates-on-higher-costs/article71595810.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T08:14:17Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Axis Bank reported a 37.6% profit increase but missed analyst estimates due to higher costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Axis Bank reported a 37.6% profit increase but missed analyst estimates due to higher costs.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Axis Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-182",
       "headline": "Yes Bank reports robust 65% jump in net profit at ₹1,080 cr",
       "headline_en": null,
@@ -1300,6 +1349,55 @@
         "size": 1,
         "recency": 1,
         "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Central Bank of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-369",
+      "headline": "Central Bank Of India’s Q2 FY27 Consolidated Net Profit Rose 40.58 Per Cent Year-On-Year To ₹1,718.60 Crore",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/central-bank-of-indias-q2-fy27-consolidated-net-profit-rose-4058-per-cent-year-on-year-to-171860-crore",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T08:09:19Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Central Bank of India reported a 40.58% YoY increase in net profit to ₹1,718.60 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Central Bank of India reported a 40.58% YoY increase in net profit to ₹1,718.60 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 5,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
@@ -1844,104 +1942,6 @@
           "name": "CoreWeave",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-327",
-      "headline": "Yes Bank To Move To Supreme Court Over ₹8,415 Cr AT1 Bonds",
-      "headline_en": null,
-      "url": "https://www.outlookbusiness.com/corporate/yes-bank-to-move-to-supreme-court-over-8415-cr-at1-bonds",
-      "source_name": "Outlook Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T10:29:06Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Yes Bank is escalating a legal dispute over ₹8,415 crore in AT1 bonds to the Supreme Court, creating significant financial and legal uncertainty.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Yes Bank is escalating a legal dispute over ₹8,415 crore in AT1 bonds to the Supreme Court, creating significant financial and legal uncertainty.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yes Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-350",
-      "headline": "Thane Accident: Steel Reinforcement Cage From Elevated Road Project Falls On Moving Car At Kopri Bridge; MMRDA Fines Contractor ₹2 Crore | VIDEO",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/mumbai/thane-accident-steel-reinforcement-cage-from-elevated-road-project-falls-on-moving-car-at-kopri-bridge-mmrda-fines-contractor-2-crore-video-mumbai-news",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T09:30:14Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "MMRDA fined a contractor ₹2 crore following a construction accident.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "MMRDA fined a contractor ₹2 crore following a construction accident.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MMRDA",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
@@ -226660,9 +226660,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1683088,
-    "news_picked_today": 582,
-    "news_dropped_today": 2298
+    "news_seen_today": 1691644,
+    "news_picked_today": 589,
+    "news_dropped_today": 2315
   },
   "book_momentum": {
     "live_count": 8,
