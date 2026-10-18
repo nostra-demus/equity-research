@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T11:57:50Z",
+  "generated_at": "2026-10-18T12:00:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-573",
@@ -1925,50 +1925,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261018-223",
-      "headline": "Central Bank of India’s Q2 profit jumps 21% YoY to Rs 1,469 crore",
+      "inbox_id": "INB-20261018-586",
+      "headline": "Hyundai plans ₹8,528-crore global R&D centre in Telangana; CM orders fast-tracking of approvals",
       "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/central-bank-of-indias-q2-profit-jumps-21-yoy-to-rs-1469-crore/articleshow/135023806.cms",
-      "source_name": "The Economic Times",
+      "url": "https://www.cnbctv18.com/business/hyundai-rs-8528-crore-global-rd-cm-orders-fast-tracking-approvals-20013852.htm",
+      "source_name": "CNBC-TV18",
       "input_nature": "news_headline",
-      "found_at": "2026-10-18T04:26:58Z",
+      "found_at": "2026-10-16T14:11:50Z",
       "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Central Bank of India's Q2 profit jumped 21% year-over-year to Rs 1,469 crore.",
+      "prelim_note": "Hyundai is investing ₹8,528 crore in a new global R&D centre in Telangana.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Central Bank of India's Q2 profit jumped 21% year-over-year to Rs 1,469 crore.",
+      "triage_score": 99,
+      "triage_reason": "Hyundai is investing ₹8,528 crore in a new global R&D centre in Telangana.",
       "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 80,
+      "materiality_pre_score": 70,
       "rank_factors": {
-        "materiality": 80,
+        "materiality": 70,
         "source_tier": 0,
-        "scope": 2,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "policy",
+        "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
+        "event_id": "capex",
+        "size_bucket": "mega"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "capex"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Central Bank of India",
+          "name": "Hyundai Motor",
           "ticker": null,
-          "listing_country": "IN"
+          "listing_country": "KR"
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226609,9 +226609,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2259404,
-    "news_picked_today": 1338,
-    "news_dropped_today": 4398
+    "news_seen_today": 2261652,
+    "news_picked_today": 1349,
+    "news_dropped_today": 4411
   },
   "book_momentum": {
     "live_count": 8,
