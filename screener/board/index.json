@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T03:16:34Z",
+  "generated_at": "2026-10-18T03:25:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-053",
@@ -340,6 +340,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-154",
+      "headline": "All Toyota models to be software-based by 2030",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/10/18/companies/toyota-software-defined-vehicles/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T01:41:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Toyota announced that all its models will be software-based by 2030, indicating a significant product strategy shift.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Toyota announced that all its models will be software-based by 2030, indicating a significant product strategy shift.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Toyota",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -797,6 +846,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-157",
+      "headline": "Move Aside, Moderna: This mRNA Stock Is Sitting on a Cash Pile and a Deep Cancer Pipeline",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/10/17/move-aside-moderna-this-mrna-stock-is-sitting-on-a/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T16:23:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "A company with a strong cash position and a deep pipeline in a key therapeutic area like cancer is a significant investment opportunity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "A company with a strong cash position and a deep pipeline in a key therapeutic area like cancer is a significant investment opportunity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Moderna",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-129",
       "headline": "Wits secures R341m Cultural Precinct deal",
       "headline_en": null,
@@ -1023,6 +1121,50 @@
         "macro_sector"
       ],
       "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-153",
+      "headline": "New property purchase disclosure rule in Japan sparks fears it may curb foreign investment",
+      "headline_en": null,
+      "url": "https://www.scmp.com/business/article/3371224/new-property-purchase-disclosure-rule-japan-sparks-fears-it-may-curb-foreign-investment?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T03:00:07Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "New property disclosure rules in Japan could deter foreign capital inflows into the real estate sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 76,
+      "triage_reason": "New property disclosure rules in Japan could deter foreign capital inflows into the real estate sector.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -1318,6 +1460,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-155",
+      "headline": "Big Walk game developers rule out Xbox release over BDS listing",
+      "headline_en": null,
+      "url": "https://www.newarab.com/news/big-walk-game-developers-rule-out-xbox-release-over-bds-listing",
+      "source_name": "The New Arab",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T16:35:26Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Big Walk game developers ruled out an Xbox release over a BDS listing, potentially impacting product reach.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Big Walk game developers ruled out an Xbox release over a BDS listing, potentially impacting product reach.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Big Walk",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-014",
       "headline": "ROSEN, A LEADING INVESTOR RIGHTS LAW FIRM, Encourages Duolingo, Inc. Investors to Secure Counsel Before Important Deadline in Securities Class Action - DUOL",
       "headline_en": null,
@@ -1362,6 +1553,61 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-159",
+      "headline": "FSSAI issues notices to Nestlé India, HUL over misleading products; What are the claims?",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/india/fssai-issues-notices-to-nestl-india-hul-over-misleading-products-what-are-the-claims-11792252684689.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T16:20:35Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Notices from FSSAI over misleading products can lead to fines, product recalls, and reputational damage for major consumer goods companies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "Notices from FSSAI over misleading products can lead to fines, product recalls, and reputational damage for major consumer goods companies.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nestlé India",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "HUL",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1720,250 +1966,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-113",
-      "headline": "CSL Group adquiere SIMPL Wireless para llevar Critical Connectivity® a Norteamérica",
-      "headline_en": "CSL Group acquires SIMPL Wireless to bring Critical Connectivity® to North America",
-      "url": "https://www.prnewswire.com/news-releases/csl-group-adquiere-simpl-wireless-para-llevar-critical-connectivity-a-norteamerica-302911150.html",
-      "source_name": "PR Newswire — Acquisitions, Mergers & Takeovers",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T11:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "CSL Group has acquired SIMPL Wireless to expand its Critical Connectivity services to North America.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "CSL Group has acquired SIMPL Wireless to expand its Critical Connectivity services to North America.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CSL Group",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "SIMPL Wireless",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-127",
-      "headline": "Zelenskyy says Starlink speed limits in Ukraine are a ‘planned operation’",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/e26723df-9076-416c-957a-7fa3bd00b4d7?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T02:35:14Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Zelenskyy suggests Starlink speed limits in Ukraine are a deliberate operational constraint, potentially impacting military or civilian connectivity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Zelenskyy suggests Starlink speed limits in Ukraine are a deliberate operational constraint, potentially impacting military or civilian connectivity.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-056",
-      "headline": "Maruti Suzuki festive offers: Grand Vitara gets benefits of up to Rs 1.36 lakh, but conditions apply",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/photo/maruti-suzuki-festive-offers-grand-vitara-gets-benefits-of-up-to-rs-1-36-lakh-but-conditions-apply-561993-2026-10-18?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T00:45:03Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Maruti Suzuki is offering festive discounts of up to Rs 1.36 lakh to stimulate sales.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Maruti Suzuki is offering festive discounts of up to Rs 1.36 lakh to stimulate sales.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Maruti Suzuki",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-149",
-      "headline": "Berlin: Koalitionsgespräche geplant – inklusive Vergesellschaftungen",
-      "headline_en": "Berlin: Coalition talks planned – including nationalizations",
-      "url": "https://www.handelsblatt.com/politik/deutschland/berlin-koalitionsgespraeche-geplant-inklusive-vergesellschaftungen/100262974.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T16:48:21Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Planned coalition talks in Berlin including potential nationalizations create significant policy uncertainty for German businesses.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Planned coalition talks in Berlin including potential nationalizations create significant policy uncertainty for German businesses.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-124",
-      "headline": "Citizens Financial Group, Inc. Reports Third Quarter 2026 Net Income of $636 million, up 29% YoY, and EPS of $1.41, up 34% YoY and 8% QoQ | CFG Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/CFG/citizens-financial-group-inc-reports-third-quarter-2026-net-income-f4l1oeuyvboo.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T10:20:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Citizens Financial Group reported Q3 2026 net income of $636 million, up 29% YoY, and EPS of $1.41, up 34% YoY.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Citizens Financial Group reported Q3 2026 net income of $636 million, up 29% YoY, and EPS of $1.41, up 34% YoY.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Citizens Financial Group",
-          "ticker": "CFG",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226035,9 +226037,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 911166,
-    "news_picked_today": 206,
-    "news_dropped_today": 1234
+    "news_seen_today": 965511,
+    "news_picked_today": 220,
+    "news_dropped_today": 1292
   },
   "book_momentum": {
     "live_count": 8,
