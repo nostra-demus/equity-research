@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T07:05:43Z",
+  "generated_at": "2026-10-18T07:12:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-362",
@@ -144,6 +144,60 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-500",
+      "headline": "Global credit manager Ares hires bankers for Rio Tinto’s $7b auction",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/global-credit-manager-ares-hires-bankers-for-rio-tinto-s-7b-auction-20261018-p616hl?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T06:44:30Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Ares Management is hiring bankers for a $7 billion auction of assets related to Rio Tinto, representing a major M&A process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ares Management is hiring bankers for a $7 billion auction of assets related to Rio Tinto, representing a major M&A process.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rio Tinto",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "Ares Management",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1866,49 +1920,6 @@
       "launched_signal_id": null,
       "triage_score": 92,
       "triage_reason": "A potential meeting between Zelenskyy and Putin combined with a waiver on Russian oil tariffs represents a major geopolitical shift with global market implications.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-089",
-      "headline": "+++ Ukraine-Krieg +++: Trumps Aussetzung von Sanktionen – Parteiübergreifende Kritik",
-      "headline_en": "+++ Ukraine War +++: Trump's suspension of sanctions – Bipartisan criticism",
-      "url": "https://www.handelsblatt.com/politik/international/ukraine-krieg-trumps-aussetzung-von-sanktionen-parteiuebergreifende-kritik/27982126.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T01:42:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Geopolitical escalation regarding US sanctions policy on Ukraine-Russia conflict creates significant market uncertainty.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Geopolitical escalation regarding US sanctions policy on Ukraine-Russia conflict creates significant market uncertainty.",
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -226648,9 +226659,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1733672,
-    "news_picked_today": 839,
-    "news_dropped_today": 2905
+    "news_seen_today": 1750684,
+    "news_picked_today": 847,
+    "news_dropped_today": 2945
   },
   "book_momentum": {
     "live_count": 8,
