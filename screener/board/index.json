@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T05:51:17Z",
+  "generated_at": "2026-10-18T05:55:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-282",
@@ -1708,6 +1708,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-319",
+      "headline": "Egypt's Sisi calls for emergency parliament session to approve possible defence of Saudi Arabia",
+      "headline_en": null,
+      "url": "https://gulfnews.com/world/mena/egypts-sisi-calls-for-emergency-parliament-session-to-approve-possible-defence-of-saudi-arabia-1.500714123",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T10:44:28Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Egypt calling an emergency parliament session to discuss potential military defense of Saudi Arabia signals a major regional escalation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Egypt calling an emergency parliament session to discuss potential military defense of Saudi Arabia signals a major regional escalation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-216",
       "headline": "Jio Platforms IPO RHP: From financials to spectrum portfolio | 10 key things to know before subscribing",
       "headline_en": null,
@@ -1895,56 +1938,6 @@
           "name": "Anthropic",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-293",
-      "headline": "Chery's Huawei-backed Luxeed to get independent carmaking license, plans IPO",
-      "headline_en": null,
-      "url": "https://cnevpost.com/2026/10/17/chery-luxeed-carmaking-license-plans-ipo/",
-      "source_name": "CnEVPost",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T11:41:46Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Luxeed is moving toward an independent carmaking license and planning an IPO, signaling a significant strategic shift for the brand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Luxeed is moving toward an independent carmaking license and planning an IPO, signaling a significant strategic shift for the brand.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chery",
-          "ticker": null,
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "large",
@@ -226595,9 +226588,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1502767,
-    "news_picked_today": 471,
-    "news_dropped_today": 2001
+    "news_seen_today": 1512263,
+    "news_picked_today": 480,
+    "news_dropped_today": 2016
   },
   "book_momentum": {
     "live_count": 8,
