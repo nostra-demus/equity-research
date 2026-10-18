@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-18T04:01:36Z",
+  "generated_at": "2026-10-18T04:04:41Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261018-198",
+      "headline": "Himadri Speciality Q2 results: Net profit jumps 31% to ₹231 cr",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/himadri-speciality-q2-results-net-profit-jumps-31-to-231-cr/article71599084.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T03:48:57Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Himadri Speciality reported a 31% increase in net profit to ₹231 crore for Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Himadri Speciality reported a 31% increase in net profit to ₹231 crore for Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Himadri Speciality Chemical",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261018-176",
       "headline": "SC Ruling On AT-1 Bonds Flips Yes Bank's Q2 Profit Into A Potential Rs 5,217 Crore Loss",
@@ -96,6 +145,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-203",
+      "headline": "Punjab & Sind Bank records 40% rise in net profit in Q2",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/money-and-banking/punjab-sind-bank-records-40-rise-in-net-profit-in-q2/article71597071.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T14:52:37Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Punjab & Sind Bank reported a 40% increase in net profit for Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Punjab & Sind Bank reported a 40% increase in net profit for Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Punjab & Sind Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -781,6 +879,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-200",
+      "headline": "Trabajadores de mina chilena Centinela ratifican nuevo contrato; cesa huelga",
+      "headline_en": "Workers at Chilean Centinela mine ratify new contract; strike ends",
+      "url": "https://www.reuters.com/latam/negocio/XTP5YOX75JLARK5ATOJRCYAYPM-2026-10-18/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T03:55:09Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Workers at the Centinela mine in Chile ratified a new contract, ending a strike.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Workers at the Centinela mine in Chile ratified a new contract, ending a strike.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Antofagasta",
+          "ticker": null,
+          "listing_country": "CL"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-098",
       "headline": "Uber retreats in Africa as cost comes before comfort and safety",
       "headline_en": null,
@@ -1296,6 +1443,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-207",
+      "headline": "HDFC Bank veteran Kaizad Bharucha quits",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/money-and-banking/hdfc-bank-veteran-kaizad-bharucha-quits/article71596866.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T14:38:41Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "A key veteran executive at HDFC Bank has resigned, which is a significant management change.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "A key veteran executive at HDFC Bank has resigned, which is a significant management change.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HDFC Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-170",
       "headline": "Saudi helicopter crashes in Najran, killing two crew members",
       "headline_en": null,
@@ -1761,202 +1957,6 @@
         "regulatory"
       ],
       "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-058",
-      "headline": "Circle defends USDC economics as stablecoin rivals court its partners with bigger cut",
-      "headline_en": null,
-      "url": "https://www.coindesk.com/business/2026/10/17/circle-defends-usdc-economics-as-stablecoin-rivals-court-its-partners-with-bigger-cut",
-      "source_name": "CoinDesk",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T01:06:35Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Circle is defending its USDC stablecoin economics amid increased competition for partner revenue sharing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Circle is defending its USDC stablecoin economics amid increased competition for partner revenue sharing.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Circle",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-195",
-      "headline": "Nestlé India & Hindustan Unilever face FSSAI notices over misleading claims, non-compliance; what regulator flagged in Resource Renal and Horlicks Mother's Plus",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/cons-products/food/nestl-india-and-hindustan-unilever-face-fssai-notices-over-alleged-misleading-claims-non-compliance/articleshow/135016192.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T15:10:48Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "FSSAI issued notices to Nestle India and Hindustan Unilever regarding misleading claims, creating regulatory and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "FSSAI issued notices to Nestle India and Hindustan Unilever regarding misleading claims, creating regulatory and reputational risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nestle India",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Hindustan Unilever",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-197",
-      "headline": "Antofagasta Workers to End Strike, Easing Chile Copper Tensions",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-17/antofagasta-workers-to-end-strike-easing-chile-copper-tensions",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T15:07:53Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Antofagasta workers ending a strike resolves a supply disruption risk for copper production in Chile.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Antofagasta workers ending a strike resolves a supply disruption risk for copper production in Chile.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Antofagasta",
-          "ticker": null,
-          "listing_country": "CL"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-165",
-      "headline": "'Won't Spare Anyone': Bengal CM Orders Probe After Kolkata Pandal Stampede Kills 19",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/india/wont-spare-anyone-bengal-cm-orders-probe-after-kolkata-pandal-stampede-kills-19-12201110#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T02:24:09Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "A stampede resulting in 19 deaths at a public event in Kolkata has triggered a government probe, impacting local operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "A stampede resulting in 19 deaths at a public event in Kolkata has triggered a government probe, impacting local operational risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -226180,9 +226180,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1126283,
-    "news_picked_today": 264,
-    "news_dropped_today": 1416
+    "news_seen_today": 1137787,
+    "news_picked_today": 275,
+    "news_dropped_today": 1453
   },
   "book_momentum": {
     "live_count": 8,
