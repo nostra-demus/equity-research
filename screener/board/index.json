@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T12:43:54Z",
+  "generated_at": "2026-10-18T12:46:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-587",
@@ -144,6 +144,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-600",
+      "headline": "Dubai’s $2.7bn exhibition centre expansion advances as DWTC lines up 100-plus events",
+      "headline_en": null,
+      "url": "https://www.arabianbusiness.com/business/dubais-2-7bn-exhibition-centre-expansion-advances-as-dwtc-lines-up-100-plus-events",
+      "source_name": "Arabian Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T12:36:53Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Dubai World Trade Centre is advancing a $2.7 billion expansion project for its exhibition facilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dubai World Trade Centre is advancing a $2.7 billion expansion project for its exhibition facilities.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dubai World Trade Centre",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1919,55 +1968,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-459",
-      "headline": "Yes Bank’s CET1 ratio to take 250-basis-point hit after AT1 bond ruling",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/yes-banks-cet1-ratio-to-take-250-basis-point-hit-after-at1-bond-ruling/article71592712.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T23:10:29Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Yes Bank faces a 250-basis-point hit to its CET1 ratio following an AT1 bond ruling.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Yes Bank faces a 250-basis-point hit to its CET1 ratio following an AT1 bond ruling.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yes Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -184085,76 +184085,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-237bc01d6762",
-      "idea_version": "IDEAV-25fade808de3cae8",
-      "idea_version_started_at": "2026-10-17T03:18:33Z",
-      "ticker": "TM",
-      "company": "Toyota Motor Corporation",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Transitioning all 50 models to software-defined vehicles by 2030 allows for recurring revenue streams via over-the-air updates and improved vehicle margins.",
-      "why_now": "The strategic roadmap was announced on 2026-10-17.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-07c311a8ae17"
-      ],
-      "primary_source_event_id": "EVT-07c311a8ae17",
-      "source_headlines": [
-        "Toyota to turn all 50 models into software-defined vehicles by 2030"
-      ],
-      "source_headline": "Toyota to turn all 50 models into software-defined vehicles by 2030",
-      "source_url": "https://asia.nikkei.com/business/automobiles/toyota-to-turn-all-50-models-into-software-defined-vehicles-by-2030",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 90,
-      "newest_source_at": "2026-10-17T00:44:16Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-17T03:18:33Z",
-      "updated_at": "2026-10-17T03:18:33Z",
-      "decay_at": "2026-10-18T12:44:16Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-02b50b318851",
       "idea_version": "IDEAV-89f58db06d5748a1",
       "idea_version_started_at": "2026-10-17T05:19:30Z",
@@ -186592,6 +186522,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-237bc01d6762",
+      "idea_version": "IDEAV-25fade808de3cae8",
+      "idea_version_started_at": "2026-10-17T03:18:33Z",
+      "ticker": "TM",
+      "company": "Toyota Motor Corporation",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Transitioning all 50 models to software-defined vehicles by 2030 allows for recurring revenue streams via over-the-air updates and improved vehicle margins.",
+      "why_now": "The strategic roadmap was announced on 2026-10-17.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-07c311a8ae17"
+      ],
+      "primary_source_event_id": "EVT-07c311a8ae17",
+      "source_headlines": [
+        "Toyota to turn all 50 models into software-defined vehicles by 2030"
+      ],
+      "source_headline": "Toyota to turn all 50 models into software-defined vehicles by 2030",
+      "source_url": "https://asia.nikkei.com/business/automobiles/toyota-to-turn-all-50-models-into-software-defined-vehicles-by-2030",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 90,
+      "newest_source_at": "2026-10-17T00:44:16Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-17T03:18:33Z",
+      "updated_at": "2026-10-17T03:18:33Z",
+      "decay_at": "2026-10-18T12:44:16Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-5fe5950ec028",
       "idea_version": "IDEAV-1ff517489e6fa495",
       "idea_version_started_at": "2026-10-18T02:20:51Z",
@@ -188962,14 +188962,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 539,
     "shown_count": 499,
-    "hidden_count": 39,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
-        "total_count": 279,
+        "total_count": 280,
         "shown_count": 250,
-        "hidden_count": 29
+        "hidden_count": 30
       },
       "short": {
         "total_count": 260,
@@ -188993,6 +188993,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-237bc01d6762",
+        "idea_version": "IDEAV-25fade808de3cae8",
+        "idea_version_started_at": "2026-10-17T03:18:33Z",
+        "ticker": "TM",
+        "company": "Toyota Motor Corporation",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Transitioning all 50 models to software-defined vehicles by 2030 allows for recurring revenue streams via over-the-air updates and improved vehicle margins.",
+        "why_now": "The strategic roadmap was announced on 2026-10-17.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-07c311a8ae17"
+        ],
+        "primary_source_event_id": "EVT-07c311a8ae17",
+        "source_headlines": [
+          "Toyota to turn all 50 models into software-defined vehicles by 2030"
+        ],
+        "source_headline": "Toyota to turn all 50 models into software-defined vehicles by 2030",
+        "source_url": "https://asia.nikkei.com/business/automobiles/toyota-to-turn-all-50-models-into-software-defined-vehicles-by-2030",
+        "source_name": "Nikkei Asia",
+        "materiality_max": 90,
+        "newest_source_at": "2026-10-17T00:44:16Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-17T03:18:33Z",
+        "updated_at": "2026-10-17T03:18:33Z",
+        "decay_at": "2026-10-18T12:44:16Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-18T12:44:16Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-87612f571255",
         "idea_version": "IDEAV-54049c5df1cee768",
@@ -216550,79 +216623,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-9f47945c8197",
-        "idea_version": "IDEAV-f1fe0c796f718972",
-        "idea_version_started_at": "2026-10-04T17:21:36Z",
-        "ticker": "LMT",
-        "company": "Lockheed Martin",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "A $10.5 billion military aircraft bid in India serves as a massive revenue catalyst for the firm's international expansion strategy.",
-        "why_now": "The expansion plan details and the specific $10.5bn bid competition were highlighted on October 4, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f624a7f4fa30"
-        ],
-        "primary_source_event_id": "EVT-f624a7f4fa30",
-        "source_headlines": [
-          "Lockheed Martin’s India expansion plan hinges on $10.5bn military aircraft bid: Which firms are competing for project?"
-        ],
-        "source_headline": "Lockheed Martin’s India expansion plan hinges on $10.5bn military aircraft bid: Which firms are competing for project?",
-        "source_url": "https://www.livemint.com/companies/news/lockheed-martin-s-india-expansion-plan-hinges-on-10-5bn-military-aircraft-bid-which-firms-are-competing-for-project-11791107461403.html",
-        "source_name": "Mint",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-04T10:54:57Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-04T17:21:36Z",
-        "updated_at": "2026-10-04T17:21:36Z",
-        "decay_at": "2026-10-05T22:54:57Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-07T10:57:38Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-b520e6e5e5f6",
         "idea_version": "IDEAV-2df1283f54ee5e2c",
         "idea_version_started_at": "2026-10-04T08:14:49Z",
@@ -226158,7 +226158,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1681,
-    "live_count": 31,
+    "live_count": 30,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -226177,9 +226177,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2278825,
-    "news_picked_today": 1439,
-    "news_dropped_today": 4657
+    "news_seen_today": 2279501,
+    "news_picked_today": 1446,
+    "news_dropped_today": 4674
   },
   "book_momentum": {
     "live_count": 8,
