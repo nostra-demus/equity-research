@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T01:50:07Z",
+  "generated_at": "2026-10-18T01:53:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-053",
@@ -45,6 +45,49 @@
           "listing_country": "US"
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-089",
+      "headline": "+++ Ukraine-Krieg +++: Trumps Aussetzung von Sanktionen – Parteiübergreifende Kritik",
+      "headline_en": "+++ Ukraine War +++: Trump's suspension of sanctions – Bipartisan criticism",
+      "url": "https://www.handelsblatt.com/politik/international/ukraine-krieg-trumps-aussetzung-von-sanktionen-parteiuebergreifende-kritik/27982126.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T01:42:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Geopolitical escalation regarding US sanctions policy on Ukraine-Russia conflict creates significant market uncertainty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Geopolitical escalation regarding US sanctions policy on Ukraine-Russia conflict creates significant market uncertainty.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1905,55 +1948,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-032",
-      "headline": "VBM completa la transacción para establecer una nueva estructura de propiedad del complejo minero Thompson",
-      "headline_en": "VBM completes transaction to establish new ownership structure for the Thompson mining complex",
-      "url": "https://www.prnewswire.com/news-releases/vbm-completa-la-transaccion-para-establecer-una-nueva-estructura-de-propiedad-del-complejo-minero-thompson-302911622.html",
-      "source_name": "PR Newswire — Acquisitions, Mergers & Takeovers",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T20:08:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "VBM completed a transaction to restructure ownership of the Thompson mining complex.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 48,
-      "triage_reason": "VBM completed a transaction to restructure ownership of the Thompson mining complex.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "VBM",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -225955,9 +225949,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 518720,
-    "news_picked_today": 104,
-    "news_dropped_today": 736
+    "news_seen_today": 545768,
+    "news_picked_today": 108,
+    "news_dropped_today": 756
   },
   "book_momentum": {
     "live_count": 8,
