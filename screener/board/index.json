@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-18T11:06:23Z",
+  "generated_at": "2026-10-18T11:08:48Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261018-572",
+      "headline": "Amber Enterprises India Limited: Pursuant to Regulation 30 of SEBI LODR Regulations, we wish to inform the exchange that, IL JIN Electronics (India) Limited, a material subsidiary of the Company has entered into a Share Swap Agreement on 18th October 2026, in terms of the said agreement IL JIN shall acquire 23,401 equity shares of Ascent Circuits representing the balance 1.50% of its equity stake on fully dilutive basis, from Ms. Manju Thomas and shall issue and allot 13,120 Compulsorily Convert",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/AMBER_18102026163044_Ascent.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-18T11:01:10Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Amber Enterprises' subsidiary is acquiring the remaining 1.5% stake in Ascent Circuits to reach 100% ownership.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Amber Enterprises' subsidiary is acquiring the remaining 1.5% stake in Ascent Circuits to reach 100% ownership.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amber Enterprises India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261018-362",
       "headline": "Vedanta Limited: Vedanta Limited has informed the Exchange regarding a press release dated October 18, 2026, titled \"Vedanta Ltd Doubles Zinc Production Capacity in South Africa with US$ 600 Mn investment\".",
@@ -1919,55 +1968,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-451",
-      "headline": "PNB’s net profit rises 13% in Q2; plans to launch special campaign for RD amid bearish stock mkt",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/pnbs-net-profit-rises-13-in-q2-plans-to-launch-special-campaign-for-rd-amid-bearish-stock-mkt/article71593092.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T23:25:35Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Punjab National Bank reported a 13% increase in Q2 net profit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Punjab National Bank reported a 13% increase in Q2 net profit.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Punjab National Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226607,9 +226607,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2214976,
-    "news_picked_today": 1196,
-    "news_dropped_today": 4036
+    "news_seen_today": 2219305,
+    "news_picked_today": 1201,
+    "news_dropped_today": 4055
   },
   "book_momentum": {
     "live_count": 8,
