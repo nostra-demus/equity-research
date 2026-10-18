@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T10:28:43Z",
+  "generated_at": "2026-10-18T10:31:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-362",
@@ -1341,6 +1341,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-565",
+      "headline": "Thames Water wins majority support among key Class B creditors for recapitalisation",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/uk/uks-thames-water-reaches-deal-with-key-class-b-creditors-recapitalisation-2026-10-16/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T17:00:01Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Thames Water secured support from key creditors for a recapitalization plan, reducing immediate insolvency risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Thames Water secured support from key creditors for a recapitalization plan, reducing immediate insolvency risk.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Thames Water",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-557",
       "headline": "Two Palestinian fishermen injured in Israeli drone attack as shelling continues across Gaza",
       "headline_en": null,
@@ -1919,55 +1968,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-521",
-      "headline": "Foxtel questions emerge just 18 months after Dazn’s $3.4b takeover",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/foxtel-questions-emerge-just-18-months-after-dazn-s-3-4b-takeover-20261018-p616ha?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T09:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Questions regarding the viability of Foxtel following a $3.4 billion acquisition suggest potential integration or valuation issues.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Questions regarding the viability of Foxtel following a $3.4 billion acquisition suggest potential integration or valuation issues.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Foxtel",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226607,9 +226607,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2168315,
-    "news_picked_today": 1098,
-    "news_dropped_today": 3750
+    "news_seen_today": 2172166,
+    "news_picked_today": 1107,
+    "news_dropped_today": 3765
   },
   "book_momentum": {
     "live_count": 8,
