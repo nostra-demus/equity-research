@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T03:13:34Z",
+  "generated_at": "2026-10-18T03:16:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-053",
@@ -645,6 +645,66 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-150",
+      "headline": "FDA suspends licences of warehouses of Reliance Consumer, Reliance Retail, Blinkit, Zomato Hyperpure",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/cons-products/food/fda-suspends-licences-of-warehouses-of-reliance-consumer-reliance-retail-blinkit-zomato-hyperpure/articleshow/135017115.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T16:44:21Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "FDA suspension of warehouse licenses for major retailers like Reliance and Blinkit will cause immediate operational disruption and revenue impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "FDA suspension of warehouse licenses for major retailers like Reliance and Blinkit will cause immediate operational disruption and revenue impact.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Consumer",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Reliance Retail",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Blinkit",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-043",
       "headline": "Nuclear reactor in northeastern Japan shut down to replace leaking valve",
       "headline_en": null,
@@ -922,6 +982,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-147",
+      "headline": "U.S. debt interest payments hit $3 billion a day and jumped 8% in fiscal 2026 — faster than total federal spending, revenue and GDP growth",
+      "headline_en": null,
+      "url": "https://fortune.com/2026/10/17/us-debt-interest-payments-fiscal-2026-1-trillion-federal-spending-revenue-gdp-growth-treasury-yields/",
+      "source_name": "Fortune",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T16:50:02Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "US debt interest payments reaching $3 billion per day represents a significant fiscal burden that could impact future government spending and economic growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "US debt interest payments reaching $3 billion per day represents a significant fiscal burden that could impact future government spending and economic growth.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1774,6 +1877,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-149",
+      "headline": "Berlin: Koalitionsgespräche geplant – inklusive Vergesellschaftungen",
+      "headline_en": "Berlin: Coalition talks planned – including nationalizations",
+      "url": "https://www.handelsblatt.com/politik/deutschland/berlin-koalitionsgespraeche-geplant-inklusive-vergesellschaftungen/100262974.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T16:48:21Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Planned coalition talks in Berlin including potential nationalizations create significant policy uncertainty for German businesses.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Planned coalition talks in Berlin including potential nationalizations create significant policy uncertainty for German businesses.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-124",
       "headline": "Citizens Financial Group, Inc. Reports Third Quarter 2026 Net Income of $636 million, up 29% YoY, and EPS of $1.41, up 34% YoY and 8% QoQ | CFG Stock News",
       "headline_en": null,
@@ -1818,159 +1964,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-134",
-      "headline": "Aviation Capital Group Grows Portfolio with Order for 75 Airbus A320neo Family Aircraft, the Largest Order in ACG's History",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/aviation-capital-group-grows-portfolio-with-order-for-75-airbus-a320neo-family-aircraft-the-largest-order-in-acgs-history-302911033.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T07:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Aviation Capital Group placed a record order for 75 Airbus A320neo aircraft, representing a significant capital commitment and commercial expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Aviation Capital Group placed a record order for 75 Airbus A320neo aircraft, representing a significant capital commitment and commercial expansion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aviation Capital Group",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Airbus",
-          "ticker": null,
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-123",
-      "headline": "Persistent meldet für das 2. Quartal des Geschäftsjahres 2027 einen Umsatz von 487,6 Mio. USD - ein Wachstum von 20,0 % gegenüber dem Vorjahreszeitraum.",
-      "headline_en": "Persistent reports revenue of $487.6 million for the second quarter of fiscal year 2027 - 20.0% growth compared to the same period last year.",
-      "url": "https://www.prnewswire.com/news-releases/persistent-meldet-fur-das-2--quartal-des-geschaftsjahres-2027-einen-umsatz-von-487-6-mio-usd--ein-wachstum-von-20-0--gegenuber-dem-vorjahreszeitraum-302911158.html",
-      "source_name": "PR Newswire — Earnings",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T10:29:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Persistent reported Q2 2027 revenue of $487.6 million, representing 20% year-over-year growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "Persistent reported Q2 2027 revenue of $487.6 million, representing 20% year-over-year growth.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Persistent",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-133",
-      "headline": "Lollands Bank opjusterer forventningerne for 2026.",
-      "headline_en": "Lollands Bank upgrades expectations for 2026.",
-      "url": "https://www.globenewswire.com/news-release/2026/10/16/3382264/0/da/lollands-bank-opjusterer-forventningerne-for-2026.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T07:22:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Lollands Bank has upgraded its earnings expectations for 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "Lollands Bank has upgraded its earnings expectations for 2026.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lollands Bank",
-          "ticker": null,
-          "listing_country": "DK"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226042,9 +226035,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 899050,
-    "news_picked_today": 200,
-    "news_dropped_today": 1216
+    "news_seen_today": 911166,
+    "news_picked_today": 206,
+    "news_dropped_today": 1234
   },
   "book_momentum": {
     "live_count": 8,
