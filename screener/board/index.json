@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-18T01:02:04Z",
+  "generated_at": "2026-10-18T01:15:15Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261018-053",
+      "headline": "Department of War's Office of Strategic Capital Signs $80 Million Conditional Loan Commitment with Antheia, Inc.",
+      "headline_en": null,
+      "url": "https://www.war.gov/News/Releases/Release/Article/4628105/department-of-wars-office-of-strategic-capital-signs-80-million-conditional-loa/",
+      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-18T00:55:17Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Antheia, Inc. secured an $80 million conditional loan commitment from the U.S. Department of War.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Antheia, Inc. secured an $80 million conditional loan commitment from the U.S. Department of War.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Antheia, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-052",
+      "headline": "Citi Just Downgraded Bill Ackman's Pershing Square Stock to Sell, Citing a $45 Price Target Versus Its $60 Peak. Is PS Stock Overvalued After Its April IPO Rally?",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/citi-just-downgraded-bill-ackmans-pershing-square-stock-sell-citing-45-price-target-versus",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T23:25:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Citi downgraded Pershing Square to Sell with a $45 price target.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Citi downgraded Pershing Square to Sell with a $45 price target.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "credit_rating_downgrade",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "credit_rating_downgrade"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pershing Square",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261018-044",
       "headline": "'True innovation is never democratic': Ferrari CEO at India debut of its first EV, the Luce | Exclusive",
@@ -345,6 +443,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-058",
+      "headline": "Circle defends USDC economics as stablecoin rivals court its partners with bigger cut",
+      "headline_en": null,
+      "url": "https://www.coindesk.com/business/2026/10/17/circle-defends-usdc-economics-as-stablecoin-rivals-court-its-partners-with-bigger-cut",
+      "source_name": "CoinDesk",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T01:06:35Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Circle is defending its USDC stablecoin economics amid increased competition for partner revenue sharing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Circle is defending its USDC stablecoin economics amid increased competition for partner revenue sharing.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Circle",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-004",
       "headline": "(News Focus) Hyundai Motor steps up physical AI push amid Chinese competition, stock slump",
       "headline_en": null,
@@ -596,6 +743,163 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-065",
+      "headline": "Panzani i Cerealis łączą siły, aby stworzyć dużą europejską grupę spożywczą",
+      "headline_en": "Panzani and Cerealis join forces to create a large European food group",
+      "url": "https://www.prnewswire.com/news-releases/panzani-i-cerealis-cz-siy-aby-stworzy-du-europejsk-grup-spoywcz-302911385.html",
+      "source_name": "PR Newswire — Acquisitions, Mergers & Takeovers",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T15:19:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Panzani and Cerealis are merging to create a large European food group.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Panzani and Cerealis are merging to create a large European food group.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Panzani",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Cerealis",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-074",
+      "headline": "Panzani et Cerealis s'associent pour créer un grand groupe alimentaire européen.",
+      "headline_en": "Panzani and Cerealis partner to create a major European food group.",
+      "url": "https://www.prnewswire.com/news-releases/panzani-et-cerealis-sassocient-pour-creer-un-grand-groupe-alimentaire-europeen-302911313.html",
+      "source_name": "PR Newswire — Acquisitions, Mergers & Takeovers",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T13:47:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Panzani and Cerealis are merging to create a major European food group.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Panzani and Cerealis are merging to create a major European food group.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Panzani",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Cerealis",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-056",
+      "headline": "Maruti Suzuki festive offers: Grand Vitara gets benefits of up to Rs 1.36 lakh, but conditions apply",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/photo/maruti-suzuki-festive-offers-grand-vitara-gets-benefits-of-up-to-rs-1-36-lakh-but-conditions-apply-561993-2026-10-18?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T00:45:03Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Maruti Suzuki is offering festive discounts of up to Rs 1.36 lakh to stimulate sales.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Maruti Suzuki is offering festive discounts of up to Rs 1.36 lakh to stimulate sales.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Maruti Suzuki",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-040",
       "headline": "US sanctions relief unlikely to ease tanker crisis, Kpler says",
       "headline_en": null,
@@ -683,6 +987,103 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-057",
+      "headline": "TVS and Chetak face a new rival: This electric scooter promises a 250 km range",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/photo/tvs-and-chetak-face-a-new-rival-this-electric-scooter-promises-a-250-km-range-562123-2026-10-18?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T00:30:07Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "New electric scooter competition with a 250 km range poses a threat to existing market share of TVS and Bajaj Auto.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "New electric scooter competition with a 250 km range poses a threat to existing market share of TVS and Bajaj Auto.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "TVS Motor",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Bajaj Auto",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-055",
+      "headline": "YouTube’s new rules pose survival test for India’s clipping firms",
+      "headline_en": null,
+      "url": "https://www.livemint.com/industry/youtubes-new-rules-pose-survival-test-for-india-s-clipping-firms-content-11792129491031.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T01:00:25Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "New YouTube rules create operational risk for Indian clipping firms.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "New YouTube rules create operational risk for Indian clipping firms.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -883,6 +1284,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-062",
+      "headline": "ASSA ABLOY säljer affärsenheten PKI till Vista Equity Partners",
+      "headline_en": "ASSA ABLOY sells business unit PKI to Vista Equity Partners",
+      "url": "https://news.cision.com/se/assa-abloy/r/assa-abloy-saljer-affarsenheten-pki-till-vista-equity-partners,c4410006",
+      "source_name": "Cision — Sweden Regulatory & Company News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T16:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "ASSA ABLOY is divesting its PKI business unit to Vista Equity Partners.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 50,
+      "triage_reason": "ASSA ABLOY is divesting its PKI business unit to Vista Equity Partners.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ASSA ABLOY",
+          "ticker": null,
+          "listing_country": "SE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-069",
+      "headline": "Vale Base Metals finalise la transaction qui établit la nouvelle propriété du complexe minier Thompson.",
+      "headline_en": "Vale Base Metals finalizes the transaction that establishes the new ownership of the Thompson mining complex.",
+      "url": "https://www.prnewswire.com/news-releases/vale-base-metals-finalise-la-transaction-qui-etablit-la-nouvelle-propriete-du-complexe-minier-thompson-302911344.html",
+      "source_name": "PR Newswire — Acquisitions, Mergers & Takeovers",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T14:24:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Vale Base Metals finalized the ownership restructuring of the Thompson mining complex.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 50,
+      "triage_reason": "Vale Base Metals finalized the ownership restructuring of the Thompson mining complex.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vale Base Metals",
+          "ticker": null,
+          "listing_country": "BR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-008",
       "headline": "Align Technology Wins Significant Patent Infringement Case Against Angelalign at Unified Patent Court",
       "headline_en": null,
@@ -977,6 +1476,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-060",
+      "headline": "Opus Genetics Announces FDA Approval of Phentolamine Ophthalmic Solution 0.75% for the Treatment of Presbyopia",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/10/16/3382714/0/en/opus-genetics-announces-fda-approval-of-phentolamine-ophthalmic-solution-0-75-for-the-treatment-of-presbyopia.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T16:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Opus Genetics received FDA approval for a new ophthalmic solution, a significant product milestone.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 49,
+      "triage_reason": "Opus Genetics received FDA approval for a new ophthalmic solution, a significant product milestone.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Opus Genetics",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1178,6 +1727,103 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-073",
+      "headline": "Bolagsverket har lämnat tillstånd att verkställa fusionsplanen mellan Flerie och Biosergen",
+      "headline_en": "The Swedish Companies Registration Office has granted permission to execute the merger plan between Flerie and Biosergen",
+      "url": "https://news.cision.com/se/biosergen-ab/r/bolagsverket-har-lamnat-tillstand-att-verkstalla-fusionsplanen-mellan-flerie-och-biosergen,c4409981",
+      "source_name": "Cision — Sweden Regulatory & Company News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T14:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "The Swedish Companies Registration Office has approved the merger plan between Flerie and Biosergen, a material corporate action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "The Swedish Companies Registration Office has approved the merger plan between Flerie and Biosergen, a material corporate action.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Flerie",
+          "ticker": null,
+          "listing_country": "SE"
+        },
+        {
+          "name": "Biosergen",
+          "ticker": null,
+          "listing_country": "SE"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-054",
+      "headline": "Saudi-led coalition says drones targeting Riyadh, Eastern Province destroyed",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/saudi-led-coalition-says-drones-targeting-riyadh-eastern-province",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T00:56:11Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Drones targeted Riyadh and the Eastern Province in Saudi Arabia, indicating a significant geopolitical escalation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Drones targeted Riyadh and the Eastern Province in Saudi Arabia, indicating a significant geopolitical escalation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-006",
       "headline": "Iran war live: Tankers hit in Hormuz; Israeli settlers attack EU diplomats",
       "headline_en": null,
@@ -1221,90 +1867,47 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261018-002",
-      "headline": "US ambassador urges Israel to prosecute attackers of American journalist",
+      "inbox_id": "INB-20261018-063",
+      "headline": "ImmunityBio Reports Phase 3 Data Showing 84% Cystectomy Avoidance at Three Years and Complete Responses Beyond 53 Months with ANKTIVA® Plus BCG in BCG-Unresponsive NMIBC With CIS, With or Without Papillary Tumors | IBRX Stock News",
       "headline_en": null,
-      "url": "https://www.aljazeera.com/news/2026/10/17/us-ambassador-calls-on-israel-to-prosecute-settlers-over-journalist-attack?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-10-17T23:40:59Z",
+      "url": "https://www.stocktitan.net/news/IBRX/immunity-bio-reports-phase-3-data-showing-84-cystectomy-avoidance-at-2osh4wuyc064.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T15:49:00Z",
       "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Diplomatic pressure regarding journalist safety in the Middle East.",
+      "prelim_note": "ImmunityBio reported positive Phase 3 clinical trial data for ANKTIVA in bladder cancer treatment.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 46,
-      "triage_reason": "Diplomatic pressure regarding journalist safety in the Middle East.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-025",
-      "headline": "LexinFintech Holdings Ltd. Announces Receipt of Nasdaq Notification Regarding Minimum Bid Price",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/10/16/3382799/0/en/lexinfintech-holdings-ltd-announces-receipt-of-nasdaq-notification-regarding-minimum-bid-price.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T20:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Receipt of a Nasdaq notification regarding minimum bid price indicates potential delisting risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 45,
-      "triage_reason": "Receipt of a Nasdaq notification regarding minimum bid price indicates potential delisting risk.",
+      "triage_reason": "ImmunityBio reported positive Phase 3 clinical trial data for ANKTIVA in bladder cancer treatment.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 65,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 65,
+        "materiality": 75,
         "source_tier": -36,
         "scope": 6,
-        "event": 4,
+        "event": 0,
         "size": 1,
         "recency": 0,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "company",
-        "event_id": "regulatory",
+        "event_id": null,
         "size_bucket": "mid"
       },
       "event_types": [
-        "regulatory"
+        "product"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "LexinFintech Holdings Ltd.",
-          "ticker": null,
-          "listing_country": "CN"
+          "name": "ImmunityBio",
+          "ticker": "IBRX",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mid",
@@ -1313,631 +1916,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261018-037",
-      "headline": "Gauzy Announces $7 Million Private Placement Led by Management to Fund Court-Approved Settlement | GAUZ Stock News",
+      "inbox_id": "INB-20261018-064",
+      "headline": "Two Women Hospitalized with E. coli O157:H7 Sue Trader Joe's Over Tarragon Chicken Salad Wraps; Complaint Names the Product and the Retailer that FDA and USDA Have Not",
       "headline_en": null,
-      "url": "https://www.stocktitan.net/news/GAUZ/gauzy-announces-7-million-private-placement-led-by-management-to-7c8a2346i149.html",
-      "source_name": "Stock Titan — Latest News",
+      "url": "https://www.prnewswire.com/news-releases/two-women-hospitalized-with-e-coli-o157h7-sue-trader-joes-over-tarragon-chicken-salad-wraps-complaint-names-the-product-and-the-retailer-that-fda-and-usda-have-not-302910826.html",
+      "source_name": "PR Newswire — All News Releases",
       "input_nature": "company_press_release",
-      "found_at": "2026-10-16T20:00:00Z",
+      "found_at": "2026-10-16T15:26:00Z",
       "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Gauzy is raising $7 million via private placement to fund a court-approved settlement, indicating legal costs and dilution.",
+      "prelim_note": "Trader Joe's is being sued for an E. coli outbreak linked to a specific product, creating potential legal and reputational risk.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 45,
-      "triage_reason": "Gauzy is raising $7 million via private placement to fund a court-approved settlement, indicating legal costs and dilution.",
+      "triage_score": 46,
+      "triage_reason": "Trader Joe's is being sued for an E. coli outbreak linked to a specific product, creating potential legal and reputational risk.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 55,
+      "materiality_pre_score": 50,
       "rank_factors": {
-        "materiality": 55,
+        "materiality": 50,
         "source_tier": -36,
         "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gauzy",
-          "ticker": "GAUZ",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-045",
-      "headline": "From Deoghar to Udupi: Family offices bet Rs 2,000 crore on hotels in pilgrimage towns",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/services/hotels-/-restaurants/from-deoghar-to-udupi-family-offices-bet-rs-2000-crore-on-hotels-in-pilgrimage-towns/articleshow/135018465.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T00:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Family offices are investing Rs 2,000 crore in hotels in pilgrimage towns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 45,
-      "triage_reason": "Family offices are investing Rs 2,000 crore in hotels in pilgrimage towns.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": -26,
         "event": 6,
         "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
+        "recency": 0,
+        "materiality_label_floor": 20,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": "capex",
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "litigation_enforcement",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-015",
-      "headline": "Israeli settlers attack European diplomats, beat up French mayor in West Bank",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/world/middle-east/article/3371275/israeli-settlers-attack-european-diplomats-beat-french-mayor-west-bank?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T18:33:59Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Geopolitical escalation involving attacks on diplomats in the West Bank.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 45,
-      "triage_reason": "Geopolitical escalation involving attacks on diplomats in the West Bank.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-021",
-      "headline": "17 dead in Kolkata Durga puja stampede: PM Modi announces ex gratia, Amit Shah to visit hospital; check helpline number",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/india/17-dead-in-kolkata-durga-puja-stampede-pm-modi-announces-ex-gratia-amit-shah-to-visit-hospital-check-helpline-number-11792259583254.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T18:20:41Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "A major tragic event involving 17 deaths in a stampede is a significant local social and operational disruption.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 45,
-      "triage_reason": "A major tragic event involving 17 deaths in a stampede is a significant local social and operational disruption.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-034",
-      "headline": "Nanox Provides Business Update and Furnishes Certain Preliminary Unaudited Financial Data for Third Quarter Ended September 30, 2026 | NNOX Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/NNOX/nanox-provides-business-update-and-furnishes-certain-preliminary-mvt52absno8o.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T20:05:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Company provided preliminary unaudited financial data for Q3 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 44,
-      "triage_reason": "Company provided preliminary unaudited financial data for Q3 2026.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
+        "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Nanox",
-          "ticker": "NNOX",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-050",
-      "headline": "BIGBEN: RÉSULTATS ANNUELS DE L’EXERCICE 2025-2026 et RESULTAT DE LA PERIODE DE SYNDICATION DE L'ENGAGEMENT DE GARANTIE DE L'AUGMENTATION DE CAPITAL N°1 — DPS",
-      "headline_en": "BIGBEN: ANNUAL RESULTS FOR FINANCIAL YEAR 2025-2026 AND RESULT OF THE SYNDICATION PERIOD OF THE GUARANTEE COMMITMENT FOR CAPITAL INCREASE NO. 1 - DPS",
-      "url": "https://www.globenewswire.com/news-release/2026/10/16/3382729/0/fr/bigben-r%C3%A9sultats-annuels-de-l-exercice-2025-2026-et-resultat-de-la-periode-de-syndication-de-l-engagement-de-garantie-de-l-augmentation-de-capital-n-1-dps.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T16:45:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Bigben reported full-year 2025-2026 financial results alongside updates on its capital increase rights issue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 44,
-      "triage_reason": "Bigben reported full-year 2025-2026 financial results alongside updates on its capital increase rights issue.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bigben Interactive",
-          "ticker": "BIG",
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-007",
-      "headline": "SKYRIZI® (risankizumab) and RINVOQ® (upadacitinib) Data Highlight Long-Term Clinical and Endoscopic Outcomes Across Inflammatory Bowel Disease (IBD) at UEGW 2026 | ABBV Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/ABBV/skyrizi-risankizumab-and-rinvoq-upadacitinib-data-highlight-long-x22468a40vss.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-17T06:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Positive long-term clinical data for key AbbVie drugs Skyrizi and Rinvoq supports the company's growth outlook in the IBD market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 43,
-      "triage_reason": "Positive long-term clinical data for key AbbVie drugs Skyrizi and Rinvoq supports the company's growth outlook in the IBD market.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AbbVie",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-018",
-      "headline": "NiobiumX Mining Inc. Announces Retraction of Recent Marketing Materials | NIOXF Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/NIOXF/niobium-x-mining-inc-announces-retraction-of-recent-marketing-qi9tx3o1xusa.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T21:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Retraction of marketing materials suggests potential regulatory or compliance issues regarding past disclosures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 43,
-      "triage_reason": "Retraction of marketing materials suggests potential regulatory or compliance issues regarding past disclosures.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NiobiumX Mining Inc.",
-          "ticker": "NIOXF",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-027",
-      "headline": "GreenPower Announces Receipt of Letter from NASDAQ | GP Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/GP/green-power-announces-receipt-of-letter-from-kk7zp8rhc2nr.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T20:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Receipt of a Nasdaq notification often relates to listing compliance issues.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 43,
-      "triage_reason": "Receipt of a Nasdaq notification often relates to listing compliance issues.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GreenPower",
-          "ticker": "GP",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-031",
-      "headline": "Fort Technology Announces Receipt of Nasdaq Notification Regarding Minimum Bid Price Requirement | FORT Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/FORT/fort-technology-announces-receipt-of-nasdaq-notification-regarding-zr2eksr7js0x.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T20:15:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Receipt of a Nasdaq deficiency notice regarding minimum bid price indicates potential delisting risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 43,
-      "triage_reason": "Receipt of a Nasdaq deficiency notice regarding minimum bid price indicates potential delisting risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fort Technology",
-          "ticker": "FORT",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-020",
-      "headline": "Egypt’s EOS, PhotonX cooperate on engineering testing, product conformity",
-      "headline_en": null,
-      "url": "https://www.dailynewsegypt.com/2026/10/17/egypts-eos-photonx-cooperate-on-engineering-testing-product-conformity/",
-      "source_name": "Daily News Egypt — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T18:23:37Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Cooperation agreement for engineering testing is a routine operational development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 43,
-      "triage_reason": "Cooperation agreement for engineering testing is a routine operational development.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EOS",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "PhotonX",
+          "name": "Trader Joe's",
           "ticker": null,
           "listing_country": null
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-024",
-      "headline": "FDA Approves Alcon’s BRYTLY Redness Reliever Eye Drops for Up to 12 Hours of Whiter, Brighter-Looking Eyes",
-      "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20261016098063/en/FDA-Approves-Alcon%E2%80%99s-BRYTLY-Redness-Reliever-Eye-Drops-for-Up-to-12-Hours-of-Whiter-Brighter-Looking-Eyes/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
-      "source_name": "Business Wire — Product/Service News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T20:38:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "FDA approval of a new product expands the company's addressable market and revenue potential.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 42,
-      "triage_reason": "FDA approval of a new product expands the company's addressable market and revenue potential.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alcon",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-013",
-      "headline": "شركتا Hitachi Energy وRockwell Automation توحّدان جهودهما في مجالي الطاقة والأتمتة لمساعدة القطاعات الصناعية على تسريع وتيرة التحول الكهربائي",
-      "headline_en": "Hitachi Energy and Rockwell Automation join forces in energy and automation to help industrial sectors accelerate electrification",
-      "url": "http://www.businesswire.com/news/home/20261015493448/ar/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
-      "source_name": "Business Wire — Product/Service News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T21:40:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Hitachi Energy and Rockwell Automation are partnering to accelerate industrial electrification.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "Hitachi Energy and Rockwell Automation are partnering to accelerate industrial electrification.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hitachi Energy",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Rockwell Automation",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -225939,9 +225961,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 307629,
-    "news_picked_today": 52,
-    "news_dropped_today": 284
+    "news_seen_today": 366046,
+    "news_picked_today": 77,
+    "news_dropped_today": 475
   },
   "book_momentum": {
     "live_count": 8,
