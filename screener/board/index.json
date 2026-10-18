@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T04:18:37Z",
+  "generated_at": "2026-10-18T04:34:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-198",
@@ -385,6 +385,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-212",
+      "headline": "Tata Trusts to build 40-50 hospitals, focus on measurable impact: Noel Tata",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/tata-trusts-to-build-40-50-hospitals-focus-on-measurable-impact-noel-tata-11792295305604.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T04:14:07Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Tata Trusts announced plans to build 40-50 hospitals, representing a significant capital investment in the Indian healthcare sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Tata Trusts announced plans to build 40-50 hospitals, representing a significant capital investment in the Indian healthcare sector.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Trusts",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1915,49 +1964,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-117",
-      "headline": "Guyana to Block Vape Product Imports Amid Youth Health Concerns",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-18/guyana-to-block-vape-product-imports-amid-youth-health-concerns",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T01:49:34Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Guyana's ban on vape product imports creates a new regulatory barrier for tobacco and nicotine product companies operating in the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Guyana's ban on vape product imports creates a new regulatory barrier for tobacco and nicotine product companies operating in the region.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -226396,9 +226402,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1188976,
-    "news_picked_today": 279,
-    "news_dropped_today": 1473
+    "news_seen_today": 1262086,
+    "news_picked_today": 286,
+    "news_dropped_today": 1490
   },
   "book_momentum": {
     "live_count": 8,
