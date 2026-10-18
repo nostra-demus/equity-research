@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T22:31:36Z",
+  "generated_at": "2026-10-18T22:41:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-739",
@@ -605,6 +605,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-757",
+      "headline": "Brookfield's $2.53 billion bid for Reliance Worldwide clears 'go shop' hurdle",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/brookfields-253-billion-bid-reliance-worldwide-clears-go-shop-hurdle-2026-10-18/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T22:30:39Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Brookfield's $2.53 billion bid for Reliance Worldwide has cleared a key hurdle, signaling deal progress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Brookfield's $2.53 billion bid for Reliance Worldwide has cleared a key hurdle, signaling deal progress.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Worldwide",
+          "ticker": "RWC",
+          "listing_country": "AU"
+        },
+        {
+          "name": "Brookfield",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-729",
       "headline": "Japan’s Daiichi Life lobs $7.8b bid to take control at Challenger",
       "headline_en": null,
@@ -754,6 +808,60 @@
           "name": "Daiichi Life",
           "ticker": null,
           "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-741",
+      "headline": "Daiichi Life Offers $4.4 Billion to Buy Rest of Challenger",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-18/daiichi-life-offers-to-buy-remainder-of-australia-s-challenger",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T21:14:58Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Daiichi Life has offered $4.4 billion to acquire the remaining stake in Challenger.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Daiichi Life has offered $4.4 billion to acquire the remaining stake in Challenger.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Daiichi Life",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "Challenger",
+          "ticker": null,
+          "listing_country": "AU"
         }
       ],
       "size_bucket": "large",
@@ -1902,110 +2010,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-500",
-      "headline": "Global credit manager Ares hires bankers for Rio Tinto’s $7b auction",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/global-credit-manager-ares-hires-bankers-for-rio-tinto-s-7b-auction-20261018-p616hl?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T06:44:30Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Ares Management is hiring bankers for a $7 billion auction of assets related to Rio Tinto, representing a major M&A process.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ares Management is hiring bankers for a $7 billion auction of assets related to Rio Tinto, representing a major M&A process.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rio Tinto",
-          "ticker": null,
-          "listing_country": "GB"
-        },
-        {
-          "name": "Ares Management",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-333",
-      "headline": "Yes Bank Q2 Profit Jumps 63% To ₹1,084 Crore, AT1 Bond Ruling Could Turn Earnings Into ₹5,217 Crore Loss",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/yes-bank-q2-profit-jumps-63-to-1084-crore-at1-bond-ruling-could-turn-earnings-into-5217-crore-loss",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T05:37:15Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Yes Bank reported a 63% profit jump to ₹1,084 crore, but faces a potential ₹5,217 crore loss due to an AT1 bond ruling.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Yes Bank reported a 63% profit jump to ₹1,084 crore, but faces a potential ₹5,217 crore loss due to an AT1 bond ruling.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yes Bank",
-          "ticker": "YESBANK",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226425,9 +226429,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2283924,
-    "news_picked_today": 1919,
-    "news_dropped_today": 6023
+    "news_seen_today": 2283967,
+    "news_picked_today": 1938,
+    "news_dropped_today": 6047
   },
   "book_momentum": {
     "live_count": 8,
