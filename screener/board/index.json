@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-18T00:49:49Z",
+  "generated_at": "2026-10-18T01:02:04Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261018-044",
+      "headline": "'True innovation is never democratic': Ferrari CEO at India debut of its first EV, the Luce | Exclusive",
+      "headline_en": null,
+      "url": "https://www.hindustantimes.com/business/true-innovation-is-never-democratic-ferrari-ceo-benedetto-vigna-at-india-debut-of-its-first-ev-the-luce-exclusive-interview-101792256718232.html",
+      "source_name": "Hindustan Times (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T00:38:25Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Ferrari announced the India debut of its first EV, the Luce.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Ferrari announced the India debut of its first EV, the Luce.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ferrari",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261018-016",
       "headline": "Reliance and Blinkit executives face FIR in food safety case",
@@ -41,60 +90,6 @@
       "companies": [
         {
           "name": "Reliance Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Blinkit",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-017",
-      "headline": "Reliance Consumer and Blinkit executives face FIR in food safety case",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/cons-products/food/reliance-consumer-and-blinkit-executives-face-fir-in-food-safety-case/articleshow/135019135.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T18:30:27Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Executives at Reliance Consumer and Blinkit are facing an FIR in a food safety case, which poses potential legal and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Executives at Reliance Consumer and Blinkit are facing an FIR in a food safety case, which poses potential legal and reputational risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Consumer Products",
           "ticker": null,
           "listing_country": "IN"
         },
@@ -796,60 +791,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261018-023",
-      "headline": "Archimedes Tech SPAC Partners II Co. Announces Shareholder Approval of Proposed Business Combination with Forge Nano, Inc. | ATII Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/ATII/archimedes-tech-spac-partners-ii-co-announces-shareholder-approval-wiud6km9ps64.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T21:10:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Archimedes Tech SPAC Partners II Co. received shareholder approval for its business combination with Forge Nano, Inc.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "Archimedes Tech SPAC Partners II Co. received shareholder approval for its business combination with Forge Nano, Inc.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Archimedes Tech SPAC Partners II Co.",
-          "ticker": "ATII",
-          "listing_country": "US"
-        },
-        {
-          "name": "Forge Nano, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20261018-001",
       "headline": "US wants Israel to 'crack down' on settler attacks, Rubio says",
       "headline_en": null,
@@ -986,6 +927,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-051",
+      "headline": "Latvian Forest Company säljer Vidzeme-portföljen i Lettland samt föreslår vinstutdelning om 2 SEK per aktie",
+      "headline_en": "Latvian Forest Company sells Vidzeme portfolio in Latvia and proposes a dividend of 2 SEK per share",
+      "url": "https://news.cision.com/se/latvian-forest/r/latvian-forest-company-saljer-vidzeme-portfoljen-i-lettland-samt-foreslar-vinstutdelning-om-2-sek-pe,c4410044",
+      "source_name": "Cision — Sweden Regulatory & Company News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T16:31:29Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "The company is selling its Vidzeme portfolio and proposing a dividend of 2 SEK per share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 49,
+      "triage_reason": "The company is selling its Vidzeme portfolio and proposing a dividend of 2 SEK per share.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Latvian Forest Company",
+          "ticker": null,
+          "listing_country": "SE"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1230,55 +1221,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261018-028",
-      "headline": "Hyperscale Data Announces Plan for its askROI Subsidiary to Go Public in the Second or Third Quarter of 2027 | GPUS Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/GPUS/hyperscale-data-announces-plan-for-its-ask-roi-subsidiary-to-go-5vvo8fijicxd.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T20:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Plan to spin off a subsidiary for an IPO is a significant strategic move to unlock value.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Plan to spin off a subsidiary for an IPO is a significant strategic move to unlock value.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hyperscale Data",
-          "ticker": "GPUS",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20261018-002",
       "headline": "US ambassador urges Israel to prosecute attackers of American journalist",
       "headline_en": null,
@@ -1420,6 +1362,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-045",
+      "headline": "From Deoghar to Udupi: Family offices bet Rs 2,000 crore on hotels in pilgrimage towns",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/services/hotels-/-restaurants/from-deoghar-to-udupi-family-offices-bet-rs-2000-crore-on-hotels-in-pilgrimage-towns/articleshow/135018465.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T00:30:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Family offices are investing Rs 2,000 crore in hotels in pilgrimage towns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 45,
+      "triage_reason": "Family offices are investing Rs 2,000 crore in hotels in pilgrimage towns.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": -26,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-015",
       "headline": "Israeli settlers attack European diplomats, beat up French mayor in West Bank",
       "headline_en": null,
@@ -1547,6 +1532,56 @@
           "name": "Nanox",
           "ticker": "NNOX",
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-050",
+      "headline": "BIGBEN: RÉSULTATS ANNUELS DE L’EXERCICE 2025-2026 et RESULTAT DE LA PERIODE DE SYNDICATION DE L'ENGAGEMENT DE GARANTIE DE L'AUGMENTATION DE CAPITAL N°1 — DPS",
+      "headline_en": "BIGBEN: ANNUAL RESULTS FOR FINANCIAL YEAR 2025-2026 AND RESULT OF THE SYNDICATION PERIOD OF THE GUARANTEE COMMITMENT FOR CAPITAL INCREASE NO. 1 - DPS",
+      "url": "https://www.globenewswire.com/news-release/2026/10/16/3382729/0/fr/bigben-r%C3%A9sultats-annuels-de-l-exercice-2025-2026-et-resultat-de-la-periode-de-syndication-de-l-engagement-de-garantie-de-l-augmentation-de-capital-n-1-dps.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-16T16:45:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Bigben reported full-year 2025-2026 financial results alongside updates on its capital increase rights issue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 44,
+      "triage_reason": "Bigben reported full-year 2025-2026 financial results alongside updates on its capital increase rights issue.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bigben Interactive",
+          "ticker": "BIG",
+          "listing_country": "FR"
         }
       ],
       "size_bucket": "small",
@@ -1844,55 +1879,6 @@
       "companies": [
         {
           "name": "Alcon",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-036",
-      "headline": "Viatris Receives U.S. FDA Approval for RYZUMVI® for the Treatment of Presbyopia",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/viatris-receives-us-fda-approval-for-ryzumvi-for-the-treatment-of-presbyopia-302911593.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-16T20:05:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "FDA approval of RYZUMVI provides a new revenue stream for Viatris.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 42,
-      "triage_reason": "FDA approval of RYZUMVI provides a new revenue stream for Viatris.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Viatris",
           "ticker": null,
           "listing_country": "US"
         }
@@ -184495,78 +184481,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-913c9c5d1968",
-      "idea_version": "IDEAV-b30bb1cbef1f3145",
-      "idea_version_started_at": "2026-10-18T00:22:45Z",
-      "ticker": "01788",
-      "company": "Guotai Junan International",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is undergoing a privatization process via a scheme of arrangement, which creates a defined exit price for shareholders.",
-      "why_now": "The filing on 2026-10-16 provides an update on the progress of pre-conditions for the privatization.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cc0e842bb968"
-      ],
-      "primary_source_event_id": "EVT-cc0e842bb968",
-      "source_headlines": [
-        "GUOTAI JUNAN I (01788): JOINT ANNOUNCEMENT UPDATE ON PROGRESS ON THE FULFILMENT OF THE PRE-CONDITION IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 673 OF THE COMPANIES ORDINANCE AND (2) PROPOSED WITHDRAWAL OF LISTING OF THE SHARES OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED"
-      ],
-      "source_headline": "GUOTAI JUNAN I (01788): JOINT ANNOUNCEMENT UPDATE ON PROGRESS ON THE FULFILMENT OF THE PRE-CONDITION IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 673 OF THE COMPANIES ORDINANCE AND (2) PROPOSED WITHDRAWAL OF LISTING OF THE SHARES OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101601350.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-16T12:59:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-18T00:22:45Z",
-      "updated_at": "2026-10-18T00:22:45Z",
-      "decay_at": "2026-10-18T00:59:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-10df37279447",
       "idea_version": "IDEAV-d5c5f864d6c6d212",
       "idea_version_started_at": "2026-10-17T18:25:41Z",
@@ -186137,6 +186051,78 @@
       "surfaced_at": "2026-10-14T22:44:48Z",
       "updated_at": "2026-10-18T00:40:50Z",
       "decay_at": "2026-10-18T00:45:11Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-913c9c5d1968",
+      "idea_version": "IDEAV-b30bb1cbef1f3145",
+      "idea_version_started_at": "2026-10-18T00:22:45Z",
+      "ticker": "01788",
+      "company": "Guotai Junan International",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is undergoing a privatization process via a scheme of arrangement, which creates a defined exit price for shareholders.",
+      "why_now": "The filing on 2026-10-16 provides an update on the progress of pre-conditions for the privatization.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cc0e842bb968"
+      ],
+      "primary_source_event_id": "EVT-cc0e842bb968",
+      "source_headlines": [
+        "GUOTAI JUNAN I (01788): JOINT ANNOUNCEMENT UPDATE ON PROGRESS ON THE FULFILMENT OF THE PRE-CONDITION IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 673 OF THE COMPANIES ORDINANCE AND (2) PROPOSED WITHDRAWAL OF LISTING OF THE SHARES OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED"
+      ],
+      "source_headline": "GUOTAI JUNAN I (01788): JOINT ANNOUNCEMENT UPDATE ON PROGRESS ON THE FULFILMENT OF THE PRE-CONDITION IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 673 OF THE COMPANIES ORDINANCE AND (2) PROPOSED WITHDRAWAL OF LISTING OF THE SHARES OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101601350.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-16T12:59:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-18T00:22:45Z",
+      "updated_at": "2026-10-18T00:22:45Z",
+      "decay_at": "2026-10-18T00:59:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -188733,14 +188719,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 542,
+    "total_count": 543,
     "shown_count": 499,
-    "hidden_count": 43,
+    "hidden_count": 44,
     "side_counts": {
       "long": {
-        "total_count": 281,
+        "total_count": 282,
         "shown_count": 250,
-        "hidden_count": 31
+        "hidden_count": 32
       },
       "short": {
         "total_count": 262,
@@ -188764,6 +188750,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-913c9c5d1968",
+        "idea_version": "IDEAV-b30bb1cbef1f3145",
+        "idea_version_started_at": "2026-10-18T00:22:45Z",
+        "ticker": "01788",
+        "company": "Guotai Junan International",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is undergoing a privatization process via a scheme of arrangement, which creates a defined exit price for shareholders.",
+        "why_now": "The filing on 2026-10-16 provides an update on the progress of pre-conditions for the privatization.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-cc0e842bb968"
+        ],
+        "primary_source_event_id": "EVT-cc0e842bb968",
+        "source_headlines": [
+          "GUOTAI JUNAN I (01788): JOINT ANNOUNCEMENT UPDATE ON PROGRESS ON THE FULFILMENT OF THE PRE-CONDITION IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 673 OF THE COMPANIES ORDINANCE AND (2) PROPOSED WITHDRAWAL OF LISTING OF THE SHARES OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED"
+        ],
+        "source_headline": "GUOTAI JUNAN I (01788): JOINT ANNOUNCEMENT UPDATE ON PROGRESS ON THE FULFILMENT OF THE PRE-CONDITION IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 673 OF THE COMPANIES ORDINANCE AND (2) PROPOSED WITHDRAWAL OF LISTING OF THE SHARES OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101601350.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-16T12:59:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-18T00:22:45Z",
+        "updated_at": "2026-10-18T00:22:45Z",
+        "decay_at": "2026-10-18T00:59:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-18T00:59:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b0586fbde26d",
         "idea_version": "IDEAV-9cef7dbb40e228d0",
@@ -216251,81 +216312,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-87cbb3009f6f",
-        "idea_version": "IDEAV-cd128d98c354a1b1",
-        "idea_version_started_at": "2026-10-04T09:00:04Z",
-        "ticker": "YESBANK",
-        "company": "YES Bank",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "YES Bank reported strong Q2 business updates with loan growth surging 24% year-over-year to ₹3 lakh crore and deposits rising 20%, indicating robust credit demand and balance sheet expansion.",
-        "why_now": "The Q2 business update was just released on October 4, 2026, acting as an immediate positive catalyst ahead of full quarterly earnings.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-151edcdda774"
-        ],
-        "primary_source_event_id": "EVT-151edcdda774",
-        "source_headlines": [
-          "YES Bank Q2 Business Update: Loans surge 24% to ₹3 lakh crore; deposits up 20% YoY"
-        ],
-        "source_headline": "YES Bank Q2 Business Update: Loans surge 24% to ₹3 lakh crore; deposits up 20% YoY",
-        "source_url": "https://www.cnbctv18.com/market/stocks/yes-bank-share-price-q2-business-update-loans-surge-24-to-rs-3-lakh-crore-deposits-up-20-yoy-20004109.htm",
-        "source_name": "CNBC-TV18",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-04T08:36:36Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-04T09:00:04Z",
-        "updated_at": "2026-10-04T09:00:04Z",
-        "decay_at": "2026-10-05T20:36:36Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-07T10:57:38Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-b520e6e5e5f6",
         "idea_version": "IDEAV-2df1283f54ee5e2c",
         "idea_version_started_at": "2026-10-04T08:14:49Z",
@@ -225934,7 +225920,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1665,
-    "live_count": 24,
+    "live_count": 23,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -225953,9 +225939,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 226213,
-    "news_picked_today": 44,
-    "news_dropped_today": 220
+    "news_seen_today": 307629,
+    "news_picked_today": 52,
+    "news_dropped_today": 284
   },
   "book_momentum": {
     "live_count": 8,
