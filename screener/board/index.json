@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T04:38:38Z",
+  "generated_at": "2026-10-18T04:41:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-221",
@@ -733,6 +733,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-231",
+      "headline": "CoreWeave Woes Risk Shutting Down AI Junk Market: Credit Weekly",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-17/coreweave-woes-risk-shutting-down-ai-junk-market-credit-weekly",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T14:27:13Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "CoreWeave's credit risk poses a potential systemic threat to the AI-linked junk bond market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "CoreWeave's credit risk poses a potential systemic threat to the AI-linked junk bond market.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CoreWeave",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-160",
       "headline": "Macquarie Capital veteran exits amid further staff cuts",
       "headline_en": null,
@@ -1222,6 +1271,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-239",
+      "headline": "Lagnam Spintex Reports Strong Q2 & H1 Fy27 Performance; Ebitda Rises 98% In Q2 And 64% In H1fy27",
+      "headline_en": null,
+      "url": "https://www.outlookbusiness.com/spotlight/news-wire/lagnam-spintex-reports-strong-q2-h1-fy27-performance-ebitda-rises-98-in-q2-and-64-in-h1fy27",
+      "source_name": "Outlook Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T14:09:21Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Lagnam Spintex reported a 98% increase in Q2 EBITDA, indicating significant operational improvement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Lagnam Spintex reported a 98% increase in Q2 EBITDA, indicating significant operational improvement.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lagnam Spintex",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1786,6 +1884,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-236",
+      "headline": "Here's How Microsoft's $175 Billion in Capital Expenditures Is Hurting Its Business",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/10/17/heres-how-microsofts-175-billion-in-capital-expend/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T14:16:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Microsoft's $175 billion in capital expenditures is impacting its financial performance and margins.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Microsoft's $175 billion in capital expenditures is impacting its financial performance and margins.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Microsoft",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-185",
       "headline": "FSSAI issues notices to Nestlé India, HUL over misleading claims, non-compliance",
       "headline_en": null,
@@ -1836,153 +1983,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-207",
-      "headline": "HDFC Bank veteran Kaizad Bharucha quits",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/hdfc-bank-veteran-kaizad-bharucha-quits/article71596866.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T14:38:41Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "A key veteran executive at HDFC Bank has resigned, which is a significant management change.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "A key veteran executive at HDFC Bank has resigned, which is a significant management change.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HDFC Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-170",
-      "headline": "Saudi helicopter crashes in Najran, killing two crew members",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/saudi-helicopter-crashes-due-technical-malfunction-coalition-spokesman",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T03:34:59Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "A Saudi military helicopter crash resulting in two fatalities is a significant operational and geopolitical event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "A Saudi military helicopter crash resulting in two fatalities is a significant operational and geopolitical event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Arabian Armed Forces",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-173",
-      "headline": "AH-6i Saudi helicopter crashes in Najran; 2 officers killed: Spokesperson",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/world/mena/us-israel-iran-lebanon-war-live-updates-october-18-2026",
-      "source_name": "Khaleej Times — Top / General",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T03:24:32Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "A Saudi military helicopter crash resulting in two fatalities is a significant operational and geopolitical event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "A Saudi military helicopter crash resulting in two fatalities is a significant operational and geopolitical event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Arabian Armed Forces",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226634,9 +226634,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1273280,
-    "news_picked_today": 307,
-    "news_dropped_today": 1541
+    "news_seen_today": 1284230,
+    "news_picked_today": 322,
+    "news_dropped_today": 1598
   },
   "book_momentum": {
     "live_count": 8,
