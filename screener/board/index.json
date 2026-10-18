@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T05:57:47Z",
+  "generated_at": "2026-10-18T06:00:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-282",
@@ -543,6 +543,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-328",
+      "headline": "India's ICICI Bank Q2 profit rises 20.1%, beats estimates",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/india/indias-icici-bank-q2-profit-rises-201-beats-estimates-2026-10-17/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T10:25:15Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "ICICI Bank reported a 20.1% increase in Q2 profit, beating analyst estimates.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ICICI Bank reported a 20.1% increase in Q2 profit, beating analyst estimates.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ICICI Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-182",
       "headline": "Yes Bank reports robust 65% jump in net profit at ₹1,080 cr",
       "headline_en": null,
@@ -680,6 +729,55 @@
       "companies": [
         {
           "name": "Central Bank of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-331",
+      "headline": "IDBI Bank Q2 net profit falls 39% to Rs 2,205 crore on lower other income",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/idbi-bank-q2-net-profit-falls-39-to-rs-2205-crore-on-lower-other-income/articleshow/135011823.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T10:11:06Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "IDBI Bank reported a 39% decline in Q2 net profit to Rs 2,205 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "IDBI Bank reported a 39% decline in Q2 net profit to Rs 2,205 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IDBI Bank",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -1849,98 +1947,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-154",
-      "headline": "All Toyota models to be software-based by 2030",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/10/18/companies/toyota-software-defined-vehicles/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T01:41:00Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Toyota announced that all its models will be software-based by 2030, indicating a significant product strategy shift.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Toyota announced that all its models will be software-based by 2030, indicating a significant product strategy shift.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Toyota",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-191",
-      "headline": "Trump suspende sanções e tarifas relacionadas à Rússia antes da entrada em vigor nos termos de nova lei",
-      "headline_en": "Trump suspends sanctions and tariffs related to Russia before they come into effect under the terms of a new law",
-      "url": "https://www.reuters.com/pt/mundo/6L46DI2SCNMIRF6M2USOPH73TM-2026-10-17/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T15:20:03Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Trump suspends sanctions and tariffs related to Russia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Trump suspends sanctions and tariffs related to Russia.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226588,9 +226594,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1526336,
-    "news_picked_today": 489,
-    "news_dropped_today": 2031
+    "news_seen_today": 1535662,
+    "news_picked_today": 495,
+    "news_dropped_today": 2049
   },
   "book_momentum": {
     "live_count": 8,
