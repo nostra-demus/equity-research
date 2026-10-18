@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T06:09:47Z",
+  "generated_at": "2026-10-18T06:12:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-332",
@@ -1366,6 +1366,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-335",
+      "headline": "Tata Trusts Spends ₹1,556 Crore In FY26, Noel Tata Unveils Plan For 40–50 Not-For-Profit Hospitals Across India",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/tata-trusts-spends-1556-crore-in-fy26-noel-tata-unveils-plan-for-4050-not-for-profit-hospitals-across-india",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T05:22:53Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Tata Trusts announced a significant expansion plan to build 40-50 not-for-profit hospitals across India.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Tata Trusts announced a significant expansion plan to build 40-50 not-for-profit hospitals across India.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Trusts",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-212",
       "headline": "Tata Trusts to build 40-50 hospitals, focus on measurable impact: Noel Tata",
       "headline_en": null,
@@ -1900,55 +1949,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-193",
-      "headline": "SBI, Subsidiaries’ Customer Data Allegedly On Dark Web: 3.75 Lakh Records, 2,722 Documents Claimed In Data Breach",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/sbi-subsidiaries-customer-data-allegedly-on-dark-web-375-lakh-records-2722-documents-claimed-in-data-breach",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T15:13:17Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "A data breach involving 3.75 lakh records and 2,722 documents poses significant operational and reputational risk to SBI.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "A data breach involving 3.75 lakh records and 2,722 documents poses significant operational and reputational risk to SBI.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "State Bank of India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226596,9 +226596,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1568004,
-    "news_picked_today": 506,
-    "news_dropped_today": 2110
+    "news_seen_today": 1572599,
+    "news_picked_today": 511,
+    "news_dropped_today": 2129
   },
   "book_momentum": {
     "live_count": 8,
