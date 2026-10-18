@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-5d7e7121c615",
-  "idea_version": "IDEAV-c1be852d90ddf4d0",
-  "idea_version_started_at": "2026-10-17T03:18:33Z",
+  "idea_version": "IDEAV-182ed8c408ac758f",
+  "idea_version_started_at": "2026-10-18T04:01:13Z",
   "ticker": "YESBANK",
   "company": "Yes Bank",
   "exchange": "NSE",
@@ -11,19 +11,19 @@
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "The bank is seeking a Supreme Court review of an ₹8,415 crore AT1 bond write-down, creating significant legal uncertainty and potential capital impairment risk.",
-  "why_now": "The filing for the Supreme Court review was reported on 2026-10-17.",
-  "conviction": 65,
+  "reason": "A Supreme Court ruling regarding AT-1 bonds creates a massive potential liability of Rs 5,217 crore that would effectively wipe out the bank's recent quarterly profit.",
+  "why_now": "The ruling was reported on 2026-10-18, creating an immediate overhang on the stock despite the reported Q2 earnings.",
+  "conviction": 80,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 19,
+    "impact": 23,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
-    "corroboration": 0,
+    "corroboration": 10,
     "learning_adjustment": 0
   },
   "trade_readiness": "watch_only",
@@ -32,7 +32,6 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -49,17 +48,21 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-d76fdce7ca5a"
+    "EVT-b782d61f6343",
+    "EVT-1f66dee8ea12",
+    "EVT-1a1117ef0a0b"
   ],
-  "primary_source_event_id": "EVT-d76fdce7ca5a",
+  "primary_source_event_id": "EVT-b782d61f6343",
   "source_headlines": [
-    "Yes Bank to seek Supreme Court review of Rs 8,415 crore AT1 bond write-down verdict"
+    "SC Ruling On AT-1 Bonds Flips Yes Bank's Q2 Profit Into A Potential Rs 5,217 Crore Loss",
+    "Yes Bank reports robust 65% jump in net profit at ₹1,080 cr",
+    "Yes Bank Q2 profit rises but AT1 ruling not booked as further appeal weighed"
   ],
-  "source_headline": "Yes Bank to seek Supreme Court review of Rs 8,415 crore AT1 bond write-down verdict",
-  "source_url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/yes-bank-to-seek-supreme-court-review-of-rs-8415-crore-at1-bond-write-down-verdict/articleshow/135003185.cms",
-  "source_name": "The Economic Times",
-  "materiality_max": 94,
-  "newest_source_at": "2026-10-17T00:30:00Z",
+  "source_headline": "SC Ruling On AT-1 Bonds Flips Yes Bank's Q2 Profit Into A Potential Rs 5,217 Crore Loss",
+  "source_url": "https://www.ndtvprofit.com/markets/yes-bank-q2-results-sc-ruling-on-at-1-bonds-flips-yes-banks-q2-profit-into-a-potential-rs-5-217-crore-loss-12201151#publisher=newsstand",
+  "source_name": "NDTV Profit",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-18T02:33:21Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -67,8 +70,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-10-15T13:17:31Z",
-  "updated_at": "2026-10-17T03:18:33Z",
-  "decay_at": "2026-10-18T12:30:00Z",
+  "updated_at": "2026-10-18T04:01:13Z",
+  "decay_at": "2026-10-19T14:33:21Z",
   "status": "live",
   "promoted_signal_id": null
 }
