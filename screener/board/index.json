@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-18T22:20:53Z",
+  "generated_at": "2026-10-18T22:31:00Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261018-739",
+      "headline": "CWY: Scheme Implementation Deed with EQT Infrastructure [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CWY?key=2924-03149797-3A704364",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-18T22:24:24Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Company entered into a scheme implementation deed for a takeover/acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company entered into a scheme implementation deed for a takeover/acquisition.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CWY",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261018-719",
       "headline": "OCN: Completion of Serra Negra Project Acquisition [price-sensitive]",
@@ -1954,55 +2003,6 @@
           "name": "Yes Bank",
           "ticker": "YESBANK",
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-282",
-      "headline": "Brookfield’s $4.1b Reliance Worldwide bid survives ‘go-shop’ clause",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/brookfield-s-4-1b-reliance-worldwide-bid-survives-go-shop-clause-20261018-p616ho?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T05:00:58Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Brookfield's $4.1 billion bid for Reliance Worldwide remains active after the go-shop period.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Brookfield's $4.1 billion bid for Reliance Worldwide remains active after the go-shop period.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Worldwide",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "mid",
@@ -226283,9 +226283,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2283892,
-    "news_picked_today": 1902,
-    "news_dropped_today": 6008
+    "news_seen_today": 2283924,
+    "news_picked_today": 1919,
+    "news_dropped_today": 6023
   },
   "book_momentum": {
     "live_count": 8,
