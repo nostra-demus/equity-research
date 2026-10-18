@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T21:11:33Z",
+  "generated_at": "2026-10-18T21:16:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-688",
@@ -193,6 +193,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-695",
+      "headline": "EQT signs $9.4b deal to buy Cleanaway Waste Management",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/eqt-signs-9-4b-deal-to-buy-cleanaway-waste-management-20261019-p616l6?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T21:12:37Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "EQT is acquiring Cleanaway Waste Management for $9.4 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EQT is acquiring Cleanaway Waste Management for $9.4 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EQT",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Cleanaway Waste Management",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1919,55 +1973,6 @@
       "event_types": [
         "earnings_revenue_margin",
         "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ICICI Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-328",
-      "headline": "India's ICICI Bank Q2 profit rises 20.1%, beats estimates",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/india/indias-icici-bank-q2-profit-rises-201-beats-estimates-2026-10-17/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T10:25:15Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "ICICI Bank reported a 20.1% increase in Q2 profit, beating analyst estimates.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ICICI Bank reported a 20.1% increase in Q2 profit, beating analyst estimates.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -226039,9 +226044,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2283620,
-    "news_picked_today": 1791,
-    "news_dropped_today": 5847
+    "news_seen_today": 2283654,
+    "news_picked_today": 1810,
+    "news_dropped_today": 5862
   },
   "book_momentum": {
     "live_count": 8,
