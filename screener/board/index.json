@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T10:37:49Z",
+  "generated_at": "2026-10-18T10:42:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-362",
@@ -1391,6 +1391,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-571",
+      "headline": "Alcoa plans to sell part of its Massena East site for $315M",
+      "headline_en": null,
+      "url": "https://www.manufacturingdive.com/news/alcoa-sell-massena-east-assets-315-m-q3-2026-south32-progress/833226/",
+      "source_name": "Manufacturing Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-16T16:27:00Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Alcoa plans to sell a site for $315 million, a significant asset disposal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Alcoa plans to sell a site for $315 million, a significant asset disposal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alcoa",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-557",
       "headline": "Two Palestinian fishermen injured in Israeli drone attack as shelling continues across Gaza",
       "headline_en": null,
@@ -1919,56 +1968,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-529",
-      "headline": "Yes Bank flags 250-bps impact on core capital ratio after Supreme Court upholds AT-1 bond write-off ruling",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/yes-bank-flags-250-bps-impact-in-core-capital-ratio-after-supreme-court-upholds-at-1-bond-write-off-ruling-11792175520924.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T18:51:54Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Yes Bank confirms a significant 250-bps hit to its core capital ratio following a Supreme Court ruling on AT-1 bonds.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Yes Bank confirms a significant 250-bps hit to its core capital ratio following a Supreme Court ruling on AT-1 bonds.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yes Bank",
-          "ticker": "YESBANK",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226608,9 +226607,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2181583,
-    "news_picked_today": 1132,
-    "news_dropped_today": 3860
+    "news_seen_today": 2185115,
+    "news_picked_today": 1137,
+    "news_dropped_today": 3879
   },
   "book_momentum": {
     "live_count": 8,
