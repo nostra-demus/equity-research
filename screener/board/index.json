@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T08:41:18Z",
+  "generated_at": "2026-10-18T08:44:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-362",
@@ -141,6 +141,60 @@
           "name": "Mouwasat",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-513",
+      "headline": "Zen Technologies to acquire majority stake in defence tech firm Cogknit Semantics for ₹135.15 crore",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/zen-technologies-share-price-acquire-majority-stake-defence-tech-firm-cogknit-semantics-rs-135-crore-20014379.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T08:36:19Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Zen Technologies is acquiring a majority stake in Cogknit Semantics for ₹135.15 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Zen Technologies is acquiring a majority stake in Cogknit Semantics for ₹135.15 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zen Technologies",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Cogknit Semantics",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -1915,49 +1969,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-469",
-      "headline": "Drone strike kills 30 at cattle market in Sudan's Darfur",
-      "headline_en": null,
-      "url": "https://www.newarab.com/news/drone-strike-kills-30-cattle-market-sudans-darfur",
-      "source_name": "The New Arab",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-16T23:00:16Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "A drone strike in Sudan represents a significant geopolitical escalation in a conflict-prone region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "A drone strike in Sudan represents a significant geopolitical escalation in a conflict-prone region.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226670,9 +226681,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1966636,
-    "news_picked_today": 886,
-    "news_dropped_today": 3074
+    "news_seen_today": 1975690,
+    "news_picked_today": 887,
+    "news_dropped_today": 3097
   },
   "book_momentum": {
     "live_count": 8,
