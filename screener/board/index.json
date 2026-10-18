@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-18T05:32:45Z",
+  "generated_at": "2026-10-18T05:37:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261018-282",
@@ -838,6 +838,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-285",
+      "headline": "Zelenskyy hints at potential meeting with Putin in US during G20 summit as Trump waives Russian Oil tariffs",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/world/zelenskyy-hints-at-potential-meeting-with-putin-in-us-during-g20-summit-as-trump-waives-russian-oil-tariffs/article71599073.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T05:21:56Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "A potential meeting between Zelenskyy and Putin combined with a waiver on Russian oil tariffs represents a major geopolitical shift with global market implications.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "A potential meeting between Zelenskyy and Putin combined with a waiver on Russian oil tariffs represents a major geopolitical shift with global market implications.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-089",
       "headline": "+++ Ukraine-Krieg +++: Trumps Aussetzung von Sanktionen – Parteiübergreifende Kritik",
       "headline_en": "+++ Ukraine War +++: Trump's suspension of sanctions – Bipartisan criticism",
@@ -876,6 +919,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261018-284",
+      "headline": "Reliance Jio IPO: LIC, leading MFs, AMCs and global investors eye issue, say reports | Check latest GMP price today",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/ipo/reliance-jio-ipo-lic-leading-mfs-amcs-and-global-investors-eye-issue-say-reports-check-latest-gmp-price-today-11792299184449.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T05:26:48Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Reports of major institutional interest in a potential Reliance Jio IPO indicate significant market anticipation for a large-scale capital event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Reports of major institutional interest in a potential Reliance Jio IPO indicate significant market anticipation for a large-scale capital event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Jio",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1615,6 +1707,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261018-293",
+      "headline": "Chery's Huawei-backed Luxeed to get independent carmaking license, plans IPO",
+      "headline_en": null,
+      "url": "https://cnevpost.com/2026/10/17/chery-luxeed-carmaking-license-plans-ipo/",
+      "source_name": "CnEVPost",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-17T11:41:46Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "Luxeed is moving toward an independent carmaking license and planning an IPO, signaling a significant strategic shift for the brand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Luxeed is moving toward an independent carmaking license and planning an IPO, signaling a significant strategic shift for the brand.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chery",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261018-271",
       "headline": "Cancer Medicines To Get Cheaper By Up To 70%, Govt Caps Trade Margins On 137 Anti-Cancer Drugs At 30%",
       "headline_en": null,
@@ -1805,153 +1947,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-269",
-      "headline": "Agitators shut all gates of Bokaro Steel Plant; production impacted",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/indl-goods/svs/steel/agitators-shut-all-gates-of-bokaro-steel-plant-production-impacted/articleshow/135014736.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-17T13:00:20Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Protests have shut down all gates of the Bokaro Steel Plant, directly impacting production output.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Protests have shut down all gates of the Bokaro Steel Plant, directly impacting production output.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bokaro Steel Plant",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-200",
-      "headline": "Trabajadores de mina chilena Centinela ratifican nuevo contrato; cesa huelga",
-      "headline_en": "Workers at Chilean Centinela mine ratify new contract; strike ends",
-      "url": "https://www.reuters.com/latam/negocio/XTP5YOX75JLARK5ATOJRCYAYPM-2026-10-18/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T03:55:09Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Workers at the Centinela mine in Chile ratified a new contract, ending a strike.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Workers at the Centinela mine in Chile ratified a new contract, ending a strike.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Antofagasta",
-          "ticker": null,
-          "listing_country": "CL"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-098",
-      "headline": "Uber retreats in Africa as cost comes before comfort and safety",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/africa/uber-retreats-in-africa-as-cost-comes-before-comfort-and-safety/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T02:00:21Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "Uber is scaling back operations in Africa, signaling a strategic retreat from the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Uber is scaling back operations in Africa, signaling a strategic retreat from the region.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Uber",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -226599,9 +226594,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1434507,
-    "news_picked_today": 410,
-    "news_dropped_today": 1870
+    "news_seen_today": 1449336,
+    "news_picked_today": 424,
+    "news_dropped_today": 1904
   },
   "book_momentum": {
     "live_count": 8,
