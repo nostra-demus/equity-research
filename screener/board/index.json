@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-10-18T21:26:56Z",
+  "generated_at": "2026-10-18T21:31:33Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261018-698",
+      "headline": "NHC: New Hope and Malabar to combine [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NHC?key=2924-03149688-2A1704690",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-18T21:27:24Z",
+      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
+      "prelim_note": "New Hope and Malabar have announced a combination, which is a significant structural M&A event for the issuer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "New Hope and Malabar have announced a combination, which is a significant structural M&A event for the issuer.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "New Hope Corporation",
+          "ticker": "NHC",
+          "listing_country": "AU"
+        },
+        {
+          "name": "Malabar Resources",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261018-696",
       "headline": "ARF: FY2027 Distribution Guidance Upgrade [price-sensitive]",
@@ -1932,56 +1986,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261018-176",
-      "headline": "SC Ruling On AT-1 Bonds Flips Yes Bank's Q2 Profit Into A Potential Rs 5,217 Crore Loss",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/yes-bank-q2-results-sc-ruling-on-at-1-bonds-flips-yes-banks-q2-profit-into-a-potential-rs-5-217-crore-loss-12201151#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-18T02:33:21Z",
-      "sweep_file": "screener/inbox/2026-10-18_sweep.json",
-      "prelim_note": "A Supreme Court ruling forces a potential Rs 5,217 crore loss, directly impacting the bank's capital structure and earnings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A Supreme Court ruling forces a potential Rs 5,217 crore loss, directly impacting the bank's capital structure and earnings.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yes Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -225973,9 +225977,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2283673,
-    "news_picked_today": 1814,
-    "news_dropped_today": 5877
+    "news_seen_today": 2283685,
+    "news_picked_today": 1820,
+    "news_dropped_today": 5883
   },
   "book_momentum": {
     "live_count": 8,
