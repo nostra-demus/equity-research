@@ -1,5 +1,39 @@
 # Nostradamus Swarm — Equity Research Cockpit
 
+## Universe Model
+
+Screener defaults to Universe (saved Portfolio/Watchlist choices are respected). Universe → Events
+retains the event workspace; Universe → Model shows the free Finviz US-listed stock screen:
+market cap above $2bn and average volume above 50,000 shares. Company and USD market price precede
+twelve material-event columns and a descending weighted total: results, guidance, commercial contracts/JVs,
+capex, products, operations, deals/restructuring, capital/returns, debt/distress, ownership, governance
+and legal/regulatory actions. The existing news archive supplies the past 90 days of evidence for
+3–6 month trade research, with no extra ingest or model calls. Routine meetings, record dates and small
+employee grants are excluded by the materiality gate. Weights (including negative risk weights) are
+editable and browser-local. The default total counts event categories, including adverse ones; it is
+an event-activity ranking, never a bullish rating or proof a catalyst remains pending.
+
+Signals reuse the archive's existing event types and high/critical materiality classifications. A match
+requires an exact ticker plus normalized company name; known foreign listing tags cannot match a US
+line. These tags are headline-based inference, not verified issuer research. Green ticks open up to
+three recent source links; red crosses mean no matching report in the saved archive, never proof that
+no event occurred. A stale (>48h) or unreadable/empty archive leaves signals and totals unavailable.
+The event index refreshes off-thread every minute while read; the grid shows the actual archived-day
+count, latest report time, and scan time, without claiming exhaustive market coverage.
+
+`GET /api/screener/universe-model` shares one paced public-page sweep across all viewers. The Model
+checks every 15 seconds while visible; a new full sweep is eligible 30 minutes after the previous
+attempt ends. A 2,000-name screen needs about 100 pages at two seconds between requests, plus network
+time. Quotes are Finviz's free delayed data, not an exchange real-time feed; individual quote timestamps
+are unavailable, so each row shows its retrieval time. Closing the view stops scheduling new sweeps.
+No Elite token, subscription, trial, paid search/enrichment API or per-company quote calls are used.
+
+Only a complete, unique, validated sweep replaces `.state/universe-model.json` (or the configured
+`ENGINE_STATE_DIR`). Cold-start partial coverage is labelled; failures preserve the last complete grid
+and expose the source error with a 30-minute retry cooldown. A block, rate limit or changed page schema
+never triggers a paid fallback, challenge bypass or a fabricated signal. The source may restrict free
+access, so continuous availability and real-time pricing cannot be guaranteed.
+
 A local, animated "swarm of agents" control surface for the research engine in this repo. It renders
 every agent / module / dependency from disk, shows per-ticker data readiness (mirroring the engine's
 data-triage rules), launches a single agent, a whole module, or the full pipeline on one click, and
