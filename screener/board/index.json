@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T06:00:53Z",
+  "generated_at": "2026-10-19T06:21:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-130",
@@ -1140,6 +1140,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-243",
+      "headline": "WBC: Items Impacting Full Year 2026 Results",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WBC?key=2924-03150079-2A1704884",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T05:50:36Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Westpac announced specific items impacting its full-year 2026 results, signaling potential earnings adjustments.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Westpac announced specific items impacting its full-year 2026 results, signaling potential earnings adjustments.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Westpac Banking Corp",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-212",
       "headline": "Settlement Schedule Offer to Buy – Acquisition Window (Takeover) for THE SOUTH INDIA PAPER MILLS LIMITED",
       "headline_en": null,
@@ -1923,55 +1972,6 @@
           "name": "Barclays",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-167",
-      "headline": "Mitsubishi Heavy to revive shipbuilding line for defense equipment in FY 2027",
-      "headline_en": null,
-      "url": "https://english.kyodonews.net/articles/-/88665",
-      "source_name": "Kyodo News (Japan Wire)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T03:45:00Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Mitsubishi Heavy Industries is reviving a shipbuilding line for defense equipment by 2027, representing a strategic capacity expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Mitsubishi Heavy Industries is reviving a shipbuilding line for defense equipment by 2027, representing a strategic capacity expansion.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mitsubishi Heavy Industries",
-          "ticker": null,
-          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
@@ -228997,9 +228997,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 62953,
-    "news_picked_today": 320,
-    "news_dropped_today": 3914
+    "news_seen_today": 122703,
+    "news_picked_today": 324,
+    "news_dropped_today": 4078
   },
   "book_momentum": {
     "live_count": 8,
