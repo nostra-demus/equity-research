@@ -26,6 +26,7 @@ test('Universe Model ranking, weights, search, pagination, failure recovery and 
   await page.getByLabel('Event context', { exact: true }).fill('Saved event filter')
   await page.getByRole('button', { name: 'Model', exact: true }).click()
   await expect(page.getByRole('table')).toBeVisible()
+  await expect(page.getByRole('columnheader', { name: 'Total ↓', exact: true })).toBeVisible()
   await expect(page.locator('tbody tr').first()).toContainText('Company 104')
   await expect(page.getByLabel('Legal / regulatory: No matching report').first()).toBeVisible()
   await page.getByLabel('Results: Present', { exact: true }).click()
