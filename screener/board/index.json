@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T23:05:46Z",
+  "generated_at": "2026-10-19T23:11:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-517",
@@ -803,6 +803,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-529",
+      "headline": "ASX falls; NAB expects restructure, redundancies to cost bank $300m",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/asx-to-fall-wall-street-lifts-on-tech-rebound-20261020-p616wl?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T23:01:14Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "National Australia Bank expects restructuring and redundancies to cost 300 million AUD.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "National Australia Bank expects restructuring and redundancies to cost 300 million AUD.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Australia Bank",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-527",
       "headline": "Brazil's Americanas exits bankruptcy proceedings",
       "headline_en": null,
@@ -844,55 +893,6 @@
           "name": "Americanas",
           "ticker": null,
           "listing_country": "BR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-521",
-      "headline": "ASX to fall; NAB expects restructure, redundancies to cost bank $300m",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-to-fall-wall-street-lifts-on-tech-rebound-20261020-p616wl?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T21:57:44Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "National Australia Bank expects restructuring and redundancies to cost $300 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "National Australia Bank expects restructuring and redundancies to cost $300 million.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Australia Bank",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "large",
@@ -228971,9 +228971,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5598941,
-    "news_picked_today": 1254,
-    "news_dropped_today": 11092
+    "news_seen_today": 5634018,
+    "news_picked_today": 1258,
+    "news_dropped_today": 11112
   },
   "book_momentum": {
     "live_count": 8,
