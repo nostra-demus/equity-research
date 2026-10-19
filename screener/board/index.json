@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T09:41:53Z",
+  "generated_at": "2026-10-19T09:45:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-292",
@@ -1653,6 +1653,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-301",
+      "headline": "$592 million dividend payout - Here's how this Dubai firm is attracting investors in UAE's first IPO after Iran war",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/world/592-million-dividend-payout-heres-how-this-dubai-firm-is-attracting-investors-in-uaes-first-ipo-after-iran-war-11792401572441.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T09:30:44Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "A $592 million dividend payout is a significant capital return event for a newly public firm.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "A $592 million dividend payout is a significant capital return event for a newly public firm.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lulu Retail",
+          "ticker": null,
+          "listing_country": "AE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-298",
       "headline": "Schroders targets Middle East wealth as Nuveen acquisition creates $2.6tn investment giant",
       "headline_en": null,
@@ -1947,55 +1996,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-212",
-      "headline": "Settlement Schedule Offer to Buy – Acquisition Window (Takeover) for THE SOUTH INDIA PAPER MILLS LIMITED",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261019-2/20261019-2.pdf",
-      "source_name": "BSE India — Notices (RSS)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-19T05:06:00Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "The company is undergoing a takeover acquisition window process.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "The company is undergoing a takeover acquisition window process.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "THE SOUTH INDIA PAPER MILLS LIMITED",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -228803,9 +228803,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 850727,
-    "news_picked_today": 496,
-    "news_dropped_today": 5490
+    "news_seen_today": 856857,
+    "news_picked_today": 498,
+    "news_dropped_today": 5512
   },
   "book_momentum": {
     "live_count": 8,
