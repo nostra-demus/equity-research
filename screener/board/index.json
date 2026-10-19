@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T02:50:48Z",
+  "generated_at": "2026-10-19T02:51:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-098",
@@ -188734,6 +188734,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-1b994a384f0c",
+      "idea_version": "IDEAV-740e6fbd42da3ade",
+      "idea_version_started_at": "2026-10-19T02:51:03Z",
+      "ticker": "000660",
+      "company": "SK Hynix",
+      "exchange": "KRX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The 2 trillion KRW government-backed guarantee program reduces supply chain financing costs and credit risk for the company.",
+      "why_now": "The program was officially launched on 2026-10-19.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "policy_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b0feffb7ddf7"
+      ],
+      "primary_source_event_id": "EVT-b0feffb7ddf7",
+      "source_headlines": [
+        "SK Hynix, government, and banking sector launch 2 trillion KRW 'Export Supply Chain Strengthening Guarantee'"
+      ],
+      "source_headline": "SK하이닉스·정부·은행권, 2조원 규모 ‘수출공급망 강화보증’ 출범",
+      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279063",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "materiality_max": 83,
+      "newest_source_at": "2026-10-19T02:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T02:51:03Z",
+      "updated_at": "2026-10-19T02:51:03Z",
+      "decay_at": "2026-10-20T14:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-9a8c33c37ad0",
       "idea_version": "IDEAV-cebdf3e8a1929254",
       "idea_version_started_at": "2026-10-19T02:12:58Z",
@@ -191591,77 +191663,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-94072c479133",
-      "idea_version": "IDEAV-7729523afe49d45d",
-      "idea_version_started_at": "2026-10-16T04:42:08Z",
-      "ticker": "VASCONEQ",
-      "company": "Vascon Engineers",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a construction contract worth Rs. 198 crore from State Bank of India, providing a clear revenue tailwind.",
-      "why_now": "The contract award was officially filed on 2026-10-16.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-25605058a82b"
-      ],
-      "primary_source_event_id": "EVT-25605058a82b",
-      "source_headlines": [
-        "Vascon Engineers Limited: VASCON ENGINEERS LIMITED RECEIVES LETTER OF ACCEPTANCE FROM STATE BANK OF INDIA FOR CONSTRUCTION OF SBILD, RESIDENTIAL FLATS AND OTHER COMMERCIAL OUTFITS AT HINJEWADI, PUNE, MAHARASHTRA AMOUNTING TO RS. 198 CRORE"
-      ],
-      "source_headline": "Vascon Engineers Limited: VASCON ENGINEERS LIMITED RECEIVES LETTER OF ACCEPTANCE FROM STATE BANK OF INDIA FOR CONSTRUCTION OF SBILD, RESIDENTIAL FLATS AND OTHER COMMERCIAL OUTFITS AT HINJEWADI, PUNE, MAHARASHTRA AMOUNTING TO RS. 198 CRORE",
-      "source_url": "https://nsearchives.nseindia.com/corporate/VASCONEQ_16102026081542_16102026LetterofIntent_V1_Sd.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 88,
-      "newest_source_at": "2026-10-16T02:46:03Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-16T04:42:08Z",
-      "updated_at": "2026-10-16T04:42:08Z",
-      "decay_at": "2026-10-17T14:46:03Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -191674,14 +191675,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 539,
+    "total_count": 538,
     "shown_count": 499,
-    "hidden_count": 40,
+    "hidden_count": 39,
     "side_counts": {
       "long": {
-        "total_count": 279,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 29
+        "hidden_count": 28
       },
       "short": {
         "total_count": 261,
@@ -191691,12 +191692,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1123,
+      "evicted_count": 1124,
       "oldest_retained_at": "2026-09-20T15:23:44Z",
       "side_counts": {
         "long": {
-          "evicted_count": 743,
-          "oldest_retained_at": "2026-10-05T01:35:44Z"
+          "evicted_count": 744,
+          "oldest_retained_at": "2026-10-05T03:41:30Z"
         },
         "short": {
           "evicted_count": 380,
@@ -194679,8 +194680,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-17T14:46:03Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-19T02:51:07Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -228877,8 +228878,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1703,
-    "live_count": 40,
+    "surfaced_total": 1704,
+    "live_count": 41,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
