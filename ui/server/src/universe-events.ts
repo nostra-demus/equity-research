@@ -10,7 +10,7 @@ export const universeCompanyKey = (ticker: string, company: string) => `${normTi
 
 /** Uses existing triage tags, never another LLM, paid lookup or new headline classifier. The index is
  * an archive observation, not proof of a still-pending catalyst or a verified trading opportunity. */
-export function addUniverseEvent(index: UniverseEventIndex, item: FeedItem): void {
+export function addUniverseEvent(index: UniverseEventIndex, item: FeedItem, evidenceLimit = 3): void {
   const time = Date.parse(item.found_at)
   if (!Number.isFinite(time) || time < Date.parse(index.coverage.from) || time > Date.parse(index.coverage.to)) return
   index.coverage.reports_scanned++
@@ -35,14 +35,19 @@ export function addUniverseEvent(index: UniverseEventIndex, item: FeedItem): voi
       if (!reports.some((r) => r.id === event.id || r.url === event.url)) {
         reports.push(event)
         reports.sort((a, b) => b.reported_at.localeCompare(a.reported_at))
-        reports.splice(3) // One point per event category, with up to three recent source links.
+        if (Number.isFinite(evidenceLimit)) reports.splice(evidenceLimit)
       }
     }
   }
 }
 
 // Exported through the existing discovery worker: the 90-day walk never blocks Fastify's event loop.
-const days = new Map<string, { stamp: string; index: UniverseEventIndex }>()
+const days = new Map<string, { stamp: string; index: UniverseEventIndex; times: number[] }>()
+function lowerBound(values: number[], target: number): number {
+  let lo = 0; let hi = values.length
+  while (lo < hi) { const mid = (lo + hi) >>> 1; if (values[mid] < target) lo = mid + 1; else hi = mid }
+  return lo
+}
 export async function readUniverseEvents(root: string, archiveDir: string, nowISO: string, io = {
   dates: listFirehoseDates, stamp: firehoseStamp, scan: scanDayItems,
 }): Promise<UniverseEventIndex> {
@@ -57,17 +62,25 @@ export async function readUniverseEvents(root: string, archiveDir: string, nowIS
     const key = JSON.stringify([root, archiveDir, date])
     const cached = days.get(key)
     let day = cached?.stamp === stamp ? cached.index : null
+    let times = cached?.stamp === stamp ? cached.times : []
     if (!day) {
-      day = { coverage: { ...index.coverage, from: `${date}T00:00:00.000Z`, reports_scanned: 0, latest_report_at: null }, companies: {} }
-      const scan = io.scan(root, date, archiveDir, { strict: true }, (item) => { addUniverseEvent(day!, item); return true })
+      // Partitions are INGESTION days. Cache source observations across midnight, and retain future
+      // timestamps for filtering at read time; neither clock may be frozen to the initial scan.
+      day = { coverage: { ...index.coverage, to: '9999-12-31T23:59:59.999Z', reports_scanned: 0, latest_report_at: null }, companies: {} }
+      const scan = io.scan(root, date, archiveDir, { strict: true }, (item) => {
+        const time = Date.parse(item.found_at); if (Number.isFinite(time)) times.push(time)
+        addUniverseEvent(day!, item, Infinity); return true
+      })
       if (scan.status !== 'read' || !scan.complete) throw new Error(`Event archive is incomplete for ${date}.`)
+      times.sort((a, b) => a - b)
       // Cache compact per-company evidence, never all hydrated reports. Only changing partitions reparse.
-      if (io.stamp(root, date, archiveDir) === stamp) days.set(key, { stamp, index: day })
+      if (io.stamp(root, date, archiveDir) === stamp) days.set(key, { stamp, index: day, times })
       while (days.size > 180) days.delete(days.keys().next().value!)
     }
     index.coverage.archive_days++
-    index.coverage.reports_scanned += day.coverage.reports_scanned
-    const latest = day.coverage.latest_report_at
+    const start = lowerBound(times, Date.parse(from)); const end = lowerBound(times, now + 1)
+    index.coverage.reports_scanned += end - start
+    const latest = end > start ? new Date(times[end - 1]).toISOString() : null
     if (latest && (!index.coverage.latest_report_at || latest > index.coverage.latest_report_at)) index.coverage.latest_report_at = latest
     for (const [company, signals] of Object.entries(day.companies)) {
       const target = index.companies[company] ??= {}

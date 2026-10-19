@@ -52,12 +52,19 @@ let scans = 0
 let stamp = 'stable'
 const io = { dates: () => ['2026-10-19'], stamp: () => stamp, scan: (...args: Parameters<typeof scanDayItems>) => {
   scans++; args[4]?.(event)
+  args[4]?.({ ...event, event_id: 'EVT-midnight', url: 'https://example.test/midnight', event_types: ['commercial'], found_at: '2026-10-18T23:50:00Z' })
+  args[4]?.({ ...event, event_id: 'EVT-future', url: 'https://example.test/future', event_types: ['product'], found_at: '2026-10-19T15:01:00Z' })
   assert.equal(args[3]?.strict, true)
   return { status: 'read' as const, lines: 1, complete: true, next: null }
 } }
-await readUniverseEvents('fixture-cache', '', at, io)
+const cachedEvents = await readUniverseEvents('fixture-cache', '', at, io)
+assert.equal(cachedEvents.companies[key].contracts?.[0].id, 'EVT-midnight', 'source date can precede the ingestion partition')
+assert.equal(cachedEvents.companies[key].product, undefined, 'future source timestamps cannot score early')
 await readUniverseEvents('fixture-cache', '', at, io)
 assert.equal(scans, 1, 'unchanged archived days are never reparsed for each one-minute refresh')
+const later = await readUniverseEvents('fixture-cache', '', '2026-10-19T15:02:00Z', io)
+assert.equal(later.companies[key].product?.[0].id, 'EVT-future', 'source-time windows advance without reparsing a stable partition')
+assert.equal(scans, 1)
 stamp = 'appended'
 await readUniverseEvents('fixture-cache', '', at, io)
 assert.equal(scans, 2, 'only a changing partition is rebuilt')
