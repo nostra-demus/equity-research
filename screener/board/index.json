@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T22:05:51Z",
+  "generated_at": "2026-10-19T22:10:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-517",
@@ -901,6 +901,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-524",
+      "headline": "Stock Market Today, Oct. 19: Cleveland-Cliffs Surges on Stronger Q3 Results and Raised 2027 EBITDA Outlook",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/stock-market-today-oct-19-cleveland-cliffs-surges-stronger-q3-results-and-raised-2027",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T21:37:27Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Cleveland-Cliffs reported strong Q3 results and raised its 2027 EBITDA outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cleveland-Cliffs reported strong Q3 results and raised its 2027 EBITDA outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cleveland-Cliffs",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-518",
       "headline": "Tradeweb to Buy Trumid For About $1.97 Billion",
       "headline_en": null,
@@ -955,46 +1005,45 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261019-516",
-      "headline": "Stock Market Today, Oct. 19: Cleveland-Cliffs Surges on Stronger Q3 Results and Raised 2027 EBITDA Outlook",
+      "inbox_id": "INB-20261019-526",
+      "headline": "Maximus To Acquire Agile Defense For $660 Mln",
       "headline_en": null,
-      "url": "https://www.fool.com/coverage/stock-market-today/2026/10/19/stock-market-today-oct-19-cleveland-cliffs-surges-on-stronger-q3-results-and-raised-2027-ebitda-outlook/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
+      "url": "https://www.nasdaq.com/articles/maximus-acquire-agile-defense-660-mln",
+      "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-10-19T21:17:27Z",
+      "found_at": "2026-10-19T21:17:50Z",
       "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Cleveland-Cliffs reported strong Q3 results and raised its 2027 EBITDA outlook.",
+      "prelim_note": "Maximus is acquiring Agile Defense for $660 million.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Cleveland-Cliffs reported strong Q3 results and raised its 2027 EBITDA outlook.",
+      "triage_reason": "Maximus is acquiring Agile Defense for $660 million.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 80,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 80,
+        "materiality": 75,
         "source_tier": 0,
-        "scope": 6,
-        "event": 7,
+        "scope": 5,
+        "event": 9,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
+        "materiality_label_floor": 10,
+        "quantified": 6,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "guidance_change",
+        "event_id": "mna",
         "size_bucket": "large"
       },
       "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Cleveland-Cliffs",
+          "name": "Maximus",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1957,65 +2006,6 @@
           "name": "Hindustan Zinc",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-344",
-      "headline": "Silgan, American Industrial to buy Trivium Packaging in $3.4 billion deal",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/silgan-american-industrial-buy-trivium-packaging-34-billion-deal-2026-10-19/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T11:26:23Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Silgan and American Industrial are acquiring Trivium Packaging for 3.4 billion USD.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Silgan and American Industrial are acquiring Trivium Packaging for 3.4 billion USD.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Silgan",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "American Industrial",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Trivium Packaging",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -228767,9 +228757,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5081464,
-    "news_picked_today": 1145,
-    "news_dropped_today": 10697
+    "news_seen_today": 5105156,
+    "news_picked_today": 1154,
+    "news_dropped_today": 10712
   },
   "book_momentum": {
     "live_count": 8,
