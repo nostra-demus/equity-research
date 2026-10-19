@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T03:46:26Z",
+  "generated_at": "2026-10-19T03:56:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-130",
@@ -845,6 +845,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-141",
+      "headline": "RBI announces $10.5 billion liquidity infusion via repo",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/forex/rbi-announces-10-5-billion-liquidity-infusion-via-repo/articleshow/135038836.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T03:33:42Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "The RBI is injecting $10.5 billion in liquidity, a significant move for Indian financial markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "The RBI is injecting $10.5 billion in liquidity, a significant move for Indian financial markets.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-026",
       "headline": "AIV: Mt Hogan Gold Project Resource Increase [price-sensitive]",
       "headline_en": null,
@@ -1391,6 +1434,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-145",
+      "headline": "Twiggy, Federation-backed $5b Bungaban wind project hunts for cash",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/twiggy-federation-backed-5b-bungaban-wind-project-hunts-for-cash-20261019-p616ph?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T03:51:42Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "A $5 billion wind project is seeking capital, representing a major infrastructure investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "A $5 billion wind project is seeking capital, representing a major infrastructure investment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bungaban",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-139",
+      "headline": "Q2 Results LIVE Updates: Axis Bank shares decline nearly 4%; UltraTech, Bajaj Fin report today",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/q2-results-live-updates-today-ultratech-bajaj-fin-ireda-piramal-union-bank-hzl-hdfc-axis-icici-yes-hfcl-just-dial-share-price-liveblog-20014571.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T03:46:47Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Axis Bank shares declined nearly 4% following Q2 results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Axis Bank shares declined nearly 4% following Q2 results.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Axis Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-096",
       "headline": "IndiGo Faces Fuel Cost Squeeze As Jefferies, Nomura Stick To 'Buy'; Airfare Rules Loom",
       "headline_en": null,
@@ -1824,155 +1965,6 @@
           "name": "Tiger Shroff",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-106",
-      "headline": "US lawmakers seek probe into Starlink disruption",
-      "headline_en": null,
-      "url": "https://gulfnews.com/technology/us-lawmakers-seek-probe-into-starlink-disruption-1.500715419",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T02:22:39Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "US lawmakers are seeking a probe into Starlink service disruptions, which could lead to regulatory scrutiny or operational risk for SpaceX.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "US lawmakers are seeking a probe into Starlink service disruptions, which could lead to regulatory scrutiny or operational risk for SpaceX.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-089",
-      "headline": "Subaru targets software-defined vehicle launch for late 2020s, plans to cut development times by 40%",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/subaru-targets-software-defined-vehicle-launch-late-2020s-plans-cut-development-2026-10-19/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T02:12:02Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Subaru announced a strategic shift to software-defined vehicles with a 40% reduction in development time.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Subaru announced a strategic shift to software-defined vehicles with a 40% reduction in development time.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Subaru",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-043",
-      "headline": "Qubic freezes chain after attacker drains 1.4K wallets with weak seeds",
-      "headline_en": null,
-      "url": "https://cointelegraph.com/news/qubic-freezes-chain-after-attacker-drains-14k-wallets-with-weak-seeds?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source_name": "Cointelegraph",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T01:03:27Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Qubic blockchain experienced a security breach resulting in the theft of funds from 1.4K wallets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Qubic blockchain experienced a security breach resulting in the theft of funds from 1.4K wallets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations",
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Qubic",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -186316,76 +186308,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-fbaf750de821",
-      "idea_version": "IDEAV-f04a157d726ac9f8",
-      "idea_version_started_at": "2026-10-18T04:18:08Z",
-      "ticker": "STLA",
-      "company": "Stellantis",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The initiation of a strike mandate vote introduces significant operational risk and potential production disruption, which would negatively impact quarterly cash flow and margins.",
-      "why_now": "The vote began on 2026-10-17 and will last for two days, creating a window of high uncertainty.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 61,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ae129a3e02be"
-      ],
-      "primary_source_event_id": "EVT-ae129a3e02be",
-      "source_headlines": [
-        "Stellantis workers begin two-day vote on strike mandate"
-      ],
-      "source_headline": "Stellantis workers begin two-day vote on strike mandate",
-      "source_url": "https://www.theglobeandmail.com/business/article-stellantis-workers-begin-two-day-vote-on-strike-mandate/",
-      "source_name": "The Globe and Mail",
-      "materiality_max": 83,
-      "newest_source_at": "2026-10-17T15:48:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-18T04:18:08Z",
-      "updated_at": "2026-10-18T04:18:08Z",
-      "decay_at": "2026-10-19T03:48:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-af31c2e0f9bf",
       "idea_version": "IDEAV-95466bea03847a08",
       "idea_version_started_at": "2026-10-18T02:20:51Z",
@@ -189531,6 +189453,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-fbaf750de821",
+      "idea_version": "IDEAV-f04a157d726ac9f8",
+      "idea_version_started_at": "2026-10-18T04:18:08Z",
+      "ticker": "STLA",
+      "company": "Stellantis",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The initiation of a strike mandate vote introduces significant operational risk and potential production disruption, which would negatively impact quarterly cash flow and margins.",
+      "why_now": "The vote began on 2026-10-17 and will last for two days, creating a window of high uncertainty.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 61,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ae129a3e02be"
+      ],
+      "primary_source_event_id": "EVT-ae129a3e02be",
+      "source_headlines": [
+        "Stellantis workers begin two-day vote on strike mandate"
+      ],
+      "source_headline": "Stellantis workers begin two-day vote on strike mandate",
+      "source_url": "https://www.theglobeandmail.com/business/article-stellantis-workers-begin-two-day-vote-on-strike-mandate/",
+      "source_name": "The Globe and Mail",
+      "materiality_max": 83,
+      "newest_source_at": "2026-10-17T15:48:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-18T04:18:08Z",
+      "updated_at": "2026-10-18T04:18:08Z",
+      "decay_at": "2026-10-19T03:48:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-abd218ca6c78",
       "idea_version": "IDEAV-369bf127ef86271f",
       "idea_version_started_at": "2026-10-18T00:22:45Z",
@@ -191697,9 +191689,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 539,
     "shown_count": 499,
-    "hidden_count": 39,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
         "total_count": 278,
@@ -191707,9 +191699,9 @@
         "hidden_count": 28
       },
       "short": {
-        "total_count": 261,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 12
       }
     },
     "retention": {
@@ -191728,6 +191720,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-fbaf750de821",
+        "idea_version": "IDEAV-f04a157d726ac9f8",
+        "idea_version_started_at": "2026-10-18T04:18:08Z",
+        "ticker": "STLA",
+        "company": "Stellantis",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The initiation of a strike mandate vote introduces significant operational risk and potential production disruption, which would negatively impact quarterly cash flow and margins.",
+        "why_now": "The vote began on 2026-10-17 and will last for two days, creating a window of high uncertainty.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 61,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 15,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ae129a3e02be"
+        ],
+        "primary_source_event_id": "EVT-ae129a3e02be",
+        "source_headlines": [
+          "Stellantis workers begin two-day vote on strike mandate"
+        ],
+        "source_headline": "Stellantis workers begin two-day vote on strike mandate",
+        "source_url": "https://www.theglobeandmail.com/business/article-stellantis-workers-begin-two-day-vote-on-strike-mandate/",
+        "source_name": "The Globe and Mail",
+        "materiality_max": 83,
+        "newest_source_at": "2026-10-17T15:48:45Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-18T04:18:08Z",
+        "updated_at": "2026-10-18T04:18:08Z",
+        "decay_at": "2026-10-19T03:48:45Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-19T03:48:45Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c26051237597",
         "idea_version": "IDEAV-492b4bb31ae83908",
@@ -228821,88 +228886,12 @@
         "archived_at": "2026-09-23T23:34:59Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-b781349ed9cc",
-        "idea_version": "IDEAV-e9fe342c5bc0eb05",
-        "idea_version_started_at": "2026-09-20T15:10:12Z",
-        "ticker": "BIG.AX",
-        "company": "Big W",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Big W, a key Christmas retailer, has filed for Chapter 11 bankruptcy, indicating severe financial distress and likely liquidation of assets.",
-        "why_now": "The Chapter 11 filing is a current event, signaling immediate financial distress.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4c28e7247d11"
-        ],
-        "primary_source_event_id": "EVT-4c28e7247d11",
-        "source_headlines": [
-          "Key Christmas retailer files for Chapter 11 bankrutpcy"
-        ],
-        "source_headline": "Key Christmas retailer files for Chapter 11 bankrutpcy",
-        "source_url": "https://finance.yahoo.com/small-business/articles/key-christmas-retailer-files-chapter-140700474.html",
-        "source_name": "Yahoo Finance",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-20T14:07:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-20T15:10:12Z",
-        "updated_at": "2026-09-20T15:10:12Z",
-        "decay_at": "2026-09-22T02:07:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-23T19:44:06Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1706,
-    "live_count": 41,
+    "live_count": 40,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -228921,9 +228910,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 728,
-    "news_picked_today": 170,
-    "news_dropped_today": 558
+    "news_seen_today": 769,
+    "news_picked_today": 181,
+    "news_dropped_today": 588
   },
   "book_momentum": {
     "live_count": 8,
