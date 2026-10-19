@@ -76,7 +76,7 @@ test('Universe Model ranking, weights, search, pagination, failure recovery and 
   await page.getByRole('button', { name: 'Check an event', exact: true }).click()
   await expect(page.getByText('Existing Events workspace')).toBeVisible()
   await page.getByRole('button', { name: 'Model', exact: true }).click()
-  await page.getByRole('button', { name: 'Portfolio', exact: true }).click()
+  await page.getByRole('button', { name: /^Portfolio\b/ }).click()
   await expect(page.getByRole('button', { name: 'Model', exact: true })).toHaveCount(0)
   await expect(page.getByText('Existing Events workspace')).toBeVisible()
   expect(requests).toBeGreaterThan(3)

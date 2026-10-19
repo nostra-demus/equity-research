@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import fs from 'node:fs/promises'
-import os from 'node:os'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { createUniverseModel, finvizPageUrl, parseFinvizPage } from '../src/universe-model'
 import { MODEL_REFRESH_MS, isModelRead } from '../../shared/universe-model'
 import { addUniverseEvent, createUniverseEventsReader, readUniverseEvents, universeCompanyKey, type UniverseEventIndex } from '../src/universe-events'
@@ -37,8 +37,11 @@ assert.equal(index.companies[key].guidance?.length, 1, 'duplicates cannot add po
 addUniverseEvent(index, { ...event, event_id: 'EVT-2', url: 'https://example.test/two', companies: [{ ticker: 'CO0', name: 'Other issuer', listing_country: 'IN' }] })
 assert.equal(Object.keys(index.companies).length, 1, 'foreign ticker collisions are not issuer matches')
 addUniverseEvent(index, { ...event, event_id: 'EVT-old', found_at: '2026-01-01T00:00:00Z' })
-addUniverseEvent(index, { ...event, event_id: 'EVT-low', event_types: ['commercial'], event_materiality_label: 'low', materiality_pre_score: 30 })
+addUniverseEvent(index, { ...event, event_id: 'EVT-low', event_types: ['commercial'], event_materiality_label: 'low', triage_score: 80 })
+addUniverseEvent(index, { ...event, event_id: 'EVT-legacy', event_types: ['commercial'], found_at: undefined })
 assert.equal(index.companies[key].contracts, undefined)
+addUniverseEvent(index, { ...event, event_id: 'EVT-legacy-score', event_types: ['operations'], event_materiality_label: undefined, triage_score: 80 })
+assert.equal(index.companies[key].operations?.length, 1, 'legacy rows use the persisted triage priority')
 let indexCalls = 0
 const reader = createUniverseEventsReader('', '', async () => { indexCalls++; return index })
 const subject = { ...page.rows[0], company: 'Company zero Ltd' }
@@ -71,7 +74,9 @@ assert.equal(scans, 2, 'only a changing partition is rebuilt')
 await assert.rejects(readUniverseEvents('fixture-unreadable', '', at, { ...io,
   scan: () => ({ status: 'unreadable', lines: 0, complete: true, next: null }) }), /incomplete/)
 
-const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'universe-model-'))
+const fixtures = fileURLToPath(new URL('../../../.cache/finviz-model-tests/', import.meta.url))
+await fs.mkdir(fixtures, { recursive: true })
+const dir = await fs.mkdtemp(path.join(fixtures, 'run-'))
 try {
   const inbox = path.join(dir, 'screener/inbox')
   await fs.mkdir(inbox, { recursive: true })

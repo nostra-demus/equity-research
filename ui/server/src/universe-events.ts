@@ -2,6 +2,7 @@ import { MODEL_SIGNALS, type EventCoverage, type ModelEvent, type ModelRow, type
 import { firehoseStamp, listFirehoseDates, scanDayItems } from './news/feed'
 import { coreCompanyName, normTicker } from './news/symbology'
 import { deriveSourceTier } from './news/scope'
+import { deriveMaterialityLabel } from './news/rank'
 import type { FeedItem } from './news/types'
 import { runDiscoveryInWorker } from './news/ideas/ideas-worker'
 
@@ -11,20 +12,21 @@ const timeBounds = new WeakMap<EventCoverage, { from: number; to: number }>()
 
 /** Uses existing triage tags, never another LLM, paid lookup or new headline classifier. The index is
  * an archive observation, not proof of a still-pending catalyst or a verified trading opportunity. */
-export function addUniverseEvent(index: UniverseEventIndex, item: FeedItem, evidenceLimit = 3, time = Date.parse(item.found_at)): void {
+export function addUniverseEvent(index: UniverseEventIndex, item: FeedItem, evidenceLimit = 3, time = Date.parse(item.found_at || '')): void {
+  const reportedAt = item.found_at
   let bounds = timeBounds.get(index.coverage)
   if (!bounds) { bounds = { from: Date.parse(index.coverage.from), to: Date.parse(index.coverage.to) }; timeBounds.set(index.coverage, bounds) }
-  if (!Number.isFinite(time) || time < bounds.from || time > bounds.to) return
+  if (!reportedAt || !Number.isFinite(time) || time < bounds.from || time > bounds.to) return
   index.coverage.reports_scanned++
-  if (!index.coverage.latest_report_at || time > Date.parse(index.coverage.latest_report_at)) index.coverage.latest_report_at = item.found_at
-  if (item.relevance !== 'material' || (!['high', 'critical'].includes(item.event_materiality_label || '') && (item.materiality_pre_score ?? 0) < 70)
+  if (!index.coverage.latest_report_at || time > Date.parse(index.coverage.latest_report_at)) index.coverage.latest_report_at = reportedAt
+  if (item.relevance !== 'material' || !['high', 'critical'].includes(item.event_materiality_label || deriveMaterialityLabel(item.triage_score))
     || !['primary', 'secondary'].includes(item.issuer_linkage) || item.event_types?.includes('rumor') || !/^https?:\/\//i.test(item.url || '')) return
   const tier = item.source_tier || deriveSourceTier(item)
   if (tier === 'social' || tier === 'unconfirmed') return
   const signals = MODEL_SIGNALS.filter((signal) => signal.types.some((tag) => item.event_types?.includes(tag)))
   if (!signals.length) return
   const event: ModelEvent = { id: item.dedup_group || item.event_id, headline: item.headline_en || item.headline,
-    url: item.url, source: item.source_name, reported_at: item.found_at, source_tier: tier,
+    url: item.url, source: item.source_name, reported_at: reportedAt, source_tier: tier,
     direction: item.event_direction || 'unknown' }
   for (const company of item.companies || []) {
     // Headline tags are inferred. Require BOTH exact ticker and normalized company name when joining
@@ -71,7 +73,7 @@ export async function readUniverseEvents(root: string, archiveDir: string, nowIS
       // timestamps for filtering at read time; neither clock may be frozen to the initial scan.
       day = { coverage: { ...index.coverage, to: '9999-12-31T23:59:59.999Z', reports_scanned: 0, latest_report_at: null }, companies: {} }
       const scan = io.scan(root, date, archiveDir, { strict: true }, (item) => {
-        const time = Date.parse(item.found_at); if (Number.isFinite(time)) times.push(time)
+        const time = Date.parse(item.found_at || ''); if (Number.isFinite(time)) times.push(time)
         addUniverseEvent(day!, item, Infinity, time); return true
       })
       if (scan.status !== 'read' || !scan.complete) throw new Error(`Event archive is incomplete for ${date}.`)
