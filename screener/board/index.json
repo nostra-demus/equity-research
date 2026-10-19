@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T16:01:12Z",
+  "generated_at": "2026-10-19T16:33:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-386",
@@ -596,6 +596,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-398",
+      "headline": "Delta Corp Q2 results: Casino firm swings to ₹106 crore loss as GST provisions mount",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/delta-corp-q2-results-casino-firm-swings-to-rs106-crore-loss-as-gst-provisions-mount-20015349.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T15:50:36Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Delta Corp swung to a ₹106 crore Q2 loss as GST provisions increased.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Delta Corp swung to a ₹106 crore Q2 loss as GST provisions increased.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 13,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Delta Corp",
+          "ticker": "DELTA",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1974,56 +2023,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-233",
-      "headline": "Accenture eyes sale of Chinese operations for up to $1.5bn",
-      "headline_en": null,
-      "url": "https://www.cityam.com/accenture-eyeing-sale-of-chinese-operations-for-up-to-1-5bn/",
-      "source_name": "City A.M.",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T05:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Accenture is considering a divestment of its Chinese operations valued at up to $1.5bn.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Accenture is considering a divestment of its Chinese operations valued at up to $1.5bn.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Accenture",
-          "ticker": "ACN",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -229120,9 +229119,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2632734,
-    "news_picked_today": 811,
-    "news_dropped_today": 7311
+    "news_seen_today": 2852290,
+    "news_picked_today": 824,
+    "news_dropped_today": 7322
   },
   "book_momentum": {
     "live_count": 8,
