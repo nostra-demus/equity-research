@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T02:41:10Z",
+  "generated_at": "2026-10-19T02:46:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-098",
@@ -1134,6 +1134,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-106",
+      "headline": "US lawmakers seek probe into Starlink disruption",
+      "headline_en": null,
+      "url": "https://gulfnews.com/technology/us-lawmakers-seek-probe-into-starlink-disruption-1.500715419",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T02:22:39Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "US lawmakers are seeking a probe into Starlink service disruptions, which could lead to regulatory scrutiny or operational risk for SpaceX.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "US lawmakers are seeking a probe into Starlink service disruptions, which could lead to regulatory scrutiny or operational risk for SpaceX.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-089",
       "headline": "Subaru targets software-defined vehicle launch for late 2020s, plans to cut development times by 40%",
       "headline_en": null,
@@ -1907,61 +1956,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-022",
-      "headline": "Food services platform Focus Prism raises ₹145 crore from OAKS, buys Chennai-based catering firm FoodExo",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/focus-prism-food-services-oaks-asset-management-145-crore-fundraise-foodexo-catering-acquisition-11792309818833.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T00:30:47Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Focus Prism raised ₹145 crore and completed an acquisition of FoodExo, indicating expansion and capital inflow.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Focus Prism raised ₹145 crore and completed an acquisition of FoodExo, indicating expansion and capital inflow.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Focus Prism",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "FoodExo",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -228903,9 +228897,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 513,
-    "news_picked_today": 123,
-    "news_dropped_today": 390
+    "news_seen_today": 528,
+    "news_picked_today": 126,
+    "news_dropped_today": 402
   },
   "book_momentum": {
     "live_count": 8,
