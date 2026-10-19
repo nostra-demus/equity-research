@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T08:51:04Z",
+  "generated_at": "2026-10-19T08:54:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-261",
@@ -352,6 +352,60 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-287",
+      "headline": "Foxconn To Acquire 50% Stake In Mitsubishi Electric Mobility For 115 Bln Yen",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/foxconn-acquire-50-stake-mitsubishi-electric-mobility-115-bln-yen",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T07:38:56Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Foxconn to acquire a 50% stake in Mitsubishi Electric Mobility for 115 billion yen.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Foxconn to acquire a 50% stake in Mitsubishi Electric Mobility for 115 billion yen.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Foxconn",
+          "ticker": null,
+          "listing_country": "TW"
+        },
+        {
+          "name": "Mitsubishi Electric",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1695,6 +1749,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-285",
+      "headline": "Gamma Communications delays crunch investor vote on £1bn takeover which would see it exit FTSE 250",
+      "headline_en": null,
+      "url": "https://www.thisismoney.co.uk/money/markets/article-16219977/Gamma-Communications-delays-crunch-investor-vote-1bn-takeover-exit-FTSE-250.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T08:24:46Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Gamma Communications delayed a vote on a £1bn takeover deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Gamma Communications delayed a vote on a £1bn takeover deal.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gamma Communications",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-284",
+      "headline": "Federal Bank Shares Jump 4% After Acquisition Comments, Jana SFB Falls Nearly 10%",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/federal-bank-to-explore-acquisitions-but-no-active-talks-under-way-says-executive-director-venkataraman-v-12205364#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T07:54:53Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Federal Bank shares rose on acquisition comments while Jana SFB fell nearly 10%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Federal Bank shares rose on acquisition comments while Jana SFB fell nearly 10%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Federal Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Jana Small Finance Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-136",
       "headline": "Hyundai Rotem Acquires Hyundai Wia Defense Unit, Strengthening Vertical Integration",
       "headline_en": null,
@@ -1842,147 +1999,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-094",
-      "headline": "HE8: Breach of Listing Rule 7.1",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HE8?key=2924-03149973-6A1349897",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-19T02:21:00Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Company reported a breach of ASX Listing Rule 7.1 regarding share issuance limits.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Company reported a breach of ASX Listing Rule 7.1 regarding share issuance limits.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HiTech Group",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-246",
-      "headline": "Oil prices fall from five-month highs to $107.9 as U.S. eases Russia sanctions",
-      "headline_en": null,
-      "url": "https://economymiddleeast.com/news/oil-prices-fall-from-five-month-highs-to-107-9-as-u-s-eases-russia-sanctions/?utm_source=rss&utm_medium=rss&utm_campaign=oil-prices-fall-from-five-month-highs-to-107-9-as-u-s-eases-russia-sanctions",
-      "source_name": "Economy Middle East",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T05:40:47Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Oil prices dropped to $107.9 following the easing of sanctions on Russia, representing a significant supply-side shift.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Oil prices dropped to $107.9 following the easing of sanctions on Russia, representing a significant supply-side shift.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-235",
-      "headline": "Ixigo shares rally 13% after travel platform reports all-time high profit",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/ixigo-shares-rally-13-after-travel-platform-reports-all-time-high-profit/articleshow/135040268.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T05:03:40Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Ixigo reported an all-time high profit, driving a 13% share price increase.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Ixigo reported an all-time high profit, driving a 13% share price increase.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ixigo",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -229003,9 +229019,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 628274,
-    "news_picked_today": 430,
-    "news_dropped_today": 5172
+    "news_seen_today": 646265,
+    "news_picked_today": 443,
+    "news_dropped_today": 5183
   },
   "book_momentum": {
     "live_count": 8,
