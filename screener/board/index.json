@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-10-19T13:41:48Z",
+  "generated_at": "2026-10-19T14:13:41Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261019-386",
+      "headline": "Transrail Lighting Limited: The Board has approved Acquisition of 49% equity stake in NOPL Pace Green Energy Private Limited",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TRANSRAIL_19102026190308_OutcomeBM19102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T13:34:33Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Transrail Lighting Limited's board has approved the acquisition of a 49% equity stake in NOPL Pace Green Energy Private Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Transrail Lighting Limited's board has approved the acquisition of a 49% equity stake in NOPL Pace Green Energy Private Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Transrail Lighting Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "NOPL Pace Green Energy Private Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261019-350",
       "headline": "GCL TECH (03800): VOLUNTARY ANNOUNCEMENT - MEMORANDUM OF UNDERSTANDING IN RELATION TO THE POSSIBLE ACQUISITION OF THE TARGET COMPANY IN THE LITHIUM BATTERY INDUSTRY",
@@ -1970,55 +2024,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-238",
-      "headline": "Rossari Biotech Q2 Revenue ₹697.6 Crore, Up 19%; EBITDA ₹87 Crore, A 20.9% Rise",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/rossari-biotech-q2-revenue-6976-crore-up-19-ebitda-87-crore-a-209-rise",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T04:55:12Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Rossari Biotech reported Q2 revenue of 697.6 crore, up 19%, and EBITDA of 87 crore, up 20.9%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Rossari Biotech reported Q2 revenue of 697.6 crore, up 19%, and EBITDA of 87 crore, up 20.9%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rossari Biotech",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -229113,9 +229118,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1816152,
-    "news_picked_today": 777,
-    "news_dropped_today": 7249
+    "news_seen_today": 1981957,
+    "news_picked_today": 792,
+    "news_dropped_today": 7258
   },
   "book_momentum": {
     "live_count": 8,
