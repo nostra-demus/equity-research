@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-19T23:11:44Z",
+  "generated_at": "2026-10-19T23:16:10Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261019-533",
+      "headline": "INA: Warburg Pincus Further Revised Indicative Proposal Update [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.INA?key=2924-03150457-2A1705024",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T22:59:10Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Update on a revised takeover proposal from Warburg Pincus.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Update on a revised takeover proposal from Warburg Pincus.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "InvoCare",
+          "ticker": "INA",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261019-517",
       "headline": "GA8: GoldArc Completes Niagara Acquisition",
@@ -1960,55 +2009,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-339",
-      "headline": "HFCL raises FY27 revenue growth forecast to at least 80% on data centre demand",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/hfcl-q2-results-fy27-revenue-growth-guidance-data-center-demand-defence-business-20015015.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T11:31:51Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "HFCL raised its FY27 revenue growth forecast to at least 80%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "HFCL raised its FY27 revenue growth forecast to at least 80%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HFCL",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -229255,9 +229255,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5634018,
-    "news_picked_today": 1258,
-    "news_dropped_today": 11112
+    "news_seen_today": 5680718,
+    "news_picked_today": 1266,
+    "news_dropped_today": 11128
   },
   "book_momentum": {
     "live_count": 8,
