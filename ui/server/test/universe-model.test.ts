@@ -81,6 +81,14 @@ try {
     calls++
     const offset = Number(new URL(url).searchParams.get('r')) - 1
     if (fail && offset) throw new Error('HTTP 429: access restricted')
+    const tickers = new URL(url).searchParams.get('t')?.split(',')
+    if (tickers) {
+      const value = props(0, tickers.length)
+      value.url = url
+      value.data.pageSize = 20
+      value.data.rows = tickers.map((ticker, i) => ({ text: { ticker, company: `Company ${ticker.slice(2)}` }, numbers: { order: i, price: 12.5 } as any }))
+      return html(value)
+    }
     const value = props(offset, changeTotal && offset ? 4 : 3)
     if (repeat && offset) value.data.rows[0].text.ticker = 'CO0'
     return html(value)
@@ -90,13 +98,13 @@ try {
   assert.equal(first.complete, false)
   await model.read(); await model.read()
   await model.settled()
-  assert.equal(calls, 2, 'simultaneous readers share one full sweep')
+  assert.equal(calls, 3, 'simultaneous readers share one membership sweep and one price batch')
   const ready = await model.read()
   assert.ok(isModelRead(ready))
   assert.equal(ready.complete, true)
   assert.equal(ready.rows.length, 3)
   const frozen = await fs.readFile(file, 'utf8')
-  await model.read(); assert.equal(calls, 2, 'check-updates does not bypass TTL')
+  await model.read(); assert.equal(calls, 3, 'check-updates does not bypass TTL')
   fail = true; time += MODEL_REFRESH_MS
   const during = await model.read()
   assert.equal(during.rows.length, 3, 'retain the complete grid during refresh')

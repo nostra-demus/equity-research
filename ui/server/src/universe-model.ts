@@ -12,17 +12,24 @@ const PAGE_GAP_MS = 2_000
 const MAX_ROWS = 10_000
 const MAX_HTML_BYTES = 2_000_000
 
-export function finvizPageUrl(firstRow: number): string {
+export function finvizPageUrl(firstRow: number, tickers?: string[]): string {
   const url = new URL(UNIVERSE_URL)
   url.searchParams.delete('preset') // Account-local preset IDs do not authenticate a public screen.
   url.searchParams.set('v', '151')
   url.searchParams.set('c', COLUMNS)
   url.searchParams.set('o', 'ticker')
   url.searchParams.set('r', String(firstRow + 1)) // Finviz r is one-based; SSR firstRow is zero-based.
+  if (tickers) { url.searchParams.delete('f'); url.searchParams.set('t', tickers.join(',')) }
+  return url.toString()
+}
+export function finvizUniverseUrl(firstRow: number): string {
+  const url = new URL(finvizPageUrl(firstRow))
+  url.searchParams.set('v', '411') // The free Tickers view returns up to 1,000 names per public page.
+  url.searchParams.delete('c')
   return url.toString()
 }
 
-export function parseFinvizPage(html: string, firstRow: number, retrievedAt: string): { rows: ModelRow[]; total: number; pageSize: number } {
+export function parseFinvizPage(html: string, firstRow: number, retrievedAt: string, tickers?: string[]): { rows: ModelRow[]; total: number; pageSize: number } {
   // Parse inert JSON only. Never evaluate a provider script or trust markup as instructions.
   const scripts = [...html.matchAll(/<script\b(?=[^>]*\btype="application\/json")(?=[^>]*\bdata-ssr-props=)[^>]*>([\s\S]*?)<\/script>/gi)]
   let props: any
@@ -32,16 +39,17 @@ export function parseFinvizPage(html: string, firstRow: number, retrievedAt: str
   const data = props?.data
   const sourceUrl = typeof props?.url === 'string' ? new URL(props.url, 'https://finviz.com') : null
   const filters = sourceUrl?.searchParams.get('f')?.split(',').sort().join(',')
-  if (!data || filters !== 'cap_midover,sh_avgvol_o50' || props.screenerType !== 'stocks'
-    || !Number.isInteger(data.totalCount) || data.totalCount < 1 || data.totalCount > MAX_ROWS
-    || data.firstRow !== firstRow || !Number.isInteger(data.pageSize) || data.pageSize < 1 || data.pageSize > 100
+  const correctScope = tickers ? sourceUrl?.searchParams.get('t') === tickers.join(',') && !sourceUrl?.searchParams.has('f') : filters === 'cap_midover,sh_avgvol_o50'
+  if (!data || !correctScope || props.screenerType !== 'stocks'
+    || !Number.isInteger(data.totalCount) || data.totalCount < (tickers ? 0 : 1) || data.totalCount > (tickers?.length ?? MAX_ROWS)
+    || data.firstRow !== firstRow || !Number.isInteger(data.pageSize) || data.pageSize < 1 || data.pageSize > (tickers ? 20 : 1000)
     || !Array.isArray(data.rows) || data.rows.length !== Math.min(data.pageSize, data.totalCount - firstRow)) {
     throw new Error('Finviz did not return the expected free screener page. The layout or access may have changed.')
   }
   const rows = data.rows.map((raw: any, i: number): ModelRow => {
     const { text, numbers } = raw ?? {}
     if (!text || !/^[A-Z0-9.^-]{1,20}$/.test(text.ticker) || typeof text.company !== 'string' || !text.company.trim()
-      || !numbers || numbers.order !== firstRow + i) throw new Error('Finviz returned an invalid company row.')
+      || !numbers || numbers.order !== firstRow + i || (tickers && !tickers.includes(text.ticker))) throw new Error('Finviz returned an invalid company row.')
     return { ticker: text.ticker, company: text.company.trim(), currency: 'USD', retrieved_at: retrievedAt,
       price: typeof numbers.price === 'number' && Number.isFinite(numbers.price) && numbers.price > 0 ? numbers.price : null, signals: null }
   })
@@ -87,6 +95,7 @@ export function createUniverseModel(file: string, deps: {
   let loaded: Promise<void> | null = null
   let pending: Promise<void> | null = null
   let progress: ModelRow[] = []
+  let fetched = 0
   let total: number | null = null
   let startedAt: string | null = null
   let nextAt = 0
@@ -102,14 +111,14 @@ export function createUniverseModel(file: string, deps: {
     } catch { /* First use or invalid cache: fetch anew, never manufacture rows. */ }
   })()
   const sweep = async () => {
-    progress = []; total = null; error = null; startedAt = new Date(now()).toISOString()
+    progress = []; fetched = 0; total = null; error = null; startedAt = new Date(now()).toISOString()
     try {
       let firstRow = 0
       const tickers = new Set<string>()
       while (!closed) {
         if (firstRow) await wait(PAGE_GAP_MS)
         if (closed) return
-        const html = await fetchPage(finvizPageUrl(firstRow))
+        const html = await fetchPage(finvizUniverseUrl(firstRow))
         const page = parseFinvizPage(html, firstRow, new Date(now()).toISOString())
         if (total !== null && page.total !== total) throw new Error('Universe membership changed during refresh. Retrying the complete screen at the next refresh.')
         total = page.total
@@ -118,8 +127,26 @@ export function createUniverseModel(file: string, deps: {
           tickers.add(row.ticker)
         }
         progress.push(...page.rows)
+        fetched = progress.length
         firstRow += page.rows.length
         if (firstRow >= total) break
+      }
+      if (closed) return
+      // Freeze membership before checking prices. Reapplying the cap filter for 100 price pages lets
+      // a stock crossing $2bn move pagination boundaries and invalidate the entire refresh.
+      fetched = 0
+      for (let offset = 0; offset < progress.length; offset += 20) {
+        await wait(PAGE_GAP_MS)
+        if (closed) return
+        const tickers = progress.slice(offset, offset + 20).map((row) => row.ticker)
+        const html = await fetchPage(finvizPageUrl(0, tickers))
+        const quotes = parseFinvizPage(html, 0, new Date(now()).toISOString(), tickers)
+        const byTicker = new Map(quotes.rows.map((row) => [row.ticker, row]))
+        for (let i = offset; i < offset + tickers.length; i++) {
+          const quote = byTicker.get(progress[i].ticker)
+          progress[i] = { ...progress[i], price: quote?.price ?? null, retrieved_at: quote?.retrieved_at ?? progress[i].retrieved_at }
+        }
+        fetched += tickers.length
       }
       if (closed) return
       const complete: ModelRead = { schema_version: MODEL_SCHEMA, source_url: UNIVERSE_URL, rows: progress, total,
@@ -143,7 +170,7 @@ export function createUniverseModel(file: string, deps: {
       if (!closed && !pending && now() >= nextAt) pending = sweep().finally(() => { pending = null })
       const completeAt = saved?.completed_at ?? null
       return { schema_version: MODEL_SCHEMA, source_url: UNIVERSE_URL, rows: saved?.rows ?? progress,
-        total: saved?.total ?? total, complete: !!saved, refreshing: !!pending, fetched: progress.length,
+        total: saved?.total ?? total, complete: !!saved, refreshing: !!pending, fetched,
         started_at: startedAt ?? saved?.started_at ?? null, completed_at: completeAt,
         next_refresh_at: nextAt ? new Date(nextAt).toISOString() : null,
         stale: !completeAt || now() - Date.parse(completeAt) >= MODEL_REFRESH_MS || !!error, error, events: null }

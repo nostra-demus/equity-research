@@ -78,20 +78,21 @@ export function ModelView() {
       <a href={UNIVERSE_URL} target="_blank" rel="noreferrer">Open Finviz universe ↗</a></div>
     <div className="model__status" role="status">
       <strong>{read?.complete ? `${read.rows.length.toLocaleString()} companies` : 'Loading the full universe'}</strong>
-      {read?.refreshing && <span>Refreshing · {read.fetched.toLocaleString()}{read.total ? ` / ${read.total.toLocaleString()}` : ''} retrieved</span>}
+      {read?.refreshing && <span>Refreshing · {read.fetched.toLocaleString()}{read.total ? ` / ${read.total.toLocaleString()}` : ''} checked</span>}
       {read?.complete && <span>{read.stale ? 'Saved data · refresh due' : 'Latest completed refresh'} · {date(read.completed_at)}</span>}
       {!read?.complete && !!read?.rows.length && <span>Partial coverage · ranking includes only retrieved companies</span>}
       <span>Free Finviz pages · delayed quotes · refresh every 30 minutes while open</span>
-      <span>Event archive · checked {date(eventCoverage?.checked_at ?? null)} · {eventCoverage?.archive_days ?? 0} days with saved reports in the 90-day lookback</span>
+      <span>Event archive · {eventCoverage?.reports_scanned ? `checked ${date(eventCoverage.checked_at)}` : eventCoverage?.refreshing ? 'loading saved reports' : 'coverage unavailable'} · {eventCoverage?.archive_days ?? 0} days with saved reports in the 90-day lookback</span>
       {eventCoverage?.latest_report_at && <span>Newest archived report · {date(eventCoverage.latest_report_at)}</span>}
     </div>
-    <p className="model__note">3–6 month trade research · events reported in the past 90 days. ✓ Material event found (open for sources) · ✕ No matching report in the saved archive · — Coverage unavailable. Missing reports do not prove no event occurred. Classifications and issuer matches are inferred.</p>
-    <p className="model__note">Total measures event activity, including adverse events; it is not a bullish trade score. Each category counts once, with 1 point by default. You can assign negative weights to risk signals. Routine meetings, record dates, small employee grants and price/valuation indicators are excluded. Quote timestamps are unavailable; retrieval times are shown.</p>
+    <p className="model__note">3–6 month trade research · past 90 days of reports. ✓ Material event found (open for sources) · ✕ No matching archived report · — Coverage unavailable.</p>
+    <p className="model__note">Total counts event categories, including adverse events; it is an activity score. Each category earns 1 point by default. Classifications and issuer matches are inferred.</p>
     {!!read?.rows.length && read.rows.every((row) => row.signals === null) && <p role="status">Event coverage is unavailable or not fresh enough to score. The existing scanner must have saved reports within the last 48 hours; dashes stay unscored.</p>}
     {(error || read?.error || eventCoverage?.error) && <div className="model__error" role="alert"><span>{error || read?.error || eventCoverage?.error}{read?.error && read.next_refresh_at && ` Next Finviz attempt after ${date(read.next_refresh_at)}.`}</span>
       <button type="button" disabled={loading} onClick={() => void refresh()}>Retry</button></div>}
     <details className="model__rules"><summary>Signal rules and weights</summary>
       <p>Weights are saved in this browser. Changing a weight immediately reorders the whole universe.</p>
+      <p>You can assign negative weights to risk signals. Missing archived reports do not prove that no event occurred, and a past report does not prove a catalyst remains pending. Routine meetings, record dates, small employee grants and price/valuation indicators are excluded. Prices have retrieval times; individual quote timestamps are unavailable.</p>
       <div className="model__weights">{MODEL_SIGNALS.map((signal) => <label key={signal.id}>{signal.label}<small>{signal.rule}</small>
         <input type="text" inputMode="decimal" value={drafts[signal.id] ?? String(weights[signal.id])} aria-label={`${signal.label} weight`}
           onChange={(e) => {

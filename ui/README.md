@@ -25,8 +25,10 @@ count, latest report time, and scan time, without claiming exhaustive market cov
 
 `GET /api/screener/universe-model` shares one paced public-page sweep across all viewers. The Model
 checks every 15 seconds while visible; a new full sweep is eligible 30 minutes after the previous
-attempt ends. A 2,000-name screen needs about 100 pages at two seconds between requests, plus network
-time. Quotes are Finviz's free delayed data, not an exchange real-time feed; individual quote timestamps
+attempt ends. The free Tickers view freezes membership in 1,000-name pages, then free price pages check
+20 of those names at a time. This avoids moving pagination boundaries when a company crosses $2bn
+during a longer price sweep. A 2,000-name screen needs about 102 pages at two seconds between requests,
+plus network time. Quotes are Finviz's free delayed data, not an exchange real-time feed; individual quote timestamps
 are unavailable, so each row shows its retrieval time. Closing the view stops scheduling new sweeps.
 No Elite token, subscription, trial, paid search/enrichment API or per-company quote calls are used.
 
