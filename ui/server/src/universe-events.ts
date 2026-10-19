@@ -7,12 +7,14 @@ import { runDiscoveryInWorker } from './news/ideas/ideas-worker'
 
 export type UniverseEventIndex = { coverage: EventCoverage; companies: Record<string, ModelSignals> }
 export const universeCompanyKey = (ticker: string, company: string) => `${normTicker(ticker)}|${coreCompanyName(company)}`
+const timeBounds = new WeakMap<EventCoverage, { from: number; to: number }>()
 
 /** Uses existing triage tags, never another LLM, paid lookup or new headline classifier. The index is
  * an archive observation, not proof of a still-pending catalyst or a verified trading opportunity. */
-export function addUniverseEvent(index: UniverseEventIndex, item: FeedItem, evidenceLimit = 3): void {
-  const time = Date.parse(item.found_at)
-  if (!Number.isFinite(time) || time < Date.parse(index.coverage.from) || time > Date.parse(index.coverage.to)) return
+export function addUniverseEvent(index: UniverseEventIndex, item: FeedItem, evidenceLimit = 3, time = Date.parse(item.found_at)): void {
+  let bounds = timeBounds.get(index.coverage)
+  if (!bounds) { bounds = { from: Date.parse(index.coverage.from), to: Date.parse(index.coverage.to) }; timeBounds.set(index.coverage, bounds) }
+  if (!Number.isFinite(time) || time < bounds.from || time > bounds.to) return
   index.coverage.reports_scanned++
   if (!index.coverage.latest_report_at || time > Date.parse(index.coverage.latest_report_at)) index.coverage.latest_report_at = item.found_at
   if (item.relevance !== 'material' || (!['high', 'critical'].includes(item.event_materiality_label || '') && (item.materiality_pre_score ?? 0) < 70)
@@ -52,7 +54,8 @@ export async function readUniverseEvents(root: string, archiveDir: string, nowIS
   dates: listFirehoseDates, stamp: firehoseStamp, scan: scanDayItems,
 }): Promise<UniverseEventIndex> {
   const now = Date.parse(nowISO)
-  const from = new Date(now - 90 * 86_400_000).toISOString()
+  const fromMs = now - 90 * 86_400_000
+  const from = new Date(fromMs).toISOString()
   const index: UniverseEventIndex = { coverage: { checked_at: nowISO, from, to: nowISO, archive_days: 0,
     reports_scanned: 0, latest_report_at: null, refreshing: false, error: null }, companies: {} }
   for (const date of io.dates(root, archiveDir)) {
@@ -69,7 +72,7 @@ export async function readUniverseEvents(root: string, archiveDir: string, nowIS
       day = { coverage: { ...index.coverage, to: '9999-12-31T23:59:59.999Z', reports_scanned: 0, latest_report_at: null }, companies: {} }
       const scan = io.scan(root, date, archiveDir, { strict: true }, (item) => {
         const time = Date.parse(item.found_at); if (Number.isFinite(time)) times.push(time)
-        addUniverseEvent(day!, item, Infinity); return true
+        addUniverseEvent(day!, item, Infinity, time); return true
       })
       if (scan.status !== 'read' || !scan.complete) throw new Error(`Event archive is incomplete for ${date}.`)
       times.sort((a, b) => a - b)
@@ -78,7 +81,7 @@ export async function readUniverseEvents(root: string, archiveDir: string, nowIS
       while (days.size > 180) days.delete(days.keys().next().value!)
     }
     index.coverage.archive_days++
-    const start = lowerBound(times, Date.parse(from)); const end = lowerBound(times, now + 1)
+    const start = lowerBound(times, fromMs); const end = lowerBound(times, now + 1)
     index.coverage.reports_scanned += end - start
     const latest = end > start ? new Date(times[end - 1]).toISOString() : null
     if (latest && (!index.coverage.latest_report_at || latest > index.coverage.latest_report_at)) index.coverage.latest_report_at = latest
@@ -86,7 +89,8 @@ export async function readUniverseEvents(root: string, archiveDir: string, nowIS
       const target = index.companies[company] ??= {}
       for (const signal of MODEL_SIGNALS) {
         for (const report of signals[signal.id] || []) {
-          if (Date.parse(report.reported_at) < Date.parse(from) || Date.parse(report.reported_at) > now) continue
+          const reportedAt = Date.parse(report.reported_at)
+          if (reportedAt < fromMs || reportedAt > now) continue
           const reports = target[signal.id] ??= []
           if (!reports.some((r) => r.id === report.id || r.url === report.url)) reports.push(report)
           reports.sort((a, b) => b.reported_at.localeCompare(a.reported_at)); reports.splice(3)

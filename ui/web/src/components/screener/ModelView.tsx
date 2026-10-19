@@ -69,7 +69,10 @@ export function ModelView() {
     setWeights(next); setPage(0)
     try { localStorage.setItem(WEIGHTS_KEY, JSON.stringify(next)) } catch { /* usable in private browsing */ }
   }
-  const ranked = useMemo(() => rankModel(read?.rows ?? [], weights).filter((r) => `${r.company} ${r.ticker}`.toLowerCase().includes(query.trim().toLowerCase())), [read?.rows, weights, query])
+  const ranked = useMemo(() => {
+    const text = query.trim().toLowerCase()
+    return rankModel((read?.rows ?? []).filter((r) => `${r.company} ${r.ticker}`.toLowerCase().includes(text)), weights)
+  }, [read?.rows, weights, query])
   const currentPage = Math.min(page, Math.max(0, Math.ceil(ranked.length / PAGE_SIZE) - 1))
   const shown = ranked.slice(currentPage * PAGE_SIZE, (currentPage + 1) * PAGE_SIZE)
   const eventCoverage = read?.events
