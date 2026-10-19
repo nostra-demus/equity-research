@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T16:33:32Z",
+  "generated_at": "2026-10-19T16:37:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-386",
@@ -601,6 +601,106 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-409",
+      "headline": "Solvay cuts 2026 forecast after Middle East conflict hits Q3",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/solvay-cuts-2026-forecast-after-middle-east-conflict-hits-q3-2026-10-19/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T16:17:09Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Solvay cut its 2026 forecast after the Middle East conflict impacted Q3 results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Solvay cut its 2026 forecast after the Middle East conflict impacted Q3 results.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Solvay",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-400",
+      "headline": "Transrail Lighting to invest ₹20 crore in solar power project, acquire 49% stake",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/energy/transrail-lighting-to-invest-rs20-crore-in-solar-power-project-acquire-49-stake-20015351.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T15:53:13Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Transrail Lighting will invest ₹20 crore in a solar power project and acquire a 49% stake.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Transrail Lighting will invest ₹20 crore in a solar power project and acquire a 49% stake.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Transrail Lighting",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-398",
       "headline": "Delta Corp Q2 results: Casino firm swings to ₹106 crore loss as GST provisions mount",
       "headline_en": null,
@@ -645,6 +745,60 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-411",
+      "headline": "Merck KGaA to buy Silence Therapeutics and its siRNA pipeline for $1.3B",
+      "headline_en": null,
+      "url": "https://endpoints.news/merck-kgaa-will-buy-silence-therapeutics-and-its-sirna-pipeline-for-1-3b/",
+      "source_name": "Endpoints News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T13:57:45Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Merck KGaA is set to acquire Silence Therapeutics and its siRNA pipeline for $1.3 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Merck KGaA is set to acquire Silence Therapeutics and its siRNA pipeline for $1.3 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Merck KGaA",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Silence Therapeutics",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1002,60 +1156,6 @@
           "name": "Bajaj Finance",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-369",
-      "headline": "Merck KGaA to Buy Silence Therapeutics for $1.1 Billion",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-19/merck-kgaa-to-buy-silence-therapeutics-for-1-1-billion",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T12:18:27Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Merck KGaA announced an agreement to acquire Silence Therapeutics for $1.1 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Merck KGaA announced an agreement to acquire Silence Therapeutics for $1.1 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Merck KGaA",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "Silence Therapeutics",
-          "ticker": null,
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -1925,104 +2025,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-230",
-      "headline": "ASX rallies to close; Challenger shares jump on TAL bid",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-to-fall-as-ai-trade-faces-earnings-test-20261019-p616gw?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T05:05:41Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Challenger shares jumped following a takeover bid, representing a significant M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Challenger shares jumped following a takeover bid, representing a significant M&A event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Challenger",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-237",
-      "headline": "Vedanta Doubles South Africa Zinc Output To 5 Lakh Tonnes With ₹5,000 Crore Investment",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/vedanta-doubles-south-africa-zinc-output-to-5-lakh-tonnes-with-5000-crore-investment",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T05:04:51Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Vedanta is investing 5000 crore to double zinc production capacity in South Africa.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Vedanta is investing 5000 crore to double zinc production capacity in South Africa.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vedanta",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -229119,9 +229121,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2852290,
-    "news_picked_today": 824,
-    "news_dropped_today": 7322
+    "news_seen_today": 2894658,
+    "news_picked_today": 839,
+    "news_dropped_today": 7331
   },
   "book_momentum": {
     "live_count": 8,

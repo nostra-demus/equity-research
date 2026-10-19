@@ -315,3 +315,4 @@ export function registerIdeasWorkspace(app: FastifyInstance, root: string, archi
     }
   })
 }
+export { readUniverseEvents } from '../../universe-events'
