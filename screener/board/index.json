@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T12:29:51Z",
+  "generated_at": "2026-10-19T12:34:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-350",
@@ -539,6 +539,163 @@
           "name": "Ramsay Health Care",
           "ticker": "RHC",
           "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-366",
+      "headline": "Bajaj Finance Q2 results: Net profit rises 29% to ₹6,367 crore; NII up 24%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/bajaj-finance-share-price-q2fy27-results-net-profit-nii-rises-asset-quality-strong-20015184.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T12:21:30Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Company reported Q2 net profit of ₹6,367 crore, up 29% YoY.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company reported Q2 net profit of ₹6,367 crore, up 29% YoY.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bajaj Finance",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-369",
+      "headline": "Merck KGaA to Buy Silence Therapeutics for $1.1 Billion",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-19/merck-kgaa-to-buy-silence-therapeutics-for-1-1-billion",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T12:18:27Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Merck KGaA announced an agreement to acquire Silence Therapeutics for $1.1 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Merck KGaA announced an agreement to acquire Silence Therapeutics for $1.1 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Merck KGaA",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "Silence Therapeutics",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-367",
+      "headline": "Q2 Results LIVE Updates: NELCO profit up 7%, Bajaj Fin Q2 net profit up 29%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/q2-results-live-updates-today-ultratech-bajaj-fin-ireda-piramal-union-bank-hzl-hdfc-axis-icici-yes-hfcl-just-dial-share-price-liveblog-20014571.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T12:17:18Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Bajaj Finance reported a 29% increase in net profit for Q2, and NELCO reported a 7% profit increase.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bajaj Finance reported a 29% increase in net profit for Q2, and NELCO reported a 7% profit increase.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bajaj Finance",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "NELCO",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1861,164 +2018,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-135",
-      "headline": "IDBI Bank shares in focus as Q2 net profit falls 39%; NII tanks nearly 50% YoY",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/idbi-bank-shares-in-focus-as-q2-net-profit-falls-39-nii-tanks-nearly-50-yoy/articleshow/135038766.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T03:27:46Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "IDBI Bank reported a 39% decline in net profit and a nearly 50% drop in net interest income, indicating significant operational weakness.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "IDBI Bank reported a 39% decline in net profit and a nearly 50% drop in net interest income, indicating significant operational weakness.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IDBI Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-121",
-      "headline": "Canada’s Fairfax revives India’s bank privatisation drive with US$5.6 billion IDBI deal",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/canadas-fairfax-revives-indias-bank-privatisation-drive-us5-6-billion-idbi-deal",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T03:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Fairfax Financial is acquiring IDBI Bank for US$5.6 billion, marking a major privatization event in the Indian banking sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Fairfax Financial is acquiring IDBI Bank for US$5.6 billion, marking a major privatization event in the Indian banking sector.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fairfax Financial",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "IDBI Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-099",
-      "headline": "Accenture weighs $1.5 billion sale of Greater China operations amid AI shift, hires JPMorgan for review: Report",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/accenture-weighs-1-5-billion-sale-of-greater-china-operations-amid-ai-shift-hires-jpmorgan-for-review-report-11792375064725.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T02:30:11Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Accenture is reportedly considering a $1.5 billion sale of its Greater China operations and has hired JPMorgan for a review.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Accenture is reportedly considering a $1.5 billion sale of its Greater China operations and has hired JPMorgan for a review.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Accenture",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "JPMorgan",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -229113,9 +229112,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1537084,
-    "news_picked_today": 684,
-    "news_dropped_today": 6766
+    "news_seen_today": 1552965,
+    "news_picked_today": 696,
+    "news_dropped_today": 6802
   },
   "book_momentum": {
     "live_count": 8,
