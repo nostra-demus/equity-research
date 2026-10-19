@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T05:57:02Z",
+  "generated_at": "2026-10-19T06:00:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-130",
@@ -1341,6 +1341,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-239",
+      "headline": "PNB shares jump 8% after Q2 results beat estimates; Jefferies, Motilal Oswal, others raise target prices",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/pnb-shares-jump-8-after-q2-results-beat-estimates-jefferies-motilal-oswal-others-raise-target-prices/articleshow/135040821.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T05:35:53Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "PNB reported Q2 results that beat estimates, leading to an 8% share price increase and analyst target price upgrades.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "PNB reported Q2 results that beat estimates, leading to an 8% share price increase and analyst target price upgrades.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Punjab National Bank",
+          "ticker": "PNB",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-094",
       "headline": "HE8: Breach of Listing Rule 7.1",
       "headline_en": null,
@@ -1921,56 +1970,6 @@
       "companies": [
         {
           "name": "Mitsubishi Heavy Industries",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-125",
-      "headline": "Nidec legal reckoning reaches founder and shares drop to decade low",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/10/19/nidec-founder-civil-liability-for-damages/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T03:01:00Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Nidec faces legal issues involving its founder, contributing to a significant decline in share price to a decade low.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Nidec faces legal issues involving its founder, contributing to a significant decline in share price to a decade low.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nidec",
           "ticker": null,
           "listing_country": "JP"
         }
@@ -228998,9 +228997,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 52481,
-    "news_picked_today": 319,
-    "news_dropped_today": 3891
+    "news_seen_today": 62953,
+    "news_picked_today": 320,
+    "news_dropped_today": 3914
   },
   "book_momentum": {
     "live_count": 8,
