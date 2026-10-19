@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-10-19T00:31:44Z",
+  "generated_at": "2026-10-19T00:36:40Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261019-021",
+      "headline": "RHC: Ramsay Sante Demerger Booklet Registered with ASIC [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RHC?key=2924-03149924-2A1704803",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T00:27:45Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "The registration of a demerger booklet with ASIC is a formal regulatory step toward spinning off Ramsay Sante from Ramsay Health Care.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The registration of a demerger booklet with ASIC is a formal regulatory step toward spinning off Ramsay Sante from Ramsay Health Care.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ramsay Health Care",
+          "ticker": "RHC",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261019-018",
       "headline": "ASX rises; Challenger shares jump on TAL bid",
@@ -241,6 +291,61 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-022",
+      "headline": "Food services platform Focus Prism raises ₹145 crore from OAKS, buys Chennai-based catering firm FoodExo",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/focus-prism-food-services-oaks-asset-management-145-crore-fundraise-foodexo-catering-acquisition-11792309818833.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T00:30:47Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Focus Prism raised ₹145 crore and completed an acquisition of FoodExo, indicating expansion and capital inflow.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "Focus Prism raised ₹145 crore and completed an acquisition of FoodExo, indicating expansion and capital inflow.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Focus Prism",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "FoodExo",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -763,6 +868,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-024",
+      "headline": "Frail Indonesian markets reel after MSCI shock warning",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/frail-indonesian-markets-reel-after-msci-shock-warning-11792369834134.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T00:30:33Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "An MSCI warning regarding Indonesian markets can trigger significant capital outflows and impact index-tracking funds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "An MSCI warning regarding Indonesian markets can trigger significant capital outflows and impact index-tracking funds.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": -26,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": "index_rebalance",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "index_rebalance",
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-017",
       "headline": "Public sector banks' Rs 7.8 lakh core corporate loan pipeline signals capex revival",
       "headline_en": null,
@@ -845,6 +994,55 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-023",
+      "headline": "QAL: Change of Director's Interest Notice",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.QAL?key=2924-03149927-3A704405",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T00:28:25Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Routine disclosure of a change in a director's shareholding interest.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Routine disclosure of a change in a director's shareholding interest.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 25,
+      "rank_factors": {
+        "materiality": 25,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "insider_transaction",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Qualitas Limited",
+          "ticker": "QAL",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -940,6 +1138,50 @@
         "macro_sector"
       ],
       "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-025",
+      "headline": "FCNR inflows ease liquidity constraints but weigh on private banks’ margins",
+      "headline_en": null,
+      "url": "https://www.livemint.com/industry/banking/impact-of-fcnr-dollar-inflows-on-bank-financials-11792235414533.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T00:30:29Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "FCNR inflows are noted to be weighing on the net interest margins of private banks in India.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 42,
+      "triage_reason": "FCNR inflows are noted to be weighing on the net interest margins of private banks in India.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 58,
+      "rank_factors": {
+        "materiality": 58,
+        "source_tier": 0,
+        "scope": -26,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -227515,7 +227757,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3786,
+    "inbox_unconsumed": 3791,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -227524,9 +227766,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 72,
-    "news_picked_today": 20,
-    "news_dropped_today": 52
+    "news_seen_today": 86,
+    "news_picked_today": 25,
+    "news_dropped_today": 61
   },
   "book_momentum": {
     "live_count": 8,
