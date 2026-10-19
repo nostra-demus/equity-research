@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T13:09:56Z",
+  "generated_at": "2026-10-19T13:19:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-350",
@@ -643,6 +643,60 @@
           "name": "Lindt",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-384",
+      "headline": "TTM Technologies To Acquire Ophir Optics Business From MKS For Approx. $650 Mln All-cash Deal",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/ttm-technologies-acquire-ophir-optics-business-mks-approx-650-mln-all-cash-deal",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T12:44:30Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "TTM Technologies announced a definitive agreement to acquire the Ophir Optics business from MKS Instruments for $650 million in cash.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TTM Technologies announced a definitive agreement to acquire the Ophir Optics business from MKS Instruments for $650 million in cash.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TTM Technologies",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "MKS Instruments",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1965,60 +2019,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-193",
-      "headline": "Hyundai Rotem to acquire Hyundai Wia's defense unit for 358.4 bln won",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261019005700320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T04:31:58Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Hyundai Rotem to acquire a defense unit for 358.4 billion won.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Hyundai Rotem to acquire a defense unit for 358.4 billion won.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hyundai Rotem",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "Hyundai Wia",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -229113,9 +229113,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1698559,
-    "news_picked_today": 756,
-    "news_dropped_today": 7126
+    "news_seen_today": 1739872,
+    "news_picked_today": 760,
+    "news_dropped_today": 7170
   },
   "book_momentum": {
     "live_count": 8,
