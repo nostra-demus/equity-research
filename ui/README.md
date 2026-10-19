@@ -17,8 +17,14 @@ Signals reuse the archive's existing event types and high/critical materiality c
 requires an exact ticker plus normalized company name; known foreign listing tags cannot match a US
 line. A tagged ticker with an unmatched issuer name stays unavailable rather than asserting a negative.
 Conflicting foreign listing tags also leave coverage unavailable, including uncertain ADR identities.
-These tags are headline-based inference, not verified issuer research. Green ticks open up to
-three recent source links; red crosses mean no matching report in the saved archive, never proof that
+These tags are headline-based inference, not verified issuer research. Company names open a compact
+signal overview; every signal cell (tick, cross or unavailable) opens a keyboard-accessible dialog.
+Ticks show up to three recent reports, source excerpts and the saved classification reason. A read-only
+`GET /api/screener/universe-model/evidence` lookup reuses existing complete article reads, without fetching
+sources, triggering enrichment or spending API credits. Company-specific effects require exact ticker
+and normalized-name matches and retain benefit/risk, magnitude, timing and read provenance. Event-level
+assessments stay separately labelled as inference; missing impact or current catalyst status is not
+invented. Escape, Close and the backdrop dismiss the dialog and return focus. Red crosses mean no matching report in the saved archive, never proof that
 no event occurred. A stale (>48h) or unreadable/empty archive leaves signals and totals unavailable.
 The event index refreshes off-thread every minute while read, caching compact results by each day's
 file stamp so unchanged history is not reparsed. Strict shard failures or concurrent archive changes leave coverage unavailable.

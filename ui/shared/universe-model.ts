@@ -21,12 +21,44 @@ export type SignalId = ModelSignal['id']
 export type ModelWeights = Record<SignalId, number>
 export interface ModelEvent {
   id: string
+  source_event_id?: string // exact article identity; id can instead be a deduplicated story group
   headline: string
+  excerpt?: string
+  classification_reason?: string
   url: string
   source: string
   reported_at: string
   direction: 'positive' | 'negative' | 'mixed' | 'neutral' | 'unknown'
   source_tier: string
+}
+export interface ModelSavedAnalysis {
+  read_at: string
+  story: string[]
+  company_role: 'subject' | 'acquirer' | 'target' | 'forecaster' | 'mentioned' | null
+  effects: { side: 'beneficiary' | 'exposed'; mechanism: string; magnitude: string | null; horizon: string | null }[]
+  event_assessment: string | null
+  watch_item: string | null
+  provenance: { kind: 'original' | 'filing_doc' | 'alternate' | 'corroborated'; label: string | null; url: string | null }
+}
+export interface ModelEventRead {
+  event_id: string
+  ticker: string
+  company: string
+  analysis: ModelSavedAnalysis | null
+}
+export function isModelEventRead(value: unknown): value is ModelEventRead {
+  const r = value as ModelEventRead | null
+  const text = (v: unknown) => v === null || typeof v === 'string'
+  if (!r || typeof r.event_id !== 'string' || typeof r.ticker !== 'string' || typeof r.company !== 'string') return false
+  const a = r.analysis
+  return a === null || !!a && typeof a.read_at === 'string' && Number.isFinite(Date.parse(a.read_at))
+    && Array.isArray(a.story) && a.story.length <= 4 && a.story.every((s) => typeof s === 'string')
+    && (a.company_role === null || ['subject', 'acquirer', 'target', 'forecaster', 'mentioned'].includes(a.company_role))
+    && text(a.event_assessment) && text(a.watch_item)
+    && Array.isArray(a.effects) && a.effects.length <= 4 && a.effects.every((e) => e && ['beneficiary', 'exposed'].includes(e.side)
+      && typeof e.mechanism === 'string' && text(e.magnitude) && text(e.horizon))
+    && !!a.provenance && ['original', 'filing_doc', 'alternate', 'corroborated'].includes(a.provenance.kind)
+    && text(a.provenance.label) && (a.provenance.url === null || typeof a.provenance.url === 'string' && /^https?:\/\//i.test(a.provenance.url))
 }
 export type ModelSignals = Partial<Record<SignalId, ModelEvent[]>>
 export interface EventCoverage {
@@ -99,6 +131,7 @@ export function isModelRead(value: unknown): value is ModelRead {
       && (row.signals === null || (typeof row.signals === 'object' && !Array.isArray(row.signals)
         && Object.entries(row.signals).every(([key, events]) => MODEL_SIGNALS.some((s) => s.id === key) && Array.isArray(events) && events.length <= 3
           && events.every((event) => event && typeof event.id === 'string' && typeof event.headline === 'string'
+            && [event.source_event_id, event.excerpt, event.classification_reason].every((s) => s === undefined || typeof s === 'string')
             && typeof event.url === 'string' && /^https?:\/\//i.test(event.url) && typeof event.source === 'string'
             && typeof event.reported_at === 'string' && Number.isFinite(Date.parse(event.reported_at))
             && ['positive', 'negative', 'mixed', 'neutral', 'unknown'].includes(event.direction) && typeof event.source_tier === 'string')))))

@@ -41,11 +41,11 @@
 .model__signal--fail { color: var(--bad); background: var(--bad-wash); }
 .model__signal--unknown { color: var(--text-muted); }
 .model__total { font-size: 17px; font-weight: 700; color: var(--accent-bright); }
-.model__evidence { position: relative; }
-.model__evidence summary { cursor: pointer; list-style: none; margin: auto; }
-.model__evidence summary::-webkit-details-marker { display: none; }
-.model__evidence > div { position: absolute; top: 32px; right: 0; width: 290px; z-index: 5; padding: 16px; border: 1px solid var(--hairline); border-radius: 8px; background: var(--surface-2); box-shadow: var(--shadow-popover); text-align: left; }
-.model__evidence p { margin-bottom: 0; }
+.model__grid .model__company { width: 100%; padding: 0; border: 0; background: none; color: var(--accent-bright); text-align: left; }
+.model__grid .model__signal { min-width: 44px; height: 44px; padding: 0; border: 0; border-radius: var(--r-sm); }
+.model__grid .model__signal--pass { color: var(--live); background: var(--live-wash); }
+.model__grid .model__signal--fail { color: var(--bad); background: var(--bad-wash); }
+.model__grid .model__signal--unknown { color: var(--text-muted); background: var(--surface-2); }
 .model__pages { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-top: 16px; font-size: 12px; }
 .model__pages span { margin-right: auto; color: var(--text-muted); }
 .model__skeleton > div { height: 48px; margin: 4px 0; border-radius: 6px; background: var(--surface-2); }
@@ -53,3 +53,32 @@
 .universe-events { position: relative; flex: 1; min-height: 0; }
 .universe-events[hidden] { display: none; }
 .universe-events > .scstage { position: absolute; inset: 0; }
+.model-dialog { position: fixed; inset: 0; width: min(580px, calc(100vw - 32px)); max-width: none; max-height: 88dvh; margin: auto; padding: 0; overflow: hidden; border: 1px solid var(--hairline); border-radius: var(--r-lg); color: var(--text); background: var(--surface-1); box-shadow: var(--shadow-2); font: var(--type-body)/1.6 var(--font-sans); }
+.model-dialog::backdrop { background: var(--scrim); }
+.model-dialog__panel { display: flex; flex-direction: column; max-height: 88dvh; }
+.model-dialog__head, .model-dialog__foot { display: flex; flex-shrink: 0; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 20px; background: var(--surface-2); }
+.model-dialog__head { border-bottom: 1px solid var(--hairline); }
+.model-dialog__head h2 { margin: 4px 0 0; font-size: var(--type-title); }
+.model-dialog__head button { min-width: 44px; min-height: 44px; }
+.model-dialog__body { overflow: auto; overscroll-behavior: contain; padding: 16px 20px; }
+.model-dialog__foot { border-top: 1px solid var(--hairline); flex-wrap: wrap; }
+.model-dialog small, .model-dialog__meta { display: block; color: var(--text-muted); font-size: var(--type-sm); }
+.model-dialog h3 { margin: 0 0 8px; font-size: var(--type-body); }
+.model-dialog p { margin: 8px 0 12px; }
+.model-dialog a { color: var(--accent-bright); overflow-wrap: anywhere; }
+.model-dialog button, .model-dialog select { padding: 8px 12px; color: var(--text); background: var(--surface-2); border: 1px solid var(--hairline); border-radius: var(--r-sm); font: inherit; cursor: pointer; }
+.model-dialog button:active { transform: scale(.97); }
+.model-dialog :is(button, select, a):focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.model-dialog__signals { display: grid; gap: 8px; }
+.model-dialog__signals button { text-align: left; min-height: 44px; }
+.model-dialog__back { margin-bottom: 16px; }
+.model-dialog__rule { color: var(--text-muted); }
+.model-dialog__status { display: flex; flex-wrap: wrap; gap: 8px 16px; padding: 12px; border-radius: var(--r-sm); background: var(--accent-wash); }
+.model-dialog__reports select { display: block; width: 100%; margin: 8px 0 20px; text-overflow: ellipsis; }
+.model-dialog__section { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--hairline); }
+.model-dialog__headline { font-weight: var(--type-weight-semibold); }
+.model-dialog__effect { border-left: 2px solid var(--accent); margin: 12px 0; padding-left: 12px; }
+.model-dialog__provenance { padding: 12px; border: 1px solid var(--hairline); border-radius: var(--r-sm); }
+.model-dialog__loading span { display: block; height: 12px; margin: 8px 0; border-radius: var(--r-sm); background: var(--surface-2); }
+.model-dialog__loading span + span { width: 65%; }
+@media (max-width: 600px) { .model-dialog select { font-size: 16px; } }

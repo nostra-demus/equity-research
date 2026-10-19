@@ -27,4 +27,5 @@ function Harness() {
     {ideasOpen && <BestIdeasView />}
   </main>
 }
-createRoot(document.getElementById('root')!).render(<Harness />)
+const harness = <Harness />
+createRoot(document.getElementById('root')!).render(new URLSearchParams(window.location.search).get('surface') === 'model' ? <React.StrictMode>{harness}</React.StrictMode> : harness)

@@ -4,6 +4,7 @@ import { randomUUID } from 'node:crypto'
 import type { FastifyInstance } from 'fastify'
 import { isModelRead, MODEL_REFRESH_MS, MODEL_SCHEMA, UNIVERSE_URL, type ModelRead, type ModelRow } from '../../shared/universe-model'
 import { createUniverseEventsReader } from './universe-events'
+import { registerUniverseEvidence } from './universe-evidence'
 
 // These are public custom-view columns, not an Elite export/API. No credentials, paid providers,
 // browser challenges, proxies or per-company quote fan-out. One paced sweep shared by all readers.
@@ -194,6 +195,7 @@ export function createUniverseModel(file: string, deps: {
 }
 
 export function registerUniverseModel(app: FastifyInstance, stateDir: string, root: string, archiveDir: string) {
+  registerUniverseEvidence(app, stateDir)
   const model = createUniverseModel(path.join(stateDir, 'universe-model.json'))
   const events = createUniverseEventsReader(root, archiveDir)
   app.get('/api/screener/universe-model', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (_req, reply) => {
