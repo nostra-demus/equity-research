@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T04:07:49Z",
+  "generated_at": "2026-10-19T04:15:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-130",
@@ -1182,6 +1182,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-167",
+      "headline": "Mitsubishi Heavy to revive shipbuilding line for defense equipment in FY 2027",
+      "headline_en": null,
+      "url": "https://english.kyodonews.net/articles/-/88665",
+      "source_name": "Kyodo News (Japan Wire)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T03:45:00Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Mitsubishi Heavy Industries is reviving a shipbuilding line for defense equipment by 2027, representing a strategic capacity expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Mitsubishi Heavy Industries is reviving a shipbuilding line for defense equipment by 2027, representing a strategic capacity expansion.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mitsubishi Heavy Industries",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-125",
       "headline": "Nidec legal reckoning reaches founder and shares drop to decade low",
       "headline_en": null,
@@ -1227,55 +1276,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-115",
-      "headline": "BREAKING NEWS: M'bishi Heavy to revive shipbuilding line for defense equipment in FY 2027",
-      "headline_en": null,
-      "url": "https://english.kyodonews.net/articles/-/88643",
-      "source_name": "Kyodo News (Japan Wire)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T02:34:29Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Mitsubishi Heavy Industries is reviving a shipbuilding line for defense, representing a strategic capacity expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Mitsubishi Heavy Industries is reviving a shipbuilding line for defense, representing a strategic capacity expansion.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mitsubishi Heavy Industries",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1477,6 +1477,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-161",
+      "headline": "LTM expects revenue growth to accelerate in FY28, materially higher margins from AI-native services",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/ltm-q2-results-targets-fy26-like-growth-in-fy27-expects-acceleration-in-fy28-20014661.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T04:12:17Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "LTM expects accelerated revenue growth in FY28 and higher margins driven by AI-native services.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "LTM expects accelerated revenue growth in FY28 and higher margins driven by AI-native services.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LTM",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-145",
       "headline": "Twiggy, Federation-backed $5b Bungaban wind project hunts for cash",
       "headline_en": null,
@@ -1521,6 +1570,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-159",
+      "headline": "Axis Bank shares fall over 4% despite 38% YoY jump in Q2 net profit. Why brokerages are revising target prices?",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/axis-bank-shares-in-focus-after-q2-results-why-jefferies-remains-bullish-even-as-other-brokerages-reduce-target-prices/articleshow/135039127.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T03:51:26Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Axis Bank shares fell over 4% despite a 38% YoY net profit increase, suggesting market disappointment with underlying metrics or guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Axis Bank shares fell over 4% despite a 38% YoY net profit increase, suggesting market disappointment with underlying metrics or guidance.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Axis Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1864,104 +1962,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-040",
-      "headline": "Regal’s hedge fund dives 19pc in a tough year for the ASX",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/regal-s-hedge-fund-dives-19pc-in-a-tough-year-for-the-asx-20261019-p616np?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T01:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Regal reported a 19% decline in fund performance, indicating significant asset management underperformance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Regal reported a 19% decline in fund performance, indicating significant asset management underperformance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Regal",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-150",
-      "headline": "Akasa’s 35% revenue growth fails to arrest losses as aviation’s cost squeeze deepens",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/akasa-air-fy26-results-revenue-rises-loss-widens-11792338060164.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T03:55:43Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Akasa Air reported a 35% revenue growth but failed to reduce losses due to rising operational costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Akasa Air reported a 35% revenue growth but failed to reduce losses due to rising operational costs.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Akasa Air",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -188669,154 +188669,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3f434faf3dd2",
-      "idea_version": "IDEAV-7589d7b8fbcda646",
-      "idea_version_started_at": "2026-10-18T04:18:08Z",
-      "ticker": "HINDUNILVR",
-      "company": "Hindustan Unilever",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Regulatory notices from the FSSAI regarding misleading product claims and labeling violations create brand risk and potential fines, which can weigh on consumer sentiment and margins.",
-      "why_now": "The notices were issued on 2026-10-17, and the market has yet to fully digest the potential impact on brand equity.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4a0d0b39275d",
-        "EVT-5740236529c0"
-      ],
-      "primary_source_event_id": "EVT-4a0d0b39275d",
-      "source_headlines": [
-        "FSSAI Issues Notices to Nestle India, HUL Over Allegedly Misleading Product Claims, Labelling Violations",
-        "FSSAI issues notices to Nestlé India, HUL over misleading claims, non-compliance"
-      ],
-      "source_headline": "FSSAI Issues Notices to Nestle India, HUL Over Allegedly Misleading Product Claims, Labelling Violations",
-      "source_url": "https://www.ndtvprofit.com/business/fssai-issues-notices-to-nestle-india-hul-over-allegedly-misleading-product-claims-labelling-violations-12200174#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 85,
-      "newest_source_at": "2026-10-17T16:09:29Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-18T04:18:08Z",
-      "updated_at": "2026-10-18T04:18:08Z",
-      "decay_at": "2026-10-19T04:09:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-5e41e1261439",
-      "idea_version": "IDEAV-abecb1617204e9e6",
-      "idea_version_started_at": "2026-10-18T04:18:08Z",
-      "ticker": "NESTLEIND",
-      "company": "Nestle India",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Regulatory scrutiny from the FSSAI regarding product labeling and claims poses a direct threat to the company's premium brand positioning and could lead to costly compliance adjustments.",
-      "why_now": "The notices were issued on 2026-10-17, creating immediate regulatory uncertainty.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4a0d0b39275d",
-        "EVT-5740236529c0"
-      ],
-      "primary_source_event_id": "EVT-4a0d0b39275d",
-      "source_headlines": [
-        "FSSAI Issues Notices to Nestle India, HUL Over Allegedly Misleading Product Claims, Labelling Violations",
-        "FSSAI issues notices to Nestlé India, HUL over misleading claims, non-compliance"
-      ],
-      "source_headline": "FSSAI Issues Notices to Nestle India, HUL Over Allegedly Misleading Product Claims, Labelling Violations",
-      "source_url": "https://www.ndtvprofit.com/business/fssai-issues-notices-to-nestle-india-hul-over-allegedly-misleading-product-claims-labelling-violations-12200174#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 85,
-      "newest_source_at": "2026-10-17T16:09:29Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-16T04:42:08Z",
-      "updated_at": "2026-10-18T04:18:08Z",
-      "decay_at": "2026-10-19T04:09:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-26d22600956b",
       "idea_version": "IDEAV-4971901c7a4d4377",
       "idea_version_started_at": "2026-10-18T04:01:13Z",
@@ -191745,6 +191597,154 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
+    },
+    {
+      "idea_id": "IDEA-3f434faf3dd2",
+      "idea_version": "IDEAV-7589d7b8fbcda646",
+      "idea_version_started_at": "2026-10-18T04:18:08Z",
+      "ticker": "HINDUNILVR",
+      "company": "Hindustan Unilever",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Regulatory notices from the FSSAI regarding misleading product claims and labeling violations create brand risk and potential fines, which can weigh on consumer sentiment and margins.",
+      "why_now": "The notices were issued on 2026-10-17, and the market has yet to fully digest the potential impact on brand equity.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4a0d0b39275d",
+        "EVT-5740236529c0"
+      ],
+      "primary_source_event_id": "EVT-4a0d0b39275d",
+      "source_headlines": [
+        "FSSAI Issues Notices to Nestle India, HUL Over Allegedly Misleading Product Claims, Labelling Violations",
+        "FSSAI issues notices to Nestlé India, HUL over misleading claims, non-compliance"
+      ],
+      "source_headline": "FSSAI Issues Notices to Nestle India, HUL Over Allegedly Misleading Product Claims, Labelling Violations",
+      "source_url": "https://www.ndtvprofit.com/business/fssai-issues-notices-to-nestle-india-hul-over-allegedly-misleading-product-claims-labelling-violations-12200174#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 85,
+      "newest_source_at": "2026-10-17T16:09:29Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-18T04:18:08Z",
+      "updated_at": "2026-10-18T04:18:08Z",
+      "decay_at": "2026-10-19T04:09:29Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-5e41e1261439",
+      "idea_version": "IDEAV-abecb1617204e9e6",
+      "idea_version_started_at": "2026-10-18T04:18:08Z",
+      "ticker": "NESTLEIND",
+      "company": "Nestle India",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Regulatory scrutiny from the FSSAI regarding product labeling and claims poses a direct threat to the company's premium brand positioning and could lead to costly compliance adjustments.",
+      "why_now": "The notices were issued on 2026-10-17, creating immediate regulatory uncertainty.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4a0d0b39275d",
+        "EVT-5740236529c0"
+      ],
+      "primary_source_event_id": "EVT-4a0d0b39275d",
+      "source_headlines": [
+        "FSSAI Issues Notices to Nestle India, HUL Over Allegedly Misleading Product Claims, Labelling Violations",
+        "FSSAI issues notices to Nestlé India, HUL over misleading claims, non-compliance"
+      ],
+      "source_headline": "FSSAI Issues Notices to Nestle India, HUL Over Allegedly Misleading Product Claims, Labelling Violations",
+      "source_url": "https://www.ndtvprofit.com/business/fssai-issues-notices-to-nestle-india-hul-over-allegedly-misleading-product-claims-labelling-violations-12200174#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 85,
+      "newest_source_at": "2026-10-17T16:09:29Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-16T04:42:08Z",
+      "updated_at": "2026-10-18T04:18:08Z",
+      "decay_at": "2026-10-19T04:09:29Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     }
   ],
   "ideas_archive": {
@@ -191757,9 +191757,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 537,
+    "total_count": 539,
     "shown_count": 499,
-    "hidden_count": 38,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
         "total_count": 277,
@@ -191767,9 +191767,9 @@
         "hidden_count": 27
       },
       "short": {
-        "total_count": 261,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 13
       }
     },
     "retention": {
@@ -191788,6 +191788,160 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3f434faf3dd2",
+        "idea_version": "IDEAV-7589d7b8fbcda646",
+        "idea_version_started_at": "2026-10-18T04:18:08Z",
+        "ticker": "HINDUNILVR",
+        "company": "Hindustan Unilever",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Regulatory notices from the FSSAI regarding misleading product claims and labeling violations create brand risk and potential fines, which can weigh on consumer sentiment and margins.",
+        "why_now": "The notices were issued on 2026-10-17, and the market has yet to fully digest the potential impact on brand equity.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4a0d0b39275d",
+          "EVT-5740236529c0"
+        ],
+        "primary_source_event_id": "EVT-4a0d0b39275d",
+        "source_headlines": [
+          "FSSAI Issues Notices to Nestle India, HUL Over Allegedly Misleading Product Claims, Labelling Violations",
+          "FSSAI issues notices to Nestlé India, HUL over misleading claims, non-compliance"
+        ],
+        "source_headline": "FSSAI Issues Notices to Nestle India, HUL Over Allegedly Misleading Product Claims, Labelling Violations",
+        "source_url": "https://www.ndtvprofit.com/business/fssai-issues-notices-to-nestle-india-hul-over-allegedly-misleading-product-claims-labelling-violations-12200174#publisher=newsstand",
+        "source_name": "NDTV Profit",
+        "materiality_max": 85,
+        "newest_source_at": "2026-10-17T16:09:29Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-18T04:18:08Z",
+        "updated_at": "2026-10-18T04:18:08Z",
+        "decay_at": "2026-10-19T04:09:29Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-19T04:09:29Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-5e41e1261439",
+        "idea_version": "IDEAV-abecb1617204e9e6",
+        "idea_version_started_at": "2026-10-18T04:18:08Z",
+        "ticker": "NESTLEIND",
+        "company": "Nestle India",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Regulatory scrutiny from the FSSAI regarding product labeling and claims poses a direct threat to the company's premium brand positioning and could lead to costly compliance adjustments.",
+        "why_now": "The notices were issued on 2026-10-17, creating immediate regulatory uncertainty.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4a0d0b39275d",
+          "EVT-5740236529c0"
+        ],
+        "primary_source_event_id": "EVT-4a0d0b39275d",
+        "source_headlines": [
+          "FSSAI Issues Notices to Nestle India, HUL Over Allegedly Misleading Product Claims, Labelling Violations",
+          "FSSAI issues notices to Nestlé India, HUL over misleading claims, non-compliance"
+        ],
+        "source_headline": "FSSAI Issues Notices to Nestle India, HUL Over Allegedly Misleading Product Claims, Labelling Violations",
+        "source_url": "https://www.ndtvprofit.com/business/fssai-issues-notices-to-nestle-india-hul-over-allegedly-misleading-product-claims-labelling-violations-12200174#publisher=newsstand",
+        "source_name": "NDTV Profit",
+        "materiality_max": 85,
+        "newest_source_at": "2026-10-17T16:09:29Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-16T04:42:08Z",
+        "updated_at": "2026-10-18T04:18:08Z",
+        "decay_at": "2026-10-19T04:09:29Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-19T04:09:29Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-fbaf750de821",
         "idea_version": "IDEAV-f04a157d726ac9f8",
@@ -228806,161 +228960,12 @@
         "archived_at": "2026-09-23T23:34:59Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-4b7517872828",
-        "idea_version": "IDEAV-a5af3b4868d76aff",
-        "idea_version_started_at": "2026-09-20T21:27:13Z",
-        "ticker": "LEN",
-        "company": "Lennar",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Lennar has cut its home delivery forecast as aggressive buyer incentives and price concessions fail to offset affordability headwinds, squeezing gross margins.",
-        "why_now": "The guidance cut was just reported on September 20, 2026, which will force analysts to downwardly revise near-term consensus EPS estimates.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4e75a447e37a"
-        ],
-        "primary_source_event_id": "EVT-4e75a447e37a",
-        "source_headlines": [
-          "Lennar (LEN) Cuts Delivery Forecast. Can Construction Savings Offset Heavy Incentives?"
-        ],
-        "source_headline": "Lennar (LEN) Cuts Delivery Forecast. Can Construction Savings Offset Heavy Incentives?",
-        "source_url": "https://finance.yahoo.com/real-estate/articles/lennar-len-cuts-delivery-forecast-204510657.html",
-        "source_name": "Yahoo Finance",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-20T20:45:10Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-20T21:27:13Z",
-        "updated_at": "2026-09-20T21:27:13Z",
-        "decay_at": "2026-09-22T08:45:10Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-23T23:34:59Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-b781349ed9cc",
-        "idea_version": "IDEAV-e9fe342c5bc0eb05",
-        "idea_version_started_at": "2026-09-20T15:10:12Z",
-        "ticker": "BIG.AX",
-        "company": "Big W",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Big W, a key Christmas retailer, has filed for Chapter 11 bankruptcy, indicating severe financial distress and likely liquidation of assets.",
-        "why_now": "The Chapter 11 filing is a current event, signaling immediate financial distress.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4c28e7247d11"
-        ],
-        "primary_source_event_id": "EVT-4c28e7247d11",
-        "source_headlines": [
-          "Key Christmas retailer files for Chapter 11 bankrutpcy"
-        ],
-        "source_headline": "Key Christmas retailer files for Chapter 11 bankrutpcy",
-        "source_url": "https://finance.yahoo.com/small-business/articles/key-christmas-retailer-files-chapter-140700474.html",
-        "source_name": "Yahoo Finance",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-20T14:07:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-20T15:10:12Z",
-        "updated_at": "2026-09-20T15:10:12Z",
-        "decay_at": "2026-09-22T02:07:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-23T19:44:06Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1708,
-    "live_count": 43,
+    "live_count": 41,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -228979,9 +228984,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 833,
-    "news_picked_today": 192,
-    "news_dropped_today": 641
+    "news_seen_today": 882,
+    "news_picked_today": 206,
+    "news_dropped_today": 676
   },
   "book_momentum": {
     "live_count": 8,
