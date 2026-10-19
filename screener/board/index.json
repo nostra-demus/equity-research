@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T02:46:10Z",
+  "generated_at": "2026-10-19T02:50:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-098",
@@ -939,6 +939,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-109",
+      "headline": "Tata Sons reviews its Articles of Association to meet SEBI listing regulations: Report",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/corporate/story/tata-sons-reviews-its-articles-of-association-to-meet-sebi-listing-regulations-report-562323-2026-10-19?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T02:42:36Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Tata Sons is reviewing its Articles of Association to comply with SEBI listing regulations, a necessary step for potential future public listing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Tata Sons is reviewing its Articles of Association to comply with SEBI listing regulations, a necessary step for potential future public listing.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-092",
       "headline": "Navy seeks to acquire new maritime patrol aircraft to replace aging P-3CK fleet: lawmaker",
       "headline_en": null,
@@ -1820,31 +1869,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261019-051",
-      "headline": "Anthropic to commit 5% stake to new ‘public benefit fund’",
+      "inbox_id": "INB-20261019-107",
+      "headline": "Anthropic says it will commit 5% of its shares to 'public benefit fund'",
       "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/10/19/anthropic-public-benefit-fund-ai/",
-      "source_name": "The Japan Times",
+      "url": "https://www.bbc.co.uk/news/articles/cm2kez327gdko?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — Business",
       "input_nature": "news_headline",
-      "found_at": "2026-10-19T01:14:00Z",
+      "found_at": "2026-10-19T02:41:41Z",
       "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Anthropic is committing a 5% stake to a public benefit fund, representing a significant change in equity structure.",
+      "prelim_note": "Anthropic is committing 5% of its shares to a public benefit fund, which impacts equity structure and governance.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 81,
-      "triage_reason": "Anthropic is committing a 5% stake to a public benefit fund, representing a significant change in equity structure.",
+      "triage_reason": "Anthropic is committing 5% of its shares to a public benefit fund, which impacts equity structure and governance.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 50,
+      "materiality_pre_score": 55,
       "rank_factors": {
-        "materiality": 50,
+        "materiality": 55,
         "source_tier": 0,
         "scope": 6,
         "event": 0,
         "size": 0,
         "recency": 5,
-        "materiality_label_floor": 20,
+        "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1860,7 +1909,7 @@
         {
           "name": "Anthropic",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -1907,55 +1956,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-077",
-      "headline": "Citi Asean investment banking revenue up 35% as regional dealmaking picks up",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/citi-asean-investment-banking-revenue-35-regional-dealmaking-picks",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T02:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Citi reported a 35% increase in Asean investment banking revenue, reflecting improved regional deal activity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Citi reported a 35% increase in Asean investment banking revenue, reflecting improved regional deal activity.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Citigroup",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -228897,9 +228897,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 528,
-    "news_picked_today": 126,
-    "news_dropped_today": 402
+    "news_seen_today": 541,
+    "news_picked_today": 129,
+    "news_dropped_today": 412
   },
   "book_momentum": {
     "live_count": 8,
