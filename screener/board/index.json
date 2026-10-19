@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T01:22:20Z",
+  "generated_at": "2026-10-19T01:27:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-021",
@@ -1513,6 +1513,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-054",
+      "headline": "Jio Platforms IPO, Paras Healthcare issue to drive primary market activity this week",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/ipos/fpos/jio-platforms-to-lead-ipo-parade-this-week/articleshow/135037311.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T00:50:34Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Upcoming IPO activity for Jio Platforms and Paras Healthcare is expected to drive market volume.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "Upcoming IPO activity for Jio Platforms and Paras Healthcare is expected to drive market volume.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jio Platforms",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Paras Healthcare",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-010",
       "headline": "FF EAI Robotics Ecosystem Inc. (FFR) Highlights Faraday Future Founder and Global CEO YT Jia's Weekly Investor Update: Three New Product Offerings Launched; More Details on FFR's Acquisition of FFAI's Robotics Business and Independent Public Listing",
       "headline_en": null,
@@ -1754,6 +1808,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-055",
+      "headline": "Aekyung Industrial Wins ISO 37301 Certification",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279061",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T04:35:29Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Aekyung Industrial received ISO 37301 certification for compliance management.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Aekyung Industrial received ISO 37301 certification for compliance management.",
+      "region": "KR",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 35,
+      "rank_factors": {
+        "materiality": 35,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aekyung Industrial",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-052",
       "headline": "Carnelian Small Cap Fund NFO: Is Rs 5,000 crore size cap a smart move for investors or just a gimmick? Know this before investing",
       "headline_en": null,
@@ -1837,99 +1940,6 @@
       },
       "event_types": [
         "operations"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-047",
-      "headline": "넥센타이어, 에코바디스 ESG 평가 상위 2% 진입",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279052",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T00:12:25Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Nexen Tire achieved top 2% ranking in EcoVadis ESG assessment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Nexen Tire achieved top 2% ranking in EcoVadis ESG assessment.",
-      "region": "KR",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nexen Tire",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-017",
-      "headline": "Public sector banks' Rs 7.8 lakh core corporate loan pipeline signals capex revival",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/public-sector-banks-rs-7-8-lakh-core-corporate-loan-pipeline-signals-capex-revival/articleshow/135037258.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "A Rs 7.8 lakh crore corporate loan pipeline in Indian public sector banks signals a significant revival in industrial capex.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "A Rs 7.8 lakh crore corporate loan pipeline in Indian public sector banks signals a significant revival in industrial capex.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector",
-        "capex"
       ],
       "issuer_linkage": "sector",
       "companies": [],
@@ -228802,9 +228812,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 225,
-    "news_picked_today": 54,
-    "news_dropped_today": 171
+    "news_seen_today": 248,
+    "news_picked_today": 57,
+    "news_dropped_today": 191
   },
   "book_momentum": {
     "live_count": 8,
