@@ -5,11 +5,11 @@ import { api } from '../../lib/api'
 import { roleLabel } from '../../lib/scope'
 
 const date = (value: string) => new Date(value).toLocaleString()
-const status = (result: boolean | null) => result === null ? 'Coverage unavailable' : result ? 'Material event found' : 'No matching archived report'
+const status = (result: boolean | null) => result === null ? 'Coverage unavailable' : result ? 'Event found' : 'No matching report'
 const mark = (result: boolean | null) => result === null ? '—' : result ? '✓' : '✕'
 export type ModelSelection = { row: ModelRow; signal: ModelSignal | null }
 
-function EventEvidence({ event, row }: { event: ModelEvent; row: ModelRow }) {
+function EventEvidence({ event, row, signal }: { event: ModelEvent; row: ModelRow; signal: ModelSignal }) {
   const [read, setRead] = useState<ModelEventRead | null>(null)
   const [loading, setLoading] = useState(!!event.source_event_id)
   const [error, setError] = useState(false)
@@ -27,33 +27,33 @@ function EventEvidence({ event, row }: { event: ModelEvent; row: ModelRow }) {
   const analysis = read?.analysis
   const provenance = analysis?.provenance
   return <article className="model-dialog__event">
-    <h3>What happened</h3>
     <p className="model-dialog__headline">{event.headline}</p>
-    <p className="model-dialog__meta">{event.source} · Reported {date(event.reported_at)} · {event.source_tier.replace(/_/g, ' ')}</p>
-    {event.excerpt && <p>{event.excerpt}<small>Source excerpt</small></p>}
+    <p className="model-dialog__meta">{event.source} · {date(event.reported_at)} · {event.source_tier.replace(/_/g, ' ')}</p>
     <a href={event.url} target="_blank" rel="noreferrer">Open original source ↗</a>
-    {event.classification_reason && <div className="model-dialog__section"><h3>Why this signal matched</h3><p>{event.classification_reason}</p><small>Saved scanner assessment · inferred from the report</small></div>}
     <div className="model-dialog__section">
-      <h3>Impact on {row.company}</h3>
-      {loading && !analysis ? <div className="model-dialog__loading" role="status"><span /><span /><small>Looking for saved article analysis…</small></div>
+      <h3>Company impact</h3>
+      {loading && !analysis ? <div className="model-dialog__loading" role="status"><span /><span /><small>Loading saved analysis…</small></div>
         : analysis?.effects.length ? <>
           {analysis.company_role && <p>Company role: {roleLabel(analysis.company_role)}</p>}
-          {analysis.effects.map((effect, i) => <div key={i} className="model-dialog__effect"><strong>{effect.side === 'beneficiary' ? 'Potential benefit' : 'Potential risk'} · saved inference</strong>
+          {analysis.effects.map((effect, i) => <div key={i} className="model-dialog__effect"><strong>{effect.side === 'beneficiary' ? 'Potential benefit' : 'Potential risk'} · inferred</strong>
             <p>{effect.mechanism}</p>{(effect.magnitude || effect.horizon) && <small>{[effect.magnitude, effect.horizon].filter(Boolean).join(' · ')}</small>}</div>)}
-        </> : <p>Company-specific financial impact is not proven from the saved analysis. The tick records an event report, not a verified benefit or a price forecast.</p>}
-      {!loading && <small>Event classification: {event.direction} · inferred at event level; it may differ for an acquirer, target or other party.</small>}
-      {error && <div role="alert"><p>The saved analysis could not be loaded. The source report remains available.</p><button type="button" onClick={() => setAttempt((n) => n + 1)}>Retry saved analysis</button></div>}
-    </div>
-    {analysis && <>
-      <p className="model-dialog__meta">Saved article read · {date(analysis.read_at)} · analysis may be outdated</p>
-      {provenance && provenance.kind !== 'original' && <p className="model-dialog__provenance">
-        {provenance.kind === 'alternate' ? 'Read from another outlet' : provenance.kind === 'filing_doc' ? 'Read from the filing document' : 'Pieced together from other outlets'}
+        </> : <p>Company impact not proven from saved analysis.</p>}
+      {analysis && <small>Saved {date(analysis.read_at)} · may be outdated</small>}
+      {provenance && provenance.kind !== 'original' && <p className="model-dialog__meta">
+        {provenance.kind === 'alternate' ? 'Alternate source' : provenance.kind === 'filing_doc' ? 'Filing source' : 'Secondary synthesis'}
         {provenance.label && ` · ${provenance.label}`}{provenance.url && <> · <a href={provenance.url} target="_blank" rel="noreferrer">Source actually read ↗</a></>}
       </p>}
-      {!!analysis.story.length && <div className="model-dialog__section"><h3>Saved article summary</h3><ul>{analysis.story.map((point, i) => <li key={i}>{point}</li>)}</ul></div>}
-      {analysis.event_assessment && <div className="model-dialog__section"><h3>Event-level assessment · saved inference</h3><p>{analysis.event_assessment}</p><small>This describes the event overall; it is not necessarily the effect on {row.company}.</small></div>}
-      {analysis.watch_item && <div className="model-dialog__section"><h3>What to watch</h3><p>{analysis.watch_item}</p><small>Saved at the article-read date; current completion and catalyst timing need verification.</small></div>}
-    </>}
+      {error && <div role="alert"><p>Saved analysis unavailable.</p><button type="button" onClick={() => setAttempt((n) => n + 1)}>Retry saved analysis</button></div>}
+    </div>
+    {analysis?.watch_item && <div className="model-dialog__section"><h3>What to watch</h3><p>{analysis.watch_item}</p><small>As of {date(analysis.read_at)} · timing unverified</small></div>}
+    <details className="model-dialog__section"><summary>Evidence & context</summary>
+      <p className="model-dialog__rule">{signal.rule}</p>
+      {event.excerpt && <><h3>Source excerpt</h3><p>{event.excerpt}</p></>}
+      {event.classification_reason && <><h3>Signal match · inferred</h3><p>{event.classification_reason}</p></>}
+      <small>Event direction: {event.direction} · inferred, not company-specific</small>
+      {!!analysis?.story.length && <div className="model-dialog__section"><h3>Article summary</h3><ul>{analysis.story.map((point, i) => <li key={i}>{point}</li>)}</ul></div>}
+      {analysis?.event_assessment && <div className="model-dialog__section"><h3>Event context · inferred, not company-specific</h3><p>{analysis.event_assessment}</p></div>}
+    </details>
   </article>
 }
 
@@ -63,16 +63,15 @@ function SignalEvidence({ row, signal, weight }: { row: ModelRow; signal: ModelS
   const result = signalResult(row, signal)
   const report = reports[reportIndex] || reports[0]
   return <>
-    <p className="model-dialog__rule">{signal.rule}</p>
-    <p className="model-dialog__status"><strong>{mark(result)} {status(result)}</strong><span>{result === null ? 'Unscored' : `${result ? weight : 0} points in total`}</span></p>
+    <p className="model-dialog__status"><strong>{mark(result)} {status(result)}</strong><span>{result === null ? 'Unscored' : `${result ? weight : 0} pts`}</span></p>
     {report ? <>
       {reports.length > 1 && <label className="model-dialog__reports">Recent report <select value={reportIndex} onChange={(e) => setReportIndex(Number(e.target.value))} aria-label="Recent signal report">
         {reports.map((r, i) => <option value={i} key={r.id}>{i + 1}. {r.headline}</option>)}
       </select></label>}
-      <EventEvidence key={report.source_event_id || report.id} event={report} row={row} />
+      <EventEvidence key={report.source_event_id || report.id} event={report} row={row} signal={signal} />
     </> : <p>{result === null
-      ? 'Coverage is unavailable or the issuer match is uncertain. No conclusion about this signal can be drawn.'
-      : 'No qualifying high or critical materiality report matched this company and signal in the saved 90-day archive. This does not prove that no event occurred.'}</p>}
+      ? 'Coverage or company match unavailable. Unscored.'
+      : 'No qualifying archive match in 90 days. An event may still have occurred.'}</p>}
   </>
 }
 
@@ -92,7 +91,7 @@ export function ModelSignalDialog({ selection, weights, onSelect, onClose }: {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') { e.preventDefault(); e.stopImmediatePropagation(); dialog.close(); return }
       if (e.key !== 'Tab') return
-      const controls = [...dialog.querySelectorAll<HTMLElement>('button:not([disabled]), a[href], select:not([disabled]), input:not([disabled]), textarea:not([disabled]), [tabindex="0"]')]
+      const controls = [...dialog.querySelectorAll<HTMLElement>('button:not([disabled]), a[href], select:not([disabled]), input:not([disabled]), textarea:not([disabled]), summary, [tabindex="0"]')]
         .filter((el) => el.getClientRects().length > 0)
       const first = controls[0]; const last = controls[controls.length - 1]
       const active = document.activeElement
@@ -112,12 +111,12 @@ export function ModelSignalDialog({ selection, weights, onSelect, onClose }: {
       <div className="model-dialog__body">
         {signal ? <><button type="button" className="model-dialog__back" onClick={() => onSelect(null)}>← All company signals</button>
           <SignalEvidence key={signal.id} row={row} signal={signal} weight={weights[signal.id]} /></>
-          : <><p>{row.signals === null ? 'Event coverage unavailable' : `Total event activity: ${modelScore(row, weights)} points`}. Select a signal to see the company’s event and supporting reports.</p>
+          : <><p>{row.signals === null ? 'Coverage unavailable' : `Event activity: ${modelScore(row, weights)} pts`}</p>
             <div className="model-dialog__signals">{MODEL_SIGNALS.map((s) => { const result = signalResult(row, s); return <button type="button" key={s.id} onClick={() => onSelect(s)}>
               <span>{mark(result)} {s.label}</span><small>{status(result)} · {result === null ? 'unscored' : `${result ? weights[s.id] : 0} pts`}</small>
             </button> })}</div></>}
       </div>
-      <footer className="model-dialog__foot"><small>Saved reports and analysis · no new paid calls on open</small><a href={`https://finviz.com/quote.ashx?t=${encodeURIComponent(row.ticker)}`} target="_blank" rel="noreferrer">Company on Finviz ↗</a></footer>
+      <footer className="model-dialog__foot"><a href={`https://finviz.com/quote.ashx?t=${encodeURIComponent(row.ticker)}`} target="_blank" rel="noreferrer">Company on Finviz ↗</a></footer>
     </div>
   </dialog>, document.querySelector('.app') || document.body)
 }
