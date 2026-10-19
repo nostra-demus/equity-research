@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T02:51:18Z",
+  "generated_at": "2026-10-19T02:55:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-098",
@@ -1869,31 +1869,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261019-107",
-      "headline": "Anthropic says it will commit 5% of its shares to 'public benefit fund'",
+      "inbox_id": "INB-20261019-111",
+      "headline": "APR’s Medicube Enters 400 Costco Stores, Expanding U.S. Retail Reach",
       "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/cm2kez327gdko?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — Business",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279094",
+      "source_name": "Business Korea — All English Articles",
       "input_nature": "news_headline",
-      "found_at": "2026-10-19T02:41:41Z",
+      "found_at": "2026-10-19T06:11:02Z",
       "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Anthropic is committing 5% of its shares to a public benefit fund, which impacts equity structure and governance.",
+      "prelim_note": "APR's expansion into 400 Costco stores represents a significant increase in U.S. retail distribution.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 81,
-      "triage_reason": "Anthropic is committing 5% of its shares to a public benefit fund, which impacts equity structure and governance.",
+      "triage_reason": "APR's expansion into 400 Costco stores represents a significant increase in U.S. retail distribution.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 55,
+      "materiality_pre_score": 50,
       "rank_factors": {
-        "materiality": 55,
+        "materiality": 50,
         "source_tier": 0,
         "scope": 6,
         "event": 0,
         "size": 0,
         "recency": 5,
-        "materiality_label_floor": 15,
+        "materiality_label_floor": 20,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1902,14 +1902,14 @@
         "size_bucket": "unknown"
       },
       "event_types": [
-        "capital_actions"
+        "commercial"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Anthropic",
+          "name": "APR",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "KR"
         }
       ],
       "size_bucket": "unknown",
@@ -1918,43 +1918,49 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261019-053",
-      "headline": "U-Turn From Regulator May Be New Lifeline to Indian Derivatives",
+      "inbox_id": "INB-20261019-113",
+      "headline": "KBI Dongyang Steel Pipe Supplies SpaceX Launch Sites, Expanding U.S. Space Industry Footprint",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-19/u-turn-from-regulator-may-be-new-lifeline-to-indian-derivatives",
-      "source_name": "Bloomberg",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279090",
+      "source_name": "Business Korea — All English Articles",
       "input_nature": "news_headline",
-      "found_at": "2026-10-19T01:00:00Z",
+      "found_at": "2026-10-19T05:55:01Z",
       "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Regulatory changes in Indian derivatives could significantly impact trading volumes and market liquidity.",
+      "prelim_note": "Securing a supply contract for SpaceX launch sites is a material commercial win for KBI Dongyang Steel Pipe.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 81,
-      "triage_reason": "Regulatory changes in Indian derivatives could significantly impact trading volumes and market liquidity.",
-      "region": "IN",
+      "triage_reason": "Securing a supply contract for SpaceX launch sites is a material commercial win for KBI Dongyang Steel Pipe.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 55,
+      "materiality_pre_score": 50,
       "rank_factors": {
-        "materiality": 55,
+        "materiality": 50,
         "source_tier": 0,
-        "scope": 2,
-        "event": 4,
+        "scope": 6,
+        "event": 0,
         "size": 0,
         "recency": 5,
-        "materiality_label_floor": 15,
+        "materiality_label_floor": 20,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "policy",
+        "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "regulatory",
+        "event_id": null,
         "size_bucket": "unknown"
       },
       "event_types": [
-        "regulatory"
+        "commercial"
       ],
-      "issuer_linkage": "sector",
-      "companies": [],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KBI Dongyang Steel Pipe",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -188010,78 +188016,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e9a3028a08b9",
-      "idea_version": "IDEAV-96e326b9618b57f5",
-      "idea_version_started_at": "2026-10-18T04:36:10Z",
-      "ticker": "PSB",
-      "company": "Punjab & Sind Bank",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The bank recorded a 40% rise in net profit for Q2.",
-      "why_now": "The Q2 results were released on October 17, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-52b85c8f3b7e"
-      ],
-      "primary_source_event_id": "EVT-52b85c8f3b7e",
-      "source_headlines": [
-        "Punjab & Sind Bank records 40% rise in net profit in Q2"
-      ],
-      "source_headline": "Punjab & Sind Bank records 40% rise in net profit in Q2",
-      "source_url": "https://www.thehindubusinessline.com/money-and-banking/punjab-sind-bank-records-40-rise-in-net-profit-in-q2/article71597071.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 96,
-      "newest_source_at": "2026-10-17T14:52:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-18T04:36:10Z",
-      "updated_at": "2026-10-18T04:36:10Z",
-      "decay_at": "2026-10-19T02:52:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-fc426f81932d",
       "idea_version": "IDEAV-3eac0cd79443bc76",
       "idea_version_started_at": "2026-10-18T04:01:13Z",
@@ -191236,6 +191170,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-e9a3028a08b9",
+      "idea_version": "IDEAV-96e326b9618b57f5",
+      "idea_version_started_at": "2026-10-18T04:36:10Z",
+      "ticker": "PSB",
+      "company": "Punjab & Sind Bank",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The bank recorded a 40% rise in net profit for Q2.",
+      "why_now": "The Q2 results were released on October 17, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-52b85c8f3b7e"
+      ],
+      "primary_source_event_id": "EVT-52b85c8f3b7e",
+      "source_headlines": [
+        "Punjab & Sind Bank records 40% rise in net profit in Q2"
+      ],
+      "source_headline": "Punjab & Sind Bank records 40% rise in net profit in Q2",
+      "source_url": "https://www.thehindubusinessline.com/money-and-banking/punjab-sind-bank-records-40-rise-in-net-profit-in-q2/article71597071.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 96,
+      "newest_source_at": "2026-10-17T14:52:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-18T04:36:10Z",
+      "updated_at": "2026-10-18T04:36:10Z",
+      "decay_at": "2026-10-19T02:52:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-9267af00f480",
       "idea_version": "IDEAV-04d59087014ac64c",
       "idea_version_started_at": "2026-10-17T01:10:08Z",
@@ -191675,14 +191681,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 539,
     "shown_count": 499,
-    "hidden_count": 39,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
-        "total_count": 278,
+        "total_count": 279,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 29
       },
       "short": {
         "total_count": 261,
@@ -191706,6 +191712,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e9a3028a08b9",
+        "idea_version": "IDEAV-96e326b9618b57f5",
+        "idea_version_started_at": "2026-10-18T04:36:10Z",
+        "ticker": "PSB",
+        "company": "Punjab & Sind Bank",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The bank recorded a 40% rise in net profit for Q2.",
+        "why_now": "The Q2 results were released on October 17, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-52b85c8f3b7e"
+        ],
+        "primary_source_event_id": "EVT-52b85c8f3b7e",
+        "source_headlines": [
+          "Punjab & Sind Bank records 40% rise in net profit in Q2"
+        ],
+        "source_headline": "Punjab & Sind Bank records 40% rise in net profit in Q2",
+        "source_url": "https://www.thehindubusinessline.com/money-and-banking/punjab-sind-bank-records-40-rise-in-net-profit-in-q2/article71597071.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 96,
+        "newest_source_at": "2026-10-17T14:52:37Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-18T04:36:10Z",
+        "updated_at": "2026-10-18T04:36:10Z",
+        "decay_at": "2026-10-19T02:52:37Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-19T02:52:37Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-87cbb3009f6f",
         "idea_version": "IDEAV-a445a760a5970d87",
@@ -219044,79 +219125,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-52c74fc97e93",
-        "idea_version": "IDEAV-8f138e0c64ba38fb",
-        "idea_version_started_at": "2026-10-04T19:59:51Z",
-        "ticker": "PTC",
-        "company": "PTC Inc.",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Schneider Electric is reportedly in advanced talks to acquire PTC for approximately $20 billion, which would likely trigger a significant premium over the current market valuation.",
-        "why_now": "The report of a near-term deal emerged on October 4, 2026, creating an immediate arbitrage opportunity.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 67,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1eb8834a8281"
-        ],
-        "primary_source_event_id": "EVT-1eb8834a8281",
-        "source_headlines": [
-          "France's Schneider Electric nears $20 billion deal to buy US software group PTC, FT reports"
-        ],
-        "source_headline": "France's Schneider Electric nears $20 billion deal to buy US software group PTC, FT reports",
-        "source_url": "https://www.reuters.com/business/frances-schneider-electric-nears-20-billion-deal-buy-us-software-group-ptc-ft-2026-10-04/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-04T19:47:43Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-04T19:39:50Z",
-        "updated_at": "2026-10-04T19:59:51Z",
-        "decay_at": "2026-10-06T07:47:43Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-07T20:26:35Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-50f379c78b21",
         "idea_version": "IDEAV-8ccb8002d826e8d3",
         "idea_version_started_at": "2026-10-04T16:00:05Z",
@@ -228879,7 +228887,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1704,
-    "live_count": 41,
+    "live_count": 40,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -228898,9 +228906,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 541,
-    "news_picked_today": 129,
-    "news_dropped_today": 412
+    "news_seen_today": 562,
+    "news_picked_today": 133,
+    "news_dropped_today": 429
   },
   "book_momentum": {
     "live_count": 8,
