@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-19T21:30:47Z",
+  "generated_at": "2026-10-19T21:33:56Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261019-517",
+      "headline": "GA8: GoldArc Completes Niagara Acquisition",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GA8?key=2924-03150274-6A1350061",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T21:21:45Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "GoldArc completed the acquisition of Niagara, representing a completed M&A transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GoldArc completed the acquisition of Niagara, representing a completed M&A transaction.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GoldArc",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261019-417",
       "headline": "Power Finance Corporation Limited: Intimation of receipt of No Objection letters from BSE Limited and National Stock Exchange of India Limited in relation to proposed scheme of merger of REC Limited ( Transferor Company ) with and into Power Finance Corporation Limited ( Company or Transferee Company )",
@@ -754,6 +803,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-518",
+      "headline": "Tradeweb to Buy Trumid For About $1.97 Billion",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/tradeweb-to-buy-trumid-for-about-1-97-billion-1fd21bdb?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T21:23:00Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Tradeweb announced an agreement to acquire Trumid for $1.97 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tradeweb announced an agreement to acquire Trumid for $1.97 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tradeweb",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Trumid",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-516",
       "headline": "Stock Market Today, Oct. 19: Cleveland-Cliffs Surges on Stronger Q3 Results and Raised 2027 EBITDA Outlook",
       "headline_en": null,
@@ -794,60 +897,6 @@
       "companies": [
         {
           "name": "Cleveland-Cliffs",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-513",
-      "headline": "Tradeweb to buy Trumid for $1.97 billion",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/tradeweb-buy-trumid-197-billion-2026-10-19/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T20:59:57Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Tradeweb to acquire Trumid for $1.97 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tradeweb to acquire Trumid for $1.97 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tradeweb",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Trumid",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1965,55 +2014,6 @@
       "companies": [
         {
           "name": "L&T Technology Services",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-330",
-      "headline": "Hindustan Zinc Q2 Results: Net profit skyrockets 142% YoY to Rs 6,412 crore, revenue soars 77%",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/hindustan-zinc-q2-results-net-profit-skyrockets-142-yoy-to-rs-6412-crore-revenue-soars-77/articleshow/135047098.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T10:59:09Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Hindustan Zinc reported a 142% YoY increase in net profit to Rs 6,412 crore and 77% revenue growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Hindustan Zinc reported a 142% YoY increase in net profit to Rs 6,412 crore and 77% revenue growth.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hindustan Zinc",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -228698,9 +228698,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4834187,
-    "news_picked_today": 1087,
-    "news_dropped_today": 10515
+    "news_seen_today": 4857541,
+    "news_picked_today": 1099,
+    "news_dropped_today": 10527
   },
   "book_momentum": {
     "live_count": 8,
