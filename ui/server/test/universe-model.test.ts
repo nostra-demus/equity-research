@@ -30,10 +30,18 @@ const index: UniverseEventIndex = { coverage: { checked_at: at, from: '2026-07-2
   archive_days: 20, reports_scanned: 0, latest_report_at: null, refreshing: false, error: null }, companies: {} }
 const event = { event_id: 'EVT-1', headline: 'Company zero raises guidance', url: 'https://example.test/filing', source_name: 'Issuer filing',
   source_tier: 'primary_filing', found_at: at, event_types: ['guidance_change'], event_direction: 'positive',
-  event_materiality_label: 'high', relevance: 'material', issuer_linkage: 'primary', companies: [{ ticker: 'CO0', name: 'Company zero Inc', listing_country: 'US' }] } as FeedItem
+  event_materiality_label: 'high', relevance: 'material', issuer_linkage: 'primary', companies: [{ ticker: 'CO0', name: 'Company zero Inc', listing_country: 'US' }],
+  snippet: '<b>Revenue</b> guidance increased.', triage_reason: 'Material outlook revision.' } as FeedItem
 addUniverseEvent(index, event); addUniverseEvent(index, event)
 const key = universeCompanyKey('CO0', 'Company zero Corp')
 assert.equal(index.companies[key].guidance?.length, 1, 'duplicates cannot add points or evidence')
+assert.equal(index.companies[key].guidance?.[0].source_event_id, 'EVT-1', 'cache reads use the exact source event, never its story-group ID')
+assert.equal(index.companies[key].guidance?.[0].excerpt, 'Revenue guidance increased.')
+assert.equal(index.companies[key].guidance?.[0].classification_reason, 'Material outlook revision.')
+const groupedIndex: UniverseEventIndex = { coverage: { ...index.coverage }, companies: {} }
+addUniverseEvent(groupedIndex, { ...event, dedup_group: 'STORY-1' })
+assert.equal(groupedIndex.companies[key].guidance?.[0].id, 'STORY-1')
+assert.equal(groupedIndex.companies[key].guidance?.[0].source_event_id, 'EVT-1')
 const foreignIndex: UniverseEventIndex = { coverage: { ...index.coverage }, companies: { ...index.companies } }
 addUniverseEvent(foreignIndex, { ...event, event_id: 'EVT-2', url: 'https://example.test/two', companies: [{ ticker: 'CO0', name: 'Company zero Inc', listing_country: 'IN' }] })
 assert.equal(Object.keys(index.companies).length, 1, 'foreign ticker collisions are not issuer matches')

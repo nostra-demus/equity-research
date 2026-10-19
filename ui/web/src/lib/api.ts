@@ -543,6 +543,13 @@ const EMPTY_MANUAL: PortfolioManualRead = { trades: [], live: 0, superseded: 0, 
 const EMPTY_OVERRIDES: PortfolioOverrides = { cashEquivalents: [] }
 
 export const api = {
+  universeModelEvidence: async (eventId: string, ticker: string, company: string) => {
+    if (await ensureMode() !== 'live') throw new Error('Saved event analysis needs the live engine.')
+    const { isModelEventRead } = await import('../../../shared/universe-model')
+    const read: unknown = await get(`/api/screener/universe-model/evidence?${new URLSearchParams({ eventId, ticker, company })}`)
+    if (!isModelEventRead(read) || read.event_id !== eventId || read.ticker !== ticker || read.company !== company) throw new Error('The saved analysis did not match this event and company.')
+    return read
+  },
   universeModel: async () => {
     if (await ensureMode() !== 'live') throw new Error('The Model needs the live engine. This saved preview has no Finviz connection.')
     const { isModelRead } = await import('../../../shared/universe-model')

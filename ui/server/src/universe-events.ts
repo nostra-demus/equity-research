@@ -3,6 +3,7 @@ import { firehoseStamp, listFirehoseDates, scanDayItems } from './news/feed'
 import { coreCompanyName, normTicker } from './news/symbology'
 import { deriveSourceTier } from './news/scope'
 import { deriveMaterialityLabel } from './news/rank'
+import { cleanText } from './news/clean'
 import type { FeedItem } from './news/types'
 import { runDiscoveryInWorker } from './news/ideas/ideas-worker'
 
@@ -25,7 +26,9 @@ export function addUniverseEvent(index: UniverseEventIndex, item: FeedItem, evid
   if (tier === 'social' || tier === 'unconfirmed') return
   const signals = MODEL_SIGNALS.filter((signal) => signal.types.some((tag) => item.event_types?.includes(tag)))
   if (!signals.length) return
-  const event: ModelEvent = { id: item.dedup_group || item.event_id, headline: item.headline_en || item.headline,
+  const event: ModelEvent = { id: item.dedup_group || item.event_id, source_event_id: item.event_id, headline: item.headline_en || item.headline,
+    ...(item.snippet ? { excerpt: cleanText(item.snippet).slice(0, 1600) } : {}),
+    ...(item.triage_reason ? { classification_reason: cleanText(item.triage_reason).slice(0, 600) } : {}),
     url: item.url, source: item.source_name, reported_at: reportedAt, source_tier: tier,
     direction: item.event_direction || 'unknown' }
   for (const company of item.companies || []) {

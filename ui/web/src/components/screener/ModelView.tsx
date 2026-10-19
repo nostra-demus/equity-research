@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { MODEL_SIGNALS, defaultModelWeights, modelScore, modelWeights, rankModel, signalResult, UNIVERSE_URL,
   type ModelRead, type ModelRow, type ModelWeights } from '../../../../shared/universe-model'
 import { api } from '../../lib/api'
+import { ModelSignalDialog, type ModelSelection } from './ModelSignalDialog'
 
 const WEIGHTS_KEY = 'nsw.universeEventModel.weights.v1'
 const PAGE_SIZE = 100
@@ -12,30 +13,26 @@ const date = (value: string | null) => value ? new Date(value).toLocaleString() 
 const number = (value: number) => Number(value.toFixed(2)).toLocaleString()
 
 export function ModelGrid({ rows, weights }: { rows: ModelRow[]; weights: ModelWeights }) {
-  return <div className="model__scroll" tabIndex={0} aria-label="Company signals; scroll for more columns">
+  const [selection, setSelection] = useState<ModelSelection | null>(null)
+  return <><div className="model__scroll" tabIndex={0} aria-label="Company signals; scroll for more columns">
     <table className="model__grid">
       <caption className="sr-only">Finviz universe ranked by total event activity score, highest first. Event presence is not a bullish verdict. A dash means unavailable event coverage.</caption>
       <thead><tr><th scope="col">Company</th><th scope="col">Market price <small>USD · delayed</small></th>
         {MODEL_SIGNALS.map((signal) => <th scope="col" key={signal.id} title={signal.rule}>{signal.label}<small>{number(weights[signal.id])} pt{weights[signal.id] === 1 ? '' : 's'}</small></th>)}
         <th scope="col" aria-sort="descending">Total ↓</th></tr></thead>
       <tbody>{rows.map((row) => <tr key={row.ticker}>
-        <th scope="row"><a href={`https://finviz.com/quote.ashx?t=${encodeURIComponent(row.ticker)}`} target="_blank" rel="noreferrer">{row.company}</a><small>{row.ticker}</small></th>
+        <th scope="row"><button type="button" className="model__company" aria-haspopup="dialog" onClick={() => setSelection({ row, signal: null })}>{row.company}</button><small>{row.ticker}</small></th>
         <td title={`Retrieved ${date(row.retrieved_at)}. Finviz does not supply an individual quote timestamp here.`}>{row.price === null ? '—' : `$${row.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}<small>Retrieved {new Date(row.retrieved_at).toLocaleTimeString()}</small></td>
         {MODEL_SIGNALS.map((signal) => {
           const result = signalResult(row, signal)
           const label = result === null ? 'Unavailable' : result ? 'Present' : 'No matching report'
-          const reports = row.signals?.[signal.id] || []
-          return <td key={signal.id}>{result ? <details className="model__evidence"><summary className="model__signal model__signal--pass" aria-label={`${signal.label}: ${label}`} title={signal.rule}>✓</summary>
-            <div><strong>{signal.label} · recent evidence</strong><small>Headline classification and issuer match are inferred. Presence does not prove a pending catalyst.</small>
-              {reports.map((report) => <p key={report.id}><a href={report.url} target="_blank" rel="noreferrer">{report.headline}</a>
-                <small>{report.source} · {date(report.reported_at)} · {report.source_tier.replace(/_/g, ' ')} · {report.direction}</small></p>)}</div>
-          </details> : <span role="img" className={`model__signal model__signal--${result === null ? 'unknown' : 'fail'}`}
-            aria-label={`${signal.label}: ${label}`} title={signal.rule}>{result === null ? '—' : '✕'}</span>}</td>
+          return <td key={signal.id}><button type="button" aria-haspopup="dialog" className={`model__signal model__signal--${result === null ? 'unknown' : result ? 'pass' : 'fail'}`}
+            aria-label={`${signal.label}: ${label}`} title={signal.rule} onClick={() => setSelection({ row, signal })}>{result === null ? '—' : result ? '✓' : '✕'}</button></td>
         })}
         <td className="model__total">{row.signals === null ? '—' : number(modelScore(row, weights))}<small>{row.signals === null ? 'Coverage unavailable' : 'Event activity'}</small></td>
       </tr>)}</tbody>
     </table>
-  </div>
+  </div>{selection && <ModelSignalDialog selection={selection} weights={weights} onSelect={(signal) => setSelection({ row: selection.row, signal })} onClose={() => setSelection(null)} />}</>
 }
 
 export function ModelView() {
