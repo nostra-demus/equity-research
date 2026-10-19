@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T01:15:52Z",
+  "generated_at": "2026-10-19T01:16:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-021",
@@ -188342,6 +188342,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-6502fae61ac2",
+      "idea_version": "IDEAV-81bf3d477bbc04a3",
+      "idea_version_started_at": "2026-10-19T01:15:58Z",
+      "ticker": "6594",
+      "company": "Nidec",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Activist pressure from Oasis Management to revamp the board typically leads to improved capital allocation and governance, which often drives multiple expansion.",
+      "why_now": "The report of a potential extraordinary general meeting on 2026-10-19 signals an active escalation in the governance battle.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ee04fe9e2cd5"
+      ],
+      "primary_source_event_id": "EVT-ee04fe9e2cd5",
+      "source_headlines": [
+        "Oasis may seek extraordinary general meeting to revamp Nidec board"
+      ],
+      "source_headline": "Oasis may seek extraordinary general meeting to revamp Nidec board",
+      "source_url": "https://asia.nikkei.com/business/companies/oasis-may-seek-extraordinary-general-meeting-to-revamp-nidec-board",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 89,
+      "newest_source_at": "2026-10-19T00:59:55Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T01:15:58Z",
+      "updated_at": "2026-10-19T01:15:58Z",
+      "decay_at": "2026-10-20T12:59:55Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-83bd5483df63",
       "idea_version": "IDEAV-641583e10e9a0e7f",
       "idea_version_started_at": "2026-10-19T00:18:15Z",
@@ -228704,8 +228776,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1701,
-    "live_count": 40,
+    "surfaced_total": 1702,
+    "live_count": 41,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
