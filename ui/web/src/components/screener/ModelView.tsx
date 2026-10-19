@@ -32,7 +32,7 @@ export function ModelGrid({ rows, weights }: { rows: ModelRow[]; weights: ModelW
         <td className="model__total">{row.signals === null ? '—' : number(modelScore(row, weights))}<small>{row.signals === null ? 'Coverage unavailable' : 'Event activity'}</small></td>
       </tr>)}</tbody>
     </table>
-  </div>{selection && <ModelSignalDialog selection={selection} weights={weights} onSelect={(signal) => setSelection({ row: selection.row, signal })} onClose={() => setSelection(null)} />}</>
+  </div>{selection && <ModelSignalDialog key={JSON.stringify([selection.row.ticker, selection.row.company])} selection={selection} weights={weights} onSelect={(signal) => setSelection({ row: selection.row, signal })} onClose={() => setSelection(null)} />}</>
 }
 
 export function ModelView() {
