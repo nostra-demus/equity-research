@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T19:28:28Z",
+  "generated_at": "2026-10-19T19:36:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-417",
@@ -186501,6 +186501,151 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-efa0efb703fc",
+      "idea_version": "IDEAV-67a47f43901e27ee",
+      "idea_version_started_at": "2026-10-19T19:35:51Z",
+      "ticker": "PEL",
+      "company": "Piramal Enterprises",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 67% year-over-year increase in Q2 FY2027 profit after tax to Rs. 545 crore, signaling strong operational momentum.",
+      "why_now": "The financial results were released on October 19, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9ddbdae85044",
+        "EVT-08354917fb98"
+      ],
+      "primary_source_event_id": "EVT-9ddbdae85044",
+      "source_headlines": [
+        "Piramal Finance Limited: Piramal Finance Limited has informed the Exchange regarding a press release dated October 19, 2026, titled \"Piramal Finance reports PAT of Rs. 545 crore in Q2 FY2027, up 67% yoy\".",
+        "Piramal Finance Q2 FY27 Results: Consolidated Net Profit Surges 66.86% To ₹545.42 Crore, Total Income Climbs To ₹3,717.16 Crore"
+      ],
+      "source_headline": "Piramal Finance Limited: Piramal Finance Limited has informed the Exchange regarding a press release dated October 19, 2026, titled \"Piramal Finance reports PAT of Rs. 545 crore in Q2 FY2027, up 67% yoy\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/Piramalcapital_19102026155546_04_PFL_SE_Intimation_Press_Release_sd.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-19T10:29:33Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T19:35:51Z",
+      "updated_at": "2026-10-19T19:35:51Z",
+      "decay_at": "2026-10-20T22:29:33Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-fc73cefe4bc2",
+      "idea_version": "IDEAV-f8576c73d83db85d",
+      "idea_version_started_at": "2026-10-19T19:35:51Z",
+      "ticker": "DHARAN",
+      "company": "Dharan Infra-EPC Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has entered the Corporate Insolvency Resolution Process, indicating severe financial distress and potential equity wipeout.",
+      "why_now": "The exchange filing confirming the insolvency process was released on October 19, 2026.",
+      "conviction": 90,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d453ddce56c7"
+      ],
+      "primary_source_event_id": "EVT-d453ddce56c7",
+      "source_headlines": [
+        "DHARAN INFRA-EPC LIMITED: DHARAN INFRA-EPC LIMITED has informed the Exchange about Corporate Insolvency Resolution Process"
+      ],
+      "source_headline": "DHARAN INFRA-EPC LIMITED: DHARAN INFRA-EPC LIMITED has informed the Exchange about Corporate Insolvency Resolution Process",
+      "source_url": "https://nsearchives.nseindia.com/corporate/KBCGLOBAL_19102026151210_1792387883.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-19T09:43:13Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T19:35:51Z",
+      "updated_at": "2026-10-19T19:35:51Z",
+      "decay_at": "2026-10-20T21:43:13Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-9336a4ac932b",
       "idea_version": "IDEAV-4a978add98180b23",
       "idea_version_started_at": "2026-10-19T10:36:10Z",
@@ -188944,76 +189089,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-4c0aaf15eee5",
-      "idea_version": "IDEAV-5584ebc78c6e900b",
-      "idea_version_started_at": "2026-10-18T02:20:51Z",
-      "ticker": "NLST",
-      "company": "Netlist",
-      "exchange": "OQB",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a $600 million settlement with Micron Technology, providing a significant cash infusion and validating its intellectual property portfolio.",
-      "why_now": "The settlement was announced on October 16, 2026, and represents a material liquidity event for the company.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 18,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b72db628ec26"
-      ],
-      "primary_source_event_id": "EVT-b72db628ec26",
-      "source_headlines": [
-        "Sterne Kessler Client Netlist Negotiates $600 Million Settlement with Micron Technology"
-      ],
-      "source_headline": "Sterne Kessler Client Netlist Negotiates $600 Million Settlement with Micron Technology",
-      "source_url": "http://www.businesswire.com/news/home/20261016154549/en/Sterne-Kessler-Client-Netlist-Negotiates-600-Million-Settlement-with-Micron-Technology/?feedref=JjAwJuNHiystnCoBq_hl-adS5VAKkf1zsgyV8tTPInVcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTVXw2Oldt-3VQjUwU4Zj5HZBSvR87oUDgbHejiywQBpbg==",
-      "source_name": "Business Wire — Lawsuit News",
-      "materiality_max": 68,
-      "newest_source_at": "2026-10-16T17:24:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-18T02:20:51Z",
-      "updated_at": "2026-10-18T02:20:51Z",
-      "decay_at": "2026-10-18T05:24:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-eaf659086da7",
       "idea_version": "IDEAV-deaeca7a37f9796f",
       "idea_version_started_at": "2026-10-17T21:21:14Z",
@@ -189288,146 +189363,6 @@
       "surfaced_at": "2026-10-18T02:20:51Z",
       "updated_at": "2026-10-18T02:20:51Z",
       "decay_at": "2026-10-18T08:05:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-b0586fbde26d",
-      "idea_version": "IDEAV-9cef7dbb40e228d0",
-      "idea_version_started_at": "2026-10-18T00:40:50Z",
-      "ticker": "NFLX",
-      "company": "Netflix",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The unexpected departure of the content chief and significant layoffs suggest internal instability or a negative earnings surprise ahead of the report.",
-      "why_now": "The news broke on 2026-10-16, just days before the scheduled earnings release.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 63,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1d8d0dd0ec21"
-      ],
-      "primary_source_event_id": "EVT-1d8d0dd0ec21",
-      "source_headlines": [
-        "Netflix Is Cutting About 1,000 Jobs and Its Content Chief Is Out, Days Before Earnings"
-      ],
-      "source_headline": "Netflix Is Cutting About 1,000 Jobs and Its Content Chief Is Out, Days Before Earnings",
-      "source_url": "https://247wallst.com/investing/2026/10/16/netflix-is-cutting-about-1000-jobs-and-its-content-chief-is-out-days-before-earnings/",
-      "source_name": "24/7 Wall St.",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-16T12:45:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-14T22:44:48Z",
-      "updated_at": "2026-10-18T00:40:50Z",
-      "decay_at": "2026-10-18T00:45:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-be16a3f18c55",
-      "idea_version": "IDEAV-317a3dc01d327751",
-      "idea_version_started_at": "2026-10-18T00:22:45Z",
-      "ticker": "XOM",
-      "company": "ExxonMobil",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company pre-announced a $4.5 billion boost to Q3 earnings specifically driven by improved refining margins.",
-      "why_now": "The announcement was made on 2026-10-16, ahead of the full Q3 earnings report.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-177eb357f896"
-      ],
-      "primary_source_event_id": "EVT-177eb357f896",
-      "source_headlines": [
-        "ExxonMobil Expects Q3 Earnings To Boost By $4.5 Bln From Refining Margins"
-      ],
-      "source_headline": "ExxonMobil Expects Q3 Earnings To Boost By $4.5 Bln From Refining Margins",
-      "source_url": "https://www.nasdaq.com/articles/exxonmobil-expects-q3-earnings-boost-45-bln-refining-margins",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-16T16:38:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-16T23:31:00Z",
-      "updated_at": "2026-10-18T00:22:45Z",
-      "decay_at": "2026-10-18T04:38:24Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -190148,293 +190083,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-0b852ac1558d",
-      "idea_version": "IDEAV-b846ee605c075730",
-      "idea_version_started_at": "2026-10-18T02:00:52Z",
-      "ticker": "02369",
-      "company": "Coolpad Group",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company announced a non-underwritten rights issue, which is dilutive to existing shareholders and often signals a need for capital to address balance sheet weakness.",
-      "why_now": "The filing was released on 2026-10-16, and the market typically reacts negatively to dilution events.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-367845cc817d"
-      ],
-      "primary_source_event_id": "EVT-367845cc817d",
-      "source_headlines": [
-        "COOLPAD GROUP (02369): PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY TWO (2) EXISTING SHARES HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS AND PROPOSED CHANGE IN BOARD LOT SIZE"
-      ],
-      "source_headline": "COOLPAD GROUP (02369): PROPOSED RIGHTS ISSUE ON THE BASIS OF ONE (1) RIGHTS SHARE FOR EVERY TWO (2) EXISTING SHARES HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS AND PROPOSED CHANGE IN BOARD LOT SIZE",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101601510.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-16T14:57:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-16T23:31:00Z",
-      "updated_at": "2026-10-18T02:00:52Z",
-      "decay_at": "2026-10-18T02:57:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-1e4e902899de",
-      "idea_version": "IDEAV-09de71681050edb7",
-      "idea_version_started_at": "2026-10-18T00:40:50Z",
-      "ticker": "CROMPTON",
-      "company": "Crompton Greaves Consumer Electricals Ltd",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 65% surge in Q2 profit to Rs 124 crore, indicating strong operational performance.",
-      "why_now": "The earnings results were released on 2026-10-16, providing a fresh fundamental catalyst.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4c0fead40a53"
-      ],
-      "primary_source_event_id": "EVT-4c0fead40a53",
-      "source_headlines": [
-        "Crompton Greaves Consumer Electricals Ltd Q2 Results: Profit surges 65% to Rs 124 crore"
-      ],
-      "source_headline": "Crompton Greaves Consumer Electricals Ltd Q2 Results: Profit surges 65% to Rs 124 crore",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/crompton-greaves-q2-results-profit-surges-65-to-rs-124-crore/articleshow/134998426.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-16T15:33:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-16T21:35:39Z",
-      "updated_at": "2026-10-18T00:40:50Z",
-      "decay_at": "2026-10-18T03:33:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-69be6242b6c3",
-      "idea_version": "IDEAV-bd782201a2c5e9f2",
-      "idea_version_started_at": "2026-10-18T00:40:50Z",
-      "ticker": "OLAELEC",
-      "company": "Ola Electric",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Regulatory scrutiny and audit deficiencies regarding a major rights issue create significant downside risk and uncertainty for the stock.",
-      "why_now": "The report of SEBI scrutiny surfaced on 2026-10-16, creating an immediate overhang on the equity.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4716bd7a268c"
-      ],
-      "primary_source_event_id": "EVT-4716bd7a268c",
-      "source_headlines": [
-        "Ola Electric’s ₹1,000 crore rights issue uncovers SEBI scrutiny, audit deficiencies"
-      ],
-      "source_headline": "Ola Electric’s ₹1,000 crore rights issue uncovers SEBI scrutiny, audit deficiencies",
-      "source_url": "https://www.thehindubusinessline.com/companies/ola-electrics-1000-crore-rights-issue-uncovers-sebi-scrutiny-audit-deficiencies/article71572604.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-16T13:57:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-18T00:40:50Z",
-      "updated_at": "2026-10-18T00:40:50Z",
-      "decay_at": "2026-10-18T01:57:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-913c9c5d1968",
-      "idea_version": "IDEAV-b30bb1cbef1f3145",
-      "idea_version_started_at": "2026-10-18T00:22:45Z",
-      "ticker": "01788",
-      "company": "Guotai Junan International",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is undergoing a privatization process via a scheme of arrangement, which creates a defined exit price for shareholders.",
-      "why_now": "The filing on 2026-10-16 provides an update on the progress of pre-conditions for the privatization.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cc0e842bb968"
-      ],
-      "primary_source_event_id": "EVT-cc0e842bb968",
-      "source_headlines": [
-        "GUOTAI JUNAN I (01788): JOINT ANNOUNCEMENT UPDATE ON PROGRESS ON THE FULFILMENT OF THE PRE-CONDITION IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 673 OF THE COMPANIES ORDINANCE AND (2) PROPOSED WITHDRAWAL OF LISTING OF THE SHARES OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED"
-      ],
-      "source_headline": "GUOTAI JUNAN I (01788): JOINT ANNOUNCEMENT UPDATE ON PROGRESS ON THE FULFILMENT OF THE PRE-CONDITION IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 673 OF THE COMPANIES ORDINANCE AND (2) PROPOSED WITHDRAWAL OF LISTING OF THE SHARES OF GUOTAI JUNAN INTERNATIONAL HOLDINGS LIMITED",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101601350.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-16T12:59:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-18T00:22:45Z",
-      "updated_at": "2026-10-18T00:22:45Z",
-      "decay_at": "2026-10-18T00:59:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-10df37279447",
       "idea_version": "IDEAV-d5c5f864d6c6d212",
       "idea_version_started_at": "2026-10-17T18:25:41Z",
@@ -191015,77 +190663,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-f35475470360",
-      "idea_version": "IDEAV-1f36f077994b070b",
-      "idea_version_started_at": "2026-10-16T23:31:00Z",
-      "ticker": "06623",
-      "company": "Lufax Holding Ltd",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating significant deterioration in earnings visibility and financial performance.",
-      "why_now": "The filing was released today, October 16, 2026, signaling immediate negative pressure on the stock.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f5b19d537758"
-      ],
-      "primary_source_event_id": "EVT-f5b19d537758",
-      "source_headlines": [
-        "LUFAX (06623): PROFIT WARNING"
-      ],
-      "source_headline": "LUFAX (06623): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1016/2026101601156.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-16T11:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-16T23:31:00Z",
-      "updated_at": "2026-10-16T23:31:00Z",
-      "decay_at": "2026-10-17T23:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-24912455a063",
       "idea_version": "IDEAV-36591658159913a5",
       "idea_version_started_at": "2026-10-17T14:35:09Z",
@@ -191294,148 +190871,6 @@
       "surfaced_at": "2026-10-18T04:36:10Z",
       "updated_at": "2026-10-18T04:36:10Z",
       "decay_at": "2026-10-19T02:52:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-9267af00f480",
-      "idea_version": "IDEAV-04d59087014ac64c",
-      "idea_version_started_at": "2026-10-17T01:10:08Z",
-      "ticker": "RBLBANK",
-      "company": "RBL Bank Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The RBI approval for the amalgamation of Emirates NBD's Indian branches into RBL Bank allows for immediate balance sheet expansion and customer base acquisition in the Indian market.",
-      "why_now": "The regulatory approval was officially announced on October 16, 2026, clearing the path for the integration process to begin.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5611eead4e3b"
-      ],
-      "primary_source_event_id": "EVT-5611eead4e3b",
-      "source_headlines": [
-        "RBI approves amalgamation of Indian branches of Emirates NBD Bank P.J.S.C. with RBL Bank Limited"
-      ],
-      "source_headline": "RBI approves amalgamation of Indian branches of Emirates NBD Bank P.J.S.C. with RBL Bank Limited",
-      "source_url": "https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63820",
-      "source_name": "Reserve Bank of India (RBI) — Press Releases",
-      "materiality_max": 95,
-      "newest_source_at": "2026-10-16T11:35:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-17T01:10:08Z",
-      "updated_at": "2026-10-17T01:10:08Z",
-      "decay_at": "2026-10-17T23:35:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-8aaa7aff291f",
-      "idea_version": "IDEAV-76893c58a5fb1605",
-      "idea_version_started_at": "2026-10-17T03:38:30Z",
-      "ticker": "541578",
-      "company": "Varroc Engineering Ltd",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The joint venture with Forsee Power allows Varroc to localize and scale EV battery production, capturing a larger share of the growing Indian electric vehicle component market.",
-      "why_now": "The joint venture was officially announced via exchange filing on October 16, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-47da73cf4ed4"
-      ],
-      "primary_source_event_id": "EVT-47da73cf4ed4",
-      "source_headlines": [
-        "Varroc Engineering Limited: Varroc Engineering Limited has informed the Exchange regarding a press release dated October 16, 2026, titled \"Varroc and Forsee Power to Form Joint Venture to Scale EV Battery Solutions in India\"."
-      ],
-      "source_headline": "Varroc Engineering Limited: Varroc Engineering Limited has informed the Exchange regarding a press release dated October 16, 2026, titled \"Varroc and Forsee Power to Form Joint Venture to Scale EV Battery Solutions in India\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/VARROC_16102026163520_Forsee_Press_Release.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 94,
-      "newest_source_at": "2026-10-16T11:05:28Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-17T03:38:30Z",
-      "updated_at": "2026-10-17T03:38:30Z",
-      "decay_at": "2026-10-17T23:05:28Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -191888,33 +191323,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 540,
+    "total_count": 530,
     "shown_count": 499,
-    "hidden_count": 41,
+    "hidden_count": 31,
     "side_counts": {
       "long": {
-        "total_count": 279,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 29
+        "hidden_count": 23
       },
       "short": {
-        "total_count": 262,
+        "total_count": 258,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 8
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1136,
-      "oldest_retained_at": "2026-09-21T03:09:50Z",
+      "evicted_count": 1146,
+      "oldest_retained_at": "2026-09-21T09:27:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 753,
-          "oldest_retained_at": "2026-10-05T18:15:20Z"
+          "evicted_count": 759,
+          "oldest_retained_at": "2026-10-05T21:36:00Z"
         },
         "short": {
-          "evicted_count": 383,
-          "oldest_retained_at": "2026-09-21T03:09:50Z"
+          "evicted_count": 387,
+          "oldest_retained_at": "2026-09-21T09:27:00Z"
         }
       }
     },
@@ -194305,8 +193740,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-18T05:24:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-19T19:35:58Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -194378,8 +193813,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-18T04:38:24Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-19T19:35:58Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -194453,8 +193888,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-18T03:33:01Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-19T19:35:58Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -194527,8 +193962,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-18T02:57:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-19T19:35:58Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -194602,8 +194037,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-18T01:57:18Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-19T19:35:58Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -194677,8 +194112,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-18T00:59:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-19T19:35:58Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -194750,8 +194185,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-18T00:45:11Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-19T19:35:58Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -194824,8 +194259,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-17T23:35:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-19T19:35:58Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -194898,8 +194333,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-17T23:05:28Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-19T19:35:58Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -194972,8 +194407,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-17T23:00:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-19T19:35:58Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -229094,8 +228529,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1718,
-    "live_count": 41,
+    "surfaced_total": 1720,
+    "live_count": 43,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -229114,7 +228549,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4003280,
+    "news_seen_today": 4050295,
     "news_picked_today": 919,
     "news_dropped_today": 7587
   },

@@ -1,31 +1,31 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-22T19:34:52Z",
+  "archived_at": "2026-10-19T19:35:58Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-4e4abdc55d24",
-    "idea_version": "IDEAV-0b0048d3e77b2ca8",
-    "idea_version_started_at": "2026-09-20T17:25:16Z",
-    "ticker": "CVS",
-    "company": "CVS Health",
+    "idea_id": "IDEA-be16a3f18c55",
+    "idea_version": "IDEAV-317a3dc01d327751",
+    "idea_version_started_at": "2026-10-18T00:22:45Z",
+    "ticker": "XOM",
+    "company": "ExxonMobil",
     "exchange": "NYSE",
     "ticker_verified": true,
     "listing_verified": true,
     "liquidity_verified": false,
     "listing_verification_source": "yahoo_symbol_directory",
-    "direction": "short",
+    "direction": "long",
     "pair_with": null,
-    "reason": "CVS Health faces a significant financial blow after a $949 million fraud verdict forced one of its businesses into Chapter 11 bankruptcy.",
-    "why_now": "The news of the $949 million fraud verdict and subsequent Chapter 11 filing is fresh as of September 19, 2026.",
-    "conviction": 65,
+    "reason": "The company pre-announced a $4.5 billion boost to Q3 earnings specifically driven by improved refining margins.",
+    "why_now": "The announcement was made on 2026-10-16, ahead of the full Q3 earnings report.",
+    "conviction": 75,
     "conviction_basis": "pre_edge_proxy",
-    "trade_score": 67,
+    "trade_score": 62,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 21,
+      "impact": 20,
       "specificity": 15,
-      "timing": 10,
+      "timing": 6,
       "expression": 7,
       "corroboration": 0,
       "learning_adjustment": 0
@@ -51,26 +51,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-159b64c4f0f1"
+      "EVT-177eb357f896"
     ],
-    "primary_source_event_id": "EVT-159b64c4f0f1",
+    "primary_source_event_id": "EVT-177eb357f896",
     "source_headlines": [
-      "$949 million fraud verdict costs CVS a business in Chapter 11"
+      "ExxonMobil Expects Q3 Earnings To Boost By $4.5 Bln From Refining Margins"
     ],
-    "source_headline": "$949 million fraud verdict costs CVS a business in Chapter 11",
-    "source_url": "https://finance.yahoo.com/healthcare/articles/cvs-division-completes-chapter-11-150700440.html",
-    "source_name": "Yahoo Finance",
+    "source_headline": "ExxonMobil Expects Q3 Earnings To Boost By $4.5 Bln From Refining Margins",
+    "source_url": "https://www.nasdaq.com/articles/exxonmobil-expects-q3-earnings-boost-45-bln-refining-margins",
+    "source_name": "Nasdaq",
     "materiality_max": 100,
-    "newest_source_at": "2026-09-19T18:28:58Z",
+    "newest_source_at": "2026-10-16T16:38:24Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-19T20:48:40Z",
-    "updated_at": "2026-09-20T17:25:16Z",
-    "decay_at": "2026-09-21T06:28:58Z",
+    "surfaced_at": "2026-10-16T23:31:00Z",
+    "updated_at": "2026-10-18T00:22:45Z",
+    "decay_at": "2026-10-18T04:38:24Z",
     "status": "live",
     "promoted_signal_id": null
   }
