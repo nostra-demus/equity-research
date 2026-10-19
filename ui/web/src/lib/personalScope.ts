@@ -20,9 +20,9 @@ const STORAGE_KEY = 'nsw.personalScope'
 export function readPersonalScope(): PersonalScope {
   try {
     const saved = localStorage.getItem(STORAGE_KEY)
-    if (saved === 'watchlist' || saved === 'universe') return saved
+    if (saved === 'portfolio' || saved === 'watchlist' || saved === 'universe') return saved
   } catch { /* private browsing */ }
-  return 'portfolio'
+  return 'universe'
 }
 
 export function portfolioMembers(read: PortfolioRead): PersonalMember[] {
