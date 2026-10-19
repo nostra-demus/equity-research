@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T23:47:10Z",
+  "generated_at": "2026-10-19T23:50:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-534",
@@ -346,6 +346,109 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-538",
+      "headline": "Indiqube Spaces Limited: Indiqube Spaces Limited has informed the Exchange about the Board of Directors of Indiqube Spaces Limited (the Company) at its meeting held today i.e. October 19, 2026, commenced at 03:52 P.M. (IST) and concluded at 05:06 P.M.(IST), has, inter alia, approved the investment of up to Rs. 35 crore, in one or more tranches, in SaiEdge Realty Private Limited (SaiEdge), by way of subscription to its equity shares and/or convertible securities, for up to 49% of its share capita",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/INDIQUBE_19102026193252_INDIQUBE.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T14:03:21Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Indiqube Spaces Limited approved an investment of up to Rs. 35 crore in SaiEdge Realty Private Limited, which is a significant capital allocation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Indiqube Spaces Limited approved an investment of up to Rs. 35 crore in SaiEdge Realty Private Limited, which is a significant capital allocation.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Indiqube Spaces Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "SaiEdge Realty Private Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-539",
+      "headline": "25-NSE - Atkore Inc. (0001666138) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1666138/000087666126000843/0000876661-26-000843-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-19T14:02:31Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Atkore Inc. is delisting from an exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Atkore Inc. is delisting from an exchange.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Atkore Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1911,104 +2014,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-366",
-      "headline": "Bajaj Finance Q2 results: Net profit rises 29% to ₹6,367 crore; NII up 24%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/bajaj-finance-share-price-q2fy27-results-net-profit-nii-rises-asset-quality-strong-20015184.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T12:21:30Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Company reported Q2 net profit of ₹6,367 crore, up 29% YoY.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company reported Q2 net profit of ₹6,367 crore, up 29% YoY.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bajaj Finance",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-362",
-      "headline": "Nvidia challenger Tenstorrent raises $1.5-billion, valuing Toronto-founded company at $6.2-billion",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-tenstorrent-raises-15-billion-toronto-founded-valued-62-billion/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T12:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Tenstorrent raised $1.5 billion at a $6.2 billion valuation, a major capital event for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tenstorrent raised $1.5 billion at a $6.2 billion valuation, a major capital event for the company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tenstorrent",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -229255,9 +229260,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5959492,
-    "news_picked_today": 1292,
-    "news_dropped_today": 11342
+    "news_seen_today": 5971021,
+    "news_picked_today": 1296,
+    "news_dropped_today": 11434
   },
   "book_momentum": {
     "live_count": 8,
