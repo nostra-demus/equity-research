@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T00:17:40Z",
+  "generated_at": "2026-10-19T00:18:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-007",
@@ -186763,6 +186763,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-83bd5483df63",
+      "idea_version": "IDEAV-641583e10e9a0e7f",
+      "idea_version_started_at": "2026-10-19T00:18:15Z",
+      "ticker": "NXT",
+      "company": "NextDC",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company faces a critical operational delay in its Melbourne data center due to power supply constraints, which will likely defer revenue recognition and increase capital expenditure.",
+      "why_now": "The warning was issued on October 19, 2026, indicating an immediate impact on project timelines.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7a04cec5f6d3"
+      ],
+      "primary_source_event_id": "EVT-7a04cec5f6d3",
+      "source_headlines": [
+        "NextDC warns of Melbourne data centre delay amid power supply crunch"
+      ],
+      "source_headline": "NextDC warns of Melbourne data centre delay amid power supply crunch",
+      "source_url": "https://www.afr.com/companies/infrastructure/nextdc-warns-of-melbourne-data-centre-delay-amid-power-supply-crunch-20261019-p616mr?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 89,
+      "newest_source_at": "2026-10-19T00:03:24Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T00:18:15Z",
+      "updated_at": "2026-10-19T00:18:15Z",
+      "decay_at": "2026-10-20T12:03:24Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-c9b7224cbdda",
       "idea_version": "IDEAV-9335a9181d1a0b34",
       "idea_version_started_at": "2026-10-18T04:01:13Z",
@@ -227053,8 +227125,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1697,
-    "live_count": 36,
+    "surfaced_total": 1698,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
