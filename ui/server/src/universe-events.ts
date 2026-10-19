@@ -31,8 +31,11 @@ export function addUniverseEvent(index: UniverseEventIndex, item: FeedItem, evid
   for (const company of item.companies || []) {
     // Headline tags are inferred. Require BOTH exact ticker and normalized company name when joining
     // Finviz; never borrow an event from an identically named symbol on a foreign exchange.
-    if (!company.ticker || !coreCompanyName(company.name) || (company.listing_country && company.listing_country !== 'US')) continue
-    const key = universeCompanyKey(company.ticker, company.name)
+    if (!company.ticker || !coreCompanyName(company.name)) continue
+    // Keep country conflicts as dated evidence of uncertain identity. They cannot supply US signals
+    // or establish a negative for an ADR whose listing country was inferred from its home market.
+    const foreign = company.listing_country && company.listing_country !== 'US'
+    const key = foreign ? `${normTicker(company.ticker)}|?${coreCompanyName(company.name)}` : universeCompanyKey(company.ticker, company.name)
     const target = index.companies[key] ??= {}
     for (const signal of signals) {
       const reports = target[signal.id] ??= []
@@ -60,10 +63,12 @@ export async function readUniverseEvents(root: string, archiveDir: string, nowIS
   const from = new Date(fromMs).toISOString()
   const index: UniverseEventIndex = { coverage: { checked_at: nowISO, from, to: nowISO, archive_days: 0,
     reports_scanned: 0, latest_report_at: null, refreshing: false, error: null }, companies: {} }
+  const observed: [string, string][] = []
   for (const date of io.dates(root, archiveDir)) {
     if (date < from.slice(0, 10) || date > nowISO.slice(0, 10)) continue
     const stamp = io.stamp(root, date, archiveDir)
     if (!stamp) throw new Error(`Event archive could not be read for ${date}.`)
+    observed.push([date, stamp])
     const key = JSON.stringify([root, archiveDir, date])
     const cached = days.get(key)
     let day = cached?.stamp === stamp ? cached.index : null
@@ -79,7 +84,8 @@ export async function readUniverseEvents(root: string, archiveDir: string, nowIS
       if (scan.status !== 'read' || !scan.complete) throw new Error(`Event archive is incomplete for ${date}.`)
       times.sort((a, b) => a - b)
       // Cache compact per-company evidence, never all hydrated reports. Only changing partitions reparse.
-      if (io.stamp(root, date, archiveDir) === stamp) days.set(key, { stamp, index: day, times })
+      if (io.stamp(root, date, archiveDir) !== stamp) throw new Error(`Event archive changed during the scan for ${date}.`)
+      days.set(key, { stamp, index: day, times })
       while (days.size > 180) days.delete(days.keys().next().value!)
     }
     index.coverage.archive_days++
@@ -88,11 +94,11 @@ export async function readUniverseEvents(root: string, archiveDir: string, nowIS
     const latest = end > start ? new Date(times[end - 1]).toISOString() : null
     if (latest && (!index.coverage.latest_report_at || latest > index.coverage.latest_report_at)) index.coverage.latest_report_at = latest
     for (const [company, signals] of Object.entries(day.companies)) {
-      const target = index.companies[company] ??= {}
       for (const signal of MODEL_SIGNALS) {
         for (const report of signals[signal.id] || []) {
           const reportedAt = Date.parse(report.reported_at)
           if (reportedAt < fromMs || reportedAt > now) continue
+          const target = index.companies[company] ??= {}
           const reports = target[signal.id] ??= []
           if (!reports.some((r) => r.id === report.id || r.url === report.url)) reports.push(report)
           reports.sort((a, b) => b.reported_at.localeCompare(a.reported_at)); reports.splice(3)
@@ -102,6 +108,8 @@ export async function readUniverseEvents(root: string, archiveDir: string, nowIS
     // Other archive operations can run between dates during the first cold build.
     await new Promise(setImmediate)
   }
+  // A changing current partition may have been visited before the rest of a cold history scan.
+  if (observed.some(([date, stamp]) => io.stamp(root, date, archiveDir) !== stamp)) throw new Error('Event archive changed during the scan.')
   return index
 }
 
@@ -109,6 +117,7 @@ export function createUniverseEventsReader(root: string, archiveDir: string,
   readIndex = (at: string) => runDiscoveryInWorker<UniverseEventIndex>('readUniverseEvents', [root, archiveDir, at])) {
   let index: UniverseEventIndex | null = null
   let taggedTickers = new Set<string>()
+  let countryConflicts = new Set<string>()
   let pending: Promise<void> | null = null
   let checkedAt = 0
   let error: string | null = null
@@ -118,6 +127,7 @@ export function createUniverseEventsReader(root: string, archiveDir: string,
       pending = readIndex(new Date(now).toISOString()).then((value) => {
         index = value; error = null
         taggedTickers = new Set(Object.keys(value.companies).map((key) => key.split('|')[0]))
+        countryConflicts = new Set(Object.keys(value.companies).filter((key) => key.includes('|?')).map((key) => key.split('|')[0]))
       })
         .catch(() => { error = 'The event archive could not be read. Event signals are unavailable; retrying in one minute.' })
         .finally(() => { pending = null })
@@ -129,7 +139,7 @@ export function createUniverseEventsReader(root: string, archiveDir: string,
     const available = !!index && !error && now - Date.parse(index.coverage.checked_at) < 5 * 60_000
       && !!index.coverage.latest_report_at && now - Date.parse(index.coverage.latest_report_at) < 48 * 60 * 60_000
     return { events: coverage, rows: rows.map((row) => ({ ...row,
-      signals: available ? index!.companies[universeCompanyKey(row.ticker, row.company)]
+      signals: available && !countryConflicts.has(normTicker(row.ticker)) ? index!.companies[universeCompanyKey(row.ticker, row.company)]
         || (taggedTickers.has(normTicker(row.ticker)) ? null : {}) : null })) }
   }
 }

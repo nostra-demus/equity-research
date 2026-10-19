@@ -132,6 +132,19 @@ export function createUniverseModel(file: string, deps: {
         if (firstRow >= total) break
       }
       if (closed) return
+      // An unchanged total can hide an entry and an exit on opposite sides of the page cursor.
+      // Require a second consecutive, identically ordered membership pass before freezing it.
+      let verified = 0
+      while (!closed && verified < progress.length) {
+        await wait(PAGE_GAP_MS)
+        if (closed) return
+        const page = parseFinvizPage(await fetchPage(finvizUniverseUrl(verified)), verified, new Date(now()).toISOString())
+        if (page.total !== total || page.rows.some((row, i) => row.ticker !== progress[verified + i]?.ticker || row.company !== progress[verified + i]?.company)) {
+          throw new Error('Universe membership changed during verification. Retrying the complete screen at the next refresh.')
+        }
+        verified += page.rows.length
+      }
+      if (closed) return
       // Freeze membership before checking prices. Reapplying the cap filter for 100 price pages lets
       // a stock crossing $2bn move pagination boundaries and invalidate the entire refresh.
       fetched = 0

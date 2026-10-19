@@ -34,8 +34,13 @@ const event = { event_id: 'EVT-1', headline: 'Company zero raises guidance', url
 addUniverseEvent(index, event); addUniverseEvent(index, event)
 const key = universeCompanyKey('CO0', 'Company zero Corp')
 assert.equal(index.companies[key].guidance?.length, 1, 'duplicates cannot add points or evidence')
-addUniverseEvent(index, { ...event, event_id: 'EVT-2', url: 'https://example.test/two', companies: [{ ticker: 'CO0', name: 'Other issuer', listing_country: 'IN' }] })
+const foreignIndex: UniverseEventIndex = { coverage: { ...index.coverage }, companies: { ...index.companies } }
+addUniverseEvent(foreignIndex, { ...event, event_id: 'EVT-2', url: 'https://example.test/two', companies: [{ ticker: 'CO0', name: 'Company zero Inc', listing_country: 'IN' }] })
 assert.equal(Object.keys(index.companies).length, 1, 'foreign ticker collisions are not issuer matches')
+assert.equal(foreignIndex.companies[key].guidance?.length, 1, 'foreign tags never supply US evidence')
+const foreignReader = createUniverseEventsReader('', '', async () => foreignIndex)
+foreignReader(page.rows, Date.parse(at)); await new Promise(setImmediate)
+assert.equal(foreignReader([{ ...page.rows[0], company: 'Company zero Ltd' }], Date.parse(at)).rows[0].signals, null, 'country conflicts cannot become asserted negatives or US matches')
 addUniverseEvent(index, { ...event, event_id: 'EVT-old', found_at: '2026-01-01T00:00:00Z' })
 addUniverseEvent(index, { ...event, event_id: 'EVT-low', event_types: ['commercial'], event_materiality_label: 'low', triage_score: 80 })
 addUniverseEvent(index, { ...event, event_id: 'EVT-legacy', event_types: ['commercial'], found_at: undefined })
@@ -57,22 +62,28 @@ const io = { dates: () => ['2026-10-19'], stamp: () => stamp, scan: (...args: Pa
   scans++; args[4]?.(event)
   args[4]?.({ ...event, event_id: 'EVT-midnight', url: 'https://example.test/midnight', event_types: ['commercial'], found_at: '2026-10-18T23:50:00Z' })
   args[4]?.({ ...event, event_id: 'EVT-future', url: 'https://example.test/future', event_types: ['product'], found_at: '2026-10-19T15:01:00Z' })
+  args[4]?.({ ...event, event_id: 'EVT-foreign-future', url: 'https://example.test/foreign-future', found_at: '2026-10-19T15:01:00Z', companies: [{ ticker: 'ADR', name: 'Issuer ADR', listing_country: 'IN' }] })
   assert.equal(args[3]?.strict, true)
   return { status: 'read' as const, lines: 1, complete: true, next: null }
 } }
 const cachedEvents = await readUniverseEvents('fixture-cache', '', at, io)
 assert.equal(cachedEvents.companies[key].contracts?.[0].id, 'EVT-midnight', 'source date can precede the ingestion partition')
 assert.equal(cachedEvents.companies[key].product, undefined, 'future source timestamps cannot score early')
+assert.equal(Object.keys(cachedEvents.companies).some((key) => key.startsWith('ADR|')), false, 'future country conflicts cannot mute current coverage')
 await readUniverseEvents('fixture-cache', '', at, io)
 assert.equal(scans, 1, 'unchanged archived days are never reparsed for each one-minute refresh')
 const later = await readUniverseEvents('fixture-cache', '', '2026-10-19T15:02:00Z', io)
 assert.equal(later.companies[key].product?.[0].id, 'EVT-future', 'source-time windows advance without reparsing a stable partition')
+assert.equal(Object.keys(later.companies).some((key) => key.startsWith('ADR|')), true, 'country conflicts retain their source-time window')
 assert.equal(scans, 1)
 stamp = 'appended'
 await readUniverseEvents('fixture-cache', '', at, io)
 assert.equal(scans, 2, 'only a changing partition is rebuilt')
 await assert.rejects(readUniverseEvents('fixture-unreadable', '', at, { ...io,
   scan: () => ({ status: 'unreadable', lines: 0, complete: true, next: null }) }), /incomplete/)
+let stampReads = 0
+await assert.rejects(readUniverseEvents('fixture-changing', '', at, { ...io,
+  stamp: () => ++stampReads === 1 ? 'before' : 'after' }), /changed during the scan/, 'a concurrent append cannot publish a partial negative')
 
 const fixtures = fileURLToPath(new URL('../../../.cache/finviz-model-tests/', import.meta.url))
 await fs.mkdir(fixtures, { recursive: true })
@@ -88,6 +99,8 @@ try {
   let fail = false
   let repeat = false
   let changeTotal = false
+  let changeMembers = false
+  let membershipPages = 0
   const file = path.join(dir, 'model.json')
   const model = createUniverseModel(file, { now: () => time, wait: async (ms) => { assert.equal(ms, 2000) }, fetchPage: async (url) => {
     calls++
@@ -101,8 +114,12 @@ try {
       value.data.rows = tickers.map((ticker, i) => ({ text: { ticker, company: `Company ${ticker.slice(2)}` }, numbers: { order: i, price: 12.5 } as any }))
       return html(value)
     }
+    membershipPages++
     const value = props(offset, changeTotal && offset ? 4 : 3)
     if (repeat && offset) value.data.rows[0].text.ticker = 'CO0'
+    if (changeMembers && membershipPages > 2) value.data.rows.forEach((row, i) => {
+      row.text.ticker = `CO${offset + i + 1}`; row.text.company = `Company ${offset + i + 1}`
+    })
     return html(value)
   } })
   const first = await model.read()
@@ -110,13 +127,13 @@ try {
   assert.equal(first.complete, false)
   await model.read(); await model.read()
   await model.settled()
-  assert.equal(calls, 3, 'simultaneous readers share one membership sweep and one price batch')
+  assert.equal(calls, 5, 'simultaneous readers share two matching membership passes and one price batch')
   const ready = await model.read()
   assert.ok(isModelRead(ready))
   assert.equal(ready.complete, true)
   assert.equal(ready.rows.length, 3)
   const frozen = await fs.readFile(file, 'utf8')
-  await model.read(); assert.equal(calls, 3, 'check-updates does not bypass TTL')
+  await model.read(); assert.equal(calls, 5, 'check-updates does not bypass TTL')
   fail = true; time += MODEL_REFRESH_MS
   const during = await model.read()
   assert.equal(during.rows.length, 3, 'retain the complete grid during refresh')
@@ -134,6 +151,10 @@ try {
   repeat = false; changeTotal = true; time += MODEL_REFRESH_MS
   await model.read(); await model.settled()
   assert.match((await model.read()).error!, /membership changed/)
+  changeTotal = false; changeMembers = true; membershipPages = 0; time += MODEL_REFRESH_MS
+  await model.read(); await model.settled()
+  assert.match((await model.read()).error!, /membership changed during verification/)
+  assert.equal(await fs.readFile(file, 'utf8'), frozen, 'same-size membership shifts cannot replace the complete snapshot')
   model.close()
   const reloaded = createUniverseModel(file, { now: () => Date.parse(at) + 1000, fetchPage: async () => { throw new Error('must use disk') } })
   assert.equal((await reloaded.read()).rows.length, 3)

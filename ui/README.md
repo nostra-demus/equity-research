@@ -16,17 +16,18 @@ an event-activity ranking, never a bullish rating or proof a catalyst remains pe
 Signals reuse the archive's existing event types and high/critical materiality classifications. A match
 requires an exact ticker plus normalized company name; known foreign listing tags cannot match a US
 line. A tagged ticker with an unmatched issuer name stays unavailable rather than asserting a negative.
+Conflicting foreign listing tags also leave coverage unavailable, including uncertain ADR identities.
 These tags are headline-based inference, not verified issuer research. Green ticks open up to
 three recent source links; red crosses mean no matching report in the saved archive, never proof that
 no event occurred. A stale (>48h) or unreadable/empty archive leaves signals and totals unavailable.
 The event index refreshes off-thread every minute while read, caching compact results by each day's
-file stamp so unchanged history is not reparsed. Strict shard failures leave coverage unavailable.
+file stamp so unchanged history is not reparsed. Strict shard failures or concurrent archive changes leave coverage unavailable.
 The grid shows the actual archived-day
 count, latest report time, and scan time, without claiming exhaustive market coverage.
 
 `GET /api/screener/universe-model` shares one paced public-page sweep across all viewers. The Model
 checks every 15 seconds while visible; a new full sweep is eligible 30 minutes after the previous
-attempt ends. The free Tickers view freezes membership in 1,000-name pages, then free price pages check
+attempt ends. Two consecutive matching passes through the free Tickers view freeze membership in 1,000-name pages; free price pages then check
 20 of those names at a time. This avoids moving pagination boundaries when a company crosses $2bn
 during a longer price sweep. A 2,000-name screen needs about 102 pages at two seconds between requests,
 plus network time. Quotes are Finviz's free delayed data, not an exchange real-time feed; individual quote timestamps
