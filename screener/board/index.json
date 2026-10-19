@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T22:23:04Z",
+  "generated_at": "2026-10-19T22:30:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-517",
@@ -185998,6 +185998,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-3fd19793d384",
+      "idea_version": "IDEAV-2be7668da077748b",
+      "idea_version_started_at": "2026-10-19T22:30:40Z",
+      "ticker": "TTMI",
+      "company": "TTM Technologies",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of Ophir Optics for $650 million expands TTM's high-end optical capabilities, providing a clear path to revenue synergy in their aerospace and defense segments.",
+      "why_now": "The deal was announced today, October 19, 2026, and is expected to be accretive to earnings.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e2eb583018cb"
+      ],
+      "primary_source_event_id": "EVT-e2eb583018cb",
+      "source_headlines": [
+        "TTM Technologies To Acquire Ophir Optics Business From MKS For Approx. $650 Mln All-cash Deal"
+      ],
+      "source_headline": "TTM Technologies To Acquire Ophir Optics Business From MKS For Approx. $650 Mln All-cash Deal",
+      "source_url": "https://www.nasdaq.com/articles/ttm-technologies-acquire-ophir-optics-business-mks-approx-650-mln-all-cash-deal",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-19T12:44:30Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T22:30:40Z",
+      "updated_at": "2026-10-19T22:30:40Z",
+      "decay_at": "2026-10-21T00:44:30Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-a2af7914e260",
       "idea_version": "IDEAV-a26278bbb90510e9",
       "idea_version_started_at": "2026-10-19T05:11:57Z",
@@ -186555,6 +186625,150 @@
       "surfaced_at": "2026-10-19T00:56:11Z",
       "updated_at": "2026-10-19T00:56:11Z",
       "decay_at": "2026-10-20T12:17:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-127874aade22",
+      "idea_version": "IDEAV-7b79c5097d33d1e9",
+      "idea_version_started_at": "2026-10-19T22:30:40Z",
+      "ticker": "PFC",
+      "company": "Power Finance Corporation",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The receipt of no-objection letters from exchanges for the merger with REC Limited removes a major regulatory hurdle for the consolidation of these two state-owned power financiers.",
+      "why_now": "The filing was released today, October 19, 2026, confirming the merger process is moving forward.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2151aece0d12"
+      ],
+      "primary_source_event_id": "EVT-2151aece0d12",
+      "source_headlines": [
+        "Power Finance Corporation Limited: Intimation of receipt of No Objection letters from BSE Limited and National Stock Exchange of India Limited in relation to proposed scheme of merger of REC Limited ( Transferor Company ) with and into Power Finance Corporation Limited ( Company or Transferee Company )"
+      ],
+      "source_headline": "Power Finance Corporation Limited: Intimation of receipt of No Objection letters from BSE Limited and National Stock Exchange of India Limited in relation to proposed scheme of merger of REC Limited ( Transferor Company ) with and into Power Finance Corporation Limited ( Company or Transferee Company )",
+      "source_url": "https://nsearchives.nseindia.com/corporate/PFC2023_19102026223732_IntimationNoCNSEBSE19102026signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-19T17:08:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T22:30:40Z",
+      "updated_at": "2026-10-19T22:30:40Z",
+      "decay_at": "2026-10-21T05:08:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-ef656b14e8fc",
+      "idea_version": "IDEAV-87b57bc6a9bc7419",
+      "idea_version_started_at": "2026-10-19T22:30:40Z",
+      "ticker": "DELTACORP",
+      "company": "Delta Corp",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a swing to a ₹106 crore loss driven by mounting GST provisions and a 13% decline in revenue, signaling structural headwinds in the gaming sector.",
+      "why_now": "The Q2 results were released today, October 19, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8145d4a0f706",
+        "EVT-917923e485f9"
+      ],
+      "primary_source_event_id": "EVT-8145d4a0f706",
+      "source_headlines": [
+        "Delta Corp Q2 results: Casino firm swings to ₹106 crore loss as GST provisions mount",
+        "Delta Corp Q2 Results: Casino Firm Swings To Net Loss On One-Time Exceptional Hit, Revenue Slips 13%"
+      ],
+      "source_headline": "Delta Corp Q2 results: Casino firm swings to ₹106 crore loss as GST provisions mount",
+      "source_url": "https://www.cnbctv18.com/market/earnings/delta-corp-q2-results-casino-firm-swings-to-rs106-crore-loss-as-gst-provisions-mount-20015349.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-19T16:49:23Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T22:30:40Z",
+      "updated_at": "2026-10-19T22:30:40Z",
+      "decay_at": "2026-10-21T04:49:23Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -228737,8 +228951,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1725,
-    "live_count": 47,
+    "surfaced_total": 1728,
+    "live_count": 50,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -228757,7 +228971,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5223314,
+    "news_seen_today": 5282196,
     "news_picked_today": 1166,
     "news_dropped_today": 10820
   },
