@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T19:54:37Z",
+  "generated_at": "2026-10-19T20:09:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-417",
@@ -699,6 +699,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-465",
+      "headline": "Video Interview: Applied Materials CEO on the Economics Behind Its $5B EPIC Bet",
+      "headline_en": null,
+      "url": "https://www.eetimes.com/video-interview-applied-materials-ceo-on-the-economics-behind-its-5b-epic-bet/",
+      "source_name": "EE Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T20:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Applied Materials CEO discussed the economics of a $5 billion capacity expansion project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Applied Materials CEO discussed the economics of a $5 billion capacity expansion project.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Applied Materials",
+          "ticker": "AMAT",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1966,57 +2015,6 @@
           "name": "HD Hyundai Heavy Industries",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-300",
-      "headline": "Lindt ousts CEO after poor European results, two outlook cuts",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/lindt-ousts-ceo-after-poor-european-results-two-outlook-cuts",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T09:13:11Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Lindt CEO ousted following poor European results and two separate outlook cuts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lindt CEO ousted following poor European results and two separate outlook cuts.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management",
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lindt & Sprüngli",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -228549,9 +228547,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4143923,
-    "news_picked_today": 952,
-    "news_dropped_today": 8010
+    "news_seen_today": 4264421,
+    "news_picked_today": 960,
+    "news_dropped_today": 8434
   },
   "book_momentum": {
     "live_count": 8,
