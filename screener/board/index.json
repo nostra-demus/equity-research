@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T11:38:50Z",
+  "generated_at": "2026-10-19T11:41:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-326",
@@ -588,6 +588,65 @@
           "name": "Hindustan Zinc",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-344",
+      "headline": "Silgan, American Industrial to buy Trivium Packaging in $3.4 billion deal",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/silgan-american-industrial-buy-trivium-packaging-34-billion-deal-2026-10-19/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T11:26:23Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Silgan and American Industrial are acquiring Trivium Packaging for 3.4 billion USD.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Silgan and American Industrial are acquiring Trivium Packaging for 3.4 billion USD.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Silgan",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "American Industrial",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Trivium Packaging",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -1959,49 +2018,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-152",
-      "headline": "Trump slams Zelenskyy, accuses him of prolonging Russia war after Kyiv launches one of biggest drone strike in Moscow",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/us-news/trump-slams-zelenskyy-accuses-him-of-prolonging-russia-war-after-kyiv-launches-one-of-biggest-drone-strike-in-moscow-11792381153253.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T03:55:44Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Escalation in the Russia-Ukraine conflict following a major drone strike and political rhetoric increases geopolitical risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Escalation in the Russia-Ukraine conflict following a major drone strike and political rhetoric increases geopolitical risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -229098,9 +229114,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1348891,
-    "news_picked_today": 618,
-    "news_dropped_today": 6328
+    "news_seen_today": 1356313,
+    "news_picked_today": 621,
+    "news_dropped_today": 6349
   },
   "book_momentum": {
     "live_count": 8,
