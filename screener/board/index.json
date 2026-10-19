@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T00:07:52Z",
+  "generated_at": "2026-10-19T00:17:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-007",
@@ -377,6 +377,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-011",
+      "headline": "KLS: Change of Director's Interest Notice - C Elliott",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KLS?key=2924-03149917-2A1704796",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T00:01:30Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Routine disclosure of a director's change in interest.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Routine disclosure of a director's change in interest.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "insider_transaction",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KLS",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-005",
       "headline": "India a keystone for Hitachi Energy supply chain amid global power crunch: CEO",
       "headline_en": null,
@@ -421,6 +470,99 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-010",
+      "headline": "FF EAI Robotics Ecosystem Inc. (FFR) Highlights Faraday Future Founder and Global CEO YT Jia's Weekly Investor Update: Three New Product Offerings Launched; More Details on FFR's Acquisition of FFAI's Robotics Business and Independent Public Listing",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/ff-eai-robotics-ecosystem-inc-ffr-highlights-faraday-future-founder-and-global-ceo-yt-jias-weekly-investor-update-three-new-product-offerings-launched-more-details-on-ffrs-acquisition-of-ffais-robotics-business-and-indepen-302912061.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-19T00:10:00Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "FF EAI Robotics Ecosystem announced the acquisition of FFAI's robotics business and the launch of three new products.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "FF EAI Robotics Ecosystem announced the acquisition of FFAI's robotics business and the launch of three new products.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FF EAI Robotics Ecosystem Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-012",
+      "headline": "Govt plans ₹25,000-crore skilling push to sharpen textile export edge",
+      "headline_en": null,
+      "url": "https://www.livemint.com/economy/india-plans-25000-crore-skilling-push-to-sharpen-textile-export-edge-samarth-20-11792303307150.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T00:10:46Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "The Indian government announced a ₹25,000-crore investment plan for the textile sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 49,
+      "triage_reason": "The Indian government announced a ₹25,000-crore investment plan for the textile sector.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": -26,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -186477,77 +186619,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-24912455a063",
-      "idea_version": "IDEAV-36591658159913a5",
-      "idea_version_started_at": "2026-10-17T14:35:09Z",
-      "ticker": "LAGNAM",
-      "company": "Lagnam Spintex Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 98% increase in Q2 EBITDA, signaling significant margin expansion and operational efficiency gains.",
-      "why_now": "The performance data was released via exchange filing on October 17, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-efa36352ba15"
-      ],
-      "primary_source_event_id": "EVT-efa36352ba15",
-      "source_headlines": [
-        "Lagnam Spintex Limited: Lagnam Spintex Limited has informed the Exchange regarding a press release dated October 17, 2026, titled \"LAGNAM SPINTEX REPORTS STRONG Q2 & H1 FY27 PERFORMANCE; EBITDA RISES 98% IN Q2 AND 64% IN H1FY27\"."
-      ],
-      "source_headline": "Lagnam Spintex Limited: Lagnam Spintex Limited has informed the Exchange regarding a press release dated October 17, 2026, titled \"LAGNAM SPINTEX REPORTS STRONG Q2 & H1 FY27 PERFORMANCE; EBITDA RISES 98% IN Q2 AND 64% IN H1FY27\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/LAGNAM_17102026174451_PressRelease171026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 98,
-      "newest_source_at": "2026-10-17T12:15:25Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-17T14:35:09Z",
-      "updated_at": "2026-10-17T14:35:09Z",
-      "decay_at": "2026-10-19T00:15:25Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-e9a3028a08b9",
       "idea_version": "IDEAV-96e326b9618b57f5",
       "idea_version_started_at": "2026-10-18T04:36:10Z",
@@ -189128,6 +189199,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-24912455a063",
+      "idea_version": "IDEAV-36591658159913a5",
+      "idea_version_started_at": "2026-10-17T14:35:09Z",
+      "ticker": "LAGNAM",
+      "company": "Lagnam Spintex Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 98% increase in Q2 EBITDA, signaling significant margin expansion and operational efficiency gains.",
+      "why_now": "The performance data was released via exchange filing on October 17, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-efa36352ba15"
+      ],
+      "primary_source_event_id": "EVT-efa36352ba15",
+      "source_headlines": [
+        "Lagnam Spintex Limited: Lagnam Spintex Limited has informed the Exchange regarding a press release dated October 17, 2026, titled \"LAGNAM SPINTEX REPORTS STRONG Q2 & H1 FY27 PERFORMANCE; EBITDA RISES 98% IN Q2 AND 64% IN H1FY27\"."
+      ],
+      "source_headline": "Lagnam Spintex Limited: Lagnam Spintex Limited has informed the Exchange regarding a press release dated October 17, 2026, titled \"LAGNAM SPINTEX REPORTS STRONG Q2 & H1 FY27 PERFORMANCE; EBITDA RISES 98% IN Q2 AND 64% IN H1FY27\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/LAGNAM_17102026174451_PressRelease171026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 98,
+      "newest_source_at": "2026-10-17T12:15:25Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-17T14:35:09Z",
+      "updated_at": "2026-10-17T14:35:09Z",
+      "decay_at": "2026-10-19T00:15:25Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-d0bfefd30f1f",
       "idea_version": "IDEAV-49296605a11054dd",
       "idea_version_started_at": "2026-10-17T08:35:11Z",
@@ -189709,14 +189851,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 536,
+    "total_count": 537,
     "shown_count": 499,
-    "hidden_count": 37,
+    "hidden_count": 38,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 28
       },
       "short": {
         "total_count": 260,
@@ -189740,6 +189882,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-24912455a063",
+        "idea_version": "IDEAV-36591658159913a5",
+        "idea_version_started_at": "2026-10-17T14:35:09Z",
+        "ticker": "LAGNAM",
+        "company": "Lagnam Spintex Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported a 98% increase in Q2 EBITDA, signaling significant margin expansion and operational efficiency gains.",
+        "why_now": "The performance data was released via exchange filing on October 17, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-efa36352ba15"
+        ],
+        "primary_source_event_id": "EVT-efa36352ba15",
+        "source_headlines": [
+          "Lagnam Spintex Limited: Lagnam Spintex Limited has informed the Exchange regarding a press release dated October 17, 2026, titled \"LAGNAM SPINTEX REPORTS STRONG Q2 & H1 FY27 PERFORMANCE; EBITDA RISES 98% IN Q2 AND 64% IN H1FY27\"."
+        ],
+        "source_headline": "Lagnam Spintex Limited: Lagnam Spintex Limited has informed the Exchange regarding a press release dated October 17, 2026, titled \"LAGNAM SPINTEX REPORTS STRONG Q2 & H1 FY27 PERFORMANCE; EBITDA RISES 98% IN Q2 AND 64% IN H1FY27\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/LAGNAM_17102026174451_PressRelease171026.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 98,
+        "newest_source_at": "2026-10-17T12:15:25Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-17T14:35:09Z",
+        "updated_at": "2026-10-17T14:35:09Z",
+        "decay_at": "2026-10-19T00:15:25Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-19T00:15:25Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-5a71f05995f2",
         "idea_version": "IDEAV-86380cca7cf05ac3",
@@ -217002,79 +217218,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-02bbebbf9947",
-        "idea_version": "IDEAV-1cb7d5d87002eed6",
-        "idea_version_started_at": "2026-10-04T16:45:03Z",
-        "ticker": "SGO.PA",
-        "company": "Saint-Gobain",
-        "exchange": "Paris",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Saint-Gobain plans a significant capital expenditure of ₹11,000 crore in India over the next five years, indicating substantial growth investment in the region.",
-        "why_now": "The announcement of a five-year investment plan provides a clear, forward-looking catalyst for growth.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-445babbe274e"
-        ],
-        "primary_source_event_id": "EVT-445babbe274e",
-        "source_headlines": [
-          "Saint-Gobain plans ₹11,000 crore India push over the next five years"
-        ],
-        "source_headline": "Saint-Gobain plans ₹11,000 crore India push over the next five years",
-        "source_url": "https://www.thehindubusinessline.com/companies/saint-gobain-eyes-more-india-acquisitions-as-ceo-sreedhar-targets-43-billion-business/article71486048.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-04T16:35:11Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-04T16:45:03Z",
-        "updated_at": "2026-10-04T16:45:03Z",
-        "decay_at": "2026-10-06T04:35:11Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-07T16:37:55Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-50f379c78b21",
         "idea_version": "IDEAV-8ccb8002d826e8d3",
         "idea_version_started_at": "2026-10-04T16:00:05Z",
@@ -226911,7 +227054,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1697,
-    "live_count": 37,
+    "live_count": 36,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -226921,7 +227064,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3775,
+    "inbox_unconsumed": 3778,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -226930,9 +227073,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 25,
-    "news_picked_today": 8,
-    "news_dropped_today": 17
+    "news_seen_today": 39,
+    "news_picked_today": 12,
+    "news_dropped_today": 27
   },
   "book_momentum": {
     "live_count": 8,
