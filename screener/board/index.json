@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-19T12:04:41Z",
+  "generated_at": "2026-10-19T12:06:42Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261019-350",
+      "headline": "GCL TECH (03800): VOLUNTARY ANNOUNCEMENT - MEMORANDUM OF UNDERSTANDING IN RELATION TO THE POSSIBLE ACQUISITION OF THE TARGET COMPANY IN THE LITHIUM BATTERY INDUSTRY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1019/2026101900265.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T11:51:00Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Company signed a memorandum of understanding for a potential acquisition in the lithium battery industry.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company signed a memorandum of understanding for a potential acquisition in the lithium battery industry.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GCL TECH",
+          "ticker": "03800",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261019-326",
       "headline": "SCIENTECH (02291): FURTHER DELAY IN DESPATCH OF CIRCULAR IN RELATION TO MAJOR AND CONNECTED TRANSACTION ACQUISITION OF 54.2384% EQUITY INTEREST IN SHANGHAI MINWEI BIOTECHNOLOGY CO., LTD.",
@@ -1970,55 +2019,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-114",
-      "headline": "SGA: Trading Halt [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SGA?key=2924-03149992-6A1349905",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-19T02:52:56Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Trading halt pending a price-sensitive announcement indicates a potential material event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Trading halt pending a price-sensitive announcement indicates a potential material event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "strategic_review",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SGA",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -229114,9 +229114,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1459535,
-    "news_picked_today": 636,
-    "news_dropped_today": 6622
+    "news_seen_today": 1467185,
+    "news_picked_today": 645,
+    "news_dropped_today": 6637
   },
   "book_momentum": {
     "live_count": 8,
