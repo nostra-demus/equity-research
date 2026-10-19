@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T22:45:47Z",
+  "generated_at": "2026-10-19T22:49:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-517",
@@ -795,6 +795,55 @@
           "name": "Ramsay Health Care",
           "ticker": "RHC",
           "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-527",
+      "headline": "Brazil's Americanas exits bankruptcy proceedings",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/brazils-americanas-exits-bankruptcy-proceedings-2026-10-19/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T22:42:18Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Americanas has successfully exited bankruptcy proceedings, resolving a major solvency event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Americanas has successfully exited bankruptcy proceedings, resolving a major solvency event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Americanas",
+          "ticker": null,
+          "listing_country": "BR"
         }
       ],
       "size_bucket": "large",
@@ -1960,55 +2009,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-340",
-      "headline": "Hindustan Zinc Q2 Results: Profit jumps 142%, beats estimates on record revenue",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/hindustan-zinc-q2-results-profit-jumps-142-pc-beats-estimates-on-record-revenue-20015092.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T11:28:54Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Hindustan Zinc reported a 142% jump in profit, beating estimates on record revenue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Hindustan Zinc reported a 142% jump in profit, beating estimates on record revenue.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hindustan Zinc",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -228971,9 +228971,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5399852,
-    "news_picked_today": 1231,
-    "news_dropped_today": 10947
+    "news_seen_today": 5446796,
+    "news_picked_today": 1240,
+    "news_dropped_today": 10962
   },
   "book_momentum": {
     "live_count": 8,
