@@ -1,6 +1,430 @@
 {
-  "generated_at": "2026-10-19T00:02:20Z",
+  "generated_at": "2026-10-19T00:07:40Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261019-007",
+      "headline": "Cleanaway Shares Jump 21% After $6.5 Billion EQT Takeover Deal",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-18/eqt-agrees-to-buy-australia-s-cleanaway-waste-for-6-5-billion",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-18T22:47:16Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Cleanaway Waste Management is subject to a $6.5 billion takeover bid by EQT.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cleanaway Waste Management is subject to a $6.5 billion takeover bid by EQT.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cleanaway",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-006",
+      "headline": "NextDC warns of Melbourne data centre delay amid power supply crunch",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/infrastructure/nextdc-warns-of-melbourne-data-centre-delay-amid-power-supply-crunch-20261019-p616mr?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T00:03:24Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "NextDC warns of a delay in its Melbourne data centre project due to power supply constraints.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "NextDC warns of a delay in its Melbourne data centre project due to power supply constraints.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NextDC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-002",
+      "headline": "OpenWorld (NASDAQ: OPNW) Signs Definitive Merger Agreement to Acquire Blocksight as the Agentic Foundation for Its Up to $1 Billion Tokenized Solar and AI Computing Program with Meridian and Up to $130 Million IP-Backed Transaction with BeyondAI | OPNW Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/OPNW/open-world-nasdaq-opnw-signs-definitive-merger-agreement-to-acquire-el91qgbyfc08.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-19T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "OpenWorld announced a merger with Blocksight and a $1 billion tokenized solar/AI program alongside a $130 million IP transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 74,
+      "triage_reason": "OpenWorld announced a merger with Blocksight and a $1 billion tokenized solar/AI program alongside a $130 million IP transaction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenWorld",
+          "ticker": "OPNW",
+          "listing_country": "US"
+        },
+        {
+          "name": "Blocksight",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Meridian",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-004",
+      "headline": "OpenWorld (NASDAQ: OPNW) Signs Definitive Merger Agreement to Acquire Blocksight as the Agentic Foundation for Its Up to $1 Billion Tokenized Solar and AI Computing Program with Meridian and Up to $130 Million IP-Backed Transaction with BeyondAI",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20261018852596/en/OpenWorld-NASDAQ-OPNW-Signs-Definitive-Merger-Agreement-to-Acquire-Blocksight-as-the-Agentic-Foundation-for-Its-Up-to-1-Billion-Tokenized-Solar-and-AI-Computing-Program-with-Meridian-and-Up-to-130-Million-IP-Backed-Transaction-with-BeyondAI/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
+      "source_name": "Business Wire — Product/Service News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-19T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "OpenWorld announced a merger with Blocksight and a $1 billion tokenized solar/AI program alongside a $130 million IP transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 74,
+      "triage_reason": "OpenWorld announced a merger with Blocksight and a $1 billion tokenized solar/AI program alongside a $130 million IP transaction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenWorld",
+          "ticker": "OPNW",
+          "listing_country": "US"
+        },
+        {
+          "name": "Blocksight",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Meridian",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-001",
+      "headline": "OpenWorld (NASDAQ: OPNW) Signs Definitive Merger Agreement to Acquire Blocksight",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/10/19/3382955/0/en/openworld-nasdaq-opnw-signs-definitive-merger-agreement-to-acquire-blocksight.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-19T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "OpenWorld has signed a definitive merger agreement to acquire Blocksight.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "OpenWorld has signed a definitive merger agreement to acquire Blocksight.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenWorld",
+          "ticker": "OPNW",
+          "listing_country": "US"
+        },
+        {
+          "name": "Blocksight",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-003",
+      "headline": "OpenWorld (NASDAQ: OPNW) Signs Definitive Merger Agreement to Acquire Blocksight | OPNW Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/OPNW/open-world-nasdaq-opnw-signs-definitive-merger-agreement-to-acquire-jzh26qo3joc4.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-19T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "OpenWorld has signed a definitive merger agreement to acquire Blocksight.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "OpenWorld has signed a definitive merger agreement to acquire Blocksight.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenWorld",
+          "ticker": "OPNW",
+          "listing_country": "US"
+        },
+        {
+          "name": "Blocksight",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-008",
+      "headline": "Tata Sons breaks from the past and drops Article 118 reference in Chandrasekaran’s third-term resolution",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/tata-sons-chairman-natarajan-chandrasekaran-reappointment-articles-of-association-11792314549702.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T00:00:26Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Tata Sons modifies governance resolution regarding the chairman's term.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Tata Sons modifies governance resolution regarding the chairman's term.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-005",
+      "headline": "India a keystone for Hitachi Energy supply chain amid global power crunch: CEO",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/india-a-keystone-for-hitachi-energys-supply-chain-amid-global-supply-crunch-says-ceo-andreas-schierenbeck-11792320006502.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T00:00:30Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Hitachi Energy CEO highlights India's strategic role in the company's supply chain.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "Hitachi Energy CEO highlights India's strategic role in the company's supply chain.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hitachi Energy",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261018-739",
       "headline": "CWY: Scheme Implementation Deed with EQT Infrastructure [price-sensitive]",
@@ -185480,82 +185904,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5a71f05995f2",
-      "idea_version": "IDEAV-86380cca7cf05ac3",
-      "idea_version_started_at": "2026-10-18T12:31:33Z",
-      "ticker": "ICICIBANK",
-      "company": "ICICI Bank",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The bank reported strong Q2 earnings beating estimates, though management signaled potential net interest margin pressure in Q3.",
-      "why_now": "Earnings were released on October 17, 2026; the market is currently digesting the guidance for Q3 margin compression.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 10,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-114e7c8d81d5",
-        "EVT-7acdb0de9940",
-        "EVT-1c76b71d0827"
-      ],
-      "primary_source_event_id": "EVT-114e7c8d81d5",
-      "source_headlines": [
-        "ICICI Bank Q2 net profit rises 20% to ₹14,843 crore; NIM slips to 4.18% as bank flags further pressure in Q3",
-        "ICICI Bank Q2 net profit jumps 22% to Rs 16,333 crore",
-        "India's ICICI Bank Q2 profit rises 20.1%, beats estimates"
-      ],
-      "source_headline": "ICICI Bank Q2 net profit rises 20% to ₹14,843 crore; NIM slips to 4.18% as bank flags further pressure in Q3",
-      "source_url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/icici-bank-q2-net-profit-rises-20-to-14843-crore-nim-slips-to-4-18-as-bank-flags-further-pressure-in-q3/articleshow/135013865.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-17T12:06:06Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-17T11:50:37Z",
-      "updated_at": "2026-10-18T12:31:33Z",
-      "decay_at": "2026-10-19T00:06:06Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5d7e7121c615",
       "idea_version": "IDEAV-26d1bb79da46ac83",
       "idea_version_started_at": "2026-10-18T12:31:33Z",
@@ -187481,6 +187829,82 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-5a71f05995f2",
+      "idea_version": "IDEAV-86380cca7cf05ac3",
+      "idea_version_started_at": "2026-10-18T12:31:33Z",
+      "ticker": "ICICIBANK",
+      "company": "ICICI Bank",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The bank reported strong Q2 earnings beating estimates, though management signaled potential net interest margin pressure in Q3.",
+      "why_now": "Earnings were released on October 17, 2026; the market is currently digesting the guidance for Q3 margin compression.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-114e7c8d81d5",
+        "EVT-7acdb0de9940",
+        "EVT-1c76b71d0827"
+      ],
+      "primary_source_event_id": "EVT-114e7c8d81d5",
+      "source_headlines": [
+        "ICICI Bank Q2 net profit rises 20% to ₹14,843 crore; NIM slips to 4.18% as bank flags further pressure in Q3",
+        "ICICI Bank Q2 net profit jumps 22% to Rs 16,333 crore",
+        "India's ICICI Bank Q2 profit rises 20.1%, beats estimates"
+      ],
+      "source_headline": "ICICI Bank Q2 net profit rises 20% to ₹14,843 crore; NIM slips to 4.18% as bank flags further pressure in Q3",
+      "source_url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/icici-bank-q2-net-profit-rises-20-to-14843-crore-nim-slips-to-4-18-as-bank-flags-further-pressure-in-q3/articleshow/135013865.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-17T12:06:06Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-17T11:50:37Z",
+      "updated_at": "2026-10-18T12:31:33Z",
+      "decay_at": "2026-10-19T00:06:06Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-0b852ac1558d",
       "idea_version": "IDEAV-b846ee605c075730",
       "idea_version_started_at": "2026-10-18T02:00:52Z",
@@ -189285,14 +189709,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 535,
+    "total_count": 536,
     "shown_count": 499,
-    "hidden_count": 36,
+    "hidden_count": 37,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 27
       },
       "short": {
         "total_count": 260,
@@ -189316,6 +189740,85 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5a71f05995f2",
+        "idea_version": "IDEAV-86380cca7cf05ac3",
+        "idea_version_started_at": "2026-10-18T12:31:33Z",
+        "ticker": "ICICIBANK",
+        "company": "ICICI Bank",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The bank reported strong Q2 earnings beating estimates, though management signaled potential net interest margin pressure in Q3.",
+        "why_now": "Earnings were released on October 17, 2026; the market is currently digesting the guidance for Q3 margin compression.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 10,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-114e7c8d81d5",
+          "EVT-7acdb0de9940",
+          "EVT-1c76b71d0827"
+        ],
+        "primary_source_event_id": "EVT-114e7c8d81d5",
+        "source_headlines": [
+          "ICICI Bank Q2 net profit rises 20% to ₹14,843 crore; NIM slips to 4.18% as bank flags further pressure in Q3",
+          "ICICI Bank Q2 net profit jumps 22% to Rs 16,333 crore",
+          "India's ICICI Bank Q2 profit rises 20.1%, beats estimates"
+        ],
+        "source_headline": "ICICI Bank Q2 net profit rises 20% to ₹14,843 crore; NIM slips to 4.18% as bank flags further pressure in Q3",
+        "source_url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/icici-bank-q2-net-profit-rises-20-to-14843-crore-nim-slips-to-4-18-as-bank-flags-further-pressure-in-q3/articleshow/135013865.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-17T12:06:06Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-17T11:50:37Z",
+        "updated_at": "2026-10-18T12:31:33Z",
+        "decay_at": "2026-10-19T00:06:06Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-19T00:06:06Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3d70daa14c61",
         "idea_version": "IDEAV-b8e571e6ddb32fd1",
@@ -216572,81 +217075,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-fa488fc9f689",
-        "idea_version": "IDEAV-a0dbcc5e990c294c",
-        "idea_version_started_at": "2026-10-04T17:05:26Z",
-        "ticker": "SGOB.PA",
-        "company": "Saint-Gobain",
-        "exchange": "EPA",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Saint-Gobain's planned ₹11,000 crore investment in India over the next five years is expected to significantly boost its revenue and market share in a growing economy.",
-        "why_now": "The company has announced a concrete capital expenditure plan for the next five years, indicating a clear growth catalyst starting now.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-445babbe274e"
-        ],
-        "primary_source_event_id": "EVT-445babbe274e",
-        "source_headlines": [
-          "Saint-Gobain plans ₹11,000 crore India push over the next five years"
-        ],
-        "source_headline": "Saint-Gobain plans ₹11,000 crore India push over the next five years",
-        "source_url": "https://www.thehindubusinessline.com/companies/saint-gobain-eyes-more-india-acquisitions-as-ceo-sreedhar-targets-43-billion-business/article71486048.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-04T16:35:11Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-04T17:05:26Z",
-        "updated_at": "2026-10-04T17:05:26Z",
-        "decay_at": "2026-10-06T04:35:11Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-07T16:37:55Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-50f379c78b21",
         "idea_version": "IDEAV-8ccb8002d826e8d3",
         "idea_version_started_at": "2026-10-04T16:00:05Z",
@@ -226483,7 +226911,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1697,
-    "live_count": 38,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -226493,7 +226921,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3767,
+    "inbox_unconsumed": 3775,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
