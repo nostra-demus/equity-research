@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T21:52:47Z",
+  "generated_at": "2026-10-19T21:56:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-517",
@@ -794,6 +794,55 @@
         {
           "name": "Ramsay Health Care",
           "ticker": "RHC",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-519",
+      "headline": "NAB to cut 2500 jobs in massive restructure, most to go within months",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/financial-services/nab-to-cut-2500-jobs-in-massive-restructure-most-to-go-within-months-20261020-p616yh?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T21:49:45Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "National Australia Bank is cutting 2500 jobs as part of a major restructuring plan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "National Australia Bank is cutting 2500 jobs as part of a major restructuring plan.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Australia Bank",
+          "ticker": null,
           "listing_country": "AU"
         }
       ],
@@ -1970,55 +2019,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-356",
-      "headline": "L&T Tech Q2 Results: Net Profit Surges 53% To Rs 548 Crore, Revenue Up 3% Sequentially",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/l-t-tech-q2-results-net-profit-surges-53-to-rs-548-crore-revenue-up-3-sequentially-12206182#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T11:06:42Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "L&T Tech reported a 53 percent surge in net profit to 548 crore rupees.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "L&T Tech reported a 53 percent surge in net profit to 548 crore rupees.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "L&T Technology Services",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -228767,9 +228767,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4986978,
-    "news_picked_today": 1124,
-    "news_dropped_today": 10622
+    "news_seen_today": 5010574,
+    "news_picked_today": 1128,
+    "news_dropped_today": 10642
   },
   "book_momentum": {
     "live_count": 8,
