@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T05:35:13Z",
+  "generated_at": "2026-10-19T05:41:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-130",
@@ -204,6 +204,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-237",
+      "headline": "Vedanta Doubles South Africa Zinc Output To 5 Lakh Tonnes With ₹5,000 Crore Investment",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/vedanta-doubles-south-africa-zinc-output-to-5-lakh-tonnes-with-5000-crore-investment",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T05:04:51Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Vedanta is investing 5000 crore to double zinc production capacity in South Africa.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vedanta is investing 5000 crore to double zinc production capacity in South Africa.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vedanta",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-233",
       "headline": "Accenture eyes sale of Chinese operations for up to $1.5bn",
       "headline_en": null,
@@ -249,6 +298,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-238",
+      "headline": "Rossari Biotech Q2 Revenue ₹697.6 Crore, Up 19%; EBITDA ₹87 Crore, A 20.9% Rise",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/rossari-biotech-q2-revenue-6976-crore-up-19-ebitda-87-crore-a-209-rise",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T04:55:12Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Rossari Biotech reported Q2 revenue of 697.6 crore, up 19%, and EBITDA of 87 crore, up 20.9%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Rossari Biotech reported Q2 revenue of 697.6 crore, up 19%, and EBITDA of 87 crore, up 20.9%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rossari Biotech",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1878,104 +1976,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-031",
-      "headline": "Oasis may seek extraordinary general meeting to revamp Nidec board",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/companies/oasis-may-seek-extraordinary-general-meeting-to-revamp-nidec-board",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T00:59:55Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Oasis Management is seeking an extraordinary general meeting to force board changes at Nidec.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Oasis Management is seeking an extraordinary general meeting to force board changes at Nidec.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nidec",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-006",
-      "headline": "NextDC warns of Melbourne data centre delay amid power supply crunch",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/infrastructure/nextdc-warns-of-melbourne-data-centre-delay-amid-power-supply-crunch-20261019-p616mr?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T00:03:24Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "NextDC warns of a delay in its Melbourne data centre project due to power supply constraints.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "NextDC warns of a delay in its Melbourne data centre project due to power supply constraints.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NextDC",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -229212,9 +229212,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5696,
-    "news_picked_today": 316,
-    "news_dropped_today": 3654
+    "news_seen_today": 14404,
+    "news_picked_today": 319,
+    "news_dropped_today": 3699
   },
   "book_momentum": {
     "live_count": 8,
