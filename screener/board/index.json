@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T03:05:44Z",
+  "generated_at": "2026-10-19T03:12:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-098",
@@ -846,6 +846,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-125",
+      "headline": "Nidec legal reckoning reaches founder and shares drop to decade low",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/10/19/nidec-founder-civil-liability-for-damages/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T03:01:00Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Nidec faces legal issues involving its founder, contributing to a significant decline in share price to a decade low.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Nidec faces legal issues involving its founder, contributing to a significant decline in share price to a decade low.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nidec",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-115",
       "headline": "BREAKING NEWS: M'bishi Heavy to revive shipbuilding line for defense equipment in FY 2027",
       "headline_en": null,
@@ -988,6 +1038,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-122",
+      "headline": "CZR: High-grade results extend Top Camp gold discovery [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CZR?key=2924-03149997-6A1349907",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T03:03:21Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "The company reported high-grade gold discovery results which are explicitly marked as price-sensitive.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "The company reported high-grade gold discovery results which are explicitly marked as price-sensitive.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CZR Resources",
+          "ticker": "CZR",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1876,109 +1975,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-071",
-      "headline": "LS Electric wins 170 bln-won U.S. switchgear deal",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261019002700320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T01:27:35Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "LS Electric has secured a 170 billion won switchgear contract in the U.S., which is a significant revenue-generating event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "LS Electric has secured a 170 billion won switchgear contract in the U.S., which is a significant revenue-generating event.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LS Electric",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-019",
-      "headline": "Korean Stocks Fall as DeepSeek Model, Funding Worry Rattle Chips",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-19/korean-stocks-fall-as-deepseek-model-funding-worry-rattle-chips",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T00:17:50Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "The DeepSeek AI model release is causing a significant sell-off in Korean chip stocks due to competitive and funding concerns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "The DeepSeek AI model release is causing a significant sell-off in Korean chip stocks due to competitive and funding concerns.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Samsung Electronics",
-          "ticker": "005930",
-          "listing_country": "KR"
-        },
-        {
-          "name": "SK Hynix",
-          "ticker": "000660",
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -186389,76 +186385,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c26051237597",
-      "idea_version": "IDEAV-492b4bb31ae83908",
-      "idea_version_started_at": "2026-10-18T04:18:08Z",
-      "ticker": "TSLA",
-      "company": "Tesla",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The dismissal of a class-action lawsuit regarding self-driving claims removes a significant legal overhang and potential financial liability for the company's autonomous vehicle business.",
-      "why_now": "The court ruling was issued on 2026-10-17, providing immediate relief from litigation risk.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 14,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b71ec3a830cc"
-      ],
-      "primary_source_event_id": "EVT-b71ec3a830cc",
-      "source_headlines": [
-        "Tesla Just Won in Court: Self-Driving Buyers Can’t Sue as a Class"
-      ],
-      "source_headline": "Tesla Just Won in Court: Self-Driving Buyers Can’t Sue as a Class",
-      "source_url": "https://247wallst.com/investing/2026/10/17/tesla-just-won-in-court-self-driving-buyers-cant-sue-as-a-class/",
-      "source_name": "24/7 Wall St.",
-      "materiality_max": 85,
-      "newest_source_at": "2026-10-17T15:10:22Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/TSLA_2026-07-25",
-        "latest_decision": "Short Candidate",
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-10-18T04:18:08Z",
-      "updated_at": "2026-10-18T04:18:08Z",
-      "decay_at": "2026-10-19T03:10:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-af31c2e0f9bf",
       "idea_version": "IDEAV-95466bea03847a08",
       "idea_version_started_at": "2026-10-18T02:20:51Z",
@@ -189602,6 +189528,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-c26051237597",
+      "idea_version": "IDEAV-492b4bb31ae83908",
+      "idea_version_started_at": "2026-10-18T04:18:08Z",
+      "ticker": "TSLA",
+      "company": "Tesla",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The dismissal of a class-action lawsuit regarding self-driving claims removes a significant legal overhang and potential financial liability for the company's autonomous vehicle business.",
+      "why_now": "The court ruling was issued on 2026-10-17, providing immediate relief from litigation risk.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 14,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b71ec3a830cc"
+      ],
+      "primary_source_event_id": "EVT-b71ec3a830cc",
+      "source_headlines": [
+        "Tesla Just Won in Court: Self-Driving Buyers Can’t Sue as a Class"
+      ],
+      "source_headline": "Tesla Just Won in Court: Self-Driving Buyers Can’t Sue as a Class",
+      "source_url": "https://247wallst.com/investing/2026/10/17/tesla-just-won-in-court-self-driving-buyers-cant-sue-as-a-class/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 85,
+      "newest_source_at": "2026-10-17T15:10:22Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/TSLA_2026-07-25",
+        "latest_decision": "Short Candidate",
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-10-18T04:18:08Z",
+      "updated_at": "2026-10-18T04:18:08Z",
+      "decay_at": "2026-10-19T03:10:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-5a71f05995f2",
       "idea_version": "IDEAV-86380cca7cf05ac3",
       "idea_version_started_at": "2026-10-18T12:31:33Z",
@@ -191698,14 +191694,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 539,
+    "total_count": 540,
     "shown_count": 499,
-    "hidden_count": 40,
+    "hidden_count": 41,
     "side_counts": {
       "long": {
-        "total_count": 279,
+        "total_count": 280,
         "shown_count": 250,
-        "hidden_count": 29
+        "hidden_count": 30
       },
       "short": {
         "total_count": 261,
@@ -191729,6 +191725,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c26051237597",
+        "idea_version": "IDEAV-492b4bb31ae83908",
+        "idea_version_started_at": "2026-10-18T04:18:08Z",
+        "ticker": "TSLA",
+        "company": "Tesla",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The dismissal of a class-action lawsuit regarding self-driving claims removes a significant legal overhang and potential financial liability for the company's autonomous vehicle business.",
+        "why_now": "The court ruling was issued on 2026-10-17, providing immediate relief from litigation risk.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 14,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b71ec3a830cc"
+        ],
+        "primary_source_event_id": "EVT-b71ec3a830cc",
+        "source_headlines": [
+          "Tesla Just Won in Court: Self-Driving Buyers Can’t Sue as a Class"
+        ],
+        "source_headline": "Tesla Just Won in Court: Self-Driving Buyers Can’t Sue as a Class",
+        "source_url": "https://247wallst.com/investing/2026/10/17/tesla-just-won-in-court-self-driving-buyers-cant-sue-as-a-class/",
+        "source_name": "24/7 Wall St.",
+        "materiality_max": 85,
+        "newest_source_at": "2026-10-17T15:10:22Z",
+        "prior_coverage": {
+          "has_run": true,
+          "latest_run": "analyses/TSLA_2026-07-25",
+          "latest_decision": "Short Candidate",
+          "data_pool_present": true
+        },
+        "surfaced_at": "2026-10-18T04:18:08Z",
+        "updated_at": "2026-10-18T04:18:08Z",
+        "decay_at": "2026-10-19T03:10:22Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-19T03:10:22Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-e9a3028a08b9",
         "idea_version": "IDEAV-96e326b9618b57f5",
@@ -219068,80 +219137,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-965e32a0e2b7",
-        "idea_version": "IDEAV-32407c903c49e5ea",
-        "idea_version_started_at": "2026-10-04T21:39:56Z",
-        "ticker": "CSL",
-        "company": "CSL Limited",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "CSL has entered an exclusive agreement with Alentis Therapeutics to develop a first-in-class anti-Claudin-1 antibody, expanding its pipeline into high-value fibrotic disease and oncology markets.",
-        "why_now": "The deal was announced in a price-sensitive filing on October 4, 2026, representing a fresh strategic expansion catalyst.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-67c83fdd762c"
-        ],
-        "primary_source_event_id": "EVT-67c83fdd762c",
-        "source_headlines": [
-          "CSL: CSL enters exclusive agreement with Alentis Therapeutics [price-sensitive]"
-        ],
-        "source_headline": "CSL: CSL enters exclusive agreement with Alentis Therapeutics [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CSL?key=2924-03144156-3A703266",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-04T21:22:34Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-04T21:39:56Z",
-        "updated_at": "2026-10-04T21:39:56Z",
-        "decay_at": "2026-10-06T09:22:34Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-08T03:53:12Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-50f379c78b21",
         "idea_version": "IDEAV-8ccb8002d826e8d3",
         "idea_version_started_at": "2026-10-04T16:00:05Z",
@@ -228904,7 +228899,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1704,
-    "live_count": 40,
+    "live_count": 39,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
