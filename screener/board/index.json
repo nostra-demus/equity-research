@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T23:44:02Z",
+  "generated_at": "2026-10-19T23:47:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-534",
@@ -297,6 +297,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-537",
+      "headline": "Transrail Lighting Limited: Transrail Lighting Limited has informed the Exchange regarding a press release dated October 19, 2026, titled \"Transrail to enter renewable power generation through proposed 49% investment in 990 MW solar portfolio in Maharashtra\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TRANSRAIL_19102026194259_TLLPressrelease19102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T14:13:40Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Company announced a major investment in a 990 MW solar portfolio.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced a major investment in a 990 MW solar portfolio.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Transrail Lighting Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1960,55 +2009,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-352",
-      "headline": "LTTS Q2 results: Net profit jumps 54% to ₹548 crore, beats estimates",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/companies/ltts-q2-results-net-profit-jumps-54-to-rs548-crore-beats-estimates-20015136.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T11:50:39Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "LTTS reported a 54% jump in net profit to ₹548 crore, beating analyst estimates.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "LTTS reported a 54% jump in net profit to ₹548 crore, beating analyst estimates.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "L&T Technology Services",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -229255,9 +229255,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5936410,
-    "news_picked_today": 1287,
-    "news_dropped_today": 11323
+    "news_seen_today": 5959492,
+    "news_picked_today": 1292,
+    "news_dropped_today": 11342
   },
   "book_momentum": {
     "live_count": 8,
