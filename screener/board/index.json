@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T20:14:47Z",
+  "generated_at": "2026-10-19T20:27:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-417",
@@ -100,6 +100,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-505",
+      "headline": "Department of War and BAE Systems Sign Framework Agreement to Surge Counter-Drone Production to 25,000 Precision Interceptors Annually",
+      "headline_en": null,
+      "url": "https://www.war.gov/News/Releases/Release/Article/4628487/department-of-war-and-bae-systems-sign-framework-agreement-to-surge-counter-dro/",
+      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-19T15:00:30Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "BAE Systems signed a framework agreement to surge production of counter-drone interceptors to 25,000 units annually.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BAE Systems signed a framework agreement to surge production of counter-drone interceptors to 25,000 units annually.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BAE Systems",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1968,56 +2018,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-278",
-      "headline": "HD Hyundai Heavy Industries Union Starts Partial Strike",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279122",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T09:18:46Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "HD Hyundai Heavy Industries union has initiated a partial strike, which disrupts production operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "HD Hyundai Heavy Industries union has initiated a partial strike, which disrupts production operations.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HD Hyundai Heavy Industries",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -228695,9 +228695,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4301222,
-    "news_picked_today": 974,
-    "news_dropped_today": 8492
+    "news_seen_today": 4338150,
+    "news_picked_today": 1030,
+    "news_dropped_today": 9756
   },
   "book_momentum": {
     "live_count": 8,
