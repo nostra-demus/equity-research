@@ -73,7 +73,7 @@ test('Universe Model ranking, weights, search, pagination, failure recovery and 
   await expect(page.getByLabel('Contracts / JVs weight', { exact: true })).toHaveValue('1')
   partial = true
   await page.getByRole('button', { name: 'Check for updates' }).click()
-  await expect(page.getByText('Partial coverage', { exact: false })).toBeVisible()
+  await expect(page.getByText('Partial coverage', { exact: true })).toBeVisible()
   await page.setViewportSize({ width: 390, height: 844 })
   await page.getByText('Signal rules and weights', { exact: true }).click()
   await page.screenshot({ path: testInfo.outputPath('model-mobile.png'), fullPage: true })
