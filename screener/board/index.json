@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T06:21:19Z",
+  "generated_at": "2026-10-19T06:24:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-130",
@@ -1488,6 +1488,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-246",
+      "headline": "Oil prices fall from five-month highs to $107.9 as U.S. eases Russia sanctions",
+      "headline_en": null,
+      "url": "https://economymiddleeast.com/news/oil-prices-fall-from-five-month-highs-to-107-9-as-u-s-eases-russia-sanctions/?utm_source=rss&utm_medium=rss&utm_campaign=oil-prices-fall-from-five-month-highs-to-107-9-as-u-s-eases-russia-sanctions",
+      "source_name": "Economy Middle East",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T05:40:47Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Oil prices dropped to $107.9 following the easing of sanctions on Russia, representing a significant supply-side shift.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Oil prices dropped to $107.9 following the easing of sanctions on Russia, representing a significant supply-side shift.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-235",
       "headline": "Ixigo shares rally 13% after travel platform reports all-time high profit",
       "headline_en": null,
@@ -1925,56 +1968,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-179",
-      "headline": "BoE scrutinises Barclays over claim traders misrepresented private credit exposure",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/f3127b4f-d33a-4431-acff-021829f3aa72?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T04:00:15Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "The Bank of England is scrutinizing Barclays regarding potential misrepresentation of private credit exposure, which poses regulatory and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "The Bank of England is scrutinizing Barclays regarding potential misrepresentation of private credit exposure, which poses regulatory and reputational risk.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Barclays",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -228997,9 +228990,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 122703,
-    "news_picked_today": 324,
-    "news_dropped_today": 4078
+    "news_seen_today": 126201,
+    "news_picked_today": 335,
+    "news_dropped_today": 4091
   },
   "book_momentum": {
     "live_count": 8,
