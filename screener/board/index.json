@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T01:51:01Z",
+  "generated_at": "2026-10-19T02:06:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-021",
@@ -737,6 +737,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-074",
+      "headline": "China's CXMT sees shares drop over 6% as investors look past chipmaker's profit turnaround",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/19/china-cxmt-profit-outlook-shares.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T01:56:34Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "CXMT shares dropped 6% despite a profit turnaround, indicating investor skepticism regarding sustainability or valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "CXMT shares dropped 6% despite a profit turnaround, indicating investor skepticism regarding sustainability or valuation.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CXMT",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-043",
       "headline": "Qubic freezes chain after attacker drains 1.4K wallets with weak seeds",
       "headline_en": null,
@@ -836,6 +885,104 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-079",
+      "headline": "SK하이닉스·정부·은행권, 2조원 규모 ‘수출공급망 강화보증’ 출범",
+      "headline_en": "SK Hynix, government, and banking sector launch 2 trillion KRW 'Export Supply Chain Strengthening Guarantee'",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279063",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T02:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "SK Hynix, the government, and banks launched a 2 trillion KRW export supply chain guarantee program to support the semiconductor industry.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "SK Hynix, the government, and banks launched a 2 trillion KRW export supply chain guarantee program to support the semiconductor industry.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK Hynix",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-083",
+      "headline": "Austrian Airlines flight from Tel Aviv diverts to Bulgaria's Sofia after 'threat'",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/austrian-airlines-flight-tel-aviv-diverts-bulgarias-sofia-after-threat",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T01:58:06Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Austrian Airlines flight diverted due to a security threat, impacting operational risk and passenger safety.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Austrian Airlines flight diverted due to a security threat, impacting operational risk and passenger safety.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Austrian Airlines",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1220,6 +1367,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-077",
+      "headline": "Citi Asean investment banking revenue up 35% as regional dealmaking picks up",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/citi-asean-investment-banking-revenue-35-regional-dealmaking-picks",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T02:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Citi reported a 35% increase in Asean investment banking revenue, reflecting improved regional deal activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "Citi reported a 35% increase in Asean investment banking revenue, reflecting improved regional deal activity.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Citigroup",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-022",
       "headline": "Food services platform Focus Prism raises ₹145 crore from OAKS, buys Chennai-based catering firm FoodExo",
       "headline_en": null,
@@ -1311,6 +1507,49 @@
         "macro_sector"
       ],
       "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-073",
+      "headline": "Oil prices ease as Trump waives Russia sanctions, Middle East risks persist",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/international-business/oil-prices-ease-as-trump-waives-russia-sanctions-middle-east-risks-persist/articleshow/135037616.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T01:43:42Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Oil prices are reacting to geopolitical shifts including US sanctions policy on Russia and ongoing Middle East instability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "Oil prices are reacting to geopolitical shifts including US sanctions policy on Russia and ongoing Middle East instability.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -1627,6 +1866,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-076",
+      "headline": "With layoffs and a firing, Netflix hurries to rewrite its narrative",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/lifestyle/layoffs-and-firing-netflix-hurries-rewrite-its-narrative",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T02:04:49Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Netflix is undergoing layoffs and management changes, indicating operational restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Netflix is undergoing layoffs and management changes, indicating operational restructuring.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Netflix",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-030",
       "headline": "Trump says Russia sanctions waiver is designed to keep Russia at negotiating table",
       "headline_en": null,
@@ -1665,300 +1953,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-064",
-      "headline": "Ahead of IPO, AI firm Anthropic announces a new ‘public benefit fund’ to commit 5% of its stocks: What we know",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/ahead-of-ipo-ai-firm-anthropic-announces-a-new-public-benefit-fund-to-commit-5-of-its-stocks-what-we-know-11792372858462.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T01:33:01Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Anthropic announces a public benefit fund to commit 5% of its stock ahead of a potential IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Anthropic announces a public benefit fund to commit 5% of its stock ahead of a potential IPO.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-069",
-      "headline": "Anthropic commits 5% of shares to ‘public benefit’ fund",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/3beab58d-4269-4722-b299-8fa5a93f5a52?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T01:31:01Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Anthropic is committing 5% of its shares to a public benefit fund, which is a significant corporate governance and equity structure change.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Anthropic is committing 5% of its shares to a public benefit fund, which is a significant corporate governance and equity structure change.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-008",
-      "headline": "Tata Sons breaks from the past and drops Article 118 reference in Chandrasekaran’s third-term resolution",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/tata-sons-chairman-natarajan-chandrasekaran-reappointment-articles-of-association-11792314549702.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T00:00:26Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Tata Sons modifies governance resolution regarding the chairman's term.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Tata Sons modifies governance resolution regarding the chairman's term.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-011",
-      "headline": "KLS: Change of Director's Interest Notice - C Elliott",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KLS?key=2924-03149917-2A1704796",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-19T00:01:30Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Routine disclosure of a director's change in interest.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "Routine disclosure of a director's change in interest.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "insider_transaction",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KLS",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-027",
-      "headline": "Indofood Agri tracking hotspots, says no legal notices received over haze",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/asean/indofood-agri-tracking-hotspots-says-no-legal-notices-received-over-haze",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T00:48:33Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Indofood Agri clarifies it has not received legal notices regarding haze issues, mitigating potential regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 60,
-      "triage_reason": "Indofood Agri clarifies it has not received legal notices regarding haze issues, mitigating potential regulatory risk.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Indofood Agri Resources",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-005",
-      "headline": "India a keystone for Hitachi Energy supply chain amid global power crunch: CEO",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/india-a-keystone-for-hitachi-energys-supply-chain-amid-global-supply-crunch-says-ceo-andreas-schierenbeck-11792320006502.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T00:00:30Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Hitachi Energy CEO highlights India's strategic role in the company's supply chain.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 60,
-      "triage_reason": "Hitachi Energy CEO highlights India's strategic role in the company's supply chain.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hitachi Energy",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -188013,78 +188007,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-87cbb3009f6f",
-      "idea_version": "IDEAV-a445a760a5970d87",
-      "idea_version_started_at": "2026-10-17T14:35:09Z",
-      "ticker": "YESBANK",
-      "company": "Yes Bank",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Net profit reached ₹1,080 crore driven by a reduction in provisions and an increase in other income, indicating improved asset quality and diversified revenue streams.",
-      "why_now": "The Q2 results were reported on October 17, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0d461df31e9f"
-      ],
-      "primary_source_event_id": "EVT-0d461df31e9f",
-      "source_headlines": [
-        "Q2 Results LIVE Updates: Yes Bank Net profit at ₹1,080 crore; Provisions fall, other income up"
-      ],
-      "source_headline": "Q2 Results LIVE Updates: Yes Bank Net profit at ₹1,080 crore; Provisions fall, other income up",
-      "source_url": "https://www.cnbctv18.com/market/q2-results-live-updates-hdfc-icici-axis-yes-bank-central-bank-idbi-india-cements-bajaj-health-share-price-liveblog-20014006.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-17T14:01:56Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-17T14:35:09Z",
-      "updated_at": "2026-10-17T14:35:09Z",
-      "decay_at": "2026-10-19T02:01:56Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-e9a3028a08b9",
       "idea_version": "IDEAV-96e326b9618b57f5",
       "idea_version_started_at": "2026-10-18T04:36:10Z",
@@ -190017,6 +189939,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-87cbb3009f6f",
+      "idea_version": "IDEAV-a445a760a5970d87",
+      "idea_version_started_at": "2026-10-17T14:35:09Z",
+      "ticker": "YESBANK",
+      "company": "Yes Bank",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Net profit reached ₹1,080 crore driven by a reduction in provisions and an increase in other income, indicating improved asset quality and diversified revenue streams.",
+      "why_now": "The Q2 results were reported on October 17, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0d461df31e9f"
+      ],
+      "primary_source_event_id": "EVT-0d461df31e9f",
+      "source_headlines": [
+        "Q2 Results LIVE Updates: Yes Bank Net profit at ₹1,080 crore; Provisions fall, other income up"
+      ],
+      "source_headline": "Q2 Results LIVE Updates: Yes Bank Net profit at ₹1,080 crore; Provisions fall, other income up",
+      "source_url": "https://www.cnbctv18.com/market/q2-results-live-updates-hdfc-icici-axis-yes-bank-central-bank-idbi-india-cements-bajaj-health-share-price-liveblog-20014006.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-17T14:01:56Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-17T14:35:09Z",
+      "updated_at": "2026-10-17T14:35:09Z",
+      "decay_at": "2026-10-19T02:01:56Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-3d70daa14c61",
       "idea_version": "IDEAV-b8e571e6ddb32fd1",
       "idea_version_started_at": "2026-10-17T12:25:32Z",
@@ -191605,14 +191599,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 539,
     "shown_count": 499,
-    "hidden_count": 39,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
-        "total_count": 278,
+        "total_count": 279,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 29
       },
       "short": {
         "total_count": 261,
@@ -191636,6 +191630,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-87cbb3009f6f",
+        "idea_version": "IDEAV-a445a760a5970d87",
+        "idea_version_started_at": "2026-10-17T14:35:09Z",
+        "ticker": "YESBANK",
+        "company": "Yes Bank",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Net profit reached ₹1,080 crore driven by a reduction in provisions and an increase in other income, indicating improved asset quality and diversified revenue streams.",
+        "why_now": "The Q2 results were reported on October 17, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0d461df31e9f"
+        ],
+        "primary_source_event_id": "EVT-0d461df31e9f",
+        "source_headlines": [
+          "Q2 Results LIVE Updates: Yes Bank Net profit at ₹1,080 crore; Provisions fall, other income up"
+        ],
+        "source_headline": "Q2 Results LIVE Updates: Yes Bank Net profit at ₹1,080 crore; Provisions fall, other income up",
+        "source_url": "https://www.cnbctv18.com/market/q2-results-live-updates-hdfc-icici-axis-yes-bank-central-bank-idbi-india-cements-bajaj-health-share-price-liveblog-20014006.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-17T14:01:56Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-17T14:35:09Z",
+        "updated_at": "2026-10-17T14:35:09Z",
+        "decay_at": "2026-10-19T02:01:56Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-19T02:01:56Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-58721326aaea",
         "idea_version": "IDEAV-0ee77860f24cdf0e",
@@ -218972,81 +219041,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-f3e7d7680a45",
-        "idea_version": "IDEAV-5e3e07009fb4c601",
-        "idea_version_started_at": "2026-10-04T19:59:51Z",
-        "ticker": "AKZOY",
-        "company": "AkzoNobel",
-        "exchange": "OTC",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The sale of a business unit for over $1 billion provides a cash infusion and allows AkzoNobel to streamline its portfolio, likely leading to improved margins and potential capital returns.",
-        "why_now": "The deal was reported on October 4, 2026, and the market has yet to fully digest the impact of the divestiture on the company's balance sheet.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2e89a042cd1e"
-        ],
-        "primary_source_event_id": "EVT-2e89a042cd1e",
-        "source_headlines": [
-          "AkzoNobel to sell unit to Nippon Paint for over $1 billion, FT reports"
-        ],
-        "source_headline": "AkzoNobel to sell unit to Nippon Paint for over $1 billion, FT reports",
-        "source_url": "https://www.reuters.com/world/asia-pacific/akzonobel-could-sell-unit-nippon-paint-over-1-billion-ft-reports-2026-10-04/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-04T19:47:25Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-04T19:21:51Z",
-        "updated_at": "2026-10-04T19:59:51Z",
-        "decay_at": "2026-10-06T07:47:25Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-07T20:26:35Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-50f379c78b21",
         "idea_version": "IDEAV-8ccb8002d826e8d3",
         "idea_version_started_at": "2026-10-04T16:00:05Z",
@@ -228809,7 +228803,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1702,
-    "live_count": 40,
+    "live_count": 39,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -228828,9 +228822,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 311,
-    "news_picked_today": 76,
-    "news_dropped_today": 235
+    "news_seen_today": 382,
+    "news_picked_today": 88,
+    "news_dropped_today": 294
   },
   "book_momentum": {
     "live_count": 8,
