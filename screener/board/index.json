@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T19:01:35Z",
+  "generated_at": "2026-10-19T19:22:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-417",
@@ -704,6 +704,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-430",
+      "headline": "Delta Corp Q2 Results: Casino Firm Swings To Net Loss On One-Time Exceptional Hit, Revenue Slips 13%",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/delta-corp-q2-results-casino-firm-swings-to-net-loss-on-one-time-exceptional-hit-revenue-slips-13-12207948#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T16:49:23Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Delta Corp reported a swing to a net loss and a 13% revenue decline in Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Delta Corp reported a swing to a net loss and a 13% revenue decline in Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Delta Corp",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-409",
       "headline": "Solvay cuts 2026 forecast after Middle East conflict hits Q3",
       "headline_en": null,
@@ -848,6 +897,60 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-457",
+      "headline": "AIOS Tech To Acquire SmartCore Holdings Limited For $100 Mln",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/aios-tech-acquire-smartcore-holdings-limited-100-mln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T14:54:28Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "AIOS Tech announced the acquisition of SmartCore Holdings for $100 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AIOS Tech announced the acquisition of SmartCore Holdings for $100 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AIOS Tech",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "SmartCore Holdings",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1914,114 +2017,6 @@
           "name": "Lindt & Sprüngli",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-287",
-      "headline": "Foxconn To Acquire 50% Stake In Mitsubishi Electric Mobility For 115 Bln Yen",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/foxconn-acquire-50-stake-mitsubishi-electric-mobility-115-bln-yen",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T07:38:56Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Foxconn to acquire a 50% stake in Mitsubishi Electric Mobility for 115 billion yen.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Foxconn to acquire a 50% stake in Mitsubishi Electric Mobility for 115 billion yen.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Foxconn",
-          "ticker": null,
-          "listing_country": "TW"
-        },
-        {
-          "name": "Mitsubishi Electric",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-271",
-      "headline": "Q2 Results LIVE Updates: Union Bank net profit up 30.3%; HFCL shares rise 3.5% post earnings",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/q2-results-live-updates-today-ultratech-bajaj-fin-ireda-piramal-union-bank-hzl-hdfc-axis-icici-yes-hfcl-just-dial-share-price-liveblog-20014571.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T06:35:06Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Union Bank reported a 30.3% increase in net profit for Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Union Bank reported a 30.3% increase in net profit for Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Union Bank of India",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "HFCL",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -229119,9 +229114,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3836980,
-    "news_picked_today": 852,
-    "news_dropped_today": 7366
+    "news_seen_today": 3967787,
+    "news_picked_today": 916,
+    "news_dropped_today": 7494
   },
   "book_momentum": {
     "live_count": 8,
