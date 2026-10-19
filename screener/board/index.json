@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T00:56:29Z",
+  "generated_at": "2026-10-19T01:00:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-021",
@@ -193,6 +193,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-032",
+      "headline": "Russian air strike damages subway station in Ukraine's Kyiv, mayor says",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/russia/russian-air-strike-damages-subway-station-in-ukraines-kyiv-mayor-says-4187713",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T00:34:42Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Escalation of military conflict in Ukraine with infrastructure damage.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Escalation of military conflict in Ukraine with infrastructure damage.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-026",
       "headline": "AIV: Mt Hogan Gold Project Resource Increase [price-sensitive]",
       "headline_en": null,
@@ -237,6 +280,104 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-033",
+      "headline": "Microsoft Pulls Out of UK Data Center Deal Over Power Delays",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279057",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T04:21:15Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Microsoft cancelled a data center project in the UK due to power infrastructure delays.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Microsoft cancelled a data center project in the UK due to power infrastructure delays.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Microsoft",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-031",
+      "headline": "Oasis may seek extraordinary general meeting to revamp Nidec board",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/companies/oasis-may-seek-extraordinary-general-meeting-to-revamp-nidec-board",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T00:59:55Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Oasis Management is seeking an extraordinary general meeting to force board changes at Nidec.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Oasis Management is seeking an extraordinary general meeting to force board changes at Nidec.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nidec",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -703,6 +844,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-034",
+      "headline": "IRGC reports oil supertanker, carrying 2 million barrels of crude, 'hit a mine' while sailing an 'unauthorised' route off Oman",
+      "headline_en": null,
+      "url": "https://gulfnews.com/world/mena/irgc-reports-oil-supertanker-carrying-2-million-barrels-of-crude-hit-a-mine-while-sailing-an-unauthorised-route-off-oman-1.500715389",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T00:50:10Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "A supertanker carrying 2 million barrels of oil was hit by a mine, posing a significant supply chain and geopolitical risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "A supertanker carrying 2 million barrels of oil was hit by a mine, posing a significant supply chain and geopolitical risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-015",
       "headline": "Anthropic commits 5% of its stock to a new ‘public benefit’ fund and may give large donations to traditional nonprofits or to specific populations",
       "headline_en": null,
@@ -800,6 +984,49 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-030",
+      "headline": "Trump says Russia sanctions waiver is designed to keep Russia at negotiating table",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/us/trump-says-russia-sanctions-waiver-is-designed-to-keep-russia-at-negotiating-table-4187714",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T00:41:47Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Trump's statement regarding Russia sanctions waivers indicates a potential shift in geopolitical and trade policy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "Trump's statement regarding Russia sanctions waivers indicates a potential shift in geopolitical and trade policy.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -228155,7 +228382,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3795,
+    "inbox_unconsumed": 3800,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -228164,9 +228391,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 126,
-    "news_picked_today": 29,
-    "news_dropped_today": 97
+    "news_seen_today": 141,
+    "news_picked_today": 34,
+    "news_dropped_today": 107
   },
   "book_momentum": {
     "live_count": 8,
