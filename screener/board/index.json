@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-19T23:35:01Z",
+  "generated_at": "2026-10-19T23:38:02Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261019-534",
+      "headline": "PWH: Chairman and MD & CEO Address and Updated Outlook [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PWH?key=2924-03150474-2A1705033",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T23:25:25Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "PWH issued an updated outlook which is price-sensitive, indicating a material change in expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PWH issued an updated outlook which is price-sensitive, indicating a material change in expectations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PWH",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261019-533",
       "headline": "INA: Warburg Pincus Further Revised Indicative Proposal Update [price-sensitive]",
@@ -1955,55 +2004,6 @@
       "companies": [
         {
           "name": "L&T Technology Services",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-354",
-      "headline": "JSW Steel Gets Relief As Orissa High Court Quashes ₹696 Crore Penalty",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/jsw-steel-gets-relief-as-orissa-high-court-quashes-696-crore-penalty",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T11:41:00Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "JSW Steel received relief from a court quashing a 696 crore rupee penalty.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "JSW Steel received relief from a court quashing a 696 crore rupee penalty.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JSW Steel",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -229255,9 +229255,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5843690,
-    "news_picked_today": 1276,
-    "news_dropped_today": 11262
+    "news_seen_today": 5878499,
+    "news_picked_today": 1278,
+    "news_dropped_today": 11284
   },
   "book_momentum": {
     "live_count": 8,
