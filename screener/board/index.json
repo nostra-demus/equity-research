@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T04:25:45Z",
+  "generated_at": "2026-10-19T04:30:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-130",
@@ -146,6 +146,109 @@
         {
           "name": "Ramsay Health Care",
           "ticker": "RHC",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-183",
+      "headline": "Urban Company shares slide 7% as Q2 net loss triples YoY on InstaHelp burn. Should you buy, sell or hold?",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/urban-company-shares-slide-7-as-q2-net-loss-triples-yoy-on-instahelp-burn-should-you-buy-sell-or-hold/articleshow/135039550.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T04:23:11Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Urban Company reported a tripling of net loss year-over-year, indicating significant operational burn.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Urban Company reported a tripling of net loss year-over-year, indicating significant operational burn.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Urban Company",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-181",
+      "headline": "Daiichi Life offers $4.4 billion to buy rest of Challenger",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/10/19/companies/daiichi-life-challenger/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T04:22:00Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Daiichi Life has offered $4.4 billion to acquire the remaining stake in Challenger.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Daiichi Life has offered $4.4 billion to acquire the remaining stake in Challenger.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Daiichi Life",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "Challenger",
+          "ticker": null,
           "listing_country": "AU"
         }
       ],
@@ -1527,6 +1630,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-187",
+      "headline": "Greenwich Capital Partners gets into the HVAC trade with Auscool",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/greenwich-capital-partners-gets-into-the-hvac-trade-with-auscool-20261019-p616rr?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T04:27:07Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Greenwich Capital Partners is entering the HVAC sector through the acquisition of Auscool.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Greenwich Capital Partners is entering the HVAC sector through the acquisition of Auscool.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Greenwich Capital Partners",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Auscool",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-182",
+      "headline": "China’s CXMT Expects Over Eightfold Revenue Jump Amid Memory Squeeze",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/earnings/chinas-cxmt-expects-over-eightfold-revenue-jump-amid-memory-squeeze-93d24f98?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T04:23:00Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "CXMT projects an eightfold increase in revenue, signaling significant growth in the Chinese memory chip sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "CXMT projects an eightfold increase in revenue, signaling significant growth in the Chinese memory chip sector.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CXMT",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-161",
       "headline": "LTM expects revenue growth to accelerate in FY28, materially higher margins from AI-native services",
       "headline_en": null,
@@ -1767,213 +1973,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-173",
-      "headline": "Yes Bank Sees No Immediate Need For Capital Raise After Supreme Court's AT1 Bond Ruling",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/yes-bank-sees-no-immediate-need-for-capital-raise-after-supreme-courts-at1-bond-ruling-12204530#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T04:17:54Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Yes Bank confirms no immediate capital raise needed following a favorable Supreme Court ruling on AT1 bonds.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Yes Bank confirms no immediate capital raise needed following a favorable Supreme Court ruling on AT1 bonds.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yes Bank",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-170",
-      "headline": "ICICI Bank Shares Gain, HDFC, Axis Bank Slip Up To 4% After Q2 Results",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/icici-bank-shares-gain-hdfc-axis-bank-slip-up-to-4-after-q2-results-12204476#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T03:52:27Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Market reaction to Q2 earnings for major Indian banks with significant price moves.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Market reaction to Q2 earnings for major Indian banks with significant price moves.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ICICI Bank",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "HDFC Bank",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Axis Bank",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-131",
-      "headline": "Intel chief says contract chip business needs 'strong' government support",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/tech/semiconductors/intel-chief-says-contract-chip-business-needs-strong-government-support",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T03:29:54Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Intel's CEO is publicly lobbying for government support for its foundry business, highlighting the capital-intensive nature and strategic importance of the sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Intel's CEO is publicly lobbying for government support for its foundry business, highlighting the capital-intensive nature and strategic importance of the sector.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Intel",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-156",
-      "headline": "Centre Asks Meta To Review Instagram, Facebook Algorithms To Curb Misleading Content And Prevent Public Order Risks",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/tech/centre-asks-meta-to-review-instagram-facebook-algorithms-to-curb-misleading-content-and-prevent-public-order-risks",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T03:27:02Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "The Indian government is pressuring Meta to review algorithms, increasing regulatory and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "The Indian government is pressuring Meta to review algorithms, increasing regulatory and operational risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -228994,9 +228993,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 929,
-    "news_picked_today": 222,
-    "news_dropped_today": 707
+    "news_seen_today": 972,
+    "news_picked_today": 233,
+    "news_dropped_today": 739
   },
   "book_momentum": {
     "live_count": 8,
