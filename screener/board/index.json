@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-19T03:25:50Z",
+  "generated_at": "2026-10-19T03:31:15Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261019-130",
+      "headline": "Acme Solar Holdings Limited: ACME Solar Holdings Limited has informed the Exchange regarding ACME Solar s signs PPA for 300 MW / 1200 MWh assured peak supply SECI FDRE Project at INR 6/unit.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ACMECS_19102026084958_IntimationPPA19102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T03:25:36Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "ACME Solar secured a significant 300 MW / 1200 MWh power purchase agreement at a fixed rate of INR 6/unit, providing long-term revenue visibility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ACME Solar secured a significant 300 MW / 1200 MWh power purchase agreement at a fixed rate of INR 6/unit, providing long-term revenue visibility.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Acme Solar Holdings Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261019-098",
       "headline": "WCN: Shareholders Approve Hancock Prospecting Investment",
@@ -1239,6 +1288,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-131",
+      "headline": "Intel chief says contract chip business needs 'strong' government support",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/tech/semiconductors/intel-chief-says-contract-chip-business-needs-strong-government-support",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T03:29:54Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Intel's CEO is publicly lobbying for government support for its foundry business, highlighting the capital-intensive nature and strategic importance of the sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Intel's CEO is publicly lobbying for government support for its foundry business, highlighting the capital-intensive nature and strategic importance of the sector.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intel",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-109",
       "headline": "Tata Sons reviews its Articles of Association to meet SEBI listing regulations: Report",
       "headline_en": null,
@@ -1877,104 +1976,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-083",
-      "headline": "Austrian Airlines flight from Tel Aviv diverts to Bulgaria's Sofia after 'threat'",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/austrian-airlines-flight-tel-aviv-diverts-bulgarias-sofia-after-threat",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T01:58:06Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Austrian Airlines flight diverted due to a security threat, impacting operational risk and passenger safety.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Austrian Airlines flight diverted due to a security threat, impacting operational risk and passenger safety.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Austrian Airlines",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-072",
-      "headline": "1 KATUSA killed, 3 USFK soldiers injured in rollover crash in Daegu",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261019002400315",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T01:23:05Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "A fatal military vehicle accident involving USFK personnel in South Korea represents a localized operational and geopolitical risk event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "A fatal military vehicle accident involving USFK personnel in South Korea represents a localized operational and geopolitical risk event.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "United States Forces Korea",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -228918,9 +228919,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 665,
-    "news_picked_today": 157,
-    "news_dropped_today": 508
+    "news_seen_today": 685,
+    "news_picked_today": 161,
+    "news_dropped_today": 524
   },
   "book_momentum": {
     "live_count": 8,
