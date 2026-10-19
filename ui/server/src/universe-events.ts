@@ -1,5 +1,5 @@
 import { MODEL_SIGNALS, type EventCoverage, type ModelEvent, type ModelRow, type ModelSignals } from '../../shared/universe-model'
-import { listFirehoseDates, readDayItems } from './news/feed'
+import { firehoseStamp, listFirehoseDates, scanDayItems } from './news/feed'
 import { coreCompanyName, normTicker } from './news/symbology'
 import { deriveSourceTier } from './news/scope'
 import type { FeedItem } from './news/types'
@@ -42,15 +42,46 @@ export function addUniverseEvent(index: UniverseEventIndex, item: FeedItem): voi
 }
 
 // Exported through the existing discovery worker: the 90-day walk never blocks Fastify's event loop.
-export function readUniverseEvents(root: string, archiveDir: string, nowISO: string): UniverseEventIndex {
+const days = new Map<string, { stamp: string; index: UniverseEventIndex }>()
+export async function readUniverseEvents(root: string, archiveDir: string, nowISO: string, io = {
+  dates: listFirehoseDates, stamp: firehoseStamp, scan: scanDayItems,
+}): Promise<UniverseEventIndex> {
   const now = Date.parse(nowISO)
   const from = new Date(now - 90 * 86_400_000).toISOString()
   const index: UniverseEventIndex = { coverage: { checked_at: nowISO, from, to: nowISO, archive_days: 0,
     reports_scanned: 0, latest_report_at: null, refreshing: false, error: null }, companies: {} }
-  for (const date of listFirehoseDates(root, archiveDir)) {
+  for (const date of io.dates(root, archiveDir)) {
     if (date < from.slice(0, 10) || date > nowISO.slice(0, 10)) continue
+    const stamp = io.stamp(root, date, archiveDir)
+    if (!stamp) throw new Error(`Event archive could not be read for ${date}.`)
+    const key = JSON.stringify([root, archiveDir, date])
+    const cached = days.get(key)
+    let day = cached?.stamp === stamp ? cached.index : null
+    if (!day) {
+      day = { coverage: { ...index.coverage, from: `${date}T00:00:00.000Z`, reports_scanned: 0, latest_report_at: null }, companies: {} }
+      const scan = io.scan(root, date, archiveDir, { strict: true }, (item) => { addUniverseEvent(day!, item); return true })
+      if (scan.status !== 'read' || !scan.complete) throw new Error(`Event archive is incomplete for ${date}.`)
+      // Cache compact per-company evidence, never all hydrated reports. Only changing partitions reparse.
+      if (io.stamp(root, date, archiveDir) === stamp) days.set(key, { stamp, index: day })
+      while (days.size > 180) days.delete(days.keys().next().value!)
+    }
     index.coverage.archive_days++
-    for (const item of readDayItems(root, date, archiveDir).items) addUniverseEvent(index, item)
+    index.coverage.reports_scanned += day.coverage.reports_scanned
+    const latest = day.coverage.latest_report_at
+    if (latest && (!index.coverage.latest_report_at || latest > index.coverage.latest_report_at)) index.coverage.latest_report_at = latest
+    for (const [company, signals] of Object.entries(day.companies)) {
+      const target = index.companies[company] ??= {}
+      for (const signal of MODEL_SIGNALS) {
+        for (const report of signals[signal.id] || []) {
+          if (Date.parse(report.reported_at) < Date.parse(from) || Date.parse(report.reported_at) > now) continue
+          const reports = target[signal.id] ??= []
+          if (!reports.some((r) => r.id === report.id || r.url === report.url)) reports.push(report)
+          reports.sort((a, b) => b.reported_at.localeCompare(a.reported_at)); reports.splice(3)
+        }
+      }
+    }
+    // Other archive operations can run between dates during the first cold build.
+    await new Promise(setImmediate)
   }
   return index
 }

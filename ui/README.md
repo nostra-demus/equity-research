@@ -18,7 +18,9 @@ requires an exact ticker plus normalized company name; known foreign listing tag
 line. These tags are headline-based inference, not verified issuer research. Green ticks open up to
 three recent source links; red crosses mean no matching report in the saved archive, never proof that
 no event occurred. A stale (>48h) or unreadable/empty archive leaves signals and totals unavailable.
-The event index refreshes off-thread every minute while read; the grid shows the actual archived-day
+The event index refreshes off-thread every minute while read, caching compact results by each day's
+file stamp so unchanged history is not reparsed. Strict shard failures leave coverage unavailable.
+The grid shows the actual archived-day
 count, latest report time, and scan time, without claiming exhaustive market coverage.
 
 `GET /api/screener/universe-model` shares one paced public-page sweep across all viewers. The Model

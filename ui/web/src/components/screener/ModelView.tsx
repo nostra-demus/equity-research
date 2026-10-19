@@ -45,6 +45,7 @@ export function ModelView() {
   const pending = useRef(false)
   const mounted = useRef(true)
   const [weights, setWeights] = useState(readModelWeights)
+  const [drafts, setDrafts] = useState<Record<string, string>>({})
   const [query, setQuery] = useState('')
   const [page, setPage] = useState(0)
   const refresh = useCallback(async () => {
@@ -92,9 +93,13 @@ export function ModelView() {
     <details className="model__rules"><summary>Signal rules and weights</summary>
       <p>Weights are saved in this browser. Changing a weight immediately reorders the whole universe.</p>
       <div className="model__weights">{MODEL_SIGNALS.map((signal) => <label key={signal.id}>{signal.label}<small>{signal.rule}</small>
-        <input type="number" min="-100" max="100" step="1" value={weights[signal.id]} aria-label={`${signal.label} weight`}
-          onChange={(e) => { const n = e.currentTarget.valueAsNumber; if (Number.isFinite(n) && n >= -100 && n <= 100) changeWeights({ ...weights, [signal.id]: n }) }} /></label>)}</div>
-      <button type="button" onClick={() => changeWeights(defaultModelWeights())}>Reset to equal weights</button>
+        <input type="text" inputMode="decimal" value={drafts[signal.id] ?? String(weights[signal.id])} aria-label={`${signal.label} weight`}
+          onChange={(e) => {
+            const text = e.currentTarget.value; setDrafts((d) => ({ ...d, [signal.id]: text }))
+            const n = Number(text)
+            if (text.trim() && Number.isFinite(n) && n >= -100 && n <= 100) changeWeights({ ...weights, [signal.id]: n })
+          }} onBlur={() => setDrafts((d) => { const next = { ...d }; delete next[signal.id]; return next })} /></label>)}</div>
+      <button type="button" onClick={() => { setDrafts({}); changeWeights(defaultModelWeights()) }}>Reset to equal weights</button>
     </details>
     <div className="model__toolbar"><label>Find a company <input type="search" value={query} placeholder="Company or ticker" onChange={(e) => { setQuery(e.target.value); setPage(0) }} /></label>
       <span>{ranked.length.toLocaleString()} matching · highest total first</span>

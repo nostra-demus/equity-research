@@ -4,7 +4,8 @@ import os from 'node:os'
 import path from 'node:path'
 import { createUniverseModel, finvizPageUrl, parseFinvizPage } from '../src/universe-model'
 import { MODEL_REFRESH_MS, isModelRead } from '../../shared/universe-model'
-import { addUniverseEvent, createUniverseEventsReader, universeCompanyKey, type UniverseEventIndex } from '../src/universe-events'
+import { addUniverseEvent, createUniverseEventsReader, readUniverseEvents, universeCompanyKey, type UniverseEventIndex } from '../src/universe-events'
+import { scanDayItems } from '../src/news/feed'
 import type { FeedItem } from '../src/news/types'
 
 const at = '2026-10-19T15:00:00.000Z'
@@ -47,9 +48,29 @@ assert.equal(reader([subject], Date.parse(at)).rows[0].signals?.guidance?.length
 assert.equal(reader([{ ...subject, company: 'Different company' }], Date.parse(at)).rows[0].signals?.guidance, undefined, 'exact ticker alone is not enough')
 assert.equal(indexCalls, 1)
 assert.equal(reader([subject], Date.parse(at) + 49 * 3600000).rows[0].signals, null, 'stale ingestion cannot prove absent events')
+let scans = 0
+let stamp = 'stable'
+const io = { dates: () => ['2026-10-19'], stamp: () => stamp, scan: (...args: Parameters<typeof scanDayItems>) => {
+  scans++; args[4]?.(event)
+  assert.equal(args[3]?.strict, true)
+  return { status: 'read' as const, lines: 1, complete: true, next: null }
+} }
+await readUniverseEvents('fixture-cache', '', at, io)
+await readUniverseEvents('fixture-cache', '', at, io)
+assert.equal(scans, 1, 'unchanged archived days are never reparsed for each one-minute refresh')
+stamp = 'appended'
+await readUniverseEvents('fixture-cache', '', at, io)
+assert.equal(scans, 2, 'only a changing partition is rebuilt')
+await assert.rejects(readUniverseEvents('fixture-unreadable', '', at, { ...io,
+  scan: () => ({ status: 'unreadable', lines: 0, complete: true, next: null }) }), /incomplete/)
 
 const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'universe-model-'))
 try {
+  const inbox = path.join(dir, 'screener/inbox')
+  await fs.mkdir(inbox, { recursive: true })
+  await fs.writeFile(path.join(inbox, '2026-10-19_firehose.ndjson'), '{corrupt}\n')
+  assert.equal(scanDayItems(dir, '2026-10-19', '', { strict: true }).status, 'unreadable', 'strict projections preserve corrupt-shard truth')
+  assert.equal(scanDayItems(dir, '2026-10-19', '').status, 'read', 'legacy display reads retain their fail-soft contract')
   let time = Date.parse(at)
   let calls = 0
   let fail = false
