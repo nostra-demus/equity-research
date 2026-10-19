@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T05:11:27Z",
+  "generated_at": "2026-10-19T05:12:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-130",
@@ -185965,6 +185965,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-a2af7914e260",
+      "idea_version": "IDEAV-a26278bbb90510e9",
+      "idea_version_started_at": "2026-10-19T05:11:57Z",
+      "ticker": "ACN",
+      "company": "Accenture",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Accenture is exploring the divestment of its Chinese operations for up to $1.5 billion, which would reduce geopolitical exposure and unlock capital.",
+      "why_now": "Sale intentions were reported on October 19, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6f695bbc9b84"
+      ],
+      "primary_source_event_id": "EVT-6f695bbc9b84",
+      "source_headlines": [
+        "Accenture eyes sale of Chinese operations for up to $1.5bn"
+      ],
+      "source_headline": "Accenture eyes sale of Chinese operations for up to $1.5bn",
+      "source_url": "https://www.cityam.com/accenture-eyeing-sale-of-chinese-operations-for-up-to-1-5bn/",
+      "source_name": "City A.M.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-19T05:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T05:11:57Z",
+      "updated_at": "2026-10-19T05:11:57Z",
+      "decay_at": "2026-10-20T17:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-eaf659086da7",
       "idea_version": "IDEAV-deaeca7a37f9796f",
       "idea_version_started_at": "2026-10-17T21:21:14Z",
@@ -229122,8 +229192,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1711,
-    "live_count": 42,
+    "surfaced_total": 1712,
+    "live_count": 43,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
