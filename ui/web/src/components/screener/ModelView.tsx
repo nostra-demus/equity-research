@@ -83,7 +83,7 @@ export function ModelView() {
       {!read?.complete && !!read?.rows.length && <span>Partial coverage</span>}
       <span>Finviz · delayed quotes</span>
     </div>
-    <p className="model__note">✓ Event found · ✕ No report · — Unavailable · 90-day activity score includes risks; matches inferred.</p>
+    <p className="model__note">✓ Event found · ✕ No match · — Unavailable · 90-day activity score includes risks; matches inferred.</p>
     {!!read?.rows.length && read.rows.every((row) => row.signals === null) && <p role="status">Event coverage unavailable · signals unscored.</p>}
     {(error || read?.error || eventCoverage?.error) && <div className="model__error" role="alert"><span>{error || read?.error || eventCoverage?.error}{read?.error && read.next_refresh_at && ` Retry after ${date(read.next_refresh_at)}.`}</span>
       <button type="button" disabled={loading} onClick={() => void refresh()}>Retry</button></div>}

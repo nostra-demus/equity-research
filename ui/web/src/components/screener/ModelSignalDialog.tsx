@@ -40,7 +40,7 @@ function EventEvidence({ event, row, signal }: { event: ModelEvent; row: ModelRo
         </> : <p>Company impact not proven from saved analysis.</p>}
       {analysis && <small>Saved {date(analysis.read_at)} · may be outdated</small>}
       {provenance && provenance.kind !== 'original' && <p className="model-dialog__meta">
-        {provenance.kind === 'alternate' ? 'Alternate source' : provenance.kind === 'filing_doc' ? 'Filing source' : 'Corroborating sources'}
+        {provenance.kind === 'alternate' ? 'Alternate source' : provenance.kind === 'filing_doc' ? 'Filing source' : 'Secondary synthesis'}
         {provenance.label && ` · ${provenance.label}`}{provenance.url && <> · <a href={provenance.url} target="_blank" rel="noreferrer">Source actually read ↗</a></>}
       </p>}
       {error && <div role="alert"><p>Saved analysis unavailable.</p><button type="button" onClick={() => setAttempt((n) => n + 1)}>Retry saved analysis</button></div>}
@@ -71,7 +71,7 @@ function SignalEvidence({ row, signal, weight }: { row: ModelRow; signal: ModelS
       <EventEvidence key={report.source_event_id || report.id} event={report} row={row} signal={signal} />
     </> : <p>{result === null
       ? 'Coverage or company match unavailable. Unscored.'
-      : 'No qualifying report in the past 90 days. An event may still have occurred.'}</p>}
+      : 'No qualifying archive match in 90 days. An event may still have occurred.'}</p>}
   </>
 }
 
