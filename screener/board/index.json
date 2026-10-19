@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-19T11:08:39Z",
+  "generated_at": "2026-10-19T11:24:41Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261019-326",
+      "headline": "SCIENTECH (02291): FURTHER DELAY IN DESPATCH OF CIRCULAR IN RELATION TO MAJOR AND CONNECTED TRANSACTION ACQUISITION OF 54.2384% EQUITY INTEREST IN SHANGHAI MINWEI BIOTECHNOLOGY CO., LTD.",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1019/2026101900167.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T11:11:00Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Delay in circular for a major acquisition indicates potential regulatory or procedural hurdles.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Delay in circular for a major acquisition indicates potential regulatory or procedural hurdles.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SCIENTECH",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261019-305",
       "headline": "RIBOLIFE-B (06938): DISCLOSEABLE AND CONNECTED TRANSACTION ACQUISITION OF THE REMAINING 49.71% SHAREHOLDING IN A SUBSIDIARY INVOLVING THE ISSUE OF CONSIDERATION SHARES UNDER SPECIFIC MANDATE; AND PROPOSED CHANGE OF REGISTERED CAPITAL AND AMENDMENTS TO THE ARTICLES OF ASSOCIATION",
@@ -1947,55 +1996,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-299",
-      "headline": "CL Educate Limited: CL Educate Limited has informed the Exchange about Amalgamation/Merger",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/CLEDUCATE_19102026145210_merger_intimation-SD.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-19T09:22:50Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "CL Educate Limited has announced an amalgamation/merger, which is a significant corporate restructuring event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "CL Educate Limited has announced an amalgamation/merger, which is a significant corporate restructuring event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CL Educate Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -229091,9 +229091,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1226081,
-    "news_picked_today": 580,
-    "news_dropped_today": 6150
+    "news_seen_today": 1297162,
+    "news_picked_today": 595,
+    "news_dropped_today": 6231
   },
   "book_momentum": {
     "live_count": 8,
