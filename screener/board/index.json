@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-19T09:12:39Z",
+  "generated_at": "2026-10-19T09:17:24Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261019-292",
+      "headline": "DHARAN INFRA-EPC LIMITED: DHARAN INFRA-EPC LIMITED has informed the Exchange about Corporate Insolvency Resolution Process",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/KBCGLOBAL_19102026143046_19102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T09:01:06Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Dharan Infra-EPC Limited has entered the Corporate Insolvency Resolution Process, indicating a potential default or insolvency event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dharan Infra-EPC Limited has entered the Corporate Insolvency Resolution Process, indicating a potential default or insolvency event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dharan Infra-EPC Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261019-261",
       "headline": "MMI: Guidance Update [price-sensitive]",
@@ -1553,6 +1602,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-298",
+      "headline": "Schroders targets Middle East wealth as Nuveen acquisition creates $2.6tn investment giant",
+      "headline_en": null,
+      "url": "https://www.arabianbusiness.com/abnews/schroders-targets-middle-east-wealth-as-nuveen-acquisition-creates-2-6tn-investment-giant",
+      "source_name": "Arabian Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T08:57:05Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Schroders is expanding its Middle East presence following the acquisition of Nuveen, creating a $2.6tn investment entity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Schroders is expanding its Middle East presence following the acquisition of Nuveen, creating a $2.6tn investment entity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Schroders",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "Nuveen",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-288",
       "headline": "Mirza International Limited: Mirza International Limited has informed the Exchange about Acquisition",
       "headline_en": null,
@@ -1891,114 +1994,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-284",
-      "headline": "Federal Bank Shares Jump 4% After Acquisition Comments, Jana SFB Falls Nearly 10%",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/federal-bank-to-explore-acquisitions-but-no-active-talks-under-way-says-executive-director-venkataraman-v-12205364#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T07:54:53Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Federal Bank shares rose on acquisition comments while Jana SFB fell nearly 10%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Federal Bank shares rose on acquisition comments while Jana SFB fell nearly 10%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Federal Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Jana Small Finance Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-136",
-      "headline": "Hyundai Rotem Acquires Hyundai Wia Defense Unit, Strengthening Vertical Integration",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279096",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T06:35:01Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Hyundai Rotem is acquiring the defense unit of Hyundai Wia to consolidate its defense operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Hyundai Rotem is acquiring the defense unit of Hyundai Wia to consolidate its defense operations.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hyundai Rotem",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "Hyundai Wia",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -229019,9 +229014,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 730088,
-    "news_picked_today": 470,
-    "news_dropped_today": 5300
+    "news_seen_today": 754408,
+    "news_picked_today": 478,
+    "news_dropped_today": 5316
   },
   "book_momentum": {
     "live_count": 8,
