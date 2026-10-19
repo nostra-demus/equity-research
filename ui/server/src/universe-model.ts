@@ -6,43 +6,59 @@ import { isModelRead, MODEL_REFRESH_MS, MODEL_SCHEMA, UNIVERSE_URL, type ModelRe
 import { createUniverseEventsReader } from './universe-events'
 import { registerUniverseEvidence } from './universe-evidence'
 
-// These are public custom-view columns, not an Elite export/API. No credentials, paid providers,
+// Public Tickers membership and Overview quotes, never an Elite export/API. No credentials, paid providers,
 // browser challenges, proxies or per-company quote fan-out. One paced sweep shared by all readers.
-const COLUMNS = '0,1,2,65'
 const PAGE_GAP_MS = 2_000
 const MAX_ROWS = 10_000
 const MAX_HTML_BYTES = 2_000_000
+const ERROR_BACKOFF_MS = 30 * 60_000
 
 export function finvizPageUrl(firstRow: number, tickers?: string[]): string {
   const url = new URL(UNIVERSE_URL)
   url.searchParams.delete('preset') // Account-local preset IDs do not authenticate a public screen.
-  url.searchParams.set('v', '151')
-  url.searchParams.set('c', COLUMNS)
+  url.searchParams.set('v', '111') // Normal free Overview includes names and prices.
   url.searchParams.set('o', 'ticker')
   url.searchParams.set('r', String(firstRow + 1)) // Finviz r is one-based; SSR firstRow is zero-based.
   if (tickers) { url.searchParams.delete('f'); url.searchParams.set('t', tickers.join(',')) }
   return url.toString()
 }
-export function finvizUniverseUrl(firstRow: number): string {
+export function finvizUniverseUrl(firstRow: number, sector?: string): string {
   const url = new URL(finvizPageUrl(firstRow))
   url.searchParams.set('v', '411') // The free Tickers view returns up to 1,000 names per public page.
   url.searchParams.delete('c')
+  if (sector) url.searchParams.set('f', `cap_midover,sh_avgvol_o50,sec_${sector}`)
   return url.toString()
 }
 
-export function parseFinvizPage(html: string, firstRow: number, retrievedAt: string, tickers?: string[]): { rows: ModelRow[]; total: number; pageSize: number } {
+function screenerProps(html: string): any {
   // Parse inert JSON only. Never evaluate a provider script or trust markup as instructions.
   const scripts = [...html.matchAll(/<script\b(?=[^>]*\btype="application\/json")(?=[^>]*\bdata-ssr-props=)[^>]*>([\s\S]*?)<\/script>/gi)]
-  let props: any
   for (const script of scripts) {
-    try { const value = JSON.parse(script[1]); if (value?.data?.rows) { props = value; break } } catch { /* reject below */ }
+    try { const value = JSON.parse(script[1]); if (Array.isArray(value?.data?.rows)) return value } catch { /* reject below */ }
   }
+  throw new Error('Finviz did not return the expected free screener page. The layout or access may have changed.')
+}
+
+export function parseFinvizSectors(html: string): string[] {
+  const catalog = screenerProps(html).filters?.filters
+  const options = Array.isArray(catalog) ? catalog.find((f: any) => f?.key === 'sec')?.options : null
+  if (!Array.isArray(options)) throw new Error('Finviz free sector filters are unavailable.')
+  if (options.some((o) => o && o.isEliteOnly !== undefined && typeof o.isEliteOnly !== 'boolean')) throw new Error('Finviz free sector filters changed.')
+  const sectors = options.filter((o) => o && o.value && o.isEliteOnly !== true).map((o) => o.value)
+  if (!sectors.length || sectors.length > 50 || sectors.some((s) => typeof s !== 'string' || !/^[a-z]{1,40}$/.test(s) || s === 'modal')
+    || new Set(sectors).size !== sectors.length) throw new Error('Finviz free sector filters changed.')
+  return sectors
+}
+
+export function parseFinvizPage(html: string, firstRow: number, retrievedAt: string, tickers?: string[], sector?: string): { rows: ModelRow[]; total: number; pageSize: number } {
+  const props = screenerProps(html)
   const data = props?.data
   const sourceUrl = typeof props?.url === 'string' ? new URL(props.url, 'https://finviz.com') : null
   const filters = sourceUrl?.searchParams.get('f')?.split(',').sort().join(',')
-  const correctScope = tickers ? sourceUrl?.searchParams.get('t') === tickers.join(',') && !sourceUrl?.searchParams.has('f') : filters === 'cap_midover,sh_avgvol_o50'
+  const expectedFilters = ['cap_midover', 'sh_avgvol_o50', ...(sector ? [`sec_${sector}`] : [])].sort().join(',')
+  const correctScope = sourceUrl?.origin === 'https://finviz.com' && (tickers ? sourceUrl.searchParams.get('t') === tickers.join(',') && !sourceUrl.searchParams.has('f') : filters === expectedFilters)
   if (!data || !correctScope || props.screenerType !== 'stocks'
-    || !Number.isInteger(data.totalCount) || data.totalCount < (tickers ? 0 : 1) || data.totalCount > (tickers?.length ?? MAX_ROWS)
+    || !Number.isInteger(data.totalCount) || data.totalCount < (tickers || sector ? 0 : 1) || data.totalCount > (tickers?.length ?? MAX_ROWS)
     || data.firstRow !== firstRow || !Number.isInteger(data.pageSize) || data.pageSize < 1 || data.pageSize > (tickers ? 20 : 1000)
     || !Array.isArray(data.rows) || data.rows.length !== Math.min(data.pageSize, data.totalCount - firstRow)) {
     throw new Error('Finviz did not return the expected free screener page. The layout or access may have changed.')
@@ -114,38 +130,50 @@ export function createUniverseModel(file: string, deps: {
   const sweep = async () => {
     progress = []; fetched = 0; total = null; error = null; startedAt = new Date(now()).toISOString()
     try {
-      let firstRow = 0
+      const seedHtml = await fetchPage(finvizUniverseUrl(0))
+      const seed = parseFinvizPage(seedHtml, 0, new Date(now()).toISOString())
+      const sectors = parseFinvizSectors(seedHtml)
+      total = seed.total
       const tickers = new Set<string>()
-      while (!closed) {
-        if (firstRow) await wait(PAGE_GAP_MS)
-        if (closed) return
-        const html = await fetchPage(finvizUniverseUrl(firstRow))
-        const page = parseFinvizPage(html, firstRow, new Date(now()).toISOString())
-        if (total !== null && page.total !== total) throw new Error('Universe membership changed during refresh. Retrying the complete screen at the next refresh.')
-        total = page.total
-        for (const row of page.rows) {
-          if (tickers.has(row.ticker)) throw new Error('Finviz repeated a company across pages; the refresh is incomplete.')
-          tickers.add(row.ticker)
+      // Use the site's ordinary free sector filters. Each partition retains the exact universe
+      // filters; no broad-screen deep pagination or paid/custom columns are requested.
+      const partitionTotals = new Map<string, number>()
+      for (const verify of [false, true]) {
+        let position = 0
+        for (const sector of sectors) {
+          let firstRow = 0
+          while (!closed) {
+            await wait(PAGE_GAP_MS)
+            if (closed) return
+            const page = parseFinvizPage(await fetchPage(finvizUniverseUrl(firstRow, sector)), firstRow, new Date(now()).toISOString(), undefined, sector)
+            const priorTotal = partitionTotals.get(sector)
+            if (priorTotal !== undefined && priorTotal !== page.total) throw new Error('Universe membership changed during refresh. Retrying the complete screen at the next refresh.')
+            partitionTotals.set(sector, page.total)
+            for (const row of page.rows) {
+              if (verify) {
+                const prior = progress[position++]
+                if (!prior || row.ticker !== prior.ticker || row.company !== prior.company) throw new Error('Universe membership changed during verification. Retrying the complete screen at the next refresh.')
+              } else {
+                if (tickers.has(row.ticker)) throw new Error('Finviz repeated a company across partitions; the refresh is incomplete.')
+                if (progress.length >= total!) throw new Error('Finviz sector partitions exceeded the expected universe.')
+                tickers.add(row.ticker); progress.push(row); position++
+              }
+            }
+            if (!verify) fetched = progress.length
+            firstRow += page.rows.length
+            if (firstRow >= page.total) break
+          }
+          if (closed) return
         }
-        progress.push(...page.rows)
-        fetched = progress.length
-        firstRow += page.rows.length
-        if (firstRow >= total) break
+        if (position !== total) throw new Error('Finviz sector partitions did not cover the complete universe.')
       }
       if (closed) return
-      // An unchanged total can hide an entry and an exit on opposite sides of the page cursor.
-      // Require a second consecutive, identically ordered membership pass before freezing it.
-      let verified = 0
-      while (!closed && verified < progress.length) {
-        await wait(PAGE_GAP_MS)
-        if (closed) return
-        const page = parseFinvizPage(await fetchPage(finvizUniverseUrl(verified)), verified, new Date(now()).toISOString())
-        if (page.total !== total || page.rows.some((row, i) => row.ticker !== progress[verified + i]?.ticker || row.company !== progress[verified + i]?.company)) {
-          throw new Error('Universe membership changed during verification. Retrying the complete screen at the next refresh.')
-        }
-        verified += page.rows.length
-      }
+      await wait(PAGE_GAP_MS)
       if (closed) return
+      const final = parseFinvizPage(await fetchPage(finvizUniverseUrl(0)), 0, new Date(now()).toISOString())
+      const byMember = new Map(progress.map((row) => [row.ticker, row.company]))
+      if (final.total !== total || [...seed.rows, ...final.rows].some((row) => byMember.get(row.ticker) !== row.company)) throw new Error('Universe membership changed during verification. Retrying the complete screen at the next refresh.')
+      progress.sort((a, b) => a.ticker.localeCompare(b.ticker))
       // Freeze membership before checking prices. Reapplying the cap filter for 100 price pages lets
       // a stock crossing $2bn move pagination boundaries and invalidate the entire refresh.
       fetched = 0
@@ -158,6 +186,7 @@ export function createUniverseModel(file: string, deps: {
         const byTicker = new Map(quotes.rows.map((row) => [row.ticker, row]))
         for (let i = offset; i < offset + tickers.length; i++) {
           const quote = byTicker.get(progress[i].ticker)
+          if (quote && quote.company !== progress[i].company) throw new Error('Finviz company identity changed while checking prices.')
           progress[i] = { ...progress[i], price: quote?.price ?? null, retrieved_at: quote?.retrieved_at ?? progress[i].retrieved_at }
         }
         fetched += tickers.length
@@ -176,7 +205,7 @@ export function createUniverseModel(file: string, deps: {
       } finally { await fs.rm(tmp, { force: true }).catch(() => {}) }
       saved = complete
     } catch (e) { error = e instanceof Error ? e.message : 'Finviz refresh failed.' }
-    finally { nextAt = now() + MODEL_REFRESH_MS }
+    finally { nextAt = now() + (error ? ERROR_BACKOFF_MS : MODEL_REFRESH_MS) }
   }
   return {
     async read(): Promise<ModelRead> {

@@ -5,13 +5,14 @@
 Screener defaults to Universe (saved Portfolio/Watchlist choices are respected). Universe → Events
 retains the event workspace; Universe → Model shows the free Finviz US-listed stock screen:
 market cap above $2bn and average volume above 50,000 shares. Company and USD market price precede
-twelve material-event columns and a descending weighted total: results, guidance, commercial contracts/JVs,
+twelve material-event columns and a descending green-tick count: results, guidance, commercial contracts/JVs,
 capex, products, operations, deals/restructuring, capital/returns, debt/distress, ownership, governance
 and legal/regulatory actions. The existing news archive supplies the past 90 days of evidence for
 3–6 month trade research, with no extra ingest or model calls. Routine meetings, record dates and small
-employee grants are excluded by the materiality gate. Weights (including negative risk weights) are
-editable and browser-local. The default total counts event categories, including adverse ones; it is
-an event-activity ranking, never a bullish rating or proof a catalyst remains pending.
+employee grants are excluded by the materiality gate. Total always counts displayed green ticks, once
+per signal category; duplicate reports never add ticks. Saved legacy weights cannot affect Total or
+ranking. Weighted scoring is deferred. Current archive matches include adverse events and are not
+company-specific bullish verdicts or proof a catalyst remains pending.
 
 Signals reuse the archive's existing event types and high/critical materiality classifications. A match
 requires an exact ticker plus normalized company name; known foreign listing tags cannot match a US
@@ -32,10 +33,8 @@ The grid shows the actual archived-day
 count, latest report time, and scan time, without claiming exhaustive market coverage.
 
 `GET /api/screener/universe-model` shares one paced public-page sweep across all viewers. The Model
-checks every 15 seconds while visible; a new full sweep is eligible 30 minutes after the previous
-attempt ends. Two consecutive matching passes through the free Tickers view freeze membership in 1,000-name pages; free price pages then check
-20 of those names at a time. This avoids moving pagination boundaries when a company crosses $2bn
-during a longer price sweep. A 2,000-name screen needs about 102 pages at two seconds between requests,
+checks every 15 seconds while visible; a new full sweep is eligible five minutes after a successful attempt ends (failures retain a 30-minute cooldown). The free sector options are discovered from Finviz’s public filter catalog; Elite-only/custom options are excluded. Two matching passes across those disjoint filtered Tickers screens freeze membership, and their unique union must match the original screen’s total and first-page identities. Normal free Overview pages then price 20 frozen names at a time. No deep pagination of the broad screen or custom columns are needed. This avoids moving pagination boundaries when a company crosses $2bn
+during a longer price sweep. With eleven one-page sector partitions, a 2,000-name screen needs about 124 pages at two seconds between requests,
 plus network time. Quotes are Finviz's free delayed data, not an exchange real-time feed; individual quote timestamps
 are unavailable, so each row shows its retrieval time. Closing the view stops scheduling new sweeps.
 No Elite token, subscription, trial, paid search/enrichment API or per-company quote calls are used.
