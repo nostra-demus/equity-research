@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T11:24:44Z",
+  "generated_at": "2026-10-19T11:28:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-326",
@@ -490,6 +490,55 @@
           "name": "Ramsay Health Care",
           "ticker": "RHC",
           "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-330",
+      "headline": "Hindustan Zinc Q2 Results: Net profit skyrockets 142% YoY to Rs 6,412 crore, revenue soars 77%",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/hindustan-zinc-q2-results-net-profit-skyrockets-142-yoy-to-rs-6412-crore-revenue-soars-77/articleshow/135047098.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T10:59:09Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Hindustan Zinc reported a 142% YoY increase in net profit to Rs 6,412 crore and 77% revenue growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hindustan Zinc reported a 142% YoY increase in net profit to Rs 6,412 crore and 77% revenue growth.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hindustan Zinc",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1939,60 +1988,6 @@
           "name": "Lulu Retail",
           "ticker": null,
           "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-298",
-      "headline": "Schroders targets Middle East wealth as Nuveen acquisition creates $2.6tn investment giant",
-      "headline_en": null,
-      "url": "https://www.arabianbusiness.com/abnews/schroders-targets-middle-east-wealth-as-nuveen-acquisition-creates-2-6tn-investment-giant",
-      "source_name": "Arabian Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T08:57:05Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Schroders is expanding its Middle East presence following the acquisition of Nuveen, creating a $2.6tn investment entity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Schroders is expanding its Middle East presence following the acquisition of Nuveen, creating a $2.6tn investment entity.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Schroders",
-          "ticker": null,
-          "listing_country": "GB"
-        },
-        {
-          "name": "Nuveen",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -229091,9 +229086,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1297162,
-    "news_picked_today": 595,
-    "news_dropped_today": 6231
+    "news_seen_today": 1304501,
+    "news_picked_today": 604,
+    "news_dropped_today": 6246
   },
   "book_momentum": {
     "live_count": 8,
