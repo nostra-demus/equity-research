@@ -45,7 +45,7 @@ const subject = { ...page.rows[0], company: 'Company zero Ltd' }
 assert.equal(reader([subject], Date.parse(at)).rows[0].signals, null)
 await new Promise(setImmediate)
 assert.equal(reader([subject], Date.parse(at)).rows[0].signals?.guidance?.length, 1)
-assert.equal(reader([{ ...subject, company: 'Different company' }], Date.parse(at)).rows[0].signals?.guidance, undefined, 'exact ticker alone is not enough')
+assert.equal(reader([{ ...subject, company: 'Different company' }], Date.parse(at)).rows[0].signals, null, 'ambiguous issuer identity is unavailable, not a false negative')
 assert.equal(indexCalls, 1)
 assert.equal(reader([subject], Date.parse(at) + 49 * 3600000).rows[0].signals, null, 'stale ingestion cannot prove absent events')
 let scans = 0

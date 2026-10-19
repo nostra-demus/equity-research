@@ -15,7 +15,8 @@ an event-activity ranking, never a bullish rating or proof a catalyst remains pe
 
 Signals reuse the archive's existing event types and high/critical materiality classifications. A match
 requires an exact ticker plus normalized company name; known foreign listing tags cannot match a US
-line. These tags are headline-based inference, not verified issuer research. Green ticks open up to
+line. A tagged ticker with an unmatched issuer name stays unavailable rather than asserting a negative.
+These tags are headline-based inference, not verified issuer research. Green ticks open up to
 three recent source links; red crosses mean no matching report in the saved archive, never proof that
 no event occurred. A stale (>48h) or unreadable/empty archive leaves signals and totals unavailable.
 The event index refreshes off-thread every minute while read, caching compact results by each day's

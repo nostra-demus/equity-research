@@ -106,13 +106,17 @@ export async function readUniverseEvents(root: string, archiveDir: string, nowIS
 export function createUniverseEventsReader(root: string, archiveDir: string,
   readIndex = (at: string) => runDiscoveryInWorker<UniverseEventIndex>('readUniverseEvents', [root, archiveDir, at])) {
   let index: UniverseEventIndex | null = null
+  let taggedTickers = new Set<string>()
   let pending: Promise<void> | null = null
   let checkedAt = 0
   let error: string | null = null
   return (rows: ModelRow[], now = Date.now()): { rows: ModelRow[]; events: EventCoverage | null } => {
     if (!pending && now - checkedAt >= 60_000) {
       checkedAt = now
-      pending = readIndex(new Date(now).toISOString()).then((value) => { index = value; error = null })
+      pending = readIndex(new Date(now).toISOString()).then((value) => {
+        index = value; error = null
+        taggedTickers = new Set(Object.keys(value.companies).map((key) => key.split('|')[0]))
+      })
         .catch(() => { error = 'The event archive could not be read. Event signals are unavailable; retrying in one minute.' })
         .finally(() => { pending = null })
     }
@@ -123,6 +127,7 @@ export function createUniverseEventsReader(root: string, archiveDir: string,
     const available = !!index && !error && now - Date.parse(index.coverage.checked_at) < 5 * 60_000
       && !!index.coverage.latest_report_at && now - Date.parse(index.coverage.latest_report_at) < 48 * 60 * 60_000
     return { events: coverage, rows: rows.map((row) => ({ ...row,
-      signals: available ? index!.companies[universeCompanyKey(row.ticker, row.company)] || {} : null })) }
+      signals: available ? index!.companies[universeCompanyKey(row.ticker, row.company)]
+        || (taggedTickers.has(normTicker(row.ticker)) ? null : {}) : null })) }
   }
 }
