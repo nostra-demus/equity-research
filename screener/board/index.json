@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T04:36:34Z",
+  "generated_at": "2026-10-19T04:53:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-130",
@@ -147,6 +147,110 @@
           "name": "Ramsay Health Care",
           "ticker": "RHC",
           "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-193",
+      "headline": "Hyundai Rotem to acquire Hyundai Wia's defense unit for 358.4 bln won",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261019005700320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T04:31:58Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Hyundai Rotem to acquire a defense unit for 358.4 billion won.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hyundai Rotem to acquire a defense unit for 358.4 billion won.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyundai Rotem",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "Hyundai Wia",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-197",
+      "headline": "Yes Bank shares rise as Q2 profit beats estimates, but AT1 bond verdict hit pegged at Rs 5,217 crore. What lies ahead?",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/yes-bank-shares-rise-as-q2-profit-beats-estimates-but-at1-bond-verdict-hit-pegged-at-rs-5217-crore-what-lies-ahead/articleshow/135039620.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T04:28:24Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Yes Bank reported Q2 profit beating estimates but faces a Rs 5,217 crore hit from an AT1 bond verdict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Yes Bank reported Q2 profit beating estimates but faces a Rs 5,217 crore hit from an AT1 bond verdict.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yes Bank",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1034,6 +1138,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-194",
+      "headline": "Larsen & Toubro Limited: Larsen & Toubro Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PAM_19102026101805_PressRelease19102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T04:48:20Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Larsen & Toubro Limited announced the receipt of new orders/contracts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Larsen & Toubro Limited announced the receipt of new orders/contracts.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Larsen & Toubro Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-026",
       "headline": "AIV: Mt Hogan Gold Project Resource Increase [price-sensitive]",
       "headline_en": null,
@@ -1826,153 +1979,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-159",
-      "headline": "Axis Bank shares fall over 4% despite 38% YoY jump in Q2 net profit. Why brokerages are revising target prices?",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/axis-bank-shares-in-focus-after-q2-results-why-jefferies-remains-bullish-even-as-other-brokerages-reduce-target-prices/articleshow/135039127.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T03:51:26Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Axis Bank shares fell over 4% despite a 38% YoY net profit increase, suggesting market disappointment with underlying metrics or guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Axis Bank shares fell over 4% despite a 38% YoY net profit increase, suggesting market disappointment with underlying metrics or guidance.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Axis Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-139",
-      "headline": "Q2 Results LIVE Updates: Axis Bank shares decline nearly 4%; UltraTech, Bajaj Fin report today",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/q2-results-live-updates-today-ultratech-bajaj-fin-ireda-piramal-union-bank-hzl-hdfc-axis-icici-yes-hfcl-just-dial-share-price-liveblog-20014571.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T03:46:47Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Axis Bank shares declined nearly 4% following Q2 results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Axis Bank shares declined nearly 4% following Q2 results.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Axis Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-096",
-      "headline": "IndiGo Faces Fuel Cost Squeeze As Jefferies, Nomura Stick To 'Buy'; Airfare Rules Loom",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/indigo-share-price-today-jefferies-nomura-buy-airfare-rules-fuel-costs-12204329#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T02:13:50Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "IndiGo faces margin pressure from rising fuel costs, a key operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "IndiGo faces margin pressure from rising fuel costs, a key operational risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IndiGo",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -188101,78 +188107,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-10df37279447",
-      "idea_version": "IDEAV-d5c5f864d6c6d212",
-      "idea_version_started_at": "2026-10-17T18:25:41Z",
-      "ticker": "AXISBANK",
-      "company": "Axis Bank",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Axis Bank's net profit rose 37.6% to ₹7,003 crore, driven by a significant 52.2% reduction in provisions, which directly boosts bottom-line profitability.",
-      "why_now": "The Q2 earnings results were released on 2026-10-17.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1991c7b3512d"
-      ],
-      "primary_source_event_id": "EVT-1991c7b3512d",
-      "source_headlines": [
-        "Axis Bank Q2 profit rises 37.6% to ₹7,003 crore as provisions fall 52.2%"
-      ],
-      "source_headline": "Axis Bank Q2 profit rises 37.6% to ₹7,003 crore as provisions fall 52.2%",
-      "source_url": "https://www.thehindubusinessline.com/money-and-banking/axis-bank-q2-profit-rises-376-to-7003-crore-as-provisions-fall-522/article71596969.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-17T16:52:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-17T09:12:49Z",
-      "updated_at": "2026-10-17T18:25:41Z",
-      "decay_at": "2026-10-19T04:52:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d0f885895e09",
       "idea_version": "IDEAV-dca1b1c93084f0ac",
       "idea_version_started_at": "2026-10-19T00:56:11Z",
@@ -188744,78 +188678,6 @@
       "surfaced_at": "2026-10-18T04:36:10Z",
       "updated_at": "2026-10-18T04:36:10Z",
       "decay_at": "2026-10-19T15:55:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-26d22600956b",
-      "idea_version": "IDEAV-4971901c7a4d4377",
-      "idea_version_started_at": "2026-10-18T04:01:13Z",
-      "ticker": "ZOMATO",
-      "company": "Zomato",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The suspension of warehouse licenses by the FDA directly threatens the supply chain and operational continuity of the Hyperpure business segment.",
-      "why_now": "The regulatory action was reported on 2026-10-17.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-fa9797fbf668"
-      ],
-      "primary_source_event_id": "EVT-fa9797fbf668",
-      "source_headlines": [
-        "FDA suspends licences of warehouses of Reliance Consumer, Reliance Retail, Blinkit, Zomato Hyperpure"
-      ],
-      "source_headline": "FDA suspends licences of warehouses of Reliance Consumer, Reliance Retail, Blinkit, Zomato Hyperpure",
-      "source_url": "https://economictimes.indiatimes.com/industry/cons-products/food/fda-suspends-licences-of-warehouses-of-reliance-consumer-reliance-retail-blinkit-zomato-hyperpure/articleshow/135017115.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 85,
-      "newest_source_at": "2026-10-17T16:44:21Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-18T04:01:13Z",
-      "updated_at": "2026-10-18T04:01:13Z",
-      "decay_at": "2026-10-19T04:44:21Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -190166,6 +190028,78 @@
       "surfaced_at": "2026-10-18T00:22:45Z",
       "updated_at": "2026-10-18T00:22:45Z",
       "decay_at": "2026-10-18T00:59:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-10df37279447",
+      "idea_version": "IDEAV-d5c5f864d6c6d212",
+      "idea_version_started_at": "2026-10-17T18:25:41Z",
+      "ticker": "AXISBANK",
+      "company": "Axis Bank",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Axis Bank's net profit rose 37.6% to ₹7,003 crore, driven by a significant 52.2% reduction in provisions, which directly boosts bottom-line profitability.",
+      "why_now": "The Q2 earnings results were released on 2026-10-17.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1991c7b3512d"
+      ],
+      "primary_source_event_id": "EVT-1991c7b3512d",
+      "source_headlines": [
+        "Axis Bank Q2 profit rises 37.6% to ₹7,003 crore as provisions fall 52.2%"
+      ],
+      "source_headline": "Axis Bank Q2 profit rises 37.6% to ₹7,003 crore as provisions fall 52.2%",
+      "source_url": "https://www.thehindubusinessline.com/money-and-banking/axis-bank-q2-profit-rises-376-to-7003-crore-as-provisions-fall-522/article71596969.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-17T16:52:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-17T09:12:49Z",
+      "updated_at": "2026-10-17T18:25:41Z",
+      "decay_at": "2026-10-19T04:52:17Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -191754,6 +191688,78 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
+    },
+    {
+      "idea_id": "IDEA-26d22600956b",
+      "idea_version": "IDEAV-4971901c7a4d4377",
+      "idea_version_started_at": "2026-10-18T04:01:13Z",
+      "ticker": "ZOMATO",
+      "company": "Zomato",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The suspension of warehouse licenses by the FDA directly threatens the supply chain and operational continuity of the Hyperpure business segment.",
+      "why_now": "The regulatory action was reported on 2026-10-17.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fa9797fbf668"
+      ],
+      "primary_source_event_id": "EVT-fa9797fbf668",
+      "source_headlines": [
+        "FDA suspends licences of warehouses of Reliance Consumer, Reliance Retail, Blinkit, Zomato Hyperpure"
+      ],
+      "source_headline": "FDA suspends licences of warehouses of Reliance Consumer, Reliance Retail, Blinkit, Zomato Hyperpure",
+      "source_url": "https://economictimes.indiatimes.com/industry/cons-products/food/fda-suspends-licences-of-warehouses-of-reliance-consumer-reliance-retail-blinkit-zomato-hyperpure/articleshow/135017115.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 85,
+      "newest_source_at": "2026-10-17T16:44:21Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-18T04:01:13Z",
+      "updated_at": "2026-10-18T04:01:13Z",
+      "decay_at": "2026-10-19T04:44:21Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     }
   ],
   "ideas_archive": {
@@ -191766,19 +191772,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 540,
     "shown_count": 499,
-    "hidden_count": 39,
+    "hidden_count": 41,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 28
       },
       "short": {
-        "total_count": 262,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 13
       }
     },
     "retention": {
@@ -191797,6 +191803,156 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-10df37279447",
+        "idea_version": "IDEAV-d5c5f864d6c6d212",
+        "idea_version_started_at": "2026-10-17T18:25:41Z",
+        "ticker": "AXISBANK",
+        "company": "Axis Bank",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Axis Bank's net profit rose 37.6% to ₹7,003 crore, driven by a significant 52.2% reduction in provisions, which directly boosts bottom-line profitability.",
+        "why_now": "The Q2 earnings results were released on 2026-10-17.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1991c7b3512d"
+        ],
+        "primary_source_event_id": "EVT-1991c7b3512d",
+        "source_headlines": [
+          "Axis Bank Q2 profit rises 37.6% to ₹7,003 crore as provisions fall 52.2%"
+        ],
+        "source_headline": "Axis Bank Q2 profit rises 37.6% to ₹7,003 crore as provisions fall 52.2%",
+        "source_url": "https://www.thehindubusinessline.com/money-and-banking/axis-bank-q2-profit-rises-376-to-7003-crore-as-provisions-fall-522/article71596969.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-17T16:52:17Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-17T09:12:49Z",
+        "updated_at": "2026-10-17T18:25:41Z",
+        "decay_at": "2026-10-19T04:52:17Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-19T04:52:17Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-26d22600956b",
+        "idea_version": "IDEAV-4971901c7a4d4377",
+        "idea_version_started_at": "2026-10-18T04:01:13Z",
+        "ticker": "ZOMATO",
+        "company": "Zomato",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The suspension of warehouse licenses by the FDA directly threatens the supply chain and operational continuity of the Hyperpure business segment.",
+        "why_now": "The regulatory action was reported on 2026-10-17.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-fa9797fbf668"
+        ],
+        "primary_source_event_id": "EVT-fa9797fbf668",
+        "source_headlines": [
+          "FDA suspends licences of warehouses of Reliance Consumer, Reliance Retail, Blinkit, Zomato Hyperpure"
+        ],
+        "source_headline": "FDA suspends licences of warehouses of Reliance Consumer, Reliance Retail, Blinkit, Zomato Hyperpure",
+        "source_url": "https://economictimes.indiatimes.com/industry/cons-products/food/fda-suspends-licences-of-warehouses-of-reliance-consumer-reliance-retail-blinkit-zomato-hyperpure/articleshow/135017115.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 85,
+        "newest_source_at": "2026-10-17T16:44:21Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-18T04:01:13Z",
+        "updated_at": "2026-10-18T04:01:13Z",
+        "decay_at": "2026-10-19T04:44:21Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-19T04:44:21Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3f434faf3dd2",
         "idea_version": "IDEAV-7589d7b8fbcda646",
@@ -219211,81 +219367,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-5d4bdb7aa620",
-        "idea_version": "IDEAV-2a8f2f15df8caac2",
-        "idea_version_started_at": "2026-10-04T23:04:57Z",
-        "ticker": "FGEN",
-        "company": "First Gen Corporation",
-        "exchange": "PSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is committing up to US$2.6 billion in capital expenditure for expansion while explicitly rebuffing foreign acquisition offers, signaling management's confidence in internal valuation and growth trajectory.",
-        "why_now": "The announcement of the specific US$2.6 billion expansion plan and the rejection of takeover bids provides a fresh valuation floor and growth catalyst as of October 4, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4d98918cb0e0"
-        ],
-        "primary_source_event_id": "EVT-4d98918cb0e0",
-        "source_headlines": [
-          "Philippine power giant First Gen rebuffs foreign offers, plans up to US$2.6 billion in expansion"
-        ],
-        "source_headline": "Philippine power giant First Gen rebuffs foreign offers, plans up to US$2.6 billion in expansion",
-        "source_url": "https://www.businesstimes.com.sg/international/asean/philippine-power-giant-first-gen-rebuffs-foreign-offers-plans-us2-6-billion-expansion",
-        "source_name": "The Business Times (Singapore)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-04T23:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-04T23:04:57Z",
-        "updated_at": "2026-10-04T23:04:57Z",
-        "decay_at": "2026-10-06T11:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-08T03:53:12Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-df9684f7875d",
         "idea_version": "IDEAV-91754f7cb8a97e1f",
         "idea_version_started_at": "2026-10-04T22:10:04Z",
@@ -228896,85 +228977,12 @@
         "archived_at": "2026-09-23T23:34:59Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-523a4ee7d93a",
-        "idea_version": "IDEAV-e75aa25e57a9566e",
-        "idea_version_started_at": "2026-09-20T21:45:11Z",
-        "ticker": "BALY",
-        "company": "Bally's Corporation",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Bally's is facing a 'going concern' warning due to its aggressive casino construction spending, indicating significant financial distress.",
-        "why_now": "The 'going concern' warning is a direct and immediate signal of financial instability.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 67,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b7e1dedd764c"
-        ],
-        "primary_source_event_id": "EVT-b7e1dedd764c",
-        "source_headlines": [
-          "Bally’s (BALY)’s Casino Building Spree Triggers a ‘Going Concern’ Warning"
-        ],
-        "source_headline": "Bally’s (BALY)’s Casino Building Spree Triggers a ‘Going Concern’ Warning",
-        "source_url": "https://finance.yahoo.com/markets/stocks/articles/bally-baly-casino-building-spree-210836644.html",
-        "source_name": "Yahoo Finance",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-20T21:08:36Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-20T21:45:11Z",
-        "updated_at": "2026-09-20T21:45:11Z",
-        "decay_at": "2026-09-22T09:08:36Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-23T23:34:59Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1709,
-    "live_count": 42,
+    "live_count": 40,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
