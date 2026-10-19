@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T01:05:51Z",
+  "generated_at": "2026-10-19T01:10:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-021",
@@ -285,6 +285,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-044",
+      "headline": "Regal’s flagship hedge fund dives 19pc in a year; Challenger shares jump on TAL bid; Exec health trend divides doctors and coaches",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/regal-s-flagship-hedge-fund-dives-19pc-in-a-year-challenger-shares-jump-on-tal-bid-exec-health-trend-divides-doctors-and-coaches-20261019-p616pi?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T01:07:27Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Regal Partners reported a 19% decline in its flagship fund performance, while Challenger shares rose on a potential acquisition bid.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Regal Partners reported a 19% decline in its flagship fund performance, while Challenger shares rose on a potential acquisition bid.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Regal Partners",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Challenger",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-033",
       "headline": "Microsoft Pulls Out of UK Data Center Deal Over Power Delays",
       "headline_en": null,
@@ -476,6 +531,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-043",
+      "headline": "Qubic freezes chain after attacker drains 1.4K wallets with weak seeds",
+      "headline_en": null,
+      "url": "https://cointelegraph.com/news/qubic-freezes-chain-after-attacker-drains-14k-wallets-with-weak-seeds?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T01:03:27Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Qubic blockchain experienced a security breach resulting in the theft of funds from 1.4K wallets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Qubic blockchain experienced a security breach resulting in the theft of funds from 1.4K wallets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations",
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Qubic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -768,71 +873,65 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261019-002",
-      "headline": "OpenWorld (NASDAQ: OPNW) Signs Definitive Merger Agreement to Acquire Blocksight as the Agentic Foundation for Its Up to $1 Billion Tokenized Solar and AI Computing Program with Meridian and Up to $130 Million IP-Backed Transaction with BeyondAI | OPNW Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/OPNW/open-world-nasdaq-opnw-signs-definitive-merger-agreement-to-acquire-el91qgbyfc08.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-19T00:00:00Z",
+      "inbox_id": "INB-20261019-045",
+      "headline": "영풍·MBK 경영협력계약 옵션 구조 공개…\"하방 보호 장치 마련\"",
+      "headline_en": "Young Poong and MBK management cooperation agreement option structure disclosed... 'downside protection device prepared'",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279056",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T00:31:24Z",
       "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "OpenWorld announced a merger with Blocksight and a $1 billion tokenized solar/AI program alongside a $130 million IP transaction.",
+      "prelim_note": "Disclosure of option structures in the management cooperation agreement between Young Poong and MBK Partners.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 74,
-      "triage_reason": "OpenWorld announced a merger with Blocksight and a $1 billion tokenized solar/AI program alongside a $130 million IP transaction.",
-      "region": "US",
+      "triage_score": 75,
+      "triage_reason": "Disclosure of option structures in the management cooperation agreement between Young Poong and MBK Partners.",
+      "region": "KR",
       "relevance": "material",
-      "materiality_pre_score": 85,
+      "materiality_pre_score": 55,
       "rank_factors": {
-        "materiality": 85,
-        "source_tier": -36,
+        "materiality": 55,
+        "source_tier": 0,
         "scope": 5,
         "event": 9,
-        "size": 0,
+        "size": 1,
         "recency": 5,
         "materiality_label_floor": 0,
-        "quantified": 6,
+        "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
-        "source_tier_id": "company",
+        "source_tier_id": "news",
         "event_id": "mna",
-        "size_bucket": "unknown"
+        "size_bucket": "mid"
       },
       "event_types": [
-        "mna",
-        "capex"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "OpenWorld",
-          "ticker": "OPNW",
-          "listing_country": "US"
-        },
-        {
-          "name": "Blocksight",
+          "name": "Young Poong",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "KR"
         },
         {
-          "name": "Meridian",
+          "name": "MBK Partners",
           "ticker": null,
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261019-004",
-      "headline": "OpenWorld (NASDAQ: OPNW) Signs Definitive Merger Agreement to Acquire Blocksight as the Agentic Foundation for Its Up to $1 Billion Tokenized Solar and AI Computing Program with Meridian and Up to $130 Million IP-Backed Transaction with BeyondAI",
+      "inbox_id": "INB-20261019-002",
+      "headline": "OpenWorld (NASDAQ: OPNW) Signs Definitive Merger Agreement to Acquire Blocksight as the Agentic Foundation for Its Up to $1 Billion Tokenized Solar and AI Computing Program with Meridian and Up to $130 Million IP-Backed Transaction with BeyondAI | OPNW Stock News",
       "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20261018852596/en/OpenWorld-NASDAQ-OPNW-Signs-Definitive-Merger-Agreement-to-Acquire-Blocksight-as-the-Agentic-Foundation-for-Its-Up-to-1-Billion-Tokenized-Solar-and-AI-Computing-Program-with-Meridian-and-Up-to-130-Million-IP-Backed-Transaction-with-BeyondAI/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
-      "source_name": "Business Wire — Product/Service News",
+      "url": "https://www.stocktitan.net/news/OPNW/open-world-nasdaq-opnw-signs-definitive-merger-agreement-to-acquire-el91qgbyfc08.html",
+      "source_name": "Stock Titan — Latest News",
       "input_nature": "company_press_release",
       "found_at": "2026-10-19T00:00:00Z",
       "sweep_file": "screener/inbox/2026-10-19_sweep.json",
@@ -1029,60 +1128,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-003",
-      "headline": "OpenWorld (NASDAQ: OPNW) Signs Definitive Merger Agreement to Acquire Blocksight | OPNW Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/OPNW/open-world-nasdaq-opnw-signs-definitive-merger-agreement-to-acquire-jzh26qo3joc4.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-19T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "OpenWorld has signed a definitive merger agreement to acquire Blocksight.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "OpenWorld has signed a definitive merger agreement to acquire Blocksight.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OpenWorld",
-          "ticker": "OPNW",
-          "listing_country": "US"
-        },
-        {
-          "name": "Blocksight",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1519,6 +1564,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-048",
+      "headline": "뷰런테크놀로지-KT, 지능형 관리 솔루션 협력",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279050",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T00:05:32Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Viewrun Technology and KT partner on intelligent management solutions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Viewrun Technology and KT partner on intelligent management solutions.",
+      "region": "KR",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KT",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-047",
+      "headline": "넥센타이어, 에코바디스 ESG 평가 상위 2% 진입",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279052",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T00:12:25Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Nexen Tire achieved top 2% ranking in EcoVadis ESG assessment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Nexen Tire achieved top 2% ranking in EcoVadis ESG assessment.",
+      "region": "KR",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 35,
+      "rank_factors": {
+        "materiality": 35,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nexen Tire",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-017",
       "headline": "Public sector banks' Rs 7.8 lakh core corporate loan pipeline signals capex revival",
       "headline_en": null,
@@ -1790,93 +1933,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-014",
-      "headline": "Iran war live: Tehran says Netanyahu seeks more war; Yemen fighting flares",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/liveblog/2026/10/18/iran-war-live-tehran-says-netanyahu-seeks-more-war-yemen-fighting-flares?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-10-18T23:59:34Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Escalation of conflict between Iran, Israel, and Yemen poses severe risks to regional stability and energy markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Escalation of conflict between Iran, Israel, and Yemen poses severe risks to regional stability and energy markets.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-025",
-      "headline": "FCNR inflows ease liquidity constraints but weigh on private banks’ margins",
-      "headline_en": null,
-      "url": "https://www.livemint.com/industry/banking/impact-of-fcnr-dollar-inflows-on-bank-financials-11792235414533.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T00:30:29Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "FCNR inflows are noted to be weighing on the net interest margins of private banks in India.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 42,
-      "triage_reason": "FCNR inflows are noted to be weighing on the net interest margins of private banks in India.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 58,
-      "rank_factors": {
-        "materiality": 58,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -228664,7 +228720,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3806,
+    "inbox_unconsumed": 3807,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -228673,9 +228729,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 163,
-    "news_picked_today": 42,
-    "news_dropped_today": 121
+    "news_seen_today": 188,
+    "news_picked_today": 48,
+    "news_dropped_today": 140
   },
   "book_momentum": {
     "live_count": 8,
