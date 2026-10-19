@@ -143,6 +143,8 @@ test('Company and signal popups explain exact events, company impact, missingnes
   await dialog.getByRole('button', { name: 'Close signal details' }).focus()
   await page.keyboard.press('Shift+Tab')
   await expect(dialog.getByRole('link', { name: 'Company on Finviz' })).toBeFocused()
+  await page.keyboard.press('Tab')
+  await expect(dialog.getByRole('button', { name: 'Close signal details' })).toBeFocused()
   await dialog.getByRole('combobox', { name: 'Recent signal report' }).selectOption('1')
   await expect(dialog.getByText('No completion date was disclosed.')).toBeVisible()
   await expect(dialog.getByText(/Company-specific financial impact is not proven/)).toBeVisible()

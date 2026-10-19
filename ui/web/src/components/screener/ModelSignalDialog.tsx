@@ -89,7 +89,16 @@ export function ModelSignalDialog({ selection, weights, onSelect, onClose }: {
     const dialog = ref.current!
     dialog.showModal()
     // The hidden Events reader may also listen for Escape. Close only this top-level dialog.
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { e.preventDefault(); e.stopImmediatePropagation(); dialog.close() } }
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') { e.preventDefault(); e.stopImmediatePropagation(); dialog.close(); return }
+      if (e.key !== 'Tab') return
+      const controls = [...dialog.querySelectorAll<HTMLElement>('button:not([disabled]), a[href], select:not([disabled]), input:not([disabled]), textarea:not([disabled]), [tabindex="0"]')]
+        .filter((el) => el.getClientRects().length > 0)
+      const first = controls[0]; const last = controls[controls.length - 1]
+      const active = document.activeElement
+      const target = e.shiftKey && (active === first || active === heading.current) ? last : !e.shiftKey && active === last ? first : null
+      if (target) { e.preventDefault(); e.stopImmediatePropagation(); target.focus() }
+    }
     window.addEventListener('keydown', onKey, true)
     return () => { window.removeEventListener('keydown', onKey, true); if (dialog.open) dialog.close() }
   }, [])
