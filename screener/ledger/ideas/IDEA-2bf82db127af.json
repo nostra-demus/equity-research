@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-2bf82db127af",
+  "idea_version": "IDEAV-1f353af1b0493cf9",
+  "idea_version_started_at": "2026-10-19T21:35:55Z",
+  "ticker": "SLN",
+  "company": "Silence Therapeutics",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "long",
+  "pair_with": null,
+  "reason": "Merck has agreed to acquire the company for $1.3 billion, representing a significant premium to the prior trading price.",
+  "why_now": "The acquisition was announced on October 19, 2026, and the stock is expected to trade up to the deal price.",
+  "conviction": 80,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 60,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "priced-in risk",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "priced",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-813ff8e680fe"
+  ],
+  "primary_source_event_id": "EVT-813ff8e680fe",
+  "source_headlines": [
+    "Germany’s Merck to Buy U.K. Biotech Silence Therapeutics for $1.3 Billion"
+  ],
+  "source_headline": "Germany’s Merck to Buy U.K. Biotech Silence Therapeutics for $1.3 Billion",
+  "source_url": "https://www.wsj.com/tech/biotech/germanys-merck-to-buy-u-k-biotech-silence-therapeutics-for-1-3-billion-aab773c5?mod=rss_Technology",
+  "source_name": "The Wall Street Journal",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-19T12:48:00Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-19T21:35:55Z",
+  "updated_at": "2026-10-19T21:35:55Z",
+  "decay_at": "2026-10-21T00:48:00Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

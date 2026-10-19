@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T21:33:56Z",
+  "generated_at": "2026-10-19T21:36:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-517",
@@ -186429,6 +186429,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-2bf82db127af",
+      "idea_version": "IDEAV-1f353af1b0493cf9",
+      "idea_version_started_at": "2026-10-19T21:35:55Z",
+      "ticker": "SLN",
+      "company": "Silence Therapeutics",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Merck has agreed to acquire the company for $1.3 billion, representing a significant premium to the prior trading price.",
+      "why_now": "The acquisition was announced on October 19, 2026, and the stock is expected to trade up to the deal price.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-813ff8e680fe"
+      ],
+      "primary_source_event_id": "EVT-813ff8e680fe",
+      "source_headlines": [
+        "Germany’s Merck to Buy U.K. Biotech Silence Therapeutics for $1.3 Billion"
+      ],
+      "source_headline": "Germany’s Merck to Buy U.K. Biotech Silence Therapeutics for $1.3 Billion",
+      "source_url": "https://www.wsj.com/tech/biotech/germanys-merck-to-buy-u-k-biotech-silence-therapeutics-for-1-3-billion-aab773c5?mod=rss_Technology",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-19T12:48:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T21:35:55Z",
+      "updated_at": "2026-10-19T21:35:55Z",
+      "decay_at": "2026-10-21T00:48:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-2d38686e8413",
       "idea_version": "IDEAV-c9e5dac1e2b982f4",
       "idea_version_started_at": "2026-10-19T00:56:11Z",
@@ -186494,6 +186565,77 @@
       "surfaced_at": "2026-10-19T00:56:11Z",
       "updated_at": "2026-10-19T00:56:11Z",
       "decay_at": "2026-10-20T12:17:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-efa0efb703fc",
+      "idea_version": "IDEAV-8624fd4432ece780",
+      "idea_version_started_at": "2026-10-19T21:35:55Z",
+      "ticker": "PEL",
+      "company": "Piramal Enterprises",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 67% year-over-year increase in profit after tax for Q2 FY2027, signaling strong operational momentum in its finance division.",
+      "why_now": "The earnings results were released on October 19, 2026, providing a fresh catalyst for valuation adjustment.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9ddbdae85044"
+      ],
+      "primary_source_event_id": "EVT-9ddbdae85044",
+      "source_headlines": [
+        "Piramal Finance Limited: Piramal Finance Limited has informed the Exchange regarding a press release dated October 19, 2026, titled \"Piramal Finance reports PAT of Rs. 545 crore in Q2 FY2027, up 67% yoy\"."
+      ],
+      "source_headline": "Piramal Finance Limited: Piramal Finance Limited has informed the Exchange regarding a press release dated October 19, 2026, titled \"Piramal Finance reports PAT of Rs. 545 crore in Q2 FY2027, up 67% yoy\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/Piramalcapital_19102026155546_04_PFL_SE_Intimation_Press_Release_sd.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-19T10:26:03Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T19:35:51Z",
+      "updated_at": "2026-10-19T21:35:55Z",
+      "decay_at": "2026-10-20T22:26:03Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -186784,79 +186926,6 @@
       "surfaced_at": "2026-10-19T20:12:17Z",
       "updated_at": "2026-10-19T20:12:17Z",
       "decay_at": "2026-10-21T00:21:30Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-efa0efb703fc",
-      "idea_version": "IDEAV-67a47f43901e27ee",
-      "idea_version_started_at": "2026-10-19T19:35:51Z",
-      "ticker": "PEL",
-      "company": "Piramal Enterprises",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 67% year-over-year increase in Q2 FY2027 profit after tax to Rs. 545 crore, signaling strong operational momentum.",
-      "why_now": "The financial results were released on October 19, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9ddbdae85044",
-        "EVT-08354917fb98"
-      ],
-      "primary_source_event_id": "EVT-9ddbdae85044",
-      "source_headlines": [
-        "Piramal Finance Limited: Piramal Finance Limited has informed the Exchange regarding a press release dated October 19, 2026, titled \"Piramal Finance reports PAT of Rs. 545 crore in Q2 FY2027, up 67% yoy\".",
-        "Piramal Finance Q2 FY27 Results: Consolidated Net Profit Surges 66.86% To ₹545.42 Crore, Total Income Climbs To ₹3,717.16 Crore"
-      ],
-      "source_headline": "Piramal Finance Limited: Piramal Finance Limited has informed the Exchange regarding a press release dated October 19, 2026, titled \"Piramal Finance reports PAT of Rs. 545 crore in Q2 FY2027, up 67% yoy\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/Piramalcapital_19102026155546_04_PFL_SE_Intimation_Press_Release_sd.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-19T10:29:33Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-19T19:35:51Z",
-      "updated_at": "2026-10-19T19:35:51Z",
-      "decay_at": "2026-10-20T22:29:33Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -228678,8 +228747,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1724,
-    "live_count": 46,
+    "surfaced_total": 1725,
+    "live_count": 47,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -228698,7 +228767,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4857541,
+    "news_seen_today": 4869292,
     "news_picked_today": 1099,
     "news_dropped_today": 10527
   },
