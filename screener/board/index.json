@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T11:00:39Z",
+  "generated_at": "2026-10-19T11:08:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-305",
@@ -498,6 +498,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-318",
+      "headline": "Piramal Finance Q2 FY27 Results: Consolidated Net Profit Surges 66.86% To ₹545.42 Crore, Total Income Climbs To ₹3,717.16 Crore",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/piramal-finance-q2-fy27-results-consolidated-net-profit-surges-6686-to-54542-crore-total-income-climbs-to-371716-crore",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T10:29:33Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Piramal Finance reported a 66.86% surge in net profit to ₹545.42 crore for Q2 FY27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Piramal Finance reported a 66.86% surge in net profit to ₹545.42 crore for Q2 FY27.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Piramal Finance",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1942,55 +1991,6 @@
       "companies": [
         {
           "name": "CL Educate Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-288",
-      "headline": "Mirza International Limited: Mirza International Limited has informed the Exchange about Acquisition",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/MIRZAINT_19102026142723_Letter_to_SE_19102026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-19T08:57:39Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Mirza International Limited announced an acquisition, which is a material corporate development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Mirza International Limited announced an acquisition, which is a material corporate development.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mirza International Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -229091,9 +229091,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1190848,
-    "news_picked_today": 570,
-    "news_dropped_today": 6088
+    "news_seen_today": 1226081,
+    "news_picked_today": 580,
+    "news_dropped_today": 6150
   },
   "book_momentum": {
     "live_count": 8,
