@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T03:38:29Z",
+  "generated_at": "2026-10-19T03:46:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-130",
@@ -688,6 +688,60 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-136",
+      "headline": "Hyundai Rotem Acquires Hyundai Wia Defense Unit, Strengthening Vertical Integration",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279096",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T06:35:01Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Hyundai Rotem is acquiring the defense unit of Hyundai Wia to consolidate its defense operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Hyundai Rotem is acquiring the defense unit of Hyundai Wia to consolidate its defense operations.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyundai Rotem",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "Hyundai Wia",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1680,6 +1734,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-138",
+      "headline": "Microsoft pulls out of Nscale’s UK AI data centre project - here is what happened",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/microsoft-pulls-out-of-nscale-s-uk-ai-data-centre-project-here-is-what-happened-11792378600733.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T03:32:17Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Microsoft has withdrawn from a UK AI data center project with Nscale, impacting infrastructure expansion plans.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Microsoft has withdrawn from a UK AI data center project with Nscale, impacting infrastructure expansion plans.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Microsoft",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-118",
       "headline": "Tiger Shroff Seen With Chest Dressing & Bandaged Left Arm As Maharashtra Dy CM Eknath Shinde Meets Actor After Juhu Firing Incident | Video",
       "headline_en": null,
@@ -1873,109 +1976,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-058",
-      "headline": "Coal kings do it again with New Hope’s $1.8b Malabar takeover",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/mining/coal-kings-do-it-again-with-new-hope-s-1-8b-malabar-takeover-20261019-p616mc?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T01:28:08Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "New Hope Corporation announced a $1.8 billion takeover of Malabar Resources.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "New Hope Corporation announced a $1.8 billion takeover of Malabar Resources.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "New Hope Corporation",
-          "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "Malabar Resources",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-101",
-      "headline": "Divi's Laboratories shares in focus as weight loss drug receives EU panel backing",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/divis-laboratories-share-price-weight-loss-drug-eu-panel-backing-orforglipron-foundayo-q2-impact-20014579.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T02:38:31Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Divi's Laboratories is a key supplier for GLP-1 drugs; EU panel backing for a weight loss drug increases demand for their active pharmaceutical ingredients.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Divi's Laboratories is a key supplier for GLP-1 drugs; EU panel backing for a weight loss drug increases demand for their active pharmaceutical ingredients.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Divi's Laboratories",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -228921,9 +228921,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 701,
-    "news_picked_today": 165,
-    "news_dropped_today": 536
+    "news_seen_today": 728,
+    "news_picked_today": 170,
+    "news_dropped_today": 558
   },
   "book_momentum": {
     "live_count": 8,
