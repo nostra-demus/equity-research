@@ -1,7 +1,8 @@
 import { test, expect } from '@playwright/test'
 import { MODEL_SCHEMA, UNIVERSE_URL, type ModelEventRead, type ModelRead, type ModelRow } from '../../shared/universe-model'
 
-test('Universe Model ranking, weights, search, pagination, failure recovery and themes', async ({ page, context }, testInfo) => {
+test('Universe Model green-count ranking, search, pagination, failure recovery and themes', async ({ page, context }, testInfo) => {
+  await context.addInitScript(() => localStorage.setItem('nsw.universeEventModel.weights.v1', JSON.stringify({ contracts: 99, results: -5, guidance: -5 })))
   const now = new Date().toISOString()
   const event = { id: 'EVT-1', source_event_id: 'EVT-1', headline: 'Material contract announcement', url: 'https://example.test/filing', source: 'Issuer filing', reported_at: now, source_tier: 'primary_filing', direction: 'positive' as const }
   await context.route('**/api/screener/universe-model/evidence*', (route) => {
@@ -32,18 +33,13 @@ test('Universe Model ranking, weights, search, pagination, failure recovery and 
   await expect(page.getByRole('table')).toBeVisible()
   await expect(page.getByRole('columnheader', { name: 'Total ↓', exact: true })).toBeVisible()
   await expect(page.locator('tbody tr').first()).toContainText('Company 104')
+  await expect(page.locator('tbody tr').first().locator('td').last()).toHaveText('2Green ticks')
   await expect(page.getByLabel('Legal / regulatory: No matching report').first()).toBeVisible()
   await page.getByLabel('Results: Present', { exact: true }).click()
   await expect(page.getByText('Material contract announcement').first()).toBeVisible()
   await page.getByRole('button', { name: 'Close signal details' }).click()
-  await page.getByText('Signal rules and weights', { exact: true }).click()
-  await page.getByLabel('Contracts / JVs weight', { exact: true }).fill('5')
-  await expect(page.locator('tbody tr').first()).toContainText('Company 000')
-  const riskWeight = page.getByLabel('Debt / distress weight', { exact: true })
-  await riskWeight.fill('')
-  await riskWeight.pressSequentially('-5')
-  await riskWeight.press('Tab')
-  await expect(riskWeight).toHaveValue('-5')
+  await page.getByText('Signal rules', { exact: true }).click()
+  await expect(page.getByLabel('Contracts / JVs weight', { exact: true })).toHaveCount(0)
   await page.getByRole('button', { name: 'Next', exact: true }).click()
   await expect(page.getByText('101–105 of 105')).toBeVisible()
   await page.getByRole('searchbox').fill('CO104')
@@ -59,7 +55,7 @@ test('Universe Model ranking, weights, search, pagination, failure recovery and 
   fail = false
   await page.getByRole('button', { name: 'Retry', exact: true }).click()
   await expect(page.getByRole('alert')).toHaveCount(0)
-  await page.getByText('Signal rules and weights', { exact: true }).click()
+  await page.getByText('Signal rules', { exact: true }).click()
   await page.screenshot({ path: testInfo.outputPath('model-dark.png'), fullPage: true })
   await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'light'))
   await page.screenshot({ path: testInfo.outputPath('model-light.png'), fullPage: true })
@@ -67,15 +63,13 @@ test('Universe Model ranking, weights, search, pagination, failure recovery and 
   await expect(page.getByText('Existing Events workspace')).toBeVisible()
   await expect(page.getByLabel('Event context', { exact: true })).toHaveValue('Saved event filter')
   await page.getByRole('button', { name: 'Model', exact: true }).click()
-  await page.getByText('Signal rules and weights', { exact: true }).click()
-  await expect(page.getByLabel('Contracts / JVs weight', { exact: true })).toHaveValue('5')
-  await page.getByRole('button', { name: 'Reset to equal weights' }).click()
-  await expect(page.getByLabel('Contracts / JVs weight', { exact: true })).toHaveValue('1')
+  await page.getByText('Signal rules', { exact: true }).click()
+  await expect(page.locator('tbody tr').first()).toContainText('Company 104')
   partial = true
   await page.getByRole('button', { name: 'Check for updates' }).click()
   await expect(page.getByText('Partial coverage', { exact: true })).toBeVisible()
   await page.setViewportSize({ width: 390, height: 844 })
-  await page.getByText('Signal rules and weights', { exact: true }).click()
+  await page.getByText('Signal rules', { exact: true }).click()
   await page.screenshot({ path: testInfo.outputPath('model-mobile.png'), fullPage: true })
   await page.getByRole('button', { name: 'Check an event', exact: true }).click()
   await expect(page.getByText('Existing Events workspace')).toBeVisible()

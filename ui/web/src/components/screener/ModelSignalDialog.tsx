@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { MODEL_SIGNALS, modelScore, signalResult, type ModelEvent, type ModelEventRead, type ModelRow, type ModelSignal, type ModelWeights } from '../../../../shared/universe-model'
+import { MODEL_SIGNALS, modelTotal, signalResult, type ModelEvent, type ModelEventRead, type ModelRow, type ModelSignal } from '../../../../shared/universe-model'
 import { api } from '../../lib/api'
 import { roleLabel } from '../../lib/scope'
 
@@ -57,13 +57,13 @@ function EventEvidence({ event, row, signal }: { event: ModelEvent; row: ModelRo
   </article>
 }
 
-function SignalEvidence({ row, signal, weight }: { row: ModelRow; signal: ModelSignal; weight: number }) {
+function SignalEvidence({ row, signal }: { row: ModelRow; signal: ModelSignal }) {
   const [reportIndex, setReportIndex] = useState(0)
   const reports = row.signals?.[signal.id] || []
   const result = signalResult(row, signal)
   const report = reports[reportIndex] || reports[0]
   return <>
-    <p className="model-dialog__status"><strong>{mark(result)} {status(result)}</strong><span>{result === null ? 'Unscored' : `${result ? weight : 0} pts`}</span></p>
+    <p className="model-dialog__status"><strong>{mark(result)} {status(result)}</strong></p>
     {report ? <>
       {reports.length > 1 && <label className="model-dialog__reports">Recent report <select value={reportIndex} onChange={(e) => setReportIndex(Number(e.target.value))} aria-label="Recent signal report">
         {reports.map((r, i) => <option value={i} key={r.id}>{i + 1}. {r.headline}</option>)}
@@ -75,8 +75,8 @@ function SignalEvidence({ row, signal, weight }: { row: ModelRow; signal: ModelS
   </>
 }
 
-export function ModelSignalDialog({ selection, weights, onSelect, onClose }: {
-  selection: ModelSelection; weights: ModelWeights; onSelect: (signal: ModelSignal | null) => void; onClose: () => void
+export function ModelSignalDialog({ selection, onSelect, onClose }: {
+  selection: ModelSelection; onSelect: (signal: ModelSignal | null) => void; onClose: () => void
 }) {
   const ref = useRef<HTMLDialogElement>(null)
   const heading = useRef<HTMLHeadingElement>(null)
@@ -110,10 +110,10 @@ export function ModelSignalDialog({ selection, weights, onSelect, onClose }: {
         <button type="button" aria-label="Close signal details" onClick={close}>✕</button></header>
       <div className="model-dialog__body">
         {signal ? <><button type="button" className="model-dialog__back" onClick={() => onSelect(null)}>← All company signals</button>
-          <SignalEvidence key={signal.id} row={row} signal={signal} weight={weights[signal.id]} /></>
-          : <><p>{row.signals === null ? 'Coverage unavailable' : `Event activity: ${modelScore(row, weights)} pts`}</p>
+          <SignalEvidence key={signal.id} row={row} signal={signal} /></>
+          : <><p>{row.signals === null ? 'Coverage unavailable' : `Total: ${modelTotal(row)} green ticks`}</p>
             <div className="model-dialog__signals">{MODEL_SIGNALS.map((s) => { const result = signalResult(row, s); return <button type="button" key={s.id} onClick={() => onSelect(s)}>
-              <span>{mark(result)} {s.label}</span><small>{status(result)} · {result === null ? 'unscored' : `${result ? weights[s.id] : 0} pts`}</small>
+              <span>{mark(result)} {s.label}</span><small>{status(result)}</small>
             </button> })}</div></>}
       </div>
       <footer className="model-dialog__foot"><a href={`https://finviz.com/quote.ashx?t=${encodeURIComponent(row.ticker)}`} target="_blank" rel="noreferrer">Company on Finviz ↗</a></footer>

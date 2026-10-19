@@ -1,7 +1,7 @@
 // Free Finviz screen; the saved preset is account-local, so the public filters are explicit.
 export const UNIVERSE_URL = 'https://finviz.com/screener/stocks?f=cap_midover%2Csh_avgvol_o50&preset=s154730211'
 export const MODEL_SCHEMA = 'universe-event-model/v1' as const
-export const MODEL_REFRESH_MS = 30 * 60_000
+export const MODEL_REFRESH_MS = 5 * 60_000
 export const MODEL_SIGNALS = [
   { id: 'results', label: 'Results', rule: 'Material earnings, revenue or margin results', types: ['earnings_revenue_margin'] },
   { id: 'guidance', label: 'Guidance', rule: 'Material guidance or business outlook change', types: ['guidance_change'] },
@@ -18,7 +18,6 @@ export const MODEL_SIGNALS = [
 ] as const
 export type ModelSignal = typeof MODEL_SIGNALS[number]
 export type SignalId = ModelSignal['id']
-export type ModelWeights = Record<SignalId, number>
 export interface ModelEvent {
   id: string
   source_event_id?: string // exact article identity; id can instead be a deduplicated story group
@@ -94,27 +93,16 @@ export interface ModelRead {
   error: string | null
   events: EventCoverage | null
 }
-export const defaultModelWeights = (): ModelWeights => Object.fromEntries(MODEL_SIGNALS.map((s) => [s.id, 1])) as ModelWeights
-export function modelWeights(value: unknown): ModelWeights {
-  const result = defaultModelWeights()
-  if (value && typeof value === 'object' && !Array.isArray(value)) {
-    for (const signal of MODEL_SIGNALS) {
-      const weight = (value as Record<string, unknown>)[signal.id]
-      if (typeof weight === 'number' && Number.isFinite(weight) && weight >= -100 && weight <= 100) result[signal.id] = weight
-    }
-  }
-  return result
-}
 // Missing is distinct from failing. A missing observation never earns points or becomes a red cross.
 export function signalResult(row: ModelRow, signal: ModelSignal): boolean | null {
   return row.signals === null ? null : !!row.signals[signal.id]?.length
 }
-export function modelScore(row: ModelRow, weights: ModelWeights): number {
-  return MODEL_SIGNALS.reduce((sum, signal) => sum + (signalResult(row, signal) === true ? weights[signal.id] : 0), 0)
+export function modelTotal(row: ModelRow): number | null {
+  return row.signals === null ? null : MODEL_SIGNALS.filter((signal) => signalResult(row, signal) === true).length
 }
-export function rankModel(rows: ModelRow[], weights: ModelWeights): ModelRow[] {
+export function rankModel(rows: ModelRow[]): ModelRow[] {
   return [...rows].sort((a, b) => Number(a.signals === null) - Number(b.signals === null)
-    || modelScore(b, weights) - modelScore(a, weights) || a.company.localeCompare(b.company) || a.ticker.localeCompare(b.ticker))
+    || (modelTotal(b) ?? 0) - (modelTotal(a) ?? 0) || a.company.localeCompare(b.company) || a.ticker.localeCompare(b.ticker))
 }
 export function isModelRead(value: unknown): value is ModelRead {
   const r = value as ModelRead | null
