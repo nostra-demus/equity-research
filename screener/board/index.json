@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T21:10:46Z",
+  "generated_at": "2026-10-19T21:13:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-417",
@@ -746,6 +746,60 @@
           "name": "Ramsay Health Care",
           "ticker": "RHC",
           "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-513",
+      "headline": "Tradeweb to buy Trumid for $1.97 billion",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/tradeweb-buy-trumid-197-billion-2026-10-19/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T20:59:57Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Tradeweb to acquire Trumid for $1.97 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tradeweb to acquire Trumid for $1.97 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tradeweb",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Trumid",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1969,55 +2023,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-318",
-      "headline": "Piramal Finance Q2 FY27 Results: Consolidated Net Profit Surges 66.86% To ₹545.42 Crore, Total Income Climbs To ₹3,717.16 Crore",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/piramal-finance-q2-fy27-results-consolidated-net-profit-surges-6686-to-54542-crore-total-income-climbs-to-371716-crore",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T10:29:33Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "Piramal Finance reported a 66.86% surge in net profit to ₹545.42 crore for Q2 FY27.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Piramal Finance reported a 66.86% surge in net profit to ₹545.42 crore for Q2 FY27.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Piramal Finance",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -228697,9 +228702,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4670785,
-    "news_picked_today": 1066,
-    "news_dropped_today": 10296
+    "news_seen_today": 4705738,
+    "news_picked_today": 1075,
+    "news_dropped_today": 10311
   },
   "book_momentum": {
     "live_count": 8,
