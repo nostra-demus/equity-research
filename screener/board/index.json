@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T01:16:12Z",
+  "generated_at": "2026-10-19T01:22:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-021",
@@ -818,6 +818,49 @@
           "listing_country": "US"
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261019-053",
+      "headline": "U-Turn From Regulator May Be New Lifeline to Indian Derivatives",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-19/u-turn-from-regulator-may-be-new-lifeline-to-indian-derivatives",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T01:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Regulatory changes in Indian derivatives could significantly impact trading volumes and market liquidity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Regulatory changes in Indian derivatives could significantly impact trading volumes and market liquidity.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1711,6 +1754,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-052",
+      "headline": "Carnelian Small Cap Fund NFO: Is Rs 5,000 crore size cap a smart move for investors or just a gimmick? Know this before investing",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/wealth/invest/carnelian-small-cap-fund-nfo-is-rs-5000-crore-size-cap-a-smart-move-for-investors-or-just-a-gimmick-know-this-before-investing/articleshow/134998921.cms",
+      "source_name": "The Economic Times Wealth",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T01:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Analysis of a new fund offer (NFO) size cap, which is informational for retail investors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Analysis of a new fund offer (NFO) size cap, which is informational for retail investors.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Carnelian Small Cap Fund",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-049",
       "headline": "Flight from Tel Aviv diverted after ‘threat’",
       "headline_en": null,
@@ -1838,92 +1930,6 @@
       "event_types": [
         "macro_sector",
         "capex"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-039",
-      "headline": "America Needs 48,000 Tons of Rare Earth Magnets. It Only Makes 300",
-      "headline_en": null,
-      "url": "https://oilprice.com/Energy/Energy-General/America-Needs-48000-Tons-of-Rare-Earth-Magnets-It-Only-Makes-300.html",
-      "source_name": "OilPrice.com",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T01:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "The significant supply-demand gap in rare earth magnets highlights a critical supply chain vulnerability for the US manufacturing sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 49,
-      "triage_reason": "The significant supply-demand gap in rare earth magnets highlights a critical supply chain vulnerability for the US manufacturing sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-012",
-      "headline": "Govt plans ₹25,000-crore skilling push to sharpen textile export edge",
-      "headline_en": null,
-      "url": "https://www.livemint.com/economy/india-plans-25000-crore-skilling-push-to-sharpen-textile-export-edge-samarth-20-11792303307150.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T00:10:46Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "The Indian government announced a ₹25,000-crore investment plan for the textile sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 49,
-      "triage_reason": "The Indian government announced a ₹25,000-crore investment plan for the textile sector.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
       ],
       "issuer_linkage": "sector",
       "companies": [],
@@ -228796,9 +228802,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 202,
-    "news_picked_today": 51,
-    "news_dropped_today": 151
+    "news_seen_today": 225,
+    "news_picked_today": 54,
+    "news_dropped_today": 171
   },
   "book_momentum": {
     "live_count": 8,
