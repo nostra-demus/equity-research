@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T01:45:54Z",
+  "generated_at": "2026-10-19T01:46:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-021",
@@ -186581,6 +186581,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-5d7e7121c615",
+      "idea_version": "IDEAV-0000d88643d77570",
+      "idea_version_started_at": "2026-10-19T01:46:31Z",
+      "ticker": "YESBANK",
+      "company": "Yes Bank",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A Supreme Court ruling on AT-1 bonds threatens to wipe out capital, with analysts estimating a potential 26% decline in book value.",
+      "why_now": "The ruling is a fresh legal catalyst as of October 19, 2026, creating immediate balance sheet risk.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a4584a361087"
+      ],
+      "primary_source_event_id": "EVT-a4584a361087",
+      "source_headlines": [
+        "YES Bank book value may fall up to 26% after SC ruling on AT-1 bonds"
+      ],
+      "source_headline": "YES Bank book value may fall up to 26% after SC ruling on AT-1 bonds",
+      "source_url": "https://economictimes.indiatimes.com/markets/bonds/at-1-payout-yes-banks-book-value-could-fall-up-to-26-sc-ruling-dents-banks-cushion-against-losses-in-near-term/articleshow/135037404.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-19T01:14:57Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-15T13:17:31Z",
+      "updated_at": "2026-10-19T01:46:31Z",
+      "decay_at": "2026-10-20T13:14:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-24de08dd43f9",
       "idea_version": "IDEAV-618ffe55a4a9ef4e",
       "idea_version_started_at": "2026-10-19T00:36:54Z",
@@ -187578,78 +187650,6 @@
       "surfaced_at": "2026-10-18T13:36:43Z",
       "updated_at": "2026-10-18T13:36:43Z",
       "decay_at": "2026-10-19T21:03:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-5d7e7121c615",
-      "idea_version": "IDEAV-26d1bb79da46ac83",
-      "idea_version_started_at": "2026-10-18T12:31:33Z",
-      "ticker": "YESBANK",
-      "company": "Yes Bank",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "While Q2 earnings showed growth, the potential legal ruling regarding AT1 bonds poses a significant risk of a massive swing from profit to a substantial net loss.",
-      "why_now": "The litigation risk is active and the potential financial impact was highlighted in the October 18, 2026, report.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2b961b9a4748"
-      ],
-      "primary_source_event_id": "EVT-2b961b9a4748",
-      "source_headlines": [
-        "Yes Bank Q2 Profit Jumps 63% To ₹1,084 Crore, AT1 Bond Ruling Could Turn Earnings Into ₹5,217 Crore Loss"
-      ],
-      "source_headline": "Yes Bank Q2 Profit Jumps 63% To ₹1,084 Crore, AT1 Bond Ruling Could Turn Earnings Into ₹5,217 Crore Loss",
-      "source_url": "https://www.freepressjournal.in/business/yes-bank-q2-profit-jumps-63-to-1084-crore-at1-bond-ruling-could-turn-earnings-into-5217-crore-loss",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-18T05:37:15Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-15T13:17:31Z",
-      "updated_at": "2026-10-18T12:31:33Z",
-      "decay_at": "2026-10-19T17:37:15Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -228828,9 +228828,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 248,
-    "news_picked_today": 57,
-    "news_dropped_today": 191
+    "news_seen_today": 304,
+    "news_picked_today": 74,
+    "news_dropped_today": 230
   },
   "book_momentum": {
     "live_count": 8,
