@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-19T04:54:35Z",
+  "generated_at": "2026-10-19T05:05:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-130",
@@ -1389,6 +1389,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261019-211",
+      "headline": "Hyundai Motor Group Accelerates Robotics & Physical AI Push To Counter Chinese Automakers, Revive Growth & Address Falling Shares",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/tech/hyundai-motor-group-accelerates-robotics-physical-ai-push-to-counter-chinese-automakers-revive-growth-address-falling-shares",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-19T04:37:08Z",
+      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
+      "prelim_note": "Hyundai is accelerating investment in robotics and AI to address competitive pressures and falling share prices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Hyundai is accelerating investment in robotics and AI to address competitive pressures and falling share prices.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyundai Motor Group",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261019-033",
       "headline": "Microsoft Pulls Out of UK Data Center Deal Over Power Delays",
       "headline_en": null,
@@ -1930,55 +1980,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261019-145",
-      "headline": "Twiggy, Federation-backed $5b Bungaban wind project hunts for cash",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/twiggy-federation-backed-5b-bungaban-wind-project-hunts-for-cash-20261019-p616ph?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-19T03:51:42Z",
-      "sweep_file": "screener/inbox/2026-10-19_sweep.json",
-      "prelim_note": "A $5 billion wind project is seeking capital, representing a major infrastructure investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "A $5 billion wind project is seeking capital, representing a major infrastructure investment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bungaban",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -229145,9 +229146,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1353,
-    "news_picked_today": 255,
-    "news_dropped_today": 1098
+    "news_seen_today": 2707,
+    "news_picked_today": 274,
+    "news_dropped_today": 2433
   },
   "book_momentum": {
     "live_count": 8,
