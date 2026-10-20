@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-10-20T10:39:38Z",
+  "generated_at": "2026-10-20T10:44:44Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261020-170",
+      "headline": "BEIJING MEDIA (01000): APPLICATION FOR BANKRUPTCY LIQUIDATION IN RESPECT OF A WHOLLY-OWNED SUBSIDIARY OF THE COMPANY; CHANGE IN INFORMATION OF A DIRECTOR; AND FURTHER INFORMATION ON THE 2025 ANNUAL REPORT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000907.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T10:28:00Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "A wholly-owned subsidiary of Beijing Media has filed for bankruptcy liquidation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A wholly-owned subsidiary of Beijing Media has filed for bankruptcy liquidation.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Beijing Media",
+          "ticker": "01000",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261020-168",
       "headline": "425 - Launch Two Acquisition Corp. (0002023676) (Subject)",
@@ -1489,6 +1539,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261020-182",
+      "headline": "425 - NuCube Energy, Inc. (0002142801) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2142801/000121390026110814/0001213900-26-110814-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-20T10:08:46Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "NuCube Energy filed a 425 form regarding a business combination, indicating ongoing M&A activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "NuCube Energy filed a 425 form regarding a business combination, indicating ongoing M&A activity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NuCube Energy, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261020-076",
       "headline": "MAT: Final Payment and Completion of AngloGold Ashanti Option [price-sensitive]",
       "headline_en": null,
@@ -1883,104 +1982,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-163",
-      "headline": "GANGLONG CHINA (06968): QUARTERLY UPDATES IN RELATION TO THE COMPANY'S ACTION IN RESOLVING DISCLAIMER OF OPINION",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000643.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-20T09:26:00Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Ganglong China provided a quarterly update on its efforts to resolve a disclaimer of opinion from auditors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Ganglong China provided a quarterly update on its efforts to resolve a disclaimer of opinion from auditors.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ganglong China",
-          "ticker": "06968",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-018",
-      "headline": "OCUMENSION-B (01477): INSIDE INFORMATION ANNOUNCEMENT TOPLINE RESULTS OF THE MONTH 36 PRIMARY ANALYSIS OF THE GLOBAL MULTI-CENTRE PHASE III CLINICAL TRIAL OF OT-101 (0.01% ATROPINE SULFATE EYE DROPS)",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000141.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-20T00:25:00Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Ocumension-B reported topline results for its Phase III clinical trial of OT-101, a key product candidate.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Ocumension-B reported topline results for its Phase III clinical trial of OT-101, a key product candidate.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ocumension-B",
-          "ticker": "01477",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -231959,9 +231960,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4449448,
-    "news_picked_today": 341,
-    "news_dropped_today": 4675
+    "news_seen_today": 4482271,
+    "news_picked_today": 354,
+    "news_dropped_today": 4830
   },
   "book_momentum": {
     "live_count": 8,
