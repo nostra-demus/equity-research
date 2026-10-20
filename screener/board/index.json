@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T00:33:12Z",
+  "generated_at": "2026-10-20T00:35:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-021",
@@ -541,6 +541,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261020-025",
+      "headline": "STANCHART (02888): Transaction in own shares",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000001.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T22:02:00Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Standard share buyback announcement by Standard Chartered.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "Standard share buyback announcement by Standard Chartered.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Standard Chartered",
+          "ticker": "02888",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261020-001",
       "headline": "Kaya Limited: Kaya Limited has informed the Exchange about receipt of In-Principle approval from NSE & BSE for issue of equity shares on preferential basis to non promoter",
       "headline_en": null,
@@ -1005,6 +1054,55 @@
           "name": "ASMPT",
           "ticker": "00522",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-026",
+      "headline": "Lupin Limited: Lupin Limited has informed the Exchange regarding Grant of 40,157 Stock Options.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/Lupin2_19102026185646_SE_Grants_of_Stock_Options.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T13:29:06Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Routine grant of 40,157 stock options to employees.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Routine grant of 40,157 stock options to employees.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lupin Limited",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -230360,7 +230458,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3830,
+    "inbox_unconsumed": 3832,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -230369,9 +230467,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 263215,
-    "news_picked_today": 25,
-    "news_dropped_today": 191
+    "news_seen_today": 274615,
+    "news_picked_today": 27,
+    "news_dropped_today": 213
   },
   "book_momentum": {
     "live_count": 8,
