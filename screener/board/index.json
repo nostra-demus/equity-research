@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-20T00:03:03Z",
+  "generated_at": "2026-10-20T00:06:19Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261020-001",
+      "headline": "Kaya Limited: Kaya Limited has informed the Exchange about receipt of In-Principle approval from NSE & BSE for issue of equity shares on preferential basis to non promoter",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/KAYA_19102026191403_IP_approval_intimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T13:44:22Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Kaya Limited received in-principle approval for a preferential issue of equity shares to non-promoters, indicating a capital raise.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "Kaya Limited received in-principle approval for a preferential issue of equity shares to non-promoters, indicating a capital raise.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kaya Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261019-534",
       "headline": "PWH: Chairman and MD & CEO Address and Updated Outlook [price-sensitive]",
@@ -229251,7 +229300,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3807,
+    "inbox_unconsumed": 3808,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -229260,9 +229309,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 0,
-    "news_picked_today": 0,
-    "news_dropped_today": 0
+    "news_seen_today": 22917,
+    "news_picked_today": 1,
+    "news_dropped_today": 23
   },
   "book_momentum": {
     "live_count": 8,
