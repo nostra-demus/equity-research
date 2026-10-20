@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T13:12:50Z",
+  "generated_at": "2026-10-20T13:15:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-270",
@@ -885,6 +885,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261020-275",
+      "headline": "Hasbro raises annual revenue forecast on strong demand for digital games",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/consumer-healthcare/hasbro-raises-annual-revenue-forecast-strong-demand-digital-games",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T13:07:21Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Hasbro raised its annual revenue forecast due to strong digital game demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hasbro raised its annual revenue forecast due to strong digital game demand.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hasbro",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261020-268",
       "headline": "Salesforce to Buy Customer-Engagement Platform for Nearly $5.7 Billion",
       "headline_en": null,
@@ -984,20 +1033,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261020-262",
-      "headline": "Salesforce to Buy Marketing Platform Braze for $5.7 Billion",
+      "inbox_id": "INB-20261020-276",
+      "headline": "Salesforce To Acquire Braze For $5.66 Bln",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-20/salesforce-to-buy-marketing-platform-braze-for-5-7-billion",
-      "source_name": "Bloomberg",
+      "url": "https://www.nasdaq.com/articles/salesforce-acquire-braze-566-bln",
+      "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-10-20T12:12:14Z",
+      "found_at": "2026-10-20T12:19:12Z",
       "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Salesforce to acquire Braze for $5.7 billion.",
+      "prelim_note": "Salesforce to acquire Braze for $5.66 billion.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Salesforce to acquire Braze for $5.7 billion.",
+      "triage_reason": "Salesforce to acquire Braze for $5.66 billion.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -1038,20 +1087,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261020-243",
-      "headline": "Salesforce to acquire Braze in a $5.66 billion deal",
+      "inbox_id": "INB-20261020-262",
+      "headline": "Salesforce to Buy Marketing Platform Braze for $5.7 Billion",
       "headline_en": null,
-      "url": "https://www.reuters.com/business/salesforce-acquire-braze-566-billion-deal-2026-10-20/",
-      "source_name": "Reuters — Latest (news sitemap)",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-20/salesforce-to-buy-marketing-platform-braze-for-5-7-billion",
+      "source_name": "Bloomberg",
       "input_nature": "news_headline",
-      "found_at": "2026-10-20T12:08:07Z",
+      "found_at": "2026-10-20T12:12:14Z",
       "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Salesforce is acquiring Braze for $5.66 billion.",
+      "prelim_note": "Salesforce to acquire Braze for $5.7 billion.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Salesforce is acquiring Braze for $5.66 billion.",
+      "triage_reason": "Salesforce to acquire Braze for $5.7 billion.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -1938,55 +1987,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-091",
-      "headline": "Anthropic eyes second $45 billion Nscale deal as 460MW AI data centre plans advance ahead of potential IPO",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/anthropic-eyes-second-45-billion-nscale-deal-as-460mw-ai-data-centre-plans-advance-ahead-of-potential-ipo-11792466448988.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-20T03:53:33Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Anthropic is planning a 45 billion dollar investment in a 460MW AI data center project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Anthropic is planning a 45 billion dollar investment in a 460MW AI data center project.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -190856,78 +190856,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5d7e7121c615",
-      "idea_version": "IDEAV-0000d88643d77570",
-      "idea_version_started_at": "2026-10-19T01:46:31Z",
-      "ticker": "YESBANK",
-      "company": "Yes Bank",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A Supreme Court ruling on AT-1 bonds threatens to wipe out capital, with analysts estimating a potential 26% decline in book value.",
-      "why_now": "The ruling is a fresh legal catalyst as of October 19, 2026, creating immediate balance sheet risk.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a4584a361087"
-      ],
-      "primary_source_event_id": "EVT-a4584a361087",
-      "source_headlines": [
-        "YES Bank book value may fall up to 26% after SC ruling on AT-1 bonds"
-      ],
-      "source_headline": "YES Bank book value may fall up to 26% after SC ruling on AT-1 bonds",
-      "source_url": "https://economictimes.indiatimes.com/markets/bonds/at-1-payout-yes-banks-book-value-could-fall-up-to-26-sc-ruling-dents-banks-cushion-against-losses-in-near-term/articleshow/135037404.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-19T01:14:57Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-15T13:17:31Z",
-      "updated_at": "2026-10-19T01:46:31Z",
-      "decay_at": "2026-10-20T13:14:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-193acec1f3b7",
       "idea_version": "IDEAV-7976f5bd314505d0",
       "idea_version_started_at": "2026-10-20T05:56:49Z",
@@ -192557,6 +192485,78 @@
       "surfaced_at": "2026-10-19T00:56:11Z",
       "updated_at": "2026-10-19T00:56:11Z",
       "decay_at": "2026-10-20T12:17:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-5d7e7121c615",
+      "idea_version": "IDEAV-0000d88643d77570",
+      "idea_version_started_at": "2026-10-19T01:46:31Z",
+      "ticker": "YESBANK",
+      "company": "Yes Bank",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A Supreme Court ruling on AT-1 bonds threatens to wipe out capital, with analysts estimating a potential 26% decline in book value.",
+      "why_now": "The ruling is a fresh legal catalyst as of October 19, 2026, creating immediate balance sheet risk.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a4584a361087"
+      ],
+      "primary_source_event_id": "EVT-a4584a361087",
+      "source_headlines": [
+        "YES Bank book value may fall up to 26% after SC ruling on AT-1 bonds"
+      ],
+      "source_headline": "YES Bank book value may fall up to 26% after SC ruling on AT-1 bonds",
+      "source_url": "https://economictimes.indiatimes.com/markets/bonds/at-1-payout-yes-banks-book-value-could-fall-up-to-26-sc-ruling-dents-banks-cushion-against-losses-in-near-term/articleshow/135037404.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-19T01:14:57Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-15T13:17:31Z",
+      "updated_at": "2026-10-19T01:46:31Z",
+      "decay_at": "2026-10-20T13:14:57Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -194729,9 +194729,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 539,
     "shown_count": 499,
-    "hidden_count": 39,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
         "total_count": 279,
@@ -194739,9 +194739,9 @@
         "hidden_count": 29
       },
       "short": {
-        "total_count": 260,
+        "total_count": 261,
         "shown_count": 250,
-        "hidden_count": 10
+        "hidden_count": 11
       }
     },
     "retention": {
@@ -194760,6 +194760,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5d7e7121c615",
+        "idea_version": "IDEAV-0000d88643d77570",
+        "idea_version_started_at": "2026-10-19T01:46:31Z",
+        "ticker": "YESBANK",
+        "company": "Yes Bank",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A Supreme Court ruling on AT-1 bonds threatens to wipe out capital, with analysts estimating a potential 26% decline in book value.",
+        "why_now": "The ruling is a fresh legal catalyst as of October 19, 2026, creating immediate balance sheet risk.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a4584a361087"
+        ],
+        "primary_source_event_id": "EVT-a4584a361087",
+        "source_headlines": [
+          "YES Bank book value may fall up to 26% after SC ruling on AT-1 bonds"
+        ],
+        "source_headline": "YES Bank book value may fall up to 26% after SC ruling on AT-1 bonds",
+        "source_url": "https://economictimes.indiatimes.com/markets/bonds/at-1-payout-yes-banks-book-value-could-fall-up-to-26-sc-ruling-dents-banks-cushion-against-losses-in-near-term/articleshow/135037404.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-19T01:14:57Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-15T13:17:31Z",
+        "updated_at": "2026-10-19T01:46:31Z",
+        "decay_at": "2026-10-20T13:14:57Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-20T13:14:57Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-6502fae61ac2",
         "idea_version": "IDEAV-81bf3d477bbc04a3",
@@ -231856,88 +231931,12 @@
         "archived_at": "2026-09-24T04:13:25Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-f54642af591f",
-        "idea_version": "IDEAV-9f428eccdcc78341",
-        "idea_version_started_at": "2026-09-21T04:22:03Z",
-        "ticker": "PER.AX",
-        "company": "Perpetual Limited",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Perpetual rejected EQT AB's improved offer and ended takeover talks, suggesting potential undervaluation or strategic disagreement that could pressure its stock.",
-        "why_now": "The company announced the termination of takeover talks today.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b36d18b04081"
-        ],
-        "primary_source_event_id": "EVT-b36d18b04081",
-        "source_headlines": [
-          "Perpetual Rejects EQT AB’s Improved Offer, Ends Takeover Talks"
-        ],
-        "source_headline": "Perpetual Rejects EQT AB’s Improved Offer, Ends Takeover Talks",
-        "source_url": "https://www.wsj.com/business/deals/perpetual-rejects-eqt-abs-improved-offer-ends-takeover-talks-44f70f5e?mod=pls_whats_news_us_business_f",
-        "source_name": "The Wall Street Journal",
-        "materiality_max": 95,
-        "newest_source_at": "2026-09-21T03:53:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-21T04:22:03Z",
-        "updated_at": "2026-09-21T04:22:03Z",
-        "decay_at": "2026-09-22T15:53:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-24T04:13:25Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1754,
-    "live_count": 55,
+    "live_count": 54,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -231956,9 +231955,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5641175,
-    "news_picked_today": 534,
-    "news_dropped_today": 5778
+    "news_seen_today": 5665609,
+    "news_picked_today": 541,
+    "news_dropped_today": 5795
   },
   "book_momentum": {
     "live_count": 8,
