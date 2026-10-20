@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-20T13:11:04Z",
+  "generated_at": "2026-10-20T13:12:50Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261020-270",
+      "headline": "CHINA CHENGTONG (00217): VERY SUBSTANTIAL ACQUISITION - SALE AND LEASEBACK ARRANGEMENT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102001301.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T13:07:00Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "China Chengtong announced a very substantial acquisition via a sale and leaseback arrangement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "China Chengtong announced a very substantial acquisition via a sale and leaseback arrangement.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Chengtong",
+          "ticker": "00217",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261020-269",
       "headline": "SC 14D9 - SOUNDTHINKING, INC. (0001351636) (Subject)",
@@ -1938,56 +1987,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-089",
-      "headline": "Tesla sets December vote on Elon Musk’s CEO role & his $158 billion pay package; SpaceX merger stays off ballot",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/people/tesla-sets-december-vote-on-elon-musk-s-ceo-role-and-his-158-billion-pay-package-spacex-merger-stays-off-ballot-11792462765668.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-20T03:06:23Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Tesla is holding a shareholder vote on the CEO's $158 billion pay package, a significant governance and capital event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tesla is holding a shareholder vote on the CEO's $158 billion pay package, a significant governance and capital event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -231957,9 +231956,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5616925,
-    "news_picked_today": 526,
-    "news_dropped_today": 5762
+    "news_seen_today": 5641175,
+    "news_picked_today": 534,
+    "news_dropped_today": 5778
   },
   "book_momentum": {
     "live_count": 8,
