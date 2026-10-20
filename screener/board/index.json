@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T23:33:17Z",
+  "generated_at": "2026-10-20T23:35:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-422",
@@ -1282,6 +1282,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261020-435",
+      "headline": "NextDC slashes earnings forecast, triggering 40pc share plunge",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/infrastructure/nextdc-slashes-earnings-forecasts-after-melbourne-power-delays-20261021-p616u7?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T23:29:02Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "NextDC slashed its earnings forecast, resulting in a 40% decline in its share price.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NextDC slashed its earnings forecast, resulting in a 40% decline in its share price.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NextDC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261020-431",
       "headline": "Musk calls Tesla-SpaceX merger a ‘good idea’ as SpaceX posts first profit as a public company",
       "headline_en": null,
@@ -1387,55 +1436,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-432",
-      "headline": "NextDC slashes earnings forecast triggering 40pc share price plunge",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/infrastructure/nextdc-slashes-earnings-forecasts-after-melbourne-power-delays-20261021-p616u7?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-20T22:33:57Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "NextDC slashed its earnings forecast, resulting in a 40% share price decline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "NextDC slashed its earnings forecast, resulting in a 40% share price decline.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NextDC",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -232154,9 +232154,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11515532,
-    "news_picked_today": 1044,
-    "news_dropped_today": 9708
+    "news_seen_today": 11561867,
+    "news_picked_today": 1056,
+    "news_dropped_today": 9720
   },
   "book_momentum": {
     "live_count": 8,
