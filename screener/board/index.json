@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T13:35:40Z",
+  "generated_at": "2026-10-20T14:00:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-270",
@@ -188062,6 +188062,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-abd218ca6c78",
+      "idea_version": "IDEAV-71e79dc693f22d71",
+      "idea_version_started_at": "2026-10-20T13:59:38Z",
+      "ticker": "RGR",
+      "company": "Sturm Ruger & Co Inc",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Beretta Holding S.A. has filed a tender offer amendment for Sturm Ruger, signaling potential acquisition interest or a control premium event.",
+      "why_now": "The SEC filing was updated on 2026-10-20, making the tender offer status live.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 76,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6968ee2dacde",
+        "EVT-a3fe14b33527"
+      ],
+      "primary_source_event_id": "EVT-6968ee2dacde",
+      "source_headlines": [
+        "SC TO-T/A - Beretta Holding S.A. (0002086731) (Filed by)",
+        "SC TO-T/A - STURM RUGER & CO INC (0000095029) (Subject)"
+      ],
+      "source_headline": "SC TO-T/A - Beretta Holding S.A. (0002086731) (Filed by)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2086731/000119380526001383/0001193805-26-001383-index.htm",
+      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-20T12:51:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-20T13:59:38Z",
+      "updated_at": "2026-10-20T13:59:38Z",
+      "decay_at": "2026-10-22T00:51:09Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-b9904f623df5",
       "idea_version": "IDEAV-1cd9d06103fff5cb",
       "idea_version_started_at": "2026-10-20T00:46:02Z",
@@ -188196,6 +188267,76 @@
       "surfaced_at": "2026-10-20T13:35:08Z",
       "updated_at": "2026-10-20T13:35:08Z",
       "decay_at": "2026-10-21T23:19:35Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-eca197f63cec",
+      "idea_version": "IDEAV-7769692cccdb0f13",
+      "idea_version_started_at": "2026-10-20T13:59:38Z",
+      "ticker": "CRM",
+      "company": "Salesforce",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Acquiring Braze for $5.66 billion represents a significant cash outlay and potential dilution or integration risk that may pressure Salesforce's near-term earnings multiples.",
+      "why_now": "The acquisition news broke on 2026-10-20.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c45fa87f4e96"
+      ],
+      "primary_source_event_id": "EVT-c45fa87f4e96",
+      "source_headlines": [
+        "Salesforce To Acquire Braze For $5.66 Bln"
+      ],
+      "source_headline": "Salesforce To Acquire Braze For $5.66 Bln",
+      "source_url": "https://www.nasdaq.com/articles/salesforce-acquire-braze-566-bln",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-20T12:19:12Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-20T13:59:38Z",
+      "updated_at": "2026-10-20T13:59:38Z",
+      "decay_at": "2026-10-22T00:19:12Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -188546,6 +188687,76 @@
       "surfaced_at": "2026-10-20T12:29:48Z",
       "updated_at": "2026-10-20T12:29:48Z",
       "decay_at": "2026-10-21T22:36:35Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-92d8a841ea97",
+      "idea_version": "IDEAV-c50f625b6846261a",
+      "idea_version_started_at": "2026-10-20T13:59:38Z",
+      "ticker": "HAS",
+      "company": "Hasbro",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Hasbro raised its annual revenue forecast driven by higher-than-expected demand for its digital gaming segment, which carries higher margins than traditional toys.",
+      "why_now": "The guidance update was released on 2026-10-20.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4a79b8e46aa8"
+      ],
+      "primary_source_event_id": "EVT-4a79b8e46aa8",
+      "source_headlines": [
+        "Hasbro raises annual revenue forecast on strong demand for digital games"
+      ],
+      "source_headline": "Hasbro raises annual revenue forecast on strong demand for digital games",
+      "source_url": "https://www.businesstimes.com.sg/companies-markets/consumer-healthcare/hasbro-raises-annual-revenue-forecast-strong-demand-digital-games",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-20T13:07:21Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-20T13:59:38Z",
+      "updated_at": "2026-10-20T13:59:38Z",
+      "decay_at": "2026-10-22T01:07:21Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -191997,78 +192208,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-1b994a384f0c",
-      "idea_version": "IDEAV-740e6fbd42da3ade",
-      "idea_version_started_at": "2026-10-19T02:51:03Z",
-      "ticker": "000660",
-      "company": "SK Hynix",
-      "exchange": "KRX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The 2 trillion KRW government-backed guarantee program reduces supply chain financing costs and credit risk for the company.",
-      "why_now": "The program was officially launched on 2026-10-19.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "policy_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b0feffb7ddf7"
-      ],
-      "primary_source_event_id": "EVT-b0feffb7ddf7",
-      "source_headlines": [
-        "SK Hynix, government, and banking sector launch 2 trillion KRW 'Export Supply Chain Strengthening Guarantee'"
-      ],
-      "source_headline": "SK하이닉스·정부·은행권, 2조원 규모 ‘수출공급망 강화보증’ 출범",
-      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279063",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "materiality_max": 83,
-      "newest_source_at": "2026-10-19T02:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-19T02:51:03Z",
-      "updated_at": "2026-10-19T02:51:03Z",
-      "decay_at": "2026-10-20T14:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7ac6a207250e",
       "idea_version": "IDEAV-c6b1c76a73c6b16b",
       "idea_version_started_at": "2026-10-20T00:46:02Z",
@@ -194929,6 +195068,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-1b994a384f0c",
+      "idea_version": "IDEAV-740e6fbd42da3ade",
+      "idea_version_started_at": "2026-10-19T02:51:03Z",
+      "ticker": "000660",
+      "company": "SK Hynix",
+      "exchange": "KRX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The 2 trillion KRW government-backed guarantee program reduces supply chain financing costs and credit risk for the company.",
+      "why_now": "The program was officially launched on 2026-10-19.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "policy_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b0feffb7ddf7"
+      ],
+      "primary_source_event_id": "EVT-b0feffb7ddf7",
+      "source_headlines": [
+        "SK Hynix, government, and banking sector launch 2 trillion KRW 'Export Supply Chain Strengthening Guarantee'"
+      ],
+      "source_headline": "SK하이닉스·정부·은행권, 2조원 규모 ‘수출공급망 강화보증’ 출범",
+      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279063",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "materiality_max": 83,
+      "newest_source_at": "2026-10-19T02:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T02:51:03Z",
+      "updated_at": "2026-10-19T02:51:03Z",
+      "decay_at": "2026-10-20T14:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-9a8c33c37ad0",
       "idea_version": "IDEAV-cebdf3e8a1929254",
       "idea_version_started_at": "2026-10-19T02:12:58Z",
@@ -195011,14 +195222,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 539,
+    "total_count": 540,
     "shown_count": 499,
-    "hidden_count": 40,
+    "hidden_count": 41,
     "side_counts": {
       "long": {
-        "total_count": 280,
+        "total_count": 281,
         "shown_count": 250,
-        "hidden_count": 30
+        "hidden_count": 31
       },
       "short": {
         "total_count": 260,
@@ -195042,6 +195253,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-1b994a384f0c",
+        "idea_version": "IDEAV-740e6fbd42da3ade",
+        "idea_version_started_at": "2026-10-19T02:51:03Z",
+        "ticker": "000660",
+        "company": "SK Hynix",
+        "exchange": "KRX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The 2 trillion KRW government-backed guarantee program reduces supply chain financing costs and credit risk for the company.",
+        "why_now": "The program was officially launched on 2026-10-19.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "policy_conditional",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b0feffb7ddf7"
+        ],
+        "primary_source_event_id": "EVT-b0feffb7ddf7",
+        "source_headlines": [
+          "SK Hynix, government, and banking sector launch 2 trillion KRW 'Export Supply Chain Strengthening Guarantee'"
+        ],
+        "source_headline": "SK하이닉스·정부·은행권, 2조원 규모 ‘수출공급망 강화보증’ 출범",
+        "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279063",
+        "source_name": "Business Korea — All Articles (CDN)",
+        "materiality_max": 83,
+        "newest_source_at": "2026-10-19T02:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-19T02:51:03Z",
+        "updated_at": "2026-10-19T02:51:03Z",
+        "decay_at": "2026-10-20T14:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-20T14:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-9a8c33c37ad0",
         "idea_version": "IDEAV-cebdf3e8a1929254",
@@ -222304,81 +222590,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-414a14e26ddd",
-        "idea_version": "IDEAV-ed90380c6389388c",
-        "idea_version_started_at": "2026-10-05T20:12:16Z",
-        "ticker": "BMPS",
-        "company": "Monte dei Paschi di Siena",
-        "exchange": "BSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The acquisition bid by Intesa Sanpaolo at a premium valuation provides a floor and potential upside for MPS shareholders as consolidation in the Italian banking sector progresses.",
-        "why_now": "The largest investor has officially backed the improved €35 billion bid as of October 5, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0fe6e3bf4aad"
-        ],
-        "primary_source_event_id": "EVT-0fe6e3bf4aad",
-        "source_headlines": [
-          "Italian bank Intesa's improved €35 billion bid for MPS wins backing of biggest investor"
-        ],
-        "source_headline": "Italian bank Intesa's improved €35 billion bid for MPS wins backing of biggest investor",
-        "source_url": "https://www.reuters.com/legal/transactional/intesas-35-billion-bid-mps-wins-backing-top-investor-2026-10-05/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-05T15:35:01Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-03T22:54:31Z",
-        "updated_at": "2026-10-05T20:12:16Z",
-        "decay_at": "2026-10-07T03:35:01Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-08T16:19:20Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-cbb29109fa62",
         "idea_version": "IDEAV-3e3b439d8d461221",
         "idea_version_started_at": "2026-10-05T07:26:59Z",
@@ -232218,8 +232429,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1759,
-    "live_count": 58,
+    "surfaced_total": 1762,
+    "live_count": 60,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -232238,7 +232449,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5836916,
+    "news_seen_today": 6062351,
     "news_picked_today": 558,
     "news_dropped_today": 5850
   },
