@@ -1,13 +1,13 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-23T23:34:59Z",
+  "archived_at": "2026-10-20T19:09:38Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-4b7517872828",
-    "idea_version": "IDEAV-a5af3b4868d76aff",
-    "idea_version_started_at": "2026-09-20T21:27:13Z",
-    "ticker": "LEN",
-    "company": "Lennar",
+    "idea_id": "IDEA-fbaf750de821",
+    "idea_version": "IDEAV-f04a157d726ac9f8",
+    "idea_version_started_at": "2026-10-18T04:18:08Z",
+    "ticker": "STLA",
+    "company": "Stellantis",
     "exchange": "NYSE",
     "ticker_verified": true,
     "listing_verified": true,
@@ -15,15 +15,15 @@
     "listing_verification_source": "yahoo_symbol_directory",
     "direction": "short",
     "pair_with": null,
-    "reason": "Lennar has cut its home delivery forecast as aggressive buyer incentives and price concessions fail to offset affordability headwinds, squeezing gross margins.",
-    "why_now": "The guidance cut was just reported on September 20, 2026, which will force analysts to downwardly revise near-term consensus EPS estimates.",
-    "conviction": 70,
+    "reason": "The initiation of a strike mandate vote introduces significant operational risk and potential production disruption, which would negatively impact quarterly cash flow and margins.",
+    "why_now": "The vote began on 2026-10-17 and will last for two days, creating a window of high uncertainty.",
+    "conviction": 60,
     "conviction_basis": "pre_edge_proxy",
-    "trade_score": 65,
+    "trade_score": 61,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 19,
+      "impact": 15,
       "specificity": 15,
       "timing": 10,
       "expression": 7,
@@ -51,26 +51,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-4e75a447e37a"
+      "EVT-ae129a3e02be"
     ],
-    "primary_source_event_id": "EVT-4e75a447e37a",
+    "primary_source_event_id": "EVT-ae129a3e02be",
     "source_headlines": [
-      "Lennar (LEN) Cuts Delivery Forecast. Can Construction Savings Offset Heavy Incentives?"
+      "Stellantis workers begin two-day vote on strike mandate"
     ],
-    "source_headline": "Lennar (LEN) Cuts Delivery Forecast. Can Construction Savings Offset Heavy Incentives?",
-    "source_url": "https://finance.yahoo.com/real-estate/articles/lennar-len-cuts-delivery-forecast-204510657.html",
-    "source_name": "Yahoo Finance",
-    "materiality_max": 100,
-    "newest_source_at": "2026-09-20T20:45:10Z",
+    "source_headline": "Stellantis workers begin two-day vote on strike mandate",
+    "source_url": "https://www.theglobeandmail.com/business/article-stellantis-workers-begin-two-day-vote-on-strike-mandate/",
+    "source_name": "The Globe and Mail",
+    "materiality_max": 83,
+    "newest_source_at": "2026-10-17T15:48:45Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-20T21:27:13Z",
-    "updated_at": "2026-09-20T21:27:13Z",
-    "decay_at": "2026-09-22T08:45:10Z",
+    "surfaced_at": "2026-10-18T04:18:08Z",
+    "updated_at": "2026-10-18T04:18:08Z",
+    "decay_at": "2026-10-19T03:48:45Z",
     "status": "live",
     "promoted_signal_id": null
   }
