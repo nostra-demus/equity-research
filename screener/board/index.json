@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T01:56:12Z",
+  "generated_at": "2026-10-20T02:07:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-069",
@@ -1238,6 +1238,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261020-070",
+      "headline": "PLS: Change in substantial holding",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PLS?key=2924-03150183-6A1350016",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T08:11:37Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "A change in substantial holding indicates a shift in institutional ownership for Pilbara Minerals.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "A change in substantial holding indicates a shift in institutional ownership for Pilbara Minerals.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pilbara Minerals",
+          "ticker": "PLS",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261020-006",
       "headline": "EB ENVIRONMENT (00257): VOLUNTARY ANNOUNCEMENT IN RESPECT OF THE COMPLETION OF ISSUANCE OF THE 2026 MEDIUM-TERM NOTES (SERIES 3) AND THE UNDERWRITING AGREEMENT",
       "headline_en": null,
@@ -1919,49 +1968,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-019",
-      "headline": "US allows dark-fleet oil tankers to shed sanctions amid bid to boost oil supply",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/us-allows-dark-fleet-oil-tankers-shed-sanctions-amid-bid-boost-oil-supply",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-20T00:24:55Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "The US easing sanctions on dark-fleet oil tankers could increase global oil supply, impacting energy prices.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "The US easing sanctions on dark-fleet oil tankers could increase global oil supply, impacting energy prices.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -231295,9 +231301,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 938407,
-    "news_picked_today": 81,
-    "news_dropped_today": 783
+    "news_seen_today": 1026848,
+    "news_picked_today": 82,
+    "news_dropped_today": 878
   },
   "book_momentum": {
     "live_count": 8,
