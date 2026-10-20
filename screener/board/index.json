@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T00:35:03Z",
+  "generated_at": "2026-10-20T00:40:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-021",
@@ -95,6 +95,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-027",
+      "headline": "LPM: Lei Scoping Study Presentation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LPM?key=2924-03150500-2A1705048",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T00:30:25Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "LPM released a scoping study presentation for its Lei project, which is a material update on project development and potential future capex.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "LPM released a scoping study presentation for its Lei project, which is a material update on project development and potential future capex.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LPM",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -230458,7 +230507,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3832,
+    "inbox_unconsumed": 3833,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -230467,9 +230516,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 274615,
-    "news_picked_today": 27,
-    "news_dropped_today": 213
+    "news_seen_today": 308866,
+    "news_picked_today": 28,
+    "news_dropped_today": 236
   },
   "book_momentum": {
     "live_count": 8,
