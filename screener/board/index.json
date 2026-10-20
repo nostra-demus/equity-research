@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T23:22:41Z",
+  "generated_at": "2026-10-20T23:26:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-422",
@@ -1282,6 +1282,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261020-431",
+      "headline": "Musk calls Tesla-SpaceX merger a ‘good idea’ as SpaceX posts first profit as a public company",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/musk-calls-tesla-spacex-merger-a-good-idea-as-spacex-posts-first-profit-as-a-public-company",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T23:15:00Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "SpaceX posted its first profit as a public company and Musk signaled interest in a Tesla merger.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SpaceX posted its first profit as a public company and Musk signaled interest in a Tesla merger.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261020-428",
       "headline": "SpaceX and Tesla boards form special committees to review merger",
       "headline_en": null,
@@ -1337,55 +1392,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261020-424",
-      "headline": "Elon Musk says Tesla-SpaceX merger being considered",
+      "inbox_id": "INB-20261020-432",
+      "headline": "NextDC slashes earnings forecast triggering 40pc share price plunge",
       "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/cmlyl09xjke4o?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — Business",
+      "url": "https://www.afr.com/companies/infrastructure/nextdc-slashes-earnings-forecasts-after-melbourne-power-delays-20261021-p616u7?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
       "input_nature": "news_headline",
-      "found_at": "2026-10-20T22:43:56Z",
+      "found_at": "2026-10-20T22:33:57Z",
       "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Elon Musk stated a potential merger between Tesla and SpaceX is being considered.",
+      "prelim_note": "NextDC slashed its earnings forecast, resulting in a 40% share price decline.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Elon Musk stated a potential merger between Tesla and SpaceX is being considered.",
-      "region": "US",
+      "triage_reason": "NextDC slashed its earnings forecast, resulting in a 40% share price decline.",
+      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 85,
       "rank_factors": {
         "materiality": 85,
         "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
+        "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
       },
       "event_types": [
-        "mna"
+        "guidance_change"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Tesla",
-          "ticker": "TSLA",
-          "listing_country": "US"
-        },
-        {
-          "name": "SpaceX",
+          "name": "NextDC",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": "AU"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1936,60 +1986,6 @@
           "name": "Super Micro Computer",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-353",
-      "headline": "EQT in advanced talks to buy testing firm Qiagen, Bloomberg News reports",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/eqt-advanced-talks-buy-testing-firm-qiagen-bloomberg-news-reports-2026-10-20/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-20T18:55:19Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "EQT is in advanced talks to acquire Qiagen, a significant M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "EQT is in advanced talks to acquire Qiagen, a significant M&A event.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EQT",
-          "ticker": null,
-          "listing_country": "SE"
-        },
-        {
-          "name": "Qiagen",
-          "ticker": null,
-          "listing_country": "DE"
         }
       ],
       "size_bucket": "large",
@@ -231947,9 +231943,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11407541,
-    "news_picked_today": 1032,
-    "news_dropped_today": 9696
+    "news_seen_today": 11453834,
+    "news_picked_today": 1044,
+    "news_dropped_today": 9708
   },
   "book_momentum": {
     "live_count": 8,
