@@ -32,7 +32,9 @@ export function FinvizCompanyData({ ticker, company }: { ticker: string; company
         {FINVIZ_VIEWS.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}
       </select></label>
       {(error || read?.error) && <p role="alert">{error || read?.error}</p>}
-      {!snapshot ? <p role="status">{!read && !error ? 'Loading saved data…' : read?.refreshing ? 'Collecting this free view…' : 'This view has not been collected yet.'}</p> : <>
+      {!snapshot ? <p role="status">{error || read?.error ? 'Saved data unavailable.' : !read ? 'Loading saved data…'
+        : !read.rows.length ? 'Company absent from the current universe.'
+          : read.refreshing ? 'Collection in progress…' : 'This view has not been collected yet.'}</p> : <>
         <p className="model-dialog__meta">Retrieved {new Date(snapshot.retrieved_at).toLocaleString()}{Date.now() - Date.parse(snapshot.retrieved_at) >= FINVIZ_DATA_REFRESH_MS ? ' · refresh due' : ''}<br />Third-party data · unverified · quotes delayed</p>
         <dl className="model-dialog__fields">{fields.map(([key, value]) => {
           const field = finvizField(key)

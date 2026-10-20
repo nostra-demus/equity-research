@@ -39,10 +39,12 @@ The signal engine's evidence requirements and green-count ranking are unchanged.
   a read, the detail lane yields after its bounded in-flight request. Reopening resumes from the cache.
 - One request at a time, at least two seconds apart; no paid fallback, proxy, challenge bypass,
   external search/LLM credits or analysis run. A 403/429 stops both request lanes for 30 minutes.
+  The small atomic source-pause record survives restarts, including a restriction on first use.
 - Each detail batch must match every requested ticker **and company name** before publication.
   Partial/mismatched/failed batches retain the last successful view and its original timestamp.
   Complete price sweeps are saved atomically; detail progress is saved at least once per minute
   during collection and when the lane yields. A restart resumes from validated per-view snapshots.
+  Shutdown waits for the collector to settle; a late response cannot overwrite its replacement.
 
 [Finviz's FAQ](https://finviz.com/help/faq) distinguishes delayed free quotes from Elite real-time
 quotes and says fundamentals recalculate hourly. Acquisition timing does not remove that delay.

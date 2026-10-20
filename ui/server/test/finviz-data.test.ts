@@ -99,7 +99,21 @@ try {
   const blocked = calls.length
   await resumed.read(); await resumed.settled()
   assert.equal(calls.length, blocked, 'a blocked detail view also pauses price requests; no workaround view')
-  resumed.close()
+  await resumed.close()
+  const stillBlocked = createUniverseModel(file, { now: () => time, wait: async () => {}, fetchPage })
+  const restoredPause = await stillBlocked.read(); await stillBlocked.settled()
+  assert.equal(calls.length, blocked, 'restarting cannot bypass a persisted source restriction')
+  assert.match(restoredPause.error!, /429/)
+  await stillBlocked.close()
+
+  const emptyFile = path.join(dir, 'first-load.json')
+  let coldCalls = 0
+  const coldDeps = { now: () => time, wait: async () => {}, fetchPage: async () => { coldCalls++; throw new Error('HTTP 403') } }
+  const cold = createUniverseModel(emptyFile, coldDeps)
+  await cold.read(); await cold.settled(); await cold.close()
+  const coldRestart = createUniverseModel(emptyFile, coldDeps)
+  await coldRestart.read(); await coldRestart.settled(); await coldRestart.close()
+  assert.equal(coldCalls, 1, 'a first-load restriction survives restart even without a complete grid')
 
   time = Date.parse(read.next_refresh_at!)
   failView = ''; wrongCompany = true
@@ -117,6 +131,47 @@ try {
   const complete: ModelRead = { schema_version: MODEL_SCHEMA, source_url: UNIVERSE_URL, rows: [row], total: 1, complete: true, refreshing: false, fetched: 1,
     started_at: new Date().toISOString(), completed_at: new Date().toISOString(), next_refresh_at: null, stale: false, error: null, events: null }
   await fs.writeFile(file, JSON.stringify(complete))
+
+  // A request that finishes across the quote deadline cannot bypass the inter-request gap.
+  const handoffFile = path.join(dir, 'handoff.json')
+  const handoffRow = structuredClone(row)
+  handoffRow.finviz.technical.retrieved_at = new Date(at - FINVIZ_DATA_REFRESH_MS).toISOString()
+  await fs.writeFile(handoffFile, JSON.stringify({ ...complete, rows: [handoffRow], completed_at: stamp }))
+  let handoffTime = at + MODEL_REFRESH_MS - 2100
+  const starts: number[] = []
+  const handoff = createUniverseModel(handoffFile, { now: () => handoffTime, wait: async (ms) => { handoffTime += ms }, fetchPage: async (url) => {
+    starts.push(handoffTime)
+    if (new URL(url).searchParams.get('v') === '351') handoffTime += 200
+    return html(page(url))
+  } })
+  await handoff.read(); await handoff.settled()
+  await handoff.read(); await handoff.settled()
+  assert.ok(starts.length > 1)
+  assert.ok(starts.slice(1).every((start, i) => start - starts[i] >= 2000), 'all lane handoffs preserve request pacing')
+  await handoff.close()
+
+  const closingFile = path.join(dir, 'closing.json')
+  const closingRow = structuredClone(row)
+  delete closingRow.finviz.technical
+  await fs.writeFile(closingFile, JSON.stringify({ ...complete, rows: [closingRow] }))
+  let release!: (html: string) => void
+  let requested!: () => void
+  const inFlight = new Promise<void>((resolve) => { requested = resolve })
+  const closing = createUniverseModel(closingFile, { now: () => at, wait: async () => {}, fetchPage: async () => {
+    requested(); return new Promise<string>((resolve) => { release = resolve })
+  } })
+  await closing.read(); await inFlight
+  let stopped = false
+  const stop = closing.close().then(() => { stopped = true })
+  await new Promise(setImmediate)
+  assert.equal(stopped, false, 'shutdown waits for the single writer to settle')
+  release(html(page(finvizPageUrl(0, ['CO'], 'technical'))))
+  await stop
+  assert.equal(JSON.parse(await fs.readFile(closingFile, 'utf8')).rows[0].finviz.technical, undefined, 'a response arriving after close is discarded before publication')
+  await fs.writeFile(closingFile, JSON.stringify({ ...complete, rows: [{ ...closingRow, price: 99 }] }))
+  await closing.settled()
+  assert.equal(JSON.parse(await fs.readFile(closingFile, 'utf8')).rows[0].price, 99, 'an old collector cannot overwrite its replacement after shutdown settles')
+
   const app = Fastify()
   registerUniverseModel(app, dir, dir, '')
   try {

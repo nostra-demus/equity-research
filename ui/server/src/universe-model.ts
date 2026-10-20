@@ -14,6 +14,15 @@ const MAX_ROWS = 10_000
 const MAX_HTML_BYTES = 2_000_000
 const ERROR_BACKOFF_MS = 30 * 60_000
 
+async function writeJson(file: string, value: unknown) {
+  const tmp = `${file}.${randomUUID()}.tmp`
+  try {
+    await fs.mkdir(path.dirname(file), { recursive: true })
+    await fs.writeFile(tmp, JSON.stringify(value))
+    await fs.rename(tmp, file)
+  } finally { await fs.rm(tmp, { force: true }).catch(() => {}) }
+}
+
 export function finvizPageUrl(firstRow: number, tickers?: string[], view: FinvizViewId = 'overview'): string {
   const url = new URL(UNIVERSE_URL)
   url.searchParams.delete('preset') // Account-local preset IDs do not authenticate a public screen.
@@ -139,20 +148,30 @@ export function createUniverseModel(file: string, deps: {
         nextAt = Date.parse(value.completed_at!) + MODEL_REFRESH_MS
       }
     } catch { /* First use or invalid cache: fetch anew, never manufacture rows. */ }
+    try {
+      const pause = JSON.parse(await fs.readFile(`${file}.source-pause.json`, 'utf8'))
+      if (typeof pause.until === 'string' && Date.parse(pause.until) > now() && typeof pause.reason === 'string') {
+        nextAt = Math.max(nextAt, Date.parse(pause.until)); detailNextAt = nextAt
+        error = pause.reason; detailError = pause.reason
+      }
+    } catch { /* No saved provider restriction. */ }
   })()
+  const pauseSource = async (reason: string) => {
+    nextAt = Math.max(nextAt, now() + ERROR_BACKOFF_MS)
+    detailNextAt = nextAt
+    await writeJson(`${file}.source-pause.json`, { until: new Date(nextAt).toISOString(), reason })
+  }
   const persist = async (value: ModelRead) => {
     if (!isModelRead(value) || !value.complete) throw new Error('Finviz refresh did not cover the complete universe.')
-    const tmp = `${file}.${randomUUID()}.tmp`
-    try {
-      await fs.mkdir(path.dirname(file), { recursive: true })
-      await fs.writeFile(tmp, JSON.stringify(value))
-      await fs.rename(tmp, file)
-    } finally { await fs.rm(tmp, { force: true }).catch(() => {}) }
+    await writeJson(file, value)
   }
   const sweep = async () => {
     quoteRefreshing = true
     progress = []; fetched = 0; total = null; error = null; startedAt = new Date(now()).toISOString()
     try {
+      // The first request also observes the gap after a detail→price handoff or a resumed reader.
+      await wait(PAGE_GAP_MS)
+      if (closed) return
       const seedHtml = await fetchPage(finvizUniverseUrl(0))
       const seed = parseFinvizPage(seedHtml, 0, new Date(now()).toISOString())
       const sectors = parseFinvizSectors(seedHtml)
@@ -236,21 +255,25 @@ export function createUniverseModel(file: string, deps: {
       // Persist only a complete validated sweep; failed refreshes cannot erase the last good grid.
       await persist(complete)
       saved = complete
-    } catch (e) { error = e instanceof Error ? e.message : 'Finviz refresh failed.' }
-    finally { quoteRefreshing = false; nextAt = now() + (error ? ERROR_BACKOFF_MS : MODEL_REFRESH_MS) }
+    } catch (e) {
+      error = e instanceof Error ? e.message : 'Finviz refresh failed.'
+      if (/403|429|restricted/i.test(error)) {
+        try { await pauseSource(error) } catch { error += ' Provider cooldown could not be saved.' }
+      }
+    } finally { quoteRefreshing = false; nextAt = Math.max(nextAt, now() + (error ? ERROR_BACKOFF_MS : MODEL_REFRESH_MS)) }
   }
   const nextDetail = () => {
     // Missing views first, then oldest retrieval. A restart resumes from persisted per-company data;
     // a new member or renamed issuer never inherits another company's metrics or news.
-    let selected: { view: typeof FINVIZ_DETAIL_VIEWS[number]; row: ModelRow; time: number } | null = null
+    let selected: { view: typeof FINVIZ_DETAIL_VIEWS[number]; time: number } | null = null
     // The 10-company News and TA views cannot share a 20-company price request. Collect their
     // missing batches first; the regular quote lane will fill most standard tables along the way.
-    const views = [...FINVIZ_DETAIL_VIEWS].sort((a, b) => a.size - b.size)
+    const views = [...FINVIZ_DETAIL_VIEWS].sort((a, b) => Number(b.id === 'news') - Number(a.id === 'news') || a.size - b.size)
     for (const row of saved?.rows ?? []) for (const view of views) {
       const stamp = row.finviz?.[view.id]?.retrieved_at
       const time = stamp ? Date.parse(stamp) : 0
       if (time && now() - time < FINVIZ_DATA_REFRESH_MS) continue
-      if (!selected || time < selected.time || time === selected.time && view.size < selected.view.size) selected = { view, row, time }
+      if (!selected || time < selected.time || time === selected.time && view.size < selected.view.size) selected = { view, time }
     }
     if (!selected) return null
     const { view } = selected
@@ -276,6 +299,7 @@ export function createUniverseModel(file: string, deps: {
         if (closed || now() >= nextAt || now() - lastReadAt >= 45_000) break
         const tickers = task.rows.map((row) => row.ticker)
         const page = parseFinvizPage(await fetchPage(finvizPageUrl(0, tickers, task.view.id)), 0, new Date(now()).toISOString(), tickers)
+        if (closed) break
         const quotes = new Map(page.rows.map((row) => [row.ticker, row]))
         if (quotes.size !== tickers.length || task.rows.some((row) => quotes.get(row.ticker)?.company !== row.company || !quotes.get(row.ticker)?.finviz?.[task.view.id])) {
           throw new Error('Finviz data batch did not match every requested company. Last successful data retained.')
@@ -289,7 +313,9 @@ export function createUniverseModel(file: string, deps: {
       detailError = e instanceof Error ? e.message : 'Finviz additional data unavailable.'
       detailNextAt = now() + ERROR_BACKOFF_MS
       // A provider restriction stops both lanes. Do not continue requesting other views around it.
-      if (/403|429|restricted/i.test(detailError)) nextAt = Math.max(nextAt, detailNextAt)
+      if (/403|429|restricted/i.test(detailError)) {
+        try { await pauseSource(detailError) } catch { detailError += ' Provider cooldown could not be saved.' }
+      }
     } finally {
       try { if (dirty && saved) await persist(saved) }
       catch { detailError = 'Finviz data could not be saved. Last disk snapshot retained.'; detailNextAt = now() + ERROR_BACKOFF_MS }
@@ -311,7 +337,7 @@ export function createUniverseModel(file: string, deps: {
           expected: (saved?.rows.length ?? 0) * FINVIZ_VIEWS.length, refreshing: enriching, error: detailError } }
     },
     async settled() { await pending },
-    close() { closed = true },
+    async close() { closed = true; await pending },
   }
 }
 
@@ -334,5 +360,5 @@ export function registerUniverseModel(app: FastifyInstance, stateDir: string, ro
       rows: read.rows.filter((row) => (!ticker || row.ticker === ticker) && (!company || row.company === company))
         .map((row) => ({ ticker: row.ticker, company: row.company, views: row.finviz ?? {} })) }
   })
-  app.addHook('onClose', async () => { model.close() })
+  app.addHook('onClose', async () => { await model.close() })
 }
