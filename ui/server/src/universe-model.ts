@@ -5,7 +5,7 @@ import type { FastifyInstance } from 'fastify'
 import { isModelRead, MODEL_REFRESH_MS, MODEL_SCHEMA, UNIVERSE_URL, type ModelRead, type ModelRow } from '../../shared/universe-model'
 import { createUniverseEventsReader } from './universe-events'
 import { readUniverseAssessments, registerUniverseEvidence } from './universe-evidence'
-import { FINVIZ_VIEWS, FINVIZ_DETAIL_VIEWS, FINVIZ_PRICE_VIEWS, FINVIZ_DATA_REFRESH_MS, isFinvizData, type FinvizViewId, type FinvizSnapshot, type FinvizDataRead } from '../../shared/finviz-data'
+import { FINVIZ_VIEWS, FINVIZ_DETAIL_VIEWS, FINVIZ_PRICE_VIEWS, FINVIZ_DATA_REFRESH_MS, finvizField, isFinvizData, type FinvizViewId, type FinvizSnapshot, type FinvizDataRead } from '../../shared/finviz-data'
 
 // Standard public screener views, never an Elite export/API. No credentials, paid providers,
 // browser challenges, proxies or per-company quote fan-out. One paced collector shared by all readers.
@@ -358,9 +358,12 @@ export function registerUniverseModel(app: FastifyInstance, stateDir: string, ro
     reply.header('Cache-Control', 'no-store')
     const { ticker, company } = req.query
     const read = await model.read()
+    const rows = read.rows.filter((row) => (!ticker || row.ticker === ticker) && (!company || row.company === company))
+      .map((row) => ({ ticker: row.ticker, company: row.company, views: row.finviz ?? {} }))
+    const keys = new Set(rows.flatMap((row) => Object.values(row.views).flatMap((view) => view
+      ? [...Object.keys(view.text), ...Object.keys(view.numbers), ...(view.range52w ? ['range52w.low', 'range52w.high'] : [])] : [])))
     return { source_url: UNIVERSE_URL, refreshing: read.refreshing || !!read.data?.refreshing, error: read.error || read.data?.error || null,
-      rows: read.rows.filter((row) => (!ticker || row.ticker === ticker) && (!company || row.company === company))
-        .map((row) => ({ ticker: row.ticker, company: row.company, views: row.finviz ?? {} })) }
+      fields: Object.fromEntries([...keys].map((key) => [key, finvizField(key)])), rows }
   })
   app.addHook('onClose', async () => { await model.close() })
 }

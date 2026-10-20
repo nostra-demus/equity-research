@@ -56,7 +56,8 @@ quotes and says fundamentals recalculate hourly. Acquisition timing does not rem
 - `GET /api/screener/universe-model/data?ticker=AAPL&company=Apple%20Inc`: exact-company data for the popup.
 - `GET /api/screener/universe-model/data`: all captured company/view snapshots for a later engine consumer.
 
-The data endpoint returns `source_url`, `refreshing`, `error`, and `rows` with `ticker`, `company`,
+The data endpoint returns `source_url`, `refreshing`, `error`, a `fields` dictionary of labels and
+raw units for engine/export consumers, and `rows` with `ticker`, `company`,
 and `views`. Each view has its own `source_url`, `retrieved_at`, `text`, `numbers`, and optional
 `range52w` / `news`. Empty or older views are explicit; the endpoint never claims a coherent
 point-in-time market snapshot. Reading it may start/resume the same free collector, never analysis.

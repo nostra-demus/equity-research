@@ -27,12 +27,15 @@ export interface FinvizDataRead {
   source_url: string
   refreshing: boolean
   error: string | null
+  fields?: Record<string, { label: string; unit: string }> // Unit catalog for engine/export consumers.
   rows: { ticker: string; company: string; views: FinvizData }[]
 }
 
 // Units verified against the ordinary free view and Finviz's screener help. Unknown provider fields
 // are retained as raw data, with their units explicitly unverified instead of guessed.
 const FIELDS: Record<string, [string, string]> = {
+  ticker: ['Ticker', ''], company: ['Company', ''],
+  'range52w.low': ['52-week low', 'USD'], 'range52w.high': ['52-week high', 'USD'],
   marketCap: ['Market cap', 'USD millions'],
   PE: ['P/E · trailing', '×'], forwardPE: ['Forward P/E · estimate', '×'], PEG: ['PEG · estimate', '×'],
   PS: ['Price / sales', '×'], PB: ['Price / book', '×'], PC: ['Price / cash', '×'], PFCF: ['Price / FCF', '×'],
@@ -87,5 +90,7 @@ export function isFinvizData(value: unknown, ticker: string, company: string): v
 export function isFinvizDataRead(value: unknown): value is FinvizDataRead {
   const r = value as FinvizDataRead
   return !!r && typeof r.source_url === 'string' && typeof r.refreshing === 'boolean' && (r.error === null || typeof r.error === 'string')
+    && (r.fields === undefined || !!r.fields && typeof r.fields === 'object' && !Array.isArray(r.fields)
+      && Object.entries(r.fields).every(([key, field]) => field && field.label === finvizField(key).label && field.unit === finvizField(key).unit))
     && Array.isArray(r.rows) && r.rows.every((row) => row && typeof row.ticker === 'string' && typeof row.company === 'string' && isFinvizData(row.views, row.ticker, row.company))
 }
