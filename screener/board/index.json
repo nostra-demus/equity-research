@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T05:24:05Z",
+  "generated_at": "2026-10-20T05:28:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-098",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-122",
+      "headline": "Tradeweb Markets To Buy Trumid Holdings For $1.97 Bln",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/tradeweb-markets-buy-trumid-holdings-197-bln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T04:48:32Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Tradeweb Markets announced the acquisition of Trumid Holdings for $1.97 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tradeweb Markets announced the acquisition of Trumid Holdings for $1.97 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tradeweb Markets",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1333,6 +1382,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261020-124",
+      "headline": "LS Eco Energy Surpasses Full-Year 2025 Earnings in Just Nine Months",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279202",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T07:19:54Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "LS Eco Energy reported that its earnings for the first nine months of 2025 have already surpassed its full-year 2025 performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "LS Eco Energy reported that its earnings for the first nine months of 2025 have already surpassed its full-year 2025 performance.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LS Eco Energy",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261020-090",
       "headline": "4-yr prison term finalized for battery maker Aricell CEO over deadly plant fire",
       "headline_en": null,
@@ -1872,110 +1970,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-112",
-      "headline": "Mynt, Philippine digital wallet GCash parent, goes public in Manila",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/markets/ipo/mynt-philippine-digital-wallet-gcash-parent-goes-public-in-manila",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-20T04:37:21Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Mynt, the parent of Philippine digital wallet GCash, going public in Manila is a significant IPO event for the company and the market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Mynt, the parent of Philippine digital wallet GCash, going public in Manila is a significant IPO event for the company and the market.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mynt",
-          "ticker": null,
-          "listing_country": "PH"
-        },
-        {
-          "name": "GCash",
-          "ticker": null,
-          "listing_country": "PH"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-064",
-      "headline": "Activist Starboard targets Honeywell spin-off Solstice after failed megadeal",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/f8ea12f4-a55d-4f46-a409-5cffd093ab6a?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-20T01:00:07Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Activist investor Starboard Value is pushing Honeywell to spin off its Solstice business.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Activist investor Starboard Value is pushing Honeywell to spin off its Solstice business.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "ownership_activist",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Honeywell International",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -231526,9 +231520,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2353237,
-    "news_picked_today": 173,
-    "news_dropped_today": 2491
+    "news_seen_today": 2383843,
+    "news_picked_today": 176,
+    "news_dropped_today": 2536
   },
   "book_momentum": {
     "live_count": 8,
