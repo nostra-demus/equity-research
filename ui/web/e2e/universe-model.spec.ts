@@ -4,8 +4,11 @@ import { MODEL_SCHEMA, UNIVERSE_URL, type ModelEventRead, type ModelRead, type M
 test('Universe Model green-count ranking, search, pagination, failure recovery and themes', async ({ page, context }, testInfo) => {
   await context.addInitScript(() => localStorage.setItem('nsw.universeEventModel.weights.v1', JSON.stringify({ contracts: 99, results: -5, guidance: -5 })))
   const now = new Date().toISOString()
-  const event = { id: 'EVT-1', source_event_id: 'EVT-1', headline: 'Material contract announcement', url: 'https://example.test/filing', source: 'Issuer filing', reported_at: now, source_tier: 'primary_filing', direction: 'positive' as const }
+  const event = { id: 'EVT-1', source_event_id: 'EVT-1', headline: 'Material contract announcement', url: 'https://example.test/filing', source: 'Issuer filing', reported_at: now, source_tier: 'primary_filing', direction: 'positive' as const,
+    assessment: { read_at: now, story: ['The company won a material contract.'], company_role: 'subject' as const, effects: [{ side: 'beneficiary' as const, mechanism: 'The contract adds recurring revenue.', magnitude: null, horizon: 'Next two quarters' }], event_assessment: null, watch_item: null, provenance: { kind: 'original' as const, label: null, url: null } } }
+  let evidenceRequests = 0
   await context.route('**/api/screener/universe-model/evidence*', (route) => {
+    evidenceRequests++
     const q = new URL(route.request().url()).searchParams
     return route.fulfill({ json: { event_id: q.get('eventId'), ticker: q.get('ticker'), company: q.get('company'), analysis: null } })
   })
@@ -34,9 +37,11 @@ test('Universe Model green-count ranking, search, pagination, failure recovery a
   await expect(page.getByRole('columnheader', { name: 'Total ↓', exact: true })).toBeVisible()
   await expect(page.locator('tbody tr').first()).toContainText('Company 104')
   await expect(page.locator('tbody tr').first().locator('td').last()).toHaveText('2Green ticks')
-  await expect(page.getByLabel('Legal / regulatory: No matching report').first()).toBeVisible()
-  await page.getByLabel('Results: Present', { exact: true }).click()
+  await expect(page.getByLabel('Legal / regulatory: No favorable signal').first()).toBeVisible()
+  await page.getByLabel('Results: Favorable impact', { exact: true }).click()
   await expect(page.getByText('Material contract announcement').first()).toBeVisible()
+  await expect(page.getByText('The contract adds recurring revenue.', { exact: true })).toBeVisible()
+  expect(evidenceRequests).toBe(0) // The popup explains the exact assessment that supplied the tick.
   await page.getByRole('button', { name: 'Close signal details' }).click()
   await page.getByText('Signal rules', { exact: true }).click()
   await expect(page.getByLabel('Contracts / JVs weight', { exact: true })).toHaveCount(0)
@@ -132,7 +137,7 @@ test('Company and signal popups explain exact events, company impact, missingnes
   await expect(page.getByRole('dialog')).toHaveCount(0)
   await expect(company).toBeFocused()
 
-  const deal = page.locator('tbody tr').filter({ hasText: 'Orion Corp' }).getByRole('button', { name: 'Deals / restructuring: Present', exact: true })
+  const deal = page.locator('tbody tr').filter({ hasText: 'Orion Corp' }).getByRole('button', { name: 'Deals / restructuring: Unassessed', exact: true })
   await deal.click()
   dialog = page.getByRole('dialog')
   await expect(dialog.getByText('Potential risk · inferred')).toBeVisible()
@@ -151,11 +156,11 @@ test('Company and signal popups explain exact events, company impact, missingnes
   await expect(deal).toBeFocused()
 
   const before = evidenceRequests
-  await page.locator('tbody tr').filter({ hasText: 'Empty Corp' }).getByRole('button', { name: 'Deals / restructuring: No matching report', exact: true }).click()
+  await page.locator('tbody tr').filter({ hasText: 'Empty Corp' }).getByRole('button', { name: 'Deals / restructuring: No favorable signal', exact: true }).click()
   await expect(page.getByRole('dialog').getByText(/An event may still have occurred/)).toBeVisible()
   await page.keyboard.press('Escape')
-  await page.locator('tbody tr').filter({ hasText: 'Uncertain Corp' }).getByRole('button', { name: 'Deals / restructuring: Unavailable', exact: true }).click()
-  await expect(page.getByRole('dialog').getByText('Coverage or company match unavailable. Unscored.')).toBeVisible()
+  await page.locator('tbody tr').filter({ hasText: 'Uncertain Corp' }).getByRole('button', { name: 'Deals / restructuring: Unassessed', exact: true }).click()
+  await expect(page.getByRole('dialog').getByText('Company impact or coverage unavailable. Unscored.')).toBeVisible()
   await page.keyboard.press('Escape')
   expect(evidenceRequests).toBe(before)
 

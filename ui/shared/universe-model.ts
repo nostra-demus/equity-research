@@ -29,6 +29,7 @@ export interface ModelEvent {
   reported_at: string
   direction: 'positive' | 'negative' | 'mixed' | 'neutral' | 'unknown'
   source_tier: string
+  assessment?: ModelSavedAnalysis | null // Exact company/article read; absent or null never earns a tick.
 }
 export interface ModelSavedAnalysis {
   read_at: string
@@ -47,10 +48,13 @@ export interface ModelEventRead {
 }
 export function isModelEventRead(value: unknown): value is ModelEventRead {
   const r = value as ModelEventRead | null
-  const text = (v: unknown) => v === null || typeof v === 'string'
   if (!r || typeof r.event_id !== 'string' || typeof r.ticker !== 'string' || typeof r.company !== 'string') return false
-  const a = r.analysis
-  return a === null || !!a && typeof a.read_at === 'string' && Number.isFinite(Date.parse(a.read_at))
+  return r.analysis === null || isModelSavedAnalysis(r.analysis)
+}
+export function isModelSavedAnalysis(value: unknown): value is ModelSavedAnalysis {
+  const a = value as ModelSavedAnalysis | null
+  const text = (v: unknown) => v === null || typeof v === 'string'
+  return !!a && typeof a.read_at === 'string' && Number.isFinite(Date.parse(a.read_at))
     && Array.isArray(a.story) && a.story.length <= 4 && a.story.every((s) => typeof s === 'string')
     && (a.company_role === null || ['subject', 'acquirer', 'target', 'forecaster', 'mentioned'].includes(a.company_role))
     && text(a.event_assessment) && text(a.watch_item)
@@ -93,9 +97,20 @@ export interface ModelRead {
   error: string | null
   events: EventCoverage | null
 }
-// Missing is distinct from failing. A missing observation never earns points or becomes a red cross.
+// Benefit/risk must belong to this issuer, not the headline. Mixed effects are not a favorable verdict.
+export function companyImpact(analysis: ModelSavedAnalysis | null | undefined): boolean | null {
+  if (!analysis?.effects.length) return null
+  return analysis.effects.some((effect) => effect.side === 'exposed') ? false
+    : analysis.effects.some((effect) => effect.side === 'beneficiary') ? true : null
+}
+// Every retained report must support the benefit; a risk cannot be averaged away by another report.
 export function signalResult(row: ModelRow, signal: ModelSignal): boolean | null {
-  return row.signals === null ? null : !!row.signals[signal.id]?.length
+  if (row.signals === null) return null
+  const reports = row.signals[signal.id] || []
+  if (!reports.length) return false
+  const results = reports.map((event) => companyImpact(event.assessment))
+  if (results.includes(false)) return false
+  return results.every((result) => result === true) ? true : null
 }
 export function modelTotal(row: ModelRow): number | null {
   return row.signals === null ? null : MODEL_SIGNALS.filter((signal) => signalResult(row, signal) === true).length
@@ -122,7 +137,8 @@ export function isModelRead(value: unknown): value is ModelRead {
             && [event.source_event_id, event.excerpt, event.classification_reason].every((s) => s === undefined || typeof s === 'string')
             && typeof event.url === 'string' && /^https?:\/\//i.test(event.url) && typeof event.source === 'string'
             && typeof event.reported_at === 'string' && Number.isFinite(Date.parse(event.reported_at))
-            && ['positive', 'negative', 'mixed', 'neutral', 'unknown'].includes(event.direction) && typeof event.source_tier === 'string')))))
+            && ['positive', 'negative', 'mixed', 'neutral', 'unknown'].includes(event.direction) && typeof event.source_tier === 'string'
+            && (event.assessment === undefined || event.assessment === null || isModelSavedAnalysis(event.assessment)))))))
     && (r.events === null || (!!r.events && typeof r.events.checked_at === 'string' && Number.isFinite(Date.parse(r.events.checked_at))
       && typeof r.events.from === 'string' && typeof r.events.to === 'string' && Number.isInteger(r.events.archive_days)
       && Number.isInteger(r.events.reports_scanned) && typeof r.events.refreshing === 'boolean'

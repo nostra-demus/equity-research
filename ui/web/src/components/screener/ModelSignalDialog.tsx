@@ -5,26 +5,26 @@ import { api } from '../../lib/api'
 import { roleLabel } from '../../lib/scope'
 
 const date = (value: string) => new Date(value).toLocaleString()
-const status = (result: boolean | null) => result === null ? 'Coverage unavailable' : result ? 'Event found' : 'No matching report'
+const status = (result: boolean | null) => result === null ? 'Impact unassessed' : result ? 'Favorable impact · inferred' : 'No favorable signal'
 const mark = (result: boolean | null) => result === null ? '—' : result ? '✓' : '✕'
 export type ModelSelection = { row: ModelRow; signal: ModelSignal | null }
 
 function EventEvidence({ event, row, signal }: { event: ModelEvent; row: ModelRow; signal: ModelSignal }) {
   const [read, setRead] = useState<ModelEventRead | null>(null)
-  const [loading, setLoading] = useState(!!event.source_event_id)
+  const [loading, setLoading] = useState(event.assessment === undefined && !!event.source_event_id)
   const [error, setError] = useState(false)
   const [attempt, setAttempt] = useState(0)
   useEffect(() => {
     let alive = true
-    if (!event.source_event_id) return
+    if (event.assessment !== undefined || !event.source_event_id) return
     setLoading(true); setError(false)
     void api.universeModelEvidence(event.source_event_id, row.ticker, row.company)
       .then((result) => { if (alive) setRead(result) })
       .catch(() => { if (alive) setError(true) })
       .finally(() => { if (alive) setLoading(false) })
     return () => { alive = false }
-  }, [event.source_event_id, row.ticker, row.company, attempt])
-  const analysis = read?.analysis
+  }, [event.assessment, event.source_event_id, row.ticker, row.company, attempt])
+  const analysis = event.assessment !== undefined ? event.assessment : read?.analysis
   const provenance = analysis?.provenance
   return <article className="model-dialog__event">
     <p className="model-dialog__headline">{event.headline}</p>
@@ -70,8 +70,8 @@ function SignalEvidence({ row, signal }: { row: ModelRow; signal: ModelSignal })
       </select></label>}
       <EventEvidence key={report.source_event_id || report.id} event={report} row={row} signal={signal} />
     </> : <p>{result === null
-      ? 'Coverage or company match unavailable. Unscored.'
-      : 'No qualifying archive match in 90 days. An event may still have occurred.'}</p>}
+      ? 'Company impact or coverage unavailable. Unscored.'
+      : 'No favorable signal in the retained 90-day reports. An event may still have occurred.'}</p>}
   </>
 }
 

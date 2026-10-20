@@ -682,6 +682,17 @@ export function peekCachedEnrichment(stateDir: string, eventId: string): EventEn
   }
 }
 
+/** One read-only cache snapshot for bulk projections; never fetches or starts enrichment. */
+export function peekCachedEnrichments(stateDir: string): Record<string, EventEnrichment> {
+  try {
+    return Object.fromEntries(Object.entries(loadCache(stateDir)).filter(([, hit]) => {
+      try { return hit && isEnrichmentComplete(hit) } catch { return false }
+    }))
+  } catch {
+    return {}
+  }
+}
+
 /** Did this enrichment produce its best obtainable substance? A rich brief, an SEC parse, a filing floor
  *  (the headline IS the disclosure), or an article where retries are exhausted (complete set explicitly). */
 export function isEnrichmentComplete(r: EventEnrichment): boolean {

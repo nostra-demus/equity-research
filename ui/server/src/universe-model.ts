@@ -4,7 +4,7 @@ import { randomUUID } from 'node:crypto'
 import type { FastifyInstance } from 'fastify'
 import { isModelRead, MODEL_REFRESH_MS, MODEL_SCHEMA, UNIVERSE_URL, type ModelRead, type ModelRow } from '../../shared/universe-model'
 import { createUniverseEventsReader } from './universe-events'
-import { registerUniverseEvidence } from './universe-evidence'
+import { readUniverseAssessments, registerUniverseEvidence } from './universe-evidence'
 
 // Public Tickers membership and Overview quotes, never an Elite export/API. No credentials, paid providers,
 // browser challenges, proxies or per-company quote fan-out. One paced sweep shared by all readers.
@@ -230,7 +230,8 @@ export function registerUniverseModel(app: FastifyInstance, stateDir: string, ro
   app.get('/api/screener/universe-model', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (_req, reply) => {
     reply.header('Cache-Control', 'no-store')
     const read = await model.read()
-    return { ...read, ...events(read.rows) }
+    const observed = events(read.rows)
+    return { ...read, ...observed, rows: readUniverseAssessments(stateDir, observed.rows) }
   })
   app.addHook('onClose', async () => { model.close() })
 }
