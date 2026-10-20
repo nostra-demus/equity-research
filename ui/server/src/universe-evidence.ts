@@ -17,6 +17,7 @@ const country = (v: unknown) => typeof v === 'string' ? countryCodes.get(v.trim(
 export function modelSavedAnalysis(hit: EventEnrichment | null, eventId: string, ticker: string, company: string): ModelSavedAnalysis | null {
   try {
     if (!hit || !hit.ok || hit.degraded || !isEnrichmentComplete(hit) || hit.event_id !== eventId || !Number.isFinite(Date.parse(hit.fetched_at))) return null
+    if (hit.corroborated && (!Array.isArray(hit.corroborated.domains) || hit.corroborated.domains.some((domain) => typeof domain !== 'string'))) return null
     const targetTicker = normTicker(ticker); const targetName = coreCompanyName(company)
     const same = (p: { name?: string; ticker?: string | null }) => {
       if (!p || typeof p.ticker !== 'string' || normTicker(p.ticker) !== targetTicker || typeof p.name !== 'string') return false
