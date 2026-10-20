@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T11:09:59Z",
+  "generated_at": "2026-10-20T11:15:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-190",
@@ -484,6 +484,55 @@
         {
           "name": "China Ocean GP",
           "ticker": "08047",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-215",
+      "headline": "SWL TOUR (06157): UPDATE ON THE GLOBAL OFFERING - (1) POSTPONEMENT OF THE GLOBAL OFFERING AND THE LISTING; (2) REFUND OF APPLICATION MONIES; AND (3) NO ISSUE OF SHARE CERTIFICATES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000564.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T09:08:00Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "SWL Tour has postponed its global offering and listing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SWL Tour has postponed its global offering and listing.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SWL Tour",
+          "ticker": "06157",
           "listing_country": "CN"
         }
       ],
@@ -1589,6 +1638,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261020-202",
+      "headline": "NORTH MINING (00433): RESIGNATION OF CHAIRMAN OF THE BOARD, CHIEF EXECUTIVE OFFICER AND EXECUTIVE DIRECTOR, RESIGNATION OF DIRECTOR, CHANGE OF AUTHORISED REPRESENTATIVE, AND VACANCY OF CHIEF EXECUTIVE OFFICER AND CHAIRMAN OF THE NOMINATION COMMITTEE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102001017.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T11:04:00Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "The Chairman, CEO, and an Executive Director have all resigned simultaneously, creating significant leadership instability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "The Chairman, CEO, and an Executive Director have all resigned simultaneously, creating significant leadership instability.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "executive_exit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NORTH MINING",
+          "ticker": "00433",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261020-156",
       "headline": "ORBUSNEICH (06929): Voluntary Announcement - Acquisition of Italian Distributor",
       "headline_en": null,
@@ -1883,104 +1981,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-056",
-      "headline": "HANSOH PHARMA (03692): INSIDE INFORMATION - STRATEGIC COLLABORATION AND LICENSE AGREEMENT WITH ROCHE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1019/2026101900015.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-19T10:07:00Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Hansoh Pharma entered a strategic collaboration and license agreement with Roche, a major pharmaceutical partnership.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Hansoh Pharma entered a strategic collaboration and license agreement with Roche, a major pharmaceutical partnership.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hansoh Pharmaceutical Group",
-          "ticker": "03692",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-105",
-      "headline": "TRANSCENTA-B (06628): VOLUNTARY ANNOUNCEMENT-RECEIPT OF THE FIRST PAYMENT IN RELATION TO THE DISPOSAL OF CDMO ASSETS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000289.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-20T04:18:00Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Transcenta-B received the first payment related to the disposal of its CDMO assets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Transcenta-B received the first payment related to the disposal of its CDMO assets.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Transcenta Holding Ltd",
-          "ticker": "06628",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -232027,9 +232027,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4690134,
-    "news_picked_today": 379,
-    "news_dropped_today": 4949
+    "news_seen_today": 4712522,
+    "news_picked_today": 394,
+    "news_dropped_today": 4982
   },
   "book_momentum": {
     "live_count": 8,
