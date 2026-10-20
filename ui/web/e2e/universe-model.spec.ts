@@ -45,11 +45,13 @@ test('Company Finviz data is compact, on demand, dated, unit-labelled and separa
   await expect(dialog.getByText('Collection in progress…', { exact: true })).toBeVisible()
   offline = true
   await dialog.getByText('Finviz data', { exact: true }).click()
+  await expect(dialog.getByLabel('Finviz data view')).toHaveCount(0)
   await dialog.getByText('Finviz data', { exact: true }).click()
   await expect(dialog.getByText('Saved data unavailable.', { exact: true })).toBeVisible()
   await expect(dialog.getByText('Collection in progress…')).toHaveCount(0)
   offline = false
   await dialog.getByText('Finviz data', { exact: true }).click()
+  await expect(dialog.getByLabel('Finviz data view')).toHaveCount(0)
   await dialog.getByText('Finviz data', { exact: true }).click()
   await expect(dialog.getByText('Collection in progress…', { exact: true })).toBeVisible()
   await dialog.getByLabel('Finviz data view').selectOption('news')
@@ -63,6 +65,7 @@ test('Company Finviz data is compact, on demand, dated, unit-labelled and separa
   expect(box.x).toBeGreaterThanOrEqual(0); expect(box.x + box.width).toBeLessThanOrEqual(390)
   await page.screenshot({ path: testInfo.outputPath('finviz-company-data-mobile.png') })
   await dialog.getByText('Finviz data', { exact: true }).click()
+  await expect(dialog.getByLabel('Finviz data view')).toHaveCount(0)
   wrongCompany = true
   await dialog.getByText('Finviz data', { exact: true }).click()
   await expect(dialog.getByRole('alert')).toContainText('did not match this company')

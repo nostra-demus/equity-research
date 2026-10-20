@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { FINVIZ_VIEWS, FINVIZ_DATA_REFRESH_MS, finvizField, type FinvizDataRead, type FinvizViewId } from '../../../../shared/finviz-data'
 import { api } from '../../lib/api'
 
+const number = (value: number | null) => value === null ? '—' : value.toLocaleString(undefined, { maximumFractionDigits: 4 })
+
 export function FinvizCompanyData({ ticker, company }: { ticker: string; company: string }) {
   const [open, setOpen] = useState(false)
   const [view, setView] = useState<FinvizViewId>('overview')
@@ -38,9 +40,9 @@ export function FinvizCompanyData({ ticker, company }: { ticker: string; company
         <p className="model-dialog__meta">Retrieved {new Date(snapshot.retrieved_at).toLocaleString()}{Date.now() - Date.parse(snapshot.retrieved_at) >= FINVIZ_DATA_REFRESH_MS ? ' · refresh due' : ''}<br />Third-party data · unverified · quotes delayed</p>
         <dl className="model-dialog__fields">{fields.map(([key, value]) => {
           const field = finvizField(key)
-          return <div key={key}><dt>{field.label}</dt><dd>{value === null ? '—' : typeof value === 'number' ? value.toLocaleString(undefined, { maximumFractionDigits: 4 }) : value}{value !== null && field.unit && <small>{field.unit}</small>}</dd></div>
+          return <div key={key}><dt>{field.label}</dt><dd>{typeof value === 'number' || value === null ? number(value) : value}{value !== null && field.unit && <small>{field.unit}</small>}</dd></div>
         })}
-          {snapshot.range52w && <div><dt>52-week range</dt><dd>{snapshot.range52w.low ?? '—'} – {snapshot.range52w.high ?? '—'}<small>USD</small></dd></div>}
+          {snapshot.range52w && <div><dt>52-week range</dt><dd>{number(snapshot.range52w.low)} – {number(snapshot.range52w.high)}<small>USD</small></dd></div>}
         </dl>
         {!!snapshot.news?.length && <div className="model-dialog__section"><h3>Headlines · unverified</h3>{snapshot.news.map((news, i) => <p key={i}><a href={news.url} target="_blank" rel="noreferrer">{news.title} ↗</a><small>{news.channel} · {news.date.replace('T', ' ')} · Finviz local time; timezone unspecified</small></p>)}</div>}
         <a href={snapshot.source_url} target="_blank" rel="noreferrer">View on Finviz ↗</a>

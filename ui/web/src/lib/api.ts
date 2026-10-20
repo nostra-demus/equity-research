@@ -547,7 +547,7 @@ export const api = {
     if (await ensureMode() !== 'live') throw new Error('Finviz data needs the live engine.')
     const { isFinvizDataRead } = await import('../../../shared/finviz-data')
     const read: unknown = await get(`/api/screener/universe-model/data?${new URLSearchParams({ ticker, company })}`)
-    if (!isFinvizDataRead(read) || read.rows.some((row) => row.ticker !== ticker || row.company !== company)) throw new Error('Finviz data did not match this company.')
+    if (!isFinvizDataRead(read) || read.rows.length > 1 || read.rows.some((row) => row.ticker !== ticker || row.company !== company)) throw new Error('Finviz data did not match this company.')
     return read
   },
   universeModelEvidence: async (eventId: string, ticker: string, company: string) => {

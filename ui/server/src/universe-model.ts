@@ -68,12 +68,13 @@ export function parseFinvizPage(html: string, firstRow: number, retrievedAt: str
   const filters = sourceUrl?.searchParams.get('f')?.split(',').sort().join(',')
   const expectedFilters = ['cap_midover', 'sh_avgvol_o50', ...(sector ? [`sec_${sector}`] : [])].sort().join(',')
   const correctScope = sourceUrl?.origin === 'https://finviz.com' && (tickers ? sourceUrl.searchParams.get('t') === tickers.join(',') && !sourceUrl.searchParams.has('f') : filters === expectedFilters)
-  if (!data || !correctScope || !view || sourceUrl?.pathname !== '/screener/stocks' || sourceUrl.searchParams.has('c') || props.settings?.hasUserPremium === true || props.screenerType !== 'stocks'
+  if (!data || !correctScope || !view || sourceUrl.pathname !== '/screener/stocks' || sourceUrl.searchParams.has('c') || props.settings?.hasUserPremium === true || props.screenerType !== 'stocks'
     || !Number.isInteger(data.totalCount) || data.totalCount < (tickers || sector ? 0 : 1) || data.totalCount > (tickers?.length ?? MAX_ROWS)
     || data.firstRow !== firstRow || !Number.isInteger(data.pageSize) || data.pageSize < 1 || data.pageSize > view.size
     || !Array.isArray(data.rows) || data.rows.length !== Math.min(data.pageSize, data.totalCount - firstRow)) {
     throw new Error('Finviz did not return the expected free screener page. The layout or access may have changed.')
   }
+  if (view.id === 'news' && (!props.blocks?.news || typeof props.blocks.news !== 'object' || Array.isArray(props.blocks.news))) throw new Error('Finviz free headlines are unavailable.')
   const rows = data.rows.map((raw: any, i: number): ModelRow => {
     const { text, numbers } = raw ?? {}
     if (!text || !/^[A-Z0-9.^-]{1,20}$/.test(text.ticker) || typeof text.company !== 'string' || !text.company.trim()
@@ -280,7 +281,8 @@ export function createUniverseModel(file: string, deps: {
     const rows = saved!.rows.filter((row) => {
       const stamp = row.finviz?.[view.id]?.retrieved_at
       return selected!.time === 0 ? !stamp : !!stamp && now() - Date.parse(stamp) >= FINVIZ_DATA_REFRESH_MS
-    }).sort((a, b) => Date.parse(a.finviz?.[view.id]?.retrieved_at ?? '') - Date.parse(b.finviz?.[view.id]?.retrieved_at ?? '') || a.ticker.localeCompare(b.ticker)).slice(0, view.size)
+    }).sort((a, b) => (Date.parse(a.finviz?.[view.id]?.retrieved_at ?? '') || 0) - (Date.parse(b.finviz?.[view.id]?.retrieved_at ?? '') || 0)
+      || a.ticker.localeCompare(b.ticker)).slice(0, view.size)
     return { view, rows }
   }
   const work = async () => {

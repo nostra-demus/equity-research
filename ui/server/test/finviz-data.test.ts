@@ -42,6 +42,7 @@ const bad = page(newsUrl); (bad.data.rows[0].numbers as any).roe = '12%'
 assert.throws(() => parseFinvizPage(html(bad), 0, stamp, ['CO']), /invalid structured data/)
 const unsafe = page(newsUrl); unsafe.blocks.news.CO[0].url = 'javascript:alert(1)'
 assert.throws(() => parseFinvizPage(html(unsafe), 0, stamp, ['CO']), /invalid structured data/)
+assert.throws(() => parseFinvizPage(html({ ...page(newsUrl), blocks: null }), 0, stamp, ['CO']), /headlines are unavailable/, 'a missing news block cannot masquerade as zero headlines')
 
 const fixtures = fileURLToPath(new URL('../../../.cache/finviz-model-tests/', import.meta.url))
 await fs.mkdir(fixtures, { recursive: true })

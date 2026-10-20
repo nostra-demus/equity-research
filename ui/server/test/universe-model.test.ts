@@ -10,7 +10,7 @@ import { scanDayItems } from '../src/news/feed'
 import type { FeedItem } from '../src/news/types'
 
 const at = '2026-10-19T15:00:00.000Z'
-const props = (offset = 0, total = 3) => ({ screenerType: 'stocks', url: finvizPageUrl(offset), filters: { filters: [{ key: 'sec', options: [
+const props = (offset = 0, total = 3) => ({ screenerType: 'stocks', url: finvizPageUrl(offset), blocks: { news: {} }, filters: { filters: [{ key: 'sec', options: [
   { value: '', label: 'Any' }, { value: 'technology', label: 'Technology' }, { value: 'financial', label: 'Financial' },
   { value: 'utilities', label: 'Utilities' }, { value: 'modal', label: 'Custom', isEliteOnly: true },
 ] }] }, data: {
