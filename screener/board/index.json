@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T02:07:35Z",
+  "generated_at": "2026-10-20T02:11:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-069",
@@ -1385,6 +1385,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261020-072",
+      "headline": "Former Google CEO Eric Schmidt’s 1% Anthropic stake set to pay massive windfall",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/former-google-ceo-eric-schmidts-1pc-anthropic-stake-set-to-pay-massive-windfall-20015433.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T01:59:05Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Former Google CEO Eric Schmidt holds a 1% stake in Anthropic, which is expected to see significant valuation gains.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "Former Google CEO Eric Schmidt holds a 1% stake in Anthropic, which is expected to see significant valuation gains.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261020-013",
       "headline": "RA SILK ROAD (00274): QUARTER UPDATE ON RESUMPTION AND CONTINUED SUSPENSION OF TRADING",
       "headline_en": null,
@@ -1916,55 +1965,6 @@
           "name": "RYANAIR HOLDINGS PLC",
           "ticker": null,
           "listing_country": "IE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-048",
-      "headline": "SANY INT'L (00631): CONTINUING CONNECTED TRANSACTIONS (1) SANY HEAVY AND SANY INTERNATIONAL COMPREHENSIVE PARTS AGENCY SERVICES FRAMEWORK AGREEMENT; AND (2) REVISED SANY HEAVY AND SANY INTERNATIONAL AFTER-SALES SERVICES FRAMEWORK AGREEMENT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1019/2026101900055.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-19T10:23:00Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Sany International announced new and revised framework agreements for parts and after-sales services with Sany Heavy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Sany International announced new and revised framework agreements for parts and after-sales services with Sany Heavy.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sany International",
-          "ticker": "00631",
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "large",
