@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T00:02:08Z",
+  "generated_at": "2026-10-20T00:03:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20261019-534",
@@ -186846,6 +186846,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-18ddb9fd5fec",
+      "idea_version": "IDEAV-5db13e7aa00663b6",
+      "idea_version_started_at": "2026-10-20T00:02:47Z",
+      "ticker": "PWH",
+      "company": "PWH",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued an updated outlook that was negatively received by the market, suggesting potential earnings misses or margin compression.",
+      "why_now": "The updated outlook was provided in a formal address on October 19, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b671c01a9f1e"
+      ],
+      "primary_source_event_id": "EVT-b671c01a9f1e",
+      "source_headlines": [
+        "PWH: Chairman and MD & CEO Address and Updated Outlook [price-sensitive]"
+      ],
+      "source_headline": "PWH: Chairman and MD & CEO Address and Updated Outlook [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PWH?key=2924-03150474-2A1705033",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-19T23:25:25Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-20T00:02:47Z",
+      "updated_at": "2026-10-20T00:02:47Z",
+      "decay_at": "2026-10-21T11:25:25Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-c009bc671c9a",
       "idea_version": "IDEAV-f7ea29f5b95d97f9",
       "idea_version_started_at": "2026-10-19T23:11:18Z",
@@ -191300,78 +191372,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-87612f571255",
-      "idea_version": "IDEAV-54049c5df1cee768",
-      "idea_version_started_at": "2026-10-17T01:10:08Z",
-      "ticker": "FEDERALBNK",
-      "company": "Federal Bank",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Federal Bank reported its highest-ever quarterly net profit of ₹1,386 crore, signaling strong operational efficiency and margin expansion in Q2FY27.",
-      "why_now": "The earnings results were released on October 16, 2026, providing a fresh catalyst for a re-rating based on fundamental performance.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9701b57ffffe"
-      ],
-      "primary_source_event_id": "EVT-9701b57ffffe",
-      "source_headlines": [
-        "Federal Bank logs highest ever net profit at ₹1,386 crore in Q2FY27"
-      ],
-      "source_headline": "Federal Bank logs highest ever net profit at ₹1,386 crore in Q2FY27",
-      "source_url": "https://www.thehindubusinessline.com/money-and-banking/federal-bank-logs-highest-ever-net-profit-at-1386-crore-in-q2fy27-due-to-an-increase-in-net-interest-income/article71593320.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-16T23:36:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-17T01:10:08Z",
-      "updated_at": "2026-10-17T01:10:08Z",
-      "decay_at": "2026-10-18T11:36:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-24912455a063",
       "idea_version": "IDEAV-36591658159913a5",
       "idea_version_started_at": "2026-10-17T14:35:09Z",
@@ -192032,14 +192032,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 529,
+    "total_count": 528,
     "shown_count": 499,
-    "hidden_count": 30,
+    "hidden_count": 29,
     "side_counts": {
       "long": {
-        "total_count": 271,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 20
       },
       "short": {
         "total_count": 259,
@@ -192049,12 +192049,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1148,
+      "evicted_count": 1149,
       "oldest_retained_at": "2026-09-21T09:27:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 761,
-          "oldest_retained_at": "2026-10-05T22:22:28Z"
+          "evicted_count": 762,
+          "oldest_retained_at": "2026-10-05T22:46:00Z"
         },
         "short": {
           "evicted_count": 387,
@@ -194303,8 +194303,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-18T11:36:46Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-20T00:02:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -229240,8 +229240,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1732,
-    "live_count": 54,
+    "surfaced_total": 1733,
+    "live_count": 55,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
