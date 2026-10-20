@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T16:39:06Z",
+  "generated_at": "2026-10-20T17:50:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-295",
@@ -1032,6 +1032,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261020-328",
+      "headline": "Braze stock surges over 50% after Salesforce announces $5.66 billion acquisition",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/braze-stock-surges-over-50-after-salesforce-announces-5-66-billion-acquisition-11792516251172.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T17:21:01Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Braze stock surged over 50% after Salesforce announced a $5.66 billion acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Braze stock surged over 50% after Salesforce announced a $5.66 billion acquisition.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Braze",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Salesforce",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-327",
+      "headline": "Carrefour Slashes Guidance Due to Riots in France",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/retail/carrefour-slashes-guidance-due-to-riots-in-france-5a1dcaab?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T17:16:00Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Carrefour slashed its guidance due to riots in France.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Carrefour slashed its guidance due to riots in France.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Carrefour",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261020-322",
       "headline": "Veon to acquire rival Perfectum in $207m Uzbek consolidation push",
       "headline_en": null,
@@ -1881,105 +1984,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-198",
-      "headline": "3M Lifts Forecast Again in Boost to CEO’s Revitalization Effort",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-20/3m-lifts-forecast-again-in-boost-to-ceo-s-revitalization-effort",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-20T10:36:35Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "3M raised its financial forecast, signaling progress in its corporate revitalization strategy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "3M raised its financial forecast, signaling progress in its corporate revitalization strategy.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "3M",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-201",
-      "headline": "GM Narrows 2026 Outlook, Approves $20 Billion Share Buyback",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-20/gm-announces-20-billion-share-buyback-as-profit-beats-estimates",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-20T10:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "GM narrowed its 2026 outlook and announced a significant $20 billion share buyback.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GM narrowed its 2026 outlook and announced a significant $20 billion share buyback.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "General Motors",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -188476,76 +188480,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a2af7914e260",
-      "idea_version": "IDEAV-a26278bbb90510e9",
-      "idea_version_started_at": "2026-10-19T05:11:57Z",
-      "ticker": "ACN",
-      "company": "Accenture",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Accenture is exploring the divestment of its Chinese operations for up to $1.5 billion, which would reduce geopolitical exposure and unlock capital.",
-      "why_now": "Sale intentions were reported on October 19, 2026.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6f695bbc9b84"
-      ],
-      "primary_source_event_id": "EVT-6f695bbc9b84",
-      "source_headlines": [
-        "Accenture eyes sale of Chinese operations for up to $1.5bn"
-      ],
-      "source_headline": "Accenture eyes sale of Chinese operations for up to $1.5bn",
-      "source_url": "https://www.cityam.com/accenture-eyeing-sale-of-chinese-operations-for-up-to-1-5bn/",
-      "source_name": "City A.M.",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-19T05:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-19T05:11:57Z",
-      "updated_at": "2026-10-19T05:11:57Z",
-      "decay_at": "2026-10-20T17:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-8e38ef15bf4e",
       "idea_version": "IDEAV-babbca001e70f436",
       "idea_version_started_at": "2026-10-20T13:35:08Z",
@@ -191054,78 +190988,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-41b07e0aed73",
-      "idea_version": "IDEAV-3ff020b86df3ee44",
-      "idea_version_started_at": "2026-10-19T09:41:36Z",
-      "ticker": "ROSSARI",
-      "company": "Rossari Biotech",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported strong Q2 results with a 19% revenue increase and a 20.9% rise in EBITDA, indicating effective margin expansion and operational efficiency.",
-      "why_now": "The earnings were released on October 19, 2026, providing a fresh catalyst for valuation adjustment.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8a5a3f62c4ff"
-      ],
-      "primary_source_event_id": "EVT-8a5a3f62c4ff",
-      "source_headlines": [
-        "Rossari Biotech Q2 Revenue ₹697.6 Crore, Up 19%; EBITDA ₹87 Crore, A 20.9% Rise"
-      ],
-      "source_headline": "Rossari Biotech Q2 Revenue ₹697.6 Crore, Up 19%; EBITDA ₹87 Crore, A 20.9% Rise",
-      "source_url": "https://www.freepressjournal.in/business/rossari-biotech-q2-revenue-6976-crore-up-19-ebitda-87-crore-a-209-rise",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-19T04:55:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-19T09:41:36Z",
-      "updated_at": "2026-10-19T09:41:36Z",
-      "decay_at": "2026-10-20T16:55:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-193acec1f3b7",
       "idea_version": "IDEAV-7976f5bd314505d0",
       "idea_version_started_at": "2026-10-20T05:56:49Z",
@@ -191693,6 +191555,76 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-a2af7914e260",
+      "idea_version": "IDEAV-a26278bbb90510e9",
+      "idea_version_started_at": "2026-10-19T05:11:57Z",
+      "ticker": "ACN",
+      "company": "Accenture",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Accenture is exploring the divestment of its Chinese operations for up to $1.5 billion, which would reduce geopolitical exposure and unlock capital.",
+      "why_now": "Sale intentions were reported on October 19, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6f695bbc9b84"
+      ],
+      "primary_source_event_id": "EVT-6f695bbc9b84",
+      "source_headlines": [
+        "Accenture eyes sale of Chinese operations for up to $1.5bn"
+      ],
+      "source_headline": "Accenture eyes sale of Chinese operations for up to $1.5bn",
+      "source_url": "https://www.cityam.com/accenture-eyeing-sale-of-chinese-operations-for-up-to-1-5bn/",
+      "source_name": "City A.M.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-19T05:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T05:11:57Z",
+      "updated_at": "2026-10-19T05:11:57Z",
+      "decay_at": "2026-10-20T17:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-eaf659086da7",
@@ -192392,6 +192324,78 @@
       "surfaced_at": "2026-10-19T00:56:11Z",
       "updated_at": "2026-10-19T00:56:11Z",
       "decay_at": "2026-10-20T12:17:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-41b07e0aed73",
+      "idea_version": "IDEAV-3ff020b86df3ee44",
+      "idea_version_started_at": "2026-10-19T09:41:36Z",
+      "ticker": "ROSSARI",
+      "company": "Rossari Biotech",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported strong Q2 results with a 19% revenue increase and a 20.9% rise in EBITDA, indicating effective margin expansion and operational efficiency.",
+      "why_now": "The earnings were released on October 19, 2026, providing a fresh catalyst for valuation adjustment.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8a5a3f62c4ff"
+      ],
+      "primary_source_event_id": "EVT-8a5a3f62c4ff",
+      "source_headlines": [
+        "Rossari Biotech Q2 Revenue ₹697.6 Crore, Up 19%; EBITDA ₹87 Crore, A 20.9% Rise"
+      ],
+      "source_headline": "Rossari Biotech Q2 Revenue ₹697.6 Crore, Up 19%; EBITDA ₹87 Crore, A 20.9% Rise",
+      "source_url": "https://www.freepressjournal.in/business/rossari-biotech-q2-revenue-6976-crore-up-19-ebitda-87-crore-a-209-rise",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-19T04:55:12Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T09:41:36Z",
+      "updated_at": "2026-10-19T09:41:36Z",
+      "decay_at": "2026-10-20T16:55:12Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -195213,14 +195217,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 548,
+    "total_count": 550,
     "shown_count": 499,
-    "hidden_count": 49,
+    "hidden_count": 51,
     "side_counts": {
       "long": {
-        "total_count": 284,
+        "total_count": 286,
         "shown_count": 250,
-        "hidden_count": 34
+        "hidden_count": 36
       },
       "short": {
         "total_count": 265,
@@ -195244,6 +195248,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a2af7914e260",
+        "idea_version": "IDEAV-a26278bbb90510e9",
+        "idea_version_started_at": "2026-10-19T05:11:57Z",
+        "ticker": "ACN",
+        "company": "Accenture",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Accenture is exploring the divestment of its Chinese operations for up to $1.5 billion, which would reduce geopolitical exposure and unlock capital.",
+        "why_now": "Sale intentions were reported on October 19, 2026.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6f695bbc9b84"
+        ],
+        "primary_source_event_id": "EVT-6f695bbc9b84",
+        "source_headlines": [
+          "Accenture eyes sale of Chinese operations for up to $1.5bn"
+        ],
+        "source_headline": "Accenture eyes sale of Chinese operations for up to $1.5bn",
+        "source_url": "https://www.cityam.com/accenture-eyeing-sale-of-chinese-operations-for-up-to-1-5bn/",
+        "source_name": "City A.M.",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-19T05:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-19T05:11:57Z",
+        "updated_at": "2026-10-19T05:11:57Z",
+        "decay_at": "2026-10-20T17:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-20T17:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-41b07e0aed73",
+        "idea_version": "IDEAV-3ff020b86df3ee44",
+        "idea_version_started_at": "2026-10-19T09:41:36Z",
+        "ticker": "ROSSARI",
+        "company": "Rossari Biotech",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported strong Q2 results with a 19% revenue increase and a 20.9% rise in EBITDA, indicating effective margin expansion and operational efficiency.",
+        "why_now": "The earnings were released on October 19, 2026, providing a fresh catalyst for valuation adjustment.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8a5a3f62c4ff"
+        ],
+        "primary_source_event_id": "EVT-8a5a3f62c4ff",
+        "source_headlines": [
+          "Rossari Biotech Q2 Revenue ₹697.6 Crore, Up 19%; EBITDA ₹87 Crore, A 20.9% Rise"
+        ],
+        "source_headline": "Rossari Biotech Q2 Revenue ₹697.6 Crore, Up 19%; EBITDA ₹87 Crore, A 20.9% Rise",
+        "source_url": "https://www.freepressjournal.in/business/rossari-biotech-q2-revenue-6976-crore-up-19-ebitda-87-crore-a-209-rise",
+        "source_name": "Free Press Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-19T04:55:12Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-19T09:41:36Z",
+        "updated_at": "2026-10-19T09:41:36Z",
+        "decay_at": "2026-10-20T16:55:12Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-20T16:55:12Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-2806817130bb",
         "idea_version": "IDEAV-a8eb24aed48467a0",
@@ -222660,81 +222812,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-5253ff98b1df",
-        "idea_version": "IDEAV-671fc7f5e19034cf",
-        "idea_version_started_at": "2026-10-06T00:37:28Z",
-        "ticker": "SCP",
-        "company": "Shopping Centres Australasia Property Group",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company has entered a trading halt pending a strategic review, which typically precedes a significant corporate action or asset transaction.",
-        "why_now": "The trading halt is active as of 2026-10-05, making this a live event-driven situation.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1216eb49ccd0"
-        ],
-        "primary_source_event_id": "EVT-1216eb49ccd0",
-        "source_headlines": [
-          "SCP: Trading Halt [price-sensitive]"
-        ],
-        "source_headline": "SCP: Trading Halt [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SCP?key=2924-03144810-3A703400",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-05T23:59:30Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-06T00:37:28Z",
-        "updated_at": "2026-10-06T00:37:28Z",
-        "decay_at": "2026-10-07T11:59:30Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-09T00:14:10Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-41f871048ef0",
         "idea_version": "IDEAV-d881e5e1a428d88d",
         "idea_version_started_at": "2026-10-05T23:32:47Z",
@@ -222804,83 +222881,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-10-09T00:14:10Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-70b8068a4e51",
-        "idea_version": "IDEAV-d13a0335d06a7192",
-        "idea_version_started_at": "2026-10-05T23:32:47Z",
-        "ticker": "PARA",
-        "company": "Paramount Global",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The merger with Skydance and the resolution of antitrust hurdles with Warner Bros removes significant overhang and provides a path to operational restructuring.",
-        "why_now": "Merger details were announced and antitrust clearance progressed on 2026-10-05.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 7,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b4b3e9e8a4b3",
-          "EVT-e701f636fd2b"
-        ],
-        "primary_source_event_id": "EVT-b4b3e9e8a4b3",
-        "source_headlines": [
-          "Ellison's Skydance Announced Merger Details",
-          "Paramount-Warner Bros merger moves ahead after antitrust fight"
-        ],
-        "source_headline": "Ellison's Skydance Announced Merger Details",
-        "source_url": "https://www.bloomberg.com/news/videos/2026-10-05/ellison-s-skydance-announced-merger-details-video",
-        "source_name": "Bloomberg",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-05T21:35:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-05T23:32:47Z",
-        "updated_at": "2026-10-05T23:32:47Z",
-        "decay_at": "2026-10-07T09:35:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-08T21:44:37Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
       },
@@ -232422,7 +232422,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1763,
-    "live_count": 52,
+    "live_count": 50,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -232441,9 +232441,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7324417,
-    "news_picked_today": 658,
-    "news_dropped_today": 6182
+    "news_seen_today": 8078607,
+    "news_picked_today": 668,
+    "news_dropped_today": 6220
   },
   "book_momentum": {
     "live_count": 8,
