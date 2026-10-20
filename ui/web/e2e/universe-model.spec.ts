@@ -85,7 +85,7 @@ test('Universe Model green-count ranking, search, pagination, failure recovery a
   expect(requests).toBeGreaterThan(3)
 })
 
-test('Company and signal popups explain exact events, company impact, missingness and provenance', async ({ page, context }, testInfo) => {
+test('Legacy snapshots keep impact unassessed while popup cache reads explain provenance and recover', async ({ page, context }, testInfo) => {
   const now = new Date().toISOString()
   const event = { id: 'STORY-DEAL', source_event_id: 'ARTICLE-DEAL', headline: 'Orion agrees to acquire its supplier for $200m', excerpt: 'The purchase is subject to regulatory approval.',
     classification_reason: 'A material acquisition changes the company’s supplier ownership.', url: 'https://example.test/announcement', source: 'Issuer announcement', reported_at: now, source_tier: 'company', direction: 'mixed' as const }
@@ -182,4 +182,45 @@ test('Company and signal popups explain exact events, company impact, missingnes
   await page.screenshot({ path: testInfo.outputPath('model-popup-mobile.png') })
   await page.mouse.click(2, 2)
   await expect(page.getByRole('dialog')).toHaveCount(0)
+})
+
+test('Embedded company assessments agree across green count, adverse/mixed crosses and unassessed popups', async ({ page, context }) => {
+  const now = new Date().toISOString()
+  const benefit = { side: 'beneficiary' as const, mechanism: 'The company could add recurring sales.', magnitude: null, horizon: 'Next two quarters' }
+  const risk = { side: 'exposed' as const, mechanism: 'Financing could weaken the company’s balance sheet.', magnitude: null, horizon: null }
+  const analysis = { read_at: now, story: ['A material agreement was announced.'], company_role: 'subject' as const, effects: [benefit], event_assessment: null, watch_item: null, provenance: { kind: 'original' as const, label: null, url: null } }
+  const event = { id: 'STORY-1', source_event_id: 'ARTICLE-1', headline: 'Positive event headline', url: 'https://example.test/filing', source: 'Issuer filing', reported_at: now, source_tier: 'company', direction: 'positive' as const }
+  const rows: ModelRow[] = [
+    { ticker: 'GOOD', company: 'Favorable Corp', price: 10, currency: 'USD', retrieved_at: now, signals: { deals: [{ ...event, assessment: analysis }] } },
+    { ticker: 'BAD', company: 'Adverse Corp', price: 10, currency: 'USD', retrieved_at: now, signals: { deals: [{ ...event, assessment: { ...analysis, effects: [risk] } }] } },
+    { ticker: 'MIXED', company: 'Mixed Corp', price: 10, currency: 'USD', retrieved_at: now, signals: { deals: [{ ...event, assessment: { ...analysis, effects: [benefit, risk] } }] } },
+    { ticker: 'PENDING', company: 'Unassessed Corp', price: 10, currency: 'USD', retrieved_at: now, signals: { deals: [{ ...event, assessment: null }] } },
+  ]
+  const body: ModelRead = { schema_version: MODEL_SCHEMA, source_url: UNIVERSE_URL, rows, total: rows.length, complete: true, refreshing: false, fetched: rows.length,
+    started_at: now, completed_at: now, next_refresh_at: now, stale: false, error: null, events: null }
+  let evidenceRequests = 0
+  await context.route('**/api/screener/universe-model', (route) => route.fulfill({ json: body }))
+  await context.route('**/api/screener/universe-model/evidence*', (route) => { evidenceRequests++; return route.fulfill({ status: 500, json: { error: 'Must use the grid snapshot' } }) })
+  await context.route('**/api/portfolio', (route) => route.fulfill({ json: { book: null } }))
+  await context.route('**/api/watchlist', (route) => route.fulfill({ json: { rows: [], unreadable: [] } }))
+  await page.goto('/e2e/ideas.html?surface=model')
+  await page.getByRole('button', { name: 'Model', exact: true }).click()
+  await expect(page.locator('tbody tr').first()).toContainText('Favorable Corp')
+  await expect(page.locator('tbody tr').first().locator('td').last()).toHaveText('1Green ticks')
+  for (const company of ['Adverse Corp', 'Mixed Corp']) {
+    const row = page.locator('tbody tr').filter({ hasText: company })
+    await expect(row.locator('td').last()).toHaveText('0Green ticks')
+    await row.getByRole('button', { name: 'Deals / restructuring: No favorable signal', exact: true }).click()
+    const dialog = page.getByRole('dialog')
+    await expect(dialog.getByText('✕ No favorable signal', { exact: true })).toBeVisible()
+    await expect(dialog.getByText(risk.mechanism, { exact: true })).toBeVisible()
+    if (company === 'Mixed Corp') await expect(dialog.getByText(benefit.mechanism, { exact: true })).toBeVisible()
+    await page.keyboard.press('Escape')
+  }
+  const pending = page.locator('tbody tr').filter({ hasText: 'Unassessed Corp' })
+  await expect(pending.locator('td').last()).toHaveText('0Green ticks')
+  await pending.getByRole('button', { name: 'Deals / restructuring: Unassessed', exact: true }).click()
+  await expect(page.getByRole('dialog').getByText('— Impact unassessed', { exact: true })).toBeVisible()
+  await expect(page.getByText('Company impact not proven from saved analysis.', { exact: true })).toBeVisible()
+  expect(evidenceRequests).toBe(0)
 })

@@ -51,6 +51,9 @@ const project = (cache: Record<string, EventEnrichment>, row = subject) => proje
 const favorable = { ...hit, exposed: [] }
 assert.equal(signalResult(project({ [hit.event_id]: favorable }), signal), true, 'an exact company benefit earns one green tick')
 assert.equal(signalResult(project({ [hit.event_id]: hit }), signal), false, 'both benefit and exposure are mixed, never favorable')
+assert.equal(signalResult(project({ [hit.event_id]: { ...hit, exposed: [{ ...hit.exposed![0], mechanism: '' }] } }), signal), false, 'a missing adverse explanation cannot erase an identified company risk')
+assert.equal(signalResult(project({ [hit.event_id]: { ...hit, exposed: [{ ...hit.exposed![0], listing: 'NSE' }] } }), signal), null, 'conflicting party venues invalidate the company assessment instead of dropping only the risk')
+assert.equal(signalResult(project({ [hit.event_id]: { ...hit, exposed: [{ ...hit.exposed![0], named_in_article: false }] } }), signal), null, 'an uncertain opposing party cannot silently leave only favorable effects')
 assert.equal(modelTotal(project({ [hit.event_id]: hit })), 0)
 assert.equal(signalResult(project({}), signal), null, 'a cache miss remains unassessed despite positive event sentiment')
 assert.equal(signalResult(project({ [hit.event_id]: { ...favorable, event_id: 'WRONG-ARTICLE' } }), signal), null)
@@ -60,6 +63,12 @@ assert.equal(signalResult(project({ [hit.event_id]: { ...favorable, fetched_at: 
 assert.equal(signalResult(project({ [hit.event_id]: { ...favorable, fetched_at: '2026-10-19T14:00:00Z' } }), signal), null, 'a read predating the source observation cannot qualify')
 assert.equal(project({ [hit.event_id]: favorable }, { ...subject, signals: null }).signals, null)
 assert.equal(subject.signals!.deals![0].assessment, undefined, 'projection does not mutate the archive or Finviz snapshot')
+const malformedHit = { ...favorable, read_from: undefined, corroborated: { count: 1, domains: 'malformed' } } as unknown as EventEnrichment
+assert.equal(signalResult(project({ [hit.event_id]: malformedHit }), signal), null, 'one malformed saved read stays unassessed rather than failing the full grid')
+const anotherEvent = { ...event, id: 'STORY-OTHER', source_event_id: 'ARTICLE-OTHER' }
+const isolated = projectUniverseAssessments([subject, { ...subject, ticker: 'COPY', signals: { deals: [anotherEvent] } }], { [hit.event_id]: malformedHit, 'ARTICLE-OTHER': { ...favorable, event_id: 'ARTICLE-OTHER', beneficiaries: [{ ...favorable.beneficiaries![0], ticker: 'COPY' }] } }, at)
+assert.equal(isolated.length, 2)
+assert.equal(signalResult(isolated[1], signal), true, 'malformed evidence does not suppress another company’s valid assessment')
 const model = { schema_version: MODEL_SCHEMA, source_url: UNIVERSE_URL, rows: [project({ [hit.event_id]: favorable })], total: 1, complete: true, refreshing: false, fetched: 1, started_at: hit.fetched_at, completed_at: hit.fetched_at, next_refresh_at: hit.fetched_at, stale: false, error: null, events: null }
 assert.ok(isModelRead(model))
 const malformed = JSON.parse(JSON.stringify(model)); malformed.rows[0].signals.deals[0].assessment.effects[0].side = 'invented'
