@@ -1,8 +1,12 @@
 import assert from 'node:assert/strict'
 import Fastify from 'fastify'
-import { modelSavedAnalysis, registerUniverseEvidence } from '../src/universe-evidence'
-import type { EventEnrichment } from '../src/news/enrich'
-import { isModelEventRead } from '../../shared/universe-model'
+import fs from 'node:fs/promises'
+import fsSync from 'node:fs'
+import { fileURLToPath } from 'node:url'
+import path from 'node:path'
+import { modelSavedAnalysis, projectUniverseAssessments, readUniverseAssessments, registerUniverseEvidence } from '../src/universe-evidence'
+import { peekCachedEnrichments, type EventEnrichment } from '../src/news/enrich'
+import { isModelEventRead, isModelRead, MODEL_SCHEMA, MODEL_SIGNALS, UNIVERSE_URL, signalResult, modelTotal, type ModelRow } from '../../shared/universe-model'
 
 const hit: EventEnrichment = { event_id: 'ARTICLE-1', ok: true, complete: true, fetched_at: '2026-10-19T15:00:00Z', prior_coverage: [], related: [],
   gist: ['Orion agreed to acquire a supplier for $200m.'],
@@ -29,12 +33,84 @@ for (const listing of ['Canada', 'Japan', 'India', 'CA']) assert.equal(modelSave
 assert.equal(modelSavedAnalysis({ ...hit, companies: [], beneficiaries: [{ ...hit.beneficiaries![0], listing: 'United States' }], exposed: [] }, 'ARTICLE-1', 'ORN', 'Orion Corp')?.effects.length, 1)
 assert.equal(modelSavedAnalysis({ ...hit, beneficiaries: [{ ...hit.beneficiaries![0], named_in_article: false }], exposed: [] }, 'ARTICLE-1', 'ORN', 'Orion Corp')?.effects.length, 0, 'inferred sector expressions cannot become exact company exposure')
 assert.equal(modelSavedAnalysis({ ...hit, beneficiaries: [], exposed: [] }, 'ARTICLE-1', 'ORN', 'Orion Corp')?.event_assessment, hit.market_angle, 'event assessment remains separate from absent company-specific effects')
+for (const changed of [{ ok: false }, { degraded: true }]) assert.equal(modelSavedAnalysis({ ...hit, ...changed }, 'ARTICLE-1', 'ORN', 'Orion Corp'), null, 'failed or degraded reads never qualify')
+const manyBenefits = modelSavedAnalysis({ ...hit, beneficiaries: Array.from({ length: 5 }, () => hit.beneficiaries![0]) }, 'ARTICLE-1', 'ORN', 'Orion Corp')!
+assert.ok(manyBenefits.effects.some((e) => e.side === 'exposed'), 'effect bounding cannot hide a company risk behind several benefits')
+assert.ok(manyBenefits.effects.length <= 4)
+for (const [benefits, risks] of [[1, 3], [3, 1], [1, 5], [5, 1]]) {
+  const bounded = modelSavedAnalysis({ ...hit, beneficiaries: Array.from({ length: benefits }, () => hit.beneficiaries![0]), exposed: Array.from({ length: risks }, () => hit.exposed![0]) }, 'ARTICLE-1', 'ORN', 'Orion Corp')!
+  assert.equal(bounded.effects.length, Math.min(4, benefits + risks), 'preserve every effect that fits the four-item bound')
+  assert.ok(bounded.effects.some((e) => e.side === 'beneficiary') && bounded.effects.some((e) => e.side === 'exposed'))
+}
 const read = { event_id: 'ARTICLE-1', ticker: 'ORN', company: 'Orion Corp', analysis }
 assert.ok(isModelEventRead(read))
 assert.ok(isModelEventRead({ ...read, analysis: null }))
 assert.equal(isModelEventRead({ ...read, analysis: { ...analysis, effects: [{ side: 'beneficiary' }] } }), false)
 assert.equal(isModelEventRead({ ...read, analysis: { ...analysis, provenance: { kind: 'alternate', label: null, url: 'javascript:alert(1)' } } }), false)
 assert.equal(isModelEventRead({ ...read, analysis: { ...analysis, company_role: '__proto__' } }), false)
+
+const event = { id: 'STORY-1', source_event_id: hit.event_id, headline: 'Positive event headline', url: 'https://example.test/event', source: 'Issuer', reported_at: hit.fetched_at, source_tier: 'company', direction: 'positive' as const }
+const subject: ModelRow = { ticker: 'ORN', company: 'Orion Corp', price: 10, currency: 'USD', retrieved_at: hit.fetched_at, signals: { deals: [event] } }
+const at = Date.parse(hit.fetched_at) + 60_000
+const signal = MODEL_SIGNALS.find((s) => s.id === 'deals')!
+const project = (cache: Record<string, EventEnrichment>, row = subject) => projectUniverseAssessments([row], cache, at)[0]
+const favorable = { ...hit, exposed: [] }
+assert.equal(signalResult(project({ [hit.event_id]: favorable }), signal), true, 'an exact company benefit earns one green tick')
+assert.equal(signalResult(project({ [hit.event_id]: hit }), signal), false, 'both benefit and exposure are mixed, never favorable')
+assert.equal(signalResult(project({ [hit.event_id]: { ...hit, exposed: [{ ...hit.exposed![0], mechanism: '' }] } }), signal), false, 'a missing adverse explanation cannot erase an identified company risk')
+assert.equal(signalResult(project({ [hit.event_id]: { ...hit, exposed: [{ ...hit.exposed![0], listing: 'NSE' }] } }), signal), null, 'conflicting party venues invalidate the company assessment instead of dropping only the risk')
+assert.equal(signalResult(project({ [hit.event_id]: { ...hit, exposed: [{ ...hit.exposed![0], named_in_article: false }] } }), signal), null, 'an uncertain opposing party cannot silently leave only favorable effects')
+assert.equal(modelTotal(project({ [hit.event_id]: hit })), 0)
+assert.equal(signalResult(project({}), signal), null, 'a cache miss remains unassessed despite positive event sentiment')
+assert.equal(signalResult(project({ [hit.event_id]: { ...favorable, event_id: 'WRONG-ARTICLE' } }), signal), null)
+assert.equal(signalResult(project({ [hit.event_id]: favorable }, { ...subject, company: 'Different Issuer' }), signal), null)
+assert.equal(signalResult(project({ [hit.event_id]: { ...favorable, beneficiaries: [{ ...favorable.beneficiaries![0], ticker: 'OTHER' }] } }), signal), null)
+assert.equal(signalResult(project({ [hit.event_id]: { ...favorable, fetched_at: '2026-10-19T15:02:00Z' } }), signal), null, 'future reads cannot supply a current tick')
+assert.equal(signalResult(project({ [hit.event_id]: { ...favorable, fetched_at: '2026-10-19T14:00:00Z' } }), signal), null, 'a read predating the source observation cannot qualify')
+assert.equal(project({ [hit.event_id]: favorable }, { ...subject, signals: null }).signals, null)
+assert.equal(subject.signals!.deals![0].assessment, undefined, 'projection does not mutate the archive or Finviz snapshot')
+const malformedHit = { ...favorable, read_from: undefined, corroborated: { count: 1, domains: 'malformed' } } as unknown as EventEnrichment
+assert.equal(signalResult(project({ [hit.event_id]: malformedHit }), signal), null, 'one malformed saved read stays unassessed rather than failing the full grid')
+const anotherEvent = { ...event, id: 'STORY-OTHER', source_event_id: 'ARTICLE-OTHER' }
+const isolated = projectUniverseAssessments([subject, { ...subject, ticker: 'COPY', signals: { deals: [anotherEvent] } }], { [hit.event_id]: malformedHit, 'ARTICLE-OTHER': { ...favorable, event_id: 'ARTICLE-OTHER', beneficiaries: [{ ...favorable.beneficiaries![0], ticker: 'COPY' }] } }, at)
+assert.equal(isolated.length, 2)
+assert.equal(signalResult(isolated[1], signal), true, 'malformed evidence does not suppress another company’s valid assessment')
+const model = { schema_version: MODEL_SCHEMA, source_url: UNIVERSE_URL, rows: [project({ [hit.event_id]: favorable })], total: 1, complete: true, refreshing: false, fetched: 1, started_at: hit.fetched_at, completed_at: hit.fetched_at, next_refresh_at: hit.fetched_at, stale: false, error: null, events: null }
+assert.ok(isModelRead(model))
+const malformed = JSON.parse(JSON.stringify(model)); malformed.rows[0].signals.deals[0].assessment.effects[0].side = 'invented'
+assert.equal(isModelRead(malformed), false, 'malformed impact cannot enter the grid')
+const cacheRoot = fileURLToPath(new URL('../../../.cache/finviz-model-tests/', import.meta.url))
+await fs.mkdir(cacheRoot, { recursive: true })
+const cacheDir = await fs.mkdtemp(path.join(cacheRoot, 'assessment-'))
+await fs.writeFile(path.join(cacheDir, 'news-enrich-cache.json'), JSON.stringify({ [hit.event_id]: favorable }))
+assert.equal(signalResult(readUniverseAssessments(cacheDir, [subject])[0], signal), true, 'bulk join reuses the on-disk engine read without enrichment')
+const snapshot = peekCachedEnrichments(cacheDir)
+assert.equal(peekCachedEnrichments(cacheDir), snapshot, 'unchanged cache snapshots are reused without reparsing')
+await fs.writeFile(path.join(cacheDir, 'next.json'), JSON.stringify({ [hit.event_id]: hit }))
+await fs.rename(path.join(cacheDir, 'next.json'), path.join(cacheDir, 'news-enrich-cache.json'))
+assert.notEqual(peekCachedEnrichments(cacheDir), snapshot, 'atomic replacement invalidates the bulk snapshot')
+assert.equal(signalResult(readUniverseAssessments(cacheDir, [subject])[0], signal), false, 'a later saved risk is visible on the next grid read')
+await fs.writeFile(path.join(cacheDir, 'news-enrich-cache.bak.json'), JSON.stringify({ [hit.event_id]: favorable }))
+await fs.writeFile(path.join(cacheDir, 'news-enrich-cache.json'), '{invalid')
+assert.equal(signalResult(readUniverseAssessments(cacheDir, [subject])[0], signal), true, 'last-good backup retains its existing read-only recovery behavior')
+assert.equal(signalResult(readUniverseAssessments(path.join(cacheDir, 'missing'), [subject])[0], signal), null)
+for (const backup of [false, true]) {
+  const recovering = await fs.mkdtemp(path.join(cacheRoot, 'transient-'))
+  const main = path.join(recovering, 'news-enrich-cache.json')
+  await fs.writeFile(main, JSON.stringify({ [hit.event_id]: hit }))
+  if (backup) await fs.writeFile(path.join(recovering, 'news-enrich-cache.bak.json'), JSON.stringify({ [hit.event_id]: favorable }))
+  const originalRead = fsSync.readFileSync
+  let failed = false
+  fsSync.readFileSync = ((file: any, ...args: any[]) => {
+    if (String(file) === main && !failed) { failed = true; throw new Error('fixture transient EIO') }
+    return (originalRead as any)(file, ...args)
+  }) as typeof fsSync.readFileSync
+  try {
+    const first = readUniverseAssessments(recovering, [subject])[0]
+    assert.equal(signalResult(first, signal), backup ? true : null)
+    assert.equal(signalResult(readUniverseAssessments(recovering, [subject])[0], signal), false, 'transient main-file failure must not pin an empty or older favorable snapshot after recovery')
+  } finally { fsSync.readFileSync = originalRead }
+}
 
 let peeks = 0
 const app = Fastify()

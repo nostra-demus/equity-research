@@ -1,7 +1,7 @@
 import type { FastifyInstance } from 'fastify'
 import { z } from 'zod'
-import type { ModelEventRead, ModelSavedAnalysis } from '../../shared/universe-model'
-import { peekCachedEnrichment, type EventEnrichment } from './news/enrich'
+import type { ModelEventRead, ModelRow, ModelSavedAnalysis, ModelSignals } from '../../shared/universe-model'
+import { isEnrichmentComplete, peekCachedEnrichment, peekCachedEnrichments, type EventEnrichment } from './news/enrich'
 import { coreCompanyName, normTicker } from './news/symbology'
 import { discoveryListing } from '../../shared/listing-market'
 import { cleanText } from './news/clean'
@@ -15,35 +15,68 @@ const country = (v: unknown) => typeof v === 'string' ? countryCodes.get(v.trim(
 /** A read-only projection of an already saved article read. Never fetches, enriches, or starts a run.
  * Event-level sentiment cannot stand in for the selected issuer's economic exposure. */
 export function modelSavedAnalysis(hit: EventEnrichment | null, eventId: string, ticker: string, company: string): ModelSavedAnalysis | null {
-  if (!hit || hit.event_id !== eventId || !Number.isFinite(Date.parse(hit.fetched_at))) return null
-  const targetTicker = normTicker(ticker); const targetName = coreCompanyName(company)
-  const same = (p: { name?: string; ticker?: string | null }) => {
-    if (!p || typeof p.ticker !== 'string' || normTicker(p.ticker) !== targetTicker || typeof p.name !== 'string') return false
-    const name = coreCompanyName(p.name)
-    return !!name && name === targetName
-  }
-  const companies = (Array.isArray(hit.companies) ? hit.companies : []).filter(same)
-  const identityConflict = companies.some((c) => country(c.listing_country) && country(c.listing_country) !== 'US'
-    || discoveryListing(c.ticker, c.exchange) && discoveryListing(c.ticker, c.exchange) !== 'US')
-  const subject = identityConflict ? undefined : companies.find((c) => !country(c.listing_country) || country(c.listing_country) === 'US')
-  const effects: ModelSavedAnalysis['effects'] = []
-  if (!identityConflict) for (const [side, parties] of [['beneficiary', hit.beneficiaries], ['exposed', hit.exposed]] as const) {
-    for (const party of Array.isArray(parties) ? parties : []) {
-      if (!same(party) || !party.named_in_article) continue
-      const venue = discoveryListing(party.ticker, party.listing) || country(party.listing)
-      if (venue && venue !== 'US') continue
-      const mechanism = text(party.mechanism) || text('basis' in party ? party.basis : null)
-      if (mechanism && effects.length < 4) effects.push({ side, mechanism, magnitude: text(party.magnitude, 240), horizon: text(party.horizon, 240) })
+  try {
+    if (!hit || !hit.ok || hit.degraded || !isEnrichmentComplete(hit) || hit.event_id !== eventId || !Number.isFinite(Date.parse(hit.fetched_at))) return null
+    if (hit.corroborated && (!Array.isArray(hit.corroborated.domains) || hit.corroborated.domains.some((domain) => typeof domain !== 'string'))) return null
+    const targetTicker = normTicker(ticker); const targetName = coreCompanyName(company)
+    const same = (p: { name?: string; ticker?: string | null }) => {
+      if (!p || typeof p.ticker !== 'string' || normTicker(p.ticker) !== targetTicker || typeof p.name !== 'string') return false
+      const name = coreCompanyName(p.name)
+      return !!name && name === targetName
     }
-  }
-  const story = (Array.isArray(hit.gist) ? hit.gist : []).map((s) => text(s)).filter((s): s is string => !!s).slice(0, 4)
-  if (!story.length) { const summary = text(hit.summary_en || hit.summary, 1600); if (summary) story.push(summary) }
-  const readFrom = hit.read_from
-  const kind = readFrom?.kind === 'filing_doc' || readFrom?.kind === 'alternate' ? readFrom.kind : hit.corroborated ? 'corroborated' : 'original'
-  return { read_at: hit.fetched_at, story, company_role: subject && ['subject', 'acquirer', 'target', 'forecaster', 'mentioned'].includes(subject.role) ? subject.role : null, effects,
-    event_assessment: text(hit.news_impact?.why_it_matters || hit.market_angle), watch_item: text(hit.watch_item, 600),
-    provenance: { kind, label: text(readFrom?.source_name || readFrom?.domain || hit.corroborated?.domains?.join(', '), 240), url: url(readFrom?.url) } }
+    const companies = (Array.isArray(hit.companies) ? hit.companies : []).filter(same)
+    const identityConflict = companies.some((c) => country(c.listing_country) && country(c.listing_country) !== 'US'
+      || discoveryListing(c.ticker, c.exchange) && discoveryListing(c.ticker, c.exchange) !== 'US')
+    const subject = identityConflict ? undefined : companies.find((c) => !country(c.listing_country) || country(c.listing_country) === 'US')
+    const effects: ModelSavedAnalysis['effects'] = []
+    const parties = [...(Array.isArray(hit.beneficiaries) ? hit.beneficiaries : []), ...(Array.isArray(hit.exposed) ? hit.exposed : [])]
+    const uncertainParty = parties.filter(same).some((party) => {
+      const venue = discoveryListing(party.ticker, party.listing) || country(party.listing)
+      return !party.named_in_article || !!venue && venue !== 'US'
+    })
+    if (!identityConflict && !uncertainParty) for (const [side, sideParties] of [['beneficiary', hit.beneficiaries], ['exposed', hit.exposed]] as const) {
+      for (const party of Array.isArray(sideParties) ? sideParties : []) {
+        if (!same(party) || !party.named_in_article) continue
+        const venue = discoveryListing(party.ticker, party.listing) || country(party.listing)
+        if (venue && venue !== 'US') continue
+        const mechanism = text(party.mechanism) || text('basis' in party ? party.basis : null)
+          || (side === 'exposed' ? 'Risk identified; mechanism not proven from saved analysis.' : null)
+        if (mechanism) effects.push({ side, mechanism, magnitude: text(party.magnitude, 240), horizon: text(party.horizon, 240) })
+      }
+    }
+    const story = (Array.isArray(hit.gist) ? hit.gist : []).map((s) => text(s)).filter((s): s is string => !!s).slice(0, 4)
+    if (!story.length) { const summary = text(hit.summary_en || hit.summary, 1600); if (summary) story.push(summary) }
+    const readFrom = hit.read_from
+    const kind = readFrom?.kind === 'filing_doc' || readFrom?.kind === 'alternate' ? readFrom.kind : hit.corroborated ? 'corroborated' : 'original'
+    // The compact popup must retain BOTH sides. Four benefits cannot hide a fifth, adverse effect.
+    const benefits = effects.filter((e) => e.side === 'beneficiary')
+    const risks = effects.filter((e) => e.side === 'exposed')
+    const keptBenefits = benefits.slice(0, risks.length ? Math.max(2, 4 - risks.length) : 4)
+    const boundedEffects = [...keptBenefits, ...risks.slice(0, 4 - keptBenefits.length)]
+    return { read_at: hit.fetched_at, story, company_role: subject && ['subject', 'acquirer', 'target', 'forecaster', 'mentioned'].includes(subject.role) ? subject.role : null, effects: boundedEffects,
+      event_assessment: text(hit.news_impact?.why_it_matters || hit.market_angle), watch_item: text(hit.watch_item, 600),
+      provenance: { kind, label: text(readFrom?.source_name || readFrom?.domain || hit.corroborated?.domains?.join(', '), 240), url: url(readFrom?.url) } }
+  } catch { return null } // One malformed saved read cannot remove the market universe or other assessments.
 }
+
+/** Join saved engine reads once per response. No event direction or absent cache can imply benefit. */
+export function projectUniverseAssessments(rows: ModelRow[], cache: Record<string, EventEnrichment>, now = Date.now()): ModelRow[] {
+  return rows.map((row) => {
+    if (row.signals === null) return row
+    const signals: ModelSignals = {}
+    for (const [key, reports] of Object.entries(row.signals)) {
+      signals[key as keyof ModelSignals] = reports.map((event) => {
+        const analysis = event.source_event_id ? modelSavedAnalysis(cache[event.source_event_id] || null, event.source_event_id, row.ticker, row.company) : null
+        // Reject future reads and reads older than their article, rather than promoting stale identity.
+        const readAt = analysis ? Date.parse(analysis.read_at) : NaN
+        return { ...event, assessment: analysis && readAt <= now && readAt >= Date.parse(event.reported_at) ? analysis : null }
+      })
+    }
+    return { ...row, signals }
+  })
+}
+
+export const readUniverseAssessments = (stateDir: string, rows: ModelRow[]) => projectUniverseAssessments(rows, peekCachedEnrichments(stateDir))
 
 export function registerUniverseEvidence(app: FastifyInstance, stateDir: string, peek = peekCachedEnrichment) {
   const query = z.object({ eventId: z.string().trim().min(1).max(200), ticker: z.string().regex(/^[A-Z0-9.^-]{1,20}$/), company: z.string().trim().min(1).max(300) })
