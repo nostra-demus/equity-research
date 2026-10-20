@@ -224,16 +224,16 @@ export function createUniverseModel(file: string, deps: {
       for (let offset = 0; offset < progress.length; offset += 20) {
         await wait(PAGE_GAP_MS)
         if (closed) return
-        const tickers = progress.slice(offset, offset + 20).map((row) => row.ticker)
+        const batch = progress.slice(offset, offset + 20)
+        const tickers = batch.map((row) => row.ticker)
         // Every standard table includes a price. Rotate the oldest/missing table into the existing
         // quote request instead of making five requests for the same company batch.
-        const view = [...FINVIZ_PRICE_VIEWS].sort((a, b) => {
-          const oldest = (id: FinvizViewId) => Math.min(...progress.slice(offset, offset + 20).map((member) => {
+        const view = FINVIZ_PRICE_VIEWS.map((view) => ({ view,
+          oldest: Math.min(...batch.map((member) => {
             const previous = previousRows.get(member.ticker)
-            return previous?.company === member.company ? Date.parse(previous.finviz?.[id]?.retrieved_at ?? '') || 0 : 0
-          }))
-          return oldest(a.id) - oldest(b.id)
-        })[0]
+            return previous?.company === member.company ? Date.parse(previous.finviz?.[view.id]?.retrieved_at ?? '') || 0 : 0
+          })),
+        })).sort((a, b) => a.oldest - b.oldest)[0].view
         const html = await fetchPage(finvizPageUrl(0, tickers, view.id))
         const quotes = parseFinvizPage(html, 0, new Date(now()).toISOString(), tickers)
         if (quotes.rows.some((row) => !row.finviz?.[view.id])) throw new Error('Finviz returned a different price view.')
@@ -278,11 +278,10 @@ export function createUniverseModel(file: string, deps: {
     }
     if (!selected) return null
     const { view } = selected
-    const rows = saved!.rows.filter((row) => {
-      const stamp = row.finviz?.[view.id]?.retrieved_at
-      return selected!.time === 0 ? !stamp : !!stamp && now() - Date.parse(stamp) >= FINVIZ_DATA_REFRESH_MS
-    }).sort((a, b) => (Date.parse(a.finviz?.[view.id]?.retrieved_at ?? '') || 0) - (Date.parse(b.finviz?.[view.id]?.retrieved_at ?? '') || 0)
-      || a.ticker.localeCompare(b.ticker)).slice(0, view.size)
+    const rows = saved!.rows.map((row) => ({ row, time: Date.parse(row.finviz?.[view.id]?.retrieved_at ?? '') || 0 }))
+      .filter((entry) => selected!.time === 0 ? entry.time === 0 : entry.time && now() - entry.time >= FINVIZ_DATA_REFRESH_MS)
+      .sort((a, b) => a.time - b.time || a.row.ticker.localeCompare(b.row.ticker))
+      .slice(0, view.size).map((entry) => entry.row)
     return { view, rows }
   }
   const work = async () => {
