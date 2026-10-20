@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T05:56:36Z",
+  "generated_at": "2026-10-20T05:57:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-098",
@@ -188817,6 +188817,79 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-aaa2cb1ecefc",
+      "idea_version": "IDEAV-a400997e7a2405c3",
+      "idea_version_started_at": "2026-10-20T05:56:49Z",
+      "ticker": "NAB",
+      "company": "National Australia Bank",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The bank is initiating a significant restructuring involving 2,500 job cuts, which is expected to improve operational efficiency and reduce long-term cost bases.",
+      "why_now": "The announcement was made on October 20, 2026, with the majority of cuts scheduled to occur within the coming months.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b8af2e8030f1",
+        "EVT-63368d24348e"
+      ],
+      "primary_source_event_id": "EVT-b8af2e8030f1",
+      "source_headlines": [
+        "NAB to cut 2,500 jobs in massive restructure",
+        "NAB to cut 2500 jobs in huge restructuring, most to go within months"
+      ],
+      "source_headline": "NAB to cut 2,500 jobs in massive restructure",
+      "source_url": "https://www.theguardian.com/australia-news/2026/oct/20/nab-bank-restructure-2500-jobs-cuts",
+      "source_name": "The Guardian — World news",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-20T01:27:04Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-20T05:56:49Z",
+      "updated_at": "2026-10-20T05:56:49Z",
+      "decay_at": "2026-10-21T13:27:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-ce1429be5073",
       "idea_version": "IDEAV-97aefb9f10f608e3",
       "idea_version_started_at": "2026-10-20T04:00:57Z",
@@ -191262,6 +191335,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-193acec1f3b7",
+      "idea_version": "IDEAV-7976f5bd314505d0",
+      "idea_version_started_at": "2026-10-20T05:56:49Z",
+      "ticker": "MAT",
+      "company": "Matador Mining",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has finalized the payment and completion of its option agreement with AngloGold Ashanti, clearing a major hurdle for project development and asset control.",
+      "why_now": "The filing was released on October 20, 2026, confirming the immediate completion of the transaction.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e924cabe7066"
+      ],
+      "primary_source_event_id": "EVT-e924cabe7066",
+      "source_headlines": [
+        "MAT: Final Payment and Completion of AngloGold Ashanti Option [price-sensitive]"
+      ],
+      "source_headline": "MAT: Final Payment and Completion of AngloGold Ashanti Option [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MAT?key=2924-03150539-6A1350156",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 97,
+      "newest_source_at": "2026-10-20T02:04:16Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-20T05:56:49Z",
+      "updated_at": "2026-10-20T05:56:49Z",
+      "decay_at": "2026-10-21T14:04:16Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-481a4b3ef631",
       "idea_version": "IDEAV-b3857cffba89d657",
       "idea_version_started_at": "2026-10-20T04:00:57Z",
@@ -193559,78 +193703,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-b42877d9ccad",
-      "idea_version": "IDEAV-f7fd0b95cffe3c9f",
-      "idea_version_started_at": "2026-10-17T08:35:11Z",
-      "ticker": "DHL",
-      "company": "DHL Group",
-      "exchange": "XETRA",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its FY26 EBIT outlook following strong Q3 performance, indicating better-than-expected operational efficiency and volume recovery.",
-      "why_now": "The guidance hike was announced on October 17, 2026, and is currently being digested by the market.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-58aa4439e185"
-      ],
-      "primary_source_event_id": "EVT-58aa4439e185",
-      "source_headlines": [
-        "DHL Raises FY26 EBIT Outlook After Strong Q3 Performance"
-      ],
-      "source_headline": "DHL Raises FY26 EBIT Outlook After Strong Q3 Performance",
-      "source_url": "https://www.nasdaq.com/articles/dhl-raises-fy26-ebit-outlook-after-strong-q3-performance",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-17T04:21:48Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-17T08:35:11Z",
-      "updated_at": "2026-10-17T08:35:11Z",
-      "decay_at": "2026-10-18T16:21:48Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-24912455a063",
       "idea_version": "IDEAV-36591658159913a5",
       "idea_version_started_at": "2026-10-17T14:35:09Z",
@@ -193696,77 +193768,6 @@
       "surfaced_at": "2026-10-17T14:35:09Z",
       "updated_at": "2026-10-17T14:35:09Z",
       "decay_at": "2026-10-19T00:15:25Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-d0bfefd30f1f",
-      "idea_version": "IDEAV-49296605a11054dd",
-      "idea_version_started_at": "2026-10-17T08:35:11Z",
-      "ticker": "RPEL",
-      "company": "Rashi Peripherals Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The sudden resignation of a joint statutory auditor (Deloitte) is a significant governance red flag that often precedes accounting scrutiny or internal control issues.",
-      "why_now": "The exchange filing was released on October 17, 2026, and the market typically reacts negatively to auditor departures.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d01206cb0ed7"
-      ],
-      "primary_source_event_id": "EVT-d01206cb0ed7",
-      "source_headlines": [
-        "Rashi Peripherals Limited: Rashi Peripherals Limited has informed the Exchange regarding Cessation of Deloitte Haskins and Sells, LLP as one of the Joint Statutory Auditors of the company w.e.f. October 16, 2026."
-      ],
-      "source_headline": "Rashi Peripherals Limited: Rashi Peripherals Limited has informed the Exchange regarding Cessation of Deloitte Haskins and Sells, LLP as one of the Joint Statutory Auditors of the company w.e.f. October 16, 2026.",
-      "source_url": "https://nsearchives.nseindia.com/corporate/RASHI2024_17102026102026_Cessation_of_Auditors_-_SE_Intimation_signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 98,
-      "newest_source_at": "2026-10-17T04:51:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-17T08:35:11Z",
-      "updated_at": "2026-10-17T08:35:11Z",
-      "decay_at": "2026-10-18T16:51:17Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -194291,33 +194292,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 527,
+    "total_count": 525,
     "shown_count": 499,
-    "hidden_count": 28,
+    "hidden_count": 26,
     "side_counts": {
       "long": {
-        "total_count": 268,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 17
       },
       "short": {
-        "total_count": 260,
+        "total_count": 259,
         "shown_count": 250,
-        "hidden_count": 10
+        "hidden_count": 9
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1152,
-      "oldest_retained_at": "2026-09-21T09:27:00Z",
+      "evicted_count": 1154,
+      "oldest_retained_at": "2026-09-21T12:28:55Z",
       "side_counts": {
         "long": {
-          "evicted_count": 765,
-          "oldest_retained_at": "2026-10-05T23:03:09Z"
+          "evicted_count": 766,
+          "oldest_retained_at": "2026-10-06T01:48:02Z"
         },
         "short": {
-          "evicted_count": 387,
-          "oldest_retained_at": "2026-09-21T09:27:00Z"
+          "evicted_count": 388,
+          "oldest_retained_at": "2026-09-21T12:28:55Z"
         }
       }
     },
@@ -196342,8 +196343,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-18T16:51:17Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-20T05:56:57Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -196417,8 +196418,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-18T16:21:48Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-20T05:56:57Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -231500,8 +231501,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1740,
-    "live_count": 60,
+    "surfaced_total": 1742,
+    "live_count": 62,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
