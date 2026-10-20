@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-20T21:42:52Z",
+  "generated_at": "2026-10-20T21:45:41Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261020-392",
+      "headline": "PLS: PLS prices US$700M Senior Unsecured Notes Offering [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PLS?key=2924-03150846-6A1350323",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T21:24:10Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Pilbara Minerals is raising US$700 million through a senior unsecured notes offering.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Pilbara Minerals is raising US$700 million through a senior unsecured notes offering.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pilbara Minerals",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261020-380",
       "headline": "SC 13E3/A - Personalis, Inc. (0001527753) (Subject)",
@@ -1955,55 +2004,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-339",
-      "headline": "Legendary Revives Lionsgate Takeover Talks, Submits Offer",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-20/legendary-revives-lionsgate-takeover-talks-submits-offer",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-20T16:39:57Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Legendary has submitted a takeover offer for Lionsgate, representing a major M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Legendary has submitted a takeover offer for Lionsgate, representing a major M&A event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lionsgate",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -190648,78 +190648,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-fc73cefe4bc2",
-      "idea_version": "IDEAV-f8576c73d83db85d",
-      "idea_version_started_at": "2026-10-19T19:35:51Z",
-      "ticker": "DHARAN",
-      "company": "Dharan Infra-EPC Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has entered the Corporate Insolvency Resolution Process, indicating severe financial distress and potential equity wipeout.",
-      "why_now": "The exchange filing confirming the insolvency process was released on October 19, 2026.",
-      "conviction": 90,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d453ddce56c7"
-      ],
-      "primary_source_event_id": "EVT-d453ddce56c7",
-      "source_headlines": [
-        "DHARAN INFRA-EPC LIMITED: DHARAN INFRA-EPC LIMITED has informed the Exchange about Corporate Insolvency Resolution Process"
-      ],
-      "source_headline": "DHARAN INFRA-EPC LIMITED: DHARAN INFRA-EPC LIMITED has informed the Exchange about Corporate Insolvency Resolution Process",
-      "source_url": "https://nsearchives.nseindia.com/corporate/KBCGLOBAL_19102026151210_1792387883.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-19T09:43:13Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-19T19:35:51Z",
-      "updated_at": "2026-10-19T19:35:51Z",
-      "decay_at": "2026-10-20T21:43:13Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-193acec1f3b7",
       "idea_version": "IDEAV-7976f5bd314505d0",
       "idea_version_started_at": "2026-10-20T05:56:49Z",
@@ -191846,6 +191774,78 @@
       "surfaced_at": "2026-10-19T00:56:11Z",
       "updated_at": "2026-10-19T00:56:11Z",
       "decay_at": "2026-10-20T12:17:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-fc73cefe4bc2",
+      "idea_version": "IDEAV-f8576c73d83db85d",
+      "idea_version_started_at": "2026-10-19T19:35:51Z",
+      "ticker": "DHARAN",
+      "company": "Dharan Infra-EPC Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has entered the Corporate Insolvency Resolution Process, indicating severe financial distress and potential equity wipeout.",
+      "why_now": "The exchange filing confirming the insolvency process was released on October 19, 2026.",
+      "conviction": 90,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d453ddce56c7"
+      ],
+      "primary_source_event_id": "EVT-d453ddce56c7",
+      "source_headlines": [
+        "DHARAN INFRA-EPC LIMITED: DHARAN INFRA-EPC LIMITED has informed the Exchange about Corporate Insolvency Resolution Process"
+      ],
+      "source_headline": "DHARAN INFRA-EPC LIMITED: DHARAN INFRA-EPC LIMITED has informed the Exchange about Corporate Insolvency Resolution Process",
+      "source_url": "https://nsearchives.nseindia.com/corporate/KBCGLOBAL_19102026151210_1792387883.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-19T09:43:13Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T19:35:51Z",
+      "updated_at": "2026-10-19T19:35:51Z",
+      "decay_at": "2026-10-20T21:43:13Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -194734,9 +194734,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 547,
+    "total_count": 548,
     "shown_count": 499,
-    "hidden_count": 48,
+    "hidden_count": 49,
     "side_counts": {
       "long": {
         "total_count": 284,
@@ -194744,9 +194744,9 @@
         "hidden_count": 34
       },
       "short": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       }
     },
     "retention": {
@@ -194765,6 +194765,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-fc73cefe4bc2",
+        "idea_version": "IDEAV-f8576c73d83db85d",
+        "idea_version_started_at": "2026-10-19T19:35:51Z",
+        "ticker": "DHARAN",
+        "company": "Dharan Infra-EPC Limited",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has entered the Corporate Insolvency Resolution Process, indicating severe financial distress and potential equity wipeout.",
+        "why_now": "The exchange filing confirming the insolvency process was released on October 19, 2026.",
+        "conviction": 90,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d453ddce56c7"
+        ],
+        "primary_source_event_id": "EVT-d453ddce56c7",
+        "source_headlines": [
+          "DHARAN INFRA-EPC LIMITED: DHARAN INFRA-EPC LIMITED has informed the Exchange about Corporate Insolvency Resolution Process"
+        ],
+        "source_headline": "DHARAN INFRA-EPC LIMITED: DHARAN INFRA-EPC LIMITED has informed the Exchange about Corporate Insolvency Resolution Process",
+        "source_url": "https://nsearchives.nseindia.com/corporate/KBCGLOBAL_19102026151210_1792387883.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-19T09:43:13Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-19T19:35:51Z",
+        "updated_at": "2026-10-19T19:35:51Z",
+        "decay_at": "2026-10-20T21:43:13Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-20T21:43:13Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-e3a8a88224ab",
         "idea_version": "IDEAV-6b7ffca2cd4aec6d",
@@ -231861,86 +231936,12 @@
         "archived_at": "2026-09-25T20:29:34Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-3da66d652109",
-        "idea_version": "IDEAV-bc3049636df69e58",
-        "idea_version_started_at": "2026-09-22T13:59:06Z",
-        "ticker": "00660",
-        "company": "Wai Chun Biotec",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The potential delay in annual results and possible trading suspension signal severe financial instability and governance risks.",
-        "why_now": "The filing was released today, September 22, 2026.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-00c449153aee"
-        ],
-        "primary_source_event_id": "EVT-00c449153aee",
-        "source_headlines": [
-          "WAI CHUN BIOTEC (00660): (I) INSIDE INFORMATION; (II) POSSIBLE DELAY IN PUBLICATION OF THE ANNUAL RESULTS FOR THE YEAR ENDED 30 JUNE 2026; AND (III) POSSIBLE SUSPENSION OF TRADING"
-        ],
-        "source_headline": "WAI CHUN BIOTEC (00660): (I) INSIDE INFORMATION; (II) POSSIBLE DELAY IN PUBLICATION OF THE ANNUAL RESULTS FOR THE YEAR ENDED 30 JUNE 2026; AND (III) POSSIBLE SUSPENSION OF TRADING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0922/2026092201345.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-22T13:29:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-22T13:59:06Z",
-        "updated_at": "2026-09-22T13:59:06Z",
-        "decay_at": "2026-09-24T01:29:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-25T20:29:34Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1764,
-    "live_count": 46,
+    "live_count": 45,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -231959,9 +231960,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10303887,
-    "news_picked_today": 851,
-    "news_dropped_today": 8989
+    "news_seen_today": 10334907,
+    "news_picked_today": 853,
+    "news_dropped_today": 9011
   },
   "book_momentum": {
     "live_count": 8,
