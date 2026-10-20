@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T13:24:59Z",
+  "generated_at": "2026-10-20T13:35:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-270",
@@ -188131,6 +188131,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-e38b2231c234",
+      "idea_version": "IDEAV-3c1456a43e5d9108",
+      "idea_version_started_at": "2026-10-20T13:35:08Z",
+      "ticker": "GE",
+      "company": "GE Aerospace",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company raised its 2026 profit forecast, driven by sustained high demand for engine maintenance services despite broader fuel cost pressures.",
+      "why_now": "The guidance hike was announced today, October 20, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 73,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-df0d967b1fc4",
+        "EVT-e89e5de600c0"
+      ],
+      "primary_source_event_id": "EVT-df0d967b1fc4",
+      "source_headlines": [
+        "US Stocks: GE Aerospace raises 2026 profit forecast as services strength drives growth",
+        "GE Aerospace raises profit forecast as engine maintenance demand defies fuel shock"
+      ],
+      "source_headline": "US Stocks: GE Aerospace raises 2026 profit forecast as services strength drives growth",
+      "source_url": "https://economictimes.indiatimes.com/markets/us-stocks/news/us-stocks-ge-aerospace-raises-2026-profit-forecast-as-services-strength-drives-growth/articleshow/135068763.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-20T11:19:35Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-20T13:35:08Z",
+      "updated_at": "2026-10-20T13:35:08Z",
+      "decay_at": "2026-10-21T23:19:35Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-cb1691406614",
       "idea_version": "IDEAV-ccd51edb65b54b35",
       "idea_version_started_at": "2026-10-19T23:11:18Z",
@@ -188341,6 +188412,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-8e38ef15bf4e",
+      "idea_version": "IDEAV-babbca001e70f436",
+      "idea_version_started_at": "2026-10-20T13:35:08Z",
+      "ticker": "RTX",
+      "company": "RTX",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "RTX increased its 2026 outlook for both adjusted sales and adjusted EPS, signaling continued strength in its aerospace and defense segments.",
+      "why_now": "The guidance update was released today, October 20, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c672eca05d79"
+      ],
+      "primary_source_event_id": "EVT-c672eca05d79",
+      "source_headlines": [
+        "RTX Raises 2026 Outlook For Adj. Sales, Adj. EPS"
+      ],
+      "source_headline": "RTX Raises 2026 Outlook For Adj. Sales, Adj. EPS",
+      "source_url": "https://www.nasdaq.com/articles/rtx-raises-2026-outlook-adj-sales-adj-eps",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-20T11:46:15Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-20T13:35:08Z",
+      "updated_at": "2026-10-20T13:35:08Z",
+      "decay_at": "2026-10-21T23:46:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-60e834f849f4",
       "idea_version": "IDEAV-2a4c79c3550b25ef",
       "idea_version_started_at": "2026-10-20T12:29:48Z",
@@ -188405,6 +188546,76 @@
       "surfaced_at": "2026-10-20T12:29:48Z",
       "updated_at": "2026-10-20T12:29:48Z",
       "decay_at": "2026-10-21T22:36:35Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-a9f69dba306c",
+      "idea_version": "IDEAV-a8ae3b4de95319e8",
+      "idea_version_started_at": "2026-10-20T13:35:08Z",
+      "ticker": "FLUT",
+      "company": "Flutter Entertainment",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is cutting 1,400 jobs in response to rising betting taxes, which signals margin compression and increased regulatory headwinds.",
+      "why_now": "The restructuring announcement was made today, October 20, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "policy_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c43f6acf151b"
+      ],
+      "primary_source_event_id": "EVT-c43f6acf151b",
+      "source_headlines": [
+        "Paddy Power-owner cuts 1,400 jobs and blames betting tax rises"
+      ],
+      "source_headline": "Paddy Power-owner cuts 1,400 jobs and blames betting tax rises",
+      "source_url": "https://www.bbc.co.uk/news/articles/cqzrdpkm3g84o?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — Business",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-20T11:47:08Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-20T13:35:08Z",
+      "updated_at": "2026-10-20T13:35:08Z",
+      "decay_at": "2026-10-21T23:47:08Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -188545,6 +188756,149 @@
       "surfaced_at": "2026-10-19T04:16:06Z",
       "updated_at": "2026-10-19T04:16:06Z",
       "decay_at": "2026-10-20T15:27:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-7880bfd6f22e",
+      "idea_version": "IDEAV-018b6a7dce1b7bf4",
+      "idea_version_started_at": "2026-10-20T13:35:08Z",
+      "ticker": "GM",
+      "company": "General Motors",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The stock is reacting negatively to earnings results, suggesting underlying issues with profitability or guidance that failed to meet investor expectations.",
+      "why_now": "The market reaction is live following the earnings release today, October 20, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-46ecd6e85bbc"
+      ],
+      "primary_source_event_id": "EVT-46ecd6e85bbc",
+      "source_headlines": [
+        "General Motors Stock Crashes 5% Pre-Market After Earnings Release. What Spooked Investors"
+      ],
+      "source_headline": "General Motors Stock Crashes 5% Pre-Market After Earnings Release. What Spooked Investors",
+      "source_url": "https://www.ndtvprofit.com/markets/general-motors-stock-crashes-5-pre-market-after-earnings-release-what-spooked-investors-12210797#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-20T11:38:55Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-20T13:35:08Z",
+      "updated_at": "2026-10-20T13:35:08Z",
+      "decay_at": "2026-10-21T23:38:55Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-7d586ae27403",
+      "idea_version": "IDEAV-bb0d8b1c9549cad3",
+      "idea_version_started_at": "2026-10-20T13:35:08Z",
+      "ticker": "BRZE",
+      "company": "Braze",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Salesforce has announced an agreement to acquire the company for approximately $5.7 billion, creating a significant premium opportunity for shareholders.",
+      "why_now": "The acquisition news was confirmed today, October 20, 2026.",
+      "conviction": 90,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-916416c16b9d",
+        "EVT-cd619f408584"
+      ],
+      "primary_source_event_id": "EVT-916416c16b9d",
+      "source_headlines": [
+        "Salesforce to Buy Customer-Engagement Platform for Nearly $5.7 Billion",
+        "Salesforce to Buy Marketing Platform Braze for $5.7 Billion"
+      ],
+      "source_headline": "Salesforce to Buy Customer-Engagement Platform for Nearly $5.7 Billion",
+      "source_url": "https://www.wsj.com/business/deals/salesforce-to-buy-customer-engagement-platform-for-nearly-5-7-billion-aba17cfe?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-20T12:44:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-20T13:35:08Z",
+      "updated_at": "2026-10-20T13:35:08Z",
+      "decay_at": "2026-10-22T00:44:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -191715,78 +192069,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-9a8c33c37ad0",
-      "idea_version": "IDEAV-cebdf3e8a1929254",
-      "idea_version_started_at": "2026-10-19T02:12:58Z",
-      "ticker": "010120",
-      "company": "LS Electric",
-      "exchange": "KRX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a 170 billion won switchgear contract in the U.S., which will directly contribute to revenue growth and margin expansion.",
-      "why_now": "The contract win was announced on 2026-10-19.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f45ff17a511d"
-      ],
-      "primary_source_event_id": "EVT-f45ff17a511d",
-      "source_headlines": [
-        "LS Electric wins 170 bln-won U.S. switchgear deal"
-      ],
-      "source_headline": "LS Electric wins 170 bln-won U.S. switchgear deal",
-      "source_url": "https://en.yna.co.kr/view/AEN20261019002700320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "materiality_max": 82,
-      "newest_source_at": "2026-10-19T01:27:35Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-19T02:12:58Z",
-      "updated_at": "2026-10-19T02:12:58Z",
-      "decay_at": "2026-10-20T13:27:35Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7ac6a207250e",
       "idea_version": "IDEAV-c6b1c76a73c6b16b",
       "idea_version_started_at": "2026-10-20T00:46:02Z",
@@ -193923,78 +194205,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-58721326aaea",
-      "idea_version": "IDEAV-0ee77860f24cdf0e",
-      "idea_version_started_at": "2026-10-17T14:35:09Z",
-      "ticker": "IBM",
-      "company": "IBM",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Heavy capital expenditure of $11 billion on growth initiatives is failing to offset stalling core software revenue, pressuring margins and free cash flow.",
-      "why_now": "The report detailing the disconnect between high capex and stagnant software performance was published on October 17, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d8ec5a6802bb"
-      ],
-      "primary_source_event_id": "EVT-d8ec5a6802bb",
-      "source_headlines": [
-        "IBM spent $11 billion on growth as its own software stalls"
-      ],
-      "source_headline": "IBM spent $11 billion on growth as its own software stalls",
-      "source_url": "https://www.thestreet.com/investing/ibm-q3-earnings-bofa-analyst-rating",
-      "source_name": "TheStreet",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-17T13:33:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-17T14:35:09Z",
-      "updated_at": "2026-10-17T14:35:09Z",
-      "decay_at": "2026-10-19T01:33:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-87cbb3009f6f",
       "idea_version": "IDEAV-a445a760a5970d87",
       "idea_version_started_at": "2026-10-17T14:35:09Z",
@@ -194717,6 +194927,78 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
+    },
+    {
+      "idea_id": "IDEA-9a8c33c37ad0",
+      "idea_version": "IDEAV-cebdf3e8a1929254",
+      "idea_version_started_at": "2026-10-19T02:12:58Z",
+      "ticker": "010120",
+      "company": "LS Electric",
+      "exchange": "KRX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a 170 billion won switchgear contract in the U.S., which will directly contribute to revenue growth and margin expansion.",
+      "why_now": "The contract win was announced on 2026-10-19.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f45ff17a511d"
+      ],
+      "primary_source_event_id": "EVT-f45ff17a511d",
+      "source_headlines": [
+        "LS Electric wins 170 bln-won U.S. switchgear deal"
+      ],
+      "source_headline": "LS Electric wins 170 bln-won U.S. switchgear deal",
+      "source_url": "https://en.yna.co.kr/view/AEN20261019002700320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "materiality_max": 82,
+      "newest_source_at": "2026-10-19T01:27:35Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T02:12:58Z",
+      "updated_at": "2026-10-19T02:12:58Z",
+      "decay_at": "2026-10-20T13:27:35Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     }
   ],
   "ideas_archive": {
@@ -194734,19 +195016,19 @@
     "hidden_count": 40,
     "side_counts": {
       "long": {
-        "total_count": 279,
+        "total_count": 280,
         "shown_count": 250,
-        "hidden_count": 29
+        "hidden_count": 30
       },
       "short": {
-        "total_count": 261,
+        "total_count": 260,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 10
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1160,
+      "evicted_count": 1161,
       "oldest_retained_at": "2026-09-21T22:06:00Z",
       "side_counts": {
         "long": {
@@ -194754,12 +195036,87 @@
           "oldest_retained_at": "2026-10-06T07:47:25Z"
         },
         "short": {
-          "evicted_count": 389,
+          "evicted_count": 390,
           "oldest_retained_at": "2026-09-21T22:06:00Z"
         }
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-9a8c33c37ad0",
+        "idea_version": "IDEAV-cebdf3e8a1929254",
+        "idea_version_started_at": "2026-10-19T02:12:58Z",
+        "ticker": "010120",
+        "company": "LS Electric",
+        "exchange": "KRX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company secured a 170 billion won switchgear contract in the U.S., which will directly contribute to revenue growth and margin expansion.",
+        "why_now": "The contract win was announced on 2026-10-19.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f45ff17a511d"
+        ],
+        "primary_source_event_id": "EVT-f45ff17a511d",
+        "source_headlines": [
+          "LS Electric wins 170 bln-won U.S. switchgear deal"
+        ],
+        "source_headline": "LS Electric wins 170 bln-won U.S. switchgear deal",
+        "source_url": "https://en.yna.co.kr/view/AEN20261019002700320",
+        "source_name": "Yonhap News Agency — All News (English)",
+        "materiality_max": 82,
+        "newest_source_at": "2026-10-19T01:27:35Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-19T02:12:58Z",
+        "updated_at": "2026-10-19T02:12:58Z",
+        "decay_at": "2026-10-20T13:27:35Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-20T13:27:35Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-5d7e7121c615",
         "idea_version": "IDEAV-0000d88643d77570",
@@ -197737,8 +198094,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-19T01:33:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-20T13:35:24Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -222022,80 +222379,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-863c8a81db89",
-        "idea_version": "IDEAV-00167ca7c68becd1",
-        "idea_version_started_at": "2026-10-05T07:26:59Z",
-        "ticker": "CSL.AX",
-        "company": "CSL",
-        "exchange": "Australian",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "CSL is considering a drug deal with a Swiss biotech start-up that could be worth up to $2.2 billion.",
-        "why_now": "The potential deal was reported on October 5, 2026.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-59bf272af84c"
-        ],
-        "primary_source_event_id": "EVT-59bf272af84c",
-        "source_headlines": [
-          "CSL could spend up to $2.2b on drug deal with Swiss biotech start-up"
-        ],
-        "source_headline": "CSL could spend up to $2.2b on drug deal with Swiss biotech start-up",
-        "source_url": "https://www.afr.com/companies/healthcare-and-fitness/csl-could-spend-up-to-2-2b-on-drug-deal-with-swiss-biotech-startup-20261005-p612ty?ref=rss&utm_medium=rss&utm_source=rss_feed",
-        "source_name": "Australian Financial Review",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-05T05:41:22Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-05T07:26:59Z",
-        "updated_at": "2026-10-05T07:26:59Z",
-        "decay_at": "2026-10-06T17:41:22Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-08T08:41:18Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-cbb29109fa62",
         "idea_version": "IDEAV-3e3b439d8d461221",
         "idea_version_started_at": "2026-10-05T07:26:59Z",
@@ -231935,8 +232218,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1754,
-    "live_count": 54,
+    "surfaced_total": 1759,
+    "live_count": 58,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -231955,7 +232238,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5738733,
+    "news_seen_today": 5836916,
     "news_picked_today": 558,
     "news_dropped_today": 5850
   },
