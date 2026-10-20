@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-20T00:16:08Z",
+  "generated_at": "2026-10-20T00:18:01Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261020-004",
+      "headline": "OpenAI seeks to accelerate fundraising ahead of Anthropic IPO, sources say",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/openai-seeks-to-accelerate-fundraising-ahead-of-anthropic-ipo-sources-say",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T00:11:00Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "OpenAI is seeking to accelerate fundraising efforts to maintain competitive positioning against Anthropic.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "OpenAI is seeking to accelerate fundraising efforts to maintain competitive positioning against Anthropic.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-006",
+      "headline": "EB ENVIRONMENT (00257): VOLUNTARY ANNOUNCEMENT IN RESPECT OF THE COMPLETION OF ISSUANCE OF THE 2026 MEDIUM-TERM NOTES (SERIES 3) AND THE UNDERWRITING AGREEMENT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000103.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "EB Environment completed the issuance of 2026 medium-term notes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "EB Environment completed the issuance of 2026 medium-term notes.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EB Environment",
+          "ticker": "00257",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261020-001",
       "headline": "Kaya Limited: Kaya Limited has informed the Exchange about receipt of In-Principle approval from NSE & BSE for issue of equity shares on preferential basis to non promoter",
@@ -43,6 +141,55 @@
           "name": "Kaya Limited",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-005",
+      "headline": "ASCLETIS-B (01672): VOLUNTARY ANNOUNCEMENT - ASCLETIS ANNOUNCES POSITIVE PRECLINICAL DATA FOR THE MOST COMPREHENSIVE ONCE-WEEKLY ORAL PEPTIDE PIPELINE FOR THE TREATMENT OF OBESITY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000107.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Ascletis reported positive preclinical data for its oral peptide pipeline targeting obesity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Ascletis reported positive preclinical data for its oral peptide pipeline targeting obesity.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ascletis Pharma",
+          "ticker": "01672",
+          "listing_country": "CN"
         }
       ],
       "size_bucket": "small",
@@ -138,6 +285,55 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-007",
+      "headline": "FIRST SERVICE (02107): CONTINUING CONNECTED TRANSACTIONS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000101.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Routine disclosure of continuing connected transactions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 48,
+      "triage_reason": "Routine disclosure of continuing connected transactions.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "First Service",
+          "ticker": "02107",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -229392,7 +229588,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3810,
+    "inbox_unconsumed": 3814,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -229401,9 +229597,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 103200,
-    "news_picked_today": 3,
-    "news_dropped_today": 69
+    "news_seen_today": 114651,
+    "news_picked_today": 7,
+    "news_dropped_today": 89
   },
   "book_momentum": {
     "live_count": 8,
