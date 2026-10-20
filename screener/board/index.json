@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T11:15:35Z",
+  "generated_at": "2026-10-20T11:23:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-190",
@@ -681,6 +681,56 @@
           "name": "FAIRWOOD HOLD",
           "ticker": "00052",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-224",
+      "headline": "Dime Commercial Bancshares Q3 Net Income Rises; To Acquire Empire",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/dime-commercial-bancshares-q3-net-income-rises-acquire-empire",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T10:47:32Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Dime Commercial Bancshares reported increased Q3 net income and announced the acquisition of Empire.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dime Commercial Bancshares reported increased Q3 net income and announced the acquisition of Empire.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dime Commercial Bancshares",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -1924,60 +1974,6 @@
           "name": "NuCube Energy, Inc.",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-076",
-      "headline": "MAT: Final Payment and Completion of AngloGold Ashanti Option [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MAT?key=2924-03150539-6A1350156",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-20T02:04:16Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "MAT completed the final payment and acquisition of an option from AngloGold Ashanti.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "MAT completed the final payment and acquisition of an option from AngloGold Ashanti.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MAT",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "AngloGold Ashanti",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -232027,9 +232023,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4712522,
-    "news_picked_today": 394,
-    "news_dropped_today": 4982
+    "news_seen_today": 4768462,
+    "news_picked_today": 404,
+    "news_dropped_today": 5020
   },
   "book_momentum": {
     "live_count": 8,
