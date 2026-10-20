@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-10-20T22:38:14Z",
+  "generated_at": "2026-10-20T22:40:54Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261020-419",
+      "headline": "GSS: Update on Commercial Terms for the Proposed Merger with MAP [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GSS?key=2924-03150966-2A1705233",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T22:18:45Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "The company is updating commercial terms for a proposed merger, which is a material event for shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is updating commercial terms for a proposed merger, which is a material event for shareholders.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GSS",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "MAP",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261020-392",
       "headline": "PLS: PLS prices US$700M Senior Unsecured Notes Offering [price-sensitive]",
@@ -1179,6 +1233,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261020-421",
+      "headline": "NextDC slashes earnings forecasts after Melbourne power delays",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/infrastructure/nextdc-slashes-earnings-forecasts-after-melbourne-power-delays-20261021-p616u7?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T22:33:57Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "NextDC has issued a quantified earnings forecast cut due to operational delays.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NextDC has issued a quantified earnings forecast cut due to operational delays.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NextDC",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261020-418",
       "headline": "Netflix Cut Its Ad Revenue Forecast by $300 Million. Does That Matter More Than Its Earnings Beat?",
       "headline_en": null,
@@ -1890,109 +1993,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-330",
-      "headline": "Carrefour blames French riots as it cuts profit forecast",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/e02cdb95-e438-4cc1-ace7-fbef5943beff?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-20T17:33:41Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Carrefour cut its profit forecast citing the impact of French riots.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Carrefour cut its profit forecast citing the impact of French riots.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Carrefour",
-          "ticker": null,
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-328",
-      "headline": "Braze stock surges over 50% after Salesforce announces $5.66 billion acquisition",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/braze-stock-surges-over-50-after-salesforce-announces-5-66-billion-acquisition-11792516251172.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-20T17:21:01Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Braze stock surged over 50% after Salesforce announced a $5.66 billion acquisition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Braze stock surged over 50% after Salesforce announced a $5.66 billion acquisition.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Braze",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Salesforce",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -231947,9 +231947,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10894760,
-    "news_picked_today": 945,
-    "news_dropped_today": 9375
+    "news_seen_today": 10941641,
+    "news_picked_today": 951,
+    "news_dropped_today": 9393
   },
   "book_momentum": {
     "live_count": 8,
