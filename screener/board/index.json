@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-20T00:40:03Z",
+  "generated_at": "2026-10-20T00:45:48Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261020-028",
+      "headline": "Keppel Reit to buy 51% stake in Keppel South Central for S$610.9 million",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/property/keppel-reit-buy-51-stake-keppel-south-central-s610-9-million",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T00:12:40Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Keppel Reit is acquiring a 51% stake in Keppel South Central for S$610.9 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Keppel Reit is acquiring a 51% stake in Keppel South Central for S$610.9 million.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Keppel Reit",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261020-021",
       "headline": "PLS: Proposed offering of up to US$700M Senior Unsecured Notes",
@@ -144,6 +193,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-034",
+      "headline": "ZIJIN GOLD INTL (02259): Inside Information-Announcement in relation to Unaudited Financial Information and Operational Performance for the Nine Months Ended 30 September 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1019/2026101900153.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T10:48:00Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Zijin Gold International released unaudited financial and operational performance for the nine months ended September 30, 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Zijin Gold International released unaudited financial and operational performance for the nine months ended September 30, 2026.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zijin Gold International",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -737,6 +835,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261020-032",
+      "headline": "SF HOLDING (06936): EXPRESS BUSINESS OPERATIONS BULLETIN - SEPTEMBER 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1019/2026101900155.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T10:48:00Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "SF Holding released its September 2026 operational performance bulletin.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "SF Holding released its September 2026 operational performance bulletin.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SF Holding",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261020-005",
       "headline": "ASCLETIS-B (01672): VOLUNTARY ANNOUNCEMENT - ASCLETIS ANNOUNCES POSITIVE PRECLINICAL DATA FOR THE MOST COMPREHENSIVE ONCE-WEEKLY ORAL PEPTIDE PIPELINE FOR THE TREATMENT OF OBESITY",
       "headline_en": null,
@@ -878,6 +1025,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261020-029",
+      "headline": "LMS: LMS Completes October Drilling at Oonagalabi",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LMS?key=2924-03150502-2A1705050",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T00:35:50Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "LMS completed drilling operations at Oonagalabi, which is a routine operational update.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "LMS completed drilling operations at Oonagalabi, which is a routine operational update.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LMS",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-030",
+      "headline": "KIMOU ENVIRON (06805): SUPPLEMENTAL ANNOUNCEMENT - CONTINUING CONNECTED TRANSACTIONS THE LEASE AND RELATED AGREEMENTS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1019/2026101900157.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T10:49:00Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Supplemental announcement regarding continuing connected transactions for lease agreements.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Supplemental announcement regarding continuing connected transactions for lease agreements.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kimou Environmental",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261020-008",
       "headline": "RBI to conduct Overnight Variable Rate Repo (VRR) auction under LAF on October 21, 2026",
       "headline_en": null,
@@ -935,6 +1180,135 @@
       "launched_signal_id": null,
       "triage_score": 61,
       "triage_reason": "Routine exchange-level surveillance measure update for listed securities.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-031",
+      "headline": "Graded Surveillance Measure (GSM) - List of securities moving into their respective GSM Stages",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261019-34/20261019-34.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T13:19:03Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Exchange-mandated surveillance measures for specific securities often indicate increased volatility or regulatory scrutiny.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Exchange-mandated surveillance measures for specific securities often indicate increased volatility or regulatory scrutiny.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-033",
+      "headline": "Applicability of Long Term Additional Surveillance Measure (LT-ASM)",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261019-33/20261019-33.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T13:18:53Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Applicability of Long Term Additional Surveillance Measure (LT-ASM) by the exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Applicability of Long Term Additional Surveillance Measure (LT-ASM) by the exchange.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-035",
+      "headline": "CHANGES IN PRICE BAND",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261019-32/20261019-32.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T13:18:40Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Exchange-mandated changes in price bands for securities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Exchange-mandated changes in price bands for securities.",
       "region": "IN",
       "relevance": "relevant_non_material",
       "materiality_pre_score": 40,
@@ -230507,7 +230881,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3833,
+    "inbox_unconsumed": 3841,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -230516,9 +230890,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 308866,
-    "news_picked_today": 28,
-    "news_dropped_today": 236
+    "news_seen_today": 354451,
+    "news_picked_today": 36,
+    "news_dropped_today": 276
   },
   "book_momentum": {
     "live_count": 8,
