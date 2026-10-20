@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T10:37:45Z",
+  "generated_at": "2026-10-20T10:39:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-168",
@@ -188688,6 +188688,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-2da577e6a8ea",
+      "idea_version": "IDEAV-a3ca0315797d4448",
+      "idea_version_started_at": "2026-10-20T10:39:21Z",
+      "ticker": "01171",
+      "company": "Yankuang Energy",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company issued a positive profit alert for the first three quarters of 2026, indicating stronger-than-expected earnings performance.",
+      "why_now": "The announcement was filed on 2026-10-20, providing an immediate catalyst for price adjustment based on improved profitability.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b346e89ff553"
+      ],
+      "primary_source_event_id": "EVT-b346e89ff553",
+      "source_headlines": [
+        "YANKUANG ENERGY (01171): INSIDE INFORMATION POSITIVE PROFIT ALERT ANNOUNCEMENT FOR THE FIRST THREE QUARTERS OF 2026"
+      ],
+      "source_headline": "YANKUANG ENERGY (01171): INSIDE INFORMATION POSITIVE PROFIT ALERT ANNOUNCEMENT FOR THE FIRST THREE QUARTERS OF 2026",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000639.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-20T09:22:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-20T10:39:21Z",
+      "updated_at": "2026-10-20T10:39:21Z",
+      "decay_at": "2026-10-21T21:22:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-049dd080737f",
       "idea_version": "IDEAV-6450a4a8151902a7",
       "idea_version_started_at": "2026-10-20T10:11:37Z",
@@ -231868,8 +231939,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1750,
-    "live_count": 57,
+    "surfaced_total": 1751,
+    "live_count": 58,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -231888,7 +231959,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4438451,
+    "news_seen_today": 4449448,
     "news_picked_today": 341,
     "news_dropped_today": 4675
   },
