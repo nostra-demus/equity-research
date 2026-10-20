@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T10:46:46Z",
+  "generated_at": "2026-10-20T10:54:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-170",
@@ -341,6 +341,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-189",
+      "headline": "CHINA OCEAN GP (08047): Cancellation of listing",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1020/2026102000605.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T09:16:00Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Cancellation of listing indicates a terminal event for the company's public status.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cancellation of listing indicates a terminal event for the company's public status.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Ocean GP",
+          "ticker": "08047",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1933,55 +1982,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-074",
-      "headline": "Alibaba Backs Chinese Robovan Maker in $400 Million Fundraising",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-20/alibaba-backs-chinese-robovan-maker-in-400-million-fundraising",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-20T02:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Alibaba participated in a $400 million fundraising round for a Chinese robovan maker.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Alibaba participated in a $400 million fundraising round for a Chinese robovan maker.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alibaba",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -188336,76 +188336,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-47cbab11b25a",
-      "idea_version": "IDEAV-da8a44dea59e2022",
-      "idea_version_started_at": "2026-10-19T00:02:05Z",
-      "ticker": "VKTX",
-      "company": "Viking Therapeutics",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The $575 million capital raise significantly strengthens the balance sheet, providing the necessary runway to fund late-stage clinical trials for its obesity drug pipeline.",
-      "why_now": "The capital raise was announced on 2026-10-18, providing immediate liquidity to accelerate development timelines.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9ee909dd2888"
-      ],
-      "primary_source_event_id": "EVT-9ee909dd2888",
-      "source_headlines": [
-        "Viking Therapeutics Just Raised $575 Million. Here's What It Means for the Obesity Stock's Next Chapter."
-      ],
-      "source_headline": "Viking Therapeutics Just Raised $575 Million. Here's What It Means for the Obesity Stock's Next Chapter.",
-      "source_url": "https://www.nasdaq.com/articles/viking-therapeutics-just-raised-575-million-heres-what-it-means-obesity-stocks-next",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-18T22:50:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-19T00:02:05Z",
-      "updated_at": "2026-10-19T00:02:05Z",
-      "decay_at": "2026-10-20T10:50:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-301c9958417a",
       "idea_version": "IDEAV-5ddbd040921f921a",
       "idea_version_started_at": "2026-10-19T04:16:06Z",
@@ -192211,6 +192141,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-47cbab11b25a",
+      "idea_version": "IDEAV-da8a44dea59e2022",
+      "idea_version_started_at": "2026-10-19T00:02:05Z",
+      "ticker": "VKTX",
+      "company": "Viking Therapeutics",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The $575 million capital raise significantly strengthens the balance sheet, providing the necessary runway to fund late-stage clinical trials for its obesity drug pipeline.",
+      "why_now": "The capital raise was announced on 2026-10-18, providing immediate liquidity to accelerate development timelines.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9ee909dd2888"
+      ],
+      "primary_source_event_id": "EVT-9ee909dd2888",
+      "source_headlines": [
+        "Viking Therapeutics Just Raised $575 Million. Here's What It Means for the Obesity Stock's Next Chapter."
+      ],
+      "source_headline": "Viking Therapeutics Just Raised $575 Million. Here's What It Means for the Obesity Stock's Next Chapter.",
+      "source_url": "https://www.nasdaq.com/articles/viking-therapeutics-just-raised-575-million-heres-what-it-means-obesity-stocks-next",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-18T22:50:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T00:02:05Z",
+      "updated_at": "2026-10-19T00:02:05Z",
+      "decay_at": "2026-10-20T10:50:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-53f1ab35f840",
       "idea_version": "IDEAV-46e30d36dcc698d7",
       "idea_version_started_at": "2026-10-18T19:53:16Z",
@@ -194731,14 +194731,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 535,
+    "total_count": 536,
     "shown_count": 499,
-    "hidden_count": 36,
+    "hidden_count": 37,
     "side_counts": {
       "long": {
-        "total_count": 278,
+        "total_count": 279,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 29
       },
       "short": {
         "total_count": 258,
@@ -194762,6 +194762,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-47cbab11b25a",
+        "idea_version": "IDEAV-da8a44dea59e2022",
+        "idea_version_started_at": "2026-10-19T00:02:05Z",
+        "ticker": "VKTX",
+        "company": "Viking Therapeutics",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The $575 million capital raise significantly strengthens the balance sheet, providing the necessary runway to fund late-stage clinical trials for its obesity drug pipeline.",
+        "why_now": "The capital raise was announced on 2026-10-18, providing immediate liquidity to accelerate development timelines.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9ee909dd2888"
+        ],
+        "primary_source_event_id": "EVT-9ee909dd2888",
+        "source_headlines": [
+          "Viking Therapeutics Just Raised $575 Million. Here's What It Means for the Obesity Stock's Next Chapter."
+        ],
+        "source_headline": "Viking Therapeutics Just Raised $575 Million. Here's What It Means for the Obesity Stock's Next Chapter.",
+        "source_url": "https://www.nasdaq.com/articles/viking-therapeutics-just-raised-575-million-heres-what-it-means-obesity-stocks-next",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-18T22:50:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-19T00:02:05Z",
+        "updated_at": "2026-10-19T00:02:05Z",
+        "decay_at": "2026-10-20T10:50:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-20T10:50:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-23d292b4cefa",
         "idea_version": "IDEAV-d089209e36b9cb3b",
@@ -222027,81 +222100,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-b19428ab6739",
-        "idea_version": "IDEAV-26af0ddb19db730f",
-        "idea_version_started_at": "2026-10-05T04:46:37Z",
-        "ticker": "LT",
-        "company": "Larsen & Toubro",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "L&T secured massive power transmission orders valued between ₹10,000-15,000 crore across India and the Middle East, significantly boosting its order book and revenue visibility.",
-        "why_now": "The contract win was announced on October 5, 2026, representing a major new commercial milestone.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1765e41a70aa"
-        ],
-        "primary_source_event_id": "EVT-1765e41a70aa",
-        "source_headlines": [
-          "L&T wins ₹10,000-15,000 crore power transmission orders in India, Middle East"
-        ],
-        "source_headline": "L&T wins ₹10,000-15,000 crore power transmission orders in India, Middle East",
-        "source_url": "https://economictimes.indiatimes.com/industry/energy/power/lt-wins-10000-15000-crore-power-transmission-orders-in-india-middle-east/articleshow/134685525.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 98,
-        "newest_source_at": "2026-10-05T04:16:31Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-05T04:46:37Z",
-        "updated_at": "2026-10-05T04:46:37Z",
-        "decay_at": "2026-10-06T16:16:31Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-08T05:28:26Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-69be6242b6c3",
         "idea_version": "IDEAV-8cb2c362585333ff",
         "idea_version_started_at": "2026-10-05T03:26:33Z",
@@ -231941,7 +231939,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1751,
-    "live_count": 58,
+    "live_count": 57,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -231960,9 +231958,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4503905,
-    "news_picked_today": 355,
-    "news_dropped_today": 4853
+    "news_seen_today": 4568914,
+    "news_picked_today": 362,
+    "news_dropped_today": 4894
   },
   "book_momentum": {
     "live_count": 8,
