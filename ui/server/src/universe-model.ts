@@ -49,6 +49,15 @@ function screenerProps(html: string): any {
   throw new Error('Finviz did not return the expected free screener page. The layout or access may have changed.')
 }
 
+function normalizeNewsItem(item: any): any {
+  if (!item || typeof item.url !== 'string' || !item.url.startsWith('/')) return item
+  let url: URL
+  try { url = new URL(item.url, 'https://finviz.com') }
+  catch { throw new Error('Finviz returned invalid structured data.') }
+  if (url.origin !== 'https://finviz.com') throw new Error('Finviz returned invalid structured data.')
+  return { ...item, url: url.toString() }
+}
+
 export function parseFinvizSectors(html: string): string[] {
   const catalog = screenerProps(html).filters?.filters
   const options = Array.isArray(catalog) ? catalog.find((f: any) => f?.key === 'sec')?.options : null
@@ -79,10 +88,13 @@ export function parseFinvizPage(html: string, firstRow: number, retrievedAt: str
     const { text, numbers } = raw ?? {}
     if (!text || !/^[A-Z0-9.^-]{1,20}$/.test(text.ticker) || typeof text.company !== 'string' || !text.company.trim()
       || !numbers || numbers.order !== firstRow + i || (tickers && !tickers.includes(text.ticker))) throw new Error('Finviz returned an invalid company row.')
+    const headlines = view.id === 'news' ? props.blocks.news[text.ticker] : undefined
+    const news = view.id === 'news' && headlines === undefined ? [] : headlines
+    if (news !== undefined && !Array.isArray(news)) throw new Error('Finviz free headlines are unavailable.')
     const snapshot: FinvizSnapshot = { source_url: sourceUrl!.toString(), retrieved_at: retrievedAt,
       text: { ...text }, numbers: Object.fromEntries(Object.entries(numbers).filter(([key]) => key !== 'order')) as Record<string, number | null>,
       ...(raw.range52w === undefined ? {} : { range52w: raw.range52w }),
-      ...(view.id === 'news' ? { news: props.blocks?.news?.[text.ticker] ?? [] } : {}) }
+      ...(news === undefined ? {} : { news: news.map(normalizeNewsItem) }) }
     const finviz = { [view.id]: snapshot }
     if (!isFinvizData(finviz, text.ticker, text.company.trim())) throw new Error('Finviz returned invalid structured data.')
     return { ticker: text.ticker, company: text.company.trim(), currency: 'USD', retrieved_at: retrievedAt, finviz,
