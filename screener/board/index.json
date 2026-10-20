@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T15:25:22Z",
+  "generated_at": "2026-10-20T16:39:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-295",
@@ -1032,6 +1032,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261020-322",
+      "headline": "Veon to acquire rival Perfectum in $207m Uzbek consolidation push",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/veon-to-acquire-rival-perfectum-in-207m-uzbek-consolidation-push/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T15:56:13Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Veon will acquire rival Perfectum in a $207 million Uzbek consolidation push.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Veon will acquire rival Perfectum in a $207 million Uzbek consolidation push.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Veon",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Perfectum",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261020-310",
       "headline": "Dream Finders closes $2.2 billion all-cash acquisition of Beazer Homes",
       "headline_en": null,
@@ -1921,55 +1975,6 @@
       "companies": [
         {
           "name": "General Motors",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-242",
-      "headline": "GE Aerospace raises profit forecast as engine maintenance demand defies fuel shock",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/aerospace-defense/ge-aerospace-raises-2026-profit-forecast-services-strength-drives-growth-2026-10-20/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-20T10:28:54Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "GE Aerospace raised its profit forecast, indicating strong demand for engine maintenance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GE Aerospace raised its profit forecast, indicating strong demand for engine maintenance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GE Aerospace",
           "ticker": null,
           "listing_country": "US"
         }
@@ -188961,76 +188966,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-301c9958417a",
-      "idea_version": "IDEAV-5ddbd040921f921a",
-      "idea_version_started_at": "2026-10-19T04:16:06Z",
-      "ticker": "META",
-      "company": "Meta Platforms",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Increased regulatory pressure from the Indian government to modify algorithms for content moderation creates operational friction and potential compliance costs.",
-      "why_now": "The Indian government issued a formal request for an algorithm review on October 19, 2026.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "policy_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-79130937260c"
-      ],
-      "primary_source_event_id": "EVT-79130937260c",
-      "source_headlines": [
-        "Centre Asks Meta To Review Instagram, Facebook Algorithms To Curb Misleading Content And Prevent Public Order Risks"
-      ],
-      "source_headline": "Centre Asks Meta To Review Instagram, Facebook Algorithms To Curb Misleading Content And Prevent Public Order Risks",
-      "source_url": "https://www.freepressjournal.in/tech/centre-asks-meta-to-review-instagram-facebook-algorithms-to-curb-misleading-content-and-prevent-public-order-risks",
-      "source_name": "Free Press Journal",
-      "materiality_max": 87,
-      "newest_source_at": "2026-10-19T03:27:02Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/META_2026-08-31",
-        "latest_decision": null,
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-10-19T04:16:06Z",
-      "updated_at": "2026-10-19T04:16:06Z",
-      "decay_at": "2026-10-20T15:27:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7880bfd6f22e",
       "idea_version": "IDEAV-018b6a7dce1b7bf4",
       "idea_version_started_at": "2026-10-20T13:35:08Z",
@@ -191191,222 +191126,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2806817130bb",
-      "idea_version": "IDEAV-a8eb24aed48467a0",
-      "idea_version_started_at": "2026-10-19T04:54:16Z",
-      "ticker": "064350",
-      "company": "Hyundai Rotem",
-      "exchange": "KRX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Hyundai Rotem is consolidating Hyundai Group's defense operations by acquiring Hyundai Wia's defense unit for 358.4 billion won, enhancing its scale and margin profile.",
-      "why_now": "Deal announcement published on October 19, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d1a06bbd04e8"
-      ],
-      "primary_source_event_id": "EVT-d1a06bbd04e8",
-      "source_headlines": [
-        "Hyundai Rotem to acquire Hyundai Wia's defense unit for 358.4 bln won"
-      ],
-      "source_headline": "Hyundai Rotem to acquire Hyundai Wia's defense unit for 358.4 bln won",
-      "source_url": "https://en.yna.co.kr/view/AEN20261019005700320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-19T04:31:58Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-19T04:54:16Z",
-      "updated_at": "2026-10-19T04:54:16Z",
-      "decay_at": "2026-10-20T16:31:58Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-3d70daa14c61",
-      "idea_version": "IDEAV-7241efece5daf7a6",
-      "idea_version_started_at": "2026-10-19T03:56:14Z",
-      "ticker": "IDBI",
-      "company": "IDBI Bank",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The bank reported a 39% decline in net profit and a nearly 50% drop in Net Interest Income (NII) year-over-year, indicating significant margin compression and operational weakness.",
-      "why_now": "The Q2 earnings results were released on 2026-10-19.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-fe057f253a7d"
-      ],
-      "primary_source_event_id": "EVT-fe057f253a7d",
-      "source_headlines": [
-        "IDBI Bank shares in focus as Q2 net profit falls 39%; NII tanks nearly 50% YoY"
-      ],
-      "source_headline": "IDBI Bank shares in focus as Q2 net profit falls 39%; NII tanks nearly 50% YoY",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/idbi-bank-shares-in-focus-as-q2-net-profit-falls-39-nii-tanks-nearly-50-yoy/articleshow/135038766.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-19T03:27:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-15T10:07:38Z",
-      "updated_at": "2026-10-19T03:56:14Z",
-      "decay_at": "2026-10-20T15:27:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-d9268799d409",
-      "idea_version": "IDEAV-d9c5f54748259a94",
-      "idea_version_started_at": "2026-10-19T03:56:14Z",
-      "ticker": "ACMESOLAR",
-      "company": "Acme Solar Holdings Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a 300 MW / 1200 MWh peak supply project with SECI at a fixed tariff of INR 6/unit, providing long-term revenue visibility and operational scale.",
-      "why_now": "The PPA was officially announced in an exchange filing on 2026-10-19.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-938ab74811e1"
-      ],
-      "primary_source_event_id": "EVT-938ab74811e1",
-      "source_headlines": [
-        "Acme Solar Holdings Limited: ACME Solar Holdings Limited has informed the Exchange regarding ACME Solar s signs PPA for 300 MW / 1200 MWh assured peak supply SECI FDRE Project at INR 6/unit."
-      ],
-      "source_headline": "Acme Solar Holdings Limited: ACME Solar Holdings Limited has informed the Exchange regarding ACME Solar s signs PPA for 300 MW / 1200 MWh assured peak supply SECI FDRE Project at INR 6/unit.",
-      "source_url": "https://nsearchives.nseindia.com/corporate/ACMECS_19102026084958_IntimationPPA19102026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-19T03:25:36Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-19T03:56:14Z",
-      "updated_at": "2026-10-19T03:56:14Z",
-      "decay_at": "2026-10-20T15:25:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-193acec1f3b7",
       "idea_version": "IDEAV-7976f5bd314505d0",
       "idea_version_started_at": "2026-10-20T05:56:49Z",
@@ -191905,223 +191624,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-22385d23436f",
-      "idea_version": "IDEAV-cdf50e40af8e1e65",
-      "idea_version_started_at": "2026-10-19T04:54:16Z",
-      "ticker": "BARC",
-      "company": "Barclays",
-      "exchange": "LSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The Bank of England has launched scrutiny into Barclays following allegations that traders misrepresented private credit risk exposures, exposing the bank to regulatory sanctions and reputational risk.",
-      "why_now": "Investigation details published by the Financial Times on October 19, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6a8ba9ef526c"
-      ],
-      "primary_source_event_id": "EVT-6a8ba9ef526c",
-      "source_headlines": [
-        "BoE scrutinises Barclays over claim traders misrepresented private credit exposure"
-      ],
-      "source_headline": "BoE scrutinises Barclays over claim traders misrepresented private credit exposure",
-      "source_url": "https://www.ft.com/content/f3127b4f-d33a-4431-acff-021829f3aa72?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "materiality_max": 89,
-      "newest_source_at": "2026-10-19T04:00:15Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-19T04:54:16Z",
-      "updated_at": "2026-10-19T04:54:16Z",
-      "decay_at": "2026-10-20T16:00:15Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-fb13e316b985",
-      "idea_version": "IDEAV-aabb11428b640c1c",
-      "idea_version_started_at": "2026-10-19T04:16:06Z",
-      "ticker": "7011",
-      "company": "Mitsubishi Heavy Industries",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is expanding its defense-related shipbuilding capacity to meet government demand, which will increase long-term revenue visibility in its defense segment.",
-      "why_now": "The company announced the revival of a specific shipbuilding line for defense equipment starting in FY 2027.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-db27871f667b"
-      ],
-      "primary_source_event_id": "EVT-db27871f667b",
-      "source_headlines": [
-        "Mitsubishi Heavy to revive shipbuilding line for defense equipment in FY 2027"
-      ],
-      "source_headline": "Mitsubishi Heavy to revive shipbuilding line for defense equipment in FY 2027",
-      "source_url": "https://english.kyodonews.net/articles/-/88665",
-      "source_name": "Kyodo News (Japan Wire)",
-      "materiality_max": 89,
-      "newest_source_at": "2026-10-19T03:45:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-19T03:38:08Z",
-      "updated_at": "2026-10-19T04:16:06Z",
-      "decay_at": "2026-10-20T15:45:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-154422e5621e",
-      "idea_version": "IDEAV-b81d4b971b3efd30",
-      "idea_version_started_at": "2026-10-19T03:56:14Z",
-      "ticker": "AXISBANK",
-      "company": "Axis Bank",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The bank's shares are under selling pressure following poor Q2 results, reflecting broader concerns about asset quality or margin sustainability in the current Indian banking cycle.",
-      "why_now": "The earnings reaction is live as of 2026-10-19.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3ec766b7002e"
-      ],
-      "primary_source_event_id": "EVT-3ec766b7002e",
-      "source_headlines": [
-        "Q2 Results LIVE Updates: Axis Bank shares decline nearly 4%; UltraTech, Bajaj Fin report today"
-      ],
-      "source_headline": "Q2 Results LIVE Updates: Axis Bank shares decline nearly 4%; UltraTech, Bajaj Fin report today",
-      "source_url": "https://www.cnbctv18.com/market/q2-results-live-updates-today-ultratech-bajaj-fin-ireda-piramal-union-bank-hzl-hdfc-axis-icici-yes-hfcl-just-dial-share-price-liveblog-20014571.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 88,
-      "newest_source_at": "2026-10-19T03:46:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-19T03:56:14Z",
-      "updated_at": "2026-10-19T03:56:14Z",
-      "decay_at": "2026-10-20T15:46:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7ac6a207250e",
       "idea_version": "IDEAV-c6b1c76a73c6b16b",
       "idea_version_started_at": "2026-10-20T00:46:02Z",
@@ -192544,6 +192046,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-301c9958417a",
+      "idea_version": "IDEAV-5ddbd040921f921a",
+      "idea_version_started_at": "2026-10-19T04:16:06Z",
+      "ticker": "META",
+      "company": "Meta Platforms",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Increased regulatory pressure from the Indian government to modify algorithms for content moderation creates operational friction and potential compliance costs.",
+      "why_now": "The Indian government issued a formal request for an algorithm review on October 19, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "policy_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-79130937260c"
+      ],
+      "primary_source_event_id": "EVT-79130937260c",
+      "source_headlines": [
+        "Centre Asks Meta To Review Instagram, Facebook Algorithms To Curb Misleading Content And Prevent Public Order Risks"
+      ],
+      "source_headline": "Centre Asks Meta To Review Instagram, Facebook Algorithms To Curb Misleading Content And Prevent Public Order Risks",
+      "source_url": "https://www.freepressjournal.in/tech/centre-asks-meta-to-review-instagram-facebook-algorithms-to-curb-misleading-content-and-prevent-public-order-risks",
+      "source_name": "Free Press Journal",
+      "materiality_max": 87,
+      "newest_source_at": "2026-10-19T03:27:02Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/META_2026-08-31",
+        "latest_decision": null,
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-10-19T04:16:06Z",
+      "updated_at": "2026-10-19T04:16:06Z",
+      "decay_at": "2026-10-20T15:27:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-fbaf750de821",
       "idea_version": "IDEAV-f04a157d726ac9f8",
       "idea_version_started_at": "2026-10-18T04:18:08Z",
@@ -192820,6 +192392,222 @@
       "surfaced_at": "2026-10-19T00:56:11Z",
       "updated_at": "2026-10-19T00:56:11Z",
       "decay_at": "2026-10-20T12:17:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-2806817130bb",
+      "idea_version": "IDEAV-a8eb24aed48467a0",
+      "idea_version_started_at": "2026-10-19T04:54:16Z",
+      "ticker": "064350",
+      "company": "Hyundai Rotem",
+      "exchange": "KRX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Hyundai Rotem is consolidating Hyundai Group's defense operations by acquiring Hyundai Wia's defense unit for 358.4 billion won, enhancing its scale and margin profile.",
+      "why_now": "Deal announcement published on October 19, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d1a06bbd04e8"
+      ],
+      "primary_source_event_id": "EVT-d1a06bbd04e8",
+      "source_headlines": [
+        "Hyundai Rotem to acquire Hyundai Wia's defense unit for 358.4 bln won"
+      ],
+      "source_headline": "Hyundai Rotem to acquire Hyundai Wia's defense unit for 358.4 bln won",
+      "source_url": "https://en.yna.co.kr/view/AEN20261019005700320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-19T04:31:58Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T04:54:16Z",
+      "updated_at": "2026-10-19T04:54:16Z",
+      "decay_at": "2026-10-20T16:31:58Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-3d70daa14c61",
+      "idea_version": "IDEAV-7241efece5daf7a6",
+      "idea_version_started_at": "2026-10-19T03:56:14Z",
+      "ticker": "IDBI",
+      "company": "IDBI Bank",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The bank reported a 39% decline in net profit and a nearly 50% drop in Net Interest Income (NII) year-over-year, indicating significant margin compression and operational weakness.",
+      "why_now": "The Q2 earnings results were released on 2026-10-19.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fe057f253a7d"
+      ],
+      "primary_source_event_id": "EVT-fe057f253a7d",
+      "source_headlines": [
+        "IDBI Bank shares in focus as Q2 net profit falls 39%; NII tanks nearly 50% YoY"
+      ],
+      "source_headline": "IDBI Bank shares in focus as Q2 net profit falls 39%; NII tanks nearly 50% YoY",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/idbi-bank-shares-in-focus-as-q2-net-profit-falls-39-nii-tanks-nearly-50-yoy/articleshow/135038766.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-19T03:27:46Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-15T10:07:38Z",
+      "updated_at": "2026-10-19T03:56:14Z",
+      "decay_at": "2026-10-20T15:27:46Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d9268799d409",
+      "idea_version": "IDEAV-d9c5f54748259a94",
+      "idea_version_started_at": "2026-10-19T03:56:14Z",
+      "ticker": "ACMESOLAR",
+      "company": "Acme Solar Holdings Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a 300 MW / 1200 MWh peak supply project with SECI at a fixed tariff of INR 6/unit, providing long-term revenue visibility and operational scale.",
+      "why_now": "The PPA was officially announced in an exchange filing on 2026-10-19.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-938ab74811e1"
+      ],
+      "primary_source_event_id": "EVT-938ab74811e1",
+      "source_headlines": [
+        "Acme Solar Holdings Limited: ACME Solar Holdings Limited has informed the Exchange regarding ACME Solar s signs PPA for 300 MW / 1200 MWh assured peak supply SECI FDRE Project at INR 6/unit."
+      ],
+      "source_headline": "Acme Solar Holdings Limited: ACME Solar Holdings Limited has informed the Exchange regarding ACME Solar s signs PPA for 300 MW / 1200 MWh assured peak supply SECI FDRE Project at INR 6/unit.",
+      "source_url": "https://nsearchives.nseindia.com/corporate/ACMECS_19102026084958_IntimationPPA19102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-19T03:25:36Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T03:56:14Z",
+      "updated_at": "2026-10-19T03:56:14Z",
+      "decay_at": "2026-10-20T15:25:36Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -194474,6 +194262,150 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-22385d23436f",
+      "idea_version": "IDEAV-cdf50e40af8e1e65",
+      "idea_version_started_at": "2026-10-19T04:54:16Z",
+      "ticker": "BARC",
+      "company": "Barclays",
+      "exchange": "LSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The Bank of England has launched scrutiny into Barclays following allegations that traders misrepresented private credit risk exposures, exposing the bank to regulatory sanctions and reputational risk.",
+      "why_now": "Investigation details published by the Financial Times on October 19, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6a8ba9ef526c"
+      ],
+      "primary_source_event_id": "EVT-6a8ba9ef526c",
+      "source_headlines": [
+        "BoE scrutinises Barclays over claim traders misrepresented private credit exposure"
+      ],
+      "source_headline": "BoE scrutinises Barclays over claim traders misrepresented private credit exposure",
+      "source_url": "https://www.ft.com/content/f3127b4f-d33a-4431-acff-021829f3aa72?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "materiality_max": 89,
+      "newest_source_at": "2026-10-19T04:00:15Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T04:54:16Z",
+      "updated_at": "2026-10-19T04:54:16Z",
+      "decay_at": "2026-10-20T16:00:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-fb13e316b985",
+      "idea_version": "IDEAV-aabb11428b640c1c",
+      "idea_version_started_at": "2026-10-19T04:16:06Z",
+      "ticker": "7011",
+      "company": "Mitsubishi Heavy Industries",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is expanding its defense-related shipbuilding capacity to meet government demand, which will increase long-term revenue visibility in its defense segment.",
+      "why_now": "The company announced the revival of a specific shipbuilding line for defense equipment starting in FY 2027.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-db27871f667b"
+      ],
+      "primary_source_event_id": "EVT-db27871f667b",
+      "source_headlines": [
+        "Mitsubishi Heavy to revive shipbuilding line for defense equipment in FY 2027"
+      ],
+      "source_headline": "Mitsubishi Heavy to revive shipbuilding line for defense equipment in FY 2027",
+      "source_url": "https://english.kyodonews.net/articles/-/88665",
+      "source_name": "Kyodo News (Japan Wire)",
+      "materiality_max": 89,
+      "newest_source_at": "2026-10-19T03:45:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T03:38:08Z",
+      "updated_at": "2026-10-19T04:16:06Z",
+      "decay_at": "2026-10-20T15:45:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-fc426f81932d",
       "idea_version": "IDEAV-616190ffad6ebe2e",
       "idea_version_started_at": "2026-10-19T03:38:08Z",
@@ -194684,6 +194616,79 @@
       "surfaced_at": "2026-10-19T00:18:15Z",
       "updated_at": "2026-10-19T00:18:15Z",
       "decay_at": "2026-10-20T12:03:24Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-154422e5621e",
+      "idea_version": "IDEAV-b81d4b971b3efd30",
+      "idea_version_started_at": "2026-10-19T03:56:14Z",
+      "ticker": "AXISBANK",
+      "company": "Axis Bank",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The bank's shares are under selling pressure following poor Q2 results, reflecting broader concerns about asset quality or margin sustainability in the current Indian banking cycle.",
+      "why_now": "The earnings reaction is live as of 2026-10-19.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3ec766b7002e"
+      ],
+      "primary_source_event_id": "EVT-3ec766b7002e",
+      "source_headlines": [
+        "Q2 Results LIVE Updates: Axis Bank shares decline nearly 4%; UltraTech, Bajaj Fin report today"
+      ],
+      "source_headline": "Q2 Results LIVE Updates: Axis Bank shares decline nearly 4%; UltraTech, Bajaj Fin report today",
+      "source_url": "https://www.cnbctv18.com/market/q2-results-live-updates-today-ultratech-bajaj-fin-ireda-piramal-union-bank-hzl-hdfc-axis-icici-yes-hfcl-just-dial-share-price-liveblog-20014571.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 88,
+      "newest_source_at": "2026-10-19T03:46:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T03:56:14Z",
+      "updated_at": "2026-10-19T03:56:14Z",
+      "decay_at": "2026-10-20T15:46:47Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -195208,19 +195213,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 541,
+    "total_count": 548,
     "shown_count": 499,
-    "hidden_count": 42,
+    "hidden_count": 49,
     "side_counts": {
       "long": {
-        "total_count": 281,
+        "total_count": 284,
         "shown_count": 250,
-        "hidden_count": 31
+        "hidden_count": 34
       },
       "short": {
-        "total_count": 261,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 15
       }
     },
     "retention": {
@@ -195239,6 +195244,530 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-2806817130bb",
+        "idea_version": "IDEAV-a8eb24aed48467a0",
+        "idea_version_started_at": "2026-10-19T04:54:16Z",
+        "ticker": "064350",
+        "company": "Hyundai Rotem",
+        "exchange": "KRX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Hyundai Rotem is consolidating Hyundai Group's defense operations by acquiring Hyundai Wia's defense unit for 358.4 billion won, enhancing its scale and margin profile.",
+        "why_now": "Deal announcement published on October 19, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d1a06bbd04e8"
+        ],
+        "primary_source_event_id": "EVT-d1a06bbd04e8",
+        "source_headlines": [
+          "Hyundai Rotem to acquire Hyundai Wia's defense unit for 358.4 bln won"
+        ],
+        "source_headline": "Hyundai Rotem to acquire Hyundai Wia's defense unit for 358.4 bln won",
+        "source_url": "https://en.yna.co.kr/view/AEN20261019005700320",
+        "source_name": "Yonhap News Agency — All News (English)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-19T04:31:58Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-19T04:54:16Z",
+        "updated_at": "2026-10-19T04:54:16Z",
+        "decay_at": "2026-10-20T16:31:58Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-20T16:31:58Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-22385d23436f",
+        "idea_version": "IDEAV-cdf50e40af8e1e65",
+        "idea_version_started_at": "2026-10-19T04:54:16Z",
+        "ticker": "BARC",
+        "company": "Barclays",
+        "exchange": "LSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The Bank of England has launched scrutiny into Barclays following allegations that traders misrepresented private credit risk exposures, exposing the bank to regulatory sanctions and reputational risk.",
+        "why_now": "Investigation details published by the Financial Times on October 19, 2026.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6a8ba9ef526c"
+        ],
+        "primary_source_event_id": "EVT-6a8ba9ef526c",
+        "source_headlines": [
+          "BoE scrutinises Barclays over claim traders misrepresented private credit exposure"
+        ],
+        "source_headline": "BoE scrutinises Barclays over claim traders misrepresented private credit exposure",
+        "source_url": "https://www.ft.com/content/f3127b4f-d33a-4431-acff-021829f3aa72?syn-25a6b1a6=1",
+        "source_name": "Financial Times",
+        "materiality_max": 89,
+        "newest_source_at": "2026-10-19T04:00:15Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-19T04:54:16Z",
+        "updated_at": "2026-10-19T04:54:16Z",
+        "decay_at": "2026-10-20T16:00:15Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-20T16:00:15Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-154422e5621e",
+        "idea_version": "IDEAV-b81d4b971b3efd30",
+        "idea_version_started_at": "2026-10-19T03:56:14Z",
+        "ticker": "AXISBANK",
+        "company": "Axis Bank",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The bank's shares are under selling pressure following poor Q2 results, reflecting broader concerns about asset quality or margin sustainability in the current Indian banking cycle.",
+        "why_now": "The earnings reaction is live as of 2026-10-19.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3ec766b7002e"
+        ],
+        "primary_source_event_id": "EVT-3ec766b7002e",
+        "source_headlines": [
+          "Q2 Results LIVE Updates: Axis Bank shares decline nearly 4%; UltraTech, Bajaj Fin report today"
+        ],
+        "source_headline": "Q2 Results LIVE Updates: Axis Bank shares decline nearly 4%; UltraTech, Bajaj Fin report today",
+        "source_url": "https://www.cnbctv18.com/market/q2-results-live-updates-today-ultratech-bajaj-fin-ireda-piramal-union-bank-hzl-hdfc-axis-icici-yes-hfcl-just-dial-share-price-liveblog-20014571.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 88,
+        "newest_source_at": "2026-10-19T03:46:47Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-19T03:56:14Z",
+        "updated_at": "2026-10-19T03:56:14Z",
+        "decay_at": "2026-10-20T15:46:47Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-20T15:46:47Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-fb13e316b985",
+        "idea_version": "IDEAV-aabb11428b640c1c",
+        "idea_version_started_at": "2026-10-19T04:16:06Z",
+        "ticker": "7011",
+        "company": "Mitsubishi Heavy Industries",
+        "exchange": "TSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is expanding its defense-related shipbuilding capacity to meet government demand, which will increase long-term revenue visibility in its defense segment.",
+        "why_now": "The company announced the revival of a specific shipbuilding line for defense equipment starting in FY 2027.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-db27871f667b"
+        ],
+        "primary_source_event_id": "EVT-db27871f667b",
+        "source_headlines": [
+          "Mitsubishi Heavy to revive shipbuilding line for defense equipment in FY 2027"
+        ],
+        "source_headline": "Mitsubishi Heavy to revive shipbuilding line for defense equipment in FY 2027",
+        "source_url": "https://english.kyodonews.net/articles/-/88665",
+        "source_name": "Kyodo News (Japan Wire)",
+        "materiality_max": 89,
+        "newest_source_at": "2026-10-19T03:45:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-19T03:38:08Z",
+        "updated_at": "2026-10-19T04:16:06Z",
+        "decay_at": "2026-10-20T15:45:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-20T15:45:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-3d70daa14c61",
+        "idea_version": "IDEAV-7241efece5daf7a6",
+        "idea_version_started_at": "2026-10-19T03:56:14Z",
+        "ticker": "IDBI",
+        "company": "IDBI Bank",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The bank reported a 39% decline in net profit and a nearly 50% drop in Net Interest Income (NII) year-over-year, indicating significant margin compression and operational weakness.",
+        "why_now": "The Q2 earnings results were released on 2026-10-19.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-fe057f253a7d"
+        ],
+        "primary_source_event_id": "EVT-fe057f253a7d",
+        "source_headlines": [
+          "IDBI Bank shares in focus as Q2 net profit falls 39%; NII tanks nearly 50% YoY"
+        ],
+        "source_headline": "IDBI Bank shares in focus as Q2 net profit falls 39%; NII tanks nearly 50% YoY",
+        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/idbi-bank-shares-in-focus-as-q2-net-profit-falls-39-nii-tanks-nearly-50-yoy/articleshow/135038766.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-19T03:27:46Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-15T10:07:38Z",
+        "updated_at": "2026-10-19T03:56:14Z",
+        "decay_at": "2026-10-20T15:27:46Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-20T15:27:46Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-301c9958417a",
+        "idea_version": "IDEAV-5ddbd040921f921a",
+        "idea_version_started_at": "2026-10-19T04:16:06Z",
+        "ticker": "META",
+        "company": "Meta Platforms",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Increased regulatory pressure from the Indian government to modify algorithms for content moderation creates operational friction and potential compliance costs.",
+        "why_now": "The Indian government issued a formal request for an algorithm review on October 19, 2026.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 16,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "policy_conditional",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-79130937260c"
+        ],
+        "primary_source_event_id": "EVT-79130937260c",
+        "source_headlines": [
+          "Centre Asks Meta To Review Instagram, Facebook Algorithms To Curb Misleading Content And Prevent Public Order Risks"
+        ],
+        "source_headline": "Centre Asks Meta To Review Instagram, Facebook Algorithms To Curb Misleading Content And Prevent Public Order Risks",
+        "source_url": "https://www.freepressjournal.in/tech/centre-asks-meta-to-review-instagram-facebook-algorithms-to-curb-misleading-content-and-prevent-public-order-risks",
+        "source_name": "Free Press Journal",
+        "materiality_max": 87,
+        "newest_source_at": "2026-10-19T03:27:02Z",
+        "prior_coverage": {
+          "has_run": true,
+          "latest_run": "analyses/META_2026-08-31",
+          "latest_decision": null,
+          "data_pool_present": true
+        },
+        "surfaced_at": "2026-10-19T04:16:06Z",
+        "updated_at": "2026-10-19T04:16:06Z",
+        "decay_at": "2026-10-20T15:27:02Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-20T15:27:02Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-d9268799d409",
+        "idea_version": "IDEAV-d9c5f54748259a94",
+        "idea_version_started_at": "2026-10-19T03:56:14Z",
+        "ticker": "ACMESOLAR",
+        "company": "Acme Solar Holdings Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company secured a 300 MW / 1200 MWh peak supply project with SECI at a fixed tariff of INR 6/unit, providing long-term revenue visibility and operational scale.",
+        "why_now": "The PPA was officially announced in an exchange filing on 2026-10-19.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-938ab74811e1"
+        ],
+        "primary_source_event_id": "EVT-938ab74811e1",
+        "source_headlines": [
+          "Acme Solar Holdings Limited: ACME Solar Holdings Limited has informed the Exchange regarding ACME Solar s signs PPA for 300 MW / 1200 MWh assured peak supply SECI FDRE Project at INR 6/unit."
+        ],
+        "source_headline": "Acme Solar Holdings Limited: ACME Solar Holdings Limited has informed the Exchange regarding ACME Solar s signs PPA for 300 MW / 1200 MWh assured peak supply SECI FDRE Project at INR 6/unit.",
+        "source_url": "https://nsearchives.nseindia.com/corporate/ACMECS_19102026084958_IntimationPPA19102026.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-19T03:25:36Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-19T03:56:14Z",
+        "updated_at": "2026-10-19T03:56:14Z",
+        "decay_at": "2026-10-20T15:25:36Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-20T15:25:36Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-fc426f81932d",
         "idea_version": "IDEAV-616190ffad6ebe2e",
@@ -222356,153 +222885,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-d68dba75eb46",
-        "idea_version": "IDEAV-aff42d67f17ddbe6",
-        "idea_version_started_at": "2026-10-05T23:32:47Z",
-        "ticker": "LGI",
-        "company": "LGI Limited",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The acquisition of 42MW of solar generation assets expands LGI's renewable energy capacity and diversifies its revenue stream beyond landfill gas operations.",
-        "why_now": "The company released the acquisition presentation on 2026-10-05, making the growth impact immediate for investors.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-913a4caa7fbb"
-        ],
-        "primary_source_event_id": "EVT-913a4caa7fbb",
-        "source_headlines": [
-          "LGI: 42MW Solar Generation Assets Acquisition Presentation [price-sensitive]"
-        ],
-        "source_headline": "LGI: 42MW Solar Generation Assets Acquisition Presentation [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LGI?key=2924-03144603-2A1701867",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-05T21:21:54Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-05T23:32:47Z",
-        "updated_at": "2026-10-05T23:32:47Z",
-        "decay_at": "2026-10-07T09:21:54Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-08T21:44:37Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-3bb2116ecda7",
-        "idea_version": "IDEAV-e0bcae152608f99c",
-        "idea_version_started_at": "2026-10-05T23:32:47Z",
-        "ticker": "KKR",
-        "company": "KKR & Co. Inc.",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The acquisition of Gen II Fund Services scales KKR's fee-earning assets under management in the high-margin private-capital administration space.",
-        "why_now": "The deal was announced on 2026-10-05, signaling a strategic expansion of their financial services infrastructure.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-cb8a617f4ac1"
-        ],
-        "primary_source_event_id": "EVT-cb8a617f4ac1",
-        "source_headlines": [
-          "KKR Strikes Deal to Buy Private-Capital Fund Administrator Gen II"
-        ],
-        "source_headline": "KKR Strikes Deal to Buy Private-Capital Fund Administrator Gen II",
-        "source_url": "https://www.wsj.com/finance/investing/kkr-strikes-deal-to-buy-private-capital-fund-administrator-gen-ii-40b951a5?mod=rss_markets_main",
-        "source_name": "The Wall Street Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-05T21:09:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-05T23:32:47Z",
-        "updated_at": "2026-10-05T23:32:47Z",
-        "decay_at": "2026-10-07T09:09:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-08T21:44:37Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-ce779af9c495",
         "idea_version": "IDEAV-2b65a941c2fbecf8",
         "idea_version_started_at": "2026-10-05T23:00:55Z",
@@ -222573,80 +222955,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-10-08T20:23:48Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-2059d957422f",
-        "idea_version": "IDEAV-8f9223bd2e06d9c9",
-        "idea_version_started_at": "2026-10-05T22:45:00Z",
-        "ticker": "RXO",
-        "company": "RXO, Inc.",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The $5.8B acquisition offer by CH Robinson represents a significant premium for the freight brokerage firm.",
-        "why_now": "The deal was reported on 2026-10-05.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 60,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-bdeef8c3e035"
-        ],
-        "primary_source_event_id": "EVT-bdeef8c3e035",
-        "source_headlines": [
-          "CH Robinson to Buy RXO for $5.8B in Bet on AI Model"
-        ],
-        "source_headline": "CH Robinson to Buy RXO for $5.8B in Bet on AI Model",
-        "source_url": "https://www.bloomberg.com/news/videos/2026-10-05/ch-robinson-to-buy-rxo-for-5-8b-in-bet-on-ai-model-video",
-        "source_name": "Bloomberg",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-05T17:19:32Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-05T20:12:16Z",
-        "updated_at": "2026-10-05T22:45:00Z",
-        "decay_at": "2026-10-07T05:19:32Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-08T19:43:25Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
       },
@@ -232109,314 +232417,12 @@
         "archived_at": "2026-09-25T20:29:34Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-d3af8c4fdac2",
-        "idea_version": "IDEAV-1193904252dc4864",
-        "idea_version_started_at": "2026-09-22T11:39:38Z",
-        "ticker": "BORORENEW",
-        "company": "Borosil Renewables",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Increased expansion costs of ₹150 crore due to supply chain disruptions in West Asia will compress margins and delay the return on capital for new projects.",
-        "why_now": "The cost increase was reported on 2026-09-22.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-cef63f99722b"
-        ],
-        "primary_source_event_id": "EVT-cef63f99722b",
-        "source_headlines": [
-          "Borosil Renewables raises expansion cost by ₹150 crore as West Asia conflict hits supply chains"
-        ],
-        "source_headline": "Borosil Renewables raises expansion cost by ₹150 crore as West Asia conflict hits supply chains",
-        "source_url": "https://www.cnbctv18.com/market/borosil-renewables-share-price-expansion-cost-raised-west-asia-conflict-19995652.htm",
-        "source_name": "CNBC-TV18",
-        "materiality_max": 96,
-        "newest_source_at": "2026-09-22T07:33:34Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-22T11:39:38Z",
-        "updated_at": "2026-09-22T11:39:38Z",
-        "decay_at": "2026-09-23T19:33:34Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-25T20:29:34Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-bbe6cce25e6c",
-        "idea_version": "IDEAV-ad0d76477c61048d",
-        "idea_version_started_at": "2026-09-21T05:16:02Z",
-        "ticker": "005380",
-        "company": "Hyundai Motor Company",
-        "exchange": "KRX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Hyundai Motor shares have plunged 53% from their June peak as multiple brokerages cut their financial targets due to deteriorating margins.",
-        "why_now": "The negative momentum is reinforced by a wave of fresh analyst downgrades reported on September 21, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d61ef8ce8d01"
-        ],
-        "primary_source_event_id": "EVT-d61ef8ce8d01",
-        "source_headlines": [
-          "Hyundai Motor Shares Plunge 53% From June Peak as Brokerages Cut Targets"
-        ],
-        "source_headline": "Hyundai Motor Shares Plunge 53% From June Peak as Brokerages Cut Targets",
-        "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277390",
-        "source_name": "Business Korea — All English Articles",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-21T05:06:50Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-21T05:16:02Z",
-        "updated_at": "2026-09-21T05:16:02Z",
-        "decay_at": "2026-09-22T17:06:50Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-24T05:59:51Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-9048ab0ec675",
-        "idea_version": "IDEAV-98c5d9a0646b944d",
-        "idea_version_started_at": "2026-09-21T04:44:10Z",
-        "ticker": "ING",
-        "company": "Ingenia Communities",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Ingenia Communities rejected an improved $1.47 billion takeover offer from Warburg Pincus, removing a potential premium for shareholders.",
-        "why_now": "The rejection of the improved offer was announced on September 21, 2026, eliminating a near-term M&A catalyst.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-8e18c6f14773"
-        ],
-        "primary_source_event_id": "EVT-8e18c6f14773",
-        "source_headlines": [
-          "Ingenia Communities Rejects Warburg Pincus’s Improved $1.47 Billion Takeover Offer"
-        ],
-        "source_headline": "Ingenia Communities Rejects Warburg Pincus’s Improved $1.47 Billion Takeover Offer",
-        "source_url": "https://www.wsj.com/business/deals/ingenia-communities-rejects-warburg-pincuss-improved-1-47-billion-takeover-offer-c36f1391?mod=pls_whats_news_us_business_f",
-        "source_name": "The Wall Street Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-21T04:16:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-21T04:44:10Z",
-        "updated_at": "2026-09-21T04:44:10Z",
-        "decay_at": "2026-09-22T16:16:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-24T05:59:51Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-cbb18e192ffa",
-        "idea_version": "IDEAV-abf8cfd76609be89",
-        "idea_version_started_at": "2026-09-21T04:22:03Z",
-        "ticker": "ICG.AX",
-        "company": "Ingenia Communities",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Ingenia Communities rejected Warburg Pincus's improved $1.47 billion takeover offer, indicating potential resistance to current valuation or strategic concerns.",
-        "why_now": "The company announced the rejection of the offer today.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-8e18c6f14773"
-        ],
-        "primary_source_event_id": "EVT-8e18c6f14773",
-        "source_headlines": [
-          "Ingenia Communities Rejects Warburg Pincus’s Improved $1.47 Billion Takeover Offer"
-        ],
-        "source_headline": "Ingenia Communities Rejects Warburg Pincus’s Improved $1.47 Billion Takeover Offer",
-        "source_url": "https://www.wsj.com/business/deals/ingenia-communities-rejects-warburg-pincuss-improved-1-47-billion-takeover-offer-c36f1391?mod=pls_whats_news_us_business_f",
-        "source_name": "The Wall Street Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-21T04:16:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-21T04:22:03Z",
-        "updated_at": "2026-09-21T04:22:03Z",
-        "decay_at": "2026-09-22T16:16:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-24T05:59:51Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1763,
-    "live_count": 59,
+    "live_count": 52,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -232435,9 +232441,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6753756,
-    "news_picked_today": 640,
-    "news_dropped_today": 6152
+    "news_seen_today": 7324417,
+    "news_picked_today": 658,
+    "news_dropped_today": 6182
   },
   "book_momentum": {
     "live_count": 8,
