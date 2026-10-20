@@ -78,6 +78,8 @@ export function ModelView() {
       <button type="button" disabled={loading} onClick={() => void refresh()}>Retry</button></div>}
     <details className="model__rules"><summary>Data & coverage</summary>
       <p>Free Finviz · delayed quotes · auto-refresh after {MODEL_REFRESH_MS / 60_000} min while open. Prices show retrieval time; quote timestamps are unavailable.</p>
+      <p>Company data · {read?.data ? `${read.data.captured.toLocaleString()} / ${read.data.expected.toLocaleString()} views collected${read.data.refreshing ? ' · collecting' : ''}` : 'awaiting collection'} · hourly refresh target between price checks. Open a company for details.</p>
+      {read?.data?.error && <p role="alert">{read.data.error}</p>}
       {!read?.complete && <p>Partial coverage · only retrieved companies are ranked.</p>}
       <p>Event archive · {eventCoverage?.reports_scanned ? `checked ${date(eventCoverage.checked_at)}` : eventCoverage?.refreshing ? 'loading saved reports' : 'coverage unavailable'} · {eventCoverage?.archive_days ?? 0} days covered in the 90-day window.</p>
       {eventCoverage?.latest_report_at && <p>Latest report · {date(eventCoverage.latest_report_at)}</p>}

@@ -1,3 +1,4 @@
+import { isFinvizData, type FinvizData } from './finviz-data'
 // Free Finviz screen; the saved preset is account-local, so the public filters are explicit.
 export const UNIVERSE_URL = 'https://finviz.com/screener/stocks?f=cap_midover%2Csh_avgvol_o50&preset=s154730211'
 export const MODEL_SCHEMA = 'universe-event-model/v1' as const
@@ -81,6 +82,7 @@ export interface ModelRow {
   currency: 'USD'
   retrieved_at: string
   signals: ModelSignals | null
+  finviz?: FinvizData // Durable collector data. The grid API omits it; the data API serves it on demand.
 }
 export interface ModelRead {
   schema_version: typeof MODEL_SCHEMA
@@ -96,6 +98,7 @@ export interface ModelRead {
   stale: boolean
   error: string | null
   events: EventCoverage | null
+  data?: { captured: number; expected: number; refreshing: boolean; error: string | null }
 }
 // Benefit/risk must belong to this issuer, not the headline. Mixed effects are not a favorable verdict.
 export function companyImpact(analysis: ModelSavedAnalysis | null | undefined): boolean | null {
@@ -131,6 +134,7 @@ export function isModelRead(value: unknown): value is ModelRead {
       && typeof row.company === 'string' && !!row.company && row.currency === 'USD'
       && (row.price === null || (typeof row.price === 'number' && Number.isFinite(row.price) && row.price > 0))
       && typeof row.retrieved_at === 'string' && Number.isFinite(Date.parse(row.retrieved_at))
+      && (row.finviz === undefined || isFinvizData(row.finviz, row.ticker, row.company))
       && (row.signals === null || (typeof row.signals === 'object' && !Array.isArray(row.signals)
         && Object.entries(row.signals).every(([key, events]) => MODEL_SIGNALS.some((s) => s.id === key) && Array.isArray(events) && events.length <= 3
           && events.every((event) => event && typeof event.id === 'string' && typeof event.headline === 'string'
@@ -144,5 +148,7 @@ export function isModelRead(value: unknown): value is ModelRead {
       && Number.isInteger(r.events.reports_scanned) && typeof r.events.refreshing === 'boolean'
       && (r.events.error === null || typeof r.events.error === 'string')
       && (r.events.latest_report_at === null || (typeof r.events.latest_report_at === 'string' && Number.isFinite(Date.parse(r.events.latest_report_at))))))
+    && (r.data === undefined || !!r.data && Number.isInteger(r.data.captured) && r.data.captured >= 0 && Number.isInteger(r.data.expected)
+      && r.data.expected >= r.data.captured && typeof r.data.refreshing === 'boolean' && (r.data.error === null || typeof r.data.error === 'string'))
     && (!r.complete || (r.rows.length === r.total && !!r.completed_at && new Set(r.rows.map((row) => row.ticker)).size === r.rows.length))
 }

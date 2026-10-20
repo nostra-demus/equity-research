@@ -543,6 +543,13 @@ const EMPTY_MANUAL: PortfolioManualRead = { trades: [], live: 0, superseded: 0, 
 const EMPTY_OVERRIDES: PortfolioOverrides = { cashEquivalents: [] }
 
 export const api = {
+  universeModelData: async (ticker: string, company: string) => {
+    if (await ensureMode() !== 'live') throw new Error('Finviz data needs the live engine.')
+    const { isFinvizDataRead } = await import('../../../shared/finviz-data')
+    const read: unknown = await get(`/api/screener/universe-model/data?${new URLSearchParams({ ticker, company })}`)
+    if (!isFinvizDataRead(read) || read.rows.length > 1 || read.rows.some((row) => row.ticker !== ticker || row.company !== company)) throw new Error('Finviz data did not match this company.')
+    return read
+  },
   universeModelEvidence: async (eventId: string, ticker: string, company: string) => {
     if (await ensureMode() !== 'live') throw new Error('Saved event analysis needs the live engine.')
     const { isModelEventRead } = await import('../../../shared/universe-model')

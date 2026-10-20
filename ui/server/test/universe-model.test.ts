@@ -3,13 +3,14 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { createUniverseModel, finvizPageUrl, finvizUniverseUrl, parseFinvizPage, parseFinvizSectors } from '../src/universe-model'
+import { FINVIZ_VIEWS } from '../../shared/finviz-data'
 import { MODEL_REFRESH_MS, isModelRead } from '../../shared/universe-model'
 import { addUniverseEvent, createUniverseEventsReader, readUniverseEvents, universeCompanyKey, type UniverseEventIndex } from '../src/universe-events'
 import { scanDayItems } from '../src/news/feed'
 import type { FeedItem } from '../src/news/types'
 
 const at = '2026-10-19T15:00:00.000Z'
-const props = (offset = 0, total = 3) => ({ screenerType: 'stocks', url: finvizPageUrl(offset), filters: { filters: [{ key: 'sec', options: [
+const props = (offset = 0, total = 3) => ({ screenerType: 'stocks', url: finvizPageUrl(offset), blocks: { news: {} }, filters: { filters: [{ key: 'sec', options: [
   { value: '', label: 'Any' }, { value: 'technology', label: 'Technology' }, { value: 'financial', label: 'Financial' },
   { value: 'utilities', label: 'Utilities' }, { value: 'modal', label: 'Custom', isEliteOnly: true },
 ] }] }, data: {
@@ -127,7 +128,7 @@ try {
     if (tickers) {
       const value = props(0, tickers.length)
       value.url = url
-      value.data.pageSize = 20
+      value.data.pageSize = FINVIZ_VIEWS.find((v) => v.code === new URL(url).searchParams.get('v'))!.size
       value.data.rows = tickers.map((ticker, i) => ({ text: { ticker, company: `Company ${ticker.slice(2)}` }, numbers: { order: i, price: 12.5 } as any }))
       return html(value)
     }
@@ -157,13 +158,13 @@ try {
   assert.equal(first.complete, false)
   await model.read(); await model.read()
   await model.settled()
-  assert.equal(calls, 9, 'simultaneous readers share two sector passes, two whole-screen checks and one price batch')
+  assert.equal(calls, 15, 'simultaneous readers share membership, quotes and six additional standard views')
   const ready = await model.read()
   assert.ok(isModelRead(ready))
   assert.equal(ready.complete, true)
   assert.equal(ready.rows.length, 3)
   const frozen = await fs.readFile(file, 'utf8')
-  await model.read(); assert.equal(calls, 9, 'check-updates does not bypass TTL')
+  await model.read(); assert.equal(calls, 15, 'check-updates does not bypass TTL')
   fail = true; time += MODEL_REFRESH_MS
   const during = await model.read()
   assert.equal(during.rows.length, 3, 'retain the complete grid during refresh')
@@ -186,10 +187,10 @@ try {
   await model.read(); await model.settled()
   assert.match((await model.read()).error!, /membership changed during verification/)
   assert.equal(await fs.readFile(file, 'utf8'), frozen, 'same-size membership shifts cannot replace the complete snapshot')
-  model.close()
+  await model.close()
   const reloaded = createUniverseModel(file, { now: () => Date.parse(at) + 1000, fetchPage: async () => { throw new Error('must use disk') } })
   assert.equal((await reloaded.read()).rows.length, 3)
-  reloaded.close()
+  await reloaded.close()
   const partial = createUniverseModel(path.join(dir, 'new.json'), { now: () => time, wait: async () => {}, fetchPage: async (url) => {
     if (new URL(url).searchParams.get('f')?.includes('sec_financial')) throw new Error('HTTP 403')
     return fixturePage(url)
@@ -201,7 +202,7 @@ try {
   assert.match(incomplete.error!, /403/)
   assert.ok(isModelRead(incomplete))
   assert.equal(await fs.stat(path.join(dir, 'new.json')).catch(() => null), null)
-  partial.close()
+  await partial.close()
 
   // The old broad-screen cursor failed after 1,000 names. Ordinary free sector screens plus
   // normal Overview quote batches must cover a larger universe without ever requesting that cursor.
@@ -219,7 +220,7 @@ try {
     const value = props()
     value.url = url
     value.data.totalCount = selected ? selected.length : sector ? ids.length : 1001
-    value.data.pageSize = selected ? 20 : 1000
+    value.data.pageSize = selected ? FINVIZ_VIEWS.find((v) => v.code === q.get('v'))!.size : 1000
     value.data.rows = ids.map((id, i) => ({ text: { ticker: `CO${id}`, company: `Company ${id}` }, numbers: { ...props().data.rows[0].numbers, order: i } }))
     return html(value)
   } })
@@ -229,7 +230,7 @@ try {
   assert.equal(completeBig.complete, true)
   assert.equal(completeBig.rows.length, 1001)
   assert.equal(completeBig.rows.filter((r) => r.price === 12.5).length, 1001)
-  assert.equal(bigCalls, 59, 'two catalog-driven partition passes, whole-screen checks, and 51 normal quote batches')
-  big.close()
+  assert.equal(bigCalls, 465, 'membership, 51 quotes, four 51-page tables and two 101-page views cover every company')
+  await big.close()
 } finally { await fs.rm(dir, { recursive: true, force: true }) }
 console.log('universe-model: pagination, scope, concurrency, persistence and bounded failure passed')

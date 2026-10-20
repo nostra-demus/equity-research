@@ -1,5 +1,89 @@
 import { test, expect } from '@playwright/test'
 import { MODEL_SCHEMA, UNIVERSE_URL, type ModelEventRead, type ModelRead, type ModelRow } from '../../shared/universe-model'
+import { FINVIZ_VIEWS, type FinvizDataRead } from '../../shared/finviz-data'
+
+test('Company Finviz data is compact, on demand, dated, unit-labelled and separate from signals', async ({ page, context }, testInfo) => {
+  const now = new Date().toISOString()
+  const row: ModelRow = { ticker: 'CO', company: 'Company Inc', price: 25, currency: 'USD', retrieved_at: now, signals: {} }
+  const body: ModelRead = { schema_version: MODEL_SCHEMA, source_url: UNIVERSE_URL, rows: [row], total: 1, complete: true, refreshing: false, fetched: 1,
+    started_at: now, completed_at: now, next_refresh_at: now, stale: false, error: null, events: null,
+    data: { captured: 2, expected: 8, refreshing: true, error: null } }
+  let dataRequests = 0
+  let wrongCompany = false
+  let missingCompany = false
+  let offline = false
+  await context.route('**/api/screener/universe-model', (route) => route.fulfill({ json: body }))
+  await context.route('**/api/screener/universe-model/data?*', (route) => {
+    dataRequests++
+    if (offline) return route.fulfill({ status: 404, json: { error: 'Endpoint unavailable during update' } })
+    const views = Object.fromEntries(['overview', 'news'].map((id) => [id, {
+      source_url: `https://finviz.com/screener/stocks?v=${FINVIZ_VIEWS.find((v) => v.id === id)!.code}&t=CO`, retrieved_at: new Date(Date.now() - 2 * 3600_000).toISOString(),
+      text: { ticker: 'CO', company: 'Company Inc', earningsDate: '2026-11-02T16:30:00' },
+      numbers: { marketCap: 2500, debtEq: 0, forwardPE: null, roe: -5.5, futureMetric: 7 },
+      ...(id === 'news' ? { news: [{ title: 'Reported merger', url: 'https://example.test/report', channel: 'Publisher', date: '2026-10-19T15:00:00' }] } : {}),
+    }]))
+    const result: FinvizDataRead = { source_url: UNIVERSE_URL, refreshing: true, error: null, rows: missingCompany ? [] : [{ ticker: 'CO', company: wrongCompany ? 'Other issuer' : 'Company Inc', views }] }
+    return route.fulfill({ json: result })
+  })
+  await context.route('**/api/portfolio', (route) => route.fulfill({ json: { book: null } }))
+  await context.route('**/api/watchlist', (route) => route.fulfill({ json: { rows: [], unreadable: [] } }))
+  await page.goto('/e2e/ideas.html?surface=model')
+  await page.getByRole('button', { name: 'Model', exact: true }).click()
+  await page.getByRole('button', { name: 'Company Inc', exact: true }).click()
+  const dialog = page.getByRole('dialog')
+  await expect(dialog.getByText('Total: 0 green ticks', { exact: true })).toBeVisible()
+  expect(dataRequests).toBe(0)
+  await dialog.getByText('Finviz data', { exact: true }).click()
+  await expect(dialog.getByText('USD millions', { exact: true })).toBeVisible()
+  await expect(dialog.getByText('refresh due', { exact: false })).toBeVisible()
+  await expect(dialog.locator('dd').filter({ hasText: '2,500' })).toBeVisible()
+  await expect(dialog.getByText('Raw · units unverified', { exact: true })).toBeVisible()
+  await expect(dialog.getByText('Finviz local time · timezone unspecified', { exact: true })).toBeVisible()
+  await expect(dialog.locator('dl')).toContainText('0×')
+  await expect(dialog.locator('dl')).toContainText('—')
+  await dialog.getByLabel('Finviz data view').selectOption('financial')
+  await expect(dialog.getByText('Collection in progress…', { exact: true })).toBeVisible()
+  offline = true
+  await dialog.getByText('Finviz data', { exact: true }).click()
+  await expect(dialog.getByLabel('Finviz data view')).toHaveCount(0)
+  await dialog.getByText('Finviz data', { exact: true }).click()
+  await expect(dialog.getByText('Saved data unavailable.', { exact: true })).toBeVisible()
+  await expect(dialog.getByText('Collection in progress…')).toHaveCount(0)
+  offline = false
+  await dialog.getByText('Finviz data', { exact: true }).click()
+  await expect(dialog.getByLabel('Finviz data view')).toHaveCount(0)
+  await dialog.getByText('Finviz data', { exact: true }).click()
+  await expect(dialog.getByText('Collection in progress…', { exact: true })).toBeVisible()
+  await dialog.getByLabel('Finviz data view').selectOption('news')
+  await expect(dialog.getByRole('link', { name: 'Reported merger' })).toHaveAttribute('href', 'https://example.test/report')
+  await expect(dialog.getByText('Third-party data · unverified · quotes delayed', { exact: false })).toBeVisible()
+  await page.screenshot({ path: testInfo.outputPath('finviz-company-data-dark.png') })
+  await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'light'))
+  await page.screenshot({ path: testInfo.outputPath('finviz-company-data-light.png') })
+  await page.setViewportSize({ width: 390, height: 844 })
+  const box = (await dialog.boundingBox())!
+  expect(box.x).toBeGreaterThanOrEqual(0); expect(box.x + box.width).toBeLessThanOrEqual(390)
+  await page.screenshot({ path: testInfo.outputPath('finviz-company-data-mobile.png') })
+  await dialog.getByText('Finviz data', { exact: true }).click()
+  await expect(dialog.getByLabel('Finviz data view')).toHaveCount(0)
+  wrongCompany = true
+  await dialog.getByText('Finviz data', { exact: true }).click()
+  await expect(dialog.getByRole('alert')).toContainText('did not match this company')
+  await page.keyboard.press('Escape')
+  await expect(page.getByRole('dialog')).toHaveCount(0)
+  wrongCompany = false; offline = true
+  await page.getByRole('button', { name: 'Company Inc', exact: true }).click()
+  await page.getByRole('dialog').getByText('Finviz data', { exact: true }).click()
+  await expect(page.getByRole('dialog').getByText('Saved data unavailable.', { exact: true })).toBeVisible()
+  await expect(page.getByRole('dialog').getByText('This view has not been collected yet.')).toHaveCount(0)
+  await page.keyboard.press('Escape')
+  offline = false; missingCompany = true
+  await page.getByRole('button', { name: 'Company Inc', exact: true }).click()
+  await page.getByRole('dialog').getByText('Finviz data', { exact: true }).click()
+  await expect(page.getByRole('dialog').getByText('Company absent from the current universe.', { exact: true })).toBeVisible()
+  await page.keyboard.press('Escape')
+  await expect(page.locator('tbody tr').locator('td').last()).toHaveText('0Green ticks')
+})
 
 test('Universe Model green-count ranking, search, pagination, failure recovery and themes', async ({ page, context }, testInfo) => {
   await context.addInitScript(() => localStorage.setItem('nsw.universeEventModel.weights.v1', JSON.stringify({ contracts: 99, results: -5, guidance: -5 })))
