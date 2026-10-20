@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T18:31:00Z",
+  "generated_at": "2026-10-20T18:48:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-295",
@@ -1234,6 +1234,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261020-350",
+      "headline": "Salesforce To Buy Marketing Platform Braze For $5.7 Billion",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/salesforce-to-buy-marketing-platform-braze-for-5-7-billion-12212125#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T16:43:34Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Salesforce is acquiring Braze for $5.7 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Salesforce is acquiring Braze for $5.7 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Salesforce",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Braze",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261020-335",
       "headline": "Germany's Adidas raises full-year profit outlook",
       "headline_en": null,
@@ -1896,60 +1950,6 @@
       "launched_signal_id": null,
       "triage_score": 100,
       "triage_reason": "Salesforce to acquire Braze for $5.66 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Salesforce",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Braze",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-262",
-      "headline": "Salesforce to Buy Marketing Platform Braze for $5.7 Billion",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-20/salesforce-to-buy-marketing-platform-braze-for-5-7-billion",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-20T12:12:14Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Salesforce to acquire Braze for $5.7 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Salesforce to acquire Braze for $5.7 billion.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -232442,9 +232442,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8445059,
-    "news_picked_today": 696,
-    "news_dropped_today": 6456
+    "news_seen_today": 8599131,
+    "news_picked_today": 699,
+    "news_dropped_today": 6501
   },
   "book_momentum": {
     "live_count": 8,
