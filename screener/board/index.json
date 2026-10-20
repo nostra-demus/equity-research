@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T10:59:35Z",
+  "generated_at": "2026-10-20T11:03:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-190",
@@ -684,6 +684,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-201",
+      "headline": "GM Narrows 2026 Outlook, Approves $20 Billion Share Buyback",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-20/gm-announces-20-billion-share-buyback-as-profit-beats-estimates",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T10:30:00Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "GM narrowed its 2026 outlook and announced a significant $20 billion share buyback.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GM narrowed its 2026 outlook and announced a significant $20 billion share buyback.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "General Motors",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1927,55 +1977,6 @@
         {
           "name": "Transcenta Holding Ltd",
           "ticker": "06628",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-104",
-      "headline": "MIN XIN HOLD (00222): POTENTIAL DISCLOSEABLE TRANSACTION - DISPOSAL OF EQUITY INTEREST THROUGH PUBLIC TENDER",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000277.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-20T04:11:00Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "The company is initiating a potential disposal of equity interest via public tender, which could impact its capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "The company is initiating a potential disposal of equity interest via public tender, which could impact its capital structure.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Min Xin Holdings",
-          "ticker": "00222",
           "listing_country": "CN"
         }
       ],
@@ -231956,9 +231957,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4601749,
-    "news_picked_today": 375,
-    "news_dropped_today": 4929
+    "news_seen_today": 4623627,
+    "news_picked_today": 379,
+    "news_dropped_today": 4949
   },
   "book_momentum": {
     "live_count": 8,
