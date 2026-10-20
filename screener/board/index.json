@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T11:23:35Z",
+  "generated_at": "2026-10-20T11:27:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-190",
@@ -684,6 +684,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-226",
+      "headline": "GE Aerospace raises 2026 profit forecast as services strength drives growth",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-ge-aerospace-results-2026-profit-forecast/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T11:09:58Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "GE Aerospace raised its 2026 profit forecast due to strong services growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GE Aerospace raised its 2026 profit forecast due to strong services growth.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GE Aerospace",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1688,6 +1737,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261020-225",
+      "headline": "KPA-BM HLDGS (02663): ANNOUNCEMENT PURSUANT TO RULE 3.7 OF THE TAKEOVERS CODE, RULE 13.09 OF THE LISTING RULES AND INSIDE INFORMATION PROVISION UNDER PART XIVA OF THE SECURITIES AND FUTURES ORDINANCE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102001045.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T11:21:00Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "KPA-BM Holdings announced a potential change in control or strategic transaction under the Takeovers Code.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "KPA-BM Holdings announced a potential change in control or strategic transaction under the Takeovers Code.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "strategic_review",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KPA-BM HLDGS",
+          "ticker": "02663",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261020-202",
       "headline": "NORTH MINING (00433): RESIGNATION OF CHAIRMAN OF THE BOARD, CHIEF EXECUTIVE OFFICER AND EXECUTIVE DIRECTOR, RESIGNATION OF DIRECTOR, CHANGE OF AUTHORISED REPRESENTATIVE, AND VACANCY OF CHIEF EXECUTIVE OFFICER AND CHAIRMAN OF THE NOMINATION COMMITTEE",
       "headline_en": null,
@@ -1879,104 +1977,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-021",
-      "headline": "PLS: Proposed offering of up to US$700M Senior Unsecured Notes",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PLS?key=2924-03150494-6A1350148",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-20T00:17:15Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Pilbara Minerals is proposing an offering of up to US$700M in senior unsecured notes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Pilbara Minerals is proposing an offering of up to US$700M in senior unsecured notes.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pilbara Minerals",
-          "ticker": "PLS",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-182",
-      "headline": "425 - NuCube Energy, Inc. (0002142801) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2142801/000121390026110814/0001213900-26-110814-index.htm",
-      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-20T10:08:46Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "NuCube Energy filed a 425 form regarding a business combination, indicating ongoing M&A activity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "NuCube Energy filed a 425 form regarding a business combination, indicating ongoing M&A activity.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NuCube Energy, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -232023,9 +232023,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4768462,
-    "news_picked_today": 404,
-    "news_dropped_today": 5020
+    "news_seen_today": 4813378,
+    "news_picked_today": 411,
+    "news_dropped_today": 5037
   },
   "book_momentum": {
     "live_count": 8,
