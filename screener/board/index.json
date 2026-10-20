@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-20T01:30:03Z",
+  "generated_at": "2026-10-20T01:33:12Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261020-063",
+      "headline": "NAB to cut 2500 jobs in huge restructuring, most to go within months",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/financial-services/nab-to-cut-2500-jobs-in-massive-restructure-most-to-go-within-months-20261020-p616yh?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T01:27:04Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "NAB is cutting 2500 jobs as part of a major restructuring plan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NAB is cutting 2500 jobs as part of a major restructuring plan.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Australia Bank",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261020-058",
       "headline": "Keppel Reit to buy 51% stake in Keppel South Central for $610.9 million",
@@ -889,6 +938,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-064",
+      "headline": "Activist Starboard targets Honeywell spin-off Solstice after failed megadeal",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/f8ea12f4-a55d-4f46-a409-5cffd093ab6a?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T01:00:07Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Activist investor Starboard Value is pushing Honeywell to spin off its Solstice business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Activist investor Starboard Value is pushing Honeywell to spin off its Solstice business.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "ownership_activist",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Honeywell International",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1819,148 +1918,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261020-051",
-      "headline": "424B5 - Walmart Inc. (0000104169) (Filer)",
+      "inbox_id": "INB-20261020-065",
+      "headline": "Avio Smart Market Stack Limited: board meeting 23-Oct-2026 — Fund Raising",
       "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/104169/000119312526424733/0001193125-26-424733-index.htm",
-      "source_name": "SEC EDGAR — Latest 424B5 (Shelf Offering Final Prospectus)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-19T12:53:41Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Walmart filed a shelf registration statement for potential future debt issuance, which is a routine capital management activity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "Walmart filed a shelf registration statement for potential future debt issuance, which is a routine capital management activity.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Walmart Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-030",
-      "headline": "KIMOU ENVIRON (06805): SUPPLEMENTAL ANNOUNCEMENT - CONTINUING CONNECTED TRANSACTIONS THE LEASE AND RELATED AGREEMENTS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1019/2026101900157.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
+      "url": "https://nsearchives.nseindia.com/corporate/BARTRONICS1_19102026173751_Intimation_of_BM.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-10-19T10:49:00Z",
+      "found_at": "2026-10-19T12:08:08Z",
       "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Supplemental announcement regarding continuing connected transactions for lease agreements.",
+      "prelim_note": "Avio Smart Market Stack Limited announced a board meeting to discuss fund raising.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Supplemental announcement regarding continuing connected transactions for lease agreements.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kimou Environmental",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-036",
-      "headline": "JP Morgan Upgrades Intel to Neutral from Underweight",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/jp-morgan-upgrades-intel-neutral-underweight",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-20T00:35:21Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "JP Morgan upgraded Intel from Underweight to Neutral, reflecting a shift in analyst sentiment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "JP Morgan upgraded Intel from Underweight to Neutral, reflecting a shift in analyst sentiment.",
-      "region": "US",
+      "triage_score": 65,
+      "triage_reason": "Avio Smart Market Stack Limited announced a board meeting to discuss fund raising.",
+      "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 50,
       "rank_factors": {
         "materiality": 50,
-        "source_tier": 0,
+        "source_tier": 8,
         "scope": 6,
         "event": 0,
-        "size": 2,
-        "recency": 5,
+        "size": 0,
+        "recency": 1,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "news",
+        "source_tier_id": "primary_filing",
         "event_id": null,
-        "size_bucket": "large"
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "macro_sector"
+        "capital_actions"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Intel",
-          "ticker": "INTC",
-          "listing_country": "US"
+          "name": "Avio Smart Market Stack Limited",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -231294,9 +231295,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 715386,
-    "news_picked_today": 69,
-    "news_dropped_today": 579
+    "news_seen_today": 760194,
+    "news_picked_today": 73,
+    "news_dropped_today": 599
   },
   "book_momentum": {
     "live_count": 8,
