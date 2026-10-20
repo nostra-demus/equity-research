@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T00:24:10Z",
+  "generated_at": "2026-10-20T00:25:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-009",
@@ -335,6 +335,55 @@
       "companies": [
         {
           "name": "Kaya Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-017",
+      "headline": "Diamond Power Infrastructure Limited: Appointment of Chief Financial Officer key managerial personnel of the Company",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DIACABS_19102026185040_Outcome_of_BM.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T13:30:49Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Appointment of a new Chief Financial Officer is a material management change.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "Appointment of a new Chief Financial Officer is a material management change.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Diamond Power Infrastructure Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -230023,7 +230072,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3823,
+    "inbox_unconsumed": 3824,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -230032,9 +230081,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 183238,
-    "news_picked_today": 17,
-    "news_dropped_today": 127
+    "news_seen_today": 194689,
+    "news_picked_today": 18,
+    "news_dropped_today": 150
   },
   "book_momentum": {
     "live_count": 8,
