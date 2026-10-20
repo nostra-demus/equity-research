@@ -51,7 +51,9 @@ function screenerProps(html: string): any {
 
 function normalizeNewsItem(item: any): any {
   if (!item || typeof item.url !== 'string' || !item.url.startsWith('/')) return item
-  const url = new URL(item.url, 'https://finviz.com')
+  let url: URL
+  try { url = new URL(item.url, 'https://finviz.com') }
+  catch { throw new Error('Finviz returned invalid structured data.') }
   if (url.origin !== 'https://finviz.com') throw new Error('Finviz returned invalid structured data.')
   return { ...item, url: url.toString() }
 }

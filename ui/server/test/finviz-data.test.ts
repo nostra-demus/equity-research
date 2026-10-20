@@ -47,7 +47,7 @@ internalNews.blocks.news.CO.push({ ...internalNews.blocks.news.CO[0], title: 'Fi
 const normalizedNews = parseFinvizPage(html(internalNews), 0, stamp, ['CO']).rows[0].finviz!.news!.news!
 assert.equal(normalizedNews[0].url, 'https://example.test/report', 'external news URLs retain their source')
 assert.equal(normalizedNews[1].url, 'https://finviz.com/news/401719/reported-acquisition', 'ordinary Finviz-relative headlines normalize to the provider origin')
-for (const url of [String.raw`/\example.test/article`, '//example.test/article', '/\t/example.test/article', '/\n/example.test/article']) {
+for (const url of [String.raw`/\example.test/article`, '//example.test/article', '/\t/example.test/article', '/\n/example.test/article', '//']) {
   const malformed = page(newsUrl); malformed.blocks.news.CO[0].url = url
   assert.throws(() => parseFinvizPage(html(malformed), 0, stamp, ['CO']), /invalid structured data/, 'relative URLs cannot escape the Finviz origin')
 }
