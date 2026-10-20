@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T00:46:21Z",
+  "generated_at": "2026-10-20T00:50:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-028",
@@ -291,6 +291,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-037",
+      "headline": "ASV: Major Metropolitan Council Win",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ASV?key=2924-03150505-3A704497",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T00:40:55Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "ASV secured a major metropolitan council contract, which is a positive commercial development for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "ASV secured a major metropolitan council contract, which is a positive commercial development for the company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ASV",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1118,6 +1167,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-036",
+      "headline": "JP Morgan Upgrades Intel to Neutral from Underweight",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/jp-morgan-upgrades-intel-neutral-underweight",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T00:35:21Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "JP Morgan upgraded Intel from Underweight to Neutral, reflecting a shift in analyst sentiment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "JP Morgan upgraded Intel from Underweight to Neutral, reflecting a shift in analyst sentiment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intel",
+          "ticker": "INTC",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -230951,7 +231049,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3841,
+    "inbox_unconsumed": 3843,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -230960,9 +231058,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 354451,
-    "news_picked_today": 36,
-    "news_dropped_today": 276
+    "news_seen_today": 388588,
+    "news_picked_today": 38,
+    "news_dropped_today": 298
   },
   "book_momentum": {
     "live_count": 8,
