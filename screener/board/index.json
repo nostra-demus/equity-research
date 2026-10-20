@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T22:34:42Z",
+  "generated_at": "2026-10-20T22:38:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-392",
@@ -1179,6 +1179,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261020-418",
+      "headline": "Netflix Cut Its Ad Revenue Forecast by $300 Million. Does That Matter More Than Its Earnings Beat?",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/10/20/netflix-cut-its-ad-revenue-forecast-by-300-million-does-that-matter-more-than-its-earnings-beat/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T22:03:12Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Netflix cut its ad revenue forecast by $300 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Netflix cut its ad revenue forecast by $300 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Netflix",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261020-409",
       "headline": "Super Micro Computer Shares Up as Preliminary Revenue Tops Guidance",
       "headline_en": null,
@@ -1939,55 +1988,6 @@
         },
         {
           "name": "Salesforce",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-327",
-      "headline": "Carrefour Slashes Guidance Due to Riots in France",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/retail/carrefour-slashes-guidance-due-to-riots-in-france-5a1dcaab?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-20T17:16:00Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Carrefour slashed its guidance due to riots in France.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Carrefour slashed its guidance due to riots in France.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Carrefour",
           "ticker": null,
           "listing_country": null
         }
@@ -231947,9 +231947,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10863418,
-    "news_picked_today": 925,
-    "news_dropped_today": 9323
+    "news_seen_today": 10894760,
+    "news_picked_today": 945,
+    "news_dropped_today": 9375
   },
   "book_momentum": {
     "live_count": 8,
