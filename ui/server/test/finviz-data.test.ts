@@ -42,6 +42,13 @@ const bad = page(newsUrl); (bad.data.rows[0].numbers as any).roe = '12%'
 assert.throws(() => parseFinvizPage(html(bad), 0, stamp, ['CO']), /invalid structured data/)
 const unsafe = page(newsUrl); unsafe.blocks.news.CO[0].url = 'javascript:alert(1)'
 assert.throws(() => parseFinvizPage(html(unsafe), 0, stamp, ['CO']), /invalid structured data/)
+const internalNews = page(newsUrl)
+internalNews.blocks.news.CO.push({ ...internalNews.blocks.news.CO[0], title: 'Finviz-hosted report', url: '/news/401719/reported-acquisition' })
+const normalizedNews = parseFinvizPage(html(internalNews), 0, stamp, ['CO']).rows[0].finviz!.news!.news!
+assert.equal(normalizedNews[0].url, 'https://example.test/report', 'external news URLs retain their source')
+assert.equal(normalizedNews[1].url, 'https://finviz.com/news/401719/reported-acquisition', 'ordinary Finviz-relative headlines normalize to the provider origin')
+const emptyNews = page(newsUrl); (emptyNews.blocks.news as any).CO = {}
+assert.throws(() => parseFinvizPage(html(emptyNews), 0, stamp, ['CO']), /headlines are unavailable/)
 assert.throws(() => parseFinvizPage(html({ ...page(newsUrl), blocks: null }), 0, stamp, ['CO']), /headlines are unavailable/, 'a missing news block cannot masquerade as zero headlines')
 
 const fixtures = fileURLToPath(new URL('../../../.cache/finviz-model-tests/', import.meta.url))

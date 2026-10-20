@@ -79,10 +79,13 @@ export function parseFinvizPage(html: string, firstRow: number, retrievedAt: str
     const { text, numbers } = raw ?? {}
     if (!text || !/^[A-Z0-9.^-]{1,20}$/.test(text.ticker) || typeof text.company !== 'string' || !text.company.trim()
       || !numbers || numbers.order !== firstRow + i || (tickers && !tickers.includes(text.ticker))) throw new Error('Finviz returned an invalid company row.')
+    const news = view.id === 'news' ? props.blocks.news[text.ticker] ?? [] : undefined
+    if (news !== undefined && !Array.isArray(news)) throw new Error('Finviz free headlines are unavailable.')
     const snapshot: FinvizSnapshot = { source_url: sourceUrl!.toString(), retrieved_at: retrievedAt,
       text: { ...text }, numbers: Object.fromEntries(Object.entries(numbers).filter(([key]) => key !== 'order')) as Record<string, number | null>,
       ...(raw.range52w === undefined ? {} : { range52w: raw.range52w }),
-      ...(view.id === 'news' ? { news: props.blocks?.news?.[text.ticker] ?? [] } : {}) }
+      ...(news === undefined ? {} : { news: news.map((item: any) => item && typeof item.url === 'string' && /^\/(?!\/)/.test(item.url)
+        ? { ...item, url: new URL(item.url, 'https://finviz.com').toString() } : item) }) }
     const finviz = { [view.id]: snapshot }
     if (!isFinvizData(finviz, text.ticker, text.company.trim())) throw new Error('Finviz returned invalid structured data.')
     return { ticker: text.ticker, company: text.company.trim(), currency: 'USD', retrieved_at: retrievedAt, finviz,
