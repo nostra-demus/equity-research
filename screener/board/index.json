@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T04:03:25Z",
+  "generated_at": "2026-10-20T04:08:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-069",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-091",
+      "headline": "Anthropic eyes second $45 billion Nscale deal as 460MW AI data centre plans advance ahead of potential IPO",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/anthropic-eyes-second-45-billion-nscale-deal-as-460mw-ai-data-centre-plans-advance-ahead-of-potential-ipo-11792466448988.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T03:53:33Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Anthropic is planning a 45 billion dollar investment in a 460MW AI data center project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anthropic is planning a 45 billion dollar investment in a 460MW AI data center project.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1920,55 +1969,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-006",
-      "headline": "EB ENVIRONMENT (00257): VOLUNTARY ANNOUNCEMENT IN RESPECT OF THE COMPLETION OF ISSUANCE OF THE 2026 MEDIUM-TERM NOTES (SERIES 3) AND THE UNDERWRITING AGREEMENT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000103.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-20T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "EB Environment completed the issuance of 2026 medium-term notes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "EB Environment completed the issuance of 2026 medium-term notes.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EB Environment",
-          "ticker": "00257",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -231519,9 +231519,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1949883,
-    "news_picked_today": 115,
-    "news_dropped_today": 1877
+    "news_seen_today": 1960415,
+    "news_picked_today": 117,
+    "news_dropped_today": 1923
   },
   "book_momentum": {
     "live_count": 8,
