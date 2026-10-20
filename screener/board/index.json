@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T19:10:00Z",
+  "generated_at": "2026-10-20T19:26:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-295",
@@ -1032,6 +1032,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261020-353",
+      "headline": "EQT in advanced talks to buy testing firm Qiagen, Bloomberg News reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/eqt-advanced-talks-buy-testing-firm-qiagen-bloomberg-news-reports-2026-10-20/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T18:55:19Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "EQT is in advanced talks to acquire Qiagen, a significant M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EQT is in advanced talks to acquire Qiagen, a significant M&A event.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EQT",
+          "ticker": null,
+          "listing_country": "SE"
+        },
+        {
+          "name": "Qiagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261020-331",
       "headline": "Deutsche Boerse Q3 net profit rises 18%, raises outlook",
       "headline_en": null,
@@ -1926,60 +1980,6 @@
       "companies": [
         {
           "name": "General Motors",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-276",
-      "headline": "Salesforce To Acquire Braze For $5.66 Bln",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/salesforce-acquire-braze-566-bln",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-20T12:19:12Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Salesforce to acquire Braze for $5.66 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Salesforce to acquire Braze for $5.66 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Salesforce",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Braze",
           "ticker": null,
           "listing_country": "US"
         }
@@ -231939,9 +231939,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8813525,
-    "news_picked_today": 712,
-    "news_dropped_today": 6992
+    "news_seen_today": 8951210,
+    "news_picked_today": 720,
+    "news_dropped_today": 7008
   },
   "book_momentum": {
     "live_count": 8,
