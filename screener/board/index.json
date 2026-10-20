@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-10-20T01:24:11Z",
+  "generated_at": "2026-10-20T01:27:11Z",
   "inbox": [
     {
-      "inbox_id": "INB-20261020-028",
-      "headline": "Keppel Reit to buy 51% stake in Keppel South Central for S$610.9 million",
+      "inbox_id": "INB-20261020-058",
+      "headline": "Keppel Reit to buy 51% stake in Keppel South Central for $610.9 million",
       "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/property/keppel-reit-buy-51-stake-keppel-south-central-s610-9-million",
-      "source_name": "The Business Times (Singapore)",
+      "url": "https://www.straitstimes.com/business/keppel-reit-to-buy-51-stake-in-keppel-south-central-for-610-9-million",
+      "source_name": "The Straits Times",
       "input_nature": "news_headline",
-      "found_at": "2026-10-20T00:12:40Z",
+      "found_at": "2026-10-20T01:03:00Z",
       "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Keppel Reit is acquiring a 51% stake in Keppel South Central for S$610.9 million.",
+      "prelim_note": "Keppel Reit is acquiring a 51% stake in Keppel South Central for $610.9 million.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Keppel Reit is acquiring a 51% stake in Keppel South Central for S$610.9 million.",
+      "triage_reason": "Keppel Reit is acquiring a 51% stake in Keppel South Central for $610.9 million.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -26,7 +26,7 @@
         "event": 9,
         "size": 1,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 10,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "multi_name",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-057",
+      "headline": "NAB to cut 2,500 jobs in massive restructure",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/australia-news/2026/oct/20/nab-bank-restructure-2500-jobs-cuts",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T00:58:51Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "NAB is cutting 2,500 jobs as part of a massive restructuring effort.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NAB is cutting 2,500 jobs as part of a massive restructuring effort.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Australia Bank",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -438,6 +487,60 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-059",
+      "headline": "‘Two-horse race’: OpenAI seeks to accelerate fundraising ahead of Anthropic IPO, sources say",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/two-horse-race-openai-seeks-accelerate-fundraising-ahead-anthropic-ipo-sources-say",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T01:23:06Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "OpenAI is reportedly seeking to accelerate fundraising ahead of a potential Anthropic IPO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "OpenAI is reportedly seeking to accelerate fundraising ahead of a potential Anthropic IPO.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -884,55 +987,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-004",
-      "headline": "OpenAI seeks to accelerate fundraising ahead of Anthropic IPO, sources say",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/openai-seeks-to-accelerate-fundraising-ahead-of-anthropic-ipo-sources-say",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-20T00:11:00Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "OpenAI is seeking to accelerate fundraising efforts to maintain competitive positioning against Anthropic.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "OpenAI is seeking to accelerate fundraising efforts to maintain competitive positioning against Anthropic.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1899,49 +1953,6 @@
         "macro_sector"
       ],
       "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-002",
-      "headline": "Enhanced Surveillance Measure (ESM)",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261019-39/20261019-39.pdf",
-      "source_name": "BSE India — Notices (RSS)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-19T13:40:27Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Routine exchange-level surveillance measure update for listed securities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "Routine exchange-level surveillance measure update for listed securities.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -231277,9 +231288,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 670478,
-    "news_picked_today": 58,
-    "news_dropped_today": 542
+    "news_seen_today": 692956,
+    "news_picked_today": 61,
+    "news_dropped_today": 563
   },
   "book_momentum": {
     "live_count": 8,
