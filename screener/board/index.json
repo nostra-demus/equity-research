@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T22:31:53Z",
+  "generated_at": "2026-10-20T22:34:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-392",
@@ -1179,6 +1179,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261020-409",
+      "headline": "Super Micro Computer Shares Up as Preliminary Revenue Tops Guidance",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/earnings/super-micro-computer-shares-up-as-preliminary-revenue-tops-guidance-be7f5f1f?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T22:03:00Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Super Micro Computer shares rose after reporting preliminary revenue that exceeded previous guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Super Micro Computer shares rose after reporting preliminary revenue that exceeded previous guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Super Micro Computer",
+          "ticker": "SMCI",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261020-399",
       "headline": "Elon Musk says SpaceX and Tesla discussing possible merger",
       "headline_en": null,
@@ -1944,60 +1993,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-350",
-      "headline": "Salesforce To Buy Marketing Platform Braze For $5.7 Billion",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/salesforce-to-buy-marketing-platform-braze-for-5-7-billion-12212125#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-20T16:43:34Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Salesforce is acquiring Braze for $5.7 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Salesforce is acquiring Braze for $5.7 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Salesforce",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Braze",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -231952,9 +231947,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10832100,
-    "news_picked_today": 912,
-    "news_dropped_today": 9312
+    "news_seen_today": 10863418,
+    "news_picked_today": 925,
+    "news_dropped_today": 9323
   },
   "book_momentum": {
     "live_count": 8,
