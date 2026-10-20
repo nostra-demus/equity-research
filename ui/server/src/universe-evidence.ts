@@ -48,8 +48,10 @@ export function modelSavedAnalysis(hit: EventEnrichment | null, eventId: string,
     const readFrom = hit.read_from
     const kind = readFrom?.kind === 'filing_doc' || readFrom?.kind === 'alternate' ? readFrom.kind : hit.corroborated ? 'corroborated' : 'original'
     // The compact popup must retain BOTH sides. Four benefits cannot hide a fifth, adverse effect.
-    const opposing = effects.some((e) => e.side === 'beneficiary') && effects.some((e) => e.side === 'exposed')
-    const boundedEffects = opposing ? [...effects.filter((e) => e.side === 'beneficiary').slice(0, 2), ...effects.filter((e) => e.side === 'exposed').slice(0, 2)] : effects.slice(0, 4)
+    const benefits = effects.filter((e) => e.side === 'beneficiary')
+    const risks = effects.filter((e) => e.side === 'exposed')
+    const keptBenefits = benefits.slice(0, risks.length ? Math.max(2, 4 - risks.length) : 4)
+    const boundedEffects = [...keptBenefits, ...risks.slice(0, 4 - keptBenefits.length)]
     return { read_at: hit.fetched_at, story, company_role: subject && ['subject', 'acquirer', 'target', 'forecaster', 'mentioned'].includes(subject.role) ? subject.role : null, effects: boundedEffects,
       event_assessment: text(hit.news_impact?.why_it_matters || hit.market_angle), watch_item: text(hit.watch_item, 600),
       provenance: { kind, label: text(readFrom?.source_name || readFrom?.domain || hit.corroborated?.domains?.join(', '), 240), url: url(readFrom?.url) } }

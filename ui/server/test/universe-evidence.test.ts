@@ -4,7 +4,7 @@ import fs from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import { modelSavedAnalysis, projectUniverseAssessments, readUniverseAssessments, registerUniverseEvidence } from '../src/universe-evidence'
-import type { EventEnrichment } from '../src/news/enrich'
+import { peekCachedEnrichments, type EventEnrichment } from '../src/news/enrich'
 import { isModelEventRead, isModelRead, MODEL_SCHEMA, MODEL_SIGNALS, UNIVERSE_URL, signalResult, modelTotal, type ModelRow } from '../../shared/universe-model'
 
 const hit: EventEnrichment = { event_id: 'ARTICLE-1', ok: true, complete: true, fetched_at: '2026-10-19T15:00:00Z', prior_coverage: [], related: [],
@@ -36,6 +36,11 @@ for (const changed of [{ ok: false }, { degraded: true }]) assert.equal(modelSav
 const manyBenefits = modelSavedAnalysis({ ...hit, beneficiaries: Array.from({ length: 5 }, () => hit.beneficiaries![0]) }, 'ARTICLE-1', 'ORN', 'Orion Corp')!
 assert.ok(manyBenefits.effects.some((e) => e.side === 'exposed'), 'effect bounding cannot hide a company risk behind several benefits')
 assert.ok(manyBenefits.effects.length <= 4)
+for (const [benefits, risks] of [[1, 3], [3, 1], [1, 5], [5, 1]]) {
+  const bounded = modelSavedAnalysis({ ...hit, beneficiaries: Array.from({ length: benefits }, () => hit.beneficiaries![0]), exposed: Array.from({ length: risks }, () => hit.exposed![0]) }, 'ARTICLE-1', 'ORN', 'Orion Corp')!
+  assert.equal(bounded.effects.length, Math.min(4, benefits + risks), 'preserve every effect that fits the four-item bound')
+  assert.ok(bounded.effects.some((e) => e.side === 'beneficiary') && bounded.effects.some((e) => e.side === 'exposed'))
+}
 const read = { event_id: 'ARTICLE-1', ticker: 'ORN', company: 'Orion Corp', analysis }
 assert.ok(isModelEventRead(read))
 assert.ok(isModelEventRead({ ...read, analysis: null }))
@@ -78,6 +83,15 @@ await fs.mkdir(cacheRoot, { recursive: true })
 const cacheDir = await fs.mkdtemp(path.join(cacheRoot, 'assessment-'))
 await fs.writeFile(path.join(cacheDir, 'news-enrich-cache.json'), JSON.stringify({ [hit.event_id]: favorable }))
 assert.equal(signalResult(readUniverseAssessments(cacheDir, [subject])[0], signal), true, 'bulk join reuses the on-disk engine read without enrichment')
+const snapshot = peekCachedEnrichments(cacheDir)
+assert.equal(peekCachedEnrichments(cacheDir), snapshot, 'unchanged cache snapshots are reused without reparsing')
+await fs.writeFile(path.join(cacheDir, 'next.json'), JSON.stringify({ [hit.event_id]: hit }))
+await fs.rename(path.join(cacheDir, 'next.json'), path.join(cacheDir, 'news-enrich-cache.json'))
+assert.notEqual(peekCachedEnrichments(cacheDir), snapshot, 'atomic replacement invalidates the bulk snapshot')
+assert.equal(signalResult(readUniverseAssessments(cacheDir, [subject])[0], signal), false, 'a later saved risk is visible on the next grid read')
+await fs.writeFile(path.join(cacheDir, 'news-enrich-cache.bak.json'), JSON.stringify({ [hit.event_id]: favorable }))
+await fs.writeFile(path.join(cacheDir, 'news-enrich-cache.json'), '{invalid')
+assert.equal(signalResult(readUniverseAssessments(cacheDir, [subject])[0], signal), true, 'last-good backup retains its existing read-only recovery behavior')
 assert.equal(signalResult(readUniverseAssessments(path.join(cacheDir, 'missing'), [subject])[0], signal), null)
 
 let peeks = 0

@@ -636,6 +636,13 @@ export function findRelatedEvents(repoRoot: string, self: { event_id: string; he
 
 // ---- fetch + cache orchestration ----
 
+const completeSnapshots = new Map<string, { stamp: string; entries: Record<string, EventEnrichment> }>()
+function enrichmentCacheStamp(stateDir: string): string {
+  return JSON.stringify([CACHE_FILE, CACHE_BACKUP_FILE].map((name) => {
+    try { const s = fs.statSync(path.join(stateDir, name)); return [s.ino, s.size, s.mtimeMs, s.ctimeMs] } catch { return null }
+  }))
+}
+
 function loadCache(stateDir: string): Record<string, EventEnrichment> {
   // Prefer the live file; fall back to the last-good backup if it's missing/corrupt (a truncated write,
   // a half-flushed crash). The backup means a single bad write can never wipe every cached read.
@@ -663,6 +670,7 @@ function saveCache(stateDir: string, cache: Record<string, EventEnrichment>): vo
     const tmp = `${main}.${process.pid}.tmp`
     fs.writeFileSync(tmp, json)
     fs.renameSync(tmp, main)
+    completeSnapshots.delete(stateDir)
     // a body read just landed — drop the read-path's TTL copy so its materiality verdict floors the item's
     // rank on the very next wire load, not up to a minute later (news/impact-floor.ts)
     invalidateBodyVerdicts()
@@ -685,9 +693,15 @@ export function peekCachedEnrichment(stateDir: string, eventId: string): EventEn
 /** One read-only cache snapshot for bulk projections; never fetches or starts enrichment. */
 export function peekCachedEnrichments(stateDir: string): Record<string, EventEnrichment> {
   try {
-    return Object.fromEntries(Object.entries(loadCache(stateDir)).filter(([, hit]) => {
+    const stamp = enrichmentCacheStamp(stateDir)
+    const saved = completeSnapshots.get(stateDir)
+    if (saved?.stamp === stamp) return saved.entries
+    const entries = Object.freeze(Object.fromEntries(Object.entries(loadCache(stateDir)).filter(([, hit]) => {
       try { return hit && isEnrichmentComplete(hit) } catch { return false }
-    }))
+    })))
+    completeSnapshots.set(stateDir, { stamp, entries })
+    while (completeSnapshots.size > 8) completeSnapshots.delete(completeSnapshots.keys().next().value!)
+    return entries
   } catch {
     return {}
   }
