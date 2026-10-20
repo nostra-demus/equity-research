@@ -187,10 +187,10 @@ try {
   await model.read(); await model.settled()
   assert.match((await model.read()).error!, /membership changed during verification/)
   assert.equal(await fs.readFile(file, 'utf8'), frozen, 'same-size membership shifts cannot replace the complete snapshot')
-  model.close()
+  await model.close()
   const reloaded = createUniverseModel(file, { now: () => Date.parse(at) + 1000, fetchPage: async () => { throw new Error('must use disk') } })
   assert.equal((await reloaded.read()).rows.length, 3)
-  reloaded.close()
+  await reloaded.close()
   const partial = createUniverseModel(path.join(dir, 'new.json'), { now: () => time, wait: async () => {}, fetchPage: async (url) => {
     if (new URL(url).searchParams.get('f')?.includes('sec_financial')) throw new Error('HTTP 403')
     return fixturePage(url)
@@ -202,7 +202,7 @@ try {
   assert.match(incomplete.error!, /403/)
   assert.ok(isModelRead(incomplete))
   assert.equal(await fs.stat(path.join(dir, 'new.json')).catch(() => null), null)
-  partial.close()
+  await partial.close()
 
   // The old broad-screen cursor failed after 1,000 names. Ordinary free sector screens plus
   // normal Overview quote batches must cover a larger universe without ever requesting that cursor.
@@ -231,6 +231,6 @@ try {
   assert.equal(completeBig.rows.length, 1001)
   assert.equal(completeBig.rows.filter((r) => r.price === 12.5).length, 1001)
   assert.equal(bigCalls, 465, 'membership, 51 quotes, four 51-page tables and two 101-page views cover every company')
-  big.close()
+  await big.close()
 } finally { await fs.rm(dir, { recursive: true, force: true }) }
 console.log('universe-model: pagination, scope, concurrency, persistence and bounded failure passed')

@@ -83,7 +83,7 @@ try {
   const next = calls.length
   await model.read(); await model.settled()
   assert.notEqual(new URL(calls.slice(next).find((url) => new URL(url).searchParams.has('t'))!).searchParams.get('v'), '111', 'oldest price-bearing view rotates without another quote request')
-  model.close()
+  await model.close()
 
   // A restarted collector retains all previously captured views without refetching while fresh.
   const resumed = createUniverseModel(file, { now: () => time + 1, wait: async () => {}, fetchPage })
@@ -123,7 +123,7 @@ try {
   const refused = await identity.read()
   assert.match(refused.data!.error!, /match every requested company/)
   assert.equal(refused.rows[0].finviz!.technical!.text.company, 'Company Inc')
-  identity.close()
+  await identity.close()
 
   // Serve the same durable data to a future engine consumer and to a company popup, without
   // attaching all metrics/headlines to every 15-second grid poll or performing any new analysis.
