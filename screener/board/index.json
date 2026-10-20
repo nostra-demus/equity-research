@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T06:30:31Z",
+  "generated_at": "2026-10-20T06:44:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-125",
@@ -95,6 +95,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-137",
+      "headline": "UK-listed Gulf Keystone, Norway's ShaMaran agree $601 million merger in Kurdistan",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/uk-listed-gulf-keystone-norways-shamaran-agree-601-million-merger-kurdistan-2026-10-20/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T06:26:29Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Gulf Keystone and ShaMaran Petroleum have agreed to a merger valued at $601 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Gulf Keystone and ShaMaran Petroleum have agreed to a merger valued at $601 million.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gulf Keystone Petroleum",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "ShaMaran Petroleum",
+          "ticker": null,
+          "listing_country": "NO"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1921,55 +1975,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-041",
-      "headline": "HUAJIN INTL (02738): VOLUNTARY ANNOUNCEMENT IN RELATION TO CERTAIN ENFORCEMENT PROCEEDINGS AGAINST THE GROUP'S SUBSIDIARIES",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1019/2026101900073.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-19T10:44:00Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Huajin International announced enforcement proceedings against its subsidiaries, indicating potential legal or operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Huajin International announced enforcement proceedings against its subsidiaries, indicating potential legal or operational risk.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Huajin International",
-          "ticker": "02738",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -231521,9 +231526,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2723917,
-    "news_picked_today": 204,
-    "news_dropped_today": 3012
+    "news_seen_today": 2816212,
+    "news_picked_today": 210,
+    "news_dropped_today": 3078
   },
   "book_momentum": {
     "live_count": 8,
