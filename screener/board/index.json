@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T02:39:19Z",
+  "generated_at": "2026-10-20T02:59:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-069",
@@ -595,6 +595,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261020-086",
+      "headline": "CHL: Quarterly Activities/Appendix 4C Cash Flow Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CHL?key=2924-03150554-2A1705073",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T02:41:16Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Quarterly cash flow reports are fundamental disclosures for assessing liquidity and operational performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Quarterly cash flow reports are fundamental disclosures for assessing liquidity and operational performance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CHL",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261020-039",
       "headline": "AVR: German Regulatory Clearance",
       "headline_en": null,
@@ -688,6 +737,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-084",
+      "headline": "Oil Price Today (October 20): Crude oil nears $110 again as fresh attacks outweigh easing Russian sanctions. What are experts saying?",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/commodities/news/oil-price-today-october-20-crude-oil-nears-110-again-as-fresh-attacks-outweigh-easing-russian-sanctions-what-are-experts-saying/articleshow/135059918.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T02:20:53Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Crude oil prices are nearing $110 due to fresh geopolitical attacks, signaling a significant supply-side risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Crude oil prices are nearing $110 due to fresh geopolitical attacks, signaling a significant supply-side risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1871,104 +1963,6 @@
         {
           "name": "XtalPi",
           "ticker": "02228",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-040",
-      "headline": "FORCE MOTORS LTD: FORCE MOTORS LTD has informed the Exchange about Credit Rating",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/FORCEMOTORS_19102026183912_Intimation_Credit_Rating_to_Stock_Exchanges.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-19T13:09:28Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Force Motors Ltd has updated the exchange regarding a credit rating action.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 71,
-      "triage_reason": "Force Motors Ltd has updated the exchange regarding a credit rating action.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "credit_rating_upgrade",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "credit_rating_upgrade"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Force Motors Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-043",
-      "headline": "MABWELL-B (02493): VOLUNTARY ANNOUNCEMENT REGARDING THE ORAL PRESENTATION OF CLINICAL DATA ON 9MW2821 AT THE 2026 EUROPEAN SOCIETY FOR MEDICAL ONCOLOGY (ESMO)",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1019/2026101900061.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-19T10:29:00Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Mabwell-B announced the presentation of clinical data for its drug candidate 9MW2821 at a major medical conference.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 71,
-      "triage_reason": "Mabwell-B announced the presentation of clinical data for its drug candidate 9MW2821 at a major medical conference.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mabwell-B",
-          "ticker": "02493",
           "listing_country": "CN"
         }
       ],
@@ -231378,9 +231372,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1245717,
-    "news_picked_today": 98,
-    "news_dropped_today": 1198
+    "news_seen_today": 1408730,
+    "news_picked_today": 101,
+    "news_dropped_today": 1315
   },
   "book_momentum": {
     "live_count": 8,
