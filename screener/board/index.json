@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T00:45:48Z",
+  "generated_at": "2026-10-20T00:46:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-028",
@@ -187702,6 +187702,75 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-b9904f623df5",
+      "idea_version": "IDEAV-1cd9d06103fff5cb",
+      "idea_version_started_at": "2026-10-20T00:46:02Z",
+      "ticker": "ATKR",
+      "company": "Atkore Inc.",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The filing of a 25-NSE delisting notification indicates severe financial distress or regulatory non-compliance, signaling a high risk of equity impairment.",
+      "why_now": "The delisting notice was issued on October 19, 2026, making this a live liquidity and solvency event.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 76,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-eb571881eeac"
+      ],
+      "primary_source_event_id": "EVT-eb571881eeac",
+      "source_headlines": [
+        "25-NSE - Atkore Inc. (0001666138) (Subject)"
+      ],
+      "source_headline": "25-NSE - Atkore Inc. (0001666138) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1666138/000087666126000843/0000876661-26-000843-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-19T14:02:31Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-20T00:46:02Z",
+      "updated_at": "2026-10-20T00:46:02Z",
+      "decay_at": "2026-10-21T02:02:31Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-cb1691406614",
       "idea_version": "IDEAV-ccd51edb65b54b35",
       "idea_version_started_at": "2026-10-19T23:11:18Z",
@@ -191498,6 +191567,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-7ac6a207250e",
+      "idea_version": "IDEAV-c6b1c76a73c6b16b",
+      "idea_version_started_at": "2026-10-20T00:46:02Z",
+      "ticker": "01672",
+      "company": "Ascletis Pharma",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Positive preclinical data for an oral once-weekly obesity peptide pipeline provides a potential catalyst for valuation re-rating in the competitive weight-loss drug market.",
+      "why_now": "The announcement was made on October 20, 2026, and the market has yet to fully digest the clinical implications.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 13,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3e8d612249ff"
+      ],
+      "primary_source_event_id": "EVT-3e8d612249ff",
+      "source_headlines": [
+        "ASCLETIS-B (01672): VOLUNTARY ANNOUNCEMENT - ASCLETIS ANNOUNCES POSITIVE PRECLINICAL DATA FOR THE MOST COMPREHENSIVE ONCE-WEEKLY ORAL PEPTIDE PIPELINE FOR THE TREATMENT OF OBESITY"
+      ],
+      "source_headline": "ASCLETIS-B (01672): VOLUNTARY ANNOUNCEMENT - ASCLETIS ANNOUNCES POSITIVE PRECLINICAL DATA FOR THE MOST COMPREHENSIVE ONCE-WEEKLY ORAL PEPTIDE PIPELINE FOR THE TREATMENT OF OBESITY",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000107.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 68,
+      "newest_source_at": "2026-10-20T00:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-20T00:46:02Z",
+      "updated_at": "2026-10-20T00:46:02Z",
+      "decay_at": "2026-10-21T12:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-eaf659086da7",
       "idea_version": "IDEAV-deaeca7a37f9796f",
       "idea_version_started_at": "2026-10-17T21:21:14Z",
@@ -191632,76 +191772,6 @@
       "surfaced_at": "2026-10-17T05:19:30Z",
       "updated_at": "2026-10-17T05:19:30Z",
       "decay_at": "2026-10-18T14:18:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-237bc01d6762",
-      "idea_version": "IDEAV-25fade808de3cae8",
-      "idea_version_started_at": "2026-10-17T03:18:33Z",
-      "ticker": "TM",
-      "company": "Toyota Motor Corporation",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Transitioning all 50 models to software-defined vehicles by 2030 allows for recurring revenue streams via over-the-air updates and improved vehicle margins.",
-      "why_now": "The strategic roadmap was announced on 2026-10-17.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-07c311a8ae17"
-      ],
-      "primary_source_event_id": "EVT-07c311a8ae17",
-      "source_headlines": [
-        "Toyota to turn all 50 models into software-defined vehicles by 2030"
-      ],
-      "source_headline": "Toyota to turn all 50 models into software-defined vehicles by 2030",
-      "source_url": "https://asia.nikkei.com/business/automobiles/toyota-to-turn-all-50-models-into-software-defined-vehicles-by-2030",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 90,
-      "newest_source_at": "2026-10-17T00:44:16Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-17T03:18:33Z",
-      "updated_at": "2026-10-17T03:18:33Z",
-      "decay_at": "2026-10-18T12:44:16Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -193662,14 +193732,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 529,
+    "total_count": 528,
     "shown_count": 499,
-    "hidden_count": 30,
+    "hidden_count": 29,
     "side_counts": {
       "long": {
-        "total_count": 271,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 20
       },
       "short": {
         "total_count": 259,
@@ -193679,12 +193749,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1149,
+      "evicted_count": 1150,
       "oldest_retained_at": "2026-09-21T09:27:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 762,
-          "oldest_retained_at": "2026-10-05T22:46:00Z"
+          "evicted_count": 763,
+          "oldest_retained_at": "2026-10-05T22:54:57Z"
         },
         "short": {
           "evicted_count": 387,
@@ -195933,8 +196003,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-18T12:44:16Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-20T00:46:10Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -230870,8 +230940,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1733,
-    "live_count": 54,
+    "surfaced_total": 1735,
+    "live_count": 56,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
