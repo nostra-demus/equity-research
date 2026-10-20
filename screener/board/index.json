@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-20T11:44:36Z",
+  "generated_at": "2026-10-20T11:47:45Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261020-235",
+      "headline": "MONTAGE TECH (06809): ANNOUNCEMENT ON ESTIMATED INCREASE IN THE RESULTS FOR THE THIRD QUARTER OF 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102001087.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T11:36:00Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Company estimates an increase in Q3 2026 results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company estimates an increase in Q3 2026 results.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MONTAGE TECH",
+          "ticker": "06809",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261020-190",
       "headline": "QHD PORT (03369): INSIDE INFORMATION - EQUITY ACQUISITION INTENT AGREEMENT AND SUSPENSION OF TRADING IN THE A SHARES",
@@ -738,20 +787,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261020-226",
-      "headline": "GE Aerospace raises 2026 profit forecast as services strength drives growth",
+      "inbox_id": "INB-20261020-237",
+      "headline": "US Stocks: GE Aerospace raises 2026 profit forecast as services strength drives growth",
       "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-ge-aerospace-results-2026-profit-forecast/",
-      "source_name": "The Globe and Mail",
+      "url": "https://economictimes.indiatimes.com/markets/us-stocks/news/us-stocks-ge-aerospace-raises-2026-profit-forecast-as-services-strength-drives-growth/articleshow/135068763.cms",
+      "source_name": "The Economic Times",
       "input_nature": "news_headline",
-      "found_at": "2026-10-20T11:09:58Z",
+      "found_at": "2026-10-20T11:19:35Z",
       "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "GE Aerospace raised its 2026 profit forecast due to strong services growth.",
+      "prelim_note": "GE Aerospace raised its 2026 profit forecast due to services strength.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "GE Aerospace raised its 2026 profit forecast due to strong services growth.",
+      "triage_reason": "GE Aerospace raised its 2026 profit forecast due to services strength.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 80,
@@ -1928,55 +1977,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-154",
-      "headline": "SHIFANG HLDG (01831): VOLUNTARY ANNOUNCEMENT IN RELATION TO THE DOCUMENTS SUBMITTED BY MR. XIE LIZHEN AND MR. YIN LI IN CONNECTION WITH THEIR PROPOSED APPOINTMENT AS INDEPENDENT NON-EXECUTIVE DIRECTORS CONTAINING FICTITIOUS INFORMATION, AND CONCEALING THE FACTS IN RESPECT THEREOF",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000506.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-20T09:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Company disclosed that proposed independent director candidates submitted documents containing fictitious information.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Company disclosed that proposed independent director candidates submitted documents containing fictitious information.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shifang Holding",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -232023,9 +232023,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4937105,
-    "news_picked_today": 430,
-    "news_dropped_today": 5186
+    "news_seen_today": 4959657,
+    "news_picked_today": 441,
+    "news_dropped_today": 5199
   },
   "book_momentum": {
     "live_count": 8,
