@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T08:28:19Z",
+  "generated_at": "2026-10-20T08:30:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-125",
@@ -95,6 +95,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-145",
+      "headline": "Publicis Groupe Reaches Deal With FTC On Proposed Acquisition Of LiveRamp",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/publicis-groupe-reaches-deal-ftc-proposed-acquisition-liveramp",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T07:21:54Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Publicis Groupe has reached a deal with the FTC regarding its acquisition of LiveRamp, a significant regulatory milestone for the merger.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Publicis Groupe has reached a deal with the FTC regarding its acquisition of LiveRamp, a significant regulatory milestone for the merger.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Publicis Groupe",
+          "ticker": null,
+          "listing_country": "FR"
+        },
+        {
+          "name": "LiveRamp",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1921,55 +1975,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-034",
-      "headline": "ZIJIN GOLD INTL (02259): Inside Information-Announcement in relation to Unaudited Financial Information and Operational Performance for the Nine Months Ended 30 September 2026",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1019/2026101900153.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-19T10:48:00Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Zijin Gold International released unaudited financial and operational performance for the nine months ended September 30, 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Zijin Gold International released unaudited financial and operational performance for the nine months ended September 30, 2026.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zijin Gold International",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -231519,9 +231524,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3487187,
-    "news_picked_today": 238,
-    "news_dropped_today": 4082
+    "news_seen_today": 3517475,
+    "news_picked_today": 246,
+    "news_dropped_today": 4098
   },
   "book_momentum": {
     "live_count": 8,
