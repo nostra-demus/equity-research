@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom'
 import { MODEL_SIGNALS, modelTotal, signalResult, type ModelEvent, type ModelEventRead, type ModelRow, type ModelSignal } from '../../../../shared/universe-model'
 import { api } from '../../lib/api'
 import { roleLabel } from '../../lib/scope'
+import { FinvizCompanyData } from './FinvizCompanyData'
 
 const date = (value: string) => new Date(value).toLocaleString()
 const status = (result: boolean | null) => result === null ? 'Impact unassessed' : result ? 'Favorable impact · inferred' : 'No favorable signal'
@@ -112,7 +113,7 @@ export function ModelSignalDialog({ selection, onSelect, onClose }: {
       <div className="model-dialog__body">
         {signal ? <><button type="button" className="model-dialog__back" onClick={() => onSelect(null)}>← All company signals</button>
           <SignalEvidence key={signal.id} row={row} signal={signal} /></>
-          : <><p>{row.signals === null ? 'Coverage unavailable' : `Total: ${modelTotal(row)} green ticks`}</p>
+          : <><FinvizCompanyData ticker={row.ticker} company={row.company} /><p>{row.signals === null ? 'Coverage unavailable' : `Total: ${modelTotal(row)} green ticks`}</p>
             <div className="model-dialog__signals">{MODEL_SIGNALS.map((s) => { const result = signalResult(row, s); return <button type="button" key={s.id} onClick={() => onSelect(s)}>
               <span>{mark(result)} {s.label}</span><small>{status(result)}</small>
             </button> })}</div></>}

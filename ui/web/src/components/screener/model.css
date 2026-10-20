@@ -79,4 +79,11 @@
 .model-dialog__effect { border-left: 2px solid var(--accent); margin: 12px 0; padding-left: 12px; }
 .model-dialog__loading span { display: block; height: 12px; margin: 8px 0; border-radius: var(--r-sm); background: var(--surface-2); }
 .model-dialog__loading span + span { width: 65%; }
+.model-dialog__data { margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--hairline); }
+.model-dialog__data label { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
+.model-dialog__data select { min-width: 0; max-width: 100%; }
+.model-dialog__fields { margin: 12px 0; }
+.model-dialog__fields > div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; padding: 8px 0; border-bottom: 1px solid var(--hairline); }
+.model-dialog__fields dt { color: var(--text-muted); }
+.model-dialog__fields dd { margin: 0; text-align: right; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
 @media (max-width: 600px) { .model-dialog select { font-size: 16px; } }
