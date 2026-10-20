@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-20T00:25:44Z",
+  "generated_at": "2026-10-20T00:33:12Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261020-021",
+      "headline": "PLS: Proposed offering of up to US$700M Senior Unsecured Notes",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PLS?key=2924-03150494-6A1350148",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T00:17:15Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Pilbara Minerals is proposing an offering of up to US$700M in senior unsecured notes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Pilbara Minerals is proposing an offering of up to US$700M in senior unsecured notes.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pilbara Minerals",
+          "ticker": "PLS",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-018",
+      "headline": "OCUMENSION-B (01477): INSIDE INFORMATION ANNOUNCEMENT TOPLINE RESULTS OF THE MONTH 36 PRIMARY ANALYSIS OF THE GLOBAL MULTI-CENTRE PHASE III CLINICAL TRIAL OF OT-101 (0.01% ATROPINE SULFATE EYE DROPS)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000141.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T00:25:00Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Ocumension-B reported topline results for its Phase III clinical trial of OT-101, a key product candidate.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Ocumension-B reported topline results for its Phase III clinical trial of OT-101, a key product candidate.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ocumension-B",
+          "ticker": "01477",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261020-009",
       "headline": "INSILICO (03696): VOLUNTARY ANNOUNCEMENT INSILICO MEDICINE TRIGGERS A MILESTONE PAYMENT IN AI-DRIVEN R&D COLLABORATION WITH SERVIER FOR ACHIEVING EARLY DRUG DISCOVERY MILESTONE",
@@ -95,6 +193,104 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-022",
+      "headline": "DSBJ (02384): GLOBAL OFFERING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000017.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T22:22:00Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "DSBJ is conducting a global offering, representing a significant capital-raising event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "DSBJ is conducting a global offering, representing a significant capital-raising event.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DSBJ",
+          "ticker": "02384",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-020",
+      "headline": "RCE: Independent Review of Indonesian Phase 3 R327G Trial Data [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RCE?key=2924-03150495-6A1350149",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T00:19:20Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Race Oncology is conducting an independent review of its Phase 3 R327G trial data, which is price-sensitive information.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Race Oncology is conducting an independent review of its Phase 3 R327G trial data, which is price-sensitive information.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Race Oncology",
+          "ticker": "RCE",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -296,6 +492,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261020-024",
+      "headline": "XTALPI (02228): VOLUNTARY ANNOUNCEMENT FURTHER INCREASE IN SHAREHOLDING BY CHAIRMAN OF THE BOARD",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000005.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-19T22:05:00Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "The chairman of XtalPi increased their shareholding in the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 71,
+      "triage_reason": "The chairman of XtalPi increased their shareholding in the company.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "insider_transaction",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "XtalPi",
+          "ticker": "02228",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261020-001",
       "headline": "Kaya Limited: Kaya Limited has informed the Exchange about receipt of In-Principle approval from NSE & BSE for issue of equity shares on preferential basis to non promoter",
       "headline_en": null,
@@ -438,6 +683,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261020-019",
+      "headline": "US allows dark-fleet oil tankers to shed sanctions amid bid to boost oil supply",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/us-allows-dark-fleet-oil-tankers-shed-sanctions-amid-bid-boost-oil-supply",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T00:24:55Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "The US easing sanctions on dark-fleet oil tankers could increase global oil supply, impacting energy prices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "The US easing sanctions on dark-fleet oil tankers could increase global oil supply, impacting energy prices.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -190040,78 +190328,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-9d6049b683f8",
-      "idea_version": "IDEAV-feb64488531a9846",
-      "idea_version_started_at": "2026-10-18T13:57:06Z",
-      "ticker": "DLF",
-      "company": "DLF Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is committing ₹58,000 crore to luxury residential projects in Delhi-NCR and Mumbai, which will significantly expand its revenue-generating asset base over the next 2-3 years.",
-      "why_now": "The capital expenditure plan was officially announced on 2026-10-18, signaling a major shift toward high-margin luxury development.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8f4c86730763"
-      ],
-      "primary_source_event_id": "EVT-8f4c86730763",
-      "source_headlines": [
-        "DLF bets big on luxury housing, plans projects worth ₹58,000 crore in Delhi-NCR, Mumbai over 2-3 years"
-      ],
-      "source_headline": "DLF bets big on luxury housing, plans projects worth ₹58,000 crore in Delhi-NCR, Mumbai over 2-3 years",
-      "source_url": "https://www.livemint.com/industry/real-estate/dlf-bets-big-on-luxury-housing-plans-projects-worth-58-000-crore-in-delhi-ncr-mumbai-over-2-3-years-11792324956847.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-18T12:26:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-17T00:40:56Z",
-      "updated_at": "2026-10-18T13:57:06Z",
-      "decay_at": "2026-10-20T00:26:52Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d0f885895e09",
       "idea_version": "IDEAV-dca1b1c93084f0ac",
       "idea_version_started_at": "2026-10-19T00:56:11Z",
@@ -191246,6 +191462,78 @@
       "surfaced_at": "2026-10-18T02:20:51Z",
       "updated_at": "2026-10-18T02:20:51Z",
       "decay_at": "2026-10-19T12:25:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-9d6049b683f8",
+      "idea_version": "IDEAV-feb64488531a9846",
+      "idea_version_started_at": "2026-10-18T13:57:06Z",
+      "ticker": "DLF",
+      "company": "DLF Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is committing ₹58,000 crore to luxury residential projects in Delhi-NCR and Mumbai, which will significantly expand its revenue-generating asset base over the next 2-3 years.",
+      "why_now": "The capital expenditure plan was officially announced on 2026-10-18, signaling a major shift toward high-margin luxury development.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8f4c86730763"
+      ],
+      "primary_source_event_id": "EVT-8f4c86730763",
+      "source_headlines": [
+        "DLF bets big on luxury housing, plans projects worth ₹58,000 crore in Delhi-NCR, Mumbai over 2-3 years"
+      ],
+      "source_headline": "DLF bets big on luxury housing, plans projects worth ₹58,000 crore in Delhi-NCR, Mumbai over 2-3 years",
+      "source_url": "https://www.livemint.com/industry/real-estate/dlf-bets-big-on-luxury-housing-plans-projects-worth-58-000-crore-in-delhi-ncr-mumbai-over-2-3-years-11792324956847.html",
+      "source_name": "Mint",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-18T12:26:52Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-17T00:40:56Z",
+      "updated_at": "2026-10-18T13:57:06Z",
+      "decay_at": "2026-10-20T00:26:52Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -192853,14 +193141,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 528,
+    "total_count": 529,
     "shown_count": 499,
-    "hidden_count": 29,
+    "hidden_count": 30,
     "side_counts": {
       "long": {
-        "total_count": 270,
+        "total_count": 271,
         "shown_count": 250,
-        "hidden_count": 20
+        "hidden_count": 21
       },
       "short": {
         "total_count": 259,
@@ -192884,6 +193172,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-9d6049b683f8",
+        "idea_version": "IDEAV-feb64488531a9846",
+        "idea_version_started_at": "2026-10-18T13:57:06Z",
+        "ticker": "DLF",
+        "company": "DLF Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is committing ₹58,000 crore to luxury residential projects in Delhi-NCR and Mumbai, which will significantly expand its revenue-generating asset base over the next 2-3 years.",
+        "why_now": "The capital expenditure plan was officially announced on 2026-10-18, signaling a major shift toward high-margin luxury development.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8f4c86730763"
+        ],
+        "primary_source_event_id": "EVT-8f4c86730763",
+        "source_headlines": [
+          "DLF bets big on luxury housing, plans projects worth ₹58,000 crore in Delhi-NCR, Mumbai over 2-3 years"
+        ],
+        "source_headline": "DLF bets big on luxury housing, plans projects worth ₹58,000 crore in Delhi-NCR, Mumbai over 2-3 years",
+        "source_url": "https://www.livemint.com/industry/real-estate/dlf-bets-big-on-luxury-housing-plans-projects-worth-58-000-crore-in-delhi-ncr-mumbai-over-2-3-years-11792324956847.html",
+        "source_name": "Mint",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-18T12:26:52Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-17T00:40:56Z",
+        "updated_at": "2026-10-18T13:57:06Z",
+        "decay_at": "2026-10-20T00:26:52Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-20T00:26:52Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-747e80dbcb22",
         "idea_version": "IDEAV-f2178b72b82247ae",
@@ -220150,81 +220513,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-8a2d4e7fe0cb",
-        "idea_version": "IDEAV-95f0bce5d8c80a50",
-        "idea_version_started_at": "2026-10-05T02:42:33Z",
-        "ticker": "AKZA.AS",
-        "company": "AkzoNobel NV",
-        "exchange": "AMS",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "AkzoNobel will receive $1.35 billion from the sale of its Southeast Asia unit to Nippon Paint, which could be used for debt reduction, share buybacks, or other strategic investments.",
-        "why_now": "The divestiture was announced on October 5, 2026, providing a clear capital event.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e098092db640"
-        ],
-        "primary_source_event_id": "EVT-e098092db640",
-        "source_headlines": [
-          "Nippon Paint to buy Akzo’s Southeast Asia unit for $1.35 billion"
-        ],
-        "source_headline": "Nippon Paint to buy Akzo’s Southeast Asia unit for $1.35 billion",
-        "source_url": "https://www.japantimes.co.jp/business/2026/10/05/companies/nippon-paint-akzo-nobel-southeast-asia/",
-        "source_name": "The Japan Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-05T02:08:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-05T02:42:33Z",
-        "updated_at": "2026-10-05T02:42:33Z",
-        "decay_at": "2026-10-06T14:08:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-08T03:53:12Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-0da2ca03bf6f",
         "idea_version": "IDEAV-b978044b523bef93",
         "idea_version_started_at": "2026-10-05T02:19:59Z",
@@ -230062,7 +230350,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1733,
-    "live_count": 55,
+    "live_count": 54,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -230072,7 +230360,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3824,
+    "inbox_unconsumed": 3830,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -230081,9 +230369,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 194689,
-    "news_picked_today": 18,
-    "news_dropped_today": 150
+    "news_seen_today": 263215,
+    "news_picked_today": 25,
+    "news_dropped_today": 191
   },
   "book_momentum": {
     "live_count": 8,
