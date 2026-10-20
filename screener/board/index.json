@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T01:41:11Z",
+  "generated_at": "2026-10-20T01:46:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-063",
@@ -1777,6 +1777,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261020-068",
+      "headline": "6-K - RYANAIR HOLDINGS PLC (0001038683) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1038683/000165495426009025/0001654954-26-009025-index.htm",
+      "source_name": "SEC EDGAR — Latest 6-K (Foreign Private Issuer interim)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-19T11:37:28Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Routine interim filing for a foreign private issuer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Routine interim filing for a foreign private issuer.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RYANAIR HOLDINGS PLC",
+          "ticker": null,
+          "listing_country": "IE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261020-048",
       "headline": "SANY INT'L (00631): CONTINUING CONNECTED TRANSACTIONS (1) SANY HEAVY AND SANY INTERNATIONAL COMPREHENSIVE PARTS AGENCY SERVICES FRAMEWORK AGREEMENT; AND (2) REVISED SANY HEAVY AND SANY INTERNATIONAL AFTER-SALES SERVICES FRAMEWORK AGREEMENT",
       "headline_en": null,
@@ -1913,55 +1962,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-029",
-      "headline": "LMS: LMS Completes October Drilling at Oonagalabi",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LMS?key=2924-03150502-2A1705050",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-20T00:35:50Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "LMS completed drilling operations at Oonagalabi, which is a routine operational update.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "LMS completed drilling operations at Oonagalabi, which is a routine operational update.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LMS",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -231295,9 +231295,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 827174,
-    "news_picked_today": 77,
-    "news_dropped_today": 667
+    "news_seen_today": 860642,
+    "news_picked_today": 79,
+    "news_dropped_today": 689
   },
   "book_momentum": {
     "live_count": 8,
