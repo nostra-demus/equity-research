@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T23:02:48Z",
+  "generated_at": "2026-10-20T23:06:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-422",
@@ -1282,31 +1282,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261020-426",
-      "headline": "SpaceX and Tesla form special committees to study potential merger",
+      "inbox_id": "INB-20261020-428",
+      "headline": "SpaceX and Tesla boards form special committees to review merger",
       "headline_en": null,
-      "url": "https://www.afr.com/technology/spacex-and-tesla-form-special-committees-to-study-potential-merger-20261021-p617bi?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
+      "url": "https://techcrunch.com/2026/10/20/spacex-and-tesla-boards-form-special-committees-to-review-merger/",
+      "source_name": "TechCrunch",
       "input_nature": "news_headline",
-      "found_at": "2026-10-20T22:45:27Z",
+      "found_at": "2026-10-20T22:57:57Z",
       "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Report that Tesla and SpaceX have formed special committees to study a potential merger.",
+      "prelim_note": "SpaceX and Tesla boards have formed special committees to review a potential merger.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Report that Tesla and SpaceX have formed special committees to study a potential merger.",
+      "triage_reason": "SpaceX and Tesla boards have formed special committees to review a potential merger.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 80,
+      "materiality_pre_score": 85,
       "rank_factors": {
-        "materiality": 80,
+        "materiality": 85,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
@@ -1315,17 +1315,18 @@
         "size_bucket": "mega"
       },
       "event_types": [
-        "mna"
+        "mna",
+        "strategic_review"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Tesla",
-          "ticker": "TSLA",
-          "listing_country": "US"
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
         },
         {
-          "name": "SpaceX",
+          "name": "Tesla",
           "ticker": null,
           "listing_country": "US"
         }
@@ -231946,9 +231947,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11175360,
-    "news_picked_today": 1012,
-    "news_dropped_today": 9548
+    "news_seen_today": 11237516,
+    "news_picked_today": 1019,
+    "news_dropped_today": 9565
   },
   "book_momentum": {
     "live_count": 8,
