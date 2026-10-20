@@ -33,8 +33,8 @@ export function modelSavedAnalysis(hit: EventEnrichment | null, eventId: string,
       const venue = discoveryListing(party.ticker, party.listing) || country(party.listing)
       return !party.named_in_article || !!venue && venue !== 'US'
     })
-    if (!identityConflict && !uncertainParty) for (const [side, parties] of [['beneficiary', hit.beneficiaries], ['exposed', hit.exposed]] as const) {
-      for (const party of Array.isArray(parties) ? parties : []) {
+    if (!identityConflict && !uncertainParty) for (const [side, sideParties] of [['beneficiary', hit.beneficiaries], ['exposed', hit.exposed]] as const) {
+      for (const party of Array.isArray(sideParties) ? sideParties : []) {
         if (!same(party) || !party.named_in_article) continue
         const venue = discoveryListing(party.ticker, party.listing) || country(party.listing)
         if (venue && venue !== 'US') continue

@@ -99,7 +99,7 @@ export interface ModelRead {
 }
 // Benefit/risk must belong to this issuer, not the headline. Mixed effects are not a favorable verdict.
 export function companyImpact(analysis: ModelSavedAnalysis | null | undefined): boolean | null {
-  if (!analysis?.effects.length) return null
+  if (!analysis?.effects?.length) return null
   return analysis.effects.some((effect) => effect.side === 'exposed') ? false
     : analysis.effects.some((effect) => effect.side === 'beneficiary') ? true : null
 }

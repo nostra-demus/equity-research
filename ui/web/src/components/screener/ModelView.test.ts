@@ -1,9 +1,10 @@
 import assert from 'node:assert/strict'
 import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
-import { MODEL_SIGNALS, modelTotal, rankModel, signalResult, type ModelRow, type ModelSavedAnalysis } from '../../../../shared/universe-model'
+import { companyImpact, MODEL_SIGNALS, modelTotal, rankModel, signalResult, type ModelRow, type ModelSavedAnalysis } from '../../../../shared/universe-model'
 import { ModelGrid } from './ModelView'
 const assessment: ModelSavedAnalysis = { read_at: '2026-10-19T15:00:00Z', story: ['The issuer has won a contract.'], company_role: 'subject', effects: [{ side: 'beneficiary', mechanism: 'Adds contracted sales.', magnitude: null, horizon: null }], event_assessment: null, watch_item: null, provenance: { kind: 'original', label: null, url: null } }
+assert.equal(companyImpact({} as ModelSavedAnalysis), null, 'missing legacy effects cannot assert a favorable result or crash the helper')
 const event = { id: 'EVT-1', headline: 'Material issuer announcement', url: 'https://example.test/filing', source: 'Issuer filing', reported_at: '2026-10-19T15:00:00Z', source_tier: 'primary_filing', direction: 'positive' as const, assessment }
 const row = (ticker: string, signals: ModelRow['signals']): ModelRow => ({ ticker, company: `${ticker} Company`, currency: 'USD', price: 12.5, retrieved_at: '2026-10-19T15:00:00Z', signals })
 const a = row('AAA', { contracts: [event] })

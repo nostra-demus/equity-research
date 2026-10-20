@@ -24,6 +24,8 @@ These tags are headline-based inference, not verified issuer research. Company n
 signal overview; every signal cell (tick, cross or unavailable) opens a keyboard-accessible dialog.
 Cells show up to three recent reports, source excerpts and the saved classification reason. The grid joins
 one read-only snapshot of the existing complete article-read cache; its popup explains that same snapshot.
+Unchanged cache files reuse the parsed snapshot. Failed primary reads or older backup loads retry at the
+next observation; they cannot pin an old favorable assessment after the current read recovers.
 A read-only
 `GET /api/screener/universe-model/evidence` lookup reuses existing complete article reads, without fetching
 sources, triggering enrichment or spending API credits. Company-specific effects require exact ticker

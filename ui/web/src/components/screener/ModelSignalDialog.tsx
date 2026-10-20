@@ -10,21 +10,22 @@ const mark = (result: boolean | null) => result === null ? '—' : result ? '✓
 export type ModelSelection = { row: ModelRow; signal: ModelSignal | null }
 
 function EventEvidence({ event, row, signal }: { event: ModelEvent; row: ModelRow; signal: ModelSignal }) {
+  const hasAssessment = event.assessment !== undefined
   const [read, setRead] = useState<ModelEventRead | null>(null)
-  const [loading, setLoading] = useState(event.assessment === undefined && !!event.source_event_id)
+  const [loading, setLoading] = useState(!hasAssessment && !!event.source_event_id)
   const [error, setError] = useState(false)
   const [attempt, setAttempt] = useState(0)
   useEffect(() => {
     let alive = true
-    if (event.assessment !== undefined || !event.source_event_id) return
+    if (hasAssessment || !event.source_event_id) return
     setLoading(true); setError(false)
     void api.universeModelEvidence(event.source_event_id, row.ticker, row.company)
       .then((result) => { if (alive) setRead(result) })
       .catch(() => { if (alive) setError(true) })
       .finally(() => { if (alive) setLoading(false) })
     return () => { alive = false }
-  }, [event.assessment, event.source_event_id, row.ticker, row.company, attempt])
-  const analysis = event.assessment !== undefined ? event.assessment : read?.analysis
+  }, [hasAssessment, event.source_event_id, row.ticker, row.company, attempt])
+  const analysis = hasAssessment ? event.assessment : read?.analysis
   const provenance = analysis?.provenance
   return <article className="model-dialog__event">
     <p className="model-dialog__headline">{event.headline}</p>
