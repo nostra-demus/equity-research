@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T12:21:47Z",
+  "generated_at": "2026-10-20T12:30:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261020-235",
@@ -188336,6 +188336,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-60e834f849f4",
+      "idea_version": "IDEAV-2a4c79c3550b25ef",
+      "idea_version_started_at": "2026-10-20T12:29:48Z",
+      "ticker": "MMM",
+      "company": "3M",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "3M raised its full-year guidance, signaling that the CEO's operational restructuring and cost-cutting initiatives are successfully improving margins and cash flow.",
+      "why_now": "The guidance hike was announced today, October 20, 2026, providing a fresh catalyst for earnings revisions.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8a416f124ece"
+      ],
+      "primary_source_event_id": "EVT-8a416f124ece",
+      "source_headlines": [
+        "3M Lifts Forecast Again in Boost to CEO’s Revitalization Effort"
+      ],
+      "source_headline": "3M Lifts Forecast Again in Boost to CEO’s Revitalization Effort",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-20/3m-lifts-forecast-again-in-boost-to-ceo-s-revitalization-effort",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-20T10:36:35Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-20T12:29:48Z",
+      "updated_at": "2026-10-20T12:29:48Z",
+      "decay_at": "2026-10-21T22:36:35Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-96d11f1f9c7c",
       "idea_version": "IDEAV-18e2ffa6c8d9f0fa",
       "idea_version_started_at": "2026-10-20T11:09:38Z",
@@ -190853,77 +190923,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-24de08dd43f9",
-      "idea_version": "IDEAV-618ffe55a4a9ef4e",
-      "idea_version_started_at": "2026-10-19T00:36:54Z",
-      "ticker": "RHC",
-      "company": "Ramsay Health Care",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The registration of the demerger booklet with ASIC marks a definitive step in the corporate restructuring process, unlocking value by separating the Sante business.",
-      "why_now": "The filing occurred on 2026-10-19, providing a clear timeline for the upcoming corporate action.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2e01284e671a"
-      ],
-      "primary_source_event_id": "EVT-2e01284e671a",
-      "source_headlines": [
-        "RHC: Ramsay Sante Demerger Booklet Registered with ASIC [price-sensitive]"
-      ],
-      "source_headline": "RHC: Ramsay Sante Demerger Booklet Registered with ASIC [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RHC?key=2924-03149924-2A1704803",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-19T00:27:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-19T00:36:54Z",
-      "updated_at": "2026-10-19T00:36:54Z",
-      "decay_at": "2026-10-20T12:27:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-193acec1f3b7",
       "idea_version": "IDEAV-7976f5bd314505d0",
       "idea_version_started_at": "2026-10-20T05:56:49Z",
@@ -192703,6 +192702,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-24de08dd43f9",
+      "idea_version": "IDEAV-618ffe55a4a9ef4e",
+      "idea_version_started_at": "2026-10-19T00:36:54Z",
+      "ticker": "RHC",
+      "company": "Ramsay Health Care",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The registration of the demerger booklet with ASIC marks a definitive step in the corporate restructuring process, unlocking value by separating the Sante business.",
+      "why_now": "The filing occurred on 2026-10-19, providing a clear timeline for the upcoming corporate action.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2e01284e671a"
+      ],
+      "primary_source_event_id": "EVT-2e01284e671a",
+      "source_headlines": [
+        "RHC: Ramsay Sante Demerger Booklet Registered with ASIC [price-sensitive]"
+      ],
+      "source_headline": "RHC: Ramsay Sante Demerger Booklet Registered with ASIC [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RHC?key=2924-03149924-2A1704803",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-19T00:27:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T00:36:54Z",
+      "updated_at": "2026-10-19T00:36:54Z",
+      "decay_at": "2026-10-20T12:27:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-23d292b4cefa",
       "idea_version": "IDEAV-d089209e36b9cb3b",
       "idea_version_started_at": "2026-10-18T22:51:26Z",
@@ -193635,82 +193705,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-5a71f05995f2",
-      "idea_version": "IDEAV-86380cca7cf05ac3",
-      "idea_version_started_at": "2026-10-18T12:31:33Z",
-      "ticker": "ICICIBANK",
-      "company": "ICICI Bank",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The bank reported strong Q2 earnings beating estimates, though management signaled potential net interest margin pressure in Q3.",
-      "why_now": "Earnings were released on October 17, 2026; the market is currently digesting the guidance for Q3 margin compression.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 10,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-114e7c8d81d5",
-        "EVT-7acdb0de9940",
-        "EVT-1c76b71d0827"
-      ],
-      "primary_source_event_id": "EVT-114e7c8d81d5",
-      "source_headlines": [
-        "ICICI Bank Q2 net profit rises 20% to ₹14,843 crore; NIM slips to 4.18% as bank flags further pressure in Q3",
-        "ICICI Bank Q2 net profit jumps 22% to Rs 16,333 crore",
-        "India's ICICI Bank Q2 profit rises 20.1%, beats estimates"
-      ],
-      "source_headline": "ICICI Bank Q2 net profit rises 20% to ₹14,843 crore; NIM slips to 4.18% as bank flags further pressure in Q3",
-      "source_url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/icici-bank-q2-net-profit-rises-20-to-14843-crore-nim-slips-to-4-18-as-bank-flags-further-pressure-in-q3/articleshow/135013865.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-17T12:06:06Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-17T11:50:37Z",
-      "updated_at": "2026-10-18T12:31:33Z",
-      "decay_at": "2026-10-19T00:06:06Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-3a8aa320e39f",
       "idea_version": "IDEAV-d90e13e9f79b1ec8",
       "idea_version_started_at": "2026-10-18T09:21:18Z",
@@ -194206,77 +194200,6 @@
       "surfaced_at": "2026-10-17T14:35:09Z",
       "updated_at": "2026-10-17T14:35:09Z",
       "decay_at": "2026-10-19T02:01:56Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-24912455a063",
-      "idea_version": "IDEAV-36591658159913a5",
-      "idea_version_started_at": "2026-10-17T14:35:09Z",
-      "ticker": "LAGNAM",
-      "company": "Lagnam Spintex Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 98% increase in Q2 EBITDA, signaling significant margin expansion and operational efficiency gains.",
-      "why_now": "The performance data was released via exchange filing on October 17, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-efa36352ba15"
-      ],
-      "primary_source_event_id": "EVT-efa36352ba15",
-      "source_headlines": [
-        "Lagnam Spintex Limited: Lagnam Spintex Limited has informed the Exchange regarding a press release dated October 17, 2026, titled \"LAGNAM SPINTEX REPORTS STRONG Q2 & H1 FY27 PERFORMANCE; EBITDA RISES 98% IN Q2 AND 64% IN H1FY27\"."
-      ],
-      "source_headline": "Lagnam Spintex Limited: Lagnam Spintex Limited has informed the Exchange regarding a press release dated October 17, 2026, titled \"LAGNAM SPINTEX REPORTS STRONG Q2 & H1 FY27 PERFORMANCE; EBITDA RISES 98% IN Q2 AND 64% IN H1FY27\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/LAGNAM_17102026174451_PressRelease171026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 98,
-      "newest_source_at": "2026-10-17T12:15:25Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-17T14:35:09Z",
-      "updated_at": "2026-10-17T14:35:09Z",
-      "decay_at": "2026-10-19T00:15:25Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -194801,14 +194724,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 537,
+    "total_count": 536,
     "shown_count": 499,
-    "hidden_count": 38,
+    "hidden_count": 37,
     "side_counts": {
       "long": {
-        "total_count": 278,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 27
       },
       "short": {
         "total_count": 260,
@@ -194818,12 +194741,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1158,
+      "evicted_count": 1160,
       "oldest_retained_at": "2026-09-21T22:06:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 769,
-          "oldest_retained_at": "2026-10-06T04:35:11Z"
+          "evicted_count": 771,
+          "oldest_retained_at": "2026-10-06T07:47:25Z"
         },
         "short": {
           "evicted_count": 389,
@@ -194832,6 +194755,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-24de08dd43f9",
+        "idea_version": "IDEAV-618ffe55a4a9ef4e",
+        "idea_version_started_at": "2026-10-19T00:36:54Z",
+        "ticker": "RHC",
+        "company": "Ramsay Health Care",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The registration of the demerger booklet with ASIC marks a definitive step in the corporate restructuring process, unlocking value by separating the Sante business.",
+        "why_now": "The filing occurred on 2026-10-19, providing a clear timeline for the upcoming corporate action.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2e01284e671a"
+        ],
+        "primary_source_event_id": "EVT-2e01284e671a",
+        "source_headlines": [
+          "RHC: Ramsay Sante Demerger Booklet Registered with ASIC [price-sensitive]"
+        ],
+        "source_headline": "RHC: Ramsay Sante Demerger Booklet Registered with ASIC [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RHC?key=2924-03149924-2A1704803",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-19T00:27:45Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-19T00:36:54Z",
+        "updated_at": "2026-10-19T00:36:54Z",
+        "decay_at": "2026-10-20T12:27:45Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-20T12:27:45Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-2d38686e8413",
         "idea_version": "IDEAV-c9e5dac1e2b982f4",
@@ -197584,8 +197581,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-19T00:15:25Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-20T12:29:54Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -197663,8 +197660,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-19T00:06:06Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-20T12:29:54Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -222244,81 +222241,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-737e5bc9f0da",
-        "idea_version": "IDEAV-d85caecac0ca1469",
-        "idea_version_started_at": "2026-10-05T04:46:37Z",
-        "ticker": "MARICO",
-        "company": "Marico Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is reporting double-digit revenue growth for the second quarter, signaling a recovery in consumption and volume growth in its core FMCG portfolio.",
-        "why_now": "The update was released on October 5, 2026, providing a fresh catalyst ahead of the full quarterly earnings release.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-81658ccffc83"
-        ],
-        "primary_source_event_id": "EVT-81658ccffc83",
-        "source_headlines": [
-          "Marico sees double-digit revenue growth in second quarter"
-        ],
-        "source_headline": "Marico sees double-digit revenue growth in second quarter",
-        "source_url": "https://www.thehindubusinessline.com/companies/marico-sees-double-digit-revenue-growth-in-second-quarter/article71545776.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-05T04:16:59Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-05T04:46:37Z",
-        "updated_at": "2026-10-05T04:46:37Z",
-        "decay_at": "2026-10-06T16:16:59Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-08T05:28:26Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-69be6242b6c3",
         "idea_version": "IDEAV-8cb2c362585333ff",
         "idea_version_started_at": "2026-10-05T03:26:33Z",
@@ -232008,7 +231930,7 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1753,
+    "surfaced_total": 1754,
     "live_count": 57,
     "promoted_total": 0,
     "machine_confirmed": 0,
@@ -232028,9 +231950,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5224364,
+    "news_seen_today": 5282777,
     "news_picked_today": 479,
-    "news_dropped_today": 5449
+    "news_dropped_today": 5473
   },
   "book_momentum": {
     "live_count": 8,
