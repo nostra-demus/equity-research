@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-20T14:45:30Z",
+  "generated_at": "2026-10-20T14:49:51Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261020-295",
+      "headline": "SEVEN ELEMENTS (01660): VOLUNTARY ANNOUNCEMENT COMPLETION OF ACQUISITION OF A SECURITIES COMPANY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102001557.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T14:41:00Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Seven Elements completed the acquisition of a securities company, representing a strategic expansion of its business operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Seven Elements completed the acquisition of a securities company, representing a strategic expansion of its business operations.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Seven Elements",
+          "ticker": "01660",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261020-270",
       "headline": "CHINA CHENGTONG (00217): VERY SUBSTANTIAL ACQUISITION - SALE AND LEASEBACK ARRANGEMENT",
@@ -1933,55 +1982,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-138",
-      "headline": "Plus500 To Acquire Brazilian Broker-Dealer Guru",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/plus500-acquire-brazilian-broker-dealer-guru",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-20T06:27:07Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Plus500 is acquiring Brazilian broker-dealer Guru to expand its market presence.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Plus500 is acquiring Brazilian broker-dealer Guru to expand its market presence.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Plus500",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -232442,9 +232442,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6474062,
-    "news_picked_today": 600,
-    "news_dropped_today": 5952
+    "news_seen_today": 6487278,
+    "news_picked_today": 620,
+    "news_dropped_today": 6124
   },
   "book_momentum": {
     "live_count": 8,
