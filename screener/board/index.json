@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-20T09:59:41Z",
+  "generated_at": "2026-10-20T10:10:58Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261020-167",
+      "headline": "SUNAC (01918): SUPPLEMENTAL ANNOUNCEMENT - SHARE TRANSACTION AND CONNECTED TRANSACTION - IN RELATION TO ACQUISITION OF 100% EQUITY INTEREST IN ERJIN MANAGEMENT INVOLVING THE ISSUE OF CONSIDERATION SHARES UNDER SPECIFIC MANDATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000769.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T10:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
+      "prelim_note": "Sunac is acquiring 100% of Erjin Management through the issuance of consideration shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sunac is acquiring 100% of Erjin Management through the issuance of consideration shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sunac China Holdings",
+          "ticker": "01918",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261020-159",
       "headline": "CHK OIL (00632): VOLUNTARY ANNOUNCEMENT - FRAMEWORK AGREEMENT IN RELATION TO PROPOSED ACQUISITION",
@@ -1929,55 +1978,6 @@
           "name": "BHP Group",
           "ticker": null,
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261020-088",
-      "headline": "‘Open your doors for AI’: German chancellor urges businesses to embrace AI as Nvidia announces new investments",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/20/german-chancellor-urges-businesses-to-embrace-ai.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-20T02:16:25Z",
-      "sweep_file": "screener/inbox/2026-10-20_sweep.json",
-      "prelim_note": "Nvidia is announcing new investments in Germany, signaling expansion of its AI infrastructure footprint.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Nvidia is announcing new investments in Germany, signaling expansion of its AI infrastructure footprint.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -190706,77 +190706,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c8b303231aff",
-      "idea_version": "IDEAV-9deed6c2edd9ec03",
-      "idea_version_started_at": "2026-10-18T22:31:17Z",
-      "ticker": "OCN",
-      "company": "OCN",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "OCN has completed the acquisition of the Serra Negra Project, which should contribute to its asset base and future operational capacity.",
-      "why_now": "The completion of the acquisition was announced on October 18, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4d9fe5c7e3b3"
-      ],
-      "primary_source_event_id": "EVT-4d9fe5c7e3b3",
-      "source_headlines": [
-        "OCN: Completion of Serra Negra Project Acquisition [price-sensitive]"
-      ],
-      "source_headline": "OCN: Completion of Serra Negra Project Acquisition [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OCN?key=2924-03149775-6A1349833",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-18T22:10:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-18T22:31:17Z",
-      "updated_at": "2026-10-18T22:31:17Z",
-      "decay_at": "2026-10-20T10:10:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-193acec1f3b7",
       "idea_version": "IDEAV-7976f5bd314505d0",
       "idea_version_started_at": "2026-10-20T05:56:49Z",
@@ -192552,6 +192481,77 @@
       "surfaced_at": "2026-10-18T22:31:17Z",
       "updated_at": "2026-10-18T22:31:17Z",
       "decay_at": "2026-10-20T09:58:49Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-c8b303231aff",
+      "idea_version": "IDEAV-9deed6c2edd9ec03",
+      "idea_version_started_at": "2026-10-18T22:31:17Z",
+      "ticker": "OCN",
+      "company": "OCN",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "OCN has completed the acquisition of the Serra Negra Project, which should contribute to its asset base and future operational capacity.",
+      "why_now": "The completion of the acquisition was announced on October 18, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4d9fe5c7e3b3"
+      ],
+      "primary_source_event_id": "EVT-4d9fe5c7e3b3",
+      "source_headlines": [
+        "OCN: Completion of Serra Negra Project Acquisition [price-sensitive]"
+      ],
+      "source_headline": "OCN: Completion of Serra Negra Project Acquisition [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OCN?key=2924-03149775-6A1349833",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-18T22:10:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-18T22:31:17Z",
+      "updated_at": "2026-10-18T22:31:17Z",
+      "decay_at": "2026-10-20T10:10:54Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -194442,14 +194442,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 533,
+    "total_count": 534,
     "shown_count": 499,
-    "hidden_count": 34,
+    "hidden_count": 35,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 27
       },
       "short": {
         "total_count": 258,
@@ -194473,6 +194473,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c8b303231aff",
+        "idea_version": "IDEAV-9deed6c2edd9ec03",
+        "idea_version_started_at": "2026-10-18T22:31:17Z",
+        "ticker": "OCN",
+        "company": "OCN",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "OCN has completed the acquisition of the Serra Negra Project, which should contribute to its asset base and future operational capacity.",
+        "why_now": "The completion of the acquisition was announced on October 18, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4d9fe5c7e3b3"
+        ],
+        "primary_source_event_id": "EVT-4d9fe5c7e3b3",
+        "source_headlines": [
+          "OCN: Completion of Serra Negra Project Acquisition [price-sensitive]"
+        ],
+        "source_headline": "OCN: Completion of Serra Negra Project Acquisition [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OCN?key=2924-03149775-6A1349833",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-18T22:10:54Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-18T22:31:17Z",
+        "updated_at": "2026-10-18T22:31:17Z",
+        "decay_at": "2026-10-20T10:10:54Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-20T10:10:54Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b01a0092d799",
         "idea_version": "IDEAV-2f47a05eb5efc932",
@@ -221738,81 +221812,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-b68ebd5b2209",
-        "idea_version": "IDEAV-e36f24bb8cb4bd09",
-        "idea_version_started_at": "2026-10-05T04:46:37Z",
-        "ticker": "CAM",
-        "company": "Clime Capital Limited",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported FY26 results alongside the declaration of a special dividend, which typically triggers immediate yield-seeking buying pressure.",
-        "why_now": "The price-sensitive filing was released on the ASX on October 5, 2026.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-007a93874a09"
-        ],
-        "primary_source_event_id": "EVT-007a93874a09",
-        "source_headlines": [
-          "CAM: FY26 Results and Special Dividend [price-sensitive]"
-        ],
-        "source_headline": "CAM: FY26 Results and Special Dividend [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CAM?key=2924-03144405-2A1701770",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 99,
-        "newest_source_at": "2026-10-05T03:44:46Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-05T04:46:37Z",
-        "updated_at": "2026-10-05T04:46:37Z",
-        "decay_at": "2026-10-06T15:44:46Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-08T03:53:12Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-69be6242b6c3",
         "idea_version": "IDEAV-8cb2c362585333ff",
         "idea_version_started_at": "2026-10-05T03:26:33Z",
@@ -231652,7 +231651,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1747,
-    "live_count": 56,
+    "live_count": 55,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -231671,9 +231670,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4137407,
-    "news_picked_today": 312,
-    "news_dropped_today": 4632
+    "news_seen_today": 4211276,
+    "news_picked_today": 323,
+    "news_dropped_today": 4645
   },
   "book_momentum": {
     "live_count": 8,
