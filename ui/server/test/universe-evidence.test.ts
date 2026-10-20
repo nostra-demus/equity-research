@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import Fastify from 'fastify'
 import fs from 'node:fs/promises'
+import fsSync from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import { modelSavedAnalysis, projectUniverseAssessments, readUniverseAssessments, registerUniverseEvidence } from '../src/universe-evidence'
@@ -93,6 +94,23 @@ await fs.writeFile(path.join(cacheDir, 'news-enrich-cache.bak.json'), JSON.strin
 await fs.writeFile(path.join(cacheDir, 'news-enrich-cache.json'), '{invalid')
 assert.equal(signalResult(readUniverseAssessments(cacheDir, [subject])[0], signal), true, 'last-good backup retains its existing read-only recovery behavior')
 assert.equal(signalResult(readUniverseAssessments(path.join(cacheDir, 'missing'), [subject])[0], signal), null)
+for (const backup of [false, true]) {
+  const recovering = await fs.mkdtemp(path.join(cacheRoot, 'transient-'))
+  const main = path.join(recovering, 'news-enrich-cache.json')
+  await fs.writeFile(main, JSON.stringify({ [hit.event_id]: hit }))
+  if (backup) await fs.writeFile(path.join(recovering, 'news-enrich-cache.bak.json'), JSON.stringify({ [hit.event_id]: favorable }))
+  const originalRead = fsSync.readFileSync
+  let failed = false
+  fsSync.readFileSync = ((file: any, ...args: any[]) => {
+    if (String(file) === main && !failed) { failed = true; throw new Error('fixture transient EIO') }
+    return (originalRead as any)(file, ...args)
+  }) as typeof fsSync.readFileSync
+  try {
+    const first = readUniverseAssessments(recovering, [subject])[0]
+    assert.equal(signalResult(first, signal), backup ? true : null)
+    assert.equal(signalResult(readUniverseAssessments(recovering, [subject])[0], signal), false, 'transient main-file failure must not pin an empty or older favorable snapshot after recovery')
+  } finally { fsSync.readFileSync = originalRead }
+}
 
 let peeks = 0
 const app = Fastify()
