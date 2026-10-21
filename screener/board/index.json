@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-10-21T21:52:46Z",
+  "generated_at": "2026-10-21T22:14:56Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261021-474",
+      "headline": "ECA2026-749 - (UPDATED: Merger Closed) Information Regarding the Business Combination of Archimedes Tech SPAC Partners II Co. (ATII/W/U) and Forge Nano Holdings, Inc.",
+      "headline_en": null,
+      "url": "http://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-749",
+      "source_name": "Nasdaq Trader — Current Headlines / Market Alerts",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T21:01:20Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Confirmed merger close of Archimedes Tech SPAC Partners II (ATII) and Forge Nano Holdings completing a capital-structure change for both entities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Confirmed merger close of Archimedes Tech SPAC Partners II (ATII) and Forge Nano Holdings completing a capital-structure change for both entities.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Archimedes Tech SPAC Partners II",
+          "ticker": "ATII",
+          "listing_country": "US"
+        },
+        {
+          "name": "Forge Nano Holdings",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261021-466",
       "headline": "DEFM14A - Personalis, Inc. (0001527753) (Filer)",
@@ -1940,55 +1994,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-313",
-      "headline": "National Express owner eyes takeover by Spanish rival in fresh blow to the City",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16225927/National-Express-owner-eyes-takeover-Spanish-rival-fresh-blow-City.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T11:29:20Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Mobico (formerly National Express) is a takeover target for a Spanish rival, likely leading to a significant valuation premium.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Mobico (formerly National Express) is a takeover target for a Spanish rival, likely leading to a significant valuation premium.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 3,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mobico Group PLC",
-          "ticker": "MCG",
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -234291,9 +234296,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8129990,
-    "news_picked_today": 922,
-    "news_dropped_today": 16910
+    "news_seen_today": 8204045,
+    "news_picked_today": 931,
+    "news_dropped_today": 16925
   },
   "book_momentum": {
     "live_count": 8,
