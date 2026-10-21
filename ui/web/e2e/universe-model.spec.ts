@@ -1,6 +1,96 @@
 import { test, expect } from '@playwright/test'
-import { MODEL_SCHEMA, UNIVERSE_URL, type ModelEventRead, type ModelRead, type ModelRow } from '../../shared/universe-model'
+import { MODEL_CLIENT_VERSION, MODEL_SCHEMA, UNIVERSE_URL, type ModelEventRead, type ModelPricesRead, type ModelRead, type ModelRow } from '../../shared/universe-model'
 import { FINVIZ_VIEWS, type FinvizDataRead } from '../../shared/finviz-data'
+
+test.beforeEach(async ({ context }) => {
+  await context.route('**/api/screener/universe-model/quotes?*', (route) => route.fulfill({ json: { checked_at: new Date().toISOString(), rows: [] } }))
+})
+
+test('Current prices refresh independently, preserve source/time and degrade without false live claims', async ({ page, context }, testInfo) => {
+  await page.clock.install()
+  const now = new Date().toISOString()
+  const old = new Date(Date.now() - 24 * 3600_000).toISOString()
+  const row: ModelRow = { ticker: 'CO', company: 'Company Inc', currency: 'USD', price: 10, retrieved_at: old, signals: {} }
+  const body: ModelRead = { schema_version: MODEL_SCHEMA, source_url: UNIVERSE_URL, rows: [row], total: 1, complete: true, refreshing: true,
+    fetched: 2016, refresh_total: 2016, refresh_phase: 'membership', started_at: now, completed_at: old, next_refresh_at: now, stale: true, error: null, events: null,
+    data: { captured: 0, expected: 8, refreshing: false, error: null } }
+  let price = 25
+  let mode: 'live' | 'close' | 'unknown' | 'delayed' | 'offline' | 'wrong' | 'held' = 'live'
+  let releaseHeld: (() => void) | undefined
+  let quoteCalls = 0
+  const writes: string[] = []
+  page.on('request', (request) => {
+    const path = new URL(request.url()).pathname
+    if (request.method() === 'POST' && path !== '/api/performance/samples') writes.push(path)
+  })
+  await context.route('**/api/screener/universe-model', (route) => {
+    expect(route.request().headers()['x-nostra-model']).toBe(MODEL_CLIENT_VERSION)
+    return route.fulfill({ json: body })
+  })
+  await context.route('**/api/screener/universe-model/quotes?*', async (route) => {
+    quoteCalls++
+    expect(new URL(route.request().url()).searchParams.get('tickers')).toBe('CO')
+    if (mode === 'held') {
+      await new Promise<void>((resolve) => { releaseHeld = resolve })
+      return route.fulfill({ status: 503, json: { error: 'Quote source unavailable after resume' } })
+    }
+    if (mode === 'offline') return route.fulfill({ status: 503, json: { error: 'Quote source unavailable' } })
+    const stamp = new Date().toISOString()
+    const result: ModelPricesRead = { checked_at: stamp, rows: [{ ticker: 'CO', company: mode === 'wrong' ? 'Different issuer' : 'Company Inc', quote: {
+      price, currency: 'USD', symbol: 'CO', source: 'cnbc', as_of: mode === 'close' ? old : stamp,
+      as_of_is_close: mode === 'close', delayed: mode === 'delayed', real_time: mode === 'unknown' ? null : mode !== 'delayed', stale: false, retrieved_at: stamp,
+    } }] }
+    return route.fulfill({ json: result })
+  })
+  await page.goto('/e2e/ideas.html?surface=model')
+  await page.getByRole('button', { name: 'Model', exact: true }).click()
+  const prices = page.locator('tbody tr').locator('td').first()
+  await expect(prices).toContainText('$25.00')
+  await expect(prices).toContainText('CNBC · Live')
+  await expect(page.locator('.model__status')).toContainText('2,016 / 2,016 checked')
+  await expect(page.locator('.model__status')).not.toContainText('2,016 / 1 checked')
+  price = 26
+  await page.clock.fastForward(15_100)
+  await expect(prices).toContainText('$26.00')
+  expect(quoteCalls).toBeGreaterThan(1)
+  await page.evaluate(() => Object.defineProperty(document, 'visibilityState', { configurable: true, value: 'hidden' }))
+  await page.clock.fastForward(60_000)
+  mode = 'held'
+  await page.evaluate(() => {
+    Object.defineProperty(document, 'visibilityState', { configurable: true, value: 'visible' })
+    document.dispatchEvent(new Event('visibilitychange'))
+  })
+  await expect(prices).toContainText('Saved · CNBC', { timeout: 1000 })
+  await expect(prices).not.toContainText('CNBC · Live')
+  await expect.poll(() => !!releaseHeld).toBe(true)
+  releaseHeld!()
+  await expect(page.getByText('Price feed unavailable · saved prices shown.')).toBeVisible()
+  mode = 'offline'
+  await page.clock.fastForward(15_100)
+  await expect(prices).toContainText('$26.00')
+  await expect(prices).toContainText('Saved · CNBC')
+  await expect(prices).not.toContainText('CNBC · Live')
+  mode = 'close'
+  await page.clock.fastForward(15_100)
+  await expect(prices).toContainText('CNBC · Last close')
+  mode = 'unknown'
+  await page.clock.fastForward(15_100)
+  await expect(prices).toContainText('CNBC · Latest trade')
+  mode = 'delayed'
+  await page.clock.fastForward(15_100)
+  await expect(prices).toContainText('CNBC · Delayed')
+  mode = 'wrong'; price = 999
+  await page.clock.fastForward(15_100)
+  await expect(page.getByText('Price feed unavailable · saved prices shown.')).toBeVisible()
+  await expect(prices).not.toContainText('$999.00')
+  body.data!.error = 'Finviz restricted free access (HTTP 429). Refresh paused for 30 minutes.'
+  await page.clock.fastForward(15_100)
+  await expect(page.getByRole('alert')).toContainText('429')
+  await expect(page.getByRole('alert')).toBeVisible()
+  await expect(page.locator('tbody tr').locator('td').last()).toHaveText('0Green ticks')
+  expect(writes).toEqual([])
+  await page.screenshot({ path: testInfo.outputPath('model-current-prices.png') })
+})
 
 test('Company Finviz data is compact, on demand, dated, unit-labelled and separate from signals', async ({ page, context }, testInfo) => {
   const now = new Date().toISOString()
