@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T14:10:06Z",
+  "generated_at": "2026-10-21T14:20:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-354",
@@ -46,6 +46,57 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-415",
+      "headline": "ZHIDAO INT'L (01220): INSIDE INFORMATION CHANGE OF INDEPENDENT FORENSIC ADVISOR AND CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102101069.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T13:22:00Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Zhidao Int'l (01220) changes independent forensic advisor during continued trading suspension, signaling accounting investigation or fraud risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Zhidao Int'l (01220) changes independent forensic advisor during continued trading suspension, signaling accounting investigation or fraud risk.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "management",
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zhidao International",
+          "ticker": "01220",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1931,55 +1982,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-117",
-      "headline": "L&T Tech Services shares surge 15% after Q2 2026 results - Should investors buy, sell, or hold stock? Experts suggestion",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/lt-tech-services-shares-surge-15-after-q2-results-should-investors-buy-sell-or-hold-the-stock-experts-suggest-11792556660824.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T04:33:27Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "L&T Tech Services reported Q2 2026 results that triggered a 15% surge in share price.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "L&T Tech Services reported Q2 2026 results that triggered a 15% surge in share price.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "L&T Technology Services",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -234429,9 +234431,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5909178,
-    "news_picked_today": 650,
-    "news_dropped_today": 10534
+    "news_seen_today": 5967719,
+    "news_picked_today": 665,
+    "news_dropped_today": 10687
   },
   "book_momentum": {
     "live_count": 8,
