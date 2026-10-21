@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T02:24:40Z",
+  "generated_at": "2026-10-21T02:36:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-016",
@@ -46,6 +46,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-070",
+      "headline": "Australian data centre group falls 44% on profit warning",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/023caf76-40df-485d-8a28-0ff62aa7ec6f?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T02:00:40Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "An Australian data center group's stock fell 44% following a profit warning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "An Australian data center group's stock fell 44% following a profit warning.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -556,6 +599,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261021-067",
+      "headline": "SMS: Resignation of Chair",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SMS?key=2924-03151114-6A1350414",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T02:04:26Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "The resignation of a company Chair is a significant governance event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "The resignation of a company Chair is a significant governance event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "executive_exit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SMS",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261021-039",
       "headline": "GDF: Trading Halt [price-sensitive]",
       "headline_en": null,
@@ -802,6 +894,60 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-068",
+      "headline": "Musk Seizes On SpaceX Momentum With Push Toward Tesla Merger",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/musk-seizes-on-spacex-momentum-with-push-toward-tesla-merger-12212968#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T02:04:04Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Elon Musk is reportedly exploring a potential merger between SpaceX and Tesla.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Elon Musk is reportedly exploring a potential merger between SpaceX and Tesla.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Tesla",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1266,6 +1412,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261021-072",
+      "headline": "China opposes U.S. sanctions on five Chinese firms over alleged trade-secret theft: MOC spokesperson",
+      "headline_en": null,
+      "url": "http://www.ecns.cn/cns-wire/2026-10-21/detail-ihfmiwhm0737382.shtml",
+      "source_name": "ECNS (China News Service, English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T04:48:15Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "China opposes U.S. sanctions on five Chinese firms, indicating ongoing geopolitical and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "China opposes U.S. sanctions on five Chinese firms, indicating ongoing geopolitical and regulatory risk.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261021-027",
       "headline": "SCHEDULE 13G - TALOS ENERGY INC. (0001724965) (Subject)",
       "headline_en": null,
@@ -1543,6 +1733,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261021-069",
+      "headline": "Bajaj Finance Q2 Review: Brokerages Back Growth Guidance Upgrade Despite Margin Pressure",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/bajaj-finance-q2-review-brokerages-back-growth-guidance-upgrade-despite-margin-pressure-12212954#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T01:51:27Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Brokerages are supporting a growth guidance upgrade for Bajaj Finance despite margin pressures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "Brokerages are supporting a growth guidance upgrade for Bajaj Finance despite margin pressures.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bajaj Finance",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261021-030",
       "headline": "FLX: Becoming a substantial holder",
       "headline_en": null,
@@ -1690,297 +1929,55 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261021-005",
-      "headline": "IVX: Proposed issue of securities - IVX",
+      "inbox_id": "INB-20261021-073",
+      "headline": "A possible SpaceX-Tesla merger? Here's what people are saying",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IVX?key=2924-03151055-2A1705286",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-20T23:51:45Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "IVX proposed issuing securities, which could change its share count, liquidity and existing shareholders' ownership dilution.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "IVX proposed issuing securities, which could change its share count, liquidity and existing shareholders' ownership dilution.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 52,
-      "rank_factors": {
-        "materiality": 52,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IVX",
-          "ticker": "IVX",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-011",
-      "headline": "FDA 510(k) clearance — Glytec, LLC: Glucommander",
-      "headline_en": null,
-      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261939",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-05T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "FDA 510(k) clearance gives Glytec authorization to market the Glucommander device in the US.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "FDA 510(k) clearance gives Glytec authorization to market the Glucommander device in the US.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 52,
-      "rank_factors": {
-        "materiality": 52,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Glytec, LLC",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-007",
-      "headline": "FDA 510(k) clearance — Medis Medical Imaging Systems BV: QGuideCT (1.0)",
-      "headline_en": null,
-      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K260523",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-05T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "FDA 510(k) clearance authorizes Medis Medical Imaging Systems' QGuideCT version 1.0 for US commercialization.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "FDA 510(k) clearance authorizes Medis Medical Imaging Systems' QGuideCT version 1.0 for US commercialization.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 52,
-      "rank_factors": {
-        "materiality": 52,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Medis Medical Imaging Systems BV",
-          "ticker": null,
-          "listing_country": "NL"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-038",
-      "headline": "Eveready’s Non-Battery Business to Account for 45% of Revenue: CEO",
-      "headline_en": null,
-      "url": "https://www.outlookbusiness.com/corporate/evereadys-non-battery-business-to-account-for-45-of-revenue-ceo",
-      "source_name": "Outlook Business",
+      "url": "https://www.reuters.com/legal/transactional/possible-spacex-tesla-merger-heres-what-people-are-saying-2026-10-21/",
+      "source_name": "Reuters — Latest (news sitemap)",
       "input_nature": "news_headline",
-      "found_at": "2026-10-21T00:32:00Z",
+      "found_at": "2026-10-21T02:27:13Z",
       "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Eveready CEO projects non-battery business will reach 45% of total revenue.",
+      "prelim_note": "Market speculation regarding a potential SpaceX-Tesla merger continues.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Eveready CEO projects non-battery business will reach 45% of total revenue.",
-      "region": "IN",
+      "triage_score": 71,
+      "triage_reason": "Market speculation regarding a potential SpaceX-Tesla merger continues.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 55,
+      "materiality_pre_score": 50,
       "rank_factors": {
-        "materiality": 55,
+        "materiality": 50,
         "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
+        "event_id": "mna",
+        "size_bucket": "mega"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Eveready",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-034",
-      "headline": "MCO: Issue of Placement Shares",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MCO?key=2924-03151069-3A704595",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-21T00:27:05Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "MCO is issuing placement shares, which will dilute existing shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "MCO is issuing placement shares, which will dilute existing shareholders.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MCO",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-031",
-      "headline": "MNC: ASX Announcement- Ronni Kahn Design Collaboration [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MNC?key=2924-03151061-6A1350391",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-21T00:01:40Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "MNC announced a design collaboration, which the company explicitly flagged as price-sensitive.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "MNC announced a design collaboration, which the company explicitly flagged as price-sensitive.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MNC",
+          "name": "SpaceX",
           "ticker": null,
           "listing_country": null
+        },
+        {
+          "name": "Tesla",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "small",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -234355,9 +234352,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1538807,
-    "news_picked_today": 74,
-    "news_dropped_today": 1102
+    "news_seen_today": 1656451,
+    "news_picked_today": 81,
+    "news_dropped_today": 1191
   },
   "book_momentum": {
     "live_count": 8,
