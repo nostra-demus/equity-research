@@ -1,6 +1,617 @@
 {
-  "generated_at": "2026-10-20T23:55:08Z",
+  "generated_at": "2026-10-21T00:01:01Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261021-003",
+      "headline": "Elon Musk's SpaceX reports a profit and he hints at a possible merger with Tesla",
+      "headline_en": null,
+      "url": "https://mainichi.jp/english/articles/20261021/p2g/00m/0in/020000c",
+      "source_name": "The Mainichi",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T23:52:33Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "SpaceX reported a profit while Musk raised the possibility of merging SpaceX with Tesla.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "SpaceX reported a profit while Musk raised the possibility of merging SpaceX with Tesla.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Tesla",
+          "ticker": "TSLA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-002",
+      "headline": "Musk says SpaceX-Tesla merger a 'good idea', special committees formed for talks",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/international-business/elon-musk-says-spacex-tesla-merger-is-a-good-idea-special-committees-formed-for-talks/articleshow/135078380.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T23:34:25Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Musk said a SpaceX-Tesla merger would be a good idea and said special committees have been formed for talks, raising the prospect of a major combination.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Musk said a SpaceX-Tesla merger would be a good idea and said special committees have been formed for talks, raising the prospect of a major combination.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 2,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla",
+          "ticker": "TSLA",
+          "listing_country": "US"
+        },
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-004",
+      "headline": "SpaceX and Tesla boards explore potential merger",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/f2a2a578-5a2e-42ff-b4c9-8bafff271b37?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-20T21:56:34Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "The SpaceX and Tesla boards are exploring a potential merger, which could create a major industry combination but remains unconfirmed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "The SpaceX and Tesla boards are exploring a potential merger, which could create a major industry combination but remains unconfirmed.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 64,
+      "rank_factors": {
+        "materiality": 64,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 6,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Tesla",
+          "ticker": "TSLA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-001",
+      "headline": "M2M: High-Grade Gold Results Expands Footprint at Golden Crown [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.M2M?key=2924-03151054-6A1350390",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T23:51:35Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "M2M reported high-grade gold results that expand its Golden Crown exploration footprint, potentially improving the project's resource prospects.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "M2M reported high-grade gold results that expand its Golden Crown exploration footprint, potentially improving the project's resource prospects.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "M2M",
+          "ticker": "M2M",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-005",
+      "headline": "IVX: Proposed issue of securities - IVX",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IVX?key=2924-03151055-2A1705286",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T23:51:45Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "IVX proposed issuing securities, which could change its share count, liquidity and existing shareholders' ownership dilution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "IVX proposed issuing securities, which could change its share count, liquidity and existing shareholders' ownership dilution.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 52,
+      "rank_factors": {
+        "materiality": 52,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IVX",
+          "ticker": "IVX",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-011",
+      "headline": "FDA 510(k) clearance — Glytec, LLC: Glucommander",
+      "headline_en": null,
+      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261939",
+      "source_name": "U.S. Food & Drug Administration (Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-05T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "FDA 510(k) clearance gives Glytec authorization to market the Glucommander device in the US.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "FDA 510(k) clearance gives Glytec authorization to market the Glucommander device in the US.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 52,
+      "rank_factors": {
+        "materiality": 52,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Glytec, LLC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-007",
+      "headline": "FDA 510(k) clearance — Medis Medical Imaging Systems BV: QGuideCT (1.0)",
+      "headline_en": null,
+      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K260523",
+      "source_name": "U.S. Food & Drug Administration (Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-05T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "FDA 510(k) clearance authorizes Medis Medical Imaging Systems' QGuideCT version 1.0 for US commercialization.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "FDA 510(k) clearance authorizes Medis Medical Imaging Systems' QGuideCT version 1.0 for US commercialization.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 52,
+      "rank_factors": {
+        "materiality": 52,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Medis Medical Imaging Systems BV",
+          "ticker": null,
+          "listing_country": "NL"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-009",
+      "headline": "FDA 510(k) clearance — HeartSciences, Inc.: MyoVista wavECG (DG-200-B15-003)",
+      "headline_en": null,
+      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K260005",
+      "source_name": "U.S. Food & Drug Administration (Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-05T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "FDA 510(k) clearance permits HeartSciences to market the MyoVista wavECG device in the US.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "FDA 510(k) clearance permits HeartSciences to market the MyoVista wavECG device in the US.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HeartSciences, Inc.",
+          "ticker": "HSCI",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-008",
+      "headline": "FDA 510(k) clearance — Shijiazhuang Recovery Star Medical Device Co., Ltd.: UV Phototherapy Device (KZX-308nm-BL65, KZX-308nm-BL55, KZX-308nm-BL50, KZX-308nm-BL45, KZX-308nm-BL35)",
+      "headline_en": null,
+      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262285",
+      "source_name": "U.S. Food & Drug Administration (Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-05T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "FDA 510(k) clearance authorizes five UV phototherapy device models for US marketing, enabling commercialization in the US market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "FDA 510(k) clearance authorizes five UV phototherapy device models for US marketing, enabling commercialization in the US market.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 48,
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shijiazhuang Recovery Star Medical Device Co., Ltd.",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-010",
+      "headline": "FDA 510(k) clearance — Brainlab SE: RT Elements (4.6)",
+      "headline_en": null,
+      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261655",
+      "source_name": "U.S. Food & Drug Administration (Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-05T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "FDA 510(k) clearance authorizes Brainlab's updated RT Elements 4.6 device in the US market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "FDA 510(k) clearance authorizes Brainlab's updated RT Elements 4.6 device in the US market.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 48,
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brainlab SE",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-012",
+      "headline": "FDA 510(k) clearance — Sichuan Qianli-Beoka Medical Technology, Inc.: Air compression massager (ACM-C1, ACM-C2, ACM-C3, ACM-C4, ACM-C5, ACM-C6, ACM-C7, ACM-C8, ACM-C9, ACM-5C1, ACM-5C2, ACM-5C3, ACM-5C4, ACM-5C5, ACM-5C6, ACM-5C7, ACM-5C8, ACM-5C9)",
+      "headline_en": null,
+      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262812",
+      "source_name": "U.S. Food & Drug Administration (Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-05T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "FDA 510(k) clearance authorizes Sichuan Qianli-Beoka's Air compression massager models for US marketing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "FDA 510(k) clearance authorizes Sichuan Qianli-Beoka's Air compression massager models for US marketing.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 47,
+      "rank_factors": {
+        "materiality": 47,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sichuan Qianli-Beoka Medical Technology, Inc.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-006",
+      "headline": "HMM Adds $1.4B Order to Already Record Containership Orderbook",
+      "headline_en": null,
+      "url": "https://maritime-executive.com/article/hmm-adds-1-4b-order-to-already-record-containership-orderbook",
+      "source_name": "Maritime Executive",
+      "input_nature": "shipping_rate_move",
+      "found_at": "2026-10-20T20:45:24Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "HMM added $1.4B to its record containership orderbook, materially strengthening future revenue visibility and capacity commitments.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "HMM added $1.4B to its record containership orderbook, materially strengthening future revenue visibility and capacity commitments.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": -33,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "official_data",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HMM",
+          "ticker": "011200",
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261020-422",
       "headline": "BSA: Execution and Exchange of Binding SPA to Acquire Eonetics [price-sensitive]",
@@ -232156,7 +232767,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3847,
+    "inbox_unconsumed": 3859,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -232165,9 +232776,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11761497,
-    "news_picked_today": 1083,
-    "news_dropped_today": 9933
+    "news_seen_today": 0,
+    "news_picked_today": 0,
+    "news_dropped_today": 0
   },
   "book_momentum": {
     "live_count": 8,
