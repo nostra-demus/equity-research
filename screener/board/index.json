@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T00:05:07Z",
+  "generated_at": "2026-10-21T00:08:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-016",
@@ -100,6 +100,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261021-017",
+      "headline": "NEW WORLD DEV NWD (MTN) N2802 NWD (MTN) N2706 NWCL N2701 (00017 05149 05321 05343): EARLY SETTLEMENT ANNOUNCEMENT IN RELATION TO THE EXCHANGE OFFERS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102100023.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T23:02:00Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "New World Development announced the early settlement of exchange offers for its notes, impacting its debt maturity profile.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "New World Development announced the early settlement of exchange offers for its notes, impacting its debt maturity profile.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "New World Development",
+          "ticker": "00017",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261021-015",
       "headline": "SBP GROUP (01177): VOLUNTARY ANNOUNCEMENT - COMPLETION OF ALL PARTICIPANTS ENROLLMENT IN THE PHASE III REGISTRATIONAL CLINICAL TRIAL OF TQC2731 INJECTION \"TSLP MONOCLONAL ANTIBODY\" FOR CHRONIC SINUSITIS WITH NASAL POLYPS",
       "headline_en": null,
@@ -140,6 +189,55 @@
         {
           "name": "SBP GROUP",
           "ticker": "01177",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-018",
+      "headline": "ASCENTAGE (06855): VOLUNTARY ANNOUNCEMENT - ASCENTAGE PHARMA'S LISAFTOCLAX GRANTED BREAKTHROUGH THERAPY DESIGNATION IN CHINA FOR TREATMENT-NAIVE CLL/SLL",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102100017.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T23:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Ascentage Pharma received breakthrough therapy designation for its drug candidate, a positive regulatory milestone for its pipeline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Ascentage Pharma received breakthrough therapy designation for its drug candidate, a positive regulatory milestone for its pipeline.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ascentage Pharma",
+          "ticker": "06855",
           "listing_country": "CN"
         }
       ],
@@ -559,6 +657,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261021-020",
+      "headline": "APT ELECTRONICS (02551): DISCLOSEABLE TRANSACTION EPC CONTRACT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102100007.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T22:10:00Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "APT Electronics entered into a discloseable EPC contract, representing a new business win.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "APT Electronics entered into a discloseable EPC contract, representing a new business win.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "APT Electronics",
+          "ticker": "02551",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261021-009",
       "headline": "FDA 510(k) clearance — HeartSciences, Inc.: MyoVista wavECG (DG-200-B15-003)",
       "headline_en": null,
@@ -754,6 +901,104 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-019",
+      "headline": "APT ELECTRONICS (02551): CONTINUING CONNECTED TRANSACTIONS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102100011.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T22:19:00Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "APT Electronics announced continuing connected transactions, which is a routine regulatory disclosure for listed companies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "APT Electronics announced continuing connected transactions, which is a routine regulatory disclosure for listed companies.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "APT Electronics",
+          "ticker": "02551",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-021",
+      "headline": "CUTIA-B (02487): VOLUNTARY ANNOUNCEMENT - LATEST UPDATE ON THE COOPERATION WITH REJUVEN",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102100001.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-20T22:05:00Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Cutia Therapeutics provided an update on its cooperation with Rejuven, a routine operational update.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Cutia Therapeutics provided an update on its cooperation with Rejuven, a routine operational update.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cutia Therapeutics",
+          "ticker": "02487",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -232962,7 +233207,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3863,
+    "inbox_unconsumed": 3868,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -232971,9 +233216,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 45836,
-    "news_picked_today": 16,
-    "news_dropped_today": 56
+    "news_seen_today": 61094,
+    "news_picked_today": 21,
+    "news_dropped_today": 75
   },
   "book_momentum": {
     "live_count": 8,
