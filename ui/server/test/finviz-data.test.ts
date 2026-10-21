@@ -4,7 +4,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import Fastify from 'fastify'
 import { FINVIZ_VIEWS, FINVIZ_DATA_REFRESH_MS, finvizField, isFinvizDataRead } from '../../shared/finviz-data'
-import { MODEL_REFRESH_MS, MODEL_SCHEMA, UNIVERSE_URL, isModelRead, type ModelRead } from '../../shared/universe-model'
+import { MODEL_CLIENT_VERSION, MODEL_REFRESH_MS, MODEL_SCHEMA, UNIVERSE_URL, isModelRead, type ModelRead } from '../../shared/universe-model'
 import { createUniverseModel, finvizPageUrl, finvizUniverseUrl, parseFinvizPage, registerUniverseModel } from '../src/universe-model'
 
 const at = Date.now()
@@ -191,7 +191,7 @@ try {
   const app = Fastify()
   registerUniverseModel(app, dir, dir, '')
   try {
-    const grid = (await app.inject('/api/screener/universe-model')).json()
+    const grid = (await app.inject({ url: '/api/screener/universe-model', headers: { 'x-nostra-model': MODEL_CLIENT_VERSION } })).json()
     assert.equal(grid.rows[0].finviz, undefined)
     assert.equal(grid.data.captured, 8)
     const data = (await app.inject('/api/screener/universe-model/data?ticker=CO&company=Company%20Inc')).json()

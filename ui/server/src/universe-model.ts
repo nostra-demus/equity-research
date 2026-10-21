@@ -2,9 +2,10 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import { randomUUID } from 'node:crypto'
 import type { FastifyInstance } from 'fastify'
-import { isModelRead, MODEL_REFRESH_MS, MODEL_SCHEMA, UNIVERSE_URL, type ModelRead, type ModelRow } from '../../shared/universe-model'
+import { isModelRead, MODEL_CLIENT_VERSION, MODEL_PRICE_REFRESH_MS, MODEL_REFRESH_MS, MODEL_SCHEMA, UNIVERSE_URL, type ModelPricesRead, type ModelRead, type ModelRow } from '../../shared/universe-model'
 import { createUniverseEventsReader } from './universe-events'
 import { readUniverseAssessments, registerUniverseEvidence } from './universe-evidence'
+import { getQuotes } from './news/equity-quote'
 import { FINVIZ_VIEWS, FINVIZ_DETAIL_VIEWS, FINVIZ_PRICE_VIEWS, FINVIZ_DATA_REFRESH_MS, finvizField, isFinvizData, type FinvizViewId, type FinvizSnapshot, type FinvizDataRead } from '../../shared/finviz-data'
 
 // Standard public screener views, never an Elite export/API. No credentials, paid providers,
@@ -134,6 +135,7 @@ export function createUniverseModel(file: string, deps: {
   fetchPage?: (url: string) => Promise<string>
   wait?: (ms: number) => Promise<void>
   now?: () => number
+  schedule?: (tick: () => Promise<void>) => () => void
 } = {}) {
   const now = deps.now ?? Date.now
   const fetchPage = deps.fetchPage ?? fetchPublicPage
@@ -153,6 +155,9 @@ export function createUniverseModel(file: string, deps: {
   let lastReadAt = 0
   let detailNextAt = 0
   let detailError: string | null = null
+  let phase: 'membership' | 'prices' | null = null
+  let background = false
+  let stopTimer: (() => void) | null = null
   const load = () => loaded ??= (async () => {
     try {
       const value: unknown = JSON.parse(await fs.readFile(file, 'utf8'))
@@ -180,6 +185,9 @@ export function createUniverseModel(file: string, deps: {
   }
   const sweep = async () => {
     quoteRefreshing = true
+    phase = 'membership'
+    let dirty = false
+    let persistedAt = now()
     progress = []; fetched = 0; total = null; error = null; startedAt = new Date(now()).toISOString()
     try {
       // The first request also observes the gap after a detail→price handoff or a resumed reader.
@@ -228,15 +236,28 @@ export function createUniverseModel(file: string, deps: {
       const final = parseFinvizPage(await fetchPage(finvizUniverseUrl(0)), 0, new Date(now()).toISOString())
       const byMember = new Map(progress.map((row) => [row.ticker, row.company]))
       if (final.total !== total || [...seed.rows, ...final.rows].some((row) => byMember.get(row.ticker) !== row.company)) throw new Error('Universe membership changed during verification. Retrying the complete screen at the next refresh.')
-      progress.sort((a, b) => a.ticker.localeCompare(b.ticker))
       const previousRows = new Map(saved?.rows.map((row) => [row.ticker, row]))
+      // A restart continues with the least recently priced companies, rather than repeatedly
+      // refreshing A–M and starving the rest. Exact issuer identity is required for cache reuse.
+      const previous = (row: ModelRow) => {
+        const prior = previousRows.get(row.ticker)
+        return prior?.company === row.company ? prior : undefined
+      }
+      progress.sort((a, b) => (Date.parse(previous(a)?.retrieved_at ?? '') || 0) - (Date.parse(previous(b)?.retrieved_at ?? '') || 0) || a.ticker.localeCompare(b.ticker))
+      progress = progress.map((member) => {
+        const prior = previous(member)
+        return { ...member, price: prior ? prior.price : member.price, retrieved_at: prior?.retrieved_at ?? member.retrieved_at,
+          finviz: { ...prior?.finviz, ...member.finviz } }
+      })
+      const due = progress.filter((row) => !previous(row) || now() - Date.parse(row.retrieved_at) >= MODEL_REFRESH_MS)
       // Freeze membership before checking prices. Reapplying the cap filter for 100 price pages lets
       // a stock crossing $2bn move pagination boundaries and invalidate the entire refresh.
-      fetched = 0
-      for (let offset = 0; offset < progress.length; offset += 20) {
+      phase = 'prices'
+      fetched = progress.length - due.length
+      for (let offset = 0; offset < due.length; offset += 20) {
         await wait(PAGE_GAP_MS)
         if (closed) return
-        const batch = progress.slice(offset, offset + 20)
+        const batch = due.slice(offset, offset + 20)
         const tickers = batch.map((row) => row.ticker)
         // Every standard table includes a price. Rotate the oldest/missing table into the existing
         // quote request instead of making five requests for the same company batch.
@@ -247,17 +268,22 @@ export function createUniverseModel(file: string, deps: {
           })),
         })).sort((a, b) => a.oldest - b.oldest)[0].view
         const html = await fetchPage(finvizPageUrl(0, tickers, view.id))
+        if (closed) return
         const quotes = parseFinvizPage(html, 0, new Date(now()).toISOString(), tickers)
         if (quotes.rows.some((row) => !row.finviz?.[view.id])) throw new Error('Finviz returned a different price view.')
         const byTicker = new Map(quotes.rows.map((row) => [row.ticker, row]))
-        for (let i = offset; i < offset + tickers.length; i++) {
-          const quote = byTicker.get(progress[i].ticker)
-          if (quote && quote.company !== progress[i].company) throw new Error('Finviz company identity changed while checking prices.')
-          const member = progress[i]
-          const prior = previousRows.get(member.ticker)
-          const previous = prior?.company === member.company ? prior : undefined
-          progress[i] = { ...member, price: quote?.price ?? null, retrieved_at: quote?.retrieved_at ?? member.retrieved_at,
-            finviz: { ...previous?.finviz, ...member.finviz, ...quote?.finviz } }
+        if (byTicker.size !== batch.length || batch.some((row) => byTicker.get(row.ticker)?.company !== row.company)) throw new Error('Finviz price batch did not match every requested company.')
+        const update = (row: ModelRow) => {
+          const quote = byTicker.get(row.ticker)
+          return quote?.company === row.company ? { ...row, price: quote.price, retrieved_at: quote.retrieved_at,
+            finviz: { ...row.finviz, ...quote.finviz } } : row
+        }
+        progress = progress.map(update)
+        // Publish each validated batch against the retained, complete membership. The full-pass
+        // timestamp stays unchanged until every company is checked; row times describe mixed ages.
+        if (saved) {
+          saved = { ...saved, rows: saved.rows.map(update) }; dirty = true
+          if (now() - persistedAt >= 60_000) { await persist(saved); dirty = false; persistedAt = now() }
         }
         fetched += tickers.length
       }
@@ -268,12 +294,18 @@ export function createUniverseModel(file: string, deps: {
       // Persist only a complete validated sweep; failed refreshes cannot erase the last good grid.
       await persist(complete)
       saved = complete
+      dirty = false
     } catch (e) {
       error = e instanceof Error ? e.message : 'Finviz refresh failed.'
       if (/403|429|restricted/i.test(error)) {
         try { await pauseSource(error) } catch { error += ' Provider cooldown could not be saved.' }
       }
-    } finally { quoteRefreshing = false; nextAt = Math.max(nextAt, now() + (error ? ERROR_BACKOFF_MS : MODEL_REFRESH_MS)) }
+    } finally {
+      try { if (dirty && saved) await persist(saved) }
+      catch { error = 'Finviz prices could not be saved. Last disk snapshot retained.' }
+      quoteRefreshing = false; phase = null
+      nextAt = Math.max(nextAt, now() + (error ? ERROR_BACKOFF_MS : MODEL_REFRESH_MS))
+    }
   }
   const nextDetail = () => {
     // Missing views first, then oldest retrieval. A restart resumes from persisted per-company data;
@@ -303,13 +335,13 @@ export function createUniverseModel(file: string, deps: {
     let dirty = false
     let persistedAt = now()
     try {
-      // Only collect while requested. Prices take the next slot when due; readers never fan out
-      // network calls. No timer, premium fallback or analysis run is created by this collector.
-      while (!closed && now() < nextAt && now() - lastReadAt < 45_000) {
+      // Background ticks and readers share one writer. Prices take the next slot when due;
+      // neither path creates a premium fallback or an analysis run.
+      while (!closed && now() < nextAt && (background || now() - lastReadAt < 45_000)) {
         const task = nextDetail()
         if (!task) break
         await wait(PAGE_GAP_MS)
-        if (closed || now() >= nextAt || now() - lastReadAt >= 45_000) break
+        if (closed || now() >= nextAt || !background && now() - lastReadAt >= 45_000) break
         const tickers = task.rows.map((row) => row.ticker)
         const page = parseFinvizPage(await fetchPage(finvizPageUrl(0, tickers, task.view.id)), 0, new Date(now()).toISOString(), tickers)
         if (closed) break
@@ -335,35 +367,78 @@ export function createUniverseModel(file: string, deps: {
       enriching = false
     }
   }
-  return {
-    async read(): Promise<ModelRead> {
+  const read = async (): Promise<ModelRead> => {
       await load()
       lastReadAt = now()
       if (!closed && !pending && (now() >= nextAt || saved && now() >= detailNextAt && nextDetail())) pending = work().finally(() => { pending = null })
       const completeAt = saved?.completed_at ?? null
       return { schema_version: MODEL_SCHEMA, source_url: UNIVERSE_URL, rows: saved?.rows ?? progress,
-        total: saved?.total ?? total, complete: !!saved, refreshing: quoteRefreshing, fetched,
+        total: saved?.total ?? total, refresh_total: total, refresh_phase: phase, complete: !!saved, refreshing: quoteRefreshing, fetched,
         started_at: startedAt ?? saved?.started_at ?? null, completed_at: completeAt,
         next_refresh_at: nextAt ? new Date(nextAt).toISOString() : null,
         stale: !completeAt || now() - Date.parse(completeAt) >= MODEL_REFRESH_MS || !!error, error, events: null,
         data: { captured: (saved?.rows ?? []).reduce((sum, row) => sum + Object.keys(row.finviz ?? {}).length, 0),
           expected: (saved?.rows.length ?? 0) * FINVIZ_VIEWS.length, refreshing: enriching, error: detailError } }
+    }
+  return {
+    read,
+    async start() {
+      if (closed || background) return
+      background = true
+      const tick = async () => { try { await read() } catch { error = 'Finviz background refresh unavailable.' } }
+      const schedule = deps.schedule ?? ((run: () => Promise<void>) => {
+        const timer = setInterval(run, 15_000); timer.unref()
+        return () => clearInterval(timer)
+      })
+      stopTimer = schedule(tick)
+      await tick()
     },
     async settled() { await pending },
-    async close() { closed = true; await pending },
+    async close() { closed = true; background = false; stopTimer?.(); stopTimer = null; await pending },
   }
 }
 
-export function registerUniverseModel(app: FastifyInstance, stateDir: string, root: string, archiveDir: string) {
+export function registerUniverseModel(app: FastifyInstance, stateDir: string, root: string, archiveDir: string, deps: {
+  quotes?: typeof getQuotes
+  collector?: Parameters<typeof createUniverseModel>[1]
+} = {}) {
   registerUniverseEvidence(app, stateDir)
-  const model = createUniverseModel(path.join(stateDir, 'universe-model.json'))
+  const model = createUniverseModel(path.join(stateDir, 'universe-model.json'), deps.collector)
   const events = createUniverseEventsReader(root, archiveDir)
-  app.get('/api/screener/universe-model', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (_req, reply) => {
+  app.addHook('onReady', async () => { await model.start() })
+  app.get('/api/screener/universe-model', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
     reply.header('Cache-Control', 'no-store')
+    // An open pre-impact-assessment tab used event presence as green. Clear its grid and require
+    // a reload instead of feeding current company evidence to obsolete scoring/price logic.
+    if (req.headers['x-nostra-model'] !== MODEL_CLIENT_VERSION) return {
+      schema_version: MODEL_SCHEMA, source_url: UNIVERSE_URL, rows: [], total: null, complete: false,
+      refreshing: false, fetched: 0, started_at: null, completed_at: null, next_refresh_at: null,
+      stale: true, events: null, error: 'Model updated. Reload this page for current prices and favorable-impact signals.',
+    } satisfies ModelRead
     const read = await model.read()
     // Keep the frequent grid response small. All raw fields and news are served on demand below.
     const observed = events(read.rows.map(({ finviz: _data, ...row }) => row))
     return { ...read, ...observed, rows: readUniverseAssessments(stateDir, observed.rows) }
+  })
+  app.get<{ Querystring: { tickers?: string } }>('/api/screener/universe-model/quotes', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
+    reply.header('Cache-Control', 'no-store')
+    const tickers = typeof req.query.tickers === 'string' ? req.query.tickers.split(',') : []
+    if (!tickers.length || tickers.length > 100 || new Set(tickers).size !== tickers.length || tickers.some((ticker) => !/^[A-Z0-9.^-]{1,20}$/.test(ticker))) {
+      return reply.code(400).send({ error: 'Choose up to 100 companies from the current universe.' })
+    }
+    const read = await model.read()
+    const selected = read.rows.filter((row) => tickers.includes(row.ticker))
+    const quotes = await (deps.quotes ?? getQuotes)(selected.map((row) => ({ ticker: row.ticker, currency: row.currency,
+      companyName: row.company, entryPrice: row.price })), { stateDir, repoRoot: root, ttlMs: MODEL_PRICE_REFRESH_MS })
+    const rows: ModelPricesRead['rows'] = selected.map((row) => {
+      const q = quotes.get(row.ticker)?.quote
+      return { ticker: row.ticker, company: row.company, quote: q && q.currency === 'USD' && q.retrieved_at ? {
+        price: q.price, currency: 'USD', symbol: q.symbol, source: q.source, as_of: q.as_of,
+        as_of_is_close: q.as_of_is_close, real_time: q.real_time ?? null, delayed: q.delayed,
+        stale: q.stale, retrieved_at: q.retrieved_at,
+      } : null }
+    })
+    return { checked_at: new Date().toISOString(), rows } satisfies ModelPricesRead
   })
   app.get<{ Querystring: { ticker?: string; company?: string } }>('/api/screener/universe-model/data', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply): Promise<FinvizDataRead> => {
     reply.header('Cache-Control', 'no-store')

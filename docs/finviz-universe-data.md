@@ -35,19 +35,42 @@ The signal engine's evidence requirements and green-count ranking are unchanged.
 - Between price sweeps, the collector fills missing views, prioritizing the ten-company TA/News
   batches. It then revisits views older than an hour. The hour is a target, not a freshness promise:
   a full first collection can span multiple price sweeps, and every view displays its actual time.
-- Collection runs only while the Model or data endpoint is being read. After 45 seconds without
-  a read, the detail lane yields after its bounded in-flight request. Reopening resumes from the cache.
+- The server starts one background scheduler on readiness. It uses the same single pending collector,
+  source cooldown and shutdown boundary as route reads, so closing the browser does not stop collection.
+  Direct collector instances remain demand-driven until `start()` is called (used by isolated tests).
 - One request at a time, at least two seconds apart; no paid fallback, proxy, challenge bypass,
   external search/LLM credits or analysis run. A 403/429 stops both request lanes for 30 minutes.
   The small atomic source-pause record survives restarts, including a restriction on first use.
 - Each detail batch must match every requested ticker **and company name** before publication.
   Partial/mismatched/failed batches retain the last successful view and its original timestamp.
-  Complete price sweeps are saved atomically; detail progress is saved at least once per minute
-  during collection and when the lane yields. A restart resumes from validated per-view snapshots.
+  Validated quote batches update matching members of the saved complete grid immediately; they are
+  checkpointed at least once per minute and on failure/shutdown. Last-full-pass completion remains
+  separate from per-row retrieval times. A restart prioritizes the oldest prices and skips still-fresh
+  checkpointed rows. Complete replacement membership still requires a fully verified sweep.
+  Detail progress is also saved at least once per minute and when the lane yields.
   Shutdown waits for the collector to settle; a late response cannot overwrite its replacement.
 
 [Finviz's FAQ](https://finviz.com/help/faq) distinguishes delayed free quotes from Elite real-time
 quotes and says fundamentals recalculate hourly. Acquisition timing does not remove that delay.
+
+## Current visible prices
+
+Finviz remains the universe/company-data source. Visible grid prices reuse the app's existing keyless
+CNBC `restQuote` transport and identity/currency/plausibility guards (`news/equity-quote.ts`). The browser
+requests only its visible companies (at most 100), immediately and every 15 seconds while visible. The
+shared quote cache uses a 15-second TTL, not the ordinary research banner's longer cache. No API key,
+subscription, broker account, order, analysis run or paid fallback is introduced.
+
+Each price carries its actual source, market timestamp and retrieval timestamp. The UI says Live only
+for an explicitly real-time, non-stale feed observation with a market timestamp within 90 seconds.
+Date-only observations say Last close; delayed/unknown-time/older trades and saved outage data are
+labelled accordingly. A failed request retains its last validated price without a Live label. No exchange
+streaming or zero-latency guarantee is made. Finviz prices remain a visibly delayed fallback.
+
+Old event-presence clients must not interpret new evidence as favorable signals. The grid request now
+carries `x-nostra-model: favorable-prices/v2`; clients without it receive an empty legacy-compatible grid
+and a reload message. Cache format remains unchanged. Active-refresh counts have their own denominator
+(`refresh_total`), separate from the last saved universe's size.
 
 ## Read-only consumers
 
@@ -55,6 +78,8 @@ quotes and says fundamentals recalculate hourly. Acquisition timing does not rem
   Raw Finviz fields/headlines are omitted from frequent grid polling.
 - `GET /api/screener/universe-model/data?ticker=AAPL&company=Apple%20Inc`: exact-company data for the popup.
 - `GET /api/screener/universe-model/data`: all captured company/view snapshots for a later engine consumer.
+- `GET /api/screener/universe-model/quotes?tickers=AAPL,MSFT`: current quotes for saved universe members only,
+  bounded to 100 unique tickers; returns exact company identities and source/time/delivery metadata.
 
 The data endpoint returns `source_url`, `refreshing`, `error`, a `fields` dictionary of labels and
 raw units for engine/export consumers, and `rows` with `ticker`, `company`,

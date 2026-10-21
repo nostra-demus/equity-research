@@ -2,6 +2,8 @@ import { isFinvizData, type FinvizData } from './finviz-data'
 // Free Finviz screen; the saved preset is account-local, so the public filters are explicit.
 export const UNIVERSE_URL = 'https://finviz.com/screener/stocks?f=cap_midover%2Csh_avgvol_o50&preset=s154730211'
 export const MODEL_SCHEMA = 'universe-event-model/v1' as const
+export const MODEL_CLIENT_VERSION = 'favorable-prices/v2'
+export const MODEL_PRICE_REFRESH_MS = 15_000
 export const MODEL_REFRESH_MS = 5 * 60_000
 export const MODEL_SIGNALS = [
   { id: 'results', label: 'Results', rule: 'Material earnings, revenue or margin results', types: ['earnings_revenue_margin'] },
@@ -89,6 +91,8 @@ export interface ModelRead {
   source_url: typeof UNIVERSE_URL
   rows: ModelRow[]
   total: number | null
+  refresh_total?: number | null // Active sweep membership; total remains the saved grid's size.
+  refresh_phase?: 'membership' | 'prices' | null
   complete: boolean
   refreshing: boolean
   fetched: number
@@ -99,6 +103,35 @@ export interface ModelRead {
   error: string | null
   events: EventCoverage | null
   data?: { captured: number; expected: number; refreshing: boolean; error: string | null }
+}
+export interface ModelPrice {
+  price: number
+  currency: 'USD'
+  symbol: string
+  source: 'cnbc'
+  as_of: string | null
+  as_of_is_close: boolean
+  real_time: boolean | null
+  delayed: boolean
+  stale: boolean
+  retrieved_at: string
+}
+export interface ModelPricesRead {
+  checked_at: string
+  rows: { ticker: string; company: string; quote: ModelPrice | null }[]
+}
+export function isModelPricesRead(value: unknown): value is ModelPricesRead {
+  const r = value as ModelPricesRead | null
+  const stamp = (t: unknown) => typeof t === 'string' && Number.isFinite(Date.parse(t))
+  return !!r && stamp(r.checked_at) && Array.isArray(r.rows) && r.rows.length <= 100
+    && new Set(r.rows.map((row) => row?.ticker)).size === r.rows.length
+    && r.rows.every((row) => row && typeof row.ticker === 'string' && /^[A-Z0-9.^-]{1,20}$/.test(row.ticker)
+      && typeof row.company === 'string' && !!row.company && (row.quote === null || !!row.quote
+        && Number.isFinite(row.quote.price) && row.quote.price > 0 && row.quote.currency === 'USD'
+        && row.quote.source === 'cnbc' && typeof row.quote.symbol === 'string' && !!row.quote.symbol
+        && (row.quote.as_of === null || stamp(row.quote.as_of)) && stamp(row.quote.retrieved_at)
+        && typeof row.quote.as_of_is_close === 'boolean' && typeof row.quote.delayed === 'boolean' && typeof row.quote.stale === 'boolean'
+        && (row.quote.real_time === null || typeof row.quote.real_time === 'boolean')))
 }
 // Benefit/risk must belong to this issuer, not the headline. Mixed effects are not a favorable verdict.
 export function companyImpact(analysis: ModelSavedAnalysis | null | undefined): boolean | null {
@@ -128,6 +161,8 @@ export function isModelRead(value: unknown): value is ModelRead {
     && typeof r.complete === 'boolean' && typeof r.refreshing === 'boolean' && typeof r.stale === 'boolean'
     && Number.isInteger(r.fetched) && r.fetched >= 0
     && (r.total === null || (Number.isInteger(r.total) && r.total >= 0))
+    && (r.refresh_total === undefined || r.refresh_total === null || Number.isInteger(r.refresh_total) && r.refresh_total >= 0)
+    && (r.refresh_phase === undefined || r.refresh_phase === null || ['membership', 'prices'].includes(r.refresh_phase))
     && [r.started_at, r.completed_at, r.next_refresh_at].every((t) => t === null || (typeof t === 'string' && Number.isFinite(Date.parse(t))))
     && (r.error === null || typeof r.error === 'string')
     && Array.isArray(r.rows) && r.rows.every((row) => row && typeof row.ticker === 'string' && /^[A-Z0-9.^-]{1,20}$/.test(row.ticker)

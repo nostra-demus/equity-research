@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict'
 import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
-import { companyImpact, MODEL_SIGNALS, modelTotal, rankModel, signalResult, type ModelRow, type ModelSavedAnalysis } from '../../../../shared/universe-model'
-import { ModelGrid } from './ModelView'
+import { companyImpact, MODEL_SIGNALS, modelTotal, rankModel, signalResult, type ModelPricesRead, type ModelRow, type ModelSavedAnalysis } from '../../../../shared/universe-model'
+import { ModelGrid, modelPriceView } from './ModelView'
 const assessment: ModelSavedAnalysis = { read_at: '2026-10-19T15:00:00Z', story: ['The issuer has won a contract.'], company_role: 'subject', effects: [{ side: 'beneficiary', mechanism: 'Adds contracted sales.', magnitude: null, horizon: null }], event_assessment: null, watch_item: null, provenance: { kind: 'original', label: null, url: null } }
 assert.equal(companyImpact({} as ModelSavedAnalysis), null, 'missing legacy effects cannot assert a favorable result or crash the helper')
 const event = { id: 'EVT-1', headline: 'Material issuer announcement', url: 'https://example.test/filing', source: 'Issuer filing', reported_at: '2026-10-19T15:00:00Z', source_tier: 'primary_filing', direction: 'positive' as const, assessment }
@@ -38,6 +38,22 @@ assert.match(markup, /aria-haspopup="dialog"/)
 assert.doesNotMatch(markup, /Material issuer announcement/, 'article details are opened on demand')
 assert.doesNotMatch(markup, /tabindex="0"[^>]*aria-label="Results/)
 assert.match(markup, /aria-sort="descending"/)
-assert.match(markup, /USD · delayed/)
+assert.match(markup, /Finviz · delayed/)
+const now = Date.parse('2026-10-21T14:00:00Z')
+const prices: ModelPricesRead = { checked_at: new Date(now).toISOString(), rows: [{ ticker: 'AAA', company: 'AAA Company', quote: {
+  price: 20, symbol: 'AAA', currency: 'USD', source: 'cnbc', as_of: new Date(now - 10_000).toISOString(),
+  as_of_is_close: false, real_time: true, delayed: false, stale: false, retrieved_at: new Date(now).toISOString(),
+} }] }
+assert.equal(modelPriceView(a, prices, false, now).price, 20, 'the current free feed replaces the Finviz price only for this exact issuer')
+assert.equal(modelPriceView(a, prices, false, now).label, 'CNBC · Live')
+assert.equal(modelPriceView(a, prices, true, now).label, 'Saved · CNBC · Latest trade', 'a failed refresh cannot keep claiming live')
+assert.match(modelPriceView(a, prices, false, now + 60_000).label, /^Saved/, 'a sleeping tab ages its delivery status')
+const change = (value: Partial<NonNullable<ModelPricesRead['rows'][number]['quote']>>) => ({ ...prices, rows: [{ ...prices.rows[0], quote: { ...prices.rows[0].quote!, ...value } }] })
+assert.equal(modelPriceView(a, change({ real_time: null }), false, now).label, 'CNBC · Latest trade', 'an absent real-time flag is not proof of live delivery')
+assert.equal(modelPriceView(a, change({ delayed: true, real_time: false }), false, now).label, 'CNBC · Delayed')
+assert.equal(modelPriceView(a, change({ as_of_is_close: true, as_of: '2026-10-20T00:00:00Z' }), false, now).label, 'CNBC · Last close')
+assert.equal(modelPriceView(a, change({ as_of_is_close: true, as_of: null }), false, now).label, 'CNBC · Time unavailable')
+assert.equal(modelPriceView(a, change({ as_of: new Date(now - 10 * 60_000).toISOString() }), false, now).label, 'CNBC · Latest trade', 'an old trade is not called live merely because a flag says true')
+assert.equal(modelPriceView(b, prices, false, now).price, b.price, 'a quote for another company cannot leak across rows')
 assert.ok(markup.indexOf('BBB Company') < markup.indexOf('AAA Company'))
 console.log('ModelView: missingness, category counting, descending green-count ranking and grid passed')
