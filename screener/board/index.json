@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-10-21T15:41:21Z",
+  "generated_at": "2026-10-21T15:54:20Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261021-438",
+      "headline": "NHPC Limited: NHPC Limited has informed the Exchange about General Updates-In compliance to Regulation 30 of SEBI LODR, intimation regarding commercial operation (CoD) of Unit#5 (250 MW) of Subansiri Lower HE Project (8x250 MW), Assam/Arunachal Pradesh from 00:00 hours 23.10.2026 is submitted. The other details given in the attached letter.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/NHPC_21102026210447_STX_Update_Subansiri_COD_Unit5_.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T15:35:49Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "NHPC's Subansiri Lower Unit #5 (250 MW) achieves commercial operation effective 23 Oct 2026, formally disclosed as Reg 30 material event, adding revenue-generating capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NHPC's Subansiri Lower Unit #5 (250 MW) achieves commercial operation effective 23 Oct 2026, formally disclosed as Reg 30 material event, adding revenue-generating capacity.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NHPC Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261021-432",
       "headline": "JIANGSU EXPRESS (00177): PROGRESS ANNOUNCEMENT - DISCLOSEABLE AND CONNECTED TRANSACTION - CASH ACQUISITION OF 100% EQUITY INTERESTS IN SUXICHANG SOUTH EXPRESSWAY COMPANY",
@@ -1926,55 +1976,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-145",
-      "headline": "Iberdrola raises outlook again, eyes higher profit growth through 2030",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/energy/iberdrola-raises-outlook-again-eyes-higher-profit-growth-through-2030-2026-10-21/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T06:24:52Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Iberdrola raised its profit outlook and extended growth targets through 2030.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Iberdrola raised its profit outlook and extended growth targets through 2030.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Iberdrola",
-          "ticker": null,
-          "listing_country": "ES"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -234424,9 +234425,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6376220,
-    "news_picked_today": 739,
-    "news_dropped_today": 12053
+    "news_seen_today": 6431533,
+    "news_picked_today": 745,
+    "news_dropped_today": 12287
   },
   "book_momentum": {
     "live_count": 8,
