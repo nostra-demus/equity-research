@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T13:46:38Z",
+  "generated_at": "2026-10-21T13:55:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-354",
@@ -936,6 +936,56 @@
         },
         {
           "name": "American Oncology Network",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-373",
+      "headline": "Abbott cuts 2026 sales growth view, plans to spin off nutrition business",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/abbott-lowers-2026-sales-growth-forecast-medical-device-weakness-2026-10-21/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T11:32:33Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Abbott cut its 2026 sales growth outlook and announced plans to spin off its nutrition business, signaling a major strategic shift.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Abbott cut its 2026 sales growth outlook and announced plans to spin off its nutrition business, signaling a major strategic shift.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Abbott Laboratories",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1916,60 +1966,6 @@
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-085",
-      "headline": "Musk says SpaceX-Tesla merger is 'a good idea' as companies form deal committees",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/companies/musk-says-spacex-tesla-merger-is-a-good-idea-as-companies-form-deal-committees-20015723.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T02:53:09Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Elon Musk stated a merger between SpaceX and Tesla is a good idea as committees are formed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Elon Musk stated a merger between SpaceX and Tesla is a good idea as committees are formed.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
@@ -234444,9 +234440,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5849479,
-    "news_picked_today": 606,
-    "news_dropped_today": 10098
+    "news_seen_today": 5869399,
+    "news_picked_today": 618,
+    "news_dropped_today": 10302
   },
   "book_momentum": {
     "live_count": 8,
