@@ -420,7 +420,7 @@ test('Explicit engine start updates progress, green-count ranking and an already
   await context.route('**/api/screener/universe-model', (route) => route.fulfill({ json: body }))
   await context.route('**/api/screener/universe-model/run', (route) => {
     expect(route.request().method()).toBe('POST'); expect(route.request().postDataJSON()).toEqual({ retry: false }); posts++
-    engine.enabled = true; engine.status = 'running'; engine.model = 'codex:test'
+    engine.enabled = true; engine.status = 'running'; engine.model = 'codex:test'; engine.failed_reports = 1
     return route.fulfill({ status: 202, json: engine })
   })
   await context.route('**/api/portfolio', (route) => route.fulfill({ json: { book: null } }))
@@ -435,7 +435,7 @@ test('Explicit engine start updates progress, green-count ranking and an already
   const dialog = page.getByRole('dialog')
   await expect(dialog.getByText('— Impact unassessed', { exact: true })).toBeVisible()
   for (const row of rows) for (const reports of Object.values(row.signals!)) for (const report of reports) report.assessment = analysis
-  engine.status = 'complete'; engine.processed_companies = 105; engine.assessed_companies = 105; engine.completed_reports = 105
+  engine.status = 'complete'; engine.failed_reports = 0; engine.processed_companies = 105; engine.assessed_companies = 105; engine.completed_reports = 105
   await page.clock.fastForward(15_100)
   await expect(dialog.getByText('✓ Favorable impact · inferred', { exact: true })).toBeVisible()
   await expect(dialog.locator('blockquote')).toHaveText(quote)

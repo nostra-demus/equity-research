@@ -106,6 +106,7 @@ export function ModelView() {
     return () => { alive = false; controller?.abort(); clearInterval(timer); window.removeEventListener('focus', tick); document.removeEventListener('visibilitychange', tick) }
   }, [priceCompanies])
   const eventCoverage = read?.events
+  const retryable = read?.engine?.status !== 'running' && (read?.engine?.status === 'blocked' || !!read?.engine?.failed_reports)
   const runEngine = async () => {
     setStartingEngine(true); setError(null)
     try { await api.runUniverseEngine(!!read?.engine?.enabled); await refresh() }
@@ -125,8 +126,8 @@ export function ModelView() {
     <p className="model__note">✓ Favorable · ✕ No favorable signal · — Unassessed · Total = green ticks</p>
     <div className="model__toolbar">
       <span>{read?.engine?.enabled ? `Signals · ${read.engine.processed_companies.toLocaleString()} / ${read.engine.total_companies.toLocaleString()} companies processed · ${read.engine.status}` : 'Signals · engine not started'}</span>
-      <button type="button" title="Uses the existing Codex subscription and automatically checks new evidence" disabled={startingEngine || !!read?.engine?.enabled && read.engine.status !== 'blocked' && !read.engine.failed_reports}
-        onClick={() => void runEngine()}>{startingEngine ? 'Starting…' : !read?.engine?.enabled ? 'Run engine' : read.engine.status === 'blocked' || read.engine.failed_reports ? 'Retry engine' : 'Engine on'}</button>
+      <button type="button" title="Uses the existing Codex subscription and automatically checks new evidence" disabled={startingEngine || !!read?.engine?.enabled && !retryable}
+        onClick={() => void runEngine()}>{startingEngine ? 'Starting…' : !read?.engine?.enabled ? 'Run engine' : retryable ? 'Retry engine' : 'Engine on'}</button>
     </div>
     {read?.engine?.error && <p role="alert">{read.engine.error}</p>}
     {!!read?.rows.length && read.rows.every((row) => row.signals === null) && <p role="status">Event coverage unavailable · signals unscored.</p>}

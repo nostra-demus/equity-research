@@ -104,7 +104,9 @@ research or trade execution. Provider quota/auth failures retain completed work 
 hold. Explicit retry clears failed index entries while preserving historical dispatch/result receipts.
 
 Eligible tasks require an exact issuer link and a real saved source excerpt. Reports are deduplicated
-across signal categories and assessed in bounded batches. Keys bind issuer, article identity, headline,
+across signal categories and assessed in four-report batches with a five-minute deadline. Legacy
+12-report dispatch receipts remain recoverable. The deployment guard still aborts immediately on intent
+and awaits settlement. Timeouts and provider phase kinds are recorded in private result receipts. Keys bind issuer, article identity, headline,
 source URL/date, excerpt and prompt version/content. Stronger known full-article effects are retained;
 an excerpt assessment cannot overwrite a later full-read adverse or mixed effect. Evidence without
 sufficient company identity, materiality or a 3–6 month mechanism stays unassessed. This pass does not
