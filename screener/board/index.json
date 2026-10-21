@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T12:18:59Z",
+  "generated_at": "2026-10-21T12:29:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-302",
@@ -1888,6 +1888,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261021-336",
+      "headline": "HMVOD (08103): (1) QUARTERLY UPDATE ON RESUMPTION PROGRESS; (2) QUARTERLY UPDATE ON IMPLEMENTATION OF ACTION PLANS TO REMOVE DISCLAIMER OF OPINION; AND (3) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1021/2026102100773.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T10:32:00Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Suspended Hong Kong-listed company with auditor disclaimer of opinion reports quarterly on remediation progress; signals going-concern distress and delisting risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Suspended Hong Kong-listed company with auditor disclaimer of opinion reports quarterly on remediation progress; signals going-concern distress and delisting risk.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress",
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HMVOD",
+          "ticker": "08103",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261021-033",
       "headline": "GDF: Pause in Trading [price-sensitive]",
       "headline_en": null,
@@ -1932,57 +1982,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-269",
-      "headline": "DSV Q3 Profit Rises, Narrows FY26 Outlook Range; Plans DKK 1.50 Bln Buyback; Shares Up",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/dsv-q3-profit-rises-narrows-fy26-outlook-range-plans-dkk-150-bln-buyback-shares",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T08:34:04Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Profit rise, narrowed outlook, and planned buyback are all material financial events.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Profit rise, narrowed outlook, and planned buyback are all material financial events.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DSV",
-          "ticker": null,
-          "listing_country": "DK"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192193,77 +192192,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-20aa195678e4",
-      "idea_version": "IDEAV-0b7c7fb4ddbc93d0",
-      "idea_version_started_at": "2026-10-20T02:20:53Z",
-      "ticker": "01477",
-      "company": "Ocumension-B",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Positive topline results from the 36-month Phase III trial of OT-101 significantly de-risk the product's path to commercialization and market share capture in myopia management.",
-      "why_now": "The trial results were released on October 20, 2026, providing a clear catalyst for re-rating.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4dcb3ba55279"
-      ],
-      "primary_source_event_id": "EVT-4dcb3ba55279",
-      "source_headlines": [
-        "OCUMENSION-B (01477): INSIDE INFORMATION ANNOUNCEMENT TOPLINE RESULTS OF THE MONTH 36 PRIMARY ANALYSIS OF THE GLOBAL MULTI-CENTRE PHASE III CLINICAL TRIAL OF OT-101 (0.01% ATROPINE SULFATE EYE DROPS)"
-      ],
-      "source_headline": "OCUMENSION-B (01477): INSIDE INFORMATION ANNOUNCEMENT TOPLINE RESULTS OF THE MONTH 36 PRIMARY ANALYSIS OF THE GLOBAL MULTI-CENTRE PHASE III CLINICAL TRIAL OF OT-101 (0.01% ATROPINE SULFATE EYE DROPS)",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000141.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 95,
-      "newest_source_at": "2026-10-20T00:25:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-20T02:20:53Z",
-      "updated_at": "2026-10-20T02:20:53Z",
-      "decay_at": "2026-10-21T12:25:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-52c1133413b1",
       "idea_version": "IDEAV-1ae64137af195dd1",
       "idea_version_started_at": "2026-10-21T03:43:27Z",
@@ -196120,6 +196048,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-20aa195678e4",
+      "idea_version": "IDEAV-0b7c7fb4ddbc93d0",
+      "idea_version_started_at": "2026-10-20T02:20:53Z",
+      "ticker": "01477",
+      "company": "Ocumension-B",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Positive topline results from the 36-month Phase III trial of OT-101 significantly de-risk the product's path to commercialization and market share capture in myopia management.",
+      "why_now": "The trial results were released on October 20, 2026, providing a clear catalyst for re-rating.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4dcb3ba55279"
+      ],
+      "primary_source_event_id": "EVT-4dcb3ba55279",
+      "source_headlines": [
+        "OCUMENSION-B (01477): INSIDE INFORMATION ANNOUNCEMENT TOPLINE RESULTS OF THE MONTH 36 PRIMARY ANALYSIS OF THE GLOBAL MULTI-CENTRE PHASE III CLINICAL TRIAL OF OT-101 (0.01% ATROPINE SULFATE EYE DROPS)"
+      ],
+      "source_headline": "OCUMENSION-B (01477): INSIDE INFORMATION ANNOUNCEMENT TOPLINE RESULTS OF THE MONTH 36 PRIMARY ANALYSIS OF THE GLOBAL MULTI-CENTRE PHASE III CLINICAL TRIAL OF OT-101 (0.01% ATROPINE SULFATE EYE DROPS)",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000141.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 95,
+      "newest_source_at": "2026-10-20T00:25:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-20T02:20:53Z",
+      "updated_at": "2026-10-20T02:20:53Z",
+      "decay_at": "2026-10-21T12:25:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-d0f885895e09",
       "idea_version": "IDEAV-dca1b1c93084f0ac",
       "idea_version_started_at": "2026-10-19T00:56:11Z",
@@ -196920,14 +196919,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 559,
+    "total_count": 560,
     "shown_count": 499,
-    "hidden_count": 60,
+    "hidden_count": 61,
     "side_counts": {
       "long": {
-        "total_count": 293,
+        "total_count": 294,
         "shown_count": 250,
-        "hidden_count": 43
+        "hidden_count": 44
       },
       "short": {
         "total_count": 267,
@@ -196951,6 +196950,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-20aa195678e4",
+        "idea_version": "IDEAV-0b7c7fb4ddbc93d0",
+        "idea_version_started_at": "2026-10-20T02:20:53Z",
+        "ticker": "01477",
+        "company": "Ocumension-B",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Positive topline results from the 36-month Phase III trial of OT-101 significantly de-risk the product's path to commercialization and market share capture in myopia management.",
+        "why_now": "The trial results were released on October 20, 2026, providing a clear catalyst for re-rating.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4dcb3ba55279"
+        ],
+        "primary_source_event_id": "EVT-4dcb3ba55279",
+        "source_headlines": [
+          "OCUMENSION-B (01477): INSIDE INFORMATION ANNOUNCEMENT TOPLINE RESULTS OF THE MONTH 36 PRIMARY ANALYSIS OF THE GLOBAL MULTI-CENTRE PHASE III CLINICAL TRIAL OF OT-101 (0.01% ATROPINE SULFATE EYE DROPS)"
+        ],
+        "source_headline": "OCUMENSION-B (01477): INSIDE INFORMATION ANNOUNCEMENT TOPLINE RESULTS OF THE MONTH 36 PRIMARY ANALYSIS OF THE GLOBAL MULTI-CENTRE PHASE III CLINICAL TRIAL OF OT-101 (0.01% ATROPINE SULFATE EYE DROPS)",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000141.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 95,
+        "newest_source_at": "2026-10-20T00:25:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-20T02:20:53Z",
+        "updated_at": "2026-10-20T02:20:53Z",
+        "decay_at": "2026-10-21T12:25:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-21T12:25:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-12b791fa381c",
         "idea_version": "IDEAV-306049d2351733b1",
@@ -224138,81 +224211,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-08a390141fae",
-        "idea_version": "IDEAV-83f8ff7ef9a8dd15",
-        "idea_version_started_at": "2026-10-06T10:47:22Z",
-        "ticker": "SHL.ST",
-        "company": "Shelly Group AB",
-        "exchange": "NASDAQ Stockholm",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The board approved Schneider Electric's EUR 70 per share offer as fair and adequate, supporting a takeover premium over the current market price.",
-        "why_now": "Board decision on the takeover offer 2026-10-06.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-099cb86791fc"
-        ],
-        "primary_source_event_id": "EVT-099cb86791fc",
-        "source_headlines": [
-          "Shelly Group Board Considers Schneider Electric's EUR 70/shr Takeover Offer Fair And Adequate"
-        ],
-        "source_headline": "Shelly Group Board Considers Schneider Electric's EUR 70/shr Takeover Offer Fair And Adequate",
-        "source_url": "https://www.nasdaq.com/articles/shelly-group-board-considers-schneider-electrics-eur-70-shr-takeover-offer-fair-and",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-06T05:59:51Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-06T10:47:22Z",
-        "updated_at": "2026-10-06T10:47:22Z",
-        "decay_at": "2026-10-07T17:59:51Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-09T06:05:34Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-05438fee3589",
         "idea_version": "IDEAV-969258fc489d53f6",
         "idea_version_started_at": "2026-10-06T13:00:06Z",
@@ -234126,7 +234124,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1773,
-    "live_count": 37,
+    "live_count": 36,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -234145,9 +234143,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5446326,
-    "news_picked_today": 526,
-    "news_dropped_today": 9026
+    "news_seen_today": 5499737,
+    "news_picked_today": 534,
+    "news_dropped_today": 9306
   },
   "book_momentum": {
     "live_count": 8,
