@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-21T08:01:11Z",
+  "generated_at": "2026-10-21T08:13:53Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261021-180",
+      "headline": "Compuage Infocom Limited: Compuage Infocom Limited has informed the Exchange about the intimation of 29th COC meeting to be held on 27th October, 2026",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/COMPINFO_21102026113042_letterintimationof29thCoCCompuagesigned.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T06:01:01Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Compuage Infocom's 29th Committee of Creditors meeting on 27 October signals ongoing insolvency resolution proceedings under IBC, creating going-concern and equity-impairment risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Compuage Infocom's 29th Committee of Creditors meeting on 27 October signals ongoing insolvency resolution proceedings under IBC, creating going-concern and equity-impairment risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 3,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Compuage Infocom Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261021-087",
       "headline": "ASB: Austal secures $245M for Landing Craft Heavy Infrastructure",
@@ -1750,6 +1799,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261021-178",
+      "headline": "Zydus Lifesciences Limited: Zydus Lifesciences Limited has informed the Exchange regarding a press release dated October 21, 2026, titled \"Zydus receives USFDA approval for Estradiol and Levonorgestrel Transdermal System, eligible for 180-day CGT exclusivity\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/Cadilahc_21102026110803_PressRelease21102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T05:39:22Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "FDA approved Zydus's generic estradiol-levonorgestrel transdermal system for 180-day exclusive marketing, adding a new revenue product to the US pharmaceutical market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "FDA approved Zydus's generic estradiol-levonorgestrel transdermal system for 180-day exclusive marketing, adding a new revenue product to the US pharmaceutical market.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 58,
+      "rank_factors": {
+        "materiality": 58,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 12,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zydus Lifesciences Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261021-074",
       "headline": "NNL: Quarterly Activities Report & Appendix 5B [price-sensitive]",
       "headline_en": null,
@@ -1892,109 +1991,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-029",
-      "headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces Closing of KRAS-EGFR-Antibody Conjugate Therapy License to GSK Outside China",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102100053.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-21T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Hutchmed closed a licensing deal with GSK for a therapy outside China, representing a significant commercial milestone.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Hutchmed closed a licensing deal with GSK for a therapy outside China, representing a significant commercial milestone.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hutchmed",
-          "ticker": null,
-          "listing_country": "CN"
-        },
-        {
-          "name": "GSK",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-091",
-      "headline": "SP Group urges Tata Sons to prioritise proposal to buy back ₹25,000 crore shares: Report",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/corporate/story/sp-group-urges-tata-sons-to-prioritise-proposal-to-buy-back-rs-25000-crore-shares-report-562663-2026-10-21?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T03:11:34Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "SP Group is pushing for a ₹25,000 crore share buyback from Tata Sons.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "SP Group is pushing for a ₹25,000 crore share buyback from Tata Sons.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -234154,9 +234150,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4396516,
-    "news_picked_today": 248,
-    "news_dropped_today": 4864
+    "news_seen_today": 4434274,
+    "news_picked_today": 251,
+    "news_dropped_today": 4933
   },
   "book_momentum": {
     "live_count": 8,
