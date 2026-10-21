@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T06:26:41Z",
+  "generated_at": "2026-10-21T06:46:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-087",
@@ -1810,6 +1810,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261021-143",
+      "headline": "ASIC investigating Gemi freeze on $150m in investor capital",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/financial-services/asic-investigating-gemi-freeze-on-150m-in-investor-capital-20261021-p616me?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T06:19:43Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "ASIC is investigating Gemi for freezing $150 million in investor capital, indicating significant regulatory and liquidity risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "ASIC is investigating Gemi for freezing $150 million in investor capital, indicating significant regulatory and liquidity risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gemi",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261021-121",
       "headline": "SBI Confirms Data Breach Involving 3,897 Customer Records Exposed On Dark Web, India's Largest PSU Bank Launches Cybersecurity Probe",
       "headline_en": null,
@@ -1952,55 +2002,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-136",
-      "headline": "OpenAI acquires Orchestra Bio, expands life sciences push",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/openai-acquires-orchestra-bio-expands-life-sciences-push/article71606284.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T05:21:51Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "OpenAI acquired Orchestra Bio to expand into life sciences.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "OpenAI acquired Orchestra Bio to expand into life sciences.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -234160,9 +234161,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3860431,
-    "news_picked_today": 194,
-    "news_dropped_today": 2878
+    "news_seen_today": 3996924,
+    "news_picked_today": 208,
+    "news_dropped_today": 3152
   },
   "book_momentum": {
     "live_count": 8,
