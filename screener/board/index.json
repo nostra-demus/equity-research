@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T20:00:12Z",
+  "generated_at": "2026-10-21T20:14:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-451",
@@ -927,6 +927,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-465",
+      "headline": "Meta hit with $25 billion penalty for misleading Facebook users",
+      "headline_en": null,
+      "url": "https://www.axios.com/2026/10/21/meta-25-billion-cambridge-analytica-scandal-ruling",
+      "source_name": "Axios",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T19:13:17Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Meta hit with a massive $25 billion penalty for misleading users.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta hit with a massive $25 billion penalty for misleading users.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta Platforms, Inc.",
+          "ticker": "META",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1943,49 +1993,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-270",
-      "headline": "UK’s Top Port Operator Valued at £10 Billion in Stake Sale",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-21/uk-s-biggest-port-operator-valued-at-10-billion-in-stake-sale",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T08:34:22Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Valuation of a major company in a stake sale indicates a significant transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Valuation of a major company in a stake sale indicates a significant transaction.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -234288,7 +234295,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7796383,
+    "news_seen_today": 7833668,
     "news_picked_today": 846,
     "news_dropped_today": 15330
   },
