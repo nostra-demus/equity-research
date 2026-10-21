@@ -190,8 +190,10 @@ export function modelTotal(row: ModelRow): number | null {
 }
 export const modelAssessed = (row: ModelRow) => MODEL_SIGNALS.filter((signal) => signalResult(row, signal) !== null).length
 export function rankModel(rows: ModelRow[]): ModelRow[] {
-  return [...rows].sort((a, b) => (modelTotal(b) ?? 0) - (modelTotal(a) ?? 0)
-    || Number(modelAssessed(a) === 0) - Number(modelAssessed(b) === 0) || a.company.localeCompare(b.company) || a.ticker.localeCompare(b.ticker))
+  return rows.map((row) => ({ row, total: modelTotal(row) ?? 0, unassessed: modelAssessed(row) === 0 }))
+    .sort((a, b) => b.total - a.total || Number(a.unassessed) - Number(b.unassessed)
+      || a.row.company.localeCompare(b.row.company) || a.row.ticker.localeCompare(b.row.ticker))
+    .map(({ row }) => row)
 }
 export function isModelRead(value: unknown): value is ModelRead {
   const r = value as ModelRead | null

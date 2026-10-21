@@ -28,7 +28,7 @@ const normalize = (value: string) => value.replace(/\s+/g, ' ').trim()
 
 /** Only real saved source excerpts are evidence. Title tags and positive sentiment are not a read. */
 export function universeTask(row: ModelRow, event: ModelEvent): UniverseTask | null {
-  if (event.assessment?.provenance.kind !== 'saved_excerpt' && companyImpact(event.assessment) !== null) return null
+  if (event.assessment?.provenance?.kind !== 'saved_excerpt' && companyImpact(event.assessment) !== null) return null
   if (!event.source_event_id || !event.excerpt || normalize(event.excerpt).length < 80) return null
   const source = { id: event.source_event_id, url: event.url, reported_at: event.reported_at, headline: event.headline, excerpt: event.excerpt }
   return { key: digest([VERSION, UNIVERSE_IMPACT_SYSTEM, row.ticker, row.company, source]), ticker: row.ticker, company: row.company, event }
@@ -179,13 +179,19 @@ export function createUniverseEngine(stateDir: string, deps: {
         const waiting = universeTasks(read.rows).filter((task) => !state.records[task.key])
         if (!waiting.length) { state.error = null; state.next_at = now() + INTERVAL; await save(); break }
         const batch: UniverseTask[] = []
-        let chars = 0
+        let chars = 0, oversized = false
         for (const task of waiting) {
           const length = JSON.stringify(task).length
+          if (length > MAX_PROMPT_CHARS) {
+            state.records[task.key] = { ticker: task.ticker, company: task.company, event_id: task.event.source_event_id!, analysis: null,
+              error: 'Source evidence exceeds the assessment input limit.', at: stamp() }
+            oversized = true; continue
+          }
           if (batch.length >= BATCH_SIZE || chars + length > MAX_PROMPT_CHARS) break
           batch.push(task); chars += length
         }
-        if (!batch.length) throw new Error('A source report exceeds the assessment input limit.')
+        if (oversized) await save()
+        if (!batch.length) continue
         await (deps.lease ?? ((fn) => withProviderRunDeployLease(stateDir, fn)))(async () => {
           if (stopped()) return
           const receiptId = randomUUID()
@@ -240,7 +246,7 @@ export function createUniverseEngine(stateDir: string, deps: {
     async start() {
       if (!loaded) await load()
       if (stop || closed) return
-      stop = (deps.schedule ?? ((fn) => { const timer = setInterval(() => void fn(), INTERVAL); timer.unref(); return () => clearInterval(timer) }))(tick)
+      stop = (deps.schedule ?? ((fn) => { const timer = setInterval(() => void fn(), INTERVAL); (timer as { unref?: () => void }).unref?.(); return () => clearInterval(timer) }))(tick)
       await tick()
     },
     async run(retry = false) {

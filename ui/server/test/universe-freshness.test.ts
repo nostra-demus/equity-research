@@ -206,6 +206,7 @@ try {
     assert.equal(active.engine.enabled, false, 'GET never enables inference')
     assert.equal((await app.inject({ method: 'POST', url: '/api/screener/universe-model/run', headers: { origin: 'https://untrusted.test' }, payload: {} })).statusCode, 403)
     assert.equal((await app.inject({ method: 'POST', url: '/api/screener/universe-model/run', payload: { model: 'paid-fallback' } })).statusCode, 400)
+    assert.equal((await app.inject({ method: 'POST', url: '/api/screener/universe-model/run', payload: [] })).statusCode, 400)
     const enabled = await app.inject({ method: 'POST', url: '/api/screener/universe-model/run', payload: { retry: false } })
     assert.equal(enabled.statusCode, 202); assert.equal(enabled.json().enabled, true)
 

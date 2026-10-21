@@ -107,7 +107,7 @@ export function ModelView() {
   }, [priceCompanies])
   const eventCoverage = read?.events
   const runEngine = async () => {
-    setStartingEngine(true)
+    setStartingEngine(true); setError(null)
     try { await api.runUniverseEngine(!!read?.engine?.enabled); await refresh() }
     catch (e) { setError(e instanceof Error ? e.message : 'Could not start the signal engine.') }
     finally { setStartingEngine(false) }

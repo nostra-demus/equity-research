@@ -76,6 +76,13 @@ try {
   await partial.run(); await partial.settled(); status = await partial.read(read())
   assert.equal(status.assessed_companies, 0, 'one favorable plus one insufficient report is still an unassessed category')
   assert.equal(status.insufficient_companies, 1); assert.equal(modelTotal(partial.project(rows)[0]), null); await partial.close()
+  rows = [row('HUGE', 'Huge Corp'), row()]
+  rows[0].signals!.contracts![0].excerpt = 'x'.repeat(43_000)
+  const oversized = createUniverseEngine(path.join(dir, 'oversized'), deps)
+  await oversized.run(); await oversized.settled(); status = await oversized.read(read())
+  assert.equal(status.processed_companies, 2); assert.equal(status.failed_reports, 1)
+  assert.equal(modelTotal(oversized.project(rows)[1]), 1, 'oversized evidence cannot block the rest of the universe')
+  await oversized.close()
   rows = [row()]
   let clock = at, automaticCalls = 0
   const automatic = createUniverseEngine(path.join(dir, 'automatic'), { ...deps, now: () => clock, infer: async (opts) => {
