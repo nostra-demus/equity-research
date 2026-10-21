@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-21T15:22:02Z",
+  "generated_at": "2026-10-21T15:41:21Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261021-432",
+      "headline": "JIANGSU EXPRESS (00177): PROGRESS ANNOUNCEMENT - DISCLOSEABLE AND CONNECTED TRANSACTION - CASH ACQUISITION OF 100% EQUITY INTERESTS IN SUXICHANG SOUTH EXPRESSWAY COMPANY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102101253.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T14:58:00Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Jiangsu Express (00177.HK) posted a progress announcement for a 100% cash acquisition of Suxichang South Expressway Company, a transaction meeting HK discloseable-transaction threshold (≥5% net assets) and involving a connected party; headline omits deal value and timeline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jiangsu Express (00177.HK) posted a progress announcement for a 100% cash acquisition of Suxichang South Expressway Company, a transaction meeting HK discloseable-transaction threshold (≥5% net assets) and involving a connected party; headline omits deal value and timeline.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jiangsu Express Limited",
+          "ticker": "00177",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261021-429",
       "headline": "SC TO-T - BRIGHTFLIXX FINANCE (LUXEMBOURG) S.A. (0002159627) (Filed by)",
@@ -1926,55 +1975,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-146",
-      "headline": "Adidas shares rise after 2026 guidance hike",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/adidas-shares-rise-after-2026-guidance-hike-2026-10-21/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T06:06:11Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Adidas raised its 2026 guidance, signaling improved financial expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Adidas raised its 2026 guidance, signaling improved financial expectations.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adidas",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -234424,9 +234424,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6265319,
-    "news_picked_today": 728,
-    "news_dropped_today": 11944
+    "news_seen_today": 6376220,
+    "news_picked_today": 739,
+    "news_dropped_today": 12053
   },
   "book_momentum": {
     "live_count": 8,
