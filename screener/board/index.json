@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T15:54:20Z",
+  "generated_at": "2026-10-21T16:08:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-438",
@@ -878,6 +878,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-444",
+      "headline": "Cencora to acquire majority stake in $2.4B American Oncology Network",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/finance/cencora-acquire-majority-stake-24b-american-oncology-network",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T15:57:12Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Cencora to acquire majority stake in American Oncology Network for $2.4B, a material M&A expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cencora to acquire majority stake in American Oncology Network for $2.4B, a material M&A expansion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cencora",
+          "ticker": "CAH",
+          "listing_country": "US"
+        },
+        {
+          "name": "American Oncology Network",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1927,55 +1981,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-154",
-      "headline": "Getty files for bankruptcy in process that will take it private",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/getty-files-for-bankruptcy-in-process-that-will-take-it-private/article71606510.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T06:35:14Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Bankruptcy filing is a default/distress event; stated outcome (taking company private) results in shareholder equity wipe-out; however, filing date and current listing status not disclosed in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bankruptcy filing is a default/distress event; stated outcome (taking company private) results in shareholder equity wipe-out; however, filing date and current listing status not disclosed in headline.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Getty Images Holdings Inc",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192331,77 +192336,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-6a677867cd74",
-      "idea_version": "IDEAV-95af84df83052fb4",
-      "idea_version_started_at": "2026-10-20T09:20:11Z",
-      "ticker": "00052",
-      "company": "Fairwood Holdings",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company issued a positive profit alert, indicating earnings growth that likely exceeds current market expectations.",
-      "why_now": "The filing was released on 2026-10-20.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2b17f74d2922"
-      ],
-      "primary_source_event_id": "EVT-2b17f74d2922",
-      "source_headlines": [
-        "FAIRWOOD HOLD (00052): Positive Profit Alert"
-      ],
-      "source_headline": "FAIRWOOD HOLD (00052): Positive Profit Alert",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000265.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-20T04:05:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-20T09:20:11Z",
-      "updated_at": "2026-10-20T09:20:11Z",
-      "decay_at": "2026-10-21T16:05:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-52c1133413b1",
       "idea_version": "IDEAV-1ae64137af195dd1",
       "idea_version_started_at": "2026-10-21T03:43:27Z",
@@ -193665,6 +193599,77 @@
       "surfaced_at": "2026-10-19T00:56:11Z",
       "updated_at": "2026-10-19T00:56:11Z",
       "decay_at": "2026-10-20T12:17:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-6a677867cd74",
+      "idea_version": "IDEAV-95af84df83052fb4",
+      "idea_version_started_at": "2026-10-20T09:20:11Z",
+      "ticker": "00052",
+      "company": "Fairwood Holdings",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company issued a positive profit alert, indicating earnings growth that likely exceeds current market expectations.",
+      "why_now": "The filing was released on 2026-10-20.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2b17f74d2922"
+      ],
+      "primary_source_event_id": "EVT-2b17f74d2922",
+      "source_headlines": [
+        "FAIRWOOD HOLD (00052): Positive Profit Alert"
+      ],
+      "source_headline": "FAIRWOOD HOLD (00052): Positive Profit Alert",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000265.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-20T04:05:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-20T09:20:11Z",
+      "updated_at": "2026-10-20T09:20:11Z",
+      "decay_at": "2026-10-21T16:05:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -197202,14 +197207,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 561,
+    "total_count": 562,
     "shown_count": 499,
-    "hidden_count": 62,
+    "hidden_count": 63,
     "side_counts": {
       "long": {
-        "total_count": 296,
+        "total_count": 297,
         "shown_count": 250,
-        "hidden_count": 46
+        "hidden_count": 47
       },
       "short": {
         "total_count": 266,
@@ -197233,6 +197238,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-6a677867cd74",
+        "idea_version": "IDEAV-95af84df83052fb4",
+        "idea_version_started_at": "2026-10-20T09:20:11Z",
+        "ticker": "00052",
+        "company": "Fairwood Holdings",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company issued a positive profit alert, indicating earnings growth that likely exceeds current market expectations.",
+        "why_now": "The filing was released on 2026-10-20.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2b17f74d2922"
+        ],
+        "primary_source_event_id": "EVT-2b17f74d2922",
+        "source_headlines": [
+          "FAIRWOOD HOLD (00052): Positive Profit Alert"
+        ],
+        "source_headline": "FAIRWOOD HOLD (00052): Positive Profit Alert",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000265.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-20T04:05:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-20T09:20:11Z",
+        "updated_at": "2026-10-20T09:20:11Z",
+        "decay_at": "2026-10-21T16:05:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-21T16:05:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-193acec1f3b7",
         "idea_version": "IDEAV-7976f5bd314505d0",
@@ -224415,84 +224494,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-381b4c49e6db",
-        "idea_version": "IDEAV-3fac091b06df6ea3",
-        "idea_version_started_at": "2026-10-06T10:47:22Z",
-        "ticker": "INFN.L",
-        "company": "Informa PLC",
-        "exchange": "LSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Buying rival Clarion for £2.2bn consolidates its events portfolio while it separates the academic business, reshaping the group's earnings mix.",
-        "why_now": "Deal announced 2026-10-06.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 10,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2ca2d60e4b9a",
-          "EVT-99ed28d1da57",
-          "EVT-febbdd85ef3e"
-        ],
-        "primary_source_event_id": "EVT-2ca2d60e4b9a",
-        "source_headlines": [
-          "Informa to buy rival events business Clarion from Blackstone for £2.2bn",
-          "Informa to Buy Events Firm from Blackstone for £2.2 Billion",
-          "Informa to Separate Academic Business; Buys Clarion Events for $2.96 Billion"
-        ],
-        "source_headline": "Informa to buy rival events business Clarion from Blackstone for £2.2bn",
-        "source_url": "https://www.ft.com/content/0c8c0122-cc24-4ea5-bc7f-09bfc95d3dd1?syn-25a6b1a6=1",
-        "source_name": "Financial Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-06T07:05:18Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-06T10:47:22Z",
-        "updated_at": "2026-10-06T10:47:22Z",
-        "decay_at": "2026-10-07T19:05:18Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-09T08:52:59Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-05438fee3589",
         "idea_version": "IDEAV-969258fc489d53f6",
         "idea_version_started_at": "2026-10-06T13:00:06Z",
@@ -234406,7 +234407,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1779,
-    "live_count": 39,
+    "live_count": 38,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -234425,9 +234426,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6431533,
-    "news_picked_today": 745,
-    "news_dropped_today": 12287
+    "news_seen_today": 6541604,
+    "news_picked_today": 754,
+    "news_dropped_today": 12374
   },
   "book_momentum": {
     "live_count": 8,
