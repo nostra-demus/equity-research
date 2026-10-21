@@ -46,6 +46,8 @@ const prices: ModelPricesRead = { checked_at: new Date(now).toISOString(), rows:
 } }] }
 assert.equal(modelPriceView(a, prices, false, now).price, 20, 'the current free feed replaces the Finviz price only for this exact issuer')
 assert.equal(modelPriceView(a, prices, false, now).label, 'CNBC · Live')
+assert.match(modelPriceView(a, prices, false, now).time, /^As of /)
+assert.match(modelPriceView(a, null, false, now).time, /^Checked /, 'Finviz retrieval time must not look like market time')
 assert.equal(modelPriceView(a, prices, true, now).label, 'Saved · CNBC · Latest trade', 'a failed refresh cannot keep claiming live')
 assert.match(modelPriceView(a, prices, false, now + 60_000).label, /^Saved/, 'a sleeping tab ages its delivery status')
 const change = (value: Partial<NonNullable<ModelPricesRead['rows'][number]['quote']>>) => ({ ...prices, rows: [{ ...prices.rows[0], quote: { ...prices.rows[0].quote!, ...value } }] })

@@ -10,12 +10,12 @@ const date = (value: string | null) => value ? new Date(value).toLocaleString() 
 export function modelPriceView(row: ModelRow, prices?: ModelPricesRead | null, unavailable = false, now = Date.now()) {
   const quote = prices?.rows.find((entry) => entry.ticker === row.ticker && entry.company === row.company)?.quote
   if (!quote) return { price: row.price, label: `${now - Date.parse(row.retrieved_at) >= MODEL_REFRESH_MS ? 'Saved · ' : ''}Finviz · delayed`,
-    time: date(row.retrieved_at), title: `Retrieved ${date(row.retrieved_at)}. Finviz does not supply an individual quote timestamp here.` }
+    time: `Checked ${date(row.retrieved_at)}`, title: `Retrieved ${date(row.retrieved_at)}. Finviz does not supply an individual quote timestamp here.` }
   const age = quote.as_of ? now - Date.parse(quote.as_of) : Infinity
   const saved = unavailable || quote.stale || now - Date.parse(quote.retrieved_at) > 3 * MODEL_PRICE_REFRESH_MS
-  const state = !quote.as_of ? 'Time unavailable' : quote.as_of_is_close ? 'Last close' : quote.delayed ? 'Delayed'
+  const state = !quote.as_of ? 'Time unavailable' : quote.as_of_is_close ? 'Last close' : quote.delayed || quote.real_time === false ? 'Delayed'
     : quote.real_time === true && age >= -60_000 && age <= 90_000 && !saved ? 'Live' : 'Latest trade'
-  const time = quote.as_of_is_close && quote.as_of ? quote.as_of.slice(0, 10) : date(quote.as_of)
+  const time = quote.as_of_is_close && quote.as_of ? `Close ${quote.as_of.slice(0, 10)}` : quote.as_of ? `As of ${date(quote.as_of)}` : 'Market time unavailable'
   return { price: quote.price, label: `${saved ? 'Saved · ' : ''}CNBC · ${state}`, time,
     title: `${quote.symbol} · ${state} · market time ${time}. Retrieved ${date(quote.retrieved_at)}.` }
 }
