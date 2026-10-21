@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T11:19:52Z",
+  "generated_at": "2026-10-21T11:26:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-257",
@@ -434,6 +434,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-294",
+      "headline": "Elon Musk Backs Tesla-SpaceX Mega Merger",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-10-21/the-pulse-10-21-2026-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T10:41:32Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Elon Musk has publicly backed a potential mega-merger between Tesla and SpaceX.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Elon Musk has publicly backed a potential mega-merger between Tesla and SpaceX.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1919,55 +1973,6 @@
       "companies": [
         {
           "name": "TTT",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-014",
-      "headline": "14D: Completion of Aurora Energy Precinct Acquisition",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.14D?key=2924-03151058-2A1705289",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-20T23:59:45Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Completion of an acquisition expands the company's asset base.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Completion of an acquisition expands the company's asset base.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aurora Energy",
           "ticker": null,
           "listing_country": null
         }
@@ -192112,78 +192117,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-18ddb9fd5fec",
-      "idea_version": "IDEAV-5db13e7aa00663b6",
-      "idea_version_started_at": "2026-10-20T00:02:47Z",
-      "ticker": "PWH",
-      "company": "PWH",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued an updated outlook that was negatively received by the market, suggesting potential earnings misses or margin compression.",
-      "why_now": "The updated outlook was provided in a formal address on October 19, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b671c01a9f1e"
-      ],
-      "primary_source_event_id": "EVT-b671c01a9f1e",
-      "source_headlines": [
-        "PWH: Chairman and MD & CEO Address and Updated Outlook [price-sensitive]"
-      ],
-      "source_headline": "PWH: Chairman and MD & CEO Address and Updated Outlook [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PWH?key=2924-03150474-2A1705033",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-19T23:25:25Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-20T00:02:47Z",
-      "updated_at": "2026-10-20T00:02:47Z",
-      "decay_at": "2026-10-21T11:25:25Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-193acec1f3b7",
       "idea_version": "IDEAV-7976f5bd314505d0",
       "idea_version_started_at": "2026-10-20T05:56:49Z",
@@ -193731,6 +193664,78 @@
       "surfaced_at": "2026-10-19T00:56:11Z",
       "updated_at": "2026-10-19T00:56:11Z",
       "decay_at": "2026-10-20T12:17:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-18ddb9fd5fec",
+      "idea_version": "IDEAV-5db13e7aa00663b6",
+      "idea_version_started_at": "2026-10-20T00:02:47Z",
+      "ticker": "PWH",
+      "company": "PWH",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued an updated outlook that was negatively received by the market, suggesting potential earnings misses or margin compression.",
+      "why_now": "The updated outlook was provided in a formal address on October 19, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b671c01a9f1e"
+      ],
+      "primary_source_event_id": "EVT-b671c01a9f1e",
+      "source_headlines": [
+        "PWH: Chairman and MD & CEO Address and Updated Outlook [price-sensitive]"
+      ],
+      "source_headline": "PWH: Chairman and MD & CEO Address and Updated Outlook [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PWH?key=2924-03150474-2A1705033",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-19T23:25:25Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-20T00:02:47Z",
+      "updated_at": "2026-10-20T00:02:47Z",
+      "decay_at": "2026-10-21T11:25:25Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -196910,9 +196915,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 556,
+    "total_count": 557,
     "shown_count": 499,
-    "hidden_count": 57,
+    "hidden_count": 58,
     "side_counts": {
       "long": {
         "total_count": 291,
@@ -196920,9 +196925,9 @@
         "hidden_count": 41
       },
       "short": {
-        "total_count": 266,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 17
       }
     },
     "retention": {
@@ -196941,6 +196946,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-18ddb9fd5fec",
+        "idea_version": "IDEAV-5db13e7aa00663b6",
+        "idea_version_started_at": "2026-10-20T00:02:47Z",
+        "ticker": "PWH",
+        "company": "PWH",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued an updated outlook that was negatively received by the market, suggesting potential earnings misses or margin compression.",
+        "why_now": "The updated outlook was provided in a formal address on October 19, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b671c01a9f1e"
+        ],
+        "primary_source_event_id": "EVT-b671c01a9f1e",
+        "source_headlines": [
+          "PWH: Chairman and MD & CEO Address and Updated Outlook [price-sensitive]"
+        ],
+        "source_headline": "PWH: Chairman and MD & CEO Address and Updated Outlook [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PWH?key=2924-03150474-2A1705033",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-19T23:25:25Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-20T00:02:47Z",
+        "updated_at": "2026-10-20T00:02:47Z",
+        "decay_at": "2026-10-21T11:25:25Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-21T11:25:25Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c009bc671c9a",
         "idea_version": "IDEAV-f7ea29f5b95d97f9",
@@ -234038,85 +234118,12 @@
         "archived_at": "2026-09-26T00:20:14Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-d6b4116160c6",
-        "idea_version": "IDEAV-aaefbdf309a083bd",
-        "idea_version_started_at": "2026-09-23T05:05:14Z",
-        "ticker": "KBH",
-        "company": "KB Home",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company is facing margin compression due to deteriorating housing market conditions, which will likely lead to downward earnings revisions.",
-        "why_now": "The guidance cut was announced on 2026-09-22.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 66,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-71d0a039dfa1"
-        ],
-        "primary_source_event_id": "EVT-71d0a039dfa1",
-        "source_headlines": [
-          "KB Home Cuts Margin Outlook as Housing Conditions Worsen"
-        ],
-        "source_headline": "KB Home Cuts Margin Outlook as Housing Conditions Worsen",
-        "source_url": "https://www.wsj.com/economy/housing/kb-home-cuts-margin-outlook-as-housing-conditions-worsen-caa020ae?mod=pls_whats_news_us_business_f",
-        "source_name": "The Wall Street Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-22T22:31:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-23T05:05:14Z",
-        "updated_at": "2026-09-23T05:05:14Z",
-        "decay_at": "2026-09-24T10:31:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-25T22:59:15Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1773,
-    "live_count": 40,
+    "live_count": 39,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -234135,9 +234142,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5216591,
-    "news_picked_today": 437,
-    "news_dropped_today": 8419
+    "news_seen_today": 5233988,
+    "news_picked_today": 451,
+    "news_dropped_today": 8477
   },
   "book_momentum": {
     "live_count": 8,
