@@ -11,7 +11,7 @@ import { readDiscoveryCatalog, refreshFiledDiscovery } from './ideas/ideas-works
 import fs from 'node:fs'
 import path from 'node:path'
 import { NEWS, REPO_ROOT, STATE_DIR, buildOmniRouteProvider } from '../config'
-import { providerDeployPending, withProviderRunDeployLease } from '../deploy-barrier'
+import { providerDeployPending, runAbortableCycle, withProviderRunDeployLease } from '../deploy-barrier'
 import { acquireSingletonLock, releaseSingletonLock } from '../singleton-lock'
 import { refreshBoard } from './write-inbox'
 import { DEFERRED_CAP, DEFERRED_MAX_AGE_MS, inspectDeferredBacklog, loadDeferred, runIngestCycle, triageGroqTokenBound, triagePaceTokenBound } from './runCycle'
@@ -228,47 +228,7 @@ export function withCycleSignal(base: typeof fetch, signal: AbortSignal): typeof
     base(url, { ...init, signal: init?.signal ? AbortSignal.any([init.signal, signal]) : signal })) as typeof fetch
 }
 
-/** Run an abortable cycle: start it with a fresh AbortController, abort it on timeout or a higher-priority
- *  writer request, and AWAIT it to settlement either way. Resolves/rejects ONLY once the underlying work
- *  has finished, so the caller's `running` lock is released only when nothing is in-flight — no overlap.
- *  Exported for tests. */
-export async function runAbortableCycle<T>(
-  run: (signal: AbortSignal) => Promise<T>,
-  timeoutMs: number = CYCLE_TIMEOUT_MS,
-  onTimeout?: () => void,
-  yieldGuard?: {
-    requested: () => boolean
-    pollMs?: number
-    onYield?: () => void
-  },
-): Promise<T> {
-  const ac = new AbortController()
-  const guard = setTimeout(() => {
-    if (ac.signal.aborted) return
-    onTimeout?.()
-    ac.abort()
-  }, timeoutMs)
-  ;(guard as { unref?: () => void }).unref?.()
-  const checkYield = () => {
-    if (ac.signal.aborted || !yieldGuard) return
-    let requested = true
-    try { requested = yieldGuard.requested() }
-    catch { /* fail closed: a broken deployment-intent read must release background work */ }
-    if (!requested) return
-    yieldGuard.onYield?.()
-    ac.abort()
-  }
-  const yieldPoll = yieldGuard
-    ? setInterval(checkYield, Math.max(25, Math.floor(yieldGuard.pollMs ?? 250)))
-    : null
-  ;(yieldPoll as { unref?: () => void } | null)?.unref?.()
-  try {
-    return await run(ac.signal)
-  } finally {
-    clearTimeout(guard)
-    if (yieldPoll) clearInterval(yieldPoll)
-  }
-}
+export { runAbortableCycle } from '../deploy-barrier'
 
 let timer: ReturnType<typeof setInterval> | null = null
 let drainTimer: ReturnType<typeof setInterval> | null = null

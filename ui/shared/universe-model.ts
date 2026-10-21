@@ -2,7 +2,7 @@ import { isFinvizData, type FinvizData } from './finviz-data'
 // Free Finviz screen; the saved preset is account-local, so the public filters are explicit.
 export const UNIVERSE_URL = 'https://finviz.com/screener/stocks?f=cap_midover%2Csh_avgvol_o50&preset=s154730211'
 export const MODEL_SCHEMA = 'universe-event-model/v1' as const
-export const MODEL_CLIENT_VERSION = 'favorable-prices/v2'
+export const MODEL_CLIENT_VERSION = 'favorable-engine/v3'
 export const MODEL_PRICE_REFRESH_MS = 15_000
 export const MODEL_REFRESH_MS = 5 * 60_000
 export const MODEL_SIGNALS = [
@@ -35,13 +35,15 @@ export interface ModelEvent {
   assessment?: ModelSavedAnalysis | null // Exact company/article read; absent or null never earns a tick.
 }
 export interface ModelSavedAnalysis {
+  verdict?: 'favorable' | 'adverse' | 'mixed' | 'neutral' | 'insufficient'
+  source_quote?: string | null
   read_at: string
   story: string[]
   company_role: 'subject' | 'acquirer' | 'target' | 'forecaster' | 'mentioned' | null
   effects: { side: 'beneficiary' | 'exposed'; mechanism: string; magnitude: string | null; horizon: string | null }[]
   event_assessment: string | null
   watch_item: string | null
-  provenance: { kind: 'original' | 'filing_doc' | 'alternate' | 'corroborated'; label: string | null; url: string | null }
+  provenance: { kind: 'original' | 'filing_doc' | 'alternate' | 'corroborated' | 'saved_excerpt'; label: string | null; url: string | null }
 }
 export interface ModelEventRead {
   event_id: string
@@ -58,12 +60,14 @@ export function isModelSavedAnalysis(value: unknown): value is ModelSavedAnalysi
   const a = value as ModelSavedAnalysis | null
   const text = (v: unknown) => v === null || typeof v === 'string'
   return !!a && typeof a.read_at === 'string' && Number.isFinite(Date.parse(a.read_at))
+    && (a.verdict === undefined || ['favorable', 'adverse', 'mixed', 'neutral', 'insufficient'].includes(a.verdict))
+    && (a.source_quote === undefined || text(a.source_quote))
     && Array.isArray(a.story) && a.story.length <= 4 && a.story.every((s) => typeof s === 'string')
     && (a.company_role === null || ['subject', 'acquirer', 'target', 'forecaster', 'mentioned'].includes(a.company_role))
     && text(a.event_assessment) && text(a.watch_item)
     && Array.isArray(a.effects) && a.effects.length <= 4 && a.effects.every((e) => e && ['beneficiary', 'exposed'].includes(e.side)
       && typeof e.mechanism === 'string' && text(e.magnitude) && text(e.horizon))
-    && !!a.provenance && ['original', 'filing_doc', 'alternate', 'corroborated'].includes(a.provenance.kind)
+    && !!a.provenance && ['original', 'filing_doc', 'alternate', 'corroborated', 'saved_excerpt'].includes(a.provenance.kind)
     && text(a.provenance.label) && (a.provenance.url === null || typeof a.provenance.url === 'string' && /^https?:\/\//i.test(a.provenance.url))
 }
 export type ModelSignals = Partial<Record<SignalId, ModelEvent[]>>
@@ -87,6 +91,7 @@ export interface ModelRow {
   finviz?: FinvizData // Durable collector data. The grid API omits it; the data API serves it on demand.
 }
 export interface ModelRead {
+  engine?: UniverseEngineRead
   schema_version: typeof MODEL_SCHEMA
   source_url: typeof UNIVERSE_URL
   rows: ModelRow[]
@@ -103,6 +108,36 @@ export interface ModelRead {
   error: string | null
   events: EventCoverage | null
   data?: { captured: number; expected: number; refreshing: boolean; error: string | null }
+}
+export interface UniverseEngineRead {
+  enabled: boolean
+  status: 'idle' | 'waiting' | 'running' | 'blocked' | 'complete'
+  model: string | null
+  run_id: string | null
+  updated_at: string | null
+  total_companies: number
+  processed_companies: number
+  assessed_companies: number
+  no_evidence_companies: number
+  unavailable_companies: number
+  insufficient_companies: number
+  failed_companies: number
+  total_reports: number
+  completed_reports: number
+  failed_reports: number
+  error: string | null
+  next_check_at: string | null
+}
+export function isUniverseEngineRead(value: unknown): value is UniverseEngineRead {
+  const e = value as UniverseEngineRead | null
+  const stamp = (v: unknown) => v === null || typeof v === 'string' && Number.isFinite(Date.parse(v))
+  return !!e && typeof e.enabled === 'boolean' && ['idle', 'waiting', 'running', 'blocked', 'complete'].includes(e.status)
+    && (e.model === null || typeof e.model === 'string') && (e.run_id === null || typeof e.run_id === 'string')
+    && stamp(e.updated_at) && stamp(e.next_check_at) && (e.error === null || typeof e.error === 'string')
+    && ['total_companies', 'processed_companies', 'assessed_companies', 'no_evidence_companies', 'unavailable_companies', 'failed_companies', 'insufficient_companies', 'total_reports', 'completed_reports', 'failed_reports']
+      .every((k) => Number.isInteger(e[k as keyof UniverseEngineRead]) && (e[k as keyof UniverseEngineRead] as number) >= 0)
+    && e.processed_companies <= e.total_companies && e.assessed_companies <= e.processed_companies
+    && e.completed_reports + e.failed_reports <= e.total_reports
 }
 export interface ModelPrice {
   price: number
@@ -135,6 +170,8 @@ export function isModelPricesRead(value: unknown): value is ModelPricesRead {
 }
 // Benefit/risk must belong to this issuer, not the headline. Mixed effects are not a favorable verdict.
 export function companyImpact(analysis: ModelSavedAnalysis | null | undefined): boolean | null {
+  if (analysis?.verdict === 'insufficient') return null
+  if (analysis?.verdict === 'neutral') return false
   if (!analysis?.effects?.length) return null
   return analysis.effects.some((effect) => effect.side === 'exposed') ? false
     : analysis.effects.some((effect) => effect.side === 'beneficiary') ? true : null
@@ -143,21 +180,25 @@ export function companyImpact(analysis: ModelSavedAnalysis | null | undefined): 
 export function signalResult(row: ModelRow, signal: ModelSignal): boolean | null {
   if (row.signals === null) return null
   const reports = row.signals[signal.id] || []
-  if (!reports.length) return false
+  if (!reports.length) return null
   const results = reports.map((event) => companyImpact(event.assessment))
   if (results.includes(false)) return false
   return results.every((result) => result === true) ? true : null
 }
 export function modelTotal(row: ModelRow): number | null {
-  return row.signals === null ? null : MODEL_SIGNALS.filter((signal) => signalResult(row, signal) === true).length
+  return modelAssessed(row) === 0 ? null : MODEL_SIGNALS.filter((signal) => signalResult(row, signal) === true).length
 }
+export const modelAssessed = (row: ModelRow) => MODEL_SIGNALS.filter((signal) => signalResult(row, signal) !== null).length
 export function rankModel(rows: ModelRow[]): ModelRow[] {
-  return [...rows].sort((a, b) => Number(a.signals === null) - Number(b.signals === null)
-    || (modelTotal(b) ?? 0) - (modelTotal(a) ?? 0) || a.company.localeCompare(b.company) || a.ticker.localeCompare(b.ticker))
+  return rows.map((row) => ({ row, total: modelTotal(row) ?? 0, unassessed: modelAssessed(row) === 0 }))
+    .sort((a, b) => b.total - a.total || Number(a.unassessed) - Number(b.unassessed)
+      || a.row.company.localeCompare(b.row.company) || a.row.ticker.localeCompare(b.row.ticker))
+    .map(({ row }) => row)
 }
 export function isModelRead(value: unknown): value is ModelRead {
   const r = value as ModelRead | null
   return !!r && r.schema_version === MODEL_SCHEMA && r.source_url === UNIVERSE_URL
+    && (r.engine === undefined || isUniverseEngineRead(r.engine))
     && typeof r.complete === 'boolean' && typeof r.refreshing === 'boolean' && typeof r.stale === 'boolean'
     && Number.isInteger(r.fetched) && r.fetched >= 0
     && (r.total === null || (Number.isInteger(r.total) && r.total >= 0))
