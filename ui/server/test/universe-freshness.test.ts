@@ -6,6 +6,7 @@ import Fastify from 'fastify'
 import { FINVIZ_VIEWS } from '../../shared/finviz-data'
 import { isModelPricesRead, isModelRead, MODEL_CLIENT_VERSION, MODEL_SCHEMA, MODEL_REFRESH_MS, UNIVERSE_URL, type ModelRead, type ModelRow } from '../../shared/universe-model'
 import { createUniverseModel, registerUniverseModel } from '../src/universe-model'
+import { providerDeployIntentPath } from '../src/deploy-barrier'
 
 const at = Date.parse('2026-10-21T04:30:00Z')
 const old = new Date(at - 24 * 3600_000).toISOString()
@@ -112,6 +113,46 @@ try {
   assert.equal(backgroundCalls, firstCalls + 1, 'background ticks cannot bypass a source restriction')
   await background.close(); assert.equal(cancelled, true)
   await tick(); assert.equal(backgroundCalls, firstCalls + 1, 'a stopped scheduler cannot restart the writer')
+
+  // A pending deployment stops both lanes at the next request boundary and preserves checkpoints.
+  const intent = providerDeployIntentPath(dir)
+  const yieldingFile = path.join(dir, 'yielding.json')
+  await fs.writeFile(yieldingFile, JSON.stringify(snapshot()))
+  const yieldingCalls: string[][] = []
+  let pausePrice = true
+  const yielding = createUniverseModel(yieldingFile, { now: () => at, wait: async () => {
+    if (pausePrice && yieldingCalls.length === 1) await fs.writeFile(intent, 'local test deployment')
+  }, fetchPage: async (url) => {
+    const tickers = new URL(url).searchParams.get('t')?.split(',')
+    if (tickers) yieldingCalls.push(tickers)
+    return html(url, members(url))
+  } })
+  await yielding.read(); await yielding.settled()
+  assert.equal(yieldingCalls.length, 1, 'price collection yields before the next request')
+  assert.equal(JSON.parse(await fs.readFile(yieldingFile, 'utf8')).rows.filter((row: ModelRow) => row.price === 20).length, 20)
+  await yielding.read(); await yielding.settled()
+  assert.equal(yieldingCalls.length, 1, 'route reads cannot bypass deployment priority')
+  pausePrice = false; await fs.rm(intent)
+  await yielding.read(); await yielding.settled()
+  assert.deepEqual(yieldingCalls[1], ['CO20'], 'clearing the barrier resumes unfinished prices without a new five-minute delay')
+  await yielding.close()
+
+  const detailFile = path.join(dir, 'yielding-details.json')
+  await fs.writeFile(detailFile, JSON.stringify(snapshot(rows, stamp)))
+  let detailCalls = 0
+  let pauseDetail = true
+  let detailTick!: () => Promise<void>
+  const details = createUniverseModel(detailFile, { now: () => at, schedule: (run) => { detailTick = run; return () => {} }, wait: async () => {
+    if (pauseDetail && detailCalls === 1) await fs.writeFile(intent, 'local test deployment')
+  }, fetchPage: async (url) => { detailCalls++; return html(url, members(url)) } })
+  await details.start(); await details.settled()
+  assert.equal(detailCalls, 1, 'the background detail loop yields before a second batch')
+  assert.equal(JSON.parse(await fs.readFile(detailFile, 'utf8')).rows.filter((row: ModelRow) => row.finviz?.news).length, 10,
+    'the completed detail batch is saved before yielding')
+  await detailTick(); await details.settled(); assert.equal(detailCalls, 1)
+  pauseDetail = false; await fs.rm(intent)
+  await detailTick(); await details.settled(); assert.ok(detailCalls > 1)
+  await details.close()
 
   // Quote requests use only verified saved members and a bounded batch; they never invent a source.
   await fs.writeFile(path.join(dir, 'universe-model.json'), JSON.stringify(snapshot(rows, stamp)))

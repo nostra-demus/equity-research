@@ -38,6 +38,9 @@ The signal engine's evidence requirements and green-count ranking are unchanged.
 - The server starts one background scheduler on readiness. It uses the same single pending collector,
   source cooldown and shutdown boundary as route reads, so closing the browser does not stop collection.
   Direct collector instances remain demand-driven until `start()` is called (used by isolated tests).
+- The existing deployment-intent barrier blocks new collection and yields both lanes at the next
+  request boundary. Completed batches checkpoint before settlement; clearing the barrier permits
+  unfinished work to resume without imposing another five-minute refresh delay.
 - One request at a time, at least two seconds apart; no paid fallback, proxy, challenge bypass,
   external search/LLM credits or analysis run. A 403/429 stops both request lanes for 30 minutes.
   The small atomic source-pause record survives restarts, including a restriction on first use.

@@ -6,6 +6,7 @@ import { isModelRead, MODEL_CLIENT_VERSION, MODEL_PRICE_REFRESH_MS, MODEL_REFRES
 import { createUniverseEventsReader } from './universe-events'
 import { readUniverseAssessments, registerUniverseEvidence } from './universe-evidence'
 import { getQuotes } from './news/equity-quote'
+import { providerDeployPending } from './deploy-barrier'
 import { FINVIZ_VIEWS, FINVIZ_DETAIL_VIEWS, FINVIZ_PRICE_VIEWS, FINVIZ_DATA_REFRESH_MS, finvizField, isFinvizData, type FinvizViewId, type FinvizSnapshot, type FinvizDataRead } from '../../shared/finviz-data'
 
 // Standard public screener views, never an Elite export/API. No credentials, paid providers,
@@ -157,6 +158,7 @@ export function createUniverseModel(file: string, deps: {
   let detailError: string | null = null
   let phase: 'membership' | 'prices' | null = null
   let background = false
+  const stopped = () => closed || providerDeployPending(path.dirname(file))
   let stopTimer: (() => void) | null = null
   const load = () => loaded ??= (async () => {
     try {
@@ -192,7 +194,7 @@ export function createUniverseModel(file: string, deps: {
     try {
       // The first request also observes the gap after a detail→price handoff or a resumed reader.
       await wait(PAGE_GAP_MS)
-      if (closed) return
+      if (stopped()) return
       const seedHtml = await fetchPage(finvizUniverseUrl(0))
       const seed = parseFinvizPage(seedHtml, 0, new Date(now()).toISOString())
       const sectors = parseFinvizSectors(seedHtml)
@@ -205,9 +207,9 @@ export function createUniverseModel(file: string, deps: {
         let position = 0
         for (const sector of sectors) {
           let firstRow = 0
-          while (!closed) {
+          while (!stopped()) {
             await wait(PAGE_GAP_MS)
-            if (closed) return
+            if (stopped()) return
             const page = parseFinvizPage(await fetchPage(finvizUniverseUrl(firstRow, sector)), firstRow, new Date(now()).toISOString(), undefined, sector)
             const priorTotal = partitionTotals.get(sector)
             if (priorTotal !== undefined && priorTotal !== page.total) throw new Error('Universe membership changed during refresh. Retrying the complete screen at the next refresh.')
@@ -226,13 +228,13 @@ export function createUniverseModel(file: string, deps: {
             firstRow += page.rows.length
             if (firstRow >= page.total) break
           }
-          if (closed) return
+          if (stopped()) return
         }
         if (position !== total) throw new Error('Finviz sector partitions did not cover the complete universe.')
       }
-      if (closed) return
+      if (stopped()) return
       await wait(PAGE_GAP_MS)
-      if (closed) return
+      if (stopped()) return
       const final = parseFinvizPage(await fetchPage(finvizUniverseUrl(0)), 0, new Date(now()).toISOString())
       const byMember = new Map(progress.map((row) => [row.ticker, row.company]))
       if (final.total !== total || [...seed.rows, ...final.rows].some((row) => byMember.get(row.ticker) !== row.company)) throw new Error('Universe membership changed during verification. Retrying the complete screen at the next refresh.')
@@ -257,7 +259,7 @@ export function createUniverseModel(file: string, deps: {
       fetched = progress.length - due.length
       for (let offset = 0; offset < due.length; offset += 20) {
         await wait(PAGE_GAP_MS)
-        if (closed) return
+        if (stopped()) return
         const batch = due.slice(offset, offset + 20)
         const tickers = batch.map((row) => row.ticker)
         // Every standard table includes a price. Rotate the oldest/missing table into the existing
@@ -269,7 +271,7 @@ export function createUniverseModel(file: string, deps: {
           })),
         })).sort((a, b) => a.oldest - b.oldest)[0].view
         const html = await fetchPage(finvizPageUrl(0, tickers, view.id))
-        if (closed) return
+        if (stopped()) return
         const quotes = parseFinvizPage(html, 0, new Date(now()).toISOString(), tickers)
         if (quotes.rows.some((row) => !row.finviz?.[view.id])) throw new Error('Finviz returned a different price view.')
         const byTicker = new Map(quotes.rows.map((row) => [row.ticker, row]))
@@ -288,7 +290,7 @@ export function createUniverseModel(file: string, deps: {
         }
         fetched += tickers.length
       }
-      if (closed) return
+      if (stopped()) return
       const complete: ModelRead = { schema_version: MODEL_SCHEMA, source_url: UNIVERSE_URL, rows: progress, total,
         complete: true, refreshing: false, fetched: progress.length, started_at: startedAt,
         completed_at: new Date(now()).toISOString(), next_refresh_at: new Date(now() + MODEL_REFRESH_MS).toISOString(), stale: false, error: null, events: null }
@@ -305,7 +307,7 @@ export function createUniverseModel(file: string, deps: {
       try { if (dirty && saved) await persist(saved) }
       catch { error = 'Finviz prices could not be saved. Last disk snapshot retained.' }
       quoteRefreshing = false; phase = null
-      nextAt = Math.max(nextAt, now() + (error ? ERROR_BACKOFF_MS : MODEL_REFRESH_MS))
+      if (error || !stopped()) nextAt = Math.max(nextAt, now() + (error ? ERROR_BACKOFF_MS : MODEL_REFRESH_MS))
     }
   }
   const nextDetail = () => {
@@ -330,22 +332,23 @@ export function createUniverseModel(file: string, deps: {
     return { view, rows }
   }
   const work = async () => {
+    if (stopped()) return
     if (now() >= nextAt) await sweep()
-    if (closed || error || !saved || now() < detailNextAt) return
+    if (stopped() || error || !saved || now() < detailNextAt) return
     enriching = true
     let dirty = false
     let persistedAt = now()
     try {
       // Background ticks and readers share one writer. Prices take the next slot when due;
       // neither path creates a premium fallback or an analysis run.
-      while (!closed && now() < nextAt && (background || now() - lastReadAt < 45_000)) {
+      while (!stopped() && now() < nextAt && (background || now() - lastReadAt < 45_000)) {
         const task = nextDetail()
         if (!task) break
         await wait(PAGE_GAP_MS)
-        if (closed || now() >= nextAt || !background && now() - lastReadAt >= 45_000) break
+        if (stopped() || now() >= nextAt || !background && now() - lastReadAt >= 45_000) break
         const tickers = task.rows.map((row) => row.ticker)
         const page = parseFinvizPage(await fetchPage(finvizPageUrl(0, tickers, task.view.id)), 0, new Date(now()).toISOString(), tickers)
-        if (closed) break
+        if (stopped()) break
         const quotes = new Map(page.rows.map((row) => [row.ticker, row]))
         if (quotes.size !== tickers.length || task.rows.some((row) => quotes.get(row.ticker)?.company !== row.company || !quotes.get(row.ticker)?.finviz?.[task.view.id])) {
           throw new Error('Finviz data batch did not match every requested company. Last successful data retained.')
@@ -371,7 +374,7 @@ export function createUniverseModel(file: string, deps: {
   const read = async (): Promise<ModelRead> => {
       await load()
       lastReadAt = now()
-      if (!closed && !pending && (now() >= nextAt || saved && now() >= detailNextAt && nextDetail())) pending = work().finally(() => { pending = null })
+      if (!stopped() && !pending && (now() >= nextAt || saved && now() >= detailNextAt && nextDetail())) pending = work().finally(() => { pending = null })
       const completeAt = saved?.completed_at ?? null
       return { schema_version: MODEL_SCHEMA, source_url: UNIVERSE_URL, rows: saved?.rows ?? progress,
         total: saved?.total ?? total, refresh_total: total, refresh_phase: phase, complete: !!saved, refreshing: quoteRefreshing, fetched,
