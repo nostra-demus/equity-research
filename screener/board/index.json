@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T11:56:10Z",
+  "generated_at": "2026-10-21T12:13:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-302",
@@ -1835,6 +1835,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261021-315",
+      "headline": "Pine Labs Limited: Pine Labs Limited has informed the Exchange about Acquisition",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PINELABS_21102026171907_SFNPL_Intimation_PLL_Acquisition_Oct_2026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T11:49:15Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Pine Labs Limited has announced an acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Pine Labs Limited has announced an acquisition.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pine Labs Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261021-274",
       "headline": "CHINA SCE GROUP (01966): UPDATES ON THE OFFSHORE DEBT RESTRUCTURING NOTICE OF EXPECTED RESTRUCTURING EFFECTIVE DATE",
       "headline_en": null,
@@ -1928,56 +1977,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-211",
-      "headline": "JIU RONG HOLD (02358): SUPPLEMENTAL ANNOUNCEMENT - DELAY IN PUBLICATION OF THE ANNUAL RESULTS FOR THE YEAR ENDED 30 JUNE 2026; AND CONTINUED SUSPENSION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102100320.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-21T08:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Jiu Rong Hold (02358) delays FY2026 annual results publication and continues trading suspension per HKEX filing, signaling potential financial or accounting distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Jiu Rong Hold (02358) delays FY2026 annual results publication and continues trading suspension per HKEX filing, signaling potential financial or accounting distress.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "accounting_restatement",
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jiu Rong Hold",
-          "ticker": "02358",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192687,77 +192686,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-7ac6a207250e",
-      "idea_version": "IDEAV-c6b1c76a73c6b16b",
-      "idea_version_started_at": "2026-10-20T00:46:02Z",
-      "ticker": "01672",
-      "company": "Ascletis Pharma",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Positive preclinical data for an oral once-weekly obesity peptide pipeline provides a potential catalyst for valuation re-rating in the competitive weight-loss drug market.",
-      "why_now": "The announcement was made on October 20, 2026, and the market has yet to fully digest the clinical implications.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 13,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3e8d612249ff"
-      ],
-      "primary_source_event_id": "EVT-3e8d612249ff",
-      "source_headlines": [
-        "ASCLETIS-B (01672): VOLUNTARY ANNOUNCEMENT - ASCLETIS ANNOUNCES POSITIVE PRECLINICAL DATA FOR THE MOST COMPREHENSIVE ONCE-WEEKLY ORAL PEPTIDE PIPELINE FOR THE TREATMENT OF OBESITY"
-      ],
-      "source_headline": "ASCLETIS-B (01672): VOLUNTARY ANNOUNCEMENT - ASCLETIS ANNOUNCES POSITIVE PRECLINICAL DATA FOR THE MOST COMPREHENSIVE ONCE-WEEKLY ORAL PEPTIDE PIPELINE FOR THE TREATMENT OF OBESITY",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000107.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 68,
-      "newest_source_at": "2026-10-20T00:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-20T00:46:02Z",
-      "updated_at": "2026-10-20T00:46:02Z",
-      "decay_at": "2026-10-21T12:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-c8223fdddd69",
       "idea_version": "IDEAV-355db0a12ef48e17",
       "idea_version_started_at": "2026-10-19T23:11:18Z",
@@ -196903,6 +196831,77 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
+    },
+    {
+      "idea_id": "IDEA-7ac6a207250e",
+      "idea_version": "IDEAV-c6b1c76a73c6b16b",
+      "idea_version_started_at": "2026-10-20T00:46:02Z",
+      "ticker": "01672",
+      "company": "Ascletis Pharma",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Positive preclinical data for an oral once-weekly obesity peptide pipeline provides a potential catalyst for valuation re-rating in the competitive weight-loss drug market.",
+      "why_now": "The announcement was made on October 20, 2026, and the market has yet to fully digest the clinical implications.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 13,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3e8d612249ff"
+      ],
+      "primary_source_event_id": "EVT-3e8d612249ff",
+      "source_headlines": [
+        "ASCLETIS-B (01672): VOLUNTARY ANNOUNCEMENT - ASCLETIS ANNOUNCES POSITIVE PRECLINICAL DATA FOR THE MOST COMPREHENSIVE ONCE-WEEKLY ORAL PEPTIDE PIPELINE FOR THE TREATMENT OF OBESITY"
+      ],
+      "source_headline": "ASCLETIS-B (01672): VOLUNTARY ANNOUNCEMENT - ASCLETIS ANNOUNCES POSITIVE PRECLINICAL DATA FOR THE MOST COMPREHENSIVE ONCE-WEEKLY ORAL PEPTIDE PIPELINE FOR THE TREATMENT OF OBESITY",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000107.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 68,
+      "newest_source_at": "2026-10-20T00:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-20T00:46:02Z",
+      "updated_at": "2026-10-20T00:46:02Z",
+      "decay_at": "2026-10-21T12:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     }
   ],
   "ideas_archive": {
@@ -196915,14 +196914,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 557,
+    "total_count": 558,
     "shown_count": 499,
-    "hidden_count": 58,
+    "hidden_count": 59,
     "side_counts": {
       "long": {
-        "total_count": 291,
+        "total_count": 292,
         "shown_count": 250,
-        "hidden_count": 41
+        "hidden_count": 42
       },
       "short": {
         "total_count": 267,
@@ -196946,6 +196945,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-7ac6a207250e",
+        "idea_version": "IDEAV-c6b1c76a73c6b16b",
+        "idea_version_started_at": "2026-10-20T00:46:02Z",
+        "ticker": "01672",
+        "company": "Ascletis Pharma",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Positive preclinical data for an oral once-weekly obesity peptide pipeline provides a potential catalyst for valuation re-rating in the competitive weight-loss drug market.",
+        "why_now": "The announcement was made on October 20, 2026, and the market has yet to fully digest the clinical implications.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 13,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3e8d612249ff"
+        ],
+        "primary_source_event_id": "EVT-3e8d612249ff",
+        "source_headlines": [
+          "ASCLETIS-B (01672): VOLUNTARY ANNOUNCEMENT - ASCLETIS ANNOUNCES POSITIVE PRECLINICAL DATA FOR THE MOST COMPREHENSIVE ONCE-WEEKLY ORAL PEPTIDE PIPELINE FOR THE TREATMENT OF OBESITY"
+        ],
+        "source_headline": "ASCLETIS-B (01672): VOLUNTARY ANNOUNCEMENT - ASCLETIS ANNOUNCES POSITIVE PRECLINICAL DATA FOR THE MOST COMPREHENSIVE ONCE-WEEKLY ORAL PEPTIDE PIPELINE FOR THE TREATMENT OF OBESITY",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000107.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 68,
+        "newest_source_at": "2026-10-20T00:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-20T00:46:02Z",
+        "updated_at": "2026-10-20T00:46:02Z",
+        "decay_at": "2026-10-21T12:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-21T12:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-18ddb9fd5fec",
         "idea_version": "IDEAV-5db13e7aa00663b6",
@@ -224360,81 +224433,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-5221d487238d",
-        "idea_version": "IDEAV-274f9971490f7569",
-        "idea_version_started_at": "2026-10-06T04:37:12Z",
-        "ticker": "ETISALAT.AE",
-        "company": "Etisalat",
-        "exchange": "ADX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Etisalat is launching a strategic project to more than double its international connectivity capacity to 500 Tbps by 2030, implying substantial future investment and growth.",
-        "why_now": "The strategic project launch was announced today.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-7c6e450a6899"
-        ],
-        "primary_source_event_id": "EVT-7c6e450a6899",
-        "source_headlines": [
-          "etisalat launches strategic project to boost international connectivity to more than 500 Tbps by 2030"
-        ],
-        "source_headline": "etisalat launches strategic project to boost international connectivity to more than 500 Tbps by 2030",
-        "source_url": "https://economymiddleeast.com/news/etisalat-launches-strategic-project-to-boost-international-connectivity-to-more-than-500-tbps-by-2030/?utm_source=rss&utm_medium=rss&utm_campaign=etisalat-launches-strategic-project-to-boost-international-connectivity-to-more-than-500-tbps-by-2030",
-        "source_name": "Economy Middle East",
-        "materiality_max": 89,
-        "newest_source_at": "2026-10-06T04:07:03Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-06T04:37:12Z",
-        "updated_at": "2026-10-06T04:37:12Z",
-        "decay_at": "2026-10-07T16:07:03Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-09T04:30:28Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-0a1283616e19",
         "idea_version": "IDEAV-60ab8984e7ab1234",
         "idea_version_started_at": "2026-10-06T04:37:12Z",
@@ -234123,7 +234121,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1773,
-    "live_count": 39,
+    "live_count": 38,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -234142,9 +234140,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5321476,
-    "news_picked_today": 501,
-    "news_dropped_today": 8931
+    "news_seen_today": 5428589,
+    "news_picked_today": 511,
+    "news_dropped_today": 8945
   },
   "book_momentum": {
     "live_count": 8,
