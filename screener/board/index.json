@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T01:44:36Z",
+  "generated_at": "2026-10-21T01:48:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-016",
@@ -1450,6 +1450,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261021-063",
+      "headline": "IFT: Australian data centre update",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IFT?key=2924-03151096-2A1705310",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T01:33:41Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Infratil provided an update on its Australian data centre operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "Infratil provided an update on its Australian data centre operations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Infratil",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261021-013",
       "headline": "NT PHARMA (01011): APPOINTMENT OF AUDITOR AND NOTICE OF EXTRAORDINARY GENERAL MEETING",
       "headline_en": null,
@@ -1936,56 +1985,6 @@
           "name": "APT Electronics",
           "ticker": "02551",
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-009",
-      "headline": "FDA 510(k) clearance — HeartSciences, Inc.: MyoVista wavECG (DG-200-B15-003)",
-      "headline_en": null,
-      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K260005",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-05T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "FDA 510(k) clearance permits HeartSciences to market the MyoVista wavECG device in the US.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "FDA 510(k) clearance permits HeartSciences to market the MyoVista wavECG device in the US.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory",
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HeartSciences, Inc.",
-          "ticker": "HSCI",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -234365,9 +234364,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1121609,
-    "news_picked_today": 68,
-    "news_dropped_today": 700
+    "news_seen_today": 1166729,
+    "news_picked_today": 69,
+    "news_dropped_today": 723
   },
   "book_momentum": {
     "live_count": 8,
