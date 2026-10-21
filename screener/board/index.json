@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T09:06:07Z",
+  "generated_at": "2026-10-21T09:11:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-209",
@@ -1150,6 +1150,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261021-211",
+      "headline": "JIU RONG HOLD (02358): SUPPLEMENTAL ANNOUNCEMENT - DELAY IN PUBLICATION OF THE ANNUAL RESULTS FOR THE YEAR ENDED 30 JUNE 2026; AND CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102100320.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T08:30:00Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Jiu Rong Hold (02358) delays FY2026 annual results publication and continues trading suspension per HKEX filing, signaling potential financial or accounting distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Jiu Rong Hold (02358) delays FY2026 annual results publication and continues trading suspension per HKEX filing, signaling potential financial or accounting distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "accounting_restatement",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jiu Rong Hold",
+          "ticker": "02358",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261021-089",
       "headline": "Reliance Jio IPO: Massive ₹30,213 cr issue opens for subscription today | Latest GMP, review, listing price prediction",
       "headline_en": null,
@@ -1941,56 +1991,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-178",
-      "headline": "Zydus Lifesciences Limited: Zydus Lifesciences Limited has informed the Exchange regarding a press release dated October 21, 2026, titled \"Zydus receives USFDA approval for Estradiol and Levonorgestrel Transdermal System, eligible for 180-day CGT exclusivity\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/Cadilahc_21102026110803_PressRelease21102026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-21T05:39:22Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "FDA approved Zydus's generic estradiol-levonorgestrel transdermal system for 180-day exclusive marketing, adding a new revenue product to the US pharmaceutical market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "FDA approved Zydus's generic estradiol-levonorgestrel transdermal system for 180-day exclusive marketing, adding a new revenue product to the US pharmaceutical market.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 58,
-      "rank_factors": {
-        "materiality": 58,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 12,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zydus Lifesciences Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -234150,9 +234150,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4656974,
-    "news_picked_today": 302,
-    "news_dropped_today": 6130
+    "news_seen_today": 4675361,
+    "news_picked_today": 304,
+    "news_dropped_today": 6152
   },
   "book_momentum": {
     "live_count": 8,
