@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T01:56:36Z",
+  "generated_at": "2026-10-21T02:02:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-016",
@@ -1408,6 +1408,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261021-066",
+      "headline": "Odds of fifth interest rate hike this year shorten as RBA deputy warns inflation outlook ‘worsening’",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/australia-news/2026/oct/21/odds-of-fifth-interest-rate-hike-this-year-likely-to-shorten-as-rba-deputy-warns-inflation-outlook-worsening",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T01:48:01Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "The RBA deputy's warning of worsening inflation increases the probability of further interest rate hikes in Australia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "The RBA deputy's warning of worsening inflation increases the probability of further interest rate hikes in Australia.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261021-058",
       "headline": "Australian central banker says inflation outlook worse, unsure about November rate hike",
       "headline_en": null,
@@ -1938,57 +1981,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-035",
-      "headline": "Revolve Reports FY2026 Financial Results and Advances Growth Through Project-Level Financing and Strategic Acquisitions | REVVF Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/REVVF/revolve-reports-fy2026-financial-results-and-advances-growth-through-ppf2rf44o89w.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-21T00:45:00Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Revolve reported FY2026 results and announced strategic acquisitions and project-level financing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Revolve reported FY2026 results and announced strategic acquisitions and project-level financing.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "mna",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Revolve",
-          "ticker": "REVVF",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -190137,75 +190129,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b9904f623df5",
-      "idea_version": "IDEAV-1cd9d06103fff5cb",
-      "idea_version_started_at": "2026-10-20T00:46:02Z",
-      "ticker": "ATKR",
-      "company": "Atkore Inc.",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The filing of a 25-NSE delisting notification indicates severe financial distress or regulatory non-compliance, signaling a high risk of equity impairment.",
-      "why_now": "The delisting notice was issued on October 19, 2026, making this a live liquidity and solvency event.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 76,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-eb571881eeac"
-      ],
-      "primary_source_event_id": "EVT-eb571881eeac",
-      "source_headlines": [
-        "25-NSE - Atkore Inc. (0001666138) (Subject)"
-      ],
-      "source_headline": "25-NSE - Atkore Inc. (0001666138) (Subject)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1666138/000087666126000843/0000876661-26-000843-index.htm",
-      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-19T14:02:31Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-20T00:46:02Z",
-      "updated_at": "2026-10-20T00:46:02Z",
-      "decay_at": "2026-10-21T02:02:31Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-e38b2231c234",
       "idea_version": "IDEAV-3c1456a43e5d9108",
       "idea_version_started_at": "2026-10-20T13:35:08Z",
@@ -193122,6 +193045,75 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-b9904f623df5",
+      "idea_version": "IDEAV-1cd9d06103fff5cb",
+      "idea_version_started_at": "2026-10-20T00:46:02Z",
+      "ticker": "ATKR",
+      "company": "Atkore Inc.",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The filing of a 25-NSE delisting notification indicates severe financial distress or regulatory non-compliance, signaling a high risk of equity impairment.",
+      "why_now": "The delisting notice was issued on October 19, 2026, making this a live liquidity and solvency event.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 76,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-eb571881eeac"
+      ],
+      "primary_source_event_id": "EVT-eb571881eeac",
+      "source_headlines": [
+        "25-NSE - Atkore Inc. (0001666138) (Subject)"
+      ],
+      "source_headline": "25-NSE - Atkore Inc. (0001666138) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1666138/000087666126000843/0000876661-26-000843-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-19T14:02:31Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-20T00:46:02Z",
+      "updated_at": "2026-10-20T00:46:02Z",
+      "decay_at": "2026-10-21T02:02:31Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-3fd19793d384",
@@ -197142,9 +197134,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 555,
+    "total_count": 556,
     "shown_count": 499,
-    "hidden_count": 56,
+    "hidden_count": 57,
     "side_counts": {
       "long": {
         "total_count": 292,
@@ -197152,9 +197144,9 @@
         "hidden_count": 42
       },
       "short": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       }
     },
     "retention": {
@@ -197173,6 +197165,78 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b9904f623df5",
+        "idea_version": "IDEAV-1cd9d06103fff5cb",
+        "idea_version_started_at": "2026-10-20T00:46:02Z",
+        "ticker": "ATKR",
+        "company": "Atkore Inc.",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The filing of a 25-NSE delisting notification indicates severe financial distress or regulatory non-compliance, signaling a high risk of equity impairment.",
+        "why_now": "The delisting notice was issued on October 19, 2026, making this a live liquidity and solvency event.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 76,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-eb571881eeac"
+        ],
+        "primary_source_event_id": "EVT-eb571881eeac",
+        "source_headlines": [
+          "25-NSE - Atkore Inc. (0001666138) (Subject)"
+        ],
+        "source_headline": "25-NSE - Atkore Inc. (0001666138) (Subject)",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1666138/000087666126000843/0000876661-26-000843-index.htm",
+        "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-19T14:02:31Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-20T00:46:02Z",
+        "updated_at": "2026-10-20T00:46:02Z",
+        "decay_at": "2026-10-21T02:02:31Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-21T02:02:31Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-2bf82db127af",
         "idea_version": "IDEAV-1f353af1b0493cf9",
@@ -234267,86 +234331,12 @@
         "archived_at": "2026-09-25T20:29:34Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-3da66d652109",
-        "idea_version": "IDEAV-bc3049636df69e58",
-        "idea_version_started_at": "2026-09-22T13:59:06Z",
-        "ticker": "00660",
-        "company": "Wai Chun Biotec",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The potential delay in annual results and possible trading suspension signal severe financial instability and governance risks.",
-        "why_now": "The filing was released today, September 22, 2026.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-00c449153aee"
-        ],
-        "primary_source_event_id": "EVT-00c449153aee",
-        "source_headlines": [
-          "WAI CHUN BIOTEC (00660): (I) INSIDE INFORMATION; (II) POSSIBLE DELAY IN PUBLICATION OF THE ANNUAL RESULTS FOR THE YEAR ENDED 30 JUNE 2026; AND (III) POSSIBLE SUSPENSION OF TRADING"
-        ],
-        "source_headline": "WAI CHUN BIOTEC (00660): (I) INSIDE INFORMATION; (II) POSSIBLE DELAY IN PUBLICATION OF THE ANNUAL RESULTS FOR THE YEAR ENDED 30 JUNE 2026; AND (III) POSSIBLE SUSPENSION OF TRADING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0922/2026092201345.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-22T13:29:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-22T13:59:06Z",
-        "updated_at": "2026-09-22T13:59:06Z",
-        "decay_at": "2026-09-24T01:29:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-25T20:29:34Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1771,
-    "live_count": 44,
+    "live_count": 43,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -234365,9 +234355,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1256744,
-    "news_picked_today": 72,
-    "news_dropped_today": 792
+    "news_seen_today": 1316636,
+    "news_picked_today": 73,
+    "news_dropped_today": 839
   },
   "book_momentum": {
     "live_count": 8,
