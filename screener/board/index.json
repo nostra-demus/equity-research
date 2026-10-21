@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T05:48:28Z",
+  "generated_at": "2026-10-21T05:54:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-087",
@@ -95,6 +95,111 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-140",
+      "headline": "Vaar Energi raises dividend as profit doubles on high oil, gas prices",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/vaar-energi-raises-dividend-profit-doubles-high-oil-gas-prices-2026-10-21/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T05:30:28Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Vaar Energi reported a doubling of profit and increased its dividend, signaling strong operational performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vaar Energi reported a doubling of profit and increased its dividend, signaling strong operational performance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vaar Energi",
+          "ticker": null,
+          "listing_country": "NO"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-142",
+      "headline": "SpaceX 3Q Earnings Beat, SpaceX and Tesla Discuss Potential Merger",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-10-21/the-asia-trade-10-21-2026-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T04:50:31Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "SpaceX reported a 3Q earnings beat and is in discussions for a potential merger with Tesla.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SpaceX reported a 3Q earnings beat and is in discussions for a potential merger with Tesla.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Tesla",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -854,6 +959,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261021-135",
+      "headline": "Hindustan Zinc lowers FY27 cost guidance by nearly 15%, sticks to output targets",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/hindustan-zinc-q2-results-fy27-outlook-silver-lead-production-expansion-20015806.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T05:36:33Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Hindustan Zinc lowered FY27 cost guidance by 15%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Hindustan Zinc lowered FY27 cost guidance by 15%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hindustan Zinc",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261021-110",
       "headline": "Elon Musk says SpaceX-Tesla merger is 'a good idea' as companies form deal committees",
       "headline_en": null,
@@ -1004,6 +1158,55 @@
           "name": "Iveco",
           "ticker": null,
           "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-120",
+      "headline": "CSL: Appointment of New CEO [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CSL?key=2924-03151246-3A704624",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T05:37:11Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Appointment of a new CEO is a significant leadership transition for a major company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Appointment of a new CEO is a significant leadership transition for a major company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CSL",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -1607,6 +1810,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261021-121",
+      "headline": "SBI Confirms Data Breach Involving 3,897 Customer Records Exposed On Dark Web, India's Largest PSU Bank Launches Cybersecurity Probe",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/sbi-confirms-data-breach-involving-3897-customer-records-exposed-on-dark-web-indias-largest-psu-bank-launches-cybersecurity-probe",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T05:06:41Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Confirmed data breach involving 3,897 customer records at a major bank, triggering a cybersecurity probe.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Confirmed data breach involving 3,897 customer records at a major bank, triggering a cybersecurity probe.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "State Bank of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261021-099",
       "headline": "L&T Technology Services Shares Jump 10% After Q2 Results",
       "headline_en": null,
@@ -1705,287 +1957,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261021-068",
-      "headline": "Musk Seizes On SpaceX Momentum With Push Toward Tesla Merger",
+      "inbox_id": "INB-20261021-136",
+      "headline": "OpenAI acquires Orchestra Bio, expands life sciences push",
       "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/musk-seizes-on-spacex-momentum-with-push-toward-tesla-merger-12212968#publisher=newsstand",
-      "source_name": "NDTV Profit",
+      "url": "https://www.thehindubusinessline.com/info-tech/openai-acquires-orchestra-bio-expands-life-sciences-push/article71606284.ece",
+      "source_name": "The Hindu BusinessLine",
       "input_nature": "news_headline",
-      "found_at": "2026-10-21T02:04:04Z",
+      "found_at": "2026-10-21T05:21:51Z",
       "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Elon Musk is reportedly exploring a potential merger between SpaceX and Tesla.",
+      "prelim_note": "OpenAI acquired Orchestra Bio to expand into life sciences.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 91,
-      "triage_reason": "Elon Musk is reportedly exploring a potential merger between SpaceX and Tesla.",
+      "triage_reason": "OpenAI acquired Orchestra Bio to expand into life sciences.",
       "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-055",
-      "headline": "Musk says SpaceX-Tesla merger a ‘good idea’ as AI revenue jumps ninefold",
-      "headline_en": null,
-      "url": "https://cointelegraph.com/markets/musk-says-spacex-tesla-merger-a-good-idea-as-ai-revenue-jumps-ninefold?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source_name": "Cointelegraph",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T01:19:14Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Musk reiterated that a SpaceX-Tesla merger is a good idea as AI revenue grows.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Musk reiterated that a SpaceX-Tesla merger is a good idea as AI revenue grows.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-090",
-      "headline": "Kalpataru Projects International Limited: Kalpataru Projects International Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/KALPATPOWR_21102026084653_SEIntimationPR21102026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-21T03:17:12Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "The company announced the receipt of new orders/contracts, which is a positive commercial development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "The company announced the receipt of new orders/contracts, which is a positive commercial development.",
-      "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 65,
       "rank_factors": {
         "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kalpataru Projects International Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-015",
-      "headline": "SBP GROUP (01177): VOLUNTARY ANNOUNCEMENT - COMPLETION OF ALL PARTICIPANTS ENROLLMENT IN THE PHASE III REGISTRATIONAL CLINICAL TRIAL OF TQC2731 INJECTION \"TSLP MONOCLONAL ANTIBODY\" FOR CHRONIC SINUSITIS WITH NASAL POLYPS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102100047.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-20T23:54:00Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Completion of enrollment for a Phase III clinical trial is a significant operational milestone for a biotech company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Completion of enrollment for a Phase III clinical trial is a significant operational milestone for a biotech company.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SBP GROUP",
-          "ticker": "01177",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-050",
-      "headline": "Saluda Medical's shares hit record low on Evoke device recall",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/litigation/saluda-medicals-shares-hit-record-low-evoke-device-recall-2026-10-21/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T01:07:07Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Saluda Medical faces a product recall for its Evoke device, causing shares to hit a record low.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Saluda Medical faces a product recall for its Evoke device, causing shares to hit a record low.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saluda Medical",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-026",
-      "headline": "SpaceX-Tesla mega-merger a ‘good idea’ as companies explore deal",
-      "headline_en": null,
-      "url": "https://www.afr.com/technology/spacex-and-tesla-form-special-committees-to-study-potential-merger-20261021-p617bi?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-20T22:45:27Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Speculation regarding a potential mega-merger between SpaceX and Tesla, though unconfirmed, represents a significant potential corporate event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Speculation regarding a potential mega-merger between SpaceX and Tesla, though unconfirmed, represents a significant potential corporate event.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
         "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
+        "recency": 5,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
@@ -1999,12 +1995,7 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "SpaceX",
+          "name": "OpenAI",
           "ticker": null,
           "listing_country": "US"
         }
@@ -234311,9 +234302,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3521289,
-    "news_picked_today": 155,
-    "news_dropped_today": 2509
+    "news_seen_today": 3553746,
+    "news_picked_today": 184,
+    "news_dropped_today": 2600
   },
   "book_momentum": {
     "live_count": 8,
