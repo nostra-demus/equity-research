@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T09:11:42Z",
+  "generated_at": "2026-10-21T09:16:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-209",
@@ -193,6 +193,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-214",
+      "headline": "UK’s Biggest Port Operator Valued at £10 Billion in Stake Sale",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-21/uk-s-biggest-port-operator-valued-at-10-billion-in-stake-sale",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T08:34:22Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Stake sale of UK's biggest port operator valued at £10 billion, a large capital transaction affecting ownership structure and strategic control of critical infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Stake sale of UK's biggest port operator valued at £10 billion, a large capital transaction affecting ownership structure and strategic control of critical infrastructure.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UK Major Port Operator (name not explicitly stated in headline)",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1942,55 +1992,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-115",
-      "headline": "UCO Bank raises $730 million through FCNR deposits, avoids high-cost bulk funds",
-      "headline_en": null,
-      "url": "https://www.livemint.com/industry/banking/uco-bank-730-million-fcnr-deposits-bulk-funds-credit-growth-asset-quality-11792553778517.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T04:32:02Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "UCO Bank raised $730 million through FCNR deposits to optimize its funding cost structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "UCO Bank raised $730 million through FCNR deposits to optimize its funding cost structure.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UCO Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -234150,9 +234151,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4675361,
-    "news_picked_today": 304,
-    "news_dropped_today": 6152
+    "news_seen_today": 4711827,
+    "news_picked_today": 310,
+    "news_dropped_today": 6170
   },
   "book_momentum": {
     "live_count": 8,
