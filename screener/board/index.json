@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T04:57:54Z",
+  "generated_at": "2026-10-21T05:01:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-087",
@@ -95,6 +95,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-117",
+      "headline": "L&T Tech Services shares surge 15% after Q2 2026 results - Should investors buy, sell, or hold stock? Experts suggestion",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/lt-tech-services-shares-surge-15-after-q2-results-should-investors-buy-sell-or-hold-the-stock-experts-suggest-11792556660824.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T04:33:27Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "L&T Tech Services reported Q2 2026 results that triggered a 15% surge in share price.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "L&T Tech Services reported Q2 2026 results that triggered a 15% surge in share price.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "L&T Technology Services",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1961,55 +2010,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-018",
-      "headline": "ASCENTAGE (06855): VOLUNTARY ANNOUNCEMENT - ASCENTAGE PHARMA'S LISAFTOCLAX GRANTED BREAKTHROUGH THERAPY DESIGNATION IN CHINA FOR TREATMENT-NAIVE CLL/SLL",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102100017.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-20T23:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Ascentage Pharma received breakthrough therapy designation for its drug candidate, a positive regulatory milestone for its pipeline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Ascentage Pharma received breakthrough therapy designation for its drug candidate, a positive regulatory milestone for its pipeline.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ascentage Pharma",
-          "ticker": "06855",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -234385,9 +234385,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3121576,
-    "news_picked_today": 149,
-    "news_dropped_today": 2371
+    "news_seen_today": 3182640,
+    "news_picked_today": 150,
+    "news_dropped_today": 2394
   },
   "book_momentum": {
     "live_count": 8,
