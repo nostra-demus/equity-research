@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T04:12:02Z",
+  "generated_at": "2026-10-21T04:17:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-087",
@@ -638,6 +638,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-110",
+      "headline": "Elon Musk says SpaceX-Tesla merger is 'a good idea' as companies form deal committees",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/business/elon-musk-says-spacex-tesla-merger-is-a-good-idea-as-companies-form-deal-committees",
+      "source_name": "Khaleej Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T04:08:34Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Elon Musk suggests a potential merger between Tesla and SpaceX, which would be a massive corporate consolidation event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Elon Musk suggests a potential merger between Tesla and SpaceX, which would be a massive corporate consolidation event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1897,106 +1951,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261021-003",
-      "headline": "Elon Musk's SpaceX reports a profit and he hints at a possible merger with Tesla",
+      "inbox_id": "INB-20261021-111",
+      "headline": "DAHSING B N3704 (40796): Publication of Pricing Supplement and Offering Circular - US$300,000,000 Dated Subordinated Notes due 2037 under the US$2,000,000,000 Euro Medium Term Note Programme of Dah Sing Bank, Limited",
       "headline_en": null,
-      "url": "https://mainichi.jp/english/articles/20261021/p2g/00m/0in/020000c",
-      "source_name": "The Mainichi",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-20T23:52:33Z",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102100183.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T04:01:00Z",
       "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "SpaceX reported a profit while Musk raised the possibility of merging SpaceX with Tesla.",
+      "prelim_note": "Dah Sing Bank is issuing US$300 million in subordinated notes.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 87,
-      "triage_reason": "SpaceX reported a profit while Musk raised the possibility of merging SpaceX with Tesla.",
-      "region": "US",
+      "triage_reason": "Dah Sing Bank is issuing US$300 million in subordinated notes.",
+      "region": "CN",
       "relevance": "material",
-      "materiality_pre_score": 65,
+      "materiality_pre_score": 60,
       "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Tesla",
-          "ticker": "TSLA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-048",
-      "headline": "Bajaj Finance shares in focus after Q2 results, increased AUM guidance, margin pressure",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/bajaj-finance-share-price-q2-result-reaction-fy27-guidance-aum-margin-repo-rate-buy-sell-target-outlook-20015660.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T00:52:43Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Bajaj Finance reported Q2 results with increased AUM guidance but noted margin pressure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Bajaj Finance reported Q2 results with increased AUM guidance but noted margin pressure.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
+        "materiality": 60,
+        "source_tier": 8,
         "scope": 6,
         "event": 7,
-        "size": 2,
+        "size": 1,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
       },
       "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
+        "debt_credit"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Bajaj Finance",
+          "name": "Dah Sing Bank",
           "ticker": null,
-          "listing_country": "IN"
+          "listing_country": "CN"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -234369,9 +234367,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2633256,
-    "news_picked_today": 131,
-    "news_dropped_today": 1933
+    "news_seen_today": 2707042,
+    "news_picked_today": 133,
+    "news_dropped_today": 2003
   },
   "book_momentum": {
     "live_count": 8,
