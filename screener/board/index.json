@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T03:51:57Z",
+  "generated_at": "2026-10-21T03:57:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-087",
@@ -586,6 +586,56 @@
           "name": "New World Development",
           "ticker": "00017",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-098",
+      "headline": "Bajaj Finance share price falls after margin warning in earnings call; Bullish analysts see 33% upside",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/bajaj-finance-share-price-q2-result-reaction-fy27-guidance-aum-margin-repo-rate-buy-sell-target-outlook-20015660.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T03:48:26Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Bajaj Finance shares fell after management issued a margin warning during their earnings call.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Bajaj Finance shares fell after management issued a margin warning during their earnings call.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bajaj Finance",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1942,50 +1992,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-037",
-      "headline": "U.S. importer files lawsuit challenging Trump’s new tariffs on Canadian goods",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-us-food-importer-files-lawsuit-challenging-trump-tariffs-canadian/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T00:34:28Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "A lawsuit challenging new tariffs on Canadian goods introduces legal and trade risk for cross-border commerce.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "A lawsuit challenging new tariffs on Canadian goods introduces legal and trade risk for cross-border commerce.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -234358,9 +234364,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2474094,
-    "news_picked_today": 113,
-    "news_dropped_today": 1783
+    "news_seen_today": 2517474,
+    "news_picked_today": 116,
+    "news_dropped_today": 1828
   },
   "book_momentum": {
     "live_count": 8,
