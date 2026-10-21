@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T17:31:26Z",
+  "generated_at": "2026-10-21T17:52:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-451",
@@ -927,6 +927,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-454",
+      "headline": "Meta ordered to pay $25 billion penalty in New Mexico Cambridge Analytica case",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/21/meta-new-mexico-cambridge-analytica-penalty.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T17:45:23Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Meta was ordered to pay a $25 billion penalty in the New Mexico Cambridge Analytica case.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta was ordered to pay a $25 billion penalty in the New Mexico Cambridge Analytica case.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1935,55 +1984,6 @@
           "name": "Getty Images",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-167",
-      "headline": "Carrefour shares seen sharply down after guidance cut on France riots",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/carrefour-shares-seen-sharply-down-after-guidance-cut-france-riots-2026-10-21/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T06:52:43Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Carrefour issued a guidance cut due to riots in France.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Carrefour issued a guidance cut due to riots in France.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Carrefour",
-          "ticker": null,
-          "listing_country": "FR"
         }
       ],
       "size_bucket": "large",
@@ -192197,78 +192197,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-1ab96d880872",
-      "idea_version": "IDEAV-c1dd138dade36dfb",
-      "idea_version_started_at": "2026-10-20T09:35:45Z",
-      "ticker": "ABB",
-      "company": "ABB Ltd",
-      "exchange": "SIX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of a 51% stake in a joint venture with Mitsubishi Electric expands ABB's industrial automation footprint in Japan, providing a direct revenue synergy in the power and automation sector.",
-      "why_now": "The deal was announced today, October 20, 2026, with a valuation of JPY 82.4 billion.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ddddc5d57a67"
-      ],
-      "primary_source_event_id": "EVT-ddddc5d57a67",
-      "source_headlines": [
-        "ABB To Acquire 51% Stake In Mitsubishi Electric Joint Venture For JPY 82.4 Bln"
-      ],
-      "source_headline": "ABB To Acquire 51% Stake In Mitsubishi Electric Joint Venture For JPY 82.4 Bln",
-      "source_url": "https://www.nasdaq.com/articles/abb-acquire-51-stake-mitsubishi-electric-joint-venture-jpy-824-bln",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-20T05:34:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-20T09:35:45Z",
-      "updated_at": "2026-10-20T09:35:45Z",
-      "decay_at": "2026-10-21T17:34:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-81be6afe314c",
       "idea_version": "IDEAV-c042039f00bb78f7",
       "idea_version_started_at": "2026-10-20T09:35:45Z",
@@ -193605,6 +193533,78 @@
       "surfaced_at": "2026-10-19T00:56:11Z",
       "updated_at": "2026-10-19T00:56:11Z",
       "decay_at": "2026-10-20T12:17:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-1ab96d880872",
+      "idea_version": "IDEAV-c1dd138dade36dfb",
+      "idea_version_started_at": "2026-10-20T09:35:45Z",
+      "ticker": "ABB",
+      "company": "ABB Ltd",
+      "exchange": "SIX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of a 51% stake in a joint venture with Mitsubishi Electric expands ABB's industrial automation footprint in Japan, providing a direct revenue synergy in the power and automation sector.",
+      "why_now": "The deal was announced today, October 20, 2026, with a valuation of JPY 82.4 billion.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ddddc5d57a67"
+      ],
+      "primary_source_event_id": "EVT-ddddc5d57a67",
+      "source_headlines": [
+        "ABB To Acquire 51% Stake In Mitsubishi Electric Joint Venture For JPY 82.4 Bln"
+      ],
+      "source_headline": "ABB To Acquire 51% Stake In Mitsubishi Electric Joint Venture For JPY 82.4 Bln",
+      "source_url": "https://www.nasdaq.com/articles/abb-acquire-51-stake-mitsubishi-electric-joint-venture-jpy-824-bln",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-20T05:34:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-20T09:35:45Z",
+      "updated_at": "2026-10-20T09:35:45Z",
+      "decay_at": "2026-10-21T17:34:17Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -197213,14 +197213,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 562,
+    "total_count": 563,
     "shown_count": 499,
-    "hidden_count": 63,
+    "hidden_count": 64,
     "side_counts": {
       "long": {
-        "total_count": 297,
+        "total_count": 298,
         "shown_count": 250,
-        "hidden_count": 47
+        "hidden_count": 48
       },
       "short": {
         "total_count": 266,
@@ -197244,6 +197244,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-1ab96d880872",
+        "idea_version": "IDEAV-c1dd138dade36dfb",
+        "idea_version_started_at": "2026-10-20T09:35:45Z",
+        "ticker": "ABB",
+        "company": "ABB Ltd",
+        "exchange": "SIX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of a 51% stake in a joint venture with Mitsubishi Electric expands ABB's industrial automation footprint in Japan, providing a direct revenue synergy in the power and automation sector.",
+        "why_now": "The deal was announced today, October 20, 2026, with a valuation of JPY 82.4 billion.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ddddc5d57a67"
+        ],
+        "primary_source_event_id": "EVT-ddddc5d57a67",
+        "source_headlines": [
+          "ABB To Acquire 51% Stake In Mitsubishi Electric Joint Venture For JPY 82.4 Bln"
+        ],
+        "source_headline": "ABB To Acquire 51% Stake In Mitsubishi Electric Joint Venture For JPY 82.4 Bln",
+        "source_url": "https://www.nasdaq.com/articles/abb-acquire-51-stake-mitsubishi-electric-joint-venture-jpy-824-bln",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-20T05:34:17Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-20T09:35:45Z",
+        "updated_at": "2026-10-20T09:35:45Z",
+        "decay_at": "2026-10-21T17:34:17Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-21T17:34:17Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-6a677867cd74",
         "idea_version": "IDEAV-95af84df83052fb4",
@@ -224418,88 +224493,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-9fbc8c283eae",
-        "idea_version": "IDEAV-84895bca3817d1ca",
-        "idea_version_started_at": "2026-10-06T13:00:06Z",
-        "ticker": "INF",
-        "company": "Informa",
-        "exchange": "LSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Informa is acquiring Clarion Events for £2.2 billion, expanding its events business and potentially driving revenue growth.",
-        "why_now": "Multiple sources report the deal is signed or nearing completion, with Informa also spinning off its academic arm as part of a strategic overhaul.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 10,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2ca2d60e4b9a",
-          "EVT-99ed28d1da57",
-          "EVT-febbdd85ef3e",
-          "EVT-321e84be59ae",
-          "EVT-978072d76722",
-          "EVT-429c6054f5a6"
-        ],
-        "primary_source_event_id": "EVT-2ca2d60e4b9a",
-        "source_headlines": [
-          "Informa to buy rival events business Clarion from Blackstone for £2.2bn",
-          "Informa to Buy Events Firm from Blackstone for £2.2 Billion",
-          "Informa to Separate Academic Business; Buys Clarion Events for $2.96 Billion",
-          "UK's Informa signs $3 billion Clarion deal, spins off academic arm"
-        ],
-        "source_headline": "Informa to buy rival events business Clarion from Blackstone for £2.2bn",
-        "source_url": "https://www.ft.com/content/0c8c0122-cc24-4ea5-bc7f-09bfc95d3dd1?syn-25a6b1a6=1",
-        "source_name": "Financial Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-06T08:03:09Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-06T13:00:06Z",
-        "updated_at": "2026-10-06T13:00:06Z",
-        "decay_at": "2026-10-07T20:03:09Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-09T08:52:59Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-05438fee3589",
         "idea_version": "IDEAV-969258fc489d53f6",
         "idea_version_started_at": "2026-10-06T13:00:06Z",
@@ -234413,7 +234406,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1779,
-    "live_count": 38,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -234432,9 +234425,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7031913,
-    "news_picked_today": 791,
-    "news_dropped_today": 13129
+    "news_seen_today": 7120886,
+    "news_picked_today": 802,
+    "news_dropped_today": 13622
   },
   "book_momentum": {
     "live_count": 8,
