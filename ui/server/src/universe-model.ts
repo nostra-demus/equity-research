@@ -189,6 +189,7 @@ export function createUniverseModel(file: string, deps: {
     quoteRefreshing = true
     phase = 'membership'
     let dirty = false
+    let finished = false
     let persistedAt = now()
     progress = []; fetched = 0; total = null; error = null; startedAt = new Date(now()).toISOString()
     try {
@@ -298,6 +299,7 @@ export function createUniverseModel(file: string, deps: {
       await persist(complete)
       saved = complete
       dirty = false
+      finished = true
     } catch (e) {
       error = e instanceof Error ? e.message : 'Finviz refresh failed.'
       if (/403|429|restricted/i.test(error)) {
@@ -307,7 +309,7 @@ export function createUniverseModel(file: string, deps: {
       try { if (dirty && saved) await persist(saved) }
       catch { error = 'Finviz prices could not be saved. Last disk snapshot retained.' }
       quoteRefreshing = false; phase = null
-      if (error || !stopped()) nextAt = Math.max(nextAt, now() + (error ? ERROR_BACKOFF_MS : MODEL_REFRESH_MS))
+      if (error || finished) nextAt = Math.max(nextAt, now() + (error ? ERROR_BACKOFF_MS : MODEL_REFRESH_MS))
     }
   }
   const nextDetail = () => {

@@ -137,6 +137,32 @@ try {
   assert.deepEqual(yieldingCalls[1], ['CO20'], 'clearing the barrier resumes unfinished prices without a new five-minute delay')
   await yielding.close()
 
+  const raceFile = path.join(dir, 'yield-clears-during-save.json')
+  await fs.writeFile(raceFile, JSON.stringify(snapshot()))
+  const raceCalls: string[][] = []
+  let clearedDuringSave = false
+  const racing = createUniverseModel(raceFile, { now: () => at, wait: async () => {
+    if (!clearedDuringSave && raceCalls.length === 1) await fs.writeFile(intent, 'local test deployment')
+  }, fetchPage: async (url) => {
+    const tickers = new URL(url).searchParams.get('t')?.split(',')
+    if (tickers) raceCalls.push(tickers)
+    return html(url, members(url))
+  } })
+  const writeFile = fs.writeFile
+  fs.writeFile = async (...args: Parameters<typeof fs.writeFile>) => {
+    if (!clearedDuringSave && String(args[0]).startsWith(`${raceFile}.`)) {
+      await fs.rm(intent); clearedDuringSave = true
+    }
+    return writeFile(...args)
+  }
+  try { await racing.read(); await racing.settled() }
+  finally { fs.writeFile = writeFile }
+  assert.equal(clearedDuringSave, true)
+  assert.equal(raceCalls.length, 1)
+  await racing.read(); await racing.settled()
+  assert.deepEqual(raceCalls[1], ['CO20'], 'yielding stays incomplete even if intent clears during checkpoint persistence')
+  await racing.close()
+
   const detailFile = path.join(dir, 'yielding-details.json')
   await fs.writeFile(detailFile, JSON.stringify(snapshot(rows, stamp)))
   let detailCalls = 0
