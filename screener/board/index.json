@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-21T09:43:35Z",
+  "generated_at": "2026-10-21T10:02:23Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261021-243",
+      "headline": "Grasim Industries Limited: Commencement of commercial production of EPICHLOROHYDRIN Plant at Vilayat, Gujarat",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/GRASIM_21102026145138_SEIntimationCommencement.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T09:21:59Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Grasim Industries has commenced commercial production at its new Epichlorohydrin plant in Vilayat, Gujarat.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Grasim Industries has commenced commercial production at its new Epichlorohydrin plant in Vilayat, Gujarat.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Grasim Industries Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261021-209",
       "headline": "JINHUI HOLDINGS (00137): Very Substantial Acquisition",
@@ -1936,60 +1985,6 @@
           "name": "Bajaj Finance",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-036",
-      "headline": "Iveco's minority shareholders emerge as key hurdle to Tata’s takeover bid",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/tata-motors-iveco-deal-status-shareholder-approval-11792483781433.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T00:30:39Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Minority shareholders are creating a hurdle for Tata's takeover bid for Iveco.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Minority shareholders are creating a hurdle for Tata's takeover bid for Iveco.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Iveco",
-          "ticker": null,
-          "listing_country": "IT"
         }
       ],
       "size_bucket": "large",
@@ -234151,9 +234146,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4801091,
-    "news_picked_today": 360,
-    "news_dropped_today": 7056
+    "news_seen_today": 4905911,
+    "news_picked_today": 365,
+    "news_dropped_today": 7579
   },
   "book_momentum": {
     "live_count": 8,
