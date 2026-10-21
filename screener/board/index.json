@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T21:43:06Z",
+  "generated_at": "2026-10-21T21:52:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-466",
@@ -981,6 +981,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261021-471",
+      "headline": "Stock Market Today, Oct. 21: Netflix Cuts Ad Revenue Guidance, Stock Slides 5%",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/stock-market-today-oct-21-netflix-cuts-ad-revenue-guidance-stock-slides-5",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T21:08:48Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Ad-revenue guidance cut on a material growth segment lowers expectations; stock down 5%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ad-revenue guidance cut on a material growth segment lowers expectations; stock down 5%.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Netflix Inc.",
+          "ticker": "NFLX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261021-468",
       "headline": "Meta raises AI spending forecast to $145 billion, plans new share issue; Q3 revenue beats estimates",
       "headline_en": null,
@@ -1940,60 +1989,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-294",
-      "headline": "Elon Musk Backs Tesla-SpaceX Mega Merger",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-10-21/the-pulse-10-21-2026-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T10:41:32Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Elon Musk has publicly backed a potential mega-merger between Tesla and SpaceX.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Elon Musk has publicly backed a potential mega-merger between Tesla and SpaceX.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -234296,9 +234291,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8111413,
-    "news_picked_today": 914,
-    "news_dropped_today": 16750
+    "news_seen_today": 8129990,
+    "news_picked_today": 922,
+    "news_dropped_today": 16910
   },
   "book_momentum": {
     "live_count": 8,
