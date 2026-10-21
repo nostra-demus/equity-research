@@ -27,7 +27,7 @@ test('Current prices refresh independently, preserve source/time and degrade wit
     expect(route.request().headers()['x-nostra-model']).toBe(MODEL_CLIENT_VERSION)
     return route.fulfill({ json: body })
   })
-  await context.route('**/api/screener/universe-model/quotes?*', (route) => {
+  await context.route('**/api/screener/universe-model/quotes?*', async (route) => {
     quoteCalls++
     expect(new URL(route.request().url()).searchParams.get('tickers')).toBe('CO')
     if (mode === 'held') {
