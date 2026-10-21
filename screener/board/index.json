@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T04:27:56Z",
+  "generated_at": "2026-10-21T04:38:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-087",
@@ -95,6 +95,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-113",
+      "headline": "FirstFT: SpaceX and Tesla explore merger",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/ae820b11-e085-44b4-a8ca-8e5fa2eeb571?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T04:31:08Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "SpaceX and Tesla are reportedly exploring a potential merger, which would be a massive corporate combination.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SpaceX and Tesla are reportedly exploring a potential merger, which would be a massive corporate combination.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Tesla",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1951,55 +2005,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-081",
-      "headline": "Fortescue fires top executive after harassment, bullying investigation",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/mining/fortescue-fires-top-executive-after-harassment-bullying-investigation-20261021-p617gf?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T02:33:09Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Fortescue terminated a top executive following an internal investigation into harassment and bullying.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Fortescue terminated a top executive following an internal investigation into harassment and bullying.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fortescue",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -234372,9 +234377,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2810225,
-    "news_picked_today": 135,
-    "news_dropped_today": 2073
+    "news_seen_today": 2927765,
+    "news_picked_today": 138,
+    "news_dropped_today": 2238
   },
   "book_momentum": {
     "live_count": 8,
