@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T09:16:22Z",
+  "generated_at": "2026-10-21T09:25:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-209",
@@ -1495,6 +1495,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261021-223",
+      "headline": "LMW Limited: LMW Limited has informed the Exchange about the Capacity Addition.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/LAXMIMACH_21102026143513_FILINGFINRES30092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T09:05:26Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "LMW Limited has announced a capacity addition expansion plan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "LMW Limited has announced a capacity addition expansion plan.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LMW Limited",
+          "ticker": "LAXMIMACH",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261021-186",
       "headline": "NCK: Trading Update and 1H FY27 Profit Guidance [price-sensitive]",
       "headline_en": null,
@@ -1942,56 +1992,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-160",
-      "headline": "Woodside Energy Q3 Revenues Climb Despite Weak Production, Sales; Cuts FY26 Production View",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/woodside-energy-q3-revenues-climb-despite-weak-production-sales-cuts-fy26-production-view",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T05:45:16Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Woodside Energy reports Q3 revenue growth offset by weak production and sales, and cuts FY26 production guidance, signaling reduced near-term output and earnings expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Woodside Energy reports Q3 revenue growth offset by weak production and sales, and cuts FY26 production guidance, signaling reduced near-term output and earnings expectations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 76,
-      "rank_factors": {
-        "materiality": 76,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Woodside Energy",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -190212,76 +190212,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-cb1691406614",
-      "idea_version": "IDEAV-ccd51edb65b54b35",
-      "idea_version_started_at": "2026-10-19T23:11:18Z",
-      "ticker": "TW",
-      "company": "Tradeweb Markets",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of Trumid for $1.97 billion expands Tradeweb's footprint in the electronic credit trading market, enhancing its competitive position against rivals in fixed-income execution.",
-      "why_now": "The deal was announced on October 19, 2026, and is expected to be accretive to long-term earnings.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2c580dd9a074"
-      ],
-      "primary_source_event_id": "EVT-2c580dd9a074",
-      "source_headlines": [
-        "Tradeweb to Buy Trumid For About $1.97 Billion"
-      ],
-      "source_headline": "Tradeweb to Buy Trumid For About $1.97 Billion",
-      "source_url": "https://www.wsj.com/business/deals/tradeweb-to-buy-trumid-for-about-1-97-billion-1fd21bdb?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-19T21:23:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-19T23:11:18Z",
-      "updated_at": "2026-10-19T23:11:18Z",
-      "decay_at": "2026-10-21T09:23:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-1d4479b8075a",
       "idea_version": "IDEAV-3085819aeec46e73",
       "idea_version_started_at": "2026-10-21T01:02:58Z",
@@ -193191,6 +193121,76 @@
       "surfaced_at": "2026-10-20T00:46:02Z",
       "updated_at": "2026-10-20T00:46:02Z",
       "decay_at": "2026-10-21T02:02:31Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-cb1691406614",
+      "idea_version": "IDEAV-ccd51edb65b54b35",
+      "idea_version_started_at": "2026-10-19T23:11:18Z",
+      "ticker": "TW",
+      "company": "Tradeweb Markets",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of Trumid for $1.97 billion expands Tradeweb's footprint in the electronic credit trading market, enhancing its competitive position against rivals in fixed-income execution.",
+      "why_now": "The deal was announced on October 19, 2026, and is expected to be accretive to long-term earnings.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2c580dd9a074"
+      ],
+      "primary_source_event_id": "EVT-2c580dd9a074",
+      "source_headlines": [
+        "Tradeweb to Buy Trumid For About $1.97 Billion"
+      ],
+      "source_headline": "Tradeweb to Buy Trumid For About $1.97 Billion",
+      "source_url": "https://www.wsj.com/business/deals/tradeweb-to-buy-trumid-for-about-1-97-billion-1fd21bdb?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-19T21:23:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T23:11:18Z",
+      "updated_at": "2026-10-19T23:11:18Z",
+      "decay_at": "2026-10-21T09:23:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -196929,14 +196929,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 553,
+    "total_count": 554,
     "shown_count": 499,
-    "hidden_count": 54,
+    "hidden_count": 55,
     "side_counts": {
       "long": {
-        "total_count": 289,
+        "total_count": 290,
         "shown_count": 250,
-        "hidden_count": 39
+        "hidden_count": 40
       },
       "short": {
         "total_count": 265,
@@ -196960,6 +196960,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-cb1691406614",
+        "idea_version": "IDEAV-ccd51edb65b54b35",
+        "idea_version_started_at": "2026-10-19T23:11:18Z",
+        "ticker": "TW",
+        "company": "Tradeweb Markets",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of Trumid for $1.97 billion expands Tradeweb's footprint in the electronic credit trading market, enhancing its competitive position against rivals in fixed-income execution.",
+        "why_now": "The deal was announced on October 19, 2026, and is expected to be accretive to long-term earnings.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2c580dd9a074"
+        ],
+        "primary_source_event_id": "EVT-2c580dd9a074",
+        "source_headlines": [
+          "Tradeweb to Buy Trumid For About $1.97 Billion"
+        ],
+        "source_headline": "Tradeweb to Buy Trumid For About $1.97 Billion",
+        "source_url": "https://www.wsj.com/business/deals/tradeweb-to-buy-trumid-for-about-1-97-billion-1fd21bdb?mod=rss_markets_main",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-19T21:23:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-19T23:11:18Z",
+        "updated_at": "2026-10-19T23:11:18Z",
+        "decay_at": "2026-10-21T09:23:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-21T09:23:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-127874aade22",
         "idea_version": "IDEAV-7b79c5097d33d1e9",
@@ -224223,81 +224296,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-bb113d4666c7",
-        "idea_version": "IDEAV-16095ccd3c16d796",
-        "idea_version_started_at": "2026-10-06T04:16:10Z",
-        "ticker": "066570",
-        "company": "LG Electronics",
-        "exchange": "KRX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company secured a 5 trillion won contract for AIDC cooling systems, providing a significant revenue tailwind from the growing data center infrastructure market.",
-        "why_now": "The contract was announced on 2026-10-06, providing a clear catalyst for earnings growth.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-8efebdf57af1"
-        ],
-        "primary_source_event_id": "EVT-8efebdf57af1",
-        "source_headlines": [
-          "LG Electronics Lands Up to 5 Trillion Won North America AIDC Cooling Deal"
-        ],
-        "source_headline": "LG Electronics Lands Up to 5 Trillion Won North America AIDC Cooling Deal",
-        "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=278232",
-        "source_name": "Business Korea — All English Articles",
-        "materiality_max": 98,
-        "newest_source_at": "2026-10-06T04:01:52Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-06T04:16:10Z",
-        "updated_at": "2026-10-06T04:16:10Z",
-        "decay_at": "2026-10-07T16:01:52Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-09T04:30:28Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-0a1283616e19",
         "idea_version": "IDEAV-60ab8984e7ab1234",
         "idea_version_started_at": "2026-10-06T04:37:12Z",
@@ -234132,7 +234130,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1773,
-    "live_count": 43,
+    "live_count": 42,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -234151,9 +234149,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4711827,
-    "news_picked_today": 310,
-    "news_dropped_today": 6170
+    "news_seen_today": 4730216,
+    "news_picked_today": 327,
+    "news_dropped_today": 6657
   },
   "book_momentum": {
     "live_count": 8,
