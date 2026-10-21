@@ -107,6 +107,16 @@ try {
   await quota.tick(); await quota.settled(); assert.equal(blockedCalls, 1); await quota.close()
   const quotaRestart = createUniverseEngine(path.join(dir, 'quota'), { ...deps, infer: async () => { blockedCalls++; return { costUsd: 0 } } })
   await quotaRestart.start(); await quotaRestart.settled(); assert.equal(blockedCalls, 1); await quotaRestart.close()
+  let throwCalls = 0
+  const throwing = createUniverseEngine(path.join(dir, 'throwing'), { ...deps, infer: async (opts) => {
+    if (++throwCalls === 1) throw new Error('private diagnostic')
+    opts.onToken(json(JSON.parse(opts.user).tasks)); return { costUsd: 0 }
+  } })
+  await throwing.run(); await throwing.settled(); status = await throwing.read(read())
+  assert.equal(status.failed_reports, 1); assert.equal(status.error, null)
+  await throwing.run(true); await throwing.settled()
+  assert.equal(throwCalls, 2); assert.equal(modelTotal(throwing.project(rows)[0]), 1, 'one explicit retry recovers an unexpected inference failure')
+  await throwing.close()
   const abortDir = path.join(dir, 'abort')
   let abortEntered!: () => void, abortSettled = false
   const abortEntry = new Promise<void>((resolve) => { abortEntered = resolve })
