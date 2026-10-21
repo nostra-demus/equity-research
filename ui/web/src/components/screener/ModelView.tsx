@@ -20,7 +20,7 @@ export function modelPriceView(row: ModelRow, prices?: ModelPricesRead | null, u
     title: `${quote.symbol} · ${state} · market time ${time}. Retrieved ${date(quote.retrieved_at)}.` }
 }
 
-export function ModelGrid({ rows, prices, priceError = false }: { rows: ModelRow[]; prices?: ModelPricesRead | null; priceError?: boolean }) {
+export function ModelGrid({ rows, prices, priceError = false, priceClock = Date.now() }: { rows: ModelRow[]; prices?: ModelPricesRead | null; priceError?: boolean; priceClock?: number }) {
   const [selection, setSelection] = useState<ModelSelection | null>(null)
   return <><div className="model__scroll" tabIndex={0} aria-label="Company signals; scroll for more columns">
     <table className="model__grid">
@@ -28,7 +28,7 @@ export function ModelGrid({ rows, prices, priceError = false }: { rows: ModelRow
       <thead><tr><th scope="col">Company</th><th scope="col">Market price <small>USD</small></th>
         {MODEL_SIGNALS.map((signal) => <th scope="col" key={signal.id} title={signal.rule}>{signal.label}</th>)}
         <th scope="col" aria-sort="descending">Total ↓</th></tr></thead>
-      <tbody>{rows.map((row) => { const price = modelPriceView(row, prices, priceError); return <tr key={row.ticker}>
+      <tbody>{rows.map((row) => { const price = modelPriceView(row, prices, priceError, priceClock); return <tr key={row.ticker}>
         <th scope="row"><button type="button" className="model__company" aria-haspopup="dialog" onClick={() => setSelection({ row, signal: null })}>{row.company}</button><small>{row.ticker}</small></th>
         <td title={price.title}>{price.price === null ? '—' : `$${price.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}<small>{price.label}</small><small>{price.time}</small></td>
         {MODEL_SIGNALS.map((signal) => {
@@ -49,6 +49,7 @@ export function ModelView() {
   const [loading, setLoading] = useState(false)
   const [prices, setPrices] = useState<ModelPricesRead | null>(null)
   const [priceError, setPriceError] = useState(false)
+  const [priceClock, setPriceClock] = useState(Date.now)
   const pending = useRef(false)
   const mounted = useRef(true)
   const [query, setQuery] = useState('')
@@ -83,18 +84,22 @@ export function ModelView() {
     let alive = true
     let controller: AbortController | null = null
     const tick = async () => {
-      if (controller || document.visibilityState !== 'visible') return
+      if (document.visibilityState !== 'visible') return
+      // Re-age saved quotes immediately on resume, even while a prior request is pending.
+      setPriceClock(Date.now())
+      if (controller) return
       controller = new AbortController()
       try {
         const result = await api.universeModelPrices(companies, controller.signal)
-        if (alive) { setPrices(result); setPriceError(!result.rows.some((row) => row.quote)) }
+        if (alive) { setPriceClock(Date.now()); setPrices(result); setPriceError(!result.rows.some((row) => row.quote)) }
       } catch { if (alive) setPriceError(true) }
       finally { controller = null }
     }
     void tick()
     const timer = setInterval(() => void tick(), MODEL_PRICE_REFRESH_MS)
     window.addEventListener('focus', tick)
-    return () => { alive = false; controller?.abort(); clearInterval(timer); window.removeEventListener('focus', tick) }
+    document.addEventListener('visibilitychange', tick)
+    return () => { alive = false; controller?.abort(); clearInterval(timer); window.removeEventListener('focus', tick); document.removeEventListener('visibilitychange', tick) }
   }, [priceCompanies])
   const eventCoverage = read?.events
   return <section className="model" aria-label="Universe Model">
@@ -131,7 +136,7 @@ export function ModelView() {
       <button type="button" disabled={loading} onClick={() => void refresh()}>Check for updates</button></div>
     {!read?.rows.length ? read?.error || error ? <p>No company data is available yet. Retry to check the free source.</p>
       : <div className="model__skeleton" aria-label="Loading company rows">{Array.from({ length: 8 }, (_, i) => <div key={i} />)}</div>
-      : !ranked.length ? <p>No companies match “{query}”. Clear the search to see the universe.</p> : <ModelGrid rows={shown} prices={prices} priceError={priceError} />}
+      : !ranked.length ? <p>No companies match “{query}”. Clear the search to see the universe.</p> : <ModelGrid rows={shown} prices={prices} priceError={priceError} priceClock={priceClock} />}
     {!!ranked.length && <div className="model__pages"><span>{currentPage * PAGE_SIZE + 1}–{Math.min((currentPage + 1) * PAGE_SIZE, ranked.length)} of {ranked.length.toLocaleString()}</span>
       <button type="button" disabled={currentPage === 0} onClick={() => setPage(currentPage - 1)}>Previous</button>
       <button type="button" disabled={(currentPage + 1) * PAGE_SIZE >= ranked.length} onClick={() => setPage(currentPage + 1)}>Next</button></div>}

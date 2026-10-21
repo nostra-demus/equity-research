@@ -15,7 +15,8 @@ test('Current prices refresh independently, preserve source/time and degrade wit
     fetched: 2016, refresh_total: 2016, refresh_phase: 'membership', started_at: now, completed_at: old, next_refresh_at: now, stale: true, error: null, events: null,
     data: { captured: 0, expected: 8, refreshing: false, error: null } }
   let price = 25
-  let mode: 'live' | 'close' | 'unknown' | 'delayed' | 'offline' | 'wrong' = 'live'
+  let mode: 'live' | 'close' | 'unknown' | 'delayed' | 'offline' | 'wrong' | 'held' = 'live'
+  let releaseHeld: (() => void) | undefined
   let quoteCalls = 0
   const writes: string[] = []
   page.on('request', (request) => {
@@ -29,6 +30,10 @@ test('Current prices refresh independently, preserve source/time and degrade wit
   await context.route('**/api/screener/universe-model/quotes?*', (route) => {
     quoteCalls++
     expect(new URL(route.request().url()).searchParams.get('tickers')).toBe('CO')
+    if (mode === 'held') {
+      await new Promise<void>((resolve) => { releaseHeld = resolve })
+      return route.fulfill({ status: 503, json: { error: 'Quote source unavailable after resume' } })
+    }
     if (mode === 'offline') return route.fulfill({ status: 503, json: { error: 'Quote source unavailable' } })
     const stamp = new Date().toISOString()
     const result: ModelPricesRead = { checked_at: stamp, rows: [{ ticker: 'CO', company: mode === 'wrong' ? 'Different issuer' : 'Company Inc', quote: {
@@ -48,6 +53,18 @@ test('Current prices refresh independently, preserve source/time and degrade wit
   await page.clock.fastForward(15_100)
   await expect(prices).toContainText('$26.00')
   expect(quoteCalls).toBeGreaterThan(1)
+  await page.evaluate(() => Object.defineProperty(document, 'visibilityState', { configurable: true, value: 'hidden' }))
+  await page.clock.fastForward(60_000)
+  mode = 'held'
+  await page.evaluate(() => {
+    Object.defineProperty(document, 'visibilityState', { configurable: true, value: 'visible' })
+    document.dispatchEvent(new Event('visibilitychange'))
+  })
+  await expect(prices).toContainText('Saved · CNBC', { timeout: 1000 })
+  await expect(prices).not.toContainText('CNBC · Live')
+  await expect.poll(() => !!releaseHeld).toBe(true)
+  releaseHeld!()
+  await expect(page.getByText('Price feed unavailable · saved prices shown.')).toBeVisible()
   mode = 'offline'
   await page.clock.fastForward(15_100)
   await expect(prices).toContainText('$26.00')
