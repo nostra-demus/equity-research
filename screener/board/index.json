@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T10:59:43Z",
+  "generated_at": "2026-10-21T11:05:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-257",
@@ -1733,6 +1733,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261021-277",
+      "headline": "Danaher Raises 2026 Adj. Earnings Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/danaher-raises-2026-adj-earnings-guidance",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T10:14:34Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Danaher raised FY26 adjusted earnings guidance, directly shifting consensus profit expectations upward.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Danaher raised FY26 adjusted earnings guidance, directly shifting consensus profit expectations upward.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Danaher Corporation",
+          "ticker": "DHR",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261021-089",
       "headline": "Reliance Jio IPO: Massive ₹30,213 cr issue opens for subscription today | Latest GMP, review, listing price prediction",
       "headline_en": null,
@@ -1777,6 +1826,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-284",
+      "headline": "S-4/A - STANDARD BIOTOOLS INC. (0001162194) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1162194/000114036126040313/0001140361-26-040313-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-21T10:02:31Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Standard Biotools filed amended S-4 registration, confirming M&A transaction; deal party, valuation, structure, and all material terms absent from headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Standard Biotools filed amended S-4 registration, confirming M&A transaction; deal party, valuation, structure, and all material terms absent from headline.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Standard Biotools Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1875,104 +1973,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-017",
-      "headline": "NEW WORLD DEV NWD (MTN) N2802 NWD (MTN) N2706 NWCL N2701 (00017 05149 05321 05343): EARLY SETTLEMENT ANNOUNCEMENT IN RELATION TO THE EXCHANGE OFFERS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102100023.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-20T23:02:00Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "New World Development announced the early settlement of exchange offers for its notes, impacting its debt maturity profile.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "New World Development announced the early settlement of exchange offers for its notes, impacting its debt maturity profile.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "New World Development",
-          "ticker": "00017",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-172",
-      "headline": "NEXTDC Cuts FY27 Revenue, EBITDA Guidance On M3 Power Delay; Shares Plunge",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/nextdc-cuts-fy27-revenue-ebitda-guidance-m3-power-delay-shares-plunge",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T06:35:04Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "NEXTDC cuts FY27 revenue and EBITDA guidance due to M3 Power Delay, materially lowering earnings expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "NEXTDC cuts FY27 revenue and EBITDA guidance due to M3 Power Delay, materially lowering earnings expectations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NEXTDC",
-          "ticker": "NXT",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192184,80 +192184,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c009bc671c9a",
-      "idea_version": "IDEAV-f7ea29f5b95d97f9",
-      "idea_version_started_at": "2026-10-19T23:11:18Z",
-      "ticker": "NAB",
-      "company": "National Australia Bank",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The bank is initiating a massive restructuring involving 2,500 job cuts with an associated $300 million cost, indicating near-term margin pressure and operational headwinds.",
-      "why_now": "The restructuring plan was announced on October 19, 2026, with the majority of layoffs occurring over the coming months.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8a21fe1a1d9c",
-        "EVT-b48f9450924c"
-      ],
-      "primary_source_event_id": "EVT-8a21fe1a1d9c",
-      "source_headlines": [
-        "NAB to cut 2500 jobs in massive restructure, most to go within months",
-        "ASX falls; NAB expects restructure, redundancies to cost bank $300m"
-      ],
-      "source_headline": "NAB to cut 2500 jobs in massive restructure, most to go within months",
-      "source_url": "https://www.afr.com/companies/financial-services/nab-to-cut-2500-jobs-in-massive-restructure-most-to-go-within-months-20261020-p616yh?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-19T23:01:14Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-19T23:11:18Z",
-      "updated_at": "2026-10-19T23:11:18Z",
-      "decay_at": "2026-10-21T11:01:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-193acec1f3b7",
       "idea_version": "IDEAV-7976f5bd314505d0",
       "idea_version_started_at": "2026-10-20T05:56:49Z",
@@ -193805,6 +193731,80 @@
       "surfaced_at": "2026-10-19T00:56:11Z",
       "updated_at": "2026-10-19T00:56:11Z",
       "decay_at": "2026-10-20T12:17:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-c009bc671c9a",
+      "idea_version": "IDEAV-f7ea29f5b95d97f9",
+      "idea_version_started_at": "2026-10-19T23:11:18Z",
+      "ticker": "NAB",
+      "company": "National Australia Bank",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The bank is initiating a massive restructuring involving 2,500 job cuts with an associated $300 million cost, indicating near-term margin pressure and operational headwinds.",
+      "why_now": "The restructuring plan was announced on October 19, 2026, with the majority of layoffs occurring over the coming months.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8a21fe1a1d9c",
+        "EVT-b48f9450924c"
+      ],
+      "primary_source_event_id": "EVT-8a21fe1a1d9c",
+      "source_headlines": [
+        "NAB to cut 2500 jobs in massive restructure, most to go within months",
+        "ASX falls; NAB expects restructure, redundancies to cost bank $300m"
+      ],
+      "source_headline": "NAB to cut 2500 jobs in massive restructure, most to go within months",
+      "source_url": "https://www.afr.com/companies/financial-services/nab-to-cut-2500-jobs-in-massive-restructure-most-to-go-within-months-20261020-p616yh?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-19T23:01:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T23:11:18Z",
+      "updated_at": "2026-10-19T23:11:18Z",
+      "decay_at": "2026-10-21T11:01:14Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -196910,9 +196910,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 555,
+    "total_count": 556,
     "shown_count": 499,
-    "hidden_count": 56,
+    "hidden_count": 57,
     "side_counts": {
       "long": {
         "total_count": 291,
@@ -196920,9 +196920,9 @@
         "hidden_count": 41
       },
       "short": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       }
     },
     "retention": {
@@ -196941,6 +196941,83 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c009bc671c9a",
+        "idea_version": "IDEAV-f7ea29f5b95d97f9",
+        "idea_version_started_at": "2026-10-19T23:11:18Z",
+        "ticker": "NAB",
+        "company": "National Australia Bank",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The bank is initiating a massive restructuring involving 2,500 job cuts with an associated $300 million cost, indicating near-term margin pressure and operational headwinds.",
+        "why_now": "The restructuring plan was announced on October 19, 2026, with the majority of layoffs occurring over the coming months.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8a21fe1a1d9c",
+          "EVT-b48f9450924c"
+        ],
+        "primary_source_event_id": "EVT-8a21fe1a1d9c",
+        "source_headlines": [
+          "NAB to cut 2500 jobs in massive restructure, most to go within months",
+          "ASX falls; NAB expects restructure, redundancies to cost bank $300m"
+        ],
+        "source_headline": "NAB to cut 2500 jobs in massive restructure, most to go within months",
+        "source_url": "https://www.afr.com/companies/financial-services/nab-to-cut-2500-jobs-in-massive-restructure-most-to-go-within-months-20261020-p616yh?ref=rss&utm_medium=rss&utm_source=rss_feed",
+        "source_name": "Australian Financial Review",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-19T23:01:14Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-19T23:11:18Z",
+        "updated_at": "2026-10-19T23:11:18Z",
+        "decay_at": "2026-10-21T11:01:14Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-21T11:01:14Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-9b37e46aeb07",
         "idea_version": "IDEAV-ada99c7ec036b48b",
@@ -234034,85 +234111,12 @@
         "archived_at": "2026-09-25T22:59:15Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-acf746e0f13b",
-        "idea_version": "IDEAV-31f5433301e62c0f",
-        "idea_version_started_at": "2026-09-23T00:45:47Z",
-        "ticker": "DASH",
-        "company": "DoorDash",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The $131.5 million settlement regarding NYC minimum-pay law compliance represents a direct hit to cash flow and sets a negative precedent for labor cost structures in other jurisdictions.",
-        "why_now": "The settlement was announced on 2026-09-22.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-3966d4322bf2"
-        ],
-        "primary_source_event_id": "EVT-3966d4322bf2",
-        "source_headlines": [
-          "DoorDash to Pay $131.5 Million to Resolve NYC Investigation Into Minimum-Pay Law Compliance"
-        ],
-        "source_headline": "DoorDash to Pay $131.5 Million to Resolve NYC Investigation Into Minimum-Pay Law Compliance",
-        "source_url": "https://www.wsj.com/business/doordash-to-pay-131-5-million-to-resolve-nyc-investigation-into-minimum-pay-law-compliance-8237c60e?siteid=yhoof2&yptr=yahoo",
-        "source_name": "Yahoo Finance",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-22T16:36:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-22T13:09:09Z",
-        "updated_at": "2026-09-23T00:45:47Z",
-        "decay_at": "2026-09-24T04:36:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-25T20:29:34Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1773,
-    "live_count": 41,
+    "live_count": 40,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -234131,9 +234135,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5130027,
-    "news_picked_today": 422,
-    "news_dropped_today": 8146
+    "news_seen_today": 5147392,
+    "news_picked_today": 432,
+    "news_dropped_today": 8208
   },
   "book_momentum": {
     "live_count": 8,
