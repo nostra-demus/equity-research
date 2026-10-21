@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T00:19:18Z",
+  "generated_at": "2026-10-21T00:24:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-016",
@@ -242,6 +242,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-022",
+      "headline": "NEW WORLD DEV NWD (MTN) N2802 NWD (MTN) N2706 NWCL N2701 (00017 05149 05321 05343): ANNOUNCEMENT OF FINAL RESULTS FOR THE EXPIRATION DATE IN RELATION TO THE EXCHANGE OFFERS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102100065.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T00:11:00Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "New World Development announced the final results of its exchange offers for multiple MTN notes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "New World Development announced the final results of its exchange offers for multiple MTN notes.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "New World Development",
+          "ticker": "00017",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1004,6 +1053,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261021-024",
+      "headline": "S. Korea’s Export Boom Stays Strong Ahead of BOK Rate Decision",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-21/s-korea-s-export-boom-stays-strong-ahead-of-bok-rate-decision",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "South Korea's strong export data provides a positive economic signal ahead of the Bank of Korea's rate decision.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "South Korea's strong export data provides a positive economic signal ahead of the Bank of Korea's rate decision.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261021-006",
       "headline": "HMM Adds $1.4B Order to Already Record Containership Orderbook",
       "headline_en": null,
@@ -1049,6 +1141,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-023",
+      "headline": "Iran war live: US warns peace deal with Tehran is extremely difficult",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/liveblog/2026/10/21/iran-war-live-us-warns-peace-deal-with-tehran-is-extremely-difficult?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-10-21T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Geopolitical tensions regarding Iran and the US warning that a peace deal is difficult represent a significant risk to global markets and energy prices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Geopolitical tensions regarding Iran and the US warning that a peace deal is difficult represent a significant risk to global markets and energy prices.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -191543,78 +191678,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ee7156fae646",
-      "idea_version": "IDEAV-d4e368614a20c997",
-      "idea_version_started_at": "2026-10-19T20:12:17Z",
-      "ticker": "BAJFINANCE",
-      "company": "Bajaj Finance",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Bajaj Finance's net profit rose 29% to ₹6,367 crore, with Net Interest Income (NII) up 24% in Q2.",
-      "why_now": "The company released its Q2 results on October 19, 2026, demonstrating strong financial performance.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9e99ee38405b"
-      ],
-      "primary_source_event_id": "EVT-9e99ee38405b",
-      "source_headlines": [
-        "Bajaj Finance Q2 results: Net profit rises 29% to ₹6,367 crore; NII up 24%"
-      ],
-      "source_headline": "Bajaj Finance Q2 results: Net profit rises 29% to ₹6,367 crore; NII up 24%",
-      "source_url": "https://www.cnbctv18.com/market/bajaj-finance-share-price-q2fy27-results-net-profit-nii-rises-asset-quality-strong-20015184.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-19T12:21:30Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-19T20:12:17Z",
-      "updated_at": "2026-10-19T20:12:17Z",
-      "decay_at": "2026-10-21T00:21:30Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-193acec1f3b7",
       "idea_version": "IDEAV-7976f5bd314505d0",
       "idea_version_started_at": "2026-10-20T05:56:49Z",
@@ -192888,6 +192951,78 @@
       "surfaced_at": "2026-10-19T20:12:17Z",
       "updated_at": "2026-10-19T20:12:17Z",
       "decay_at": "2026-10-20T23:41:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-ee7156fae646",
+      "idea_version": "IDEAV-d4e368614a20c997",
+      "idea_version_started_at": "2026-10-19T20:12:17Z",
+      "ticker": "BAJFINANCE",
+      "company": "Bajaj Finance",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Bajaj Finance's net profit rose 29% to ₹6,367 crore, with Net Interest Income (NII) up 24% in Q2.",
+      "why_now": "The company released its Q2 results on October 19, 2026, demonstrating strong financial performance.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9e99ee38405b"
+      ],
+      "primary_source_event_id": "EVT-9e99ee38405b",
+      "source_headlines": [
+        "Bajaj Finance Q2 results: Net profit rises 29% to ₹6,367 crore; NII up 24%"
+      ],
+      "source_headline": "Bajaj Finance Q2 results: Net profit rises 29% to ₹6,367 crore; NII up 24%",
+      "source_url": "https://www.cnbctv18.com/market/bajaj-finance-share-price-q2fy27-results-net-profit-nii-rises-asset-quality-strong-20015184.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-19T12:21:30Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T20:12:17Z",
+      "updated_at": "2026-10-19T20:12:17Z",
+      "decay_at": "2026-10-21T00:21:30Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -195990,14 +196125,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 554,
+    "total_count": 555,
     "shown_count": 499,
-    "hidden_count": 55,
+    "hidden_count": 56,
     "side_counts": {
       "long": {
-        "total_count": 290,
+        "total_count": 291,
         "shown_count": 250,
-        "hidden_count": 40
+        "hidden_count": 41
       },
       "short": {
         "total_count": 265,
@@ -196021,6 +196156,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ee7156fae646",
+        "idea_version": "IDEAV-d4e368614a20c997",
+        "idea_version_started_at": "2026-10-19T20:12:17Z",
+        "ticker": "BAJFINANCE",
+        "company": "Bajaj Finance",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Bajaj Finance's net profit rose 29% to ₹6,367 crore, with Net Interest Income (NII) up 24% in Q2.",
+        "why_now": "The company released its Q2 results on October 19, 2026, demonstrating strong financial performance.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9e99ee38405b"
+        ],
+        "primary_source_event_id": "EVT-9e99ee38405b",
+        "source_headlines": [
+          "Bajaj Finance Q2 results: Net profit rises 29% to ₹6,367 crore; NII up 24%"
+        ],
+        "source_headline": "Bajaj Finance Q2 results: Net profit rises 29% to ₹6,367 crore; NII up 24%",
+        "source_url": "https://www.cnbctv18.com/market/bajaj-finance-share-price-q2fy27-results-net-profit-nii-rises-asset-quality-strong-20015184.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-19T12:21:30Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-19T20:12:17Z",
+        "updated_at": "2026-10-19T20:12:17Z",
+        "decay_at": "2026-10-21T00:21:30Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-21T00:21:30Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3a3daba4b79a",
         "idea_version": "IDEAV-5d29901453177f20",
@@ -223441,79 +223651,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-2c6e860326a2",
-        "idea_version": "IDEAV-7b25cf3a26a2fbfd",
-        "idea_version_started_at": "2026-10-06T03:10:09Z",
-        "ticker": "CEG",
-        "company": "Constellation Energy",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is finalizing a billion-dollar deal to supply nuclear power to Google, which provides a long-term, high-margin revenue stream from the growing data center energy demand.",
-        "why_now": "The deal is reported to be near completion as of October 6, 2026.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-7b6856d75fe5"
-        ],
-        "primary_source_event_id": "EVT-7b6856d75fe5",
-        "source_headlines": [
-          "Google, Constellation near billion-dollar deal for nuclear power"
-        ],
-        "source_headline": "Google, Constellation near billion-dollar deal for nuclear power",
-        "source_url": "https://www.cnbctv18.com/business/alphabet-google-constellation-near-billion-dollar-deal-for-nuclear-power-energy-artificial-intelligence-data-center-20005305.htm",
-        "source_name": "CNBC-TV18",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-06T02:42:15Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-06T03:10:09Z",
-        "updated_at": "2026-10-06T03:10:09Z",
-        "decay_at": "2026-10-07T14:42:15Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-09T02:44:31Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-6a5a69a1366b",
         "idea_version": "IDEAV-737506f706118cde",
         "idea_version_started_at": "2026-10-06T02:27:03Z",
@@ -233197,7 +233334,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1767,
-    "live_count": 42,
+    "live_count": 41,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -233207,7 +233344,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3868,
+    "inbox_unconsumed": 3871,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -233216,9 +233353,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 182688,
-    "news_picked_today": 21,
-    "news_dropped_today": 147
+    "news_seen_today": 228440,
+    "news_picked_today": 24,
+    "news_dropped_today": 192
   },
   "book_momentum": {
     "live_count": 8,
