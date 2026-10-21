@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-21T16:21:21Z",
+  "generated_at": "2026-10-21T16:37:20Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261021-451",
+      "headline": "Alkem Laboratories Limited: Alkem Laboratories Limited has informed the Exchange about Initiation of Forensic Audit",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ALKEM_21102026215316_Reg30Disclosurefinalsigned.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T16:23:28Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Alkem Laboratories Limited has informed the Exchange about the initiation of a forensic audit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Alkem Laboratories Limited has informed the Exchange about the initiation of a forensic audit.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alkem Laboratories Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261021-438",
       "headline": "NHPC Limited: NHPC Limited has informed the Exchange about General Updates-In compliance to Regulation 30 of SEBI LODR, intimation regarding commercial operation (CoD) of Unit#5 (250 MW) of Subansiri Lower HE Project (8x250 MW), Assam/Arunachal Pradesh from 00:00 hours 23.10.2026 is submitted. The other details given in the attached letter.",
@@ -1938,49 +1987,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-166",
-      "headline": "Aim-listed tech company agrees huge takeover deal",
-      "headline_en": null,
-      "url": "https://www.cityam.com/aim-listed-tech-company-agrees-huge-takeover-deal/",
-      "source_name": "City A.M.",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T06:51:57Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "An Aim-listed tech company has agreed to a large takeover deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "An Aim-listed tech company has agreed to a large takeover deal.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -234426,9 +234432,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6633108,
-    "news_picked_today": 767,
-    "news_dropped_today": 12481
+    "news_seen_today": 6706246,
+    "news_picked_today": 772,
+    "news_dropped_today": 12668
   },
   "book_momentum": {
     "live_count": 8,
