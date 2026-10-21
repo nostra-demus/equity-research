@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T13:22:51Z",
+  "generated_at": "2026-10-21T13:30:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-302",
@@ -192402,79 +192402,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-aaa2cb1ecefc",
-      "idea_version": "IDEAV-a400997e7a2405c3",
-      "idea_version_started_at": "2026-10-20T05:56:49Z",
-      "ticker": "NAB",
-      "company": "National Australia Bank",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The bank is initiating a significant restructuring involving 2,500 job cuts, which is expected to improve operational efficiency and reduce long-term cost bases.",
-      "why_now": "The announcement was made on October 20, 2026, with the majority of cuts scheduled to occur within the coming months.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b8af2e8030f1",
-        "EVT-63368d24348e"
-      ],
-      "primary_source_event_id": "EVT-b8af2e8030f1",
-      "source_headlines": [
-        "NAB to cut 2,500 jobs in massive restructure",
-        "NAB to cut 2500 jobs in huge restructuring, most to go within months"
-      ],
-      "source_headline": "NAB to cut 2,500 jobs in massive restructure",
-      "source_url": "https://www.theguardian.com/australia-news/2026/oct/20/nab-bank-restructure-2500-jobs-cuts",
-      "source_name": "The Guardian — World news",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-20T01:27:04Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-20T05:56:49Z",
-      "updated_at": "2026-10-20T05:56:49Z",
-      "decay_at": "2026-10-21T13:27:04Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-193acec1f3b7",
       "idea_version": "IDEAV-7976f5bd314505d0",
       "idea_version_started_at": "2026-10-20T05:56:49Z",
@@ -193809,6 +193736,79 @@
       "surfaced_at": "2026-10-19T00:56:11Z",
       "updated_at": "2026-10-19T00:56:11Z",
       "decay_at": "2026-10-20T12:17:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-aaa2cb1ecefc",
+      "idea_version": "IDEAV-a400997e7a2405c3",
+      "idea_version_started_at": "2026-10-20T05:56:49Z",
+      "ticker": "NAB",
+      "company": "National Australia Bank",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The bank is initiating a significant restructuring involving 2,500 job cuts, which is expected to improve operational efficiency and reduce long-term cost bases.",
+      "why_now": "The announcement was made on October 20, 2026, with the majority of cuts scheduled to occur within the coming months.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b8af2e8030f1",
+        "EVT-63368d24348e"
+      ],
+      "primary_source_event_id": "EVT-b8af2e8030f1",
+      "source_headlines": [
+        "NAB to cut 2,500 jobs in massive restructure",
+        "NAB to cut 2500 jobs in huge restructuring, most to go within months"
+      ],
+      "source_headline": "NAB to cut 2,500 jobs in massive restructure",
+      "source_url": "https://www.theguardian.com/australia-news/2026/oct/20/nab-bank-restructure-2500-jobs-cuts",
+      "source_name": "The Guardian — World news",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-20T01:27:04Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-20T05:56:49Z",
+      "updated_at": "2026-10-20T05:56:49Z",
+      "decay_at": "2026-10-21T13:27:04Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -197202,14 +197202,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 559,
+    "total_count": 560,
     "shown_count": 499,
-    "hidden_count": 60,
+    "hidden_count": 61,
     "side_counts": {
       "long": {
-        "total_count": 294,
+        "total_count": 295,
         "shown_count": 250,
-        "hidden_count": 44
+        "hidden_count": 45
       },
       "short": {
         "total_count": 266,
@@ -197233,6 +197233,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-aaa2cb1ecefc",
+        "idea_version": "IDEAV-a400997e7a2405c3",
+        "idea_version_started_at": "2026-10-20T05:56:49Z",
+        "ticker": "NAB",
+        "company": "National Australia Bank",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The bank is initiating a significant restructuring involving 2,500 job cuts, which is expected to improve operational efficiency and reduce long-term cost bases.",
+        "why_now": "The announcement was made on October 20, 2026, with the majority of cuts scheduled to occur within the coming months.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b8af2e8030f1",
+          "EVT-63368d24348e"
+        ],
+        "primary_source_event_id": "EVT-b8af2e8030f1",
+        "source_headlines": [
+          "NAB to cut 2,500 jobs in massive restructure",
+          "NAB to cut 2500 jobs in huge restructuring, most to go within months"
+        ],
+        "source_headline": "NAB to cut 2,500 jobs in massive restructure",
+        "source_url": "https://www.theguardian.com/australia-news/2026/oct/20/nab-bank-restructure-2500-jobs-cuts",
+        "source_name": "The Guardian — World news",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-20T01:27:04Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-20T05:56:49Z",
+        "updated_at": "2026-10-20T05:56:49Z",
+        "decay_at": "2026-10-21T13:27:04Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-21T13:27:04Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ce1429be5073",
         "idea_version": "IDEAV-97aefb9f10f608e3",
@@ -224418,81 +224494,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-e7732ac33bb3",
-        "idea_version": "IDEAV-8fa5739d6dd92c77",
-        "idea_version_started_at": "2026-10-06T10:47:22Z",
-        "ticker": "CKS.L",
-        "company": "Clarksons PLC",
-        "exchange": "LSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "It lifted profit guidance as freight market volatility drove record rates, directly boosting its brokerage and analytics revenue.",
-        "why_now": "Guidance lift 2026-10-06.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d05f6f5122d4"
-        ],
-        "primary_source_event_id": "EVT-d05f6f5122d4",
-        "source_headlines": [
-          "Clarksons lifts profit guidance as freight market volatility drives record rates"
-        ],
-        "source_headline": "Clarksons lifts profit guidance as freight market volatility drives record rates",
-        "source_url": "https://ukinvestormagazine.co.uk/clarksons-lifts-profit-guidance-as-freight-market-volatility-drives-record-rates/",
-        "source_name": "UK Investor Magazine",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-06T06:53:47Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-06T10:47:22Z",
-        "updated_at": "2026-10-06T10:47:22Z",
-        "decay_at": "2026-10-07T18:53:47Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-09T08:52:59Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-05438fee3589",
         "idea_version": "IDEAV-969258fc489d53f6",
         "idea_version_started_at": "2026-10-06T13:00:06Z",
@@ -234406,7 +234407,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1779,
-    "live_count": 41,
+    "live_count": 40,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -234425,9 +234426,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5769419,
-    "news_picked_today": 581,
-    "news_dropped_today": 9595
+    "news_seen_today": 5809019,
+    "news_picked_today": 586,
+    "news_dropped_today": 9614
   },
   "book_momentum": {
     "live_count": 8,
