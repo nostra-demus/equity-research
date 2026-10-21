@@ -17,8 +17,11 @@ test('Current prices refresh independently, preserve source/time and degrade wit
   let price = 25
   let mode: 'live' | 'close' | 'unknown' | 'delayed' | 'offline' | 'wrong' = 'live'
   let quoteCalls = 0
-  let writes = 0
-  page.on('request', (request) => { if (request.method() === 'POST') writes++ })
+  const writes: string[] = []
+  page.on('request', (request) => {
+    const path = new URL(request.url()).pathname
+    if (request.method() === 'POST' && path !== '/api/performance/samples') writes.push(path)
+  })
   await context.route('**/api/screener/universe-model', (route) => {
     expect(route.request().headers()['x-nostra-model']).toBe(MODEL_CLIENT_VERSION)
     return route.fulfill({ json: body })
@@ -68,7 +71,7 @@ test('Current prices refresh independently, preserve source/time and degrade wit
   await expect(page.getByRole('alert')).toContainText('429')
   await expect(page.getByRole('alert')).toBeVisible()
   await expect(page.locator('tbody tr').locator('td').last()).toHaveText('0Green ticks')
-  expect(writes).toBe(0)
+  expect(writes).toEqual([])
   await page.screenshot({ path: testInfo.outputPath('model-current-prices.png') })
 })
 

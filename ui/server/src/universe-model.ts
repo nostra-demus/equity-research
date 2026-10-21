@@ -243,7 +243,8 @@ export function createUniverseModel(file: string, deps: {
         const prior = previousRows.get(row.ticker)
         return prior?.company === row.company ? prior : undefined
       }
-      progress.sort((a, b) => (Date.parse(previous(a)?.retrieved_at ?? '') || 0) - (Date.parse(previous(b)?.retrieved_at ?? '') || 0) || a.ticker.localeCompare(b.ticker))
+      const priorTimes = new Map(progress.map((row) => [row.ticker, Date.parse(previous(row)?.retrieved_at ?? '') || 0]))
+      progress.sort((a, b) => priorTimes.get(a.ticker)! - priorTimes.get(b.ticker)! || a.ticker.localeCompare(b.ticker))
       progress = progress.map((member) => {
         const prior = previous(member)
         return { ...member, price: prior ? prior.price : member.price, retrieved_at: prior?.retrieved_at ?? member.retrieved_at,
@@ -423,11 +424,12 @@ export function registerUniverseModel(app: FastifyInstance, stateDir: string, ro
   app.get<{ Querystring: { tickers?: string } }>('/api/screener/universe-model/quotes', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
     reply.header('Cache-Control', 'no-store')
     const tickers = typeof req.query.tickers === 'string' ? req.query.tickers.split(',') : []
-    if (!tickers.length || tickers.length > 100 || new Set(tickers).size !== tickers.length || tickers.some((ticker) => !/^[A-Z0-9.^-]{1,20}$/.test(ticker))) {
+    const tickerSet = new Set(tickers)
+    if (!tickers.length || tickers.length > 100 || tickerSet.size !== tickers.length || tickers.some((ticker) => !/^[A-Z0-9.^-]{1,20}$/.test(ticker))) {
       return reply.code(400).send({ error: 'Choose up to 100 companies from the current universe.' })
     }
     const read = await model.read()
-    const selected = read.rows.filter((row) => tickers.includes(row.ticker))
+    const selected = read.rows.filter((row) => tickerSet.has(row.ticker))
     const quotes = await (deps.quotes ?? getQuotes)(selected.map((row) => ({ ticker: row.ticker, currency: row.currency,
       companyName: row.company, entryPrice: row.price })), { stateDir, repoRoot: root, ttlMs: MODEL_PRICE_REFRESH_MS })
     const rows: ModelPricesRead['rows'] = selected.map((row) => {
