@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T01:36:29Z",
+  "generated_at": "2026-10-21T01:39:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-016",
@@ -966,6 +966,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-056",
+      "headline": "ATC: Quarterly Activities/Appendix 5B Cash Flow Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ATC?key=2924-03151092-6A1350398",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T01:27:05Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "The company released its quarterly cash flow report, which is a standard disclosure of financial health and operational activities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "The company released its quarterly cash flow report, which is a standard disclosure of financial health and operational activities.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ATC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1944,56 +1993,6 @@
           "name": "Shijiazhuang Recovery Star Medical Device Co., Ltd.",
           "ticker": null,
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-010",
-      "headline": "FDA 510(k) clearance — Brainlab SE: RT Elements (4.6)",
-      "headline_en": null,
-      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261655",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-05T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "FDA 510(k) clearance authorizes Brainlab's updated RT Elements 4.6 device in the US market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "FDA 510(k) clearance authorizes Brainlab's updated RT Elements 4.6 device in the US market.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 48,
-      "rank_factors": {
-        "materiality": 48,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brainlab SE",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -234373,9 +234372,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1001173,
-    "news_picked_today": 61,
-    "news_dropped_today": 635
+    "news_seen_today": 1046353,
+    "news_picked_today": 62,
+    "news_dropped_today": 658
   },
   "book_momentum": {
     "live_count": 8,
