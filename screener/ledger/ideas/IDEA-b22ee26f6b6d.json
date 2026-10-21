@@ -1,25 +1,25 @@
 {
-  "idea_id": "IDEA-747e80dbcb22",
-  "idea_version": "IDEAV-f2178b72b82247ae",
-  "idea_version_started_at": "2026-10-18T13:36:43Z",
-  "ticker": "MOUWASAT",
-  "company": "Mouwasat Medical Services",
-  "exchange": "TADAWUL",
+  "idea_id": "IDEA-b22ee26f6b6d",
+  "idea_version": "IDEAV-d0c8685438b4d709",
+  "idea_version_started_at": "2026-10-21T12:30:01Z",
+  "ticker": "VAR",
+  "company": "Vaar Energi",
+  "exchange": "OSE",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
-  "direction": "short",
+  "direction": "long",
   "pair_with": null,
-  "reason": "The company faces a significant commercial claim of SAR 335.4 million, which represents a material negative surprise to earnings and cash flow.",
-  "why_now": "The claim was reported today, October 18, 2026, and the market has not yet fully adjusted for the potential legal liability.",
-  "conviction": 60,
+  "reason": "The company doubled its profit due to high oil and gas prices and subsequently increased its dividend payout.",
+  "why_now": "The dividend increase and earnings beat were reported on 2026-10-21.",
+  "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 18,
+    "impact": 19,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
@@ -45,30 +45,30 @@
     "evidenceIds": []
   },
   "priced_in": "room",
-  "thesis_type": "company_specific",
+  "thesis_type": "commodity_conditional",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-b9d777c96a1a"
+    "EVT-7f334c8b4a5c"
   ],
-  "primary_source_event_id": "EVT-b9d777c96a1a",
+  "primary_source_event_id": "EVT-7f334c8b4a5c",
   "source_headlines": [
-    "‎Mouwasat faces commercial claim of SAR 335.4M"
+    "Vaar Energi raises dividend as profit doubles on high oil, gas prices"
   ],
-  "source_headline": "‎Mouwasat faces commercial claim of SAR 335.4M",
-  "source_url": "https://www.argaam.com/en/article/articledetail/id/1944845",
-  "source_name": "Argaam — Main News (English)",
+  "source_headline": "Vaar Energi raises dividend as profit doubles on high oil, gas prices",
+  "source_url": "https://www.reuters.com/business/energy/vaar-energi-raises-dividend-profit-doubles-high-oil-gas-prices-2026-10-21/",
+  "source_name": "Reuters — Latest (news sitemap)",
   "materiality_max": 100,
-  "newest_source_at": "2026-10-18T09:03:00Z",
+  "newest_source_at": "2026-10-21T05:30:28Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-10-18T13:36:43Z",
-  "updated_at": "2026-10-18T13:36:43Z",
-  "decay_at": "2026-10-19T21:03:00Z",
+  "surfaced_at": "2026-10-21T12:30:01Z",
+  "updated_at": "2026-10-21T12:30:01Z",
+  "decay_at": "2026-10-22T17:30:28Z",
   "status": "live",
   "promoted_signal_id": null
 }
