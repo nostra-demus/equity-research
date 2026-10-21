@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T01:03:24Z",
+  "generated_at": "2026-10-21T01:08:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-016",
@@ -704,6 +704,56 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-048",
+      "headline": "Bajaj Finance shares in focus after Q2 results, increased AUM guidance, margin pressure",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/bajaj-finance-share-price-q2-result-reaction-fy27-guidance-aum-margin-repo-rate-buy-sell-target-outlook-20015660.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T00:52:43Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Bajaj Finance reported Q2 results with increased AUM guidance but noted margin pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Bajaj Finance reported Q2 results with increased AUM guidance but noted margin pressure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bajaj Finance",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1928,55 +1978,6 @@
         {
           "name": "APT Electronics",
           "ticker": "02551",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-021",
-      "headline": "CUTIA-B (02487): VOLUNTARY ANNOUNCEMENT - LATEST UPDATE ON THE COOPERATION WITH REJUVEN",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102100001.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-20T22:05:00Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Cutia Therapeutics provided an update on its cooperation with Rejuven, a routine operational update.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Cutia Therapeutics provided an update on its cooperation with Rejuven, a routine operational update.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cutia Therapeutics",
-          "ticker": "02487",
           "listing_country": "CN"
         }
       ],
@@ -234215,9 +234216,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 653619,
-    "news_picked_today": 52,
-    "news_dropped_today": 428
+    "news_seen_today": 699024,
+    "news_picked_today": 53,
+    "news_dropped_today": 451
   },
   "book_momentum": {
     "live_count": 8,
