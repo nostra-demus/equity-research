@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T10:02:23Z",
+  "generated_at": "2026-10-21T10:21:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-243",
@@ -1840,6 +1840,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261021-255",
+      "headline": "Taiwan Rejects Grab’s $600 Million Takeover of Foodpanda Arm",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-21/taiwan-rejects-grab-s-600-million-takeover-of-foodpanda-unit",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T09:18:14Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Taiwan regulators rejected Grab's $600 million acquisition of Foodpanda, affecting the company's capital deployment and analyst expectations for growth in a material market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Taiwan regulators rejected Grab's $600 million acquisition of Foodpanda, affecting the company's capital deployment and analyst expectations for growth in a material market.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 67,
+      "rank_factors": {
+        "materiality": 67,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 3,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Grab Holdings Inc.",
+          "ticker": "GRAB",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261021-135",
       "headline": "Hindustan Zinc lowers FY27 cost guidance by nearly 15%, sticks to output targets",
       "headline_en": null,
@@ -1938,56 +1988,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-098",
-      "headline": "Bajaj Finance share price falls after margin warning in earnings call; Bullish analysts see 33% upside",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/bajaj-finance-share-price-q2-result-reaction-fy27-guidance-aum-margin-repo-rate-buy-sell-target-outlook-20015660.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T03:48:26Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Bajaj Finance shares fell after management issued a margin warning during their earnings call.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Bajaj Finance shares fell after management issued a margin warning during their earnings call.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bajaj Finance",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -234146,9 +234146,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4905911,
-    "news_picked_today": 365,
-    "news_dropped_today": 7579
+    "news_seen_today": 4991692,
+    "news_picked_today": 379,
+    "news_dropped_today": 7901
   },
   "book_momentum": {
     "live_count": 8,
