@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T03:18:35Z",
+  "generated_at": "2026-10-21T03:26:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-087",
@@ -1203,6 +1203,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261021-090",
+      "headline": "Kalpataru Projects International Limited: Kalpataru Projects International Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/KALPATPOWR_21102026084653_SEIntimationPR21102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T03:17:12Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "The company announced the receipt of new orders/contracts, which is a positive commercial development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "The company announced the receipt of new orders/contracts, which is a positive commercial development.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kalpataru Projects International Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261021-015",
       "headline": "SBP GROUP (01177): VOLUNTARY ANNOUNCEMENT - COMPLETION OF ALL PARTICIPANTS ENROLLMENT IN THE PHASE III REGISTRATIONAL CLINICAL TRIAL OF TQC2731 INJECTION \"TSLP MONOCLONAL ANTIBODY\" FOR CHRONIC SINUSITIS WITH NASAL POLYPS",
       "headline_en": null,
@@ -1906,49 +1955,6 @@
       "launched_signal_id": null,
       "triage_score": 77,
       "triage_reason": "The RBA deputy's warning of worsening inflation increases the probability of further interest rate hikes in Australia.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-058",
-      "headline": "Australian central banker says inflation outlook worse, unsure about November rate hike",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/australian-central-banker-says-inflation-outlook-worse-unsure-about-november-rate-hike",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T01:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Australian central bank signals a worsening inflation outlook, increasing uncertainty regarding future interest rate hikes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "Australian central bank signals a worsening inflation outlook, increasing uncertainty regarding future interest rate hikes.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 65,
@@ -234346,9 +234352,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2082196,
-    "news_picked_today": 102,
-    "news_dropped_today": 1530
+    "news_seen_today": 2169556,
+    "news_picked_today": 103,
+    "news_dropped_today": 1649
   },
   "book_momentum": {
     "live_count": 8,
