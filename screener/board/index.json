@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T07:15:50Z",
+  "generated_at": "2026-10-21T07:22:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-087",
@@ -1455,6 +1455,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261021-170",
+      "headline": "Aye Finance Limited: Aye Finance Limited has informed the Exchange regarding a press release dated October 21, 2026, titled \"Aye Finance reports highest-ever quarterly profit of INR 87 Crore in Q2FY27, up 151% YoY and 16% QoQ\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/AYEFINANCE_21102026120101_AYE_PR.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T06:31:12Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Aye Finance reported Q2FY27 profit of ₹87 Crore, up 151% YoY and 16% QoQ, directly moving profit expectations and analyst earnings consensus.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Aye Finance reported Q2FY27 profit of ₹87 Crore, up 151% YoY and 16% QoQ, directly moving profit expectations and analyst earnings consensus.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 8,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aye Finance Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261021-120",
       "headline": "CSL: Appointment of New CEO [price-sensitive]",
       "headline_en": null,
@@ -1947,56 +1996,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-065",
-      "headline": "US sanctions Chinese venture firm in Google AI secrets case",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/us-sanctions-chinese-venture-firm-in-google-ai-secrets-case",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T01:50:00Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "US sanctions on a Chinese venture firm over AI secrets theft represent a significant regulatory and geopolitical escalation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "US sanctions on a Chinese venture firm over AI secrets theft represent a significant regulatory and geopolitical escalation.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Google",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -234156,9 +234155,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4036861,
-    "news_picked_today": 228,
-    "news_dropped_today": 3756
+    "news_seen_today": 4113381,
+    "news_picked_today": 242,
+    "news_dropped_today": 4630
   },
   "book_momentum": {
     "live_count": 8,
