@@ -102,6 +102,8 @@ export interface LiveQuote {
   as_of_is_close: boolean
   /** The feed is exchange-delayed — surfaced, never hidden, so nothing claims to be real-time. */
   delayed: boolean
+  real_time?: boolean | null // Explicit provider flag; absence never proves real-time delivery.
+  retrieved_at?: string
   source: 'cnbc'
   /** Served from cache past its TTL because the refresh failed: a real price, but not a fresh one. */
   stale: boolean
@@ -652,6 +654,8 @@ export async function getQuotes(subjects: QuoteSubject[], deps: QuoteDeps = {}):
           as_of: row.asOf,
           as_of_is_close: row.dateOnly,
           delayed: row.realTime === false,
+          real_time: row.realTime,
+          retrieved_at: new Date(entry.at).toISOString(),
           source: 'cnbc',
           stale: nowMs - entry.at > ttlMs,
         }

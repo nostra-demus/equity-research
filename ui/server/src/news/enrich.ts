@@ -636,7 +636,14 @@ export function findRelatedEvents(repoRoot: string, self: { event_id: string; he
 
 // ---- fetch + cache orchestration ----
 
-function loadCache(stateDir: string): Record<string, EventEnrichment> {
+const completeSnapshots = new Map<string, { stamp: string; entries: Record<string, EventEnrichment> }>()
+function enrichmentCacheStamp(stateDir: string): string {
+  return JSON.stringify([CACHE_FILE, CACHE_BACKUP_FILE].map((name) => {
+    try { const s = fs.statSync(path.join(stateDir, name)); return [s.ino, s.size, s.mtimeMs, s.ctimeMs] } catch { return null }
+  }))
+}
+
+function loadCache(stateDir: string, onReadFailure?: () => void): Record<string, EventEnrichment> {
   // Prefer the live file; fall back to the last-good backup if it's missing/corrupt (a truncated write,
   // a half-flushed crash). The backup means a single bad write can never wipe every cached read.
   for (const file of [CACHE_FILE, CACHE_BACKUP_FILE]) {
@@ -644,6 +651,7 @@ function loadCache(stateDir: string): Record<string, EventEnrichment> {
       const o = JSON.parse(fs.readFileSync(path.join(stateDir, file), 'utf8'))
       if (o && typeof o === 'object') return o
     } catch {}
+    onReadFailure?.()
   }
   return {}
 }
@@ -663,6 +671,7 @@ function saveCache(stateDir: string, cache: Record<string, EventEnrichment>): vo
     const tmp = `${main}.${process.pid}.tmp`
     fs.writeFileSync(tmp, json)
     fs.renameSync(tmp, main)
+    completeSnapshots.delete(stateDir)
     // a body read just landed — drop the read-path's TTL copy so its materiality verdict floors the item's
     // rank on the very next wire load, not up to a minute later (news/impact-floor.ts)
     invalidateBodyVerdicts()
@@ -679,6 +688,28 @@ export function peekCachedEnrichment(stateDir: string, eventId: string): EventEn
     return hit && isEnrichmentComplete(hit) ? hit : null
   } catch {
     return null
+  }
+}
+
+/** One read-only cache snapshot for bulk projections; never fetches or starts enrichment. */
+export function peekCachedEnrichments(stateDir: string): Record<string, EventEnrichment> {
+  try {
+    const stamp = enrichmentCacheStamp(stateDir)
+    const saved = completeSnapshots.get(stateDir)
+    if (saved?.stamp === stamp) return saved.entries
+    let primaryRead = true
+    const cache = loadCache(stateDir, () => { primaryRead = false })
+    const entries = Object.freeze(Object.fromEntries(Object.entries(cache).filter(([, hit]) => {
+      try { return hit && isEnrichmentComplete(hit) } catch { return false }
+    })))
+    // Failed primary reads and older backups must retry on the next observation, even if metadata
+    // did not change (e.g. transient EIO). Never pin a favorable backup over a newly saved risk.
+    if (primaryRead) completeSnapshots.set(stateDir, { stamp, entries })
+    else completeSnapshots.delete(stateDir)
+    while (completeSnapshots.size > 8) completeSnapshots.delete(completeSnapshots.keys().next().value!)
+    return entries
+  } catch {
+    return {}
   }
 }
 

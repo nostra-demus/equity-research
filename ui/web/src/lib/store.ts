@@ -1283,6 +1283,7 @@ interface State {
   ideasOpen: boolean
   scIdeasLandingSet: boolean
   ideasLane: IdeaLane | 'themes'
+  universeView: 'events' | 'model'
   setIdeasLane: (lane: IdeaLane | 'themes') => void
   // "Calendar" tab — the forward events calendar (upcoming earnings + macro, server /api/calendar). Another
   // sibling of Themes/Best-ideas in the wire's tab row; mutually exclusive with them.
@@ -1927,6 +1928,7 @@ export const useStore = create<State>((set, get) => ({
   ideasOpen: false,
   scIdeasLandingSet: false,
   ideasLane: 'events',
+  universeView: 'events',
   setIdeasLane: (ideasLane) => set({ ideasLane }),
   calendarOpen: false,
   themesWindow: null,
@@ -4176,6 +4178,7 @@ export const useStore = create<State>((set, get) => ({
     if (warpTimer) { clearTimeout(warpTimer); warpTimer = null }
     if (get().warp) set({ warp: null })
     const targetSwarm = c.swarm || 'research'
+    if (targetSwarm === 'screener') set({ universeView: 'events' })
     // A different swarm is a deliberate jump — switch directly (no animated warp), mirroring switchSwarm's
     // reduced-motion reset so no panel or in-flight warp is left dangling over the new view.
     if (get().activeSwarm !== targetSwarm) {
@@ -5274,7 +5277,7 @@ export const useStore = create<State>((set, get) => ({
 
   scSelectEvent: (it) => {
     // opening any event exits the company drill-down (the CompanyView takes main-stage precedence)
-    set({ scSelectedEvent: it, scFocusedCompany: null })
+    set({ scSelectedEvent: it, scFocusedCompany: null, universeView: 'events' })
     if (it) {
       get().markEventsRead([it.event_id]) // opening an item is what marks it read (RSS/Gmail standard)
       void get().fetchEnrichment(it) // kick the enrichment the moment an event opens
@@ -5470,6 +5473,7 @@ export const useStore = create<State>((set, get) => ({
   // 30s poll. Read-only — surfacing happens server-side on the ingester tick.
   openIdeas: () => {
     cancelThemeDetailRequest()
+    set({ universeView: 'events' })
     set({ ideasOpen: true, calendarOpen: false, themesView: null, selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false, scSelectedEvent: null, scFocusedCompany: null })
     void get().scRefreshBoard()
   },
@@ -5478,10 +5482,12 @@ export const useStore = create<State>((set, get) => ({
   // tabs. CalendarView fetches /api/calendar itself (no store data to seed) — this just flips the pane.
   openCalendar: () => {
     cancelThemeDetailRequest()
+    set({ universeView: 'events' })
     set({ calendarOpen: true, ideasOpen: false, themesView: null, selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false, scSelectedEvent: null, scFocusedCompany: null })
   },
   closeCalendar: () => set({ calendarOpen: false }),
   openThemes: async (view) => {
+    set({ universeView: 'events' })
     const themesWindow = themeWindowForView(view, get().themesWindow)
     // An explicit Themes-tab open is navigation to the first-look surface, not a resurrection of whichever
     // deep dive happened to be open before Ideas/Calendar. Clear its whole async state synchronously so an
@@ -6040,7 +6046,7 @@ export const useStore = create<State>((set, get) => ({
     // on to another one (cross-run answer contamination: wrong SIG context + wrong saved thread/id).
     chatPendingBaseline = null
     chatAbort?.abort(); chatAbort = null
-    set({ scSelectedSignal: sigId, scRuntime: {}, scRouted: {}, ...CHAT_RESET, ...(navigate && sigId ? { ideasOpen: false, themesView: null, calendarOpen: false } : {}) })
+    set({ scSelectedSignal: sigId, scRuntime: {}, scRouted: {}, ...CHAT_RESET, ...(navigate && sigId ? { ideasOpen: false, themesView: null, calendarOpen: false, universeView: 'events' as const } : {}) })
     if (!sigId) return
     try {
       const m = await api.screenerRun(sigId)
@@ -6247,8 +6253,8 @@ export const useStore = create<State>((set, get) => ({
     })
   },
 
-  openSignalIntake: () => set({ signalIntakeOpen: true, signalIntakeSeed: null }),
-  openSignalIntakeWith: (seed) => set({ signalIntakeOpen: true, signalIntakeSeed: seed }),
+  openSignalIntake: () => set({ signalIntakeOpen: true, signalIntakeSeed: null, universeView: 'events' }),
+  openSignalIntakeWith: (seed) => set({ signalIntakeOpen: true, signalIntakeSeed: seed, universeView: 'events' }),
   closeSignalIntake: () => set({ signalIntakeOpen: false, signalIntakeSeed: null }),
 
   submitSignal: async (intake, until) => {
@@ -6264,7 +6270,7 @@ export const useStore = create<State>((set, get) => ({
       const out = await api.launchSignal(execution, { intake, until })
       requireLaunchProviderReceipt(out, execution, get().providers.catalogState)
       const { runId, preflight } = out
-      set({ signalIntakeOpen: false, signalIntakeSeed: null })
+      set({ signalIntakeOpen: false, signalIntakeSeed: null, universeView: 'events' })
       const sigId = preflight.ticker
       set({ scSelectedSignal: sigId, scRuntime: {}, scRouted: {} })
       beginScreenerRun(set, get, runId, { subject: sigId, swarmId: 'screener', execution })

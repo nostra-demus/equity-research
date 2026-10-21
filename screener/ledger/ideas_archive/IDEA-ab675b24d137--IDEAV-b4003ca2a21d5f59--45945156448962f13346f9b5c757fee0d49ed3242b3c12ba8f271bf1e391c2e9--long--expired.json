@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-10-16T04:22:13Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-ab675b24d137",
+    "idea_version": "IDEAV-b4003ca2a21d5f59",
+    "idea_version_started_at": "2026-10-13T14:10:50Z",
+    "ticker": "BMBL",
+    "company": "Bumble",
+    "exchange": "NASDAQ",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "Bumble shares surged on news of potential takeover talks valuing the company at $1 billion.",
+    "why_now": "The report of takeover talks emerged on October 13, 2026, creating immediate market reaction.",
+    "conviction": 70,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 67,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 21,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-b82a79096114"
+    ],
+    "primary_source_event_id": "EVT-b82a79096114",
+    "source_headlines": [
+      "Bumble shares soar after report dating firm in $1bn takeover talks"
+    ],
+    "source_headline": "Bumble shares soar after report dating firm in $1bn takeover talks",
+    "source_url": "https://www.bbc.co.uk/news/articles/cm9qzwjgnjxlo?at_medium=RSS&at_campaign=rss",
+    "source_name": "BBC News — Business",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-13T01:36:36Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-10-13T14:10:50Z",
+    "updated_at": "2026-10-13T14:10:50Z",
+    "decay_at": "2026-10-14T13:36:36Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

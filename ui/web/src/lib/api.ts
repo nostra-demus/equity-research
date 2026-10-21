@@ -213,9 +213,9 @@ export function snapshotGeneratedAt(): string | null {
 // whole UI at "connecting". AbortSignal.timeout makes a hang a bounded failure the caller can retry —
 // the same pattern the enrich call already uses. Default ~15s covers a cold engine + the tunnel hop +
 // heavy JSON; pass a shorter budget for small, frequently-polled endpoints (e.g. news status).
-async function get<T>(url: string, timeoutMs = 15_000, signal?: AbortSignal): Promise<T> {
+async function get<T>(url: string, timeoutMs = 15_000, signal?: AbortSignal, headers?: Record<string, string>): Promise<T> {
   const timeout = AbortSignal.timeout(timeoutMs)
-  const r = await performanceFetch(url, { signal: signal ? AbortSignal.any([signal, timeout]) : timeout })
+  const r = await performanceFetch(url, { signal: signal ? AbortSignal.any([signal, timeout]) : timeout, headers })
   // Carry the status on the error (as post() already does) so a caller can tell "this doesn't exist yet"
   // (404) from "the engine is broken/unreachable" (500, timeout) instead of guessing from the message.
   if (!r.ok) {
@@ -543,6 +543,34 @@ const EMPTY_MANUAL: PortfolioManualRead = { trades: [], live: 0, superseded: 0, 
 const EMPTY_OVERRIDES: PortfolioOverrides = { cashEquivalents: [] }
 
 export const api = {
+  universeModelData: async (ticker: string, company: string) => {
+    if (await ensureMode() !== 'live') throw new Error('Finviz data needs the live engine.')
+    const { isFinvizDataRead } = await import('../../../shared/finviz-data')
+    const read: unknown = await get(`/api/screener/universe-model/data?${new URLSearchParams({ ticker, company })}`)
+    if (!isFinvizDataRead(read) || read.rows.length > 1 || read.rows.some((row) => row.ticker !== ticker || row.company !== company)) throw new Error('Finviz data did not match this company.')
+    return read
+  },
+  universeModelEvidence: async (eventId: string, ticker: string, company: string) => {
+    if (await ensureMode() !== 'live') throw new Error('Saved event analysis needs the live engine.')
+    const { isModelEventRead } = await import('../../../shared/universe-model')
+    const read: unknown = await get(`/api/screener/universe-model/evidence?${new URLSearchParams({ eventId, ticker, company })}`)
+    if (!isModelEventRead(read) || read.event_id !== eventId || read.ticker !== ticker || read.company !== company) throw new Error('The saved analysis did not match this event and company.')
+    return read
+  },
+  universeModel: async () => {
+    if (await ensureMode() !== 'live') throw new Error('The Model needs the live engine. This saved preview has no Finviz connection.')
+    const { isModelRead, MODEL_CLIENT_VERSION } = await import('../../../shared/universe-model')
+    const read: unknown = await get('/api/screener/universe-model', 15_000, undefined, { 'x-nostra-model': MODEL_CLIENT_VERSION })
+    if (!isModelRead(read)) throw new Error('The engine returned an invalid Model response. Retry after the engine finishes updating.')
+    return read
+  },
+  universeModelPrices: async (companies: { ticker: string; company: string }[], signal: AbortSignal) => {
+    if (await ensureMode() !== 'live') throw new Error('Current prices need the live engine.')
+    const { isModelPricesRead } = await import('../../../shared/universe-model')
+    const read: unknown = await get(`/api/screener/universe-model/quotes?${new URLSearchParams({ tickers: companies.map((row) => row.ticker).join(',') })}`, 30_000, signal)
+    if (!isModelPricesRead(read) || read.rows.some((row) => !companies.some((company) => company.ticker === row.ticker && company.company === row.company))) throw new Error('Quote data did not match the selected companies.')
+    return read
+  },
   ideasWorkspace: async (lane: IdeaLane, hide: string, kind = 'all', cursor = '0', refresh = false): Promise<DiscoveryPage> => {
     await ensureMode()
     if (mode === 'static') return ideasSnapshotPage(await api.screenerBoard(), lane, hide, kind, cursor, snap.ideasWorkspace)

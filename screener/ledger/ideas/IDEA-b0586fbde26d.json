@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-b0586fbde26d",
-  "idea_version": "IDEAV-f117cb658b12bf91",
-  "idea_version_started_at": "2026-10-14T22:44:48Z",
+  "idea_version": "IDEAV-29f2332fa3004d4d",
+  "idea_version_started_at": "2026-10-21T01:02:58Z",
   "ticker": "NFLX",
   "company": "Netflix",
   "exchange": "NASDAQ",
@@ -11,25 +11,26 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "Large-scale layoffs of 1,000 employees suggest significant cost-cutting measures necessitated by slowing subscriber growth or margin pressure.",
-  "why_now": "The layoffs were reported today, October 14, 2026.",
-  "conviction": 55,
+  "reason": "A $300 million reduction in ad revenue forecasts suggests potential headwinds in their monetization strategy.",
+  "why_now": "The forecast cut was disclosed on 2026-10-20, creating a negative sentiment shift.",
+  "conviction": 60,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 71,
+  "trade_score": 65,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 18,
+    "impact": 19,
     "specificity": 15,
     "timing": 10,
     "expression": 7,
-    "corroboration": 7,
+    "corroboration": 0,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -46,28 +47,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-224be32b4bff",
-    "EVT-c269b3ef2643"
+    "EVT-0afda8c1a5ee"
   ],
-  "primary_source_event_id": "EVT-224be32b4bff",
+  "primary_source_event_id": "EVT-0afda8c1a5ee",
   "source_headlines": [
-    "Netflix Cuts 1,000 Jobs After Earlier Layoff Warnings",
-    "Netflix Eliminates About 1,000 Jobs in Biggest Cuts Since 2022"
+    "Netflix Cut Its Ad Revenue Forecast by $300 Million. Does That Matter More Than Its Earnings Beat?"
   ],
-  "source_headline": "Netflix Cuts 1,000 Jobs After Earlier Layoff Warnings",
-  "source_url": "https://www.forbes.com/sites/rickellis/2026/10/14/netflix-cuts-1000-jobs-after-earlier-layoff-warnings/",
-  "source_name": "Forbes",
+  "source_headline": "Netflix Cut Its Ad Revenue Forecast by $300 Million. Does That Matter More Than Its Earnings Beat?",
+  "source_url": "https://www.nasdaq.com/articles/netflix-cut-its-ad-revenue-forecast-300-million-does-matter-more-its-earnings-beat",
+  "source_name": "Nasdaq",
   "materiality_max": 100,
-  "newest_source_at": "2026-10-14T13:31:21Z",
+  "newest_source_at": "2026-10-20T22:23:12Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-10-14T22:44:48Z",
-  "updated_at": "2026-10-14T22:44:48Z",
-  "decay_at": "2026-10-16T01:31:21Z",
+  "surfaced_at": "2026-10-21T01:02:58Z",
+  "updated_at": "2026-10-21T01:02:58Z",
+  "decay_at": "2026-10-22T10:23:12Z",
   "status": "live",
   "promoted_signal_id": null
 }

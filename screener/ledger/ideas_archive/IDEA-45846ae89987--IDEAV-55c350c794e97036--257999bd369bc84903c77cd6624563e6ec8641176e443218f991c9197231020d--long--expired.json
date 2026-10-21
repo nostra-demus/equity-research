@@ -1,0 +1,80 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-10-20T09:20:15Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-45846ae89987",
+    "idea_version": "IDEAV-55c350c794e97036",
+    "idea_version_started_at": "2026-10-17T09:32:49Z",
+    "ticker": "HDFCBANK",
+    "company": "HDFC Bank Limited",
+    "exchange": "NSE",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "long",
+    "pair_with": null,
+    "reason": "HDFC Bank reported a net profit of ₹19,509 crore for Q2, with a sequential decline in Net Non-Performing Assets (NPA) indicating stable credit health.",
+    "why_now": "The financial results were released on October 17, 2026.",
+    "conviction": 80,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 25,
+      "impact": 21,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 7,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-97c310f221a1",
+      "EVT-91fbca1390be"
+    ],
+    "primary_source_event_id": "EVT-97c310f221a1",
+    "source_headlines": [
+      "HDFC Bank Limited: HDFC Bank Limited has submitted to the Exchange, the financial results for the period ended September 30, 2026.",
+      "Q2 Results LIVE Updates: HDFC Bank net profit at ₹19,509 crore; Net NPA falls from June"
+    ],
+    "source_headline": "HDFC Bank Limited: HDFC Bank Limited has submitted to the Exchange, the financial results for the period ended September 30, 2026.",
+    "source_url": "https://nsearchives.nseindia.com/corporate/HDFCBANK_17102026135520_OutcomeofBMResults_17oct2026.pdf",
+    "source_name": "BSE / NSE Exchange Filing",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-17T08:36:15Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-10-17T09:32:49Z",
+    "updated_at": "2026-10-17T09:32:49Z",
+    "decay_at": "2026-10-18T20:36:15Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

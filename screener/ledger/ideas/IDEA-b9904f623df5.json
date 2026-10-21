@@ -1,0 +1,71 @@
+{
+  "idea_id": "IDEA-b9904f623df5",
+  "idea_version": "IDEAV-1cd9d06103fff5cb",
+  "idea_version_started_at": "2026-10-20T00:46:02Z",
+  "ticker": "ATKR",
+  "company": "Atkore Inc.",
+  "exchange": "NYSE",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The filing of a 25-NSE delisting notification indicates severe financial distress or regulatory non-compliance, signaling a high risk of equity impairment.",
+  "why_now": "The delisting notice was issued on October 19, 2026, making this a live liquidity and solvency event.",
+  "conviction": 85,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 76,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 25,
+    "impact": 19,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "balance_sheet_survival",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-eb571881eeac"
+  ],
+  "primary_source_event_id": "EVT-eb571881eeac",
+  "source_headlines": [
+    "25-NSE - Atkore Inc. (0001666138) (Subject)"
+  ],
+  "source_headline": "25-NSE - Atkore Inc. (0001666138) (Subject)",
+  "source_url": "https://www.sec.gov/Archives/edgar/data/1666138/000087666126000843/0000876661-26-000843-index.htm",
+  "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-19T14:02:31Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-20T00:46:02Z",
+  "updated_at": "2026-10-20T00:46:02Z",
+  "decay_at": "2026-10-21T02:02:31Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

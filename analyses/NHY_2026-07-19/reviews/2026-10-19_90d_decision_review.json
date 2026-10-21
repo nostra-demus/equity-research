@@ -1,0 +1,235 @@
+{
+  "schema_version": "1.0",
+  "ticker": "NHY",
+  "original_decision_date": "2026-07-19",
+  "review_date": "2026-10-19",
+  "review_window": "90d",
+  "original_decision": "Watchlist",
+  "basket": "Watchlist",
+  "entry_price": 84.96,
+  "tracking_price": null,
+  "review_price": null,
+  "absolute_return_pct": null,
+  "benchmark_return_pct": null,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": null,
+  "sector_relative_return_pct": null,
+  "thesis_status": "on-track",
+  "forecast_results": [
+    {
+      "prediction": "FQ2 2026 (30-Jun-2026 quarter) reported revenue beats the Capital IQ consensus of NOK 55,954.2m (as of 2026-07-15)",
+      "status": "confirmed",
+      "evidence": "Reported revenue NOK 56,490m exceeds frozen consensus NOK 55,954.2m by 0.96%. Hydro Second Quarter Report 2026, 2026-07-22, p.5; https://www.hydro.com/globalassets/06-investors/reports-and-presentations/quarterly-reports/2026/q2k9pev/second-quarter-report-2026.pdf",
+      "as_of": "2026-10-19"
+    },
+    {
+      "prediction": "FQ2 2026 Adjusted EBITDA does NOT clearly beat the Capital IQ consensus of NOK 8,581.8m (as of 2026-07-15)",
+      "status": "falsified",
+      "evidence": "Adjusted EBITDA of NOK 8,923m exceeded frozen consensus of NOK 8,581.8m by 3.98%; this falsifies the forecast of no clear beat. Hydro Q2 2026 results announcement, 2026-07-22, earnings and net-debt sections; https://www.hydro.com/en/global/media/news/2026/hydros-second-quarter-2026-operational-strength-delivering-solid-results/",
+      "as_of": "2026-10-19"
+    },
+    {
+      "prediction": "FQ2 2026's cash-flow statement shows receivables normalizing (DSO falling back toward FY2025's 33.0-day level) and operating cash flow returning positive",
+      "status": "confirmed",
+      "evidence": "Confirmed under the frozen and/or trigger: reported Q2 CFO is positive NOK 9,031m; Q1 CFO derives as H1 7,140 minus Q2 9,031 = negative NOK 1,891m. This confirms the positive-CFO limb, not the full prediction that receivables normalize AND CFO turns positive. The original 56.7-day DSO is vendor LTM, and interim trade-and-other receivables is not the same scope. Matched DSO remains unproven; no whole-risk clearance is claimed. Hydro Second Quarter Report 2026, published 2026-07-22, pp.5,23-24,34 (unaudited interim); https://www.hydro.com/globalassets/06-investors/reports-and-presentations/quarterly-reports/2026/q2k9pev/second-quarter-report-2026.pdf",
+      "as_of": "2026-10-19"
+    },
+    {
+      "prediction": "NHY's strict-basis net debt/EBITDA continues rising past the latest 1.02x reading at the next reported balance sheet",
+      "status": "falsified",
+      "evidence": "Strict net debt = 6,686 + 29,040 - 15,355 = NOK 20,371m. Reported LTM EBITDA = FY2025 25,696 - H1 2025 17,704 + H1 2026 18,711 = NOK 26,703m. Ratio = 0.763x, below the frozen 1.02x, falsifying the rise forecast. Company-defined net debt instead rose 12,860 to 16,283m on its investment-inclusive basis; that different direction does not override the strict result. Hydro Second Quarter Report 2026, published 2026-07-22, pp.5,23-24,34 (unaudited interim); https://www.hydro.com/globalassets/06-investors/reports-and-presentations/quarterly-reports/2026/q2k9pev/second-quarter-report-2026.pdf",
+      "as_of": "2026-10-19"
+    },
+    {
+      "prediction": "The 22-Jul-2026 and 23-Oct-2026 prints show the Adjusted EBITDA margin fading back toward the ~13.0% DCF mid-cycle anchor rather than holding near the price-implied ~13.9%-14.0% level",
+      "status": "still open",
+      "evidence": "Q2 adjusted EBITDA margin = 8,923 / 56,490 = 15.80%, below the frozen Q1 17.2% but above the 15% falsification level. Q3 remains due October 23; neither Q2 EBITDA outperformance nor the margin decline settles the two-print test. Hydro Second Quarter Report 2026, published 2026-07-22, pp.5,23-24,34 (unaudited interim); https://www.hydro.com/globalassets/06-investors/reports-and-presentations/quarterly-reports/2026/q2k9pev/second-quarter-report-2026.pdf; Hydro Q3 2026 invitation, accessed 2026-10-19, release date 2026-10-23; https://www.hydro.com/en/global/investors/financial-calendar/invitation---q3-2026/",
+      "as_of": "2026-10-19"
+    },
+    {
+      "prediction": "An impairment charge is booked against the Alumetal (Poland/Hungary recycling) CGU in the FY2026 annual report (~Feb-2027)",
+      "status": "still open",
+      "evidence": "The forecast concerns the FY2026 annual-report impairment test; its window has not elapsed. No new Alumetal-specific resolution was verified.",
+      "as_of": "2026-10-19"
+    }
+  ],
+  "catalyst_results": [
+    {
+      "catalyst": "Q2 2026 results",
+      "status": "materialized",
+      "evidence": "Hydro Q2 2026 results announcement, 2026-07-22, earnings and net-debt sections; https://www.hydro.com/en/global/media/news/2026/hydros-second-quarter-2026-operational-strength-delivering-solid-results/",
+      "as_of": "2026-10-19"
+    },
+    {
+      "catalyst": "Q3 2026 results",
+      "status": "pending",
+      "evidence": "Hydro Q3 2026 invitation, accessed 2026-10-19, release date 2026-10-23; https://www.hydro.com/en/global/investors/financial-calendar/invitation---q3-2026/",
+      "as_of": "2026-10-19"
+    },
+    {
+      "catalyst": "FY2026 annual report / Alumetal impairment test, approximately February 2027 (inferred)",
+      "status": "pending",
+      "evidence": "analyses/NHY_2026-07-19/final_thesis.md, section 7. Timing remains inferred.",
+      "as_of": "2026-10-19"
+    }
+  ],
+  "risk_results": [
+    {
+      "risk": "RF-OWN-004 — State-control ownership cap",
+      "status": "not assessable",
+      "evidence": "Frozen High flag; no current primary resolution verified. analyses/NHY_2026-07-19/decision_record.json, red_flags.",
+      "as_of": "2026-10-19"
+    },
+    {
+      "risk": "RF-CAP-001 — Past discontinued growth investments",
+      "status": "not assessable",
+      "evidence": "Frozen High flag; no current primary resolution verified. analyses/NHY_2026-07-19/decision_record.json, red_flags.",
+      "as_of": "2026-10-19"
+    },
+    {
+      "risk": "RF-CAP-003 — Dividend cash coverage",
+      "status": "not assessable",
+      "evidence": "Frozen High flag; no current primary resolution verified. analyses/NHY_2026-07-19/decision_record.json, red_flags.",
+      "as_of": "2026-10-19"
+    },
+    {
+      "risk": "RF-DISC-002 — Recurring adjusted exclusions",
+      "status": "not assessable",
+      "evidence": "Frozen High flag; no current primary resolution verified. analyses/NHY_2026-07-19/decision_record.json, red_flags.",
+      "as_of": "2026-10-19"
+    },
+    {
+      "risk": "RF-SHR-001 — Remuneration dissent",
+      "status": "not assessable",
+      "evidence": "Frozen High flag; no current primary resolution verified. analyses/NHY_2026-07-19/decision_record.json, red_flags.",
+      "as_of": "2026-10-19"
+    },
+    {
+      "risk": "BM-12-Alumetal — Alumetal impairment headroom",
+      "status": "not assessable",
+      "evidence": "Frozen High flag; no current primary resolution verified. analyses/NHY_2026-07-19/decision_record.json, red_flags.",
+      "as_of": "2026-10-19"
+    },
+    {
+      "risk": "BM-11-Contingent — Brazil contingencies",
+      "status": "not assessable",
+      "evidence": "Frozen High flag; no current primary resolution verified. analyses/NHY_2026-07-19/decision_record.json, red_flags.",
+      "as_of": "2026-10-19"
+    },
+    {
+      "risk": "EARN-08-Receivables — Receivables/cash conversion",
+      "status": "not assessable",
+      "evidence": "Frozen High flag; no current primary resolution verified. analyses/NHY_2026-07-19/decision_record.json, red_flags.",
+      "as_of": "2026-10-19"
+    },
+    {
+      "risk": "Cash funding / leverage",
+      "status": "not materialized on the frozen strict-ratio test",
+      "evidence": "The forecast of leverage rising above 1.02x was falsified at 0.763x on the matched strict/reported-EBITDA basis. Reported CFO recovered, though matched DSO and covenant headroom remain unproven. Hydro Second Quarter Report 2026, published 2026-07-22, pp.5,23-24,34 (unaudited interim); https://www.hydro.com/globalassets/06-investors/reports-and-presentations/quarterly-reports/2026/q2k9pev/second-quarter-report-2026.pdf",
+      "as_of": "2026-10-19"
+    },
+    {
+      "risk": "State-control rating cap, Brazil tax risk and Alumetal impairment",
+      "status": "pending",
+      "evidence": "No new primary resolution was found in the recursively inspected pool or the outcome sources reviewed. Frozen decision_record.json and pre_mortem.json remain unchanged.",
+      "as_of": "2026-10-19"
+    },
+    {
+      "risk": "Qatalum disruption",
+      "status": "not assessable",
+      "evidence": "The official 60%-capacity notice is dated March 12, before the decision; a newly crawled copy is not proof conditions persisted through October. No current restart/status disclosure was verified. https://www.hydro.com/en/global/media/news/2026/qatalum-maintaining-scaled-down-aluminium-production/",
+      "as_of": "2026-10-19"
+    }
+  ],
+  "decision_quality": "not assessable",
+  "error_taxonomy": [],
+  "lessons": [
+    "Price-only opportunity-cost observation: NOK 76.86 is the October 16 completed-session close shown by Stock Analysis, accessed 2026-10-19, indicative/unverified; https://stockanalysis.com/quote/osl/NHY/history/ . It is not an October 19 price or a paper trade; review_price and absolute_return_pct are null because no October 19 observation was verified.",
+    "Exact-window OSEBX and sector total-return endpoints/basis were not established; benchmark and sector returns stay null. Daily changes, monthly returns and price-only metal moves are not substituted for the required matched total returns.",
+    "Q2 adjusted EBITDA beat the original no-clear-beat forecast. The margin-fade thesis cannot be marked confirmed before the second print.",
+    "Strict net leverage fell to 0.763x, falsifying the rise forecast, while company-defined investment-inclusive net debt rose. Reported CFO recovered; matched vendor DSO is still missing. A search crawl date cannot update the underlying Qatalum disclosure.",
+    "Original decision_record.json, final_thesis.md and module outputs were not modified. No financial model was updated and no follow-up module was launched."
+  ],
+  "module_calibration_notes": {
+    "most_responsible": "valuation and the management-governance ownership cap drove Watchlist.",
+    "most_accurate_so_far": "Not assessable as an overall module ranking: the EBITDA no-beat and strict-leverage-rise forecasts were falsified, while the two-print margin test is open.",
+    "key_variable": "The EBITDA beat, lower matched leverage and positive CFO are post-decision outcomes, not proof of a decision-time process fault. Matched vendor DSO remains missing.",
+    "confidence_basis": "The frozen record/thesis show 35 while the pre-mortem recommends 25 after a 10-point haircut. This append-only review flags the unreconciled artifacts and leaves before/after null."
+  },
+  "action_now": {
+    "label": "Keep watching",
+    "reason": "The original Watchlist was no position. A lower price alone does not resolve ownership, cash conversion or the pending October 23 test."
+  },
+  "confidence_update": {
+    "before": null,
+    "after": null,
+    "change_reason": "Frozen 35 and pre-mortem-recommended 25 are unreconciled; no new current conviction is manufactured before the pending operating test."
+  },
+  "next_check": {
+    "date": "2026-10-23",
+    "label": "Q3 results and the second margin/cash-conversion observation",
+    "trigger": "Resolve the frozen two-print margin forecast and obtain receivables, CFO/capex and matched strict net-debt/TTM-EBITDA components. Hydro Q3 2026 invitation, accessed 2026-10-19, release date 2026-10-23; https://www.hydro.com/en/global/investors/financial-calendar/invitation---q3-2026/"
+  },
+  "learning": {
+    "why_right_or_wrong": "Watchlist remained no position. The EBITDA no-beat and strict-leverage-rise forecasts were wrong; positive reported CFO weakens the cash concern, while matched DSO, ownership and the second margin print remain unresolved. Price direction does not validate the thesis.",
+    "error_source": "",
+    "rule_for_future": "Grade each forecast on its exact metric and denominator, and separate a cautious no-position decision from the accuracy of its operating forecasts.",
+    "future_research_check": "For NHY, recheck the October 23 margin print and matched vendor DSO. Carry the falsified Q2 leverage-rise forecast and positive reported CFO into future work; never revive the earlier rising-leverage claim using company-defined net debt alone."
+  },
+  "pre_mortem_check": {
+    "pre_mortem_file": "analyses/NHY_2026-07-19/pre_mortem.json",
+    "pre_mortem_verdict": "Survives with haircut",
+    "pre_mortem_confidence_haircut": 10.0,
+    "outcome_vs_verdict": "partial",
+    "notes": "Mixed checkpoint: the EBITDA and leverage forecasts were falsified and the CFO trigger was met, while vendor DSO, ownership and the two-print margin thesis remain unresolved; partial records that split without crediting the audit with vindication or declaring a resolved failure."
+  },
+  "memo_delta": {
+    "summary": "The Watchlist remains unresolved before October 23. Q2 falsified the EBITDA no-beat and strict-leverage-rise forecasts; reported CFO recovered, while matched vendor DSO and the second margin print remain open.",
+    "thesis_delta_verdict": "weakened",
+    "stage_one_comment": "The original recommendation was Watchlist with no position. A matched review-date price was not verified, and price direction cannot prove the thesis. The second-quarter adjusted EBITDA beat falsified the no-clear-beat forecast. The official interim report also shows strict net leverage below the original threshold, falsifying the forecast of a further rise, and reported operating cash flow recovered. Those disconfirming facts weaken the original operating caution. The vendor receivable-days metric has not been matched, so the full cash-quality question remains open. The two-print margin test still needs the October 23 results. Older Qatalum news is not treated as a current update because it was crawled recently. Keep watching the next filing and the unresolved ownership cap before changing the recommendation.",
+    "changed_sections": [
+      {
+        "section": "Earnings forecast / disconfirmation",
+        "original_claim": "Q2 adjusted EBITDA would not clearly beat the frozen consensus.",
+        "new_evidence": "Reported adjusted EBITDA of NOK 8,923m was 3.98% above that consensus, falsifying this forecast; the second margin observation is still pending.",
+        "evidence_source": "Hydro Q2 2026 results announcement, 2026-07-22, earnings and net-debt sections; https://www.hydro.com/en/global/media/news/2026/hydros-second-quarter-2026-operational-strength-delivering-solid-results/",
+        "materiality_score": 65,
+        "impact_direction": "positive",
+        "impacted_modules": [
+          "earnings",
+          "valuation"
+        ],
+        "rerun_recommended": false,
+        "rerun_reason": "The result was already recorded at the prior checkpoint; await the imminent second print rather than launching a duplicate run.",
+        "rerun_command": ""
+      },
+      {
+        "section": "Leverage forecast grading",
+        "original_claim": "The prior outcome review confirmed rising leverage direction from a larger debt numerator.",
+        "new_evidence": "The interim report establishes 0.763x strict net leverage from the shown debt/cash and trailing reported EBITDA build, falsifying the rise forecast.",
+        "evidence_source": "Hydro Second Quarter Report 2026, published 2026-07-22, pp.5,23-24,34 (unaudited interim); https://www.hydro.com/globalassets/06-investors/reports-and-presentations/quarterly-reports/2026/q2k9pev/second-quarter-report-2026.pdf; analyses/NHY_2026-07-19/reviews/2026-08-21_30d_decision_review.json, accessed 2026-10-19",
+        "materiality_score": 50,
+        "impact_direction": "neutral",
+        "impacted_modules": [
+          "balance-sheet-survival"
+        ],
+        "rerun_recommended": false,
+        "rerun_reason": "",
+        "rerun_command": ""
+      }
+    ],
+    "watch_items": [
+      "October 23 Q3 release: second observation for the original margin-fade forecast.",
+      "Matched vendor DSO and Q3 CFO/capex; preserve the Q2 strict-leverage falsification.",
+      "Fresh primary Qatalum operating status; the March notice is not an October update.",
+      "FY2026 Alumetal impairment test and current Brazil tax / state-control evidence."
+    ],
+    "management_questions": [
+      "What explains the receivables movement and where are matched DSO measures now?",
+      "What debt, cash and trailing EBITDA components reconcile the strict leverage ratio?",
+      "What is the current Qatalum operating rate and the dated restart plan?",
+      "How much of the EBITDA improvement is recurring operating improvement rather than metal prices and premia?"
+    ],
+    "memo_delta_file": "analyses/NHY_2026-07-19/reviews/2026-10-19_90d_memo_delta.md"
+  }
+}

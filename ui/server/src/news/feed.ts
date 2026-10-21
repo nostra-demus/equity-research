@@ -199,11 +199,11 @@ function readResolvedShardText(row: { file: string; index: number }, archiveDir:
  * identifies the exact first unconsumed storage row, so archive search can stop at a hard line/page budget
  * and resume without rereading an uncapped logical day. The visitor returns false to stop before consuming
  * the current item (it will be visited again from `next`). */
-function scanDayItems(
+export function scanDayItems(
   repoRoot: string,
   date: string,
   archiveDir: string,
-  options: { maxLines?: number; start?: DayScanPosition | null } = {},
+  options: { maxLines?: number; start?: DayScanPosition | null; strict?: boolean } = {},
   visit: (item: FeedItem) => boolean = () => true,
 ): DayItemScan {
   let files: ReturnType<typeof resolvedFirehoseFiles>
@@ -235,7 +235,10 @@ function scanDayItems(
       if (lines >= maxLines) return { status: 'read', lines, complete: false, next: { shard, line } }
       lines++
       let parsed: any
-      try { parsed = JSON.parse(raw) } catch { continue }
+      try { parsed = JSON.parse(raw) } catch {
+        if (options.strict) return { status: 'unreadable', lines, complete: true, next: null }
+        continue
+      }
       if (parsed?.kind !== 'item') continue
       if (!visit(hydrate(parsed as FeedItem))) {
         return { status: 'read', lines, complete: false, next: { shard, line } }

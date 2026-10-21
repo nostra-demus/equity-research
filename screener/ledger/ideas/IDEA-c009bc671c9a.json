@@ -1,0 +1,76 @@
+{
+  "idea_id": "IDEA-c009bc671c9a",
+  "idea_version": "IDEAV-f7ea29f5b95d97f9",
+  "idea_version_started_at": "2026-10-19T23:11:18Z",
+  "ticker": "NAB",
+  "company": "National Australia Bank",
+  "exchange": "ASX",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The bank is initiating a massive restructuring involving 2,500 job cuts with an associated $300 million cost, indicating near-term margin pressure and operational headwinds.",
+  "why_now": "The restructuring plan was announced on October 19, 2026, with the majority of layoffs occurring over the coming months.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 19,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-8a21fe1a1d9c",
+    "EVT-b48f9450924c"
+  ],
+  "primary_source_event_id": "EVT-8a21fe1a1d9c",
+  "source_headlines": [
+    "NAB to cut 2500 jobs in massive restructure, most to go within months",
+    "ASX falls; NAB expects restructure, redundancies to cost bank $300m"
+  ],
+  "source_headline": "NAB to cut 2500 jobs in massive restructure, most to go within months",
+  "source_url": "https://www.afr.com/companies/financial-services/nab-to-cut-2500-jobs-in-massive-restructure-most-to-go-within-months-20261020-p616yh?ref=rss&utm_medium=rss&utm_source=rss_feed",
+  "source_name": "Australian Financial Review",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-19T23:01:14Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-19T23:11:18Z",
+  "updated_at": "2026-10-19T23:11:18Z",
+  "decay_at": "2026-10-21T11:01:14Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

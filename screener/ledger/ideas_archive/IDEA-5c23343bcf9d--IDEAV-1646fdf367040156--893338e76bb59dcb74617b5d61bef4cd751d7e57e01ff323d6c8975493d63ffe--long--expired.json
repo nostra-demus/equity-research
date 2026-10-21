@@ -1,0 +1,76 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-10-15T13:35:03Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-5c23343bcf9d",
+    "idea_version": "IDEAV-1646fdf367040156",
+    "idea_version_started_at": "2026-10-12T15:24:05Z",
+    "ticker": "GD",
+    "company": "General Dynamics",
+    "exchange": "NYSE",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "The Department of War certified production capacity for a guided-missile destroyer at Bath Iron Works, a subsidiary of General Dynamics, suggesting increased future revenue from defense contracts.",
+    "why_now": "The certification of production capacity is a new development.",
+    "conviction": 65,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 76,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 25,
+      "impact": 19,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-1e8f57b5b992"
+    ],
+    "primary_source_event_id": "EVT-1e8f57b5b992",
+    "source_headlines": [
+      "Department of War Certifies Production Capacity for Second Guided-Missile Destroyer at Maine's Bath Iron Works"
+    ],
+    "source_headline": "Department of War Certifies Production Capacity for Second Guided-Missile Destroyer at Maine's Bath Iron Works",
+    "source_url": "https://www.war.gov/News/Releases/Release/Article/4623902/department-of-war-certifies-production-capacity-for-second-guided-missile-destr/",
+    "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-12T13:30:07Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-10-12T15:24:05Z",
+    "updated_at": "2026-10-12T15:24:05Z",
+    "decay_at": "2026-10-14T01:30:07Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
