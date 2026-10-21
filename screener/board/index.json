@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T00:41:27Z",
+  "generated_at": "2026-10-21T00:52:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-016",
@@ -193,6 +193,158 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-036",
+      "headline": "Iveco's minority shareholders emerge as key hurdle to Tata’s takeover bid",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/tata-motors-iveco-deal-status-shareholder-approval-11792483781433.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T00:30:39Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Minority shareholders are creating a hurdle for Tata's takeover bid for Iveco.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Minority shareholders are creating a hurdle for Tata's takeover bid for Iveco.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Iveco",
+          "ticker": null,
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-041",
+      "headline": "ICU: Late Quarterly Reports and Appendix 4Cs",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ICU?key=2924-03151079-2A1705297",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T00:36:05Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "ICU disclosed late filing of multiple quarterly reports, indicating potential internal control or compliance issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "ICU disclosed late filing of multiple quarterly reports, indicating potential internal control or compliance issues.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ICU",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-039",
+      "headline": "GDF: Trading Halt [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GDF?key=2924-03151082-2A1705303",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T00:39:10Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "GDF announced a price-sensitive trading halt, indicating a pending material announcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "GDF announced a price-sensitive trading halt, indicating a pending material announcement.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "strategic_review",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GDF",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -562,60 +714,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261021-004",
-      "headline": "SpaceX and Tesla boards explore potential merger",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/f2a2a578-5a2e-42ff-b4c9-8bafff271b37?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-20T21:56:34Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "The SpaceX and Tesla boards are exploring a potential merger, which could create a major industry combination but remains unconfirmed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "The SpaceX and Tesla boards are exploring a potential merger, which could create a major industry combination but remains unconfirmed.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 64,
-      "rank_factors": {
-        "materiality": 64,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 6,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Tesla",
-          "ticker": "TSLA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20261021-027",
       "headline": "SCHEDULE 13G - TALOS ENERGY INC. (0001724965) (Subject)",
       "headline_en": null,
@@ -660,6 +758,50 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-037",
+      "headline": "U.S. importer files lawsuit challenging Trump’s new tariffs on Canadian goods",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-us-food-importer-files-lawsuit-challenging-trump-tariffs-canadian/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T00:34:28Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "A lawsuit challenging new tariffs on Canadian goods introduces legal and trade risk for cross-border commerce.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "A lawsuit challenging new tariffs on Canadian goods introduces legal and trade risk for cross-border commerce.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -804,6 +946,55 @@
           "name": "FLX",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-040",
+      "headline": "ICU: Quarterly Activities/Appendix 4C Cash Flow Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ICU?key=2924-03151080-2A1705298",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T00:36:15Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "ICU released quarterly cash flow reports, which are price-sensitive disclosures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "ICU released quarterly cash flow reports, which are price-sensitive disclosures.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ICU",
+          "ticker": null,
+          "listing_country": "AU"
         }
       ],
       "size_bucket": "small",
@@ -1010,6 +1201,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261021-038",
+      "headline": "Eveready’s Non-Battery Business to Account for 45% of Revenue: CEO",
+      "headline_en": null,
+      "url": "https://www.outlookbusiness.com/corporate/evereadys-non-battery-business-to-account-for-45-of-revenue-ceo",
+      "source_name": "Outlook Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T00:32:00Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Eveready CEO projects non-battery business will reach 45% of total revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "Eveready CEO projects non-battery business will reach 45% of total revenue.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eveready",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261021-034",
       "headline": "MCO: Issue of Placement Shares",
       "headline_en": null,
@@ -1103,6 +1343,57 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-035",
+      "headline": "Revolve Reports FY2026 Financial Results and Advances Growth Through Project-Level Financing and Strategic Acquisitions | REVVF Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/REVVF/revolve-reports-fy2026-financial-results-and-advances-growth-through-ppf2rf44o89w.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-21T00:45:00Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Revolve reported FY2026 results and announced strategic acquisitions and project-level financing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Revolve reported FY2026 results and announced strategic acquisitions and project-level financing.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Revolve",
+          "ticker": "REVVF",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -190112,76 +190403,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3fd19793d384",
-      "idea_version": "IDEAV-2be7668da077748b",
-      "idea_version_started_at": "2026-10-19T22:30:40Z",
-      "ticker": "TTMI",
-      "company": "TTM Technologies",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of Ophir Optics for $650 million expands TTM's high-end optical capabilities, providing a clear path to revenue synergy in their aerospace and defense segments.",
-      "why_now": "The deal was announced today, October 19, 2026, and is expected to be accretive to earnings.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e2eb583018cb"
-      ],
-      "primary_source_event_id": "EVT-e2eb583018cb",
-      "source_headlines": [
-        "TTM Technologies To Acquire Ophir Optics Business From MKS For Approx. $650 Mln All-cash Deal"
-      ],
-      "source_headline": "TTM Technologies To Acquire Ophir Optics Business From MKS For Approx. $650 Mln All-cash Deal",
-      "source_url": "https://www.nasdaq.com/articles/ttm-technologies-acquire-ophir-optics-business-mks-approx-650-mln-all-cash-deal",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-19T12:44:30Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-19T22:30:40Z",
-      "updated_at": "2026-10-19T22:30:40Z",
-      "decay_at": "2026-10-21T00:44:30Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-8e38ef15bf4e",
       "idea_version": "IDEAV-babbca001e70f436",
       "idea_version_started_at": "2026-10-20T13:35:08Z",
@@ -191019,77 +191240,6 @@
       "surfaced_at": "2026-10-19T23:11:18Z",
       "updated_at": "2026-10-19T23:11:18Z",
       "decay_at": "2026-10-21T09:37:27Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-2bf82db127af",
-      "idea_version": "IDEAV-1f353af1b0493cf9",
-      "idea_version_started_at": "2026-10-19T21:35:55Z",
-      "ticker": "SLN",
-      "company": "Silence Therapeutics",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Merck has agreed to acquire the company for $1.3 billion, representing a significant premium to the prior trading price.",
-      "why_now": "The acquisition was announced on October 19, 2026, and the stock is expected to trade up to the deal price.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-813ff8e680fe"
-      ],
-      "primary_source_event_id": "EVT-813ff8e680fe",
-      "source_headlines": [
-        "Germany’s Merck to Buy U.K. Biotech Silence Therapeutics for $1.3 Billion"
-      ],
-      "source_headline": "Germany’s Merck to Buy U.K. Biotech Silence Therapeutics for $1.3 Billion",
-      "source_url": "https://www.wsj.com/tech/biotech/germanys-merck-to-buy-u-k-biotech-silence-therapeutics-for-1-3-billion-aab773c5?mod=rss_Technology",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-19T12:48:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-19T21:35:55Z",
-      "updated_at": "2026-10-19T21:35:55Z",
-      "decay_at": "2026-10-21T00:48:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -192605,6 +192755,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-3fd19793d384",
+      "idea_version": "IDEAV-2be7668da077748b",
+      "idea_version_started_at": "2026-10-19T22:30:40Z",
+      "ticker": "TTMI",
+      "company": "TTM Technologies",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of Ophir Optics for $650 million expands TTM's high-end optical capabilities, providing a clear path to revenue synergy in their aerospace and defense segments.",
+      "why_now": "The deal was announced today, October 19, 2026, and is expected to be accretive to earnings.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e2eb583018cb"
+      ],
+      "primary_source_event_id": "EVT-e2eb583018cb",
+      "source_headlines": [
+        "TTM Technologies To Acquire Ophir Optics Business From MKS For Approx. $650 Mln All-cash Deal"
+      ],
+      "source_headline": "TTM Technologies To Acquire Ophir Optics Business From MKS For Approx. $650 Mln All-cash Deal",
+      "source_url": "https://www.nasdaq.com/articles/ttm-technologies-acquire-ophir-optics-business-mks-approx-650-mln-all-cash-deal",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-19T12:44:30Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T22:30:40Z",
+      "updated_at": "2026-10-19T22:30:40Z",
+      "decay_at": "2026-10-21T00:44:30Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-a2af7914e260",
       "idea_version": "IDEAV-a26278bbb90510e9",
       "idea_version_started_at": "2026-10-19T05:11:57Z",
@@ -193020,6 +193240,77 @@
       "surfaced_at": "2026-10-19T04:16:06Z",
       "updated_at": "2026-10-19T04:16:06Z",
       "decay_at": "2026-10-20T15:27:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-2bf82db127af",
+      "idea_version": "IDEAV-1f353af1b0493cf9",
+      "idea_version_started_at": "2026-10-19T21:35:55Z",
+      "ticker": "SLN",
+      "company": "Silence Therapeutics",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Merck has agreed to acquire the company for $1.3 billion, representing a significant premium to the prior trading price.",
+      "why_now": "The acquisition was announced on October 19, 2026, and the stock is expected to trade up to the deal price.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-813ff8e680fe"
+      ],
+      "primary_source_event_id": "EVT-813ff8e680fe",
+      "source_headlines": [
+        "Germany’s Merck to Buy U.K. Biotech Silence Therapeutics for $1.3 Billion"
+      ],
+      "source_headline": "Germany’s Merck to Buy U.K. Biotech Silence Therapeutics for $1.3 Billion",
+      "source_url": "https://www.wsj.com/tech/biotech/germanys-merck-to-buy-u-k-biotech-silence-therapeutics-for-1-3-billion-aab773c5?mod=rss_Technology",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-19T12:48:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T21:35:55Z",
+      "updated_at": "2026-10-19T21:35:55Z",
+      "decay_at": "2026-10-21T00:48:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -196625,14 +196916,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 555,
+    "total_count": 557,
     "shown_count": 499,
-    "hidden_count": 56,
+    "hidden_count": 58,
     "side_counts": {
       "long": {
-        "total_count": 291,
+        "total_count": 293,
         "shown_count": 250,
-        "hidden_count": 41
+        "hidden_count": 43
       },
       "short": {
         "total_count": 265,
@@ -196656,6 +196947,153 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-2bf82db127af",
+        "idea_version": "IDEAV-1f353af1b0493cf9",
+        "idea_version_started_at": "2026-10-19T21:35:55Z",
+        "ticker": "SLN",
+        "company": "Silence Therapeutics",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Merck has agreed to acquire the company for $1.3 billion, representing a significant premium to the prior trading price.",
+        "why_now": "The acquisition was announced on October 19, 2026, and the stock is expected to trade up to the deal price.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-813ff8e680fe"
+        ],
+        "primary_source_event_id": "EVT-813ff8e680fe",
+        "source_headlines": [
+          "Germany’s Merck to Buy U.K. Biotech Silence Therapeutics for $1.3 Billion"
+        ],
+        "source_headline": "Germany’s Merck to Buy U.K. Biotech Silence Therapeutics for $1.3 Billion",
+        "source_url": "https://www.wsj.com/tech/biotech/germanys-merck-to-buy-u-k-biotech-silence-therapeutics-for-1-3-billion-aab773c5?mod=rss_Technology",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-19T12:48:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-19T21:35:55Z",
+        "updated_at": "2026-10-19T21:35:55Z",
+        "decay_at": "2026-10-21T00:48:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-21T00:48:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-3fd19793d384",
+        "idea_version": "IDEAV-2be7668da077748b",
+        "idea_version_started_at": "2026-10-19T22:30:40Z",
+        "ticker": "TTMI",
+        "company": "TTM Technologies",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of Ophir Optics for $650 million expands TTM's high-end optical capabilities, providing a clear path to revenue synergy in their aerospace and defense segments.",
+        "why_now": "The deal was announced today, October 19, 2026, and is expected to be accretive to earnings.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e2eb583018cb"
+        ],
+        "primary_source_event_id": "EVT-e2eb583018cb",
+        "source_headlines": [
+          "TTM Technologies To Acquire Ophir Optics Business From MKS For Approx. $650 Mln All-cash Deal"
+        ],
+        "source_headline": "TTM Technologies To Acquire Ophir Optics Business From MKS For Approx. $650 Mln All-cash Deal",
+        "source_url": "https://www.nasdaq.com/articles/ttm-technologies-acquire-ophir-optics-business-mks-approx-650-mln-all-cash-deal",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-19T12:44:30Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-19T22:30:40Z",
+        "updated_at": "2026-10-19T22:30:40Z",
+        "decay_at": "2026-10-21T00:44:30Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-21T00:44:30Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ee7156fae646",
         "idea_version": "IDEAV-d4e368614a20c997",
@@ -223925,157 +224363,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-2bb195a65ac7",
-        "idea_version": "IDEAV-f0f319b188bead94",
-        "idea_version_started_at": "2026-10-06T03:52:03Z",
-        "ticker": "BDX",
-        "company": "Becton Dickinson",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "A $3 billion capital investment in domestic manufacturing capacity is expected to improve long-term margins and supply chain resilience for medical products.",
-        "why_now": "The announcement was made on 2026-10-06, signaling immediate strategic expansion.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-98e743717cec"
-        ],
-        "primary_source_event_id": "EVT-98e743717cec",
-        "source_headlines": [
-          "Trump says Becton Dickinson to invest $3 billion to expand US medical product manufacturing"
-        ],
-        "source_headline": "Trump says Becton Dickinson to invest $3 billion to expand US medical product manufacturing",
-        "source_url": "https://www.reuters.com/world/trump-says-becton-dickinson-invest-3-billion-expand-us-medical-product-2026-10-06/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-06T03:41:58Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-06T03:52:03Z",
-        "updated_at": "2026-10-06T03:52:03Z",
-        "decay_at": "2026-10-07T15:41:58Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-09T04:30:28Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-b58f99259bd4",
-        "idea_version": "IDEAV-74c601e3cdeba589",
-        "idea_version_started_at": "2026-10-06T10:47:22Z",
-        "ticker": "TREN",
-        "company": "Trent Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Q2 revenue rose 23% YoY to Rs 5,788 crore, a beat that drove the stock to a 10% upper circuit on fresh earnings momentum.",
-        "why_now": "Q2 results released 2026-10-06.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-7000cdacd205"
-        ],
-        "primary_source_event_id": "EVT-7000cdacd205",
-        "source_headlines": [
-          "Trent shares hit 10% upper circuit after Q2 revenue rises 23% YoY to Rs 5,788 crore. Should you buy, sell or hold?"
-        ],
-        "source_headline": "Trent shares hit 10% upper circuit after Q2 revenue rises 23% YoY to Rs 5,788 crore. Should you buy, sell or hold?",
-        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/trent-in-focus-after-q2-revenue-rises-23-to-rs-5788-crore-buy-sell-or-hold-the-stock/articleshow/134721903.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-06T03:16:14Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-06T10:47:22Z",
-        "updated_at": "2026-10-06T10:47:22Z",
-        "decay_at": "2026-10-07T15:16:14Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-09T04:30:28Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-3e068ec8e73f",
         "idea_version": "IDEAV-01304566a587cf84",
         "idea_version_started_at": "2026-10-06T03:52:03Z",
@@ -233834,7 +234121,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1767,
-    "live_count": 41,
+    "live_count": 39,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -233844,7 +234131,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3881,
+    "inbox_unconsumed": 3887,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -233853,9 +234140,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 410686,
-    "news_picked_today": 34,
-    "news_dropped_today": 302
+    "news_seen_today": 532286,
+    "news_picked_today": 46,
+    "news_dropped_today": 362
   },
   "book_momentum": {
     "live_count": 8,
