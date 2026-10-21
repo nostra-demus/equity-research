@@ -564,6 +564,13 @@ export const api = {
     if (!isModelRead(read)) throw new Error('The engine returned an invalid Model response. Retry after the engine finishes updating.')
     return read
   },
+  runUniverseEngine: async (retry = false) => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    const { isUniverseEngineRead } = await import('../../../shared/universe-model')
+    const read: unknown = await post('/api/screener/universe-model/run', { retry })
+    if (!isUniverseEngineRead(read)) throw new Error('Signal engine returned invalid progress.')
+    return read
+  },
   universeModelPrices: async (companies: { ticker: string; company: string }[], signal: AbortSignal) => {
     if (await ensureMode() !== 'live') throw new Error('Current prices need the live engine.')
     const { isModelPricesRead } = await import('../../../shared/universe-model')

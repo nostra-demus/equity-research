@@ -6852,7 +6852,7 @@ app.get('/api/calls/artifact', async (req, reply) => {
 
 // ---------- screener swarm (dedicated, sandboxed readers — /api/output stays locked to analyses/) ----------
 registerIdeasWorkspace(app, REPO_ROOT, NEWS.newsArchiveDir, () => markIdeasPublicationPending(STATE_DIR))
-registerUniverseModel(app, STATE_DIR, REPO_ROOT, NEWS.newsArchiveDir)
+registerUniverseModel(app, STATE_DIR, REPO_ROOT, NEWS.newsArchiveDir, { canRun: originAllowed })
 
 app.get('/api/screener/board', async (_req, reply) => {
   try {

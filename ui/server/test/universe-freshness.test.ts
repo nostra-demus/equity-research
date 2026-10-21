@@ -203,6 +203,12 @@ try {
     assert.equal((await app.inject('/api/screener/universe-model/quotes?tickers=../../invalid')).statusCode, 400)
     const active = (await app.inject({ url: '/api/screener/universe-model', headers: { 'x-nostra-model': MODEL_CLIENT_VERSION } })).json()
     assert.equal(active.rows.length, 21)
+    assert.equal(active.engine.enabled, false, 'GET never enables inference')
+    assert.equal((await app.inject({ method: 'POST', url: '/api/screener/universe-model/run', headers: { origin: 'https://untrusted.test' }, payload: {} })).statusCode, 403)
+    assert.equal((await app.inject({ method: 'POST', url: '/api/screener/universe-model/run', payload: { model: 'paid-fallback' } })).statusCode, 400)
+    const enabled = await app.inject({ method: 'POST', url: '/api/screener/universe-model/run', payload: { retry: false } })
+    assert.equal(enabled.statusCode, 202); assert.equal(enabled.json().enabled, true)
+
   } finally { await app.close() }
 } finally { await fs.rm(dir, { recursive: true, force: true }) }
 console.log('universe-freshness: batch publication, durable restart, last-batch failure, background pacing, version guard and free quote route passed')

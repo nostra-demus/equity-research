@@ -39,11 +39,12 @@ function EventEvidence({ event, row, signal }: { event: ModelEvent; row: ModelRo
           {analysis.company_role && <p>Company role: {roleLabel(analysis.company_role)}</p>}
           {analysis.effects.map((effect, i) => <div key={i} className="model-dialog__effect"><strong>{effect.side === 'beneficiary' ? 'Potential benefit' : 'Potential risk'} · inferred</strong>
             <p>{effect.mechanism}</p>{(effect.magnitude || effect.horizon) && <small>{[effect.magnitude, effect.horizon].filter(Boolean).join(' · ')}</small>}</div>)}
-        </> : <p>Company impact not proven from saved analysis.</p>}
+        </> : <p>{analysis?.verdict === 'neutral' ? 'No favorable company impact identified in the saved excerpt.' : 'Company impact not proven from saved analysis.'}</p>}
       {analysis && <small>Saved {date(analysis.read_at)} · may be outdated</small>}
+      {analysis?.source_quote && <blockquote>{analysis.source_quote}</blockquote>}
       {provenance && provenance.kind !== 'original' && <p className="model-dialog__meta">
-        {provenance.kind === 'alternate' ? 'Alternate source' : provenance.kind === 'filing_doc' ? 'Filing source' : 'Secondary synthesis'}
-        {provenance.label && ` · ${provenance.label}`}{provenance.url && <> · <a href={provenance.url} target="_blank" rel="noreferrer">Source actually read ↗</a></>}
+        {provenance.kind === 'saved_excerpt' ? 'Saved source excerpt · inferred' : provenance.kind === 'alternate' ? 'Alternate source' : provenance.kind === 'filing_doc' ? 'Filing source' : 'Secondary synthesis'}
+        {provenance.label && ` · ${provenance.label}`}{provenance.url && <> · <a href={provenance.url} target="_blank" rel="noreferrer">{provenance.kind === 'saved_excerpt' ? 'Original source ↗' : 'Source actually read ↗'}</a></>}
       </p>}
       {error && <div role="alert"><p>Saved analysis unavailable.</p><button type="button" onClick={() => setAttempt((n) => n + 1)}>Retry saved analysis</button></div>}
     </div>
@@ -60,15 +61,15 @@ function EventEvidence({ event, row, signal }: { event: ModelEvent; row: ModelRo
 }
 
 function SignalEvidence({ row, signal }: { row: ModelRow; signal: ModelSignal }) {
-  const [reportIndex, setReportIndex] = useState(0)
+  const [reportId, setReportId] = useState<string | null>(null)
   const reports = row.signals?.[signal.id] || []
   const result = signalResult(row, signal)
-  const report = reports[reportIndex] || reports[0]
+  const report = reports.find((event) => (event.source_event_id || event.id) === reportId) || reports[0]
   return <>
     <p className="model-dialog__status"><strong>{mark(result)} {status(result)}</strong></p>
     {report ? <>
-      {reports.length > 1 && <label className="model-dialog__reports">Recent report <select value={reportIndex} onChange={(e) => setReportIndex(Number(e.target.value))} aria-label="Recent signal report">
-        {reports.map((r, i) => <option value={i} key={r.id}>{i + 1}. {r.headline}</option>)}
+      {reports.length > 1 && <label className="model-dialog__reports">Recent report <select value={report.source_event_id || report.id} onChange={(e) => setReportId(e.target.value)} aria-label="Recent signal report">
+        {reports.map((r, i) => <option value={r.source_event_id || r.id} key={r.id}>{i + 1}. {r.headline}</option>)}
       </select></label>}
       <EventEvidence key={report.source_event_id || report.id} event={report} row={row} signal={signal} />
     </> : <p>{result === null
@@ -113,7 +114,7 @@ export function ModelSignalDialog({ selection, onSelect, onClose }: {
       <div className="model-dialog__body">
         {signal ? <><button type="button" className="model-dialog__back" onClick={() => onSelect(null)}>← All company signals</button>
           <SignalEvidence key={signal.id} row={row} signal={signal} /></>
-          : <><FinvizCompanyData ticker={row.ticker} company={row.company} /><p>{row.signals === null ? 'Coverage unavailable' : `Total: ${modelTotal(row)} green ticks`}</p>
+          : <><FinvizCompanyData ticker={row.ticker} company={row.company} /><p>{modelTotal(row) === null ? 'Impact unassessed' : `Total: ${modelTotal(row)} green ticks`}</p>
             <div className="model-dialog__signals">{MODEL_SIGNALS.map((s) => { const result = signalResult(row, s); return <button type="button" key={s.id} onClick={() => onSelect(s)}>
               <span>{mark(result)} {s.label}</span><small>{status(result)}</small>
             </button> })}</div></>}

@@ -145,3 +145,45 @@ export async function withProviderRunDeployLease<T>(stateDir: string, run: () =>
   try { return await run() }
   finally { release() }
 }
+
+/** Run an abortable cycle: start it with a fresh AbortController, abort it on timeout or a higher-priority
+ *  writer request, and AWAIT it to settlement either way. Resolves/rejects ONLY once the underlying work
+ *  has finished, so the caller's `running` lock is released only when nothing is in-flight — no overlap.
+ *  Exported for tests. */
+export async function runAbortableCycle<T>(
+  run: (signal: AbortSignal) => Promise<T>,
+  timeoutMs: number,
+  onTimeout?: () => void,
+  yieldGuard?: {
+    requested: () => boolean
+    pollMs?: number
+    onYield?: () => void
+  },
+): Promise<T> {
+  const ac = new AbortController()
+  const guard = setTimeout(() => {
+    if (ac.signal.aborted) return
+    onTimeout?.()
+    ac.abort()
+  }, timeoutMs)
+  ;(guard as { unref?: () => void }).unref?.()
+  const checkYield = () => {
+    if (ac.signal.aborted || !yieldGuard) return
+    let requested = true
+    try { requested = yieldGuard.requested() }
+    catch { /* fail closed: a broken deployment-intent read must release background work */ }
+    if (!requested) return
+    yieldGuard.onYield?.()
+    ac.abort()
+  }
+  const yieldPoll = yieldGuard
+    ? setInterval(checkYield, Math.max(25, Math.floor(yieldGuard.pollMs ?? 250)))
+    : null
+  ;(yieldPoll as { unref?: () => void } | null)?.unref?.()
+  try {
+    return await run(ac.signal)
+  } finally {
+    clearTimeout(guard)
+    if (yieldPoll) clearInterval(yieldPoll)
+  }
+}
