@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-21T20:51:12Z",
+  "generated_at": "2026-10-21T20:59:34Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261021-466",
+      "headline": "DEFM14A - Personalis, Inc. (0001527753) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1527753/000119312526427872/0001193125-26-427872-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-21T20:21:32Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Definitive proxy statement filed for merger; shareholder vote on acquisition is proceeding but deal terms and pricing not disclosed in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Definitive proxy statement filed for merger; shareholder vote on acquisition is proceeding but deal terms and pricing not disclosed in headline.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Personalis, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261021-451",
       "headline": "Alkem Laboratories Limited: Alkem Laboratories Limited has informed the Exchange about Initiation of Forensic Audit",
@@ -1940,56 +1989,6 @@
           "name": "Adani Green Energy",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-214",
-      "headline": "UK’s Biggest Port Operator Valued at £10 Billion in Stake Sale",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-21/uk-s-biggest-port-operator-valued-at-10-billion-in-stake-sale",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T08:34:22Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Stake sale of UK's biggest port operator valued at £10 billion, a large capital transaction affecting ownership structure and strategic control of critical infrastructure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Stake sale of UK's biggest port operator valued at £10 billion, a large capital transaction affecting ownership structure and strategic control of critical infrastructure.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UK Major Port Operator (name not explicitly stated in headline)",
-          "ticker": null,
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -234295,9 +234294,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7962866,
-    "news_picked_today": 873,
-    "news_dropped_today": 16119
+    "news_seen_today": 7981565,
+    "news_picked_today": 875,
+    "news_dropped_today": 16285
   },
   "book_momentum": {
     "live_count": 8,
