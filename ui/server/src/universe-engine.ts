@@ -13,7 +13,10 @@ import { companyImpact, modelAssessed, isModelSavedAnalysis, type ModelEvent, ty
 const VERSION = 'universe-impact/v1'
 const INTERVAL = 60_000
 const HOLD = 30 * 60_000
+// Retain the original receipt/parser limit so a deployed in-flight batch remains recoverable.
 const BATCH_SIZE = 12
+const DISPATCH_SIZE = 4
+const BATCH_TIMEOUT_MS = 5 * 60_000
 const MAX_PROMPT_CHARS = 42_000
 export interface UniverseTask { key: string; ticker: string; company: string; event: ModelEvent }
 interface RecordRead { ticker: string; company: string; event_id: string; analysis: ModelSavedAnalysis | null; error: string | null; at: string }
@@ -189,7 +192,7 @@ export function createUniverseEngine(stateDir: string, deps: {
               error: 'Source evidence exceeds the assessment input limit.', at: stamp() }
             oversized = true; continue
           }
-          if (batch.length >= BATCH_SIZE || chars + length > MAX_PROMPT_CHARS) break
+          if (batch.length >= DISPATCH_SIZE || chars + length > MAX_PROMPT_CHARS) break
           batch.push(task); chars += length
         }
         if (oversized) await save()
@@ -201,30 +204,31 @@ export function createUniverseEngine(stateDir: string, deps: {
           await atomic(receipt, { schema_version: VERSION, status: 'dispatched', at: stamp(), model: state.model, tasks: batch })
           state.active = { tasks: batch, receipt_id: receiptId }; state.error = null; await save()
           let output = ''
-          let interrupted = false
+          let interrupted = false, timedOut = false
+          const signals = new Set<string>()
           let result: Awaited<ReturnType<typeof runChatTurn>>
           try { result = await runAbortableCycle((signal) => (deps.infer ?? runChatTurn)({ model: state.model!, system: UNIVERSE_IMPACT_SYSTEM,
             user: JSON.stringify({ as_of: stamp(), horizon: 'Next 3–6 months', tasks: batch.map((t) => ({ key: t.key, ticker: t.ticker, company: t.company,
               source_event_id: t.event.source_event_id, headline: t.event.headline, source: t.event.source, url: t.event.url, reported_at: t.event.reported_at, source_excerpt: t.event.excerpt })) }),
-            signal, timeoutMs: 120_000, onToken: (token) => { output = (output + token).slice(0, 120_000) } }), 120_000, () => { interrupted = true }, { requested: stopped, onYield: () => { interrupted = true } }) }
+            signal, timeoutMs: BATCH_TIMEOUT_MS, onSignal: (event) => { signals.add(event.kind) }, onToken: (token) => { output = (output + token).slice(0, 120_000) } }), BATCH_TIMEOUT_MS, () => { interrupted = true; timedOut = true }, { requested: stopped, onYield: () => { interrupted = true } }) }
           catch { interrupted = true; result = { costUsd: 0, error: 'Assessment stopped unexpectedly.' } }
           if (result.error && interrupted) {
-            await atomic(receipt.replace(/\.json$/, '.result.json'), { status: 'interrupted', at: stamp() })
-            for (const task of batch) state.records[task.key] = { ticker: task.ticker, company: task.company, event_id: task.event.source_event_id!, analysis: null, error: 'Assessment was interrupted. Retry explicitly to assess this report.', at: stamp() }
+            await atomic(receipt.replace(/\.json$/, '.result.json'), { status: timedOut ? 'timed_out' : 'interrupted', at: stamp(), signals: [...signals] })
+            for (const task of batch) state.records[task.key] = { ticker: task.ticker, company: task.company, event_id: task.event.source_event_id!, analysis: null, error: timedOut ? 'Assessment exceeded its time limit. Retry explicitly to assess this report.' : 'Assessment was interrupted. Retry explicitly to assess this report.', at: stamp() }
             state.active = null; state.next_at = now() + INTERVAL; await save(); return
           }
           if (result.error) {
-            await atomic(receipt.replace(/\.json$/, '.result.json'), { status: 'failed', at: stamp(), error: result.error })
+            await atomic(receipt.replace(/\.json$/, '.result.json'), { status: 'failed', at: stamp(), error: result.error, signals: [...signals] })
             state.active = null; state.error = result.error
             state.next_at = now() + (isUsageLimitError(result.error) ? HOLD : 60_000)
             await save(); return
           }
           try {
             const analyses = parseUniverseAnswers(output, batch, stamp(), state.model!)
-            await atomic(receipt.replace(/\.json$/, '.result.json'), { status: 'completed', at: stamp(), analyses: Object.fromEntries(analyses) })
+            await atomic(receipt.replace(/\.json$/, '.result.json'), { status: 'completed', at: stamp(), signals: [...signals], analyses: Object.fromEntries(analyses) })
             for (const task of batch) state.records[task.key] = { ticker: task.ticker, company: task.company, event_id: task.event.source_event_id!, analysis: analyses.get(task.key) || null, error: analyses.has(task.key) ? null : 'Engine evidence could not be verified against the saved source.', at: stamp() }
           } catch {
-            await atomic(receipt.replace(/\.json$/, '.result.json'), { status: 'invalid', at: stamp(), output })
+            await atomic(receipt.replace(/\.json$/, '.result.json'), { status: 'invalid', at: stamp(), signals: [...signals], output })
             for (const task of batch) state.records[task.key] = { ticker: task.ticker, company: task.company, event_id: task.event.source_event_id!, analysis: null,
               error: 'Engine output did not meet the source-evidence contract.', at: stamp() }
           }

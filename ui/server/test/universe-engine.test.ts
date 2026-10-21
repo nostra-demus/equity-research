@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import fs from 'node:fs/promises'
 import path from 'node:path'
+import { randomUUID } from 'node:crypto'
 import { fileURLToPath } from 'node:url'
 import { createUniverseEngine, parseUniverseAnswers, universeTasks } from '../src/universe-engine'
 import { MODEL_SCHEMA, UNIVERSE_URL, companyImpact, modelTotal, rankModel, isUniverseEngineRead, type ModelRead, type ModelRow } from '../../shared/universe-model'
@@ -39,7 +40,7 @@ await fs.mkdir(parent, { recursive: true })
 const dir = await fs.mkdtemp(path.join(parent, 'engine-'))
 let calls = 0
 const infer: NonNullable<Parameters<typeof createUniverseEngine>[1]['infer']> = async (opts) => {
-  calls++; assert.match(opts.model, /^codex:/); opts.onToken(json(JSON.parse(opts.user).tasks)); return { costUsd: 0 }
+  calls++; assert.match(opts.model, /^codex:/); assert.equal(opts.timeoutMs, 300_000); assert.ok(JSON.parse(opts.user).tasks.length <= 4); opts.onSignal?.({ kind: 'ready', model: opts.model }); opts.onToken(json(JSON.parse(opts.user).tasks)); return { costUsd: 0 }
 }
 const deps = { universe: async () => read(), infer, now: () => at, lease: async <T>(fn: () => Promise<T>) => fn(), schedule: (_fn: () => Promise<void>) => () => {} }
 try {
@@ -68,6 +69,15 @@ try {
   const recovery = createUniverseEngine(dir, deps)
   await recovery.start(); await recovery.settled(); assert.equal(calls, 1)
   assert.equal(modelTotal(recovery.project(rows)[0]), 1); await recovery.close()
+  rows = Array.from({ length: 12 }, (_, i) => row(`LEG${i}`, `Legacy Company ${i}`))
+  const legacyDir = path.join(dir, 'legacy-batch'), legacyTasks = universeTasks(rows), receiptId = randomUUID()
+  const recoveredAnalysis = { ...parseUniverseAnswers(json(tasks), tasks, stamp, 'codex:test').get(tasks[0].key)!, verdict: 'insufficient' as const, source_quote: null, effects: [] }
+  await fs.mkdir(path.join(legacyDir, 'universe-engine-runs', saved.run_id), { recursive: true })
+  await fs.writeFile(path.join(legacyDir, 'universe-engine.json'), JSON.stringify({ ...saved, active: { tasks: legacyTasks, receipt_id: receiptId }, records: {}, next_at: 0, error: null }))
+  await fs.writeFile(path.join(legacyDir, 'universe-engine-runs', saved.run_id, `${receiptId}.result.json`), JSON.stringify({ status: 'completed', analyses: Object.fromEntries(legacyTasks.map((task) => [task.key, recoveredAnalysis])) }))
+  const legacy = createUniverseEngine(legacyDir, { ...deps, infer: async () => { assert.fail('a completed legacy 12-report receipt must recover without inference') } })
+  await legacy.start(); await legacy.settled()
+  assert.equal((await legacy.read(read())).completed_reports, 12); await legacy.close()
   rows = [{ ...row(), signals: { contracts: [tasks[0].event, { ...tasks[0].event, id: 'STORY-2', source_event_id: 'ARTICLE-2' }] } }]
   const partial = createUniverseEngine(path.join(dir, 'partial'), { ...deps, infer: async (opts) => {
     const answers = JSON.parse(json(JSON.parse(opts.user).tasks)); answers[1].verdict = 'insufficient'
@@ -95,7 +105,7 @@ try {
   await automatic.close()
   rows = Array.from({ length: 425 }, (_, i) => row(`CO${i}`, `Company ${i}`))
   const all = createUniverseEngine(path.join(dir, 'all'), { ...deps, infer: async (opts) => {
-    calls++; opts.onToken(JSON.stringify(JSON.parse(opts.user).tasks.map((t: any) => ({ key: t.key, verdict: 'insufficient', company_quote: '', quote: '', reason: 'The saved excerpt does not establish the selected issuer identity.', risk: null, risk_quote: null, horizon: '', watch: '' })))); return { costUsd: 0 }
+    calls++; assert.ok(JSON.parse(opts.user).tasks.length <= 4); assert.equal(opts.timeoutMs, 300_000); opts.onToken(JSON.stringify(JSON.parse(opts.user).tasks.map((t: any) => ({ key: t.key, verdict: 'insufficient', company_quote: '', quote: '', reason: 'The saved excerpt does not establish the selected issuer identity.', risk: null, risk_quote: null, horizon: '', watch: '' })))); return { costUsd: 0 }
   } })
   await all.run(); await all.settled(); status = await all.read(read())
   assert.equal(status.completed_reports, 425, 'no eviction at the old 400-event enrichment cache limit')
