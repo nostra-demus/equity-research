@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T18:20:31Z",
+  "generated_at": "2026-10-21T18:24:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-451",
@@ -927,6 +927,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261021-457",
+      "headline": "Meta hit with $25-billion penalty for misleading consumers in New Mexico over Cambridge Analytica case",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-meta-25-billion-penalty-misleading-consumers-new-mexico-cambridge/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T17:58:36Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "Meta faces a $25 billion enforcement penalty for misleading consumers, directly reducing capital and materially altering legal/regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta faces a $25 billion enforcement penalty for misleading consumers, directly reducing capital and materially altering legal/regulatory risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta Platforms, Inc.",
+          "ticker": "META",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1935,55 +1984,6 @@
           "name": "Grab",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-203",
-      "headline": "Getty Images Initiates Chapter 11 Process For Financial Restructuring",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/getty-images-initiates-chapter-11-process-financial-restructuring",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T07:17:59Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Getty Images filed Chapter 11 bankruptcy, altering capital structure, solvency, and going-concern risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Getty Images filed Chapter 11 bankruptcy, altering capital structure, solvency, and going-concern risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Getty Images",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -234425,9 +234425,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7279131,
-    "news_picked_today": 808,
-    "news_dropped_today": 13952
+    "news_seen_today": 7313988,
+    "news_picked_today": 813,
+    "news_dropped_today": 14067
   },
   "book_momentum": {
     "live_count": 8,
