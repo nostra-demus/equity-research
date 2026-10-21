@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T19:47:11Z",
+  "generated_at": "2026-10-21T20:00:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-451",
@@ -190978,6 +190978,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-a484f7194164",
+      "idea_version": "IDEAV-d49fa2c8d0d60dcd",
+      "idea_version_started_at": "2026-10-21T19:59:53Z",
+      "ticker": "01961",
+      "company": "INFINITIES TECH",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A winding-up petition threatens the listed company's ability to continue operating and could force liquidation or restructuring that severely impair equity value.",
+      "why_now": "The winding-up petition was disclosed on 21 October 2026, creating an immediate solvency and equity-dilution catalyst.",
+      "conviction": 68,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-673c5b3754ba"
+      ],
+      "primary_source_event_id": "EVT-673c5b3754ba",
+      "source_headlines": [
+        "INFINITIES TECH (01961): WINDING UP PETITION"
+      ],
+      "source_headline": "INFINITIES TECH (01961): WINDING UP PETITION",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102100332.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-21T08:32:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-21T19:59:53Z",
+      "updated_at": "2026-10-21T19:59:53Z",
+      "decay_at": "2026-10-22T20:32:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-094b7f020f36",
       "idea_version": "IDEAV-6ec764606ceb392b",
       "idea_version_started_at": "2026-10-21T12:47:08Z",
@@ -192678,217 +192749,6 @@
       "surfaced_at": "2026-10-19T00:02:05Z",
       "updated_at": "2026-10-19T00:02:05Z",
       "decay_at": "2026-10-20T10:50:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-53f1ab35f840",
-      "idea_version": "IDEAV-46e30d36dcc698d7",
-      "idea_version_started_at": "2026-10-18T19:53:16Z",
-      "ticker": "ENGI.PA",
-      "company": "Engie",
-      "exchange": "Paris",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Engie plans a substantial €3 billion investment in India by 2030, which is expected to drive future revenue and earnings growth.",
-      "why_now": "The announcement of this significant investment plan provides a clear catalyst for future growth expectations.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3e2cbb07c147"
-      ],
-      "primary_source_event_id": "EVT-3e2cbb07c147",
-      "source_headlines": [
-        "Engie plans €3 billion investment in India by 2030"
-      ],
-      "source_headline": "Engie plans €3 billion investment in India by 2030",
-      "source_url": "https://economictimes.indiatimes.com/industry/renewables/engie-plans-3-billion-investment-in-india-by-2030/articleshow/135033696.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-18T18:24:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-18T19:53:16Z",
-      "updated_at": "2026-10-18T19:53:16Z",
-      "decay_at": "2026-10-20T06:24:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-dba00e4ffa3f",
-      "idea_version": "IDEAV-381aa074e4bb5358",
-      "idea_version_started_at": "2026-10-18T19:53:16Z",
-      "ticker": "600690.SS",
-      "company": "Haier Smart Home",
-      "exchange": "Shanghai",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Haier India's planned investment of ₹7,000 crore in a new facility will expand its manufacturing capacity and likely boost future revenue and market share in India.",
-      "why_now": "The announcement of a new facility investment is a current catalyst for future growth.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2bca2742af12"
-      ],
-      "primary_source_event_id": "EVT-2bca2742af12",
-      "source_headlines": [
-        "Haier India to invest ₹7,000 crore in new facility in Andhra"
-      ],
-      "source_headline": "Haier India to invest ₹7,000 crore in new facility in Andhra",
-      "source_url": "https://economictimes.indiatimes.com/industry/cons-products/electronics/haier-india-to-invest-7000-crore-in-new-facility-in-andhra/articleshow/135034585.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-18T19:06:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-18T19:53:16Z",
-      "updated_at": "2026-10-18T19:53:16Z",
-      "decay_at": "2026-10-20T07:06:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-c2d6ddb1545f",
-      "idea_version": "IDEAV-61d9912074e7dbf7",
-      "idea_version_started_at": "2026-10-18T17:51:37Z",
-      "ticker": "IDBI.NS",
-      "company": "IDBI Bank",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "IDBI Bank's net profit slumped 39% in Q2, indicating significant operational or market challenges impacting its earnings.",
-      "why_now": "The Q2 profit slump and ongoing Fairfax deal discussions present immediate factors for investors to consider.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-fb6b2b22003e"
-      ],
-      "primary_source_event_id": "EVT-fb6b2b22003e",
-      "source_headlines": [
-        "What’s next for IDBI Bank stock after Q2 net profit slumps 39%, massive Fairfax deal? Key factors investors should watch"
-      ],
-      "source_headline": "What’s next for IDBI Bank stock after Q2 net profit slumps 39%, massive Fairfax deal? Key factors investors should watch",
-      "source_url": "https://www.livemint.com/market/stock-market-news/whats-next-for-idbi-bank-stock-after-q2-net-profit-slumps-39-massive-fairfax-deal-key-factors-investors-should-watch-11792335797516.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-18T15:57:23Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-18T17:51:37Z",
-      "updated_at": "2026-10-18T17:51:37Z",
-      "decay_at": "2026-10-20T03:57:23Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -197212,33 +197072,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 569,
+    "total_count": 566,
     "shown_count": 499,
-    "hidden_count": 70,
+    "hidden_count": 67,
     "side_counts": {
       "long": {
-        "total_count": 304,
+        "total_count": 302,
         "shown_count": 250,
-        "hidden_count": 54
+        "hidden_count": 52
       },
       "short": {
-        "total_count": 266,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 15
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1178,
-      "oldest_retained_at": "2026-09-22T11:40:06Z",
+      "evicted_count": 1181,
+      "oldest_retained_at": "2026-09-22T11:56:45Z",
       "side_counts": {
         "long": {
-          "evicted_count": 782,
-          "oldest_retained_at": "2026-10-06T14:08:00Z"
+          "evicted_count": 784,
+          "oldest_retained_at": "2026-10-06T14:08:26Z"
         },
         "short": {
-          "evicted_count": 396,
-          "oldest_retained_at": "2026-09-22T11:40:06Z"
+          "evicted_count": 397,
+          "oldest_retained_at": "2026-09-22T11:56:45Z"
         }
       }
     },
@@ -202308,8 +202168,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-20T07:06:12Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-21T19:59:57Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -202381,8 +202241,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-20T06:24:22Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-21T19:59:57Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -202455,8 +202315,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-20T03:57:23Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-21T19:59:57Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -234408,8 +234268,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1779,
-    "live_count": 31,
+    "surfaced_total": 1780,
+    "live_count": 32,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -234428,9 +234288,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7777681,
+    "news_seen_today": 7796383,
     "news_picked_today": 846,
-    "news_dropped_today": 15186
+    "news_dropped_today": 15330
   },
   "book_momentum": {
     "live_count": 8,
