@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T01:02:15Z",
+  "generated_at": "2026-10-21T01:03:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-016",
@@ -190409,6 +190409,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-1d4479b8075a",
+      "idea_version": "IDEAV-3085819aeec46e73",
+      "idea_version_started_at": "2026-10-21T01:02:58Z",
+      "ticker": "SMCI",
+      "company": "Super Micro Computer",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Preliminary revenue results exceeded previous guidance, indicating stronger demand for their server infrastructure.",
+      "why_now": "The announcement was made on 2026-10-20, providing an immediate catalyst for a re-rating.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-395c6e1a54b9"
+      ],
+      "primary_source_event_id": "EVT-395c6e1a54b9",
+      "source_headlines": [
+        "Super Micro Computer Shares Up as Preliminary Revenue Tops Guidance"
+      ],
+      "source_headline": "Super Micro Computer Shares Up as Preliminary Revenue Tops Guidance",
+      "source_url": "https://www.wsj.com/business/earnings/super-micro-computer-shares-up-as-preliminary-revenue-tops-guidance-be7f5f1f?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-20T22:03:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-20T23:32:54Z",
+      "updated_at": "2026-10-21T01:02:58Z",
+      "decay_at": "2026-10-22T10:03:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-8e38ef15bf4e",
       "idea_version": "IDEAV-babbca001e70f436",
       "idea_version_started_at": "2026-10-20T13:35:08Z",
@@ -190549,17 +190619,17 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-1d4479b8075a",
-      "idea_version": "IDEAV-af786dbfa698b293",
-      "idea_version_started_at": "2026-10-20T23:32:54Z",
-      "ticker": "SMCI",
-      "company": "Super Micro Computer",
+      "idea_id": "IDEA-b0586fbde26d",
+      "idea_version": "IDEAV-29f2332fa3004d4d",
+      "idea_version_started_at": "2026-10-21T01:02:58Z",
+      "ticker": "NFLX",
+      "company": "Netflix",
       "exchange": "NASDAQ",
-      "direction": "long",
+      "direction": "short",
       "pair_with": null,
-      "reason": "Preliminary earnings results exceeded analyst estimates, suggesting stronger-than-anticipated demand for their server and infrastructure products.",
-      "why_now": "The positive preliminary results were released on 2026-10-20, providing a fresh catalyst for a re-rating.",
-      "conviction": 65,
+      "reason": "A $300 million reduction in ad revenue forecasts suggests potential headwinds in their monetization strategy.",
+      "why_now": "The forecast cut was disclosed on 2026-10-20, creating a negative sentiment shift.",
+      "conviction": 60,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 65,
       "trade_score_basis": "event_driven_v3",
@@ -190593,26 +190663,26 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-f9d5f8c42d7b"
+        "EVT-0afda8c1a5ee"
       ],
-      "primary_source_event_id": "EVT-f9d5f8c42d7b",
+      "primary_source_event_id": "EVT-0afda8c1a5ee",
       "source_headlines": [
-        "Super Micro Jumps After Preliminary Results Top Estimates"
+        "Netflix Cut Its Ad Revenue Forecast by $300 Million. Does That Matter More Than Its Earnings Beat?"
       ],
-      "source_headline": "Super Micro Jumps After Preliminary Results Top Estimates",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-10-20/super-micro-jumps-after-preliminary-results-top-estimates",
-      "source_name": "Bloomberg",
+      "source_headline": "Netflix Cut Its Ad Revenue Forecast by $300 Million. Does That Matter More Than Its Earnings Beat?",
+      "source_url": "https://www.nasdaq.com/articles/netflix-cut-its-ad-revenue-forecast-300-million-does-matter-more-its-earnings-beat",
+      "source_name": "Nasdaq",
       "materiality_max": 100,
-      "newest_source_at": "2026-10-20T20:48:06Z",
+      "newest_source_at": "2026-10-20T22:23:12Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-10-20T23:32:54Z",
-      "updated_at": "2026-10-20T23:32:54Z",
-      "decay_at": "2026-10-22T08:48:06Z",
+      "surfaced_at": "2026-10-21T01:02:58Z",
+      "updated_at": "2026-10-21T01:02:58Z",
+      "decay_at": "2026-10-22T10:23:12Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -191246,6 +191316,149 @@
       "surfaced_at": "2026-10-19T23:11:18Z",
       "updated_at": "2026-10-19T23:11:18Z",
       "decay_at": "2026-10-21T09:37:27Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-83bd5483df63",
+      "idea_version": "IDEAV-90242744ba33291f",
+      "idea_version_started_at": "2026-10-21T01:02:58Z",
+      "ticker": "NXT",
+      "company": "NextDC",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Operational delays at the Melbourne facility are forcing a downward revision to earnings forecasts.",
+      "why_now": "The guidance cut was reported on 2026-10-20, signaling immediate margin pressure.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9f73de4e5b1b"
+      ],
+      "primary_source_event_id": "EVT-9f73de4e5b1b",
+      "source_headlines": [
+        "NextDC slashes earnings forecasts after Melbourne power delays"
+      ],
+      "source_headline": "NextDC slashes earnings forecasts after Melbourne power delays",
+      "source_url": "https://www.afr.com/companies/infrastructure/nextdc-slashes-earnings-forecasts-after-melbourne-power-delays-20261021-p616u7?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-20T22:33:57Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-19T00:18:15Z",
+      "updated_at": "2026-10-21T01:02:58Z",
+      "decay_at": "2026-10-22T10:33:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-e7efd421b84c",
+      "idea_version": "IDEAV-ecc53e14c5817939",
+      "idea_version_started_at": "2026-10-21T01:02:58Z",
+      "ticker": "09696",
+      "company": "Tianqi Lithium",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company issued a positive profit alert, indicating improved earnings performance.",
+      "why_now": "The filing was released on 2026-10-20, providing a clear fundamental catalyst.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f356105d90be"
+      ],
+      "primary_source_event_id": "EVT-f356105d90be",
+      "source_headlines": [
+        "TIANQI LITHIUM (09696): POSITIVE PROFIT ALERT"
+      ],
+      "source_headline": "TIANQI LITHIUM (09696): POSITIVE PROFIT ALERT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102001221.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-20T11:53:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-21T01:02:58Z",
+      "updated_at": "2026-10-21T01:02:58Z",
+      "decay_at": "2026-10-21T23:53:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -193317,77 +193530,6 @@
       "surfaced_at": "2026-10-19T21:35:55Z",
       "updated_at": "2026-10-19T21:35:55Z",
       "decay_at": "2026-10-21T00:48:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-af31c2e0f9bf",
-      "idea_version": "IDEAV-95466bea03847a08",
-      "idea_version_started_at": "2026-10-18T02:20:51Z",
-      "ticker": "AAPL",
-      "company": "Apple",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Strong demand for the new foldable iPhone model suggests a successful product cycle that could drive higher average selling prices and hardware revenue.",
-      "why_now": "The sell-out status was reported on October 18, 2026, indicating immediate consumer traction.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-892b390b998d"
-      ],
-      "primary_source_event_id": "EVT-892b390b998d",
-      "source_headlines": [
-        "Apple blames ‘extraordinary’ demand as foldable iPhones sell out"
-      ],
-      "source_headline": "Apple blames ‘extraordinary’ demand as foldable iPhones sell out",
-      "source_url": "https://www.afr.com/world/north-america/apple-blames-extraordinary-demand-as-foldable-iphones-sell-out-20261018-p616gk?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 83,
-      "newest_source_at": "2026-10-18T00:25:42Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-18T02:20:51Z",
-      "updated_at": "2026-10-18T02:20:51Z",
-      "decay_at": "2026-10-19T12:25:42Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -196479,78 +196621,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-83bd5483df63",
-      "idea_version": "IDEAV-641583e10e9a0e7f",
-      "idea_version_started_at": "2026-10-19T00:18:15Z",
-      "ticker": "NXT",
-      "company": "NextDC",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company faces a critical operational delay in its Melbourne data center due to power supply constraints, which will likely defer revenue recognition and increase capital expenditure.",
-      "why_now": "The warning was issued on October 19, 2026, indicating an immediate impact on project timelines.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7a04cec5f6d3"
-      ],
-      "primary_source_event_id": "EVT-7a04cec5f6d3",
-      "source_headlines": [
-        "NextDC warns of Melbourne data centre delay amid power supply crunch"
-      ],
-      "source_headline": "NextDC warns of Melbourne data centre delay amid power supply crunch",
-      "source_url": "https://www.afr.com/companies/infrastructure/nextdc-warns-of-melbourne-data-centre-delay-amid-power-supply-crunch-20261019-p616mr?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 89,
-      "newest_source_at": "2026-10-19T00:03:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-19T00:18:15Z",
-      "updated_at": "2026-10-19T00:18:15Z",
-      "decay_at": "2026-10-20T12:03:24Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-154422e5621e",
       "idea_version": "IDEAV-b81d4b971b3efd30",
       "idea_version_started_at": "2026-10-19T03:56:14Z",
@@ -196922,29 +196992,29 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 557,
+    "total_count": 555,
     "shown_count": 499,
-    "hidden_count": 58,
+    "hidden_count": 56,
     "side_counts": {
       "long": {
-        "total_count": 293,
+        "total_count": 292,
         "shown_count": 250,
-        "hidden_count": 43
+        "hidden_count": 42
       },
       "short": {
-        "total_count": 265,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 14
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1170,
+      "evicted_count": 1171,
       "oldest_retained_at": "2026-09-22T10:26:59Z",
       "side_counts": {
         "long": {
-          "evicted_count": 776,
-          "oldest_retained_at": "2026-10-06T12:31:54Z"
+          "evicted_count": 777,
+          "oldest_retained_at": "2026-10-06T13:18:34Z"
         },
         "short": {
           "evicted_count": 394,
@@ -199419,81 +199489,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-83bd5483df63",
-        "idea_version": "IDEAV-641583e10e9a0e7f",
-        "idea_version_started_at": "2026-10-19T00:18:15Z",
-        "ticker": "NXT",
-        "company": "NextDC",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company faces a critical operational delay in its Melbourne data center due to power supply constraints, which will likely defer revenue recognition and increase capital expenditure.",
-        "why_now": "The warning was issued on October 19, 2026, indicating an immediate impact on project timelines.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-7a04cec5f6d3"
-        ],
-        "primary_source_event_id": "EVT-7a04cec5f6d3",
-        "source_headlines": [
-          "NextDC warns of Melbourne data centre delay amid power supply crunch"
-        ],
-        "source_headline": "NextDC warns of Melbourne data centre delay amid power supply crunch",
-        "source_url": "https://www.afr.com/companies/infrastructure/nextdc-warns-of-melbourne-data-centre-delay-amid-power-supply-crunch-20261019-p616mr?ref=rss&utm_medium=rss&utm_source=rss_feed",
-        "source_name": "Australian Financial Review",
-        "materiality_max": 89,
-        "newest_source_at": "2026-10-19T00:03:24Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-19T00:18:15Z",
-        "updated_at": "2026-10-19T00:18:15Z",
-        "decay_at": "2026-10-20T12:03:24Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-20T12:03:24Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-47cbab11b25a",
         "idea_version": "IDEAV-da8a44dea59e2022",
         "idea_version_started_at": "2026-10-19T00:02:05Z",
@@ -201274,8 +201269,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-19T12:25:42Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-21T01:03:10Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -234122,12 +234117,86 @@
         "archived_at": "2026-09-25T20:29:34Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-3da66d652109",
+        "idea_version": "IDEAV-bc3049636df69e58",
+        "idea_version_started_at": "2026-09-22T13:59:06Z",
+        "ticker": "00660",
+        "company": "Wai Chun Biotec",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The potential delay in annual results and possible trading suspension signal severe financial instability and governance risks.",
+        "why_now": "The filing was released today, September 22, 2026.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-00c449153aee"
+        ],
+        "primary_source_event_id": "EVT-00c449153aee",
+        "source_headlines": [
+          "WAI CHUN BIOTEC (00660): (I) INSIDE INFORMATION; (II) POSSIBLE DELAY IN PUBLICATION OF THE ANNUAL RESULTS FOR THE YEAR ENDED 30 JUNE 2026; AND (III) POSSIBLE SUSPENSION OF TRADING"
+        ],
+        "source_headline": "WAI CHUN BIOTEC (00660): (I) INSIDE INFORMATION; (II) POSSIBLE DELAY IN PUBLICATION OF THE ANNUAL RESULTS FOR THE YEAR ENDED 30 JUNE 2026; AND (III) POSSIBLE SUSPENSION OF TRADING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0922/2026092201345.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-22T13:29:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-22T13:59:06Z",
+        "updated_at": "2026-09-22T13:59:06Z",
+        "decay_at": "2026-09-24T01:29:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-25T20:29:34Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1767,
-    "live_count": 39,
+    "surfaced_total": 1769,
+    "live_count": 42,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -234146,7 +234215,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 638476,
+    "news_seen_today": 653619,
     "news_picked_today": 52,
     "news_dropped_today": 428
   },
