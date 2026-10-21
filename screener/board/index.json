@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T07:56:24Z",
+  "generated_at": "2026-10-21T08:01:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261021-087",
@@ -1199,6 +1199,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261021-172",
+      "headline": "NEXTDC Cuts FY27 Revenue, EBITDA Guidance On M3 Power Delay; Shares Plunge",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/nextdc-cuts-fy27-revenue-ebitda-guidance-m3-power-delay-shares-plunge",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T06:35:04Z",
+      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
+      "prelim_note": "NEXTDC cuts FY27 revenue and EBITDA guidance due to M3 Power Delay, materially lowering earnings expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "NEXTDC cuts FY27 revenue and EBITDA guidance due to M3 Power Delay, materially lowering earnings expectations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NEXTDC",
+          "ticker": "NXT",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261021-109",
       "headline": "AUC: Scheme Meeting and Scheme Booklet [price-sensitive]",
       "headline_en": null,
@@ -1946,56 +1995,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261021-093",
-      "headline": "Telix Pharma Reports 19% Q3 Revenue Growth, Reaffirms FY2026 Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/telix-pharma-reports-19-q3-revenue-growth-reaffirms-fy2026-guidance",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T02:44:07Z",
-      "sweep_file": "screener/inbox/2026-10-21_sweep.json",
-      "prelim_note": "Telix Pharma reported 19% Q3 revenue growth and reaffirmed FY2026 guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Telix Pharma reported 19% Q3 revenue growth and reaffirmed FY2026 guidance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Telix Pharma",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
