@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T03:22:50Z",
+  "generated_at": "2026-10-22T03:33:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-383",
@@ -1234,6 +1234,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261022-388",
+      "headline": "Meta Q3 revenue rises 26%, aims for up to $76 billion in Q4",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/meta-share-price-q3-results-revenue-eps-net-income-q4-outlook-guidance-estimates-20016106.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T02:27:40Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Meta Q3 revenue grew 26% with Q4 guidance aiming for up to $76bn, directly moving forward earnings consensus.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Meta Q3 revenue grew 26% with Q4 guidance aiming for up to $76bn, directly moving forward earnings consensus.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": "META",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261022-176",
       "headline": "Brent holds near $110 as oil climbs on Houthi strikes on Saudi Aramco oilfield",
       "headline_en": null,
@@ -1702,6 +1752,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261022-405",
+      "headline": "Tesla's Lowered Capex Target Fuels Doubt On AI, Robotics Goals",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/teslas-lowered-capex-target-fuels-doubt-on-ai-robotics-goals-12217838#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T01:44:12Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Tesla lowered capex target, reducing capital investment in AI and robotics—strategic priorities affecting cash flow and growth trajectory.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Tesla lowered capex target, reducing capital investment in AI and robotics—strategic priorities affecting cash flow and growth trajectory.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla",
+          "ticker": "TSLA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261022-256",
       "headline": "Meta ordered to pay $25 billion penalty: What's the data privacy case? Will it impact value of Zuckerberg's company?",
       "headline_en": null,
@@ -1841,105 +1941,6 @@
           "name": "Bloks",
           "ticker": "00325",
           "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-076",
-      "headline": "Meta Will Split Stock, Create New Class to Fund AI Spending",
-      "headline_en": null,
-      "url": "https://www.wsj.com/articles/metaplatforms-meta-3q-earnings-report-2026-stock-f28d64c2?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T00:32:00Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Meta announced stock split and creation of a new share class to fund major AI capital spending, restructuring shareholder capital.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Meta announced stock split and creation of a new share class to fund major AI capital spending, restructuring shareholder capital.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta",
-          "ticker": "META",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-019",
-      "headline": "ECL: Removal from Official List",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ECL?key=2924-03151634-2A1705533",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-21T23:36:15Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Company is being removed from the official exchange list.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Company is being removed from the official exchange list.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ECL",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "unknown",
@@ -235246,9 +235247,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 507129,
-    "news_picked_today": 656,
-    "news_dropped_today": 3280
+    "news_seen_today": 518915,
+    "news_picked_today": 678,
+    "news_dropped_today": 3378
   },
   "book_momentum": {
     "live_count": 8,
