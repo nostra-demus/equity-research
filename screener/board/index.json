@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T07:20:37Z",
+  "generated_at": "2026-10-22T07:28:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-691",
@@ -193,6 +193,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-717",
+      "headline": "LSEG to buy Octus for $3.5 billion in data analytics push",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/finance/lseg-buy-octus-35-billion-data-analytics-push-2026-10-22/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T06:05:16Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "LSEG to acquire Octus for $3.5 billion — a named-value M&A transaction affecting capital structure and capital-allocation trajectory.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "LSEG to acquire Octus for $3.5 billion — a named-value M&A transaction affecting capital structure and capital-allocation trajectory.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "London Stock Exchange Group",
+          "ticker": "LSEG",
+          "listing_country": "GB"
+        },
+        {
+          "name": "Octus",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1916,55 +1970,6 @@
       "companies": [
         {
           "name": "Meta",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-596",
-      "headline": "Meta ordered to pay $25 billion to New Mexico in data privacy ruling",
-      "headline_en": null,
-      "url": "https://www.cbsnews.com/news/meta-new-mexico-25-billion-privacy-ruling/",
-      "source_name": "CBS MoneyWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T19:52:22Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Meta is ordered to pay a $25 billion fine in a data privacy ruling.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Meta is ordered to pay a $25 billion fine in a data privacy ruling.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta Platforms",
           "ticker": null,
           "listing_country": "US"
         }
@@ -234912,9 +234917,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 994860,
-    "news_picked_today": 1278,
-    "news_dropped_today": 8754
+    "news_seen_today": 1007939,
+    "news_picked_today": 1286,
+    "news_dropped_today": 8866
   },
   "book_momentum": {
     "live_count": 8,
