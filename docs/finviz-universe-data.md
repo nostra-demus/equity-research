@@ -71,7 +71,7 @@ labelled accordingly. A failed request retains its last validated price without 
 streaming or zero-latency guarantee is made. Finviz prices remain a visibly delayed fallback.
 
 Old event-presence clients must not interpret new evidence as favorable signals. The grid request now
-carries `x-nostra-model: favorable-prices/v2`; clients without it receive an empty legacy-compatible grid
+carries `x-nostra-model: favorable-engine/v3`; clients without it receive an empty legacy-compatible grid
 and a reload message. Cache format remains unchanged. Active-refresh counts have their own denominator
 (`refresh_total`), separate from the last saved universe's size.
 
@@ -89,3 +89,41 @@ raw units for engine/export consumers, and `rows` with `ticker`, `company`,
 and `views`. Each view has its own `source_url`, `retrieved_at`, `text`, `numbers`, and optional
 `range52w` / `news`. Empty or older views are explicit; the endpoint never claims a coherent
 point-in-time market snapshot. Reading it may start/resume the same free collector, never analysis.
+
+## Automatic company-impact engine
+
+`ui/server/src/universe-engine.ts` owns durable company/report assessments separately from the
+400-event article-enrichment cache. `POST /api/screener/universe-model/run` explicitly enables the
+engine. It then checks the entire verified saved universe every minute, including new archive
+reports and changed evidence, without an open browser. Grid/evidence GET requests never start
+inference. The admission route uses the application's existing same-origin guard and rate limit.
+
+The engine reuses `runChatTurn` with an allowed, pinned Codex subscription model and its closed-book,
+read-only transport. It never switches to paid API inference, external search, crawling, full company
+research or trade execution. Provider quota/auth failures retain completed work and show a recoverable
+hold. Explicit retry clears failed index entries while preserving historical dispatch/result receipts.
+
+Eligible tasks require an exact issuer link and a real saved source excerpt. Reports are deduplicated
+across signal categories and assessed in four-report batches with a five-minute deadline. Legacy
+12-report dispatch receipts remain recoverable. The deployment guard still aborts immediately on intent
+and awaits settlement. Timeouts and provider phase kinds are recorded in private result receipts. Keys bind issuer, article identity, headline,
+source URL/date, excerpt and prompt version/content. Stronger known full-article effects are retained;
+an excerpt assessment cannot overwrite a later full-read adverse or mixed effect. Evidence without
+sufficient company identity, materiality or a 3–6 month mechanism stays unassessed. This pass does not
+pretend to have read full documents or turn Finviz headline sentiment into favorable effects.
+
+Every published non-insufficient verdict requires a verbatim business fact from the saved excerpt and
+verifiable company identity. Popups show the quote, source, inferred mechanism, horizon and watch item.
+Mixed evidence preserves risks and cannot earn a green tick. Neutral/adverse assessments can show a
+cross; missing reports or unproven impact show a dash. Total counts favorable categories once each,
+never reports, and stays blank when no category has a completed impact assessment. Rows rank by this
+count descending, with assessed zero-count rows ahead of wholly unassessed rows on ties.
+
+Progress counts all current universe members, separately identifying assessed companies, companies
+without eligible evidence, unavailable coverage and failed reports. Completion means the first pass
+settled; it does not mean every company had sufficient evidence. New evidence is assessed automatically.
+A retained process lock prevents overlapping writers. Immutable dispatch intent precedes inference,
+results checkpoint before completion, restart recovers completed receipts, and uncertain interrupted
+requests require explicit retry. Deployment intent stops new batches, aborts the current bounded
+batch and awaits settlement before yielding. Completed receipts are preserved; uncertain work requires
+explicit retry.

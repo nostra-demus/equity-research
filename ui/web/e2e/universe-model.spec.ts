@@ -87,7 +87,7 @@ test('Current prices refresh independently, preserve source/time and degrade wit
   await page.clock.fastForward(15_100)
   await expect(page.getByRole('alert')).toContainText('429')
   await expect(page.getByRole('alert')).toBeVisible()
-  await expect(page.locator('tbody tr').locator('td').last()).toHaveText('0Green ticks')
+  await expect(page.locator('tbody tr').locator('td').last()).toHaveText('—Unassessed')
   expect(writes).toEqual([])
   await page.screenshot({ path: testInfo.outputPath('model-current-prices.png') })
 })
@@ -121,7 +121,7 @@ test('Company Finviz data is compact, on demand, dated, unit-labelled and separa
   await page.getByRole('button', { name: 'Model', exact: true }).click()
   await page.getByRole('button', { name: 'Company Inc', exact: true }).click()
   const dialog = page.getByRole('dialog')
-  await expect(dialog.getByText('Total: 0 green ticks', { exact: true })).toBeVisible()
+  await expect(dialog.locator('p').getByText('Impact unassessed', { exact: true })).toBeVisible()
   expect(dataRequests).toBe(0)
   await dialog.getByText('Finviz data', { exact: true }).click()
   await expect(dialog.getByText('USD millions', { exact: true })).toBeVisible()
@@ -172,7 +172,7 @@ test('Company Finviz data is compact, on demand, dated, unit-labelled and separa
   await page.getByRole('dialog').getByText('Finviz data', { exact: true }).click()
   await expect(page.getByRole('dialog').getByText('Company absent from the current universe.', { exact: true })).toBeVisible()
   await page.keyboard.press('Escape')
-  await expect(page.locator('tbody tr').locator('td').last()).toHaveText('0Green ticks')
+  await expect(page.locator('tbody tr').locator('td').last()).toHaveText('—Unassessed')
 })
 
 test('Universe Model green-count ranking, search, pagination, failure recovery and themes', async ({ page, context }, testInfo) => {
@@ -210,8 +210,8 @@ test('Universe Model green-count ranking, search, pagination, failure recovery a
   await expect(page.getByRole('table')).toBeVisible()
   await expect(page.getByRole('columnheader', { name: 'Total ↓', exact: true })).toBeVisible()
   await expect(page.locator('tbody tr').first()).toContainText('Company 104')
-  await expect(page.locator('tbody tr').first().locator('td').last()).toHaveText('2Green ticks')
-  await expect(page.getByLabel('Legal / regulatory: No favorable signal').first()).toBeVisible()
+  await expect(page.locator('tbody tr').first().locator('td').last()).toHaveText('22 / 12 assessed')
+  await expect(page.getByLabel('Legal / regulatory: Unassessed').first()).toBeVisible()
   await page.getByLabel('Results: Favorable impact', { exact: true }).click()
   await expect(page.getByText('Material contract announcement').first()).toBeVisible()
   await expect(page.getByText('The contract adds recurring revenue.', { exact: true })).toBeVisible()
@@ -320,7 +320,7 @@ test('Legacy snapshots keep impact unassessed while popup cache reads explain pr
   await expect(dialog.getByRole('link', { name: 'Company on Finviz' })).toBeFocused()
   await page.keyboard.press('Tab')
   await expect(dialog.getByRole('button', { name: 'Close signal details' })).toBeFocused()
-  await dialog.getByRole('combobox', { name: 'Recent signal report' }).selectOption('1')
+  await dialog.getByRole('combobox', { name: 'Recent signal report' }).selectOption('ARTICLE-SECOND')
   await expect(dialog.getByText('No completion date was disclosed.')).toBeHidden()
   await dialog.getByText('Evidence & context', { exact: true }).click()
   await expect(dialog.getByText('No completion date was disclosed.')).toBeVisible()
@@ -330,8 +330,8 @@ test('Legacy snapshots keep impact unassessed while popup cache reads explain pr
   await expect(deal).toBeFocused()
 
   const before = evidenceRequests
-  await page.locator('tbody tr').filter({ hasText: 'Empty Corp' }).getByRole('button', { name: 'Deals / restructuring: No favorable signal', exact: true }).click()
-  await expect(page.getByRole('dialog').getByText(/An event may still have occurred/)).toBeVisible()
+  await page.locator('tbody tr').filter({ hasText: 'Empty Corp' }).getByRole('button', { name: 'Deals / restructuring: Unassessed', exact: true }).click()
+  await expect(page.getByRole('dialog').getByText('Company impact or coverage unavailable. Unscored.')).toBeVisible()
   await page.keyboard.press('Escape')
   await page.locator('tbody tr').filter({ hasText: 'Uncertain Corp' }).getByRole('button', { name: 'Deals / restructuring: Unassessed', exact: true }).click()
   await expect(page.getByRole('dialog').getByText('Company impact or coverage unavailable. Unscored.')).toBeVisible()
@@ -380,10 +380,10 @@ test('Embedded company assessments agree across green count, adverse/mixed cross
   await page.goto('/e2e/ideas.html?surface=model')
   await page.getByRole('button', { name: 'Model', exact: true }).click()
   await expect(page.locator('tbody tr').first()).toContainText('Favorable Corp')
-  await expect(page.locator('tbody tr').first().locator('td').last()).toHaveText('1Green ticks')
+  await expect(page.locator('tbody tr').first().locator('td').last()).toHaveText('11 / 12 assessed')
   for (const company of ['Adverse Corp', 'Mixed Corp']) {
     const row = page.locator('tbody tr').filter({ hasText: company })
-    await expect(row.locator('td').last()).toHaveText('0Green ticks')
+    await expect(row.locator('td').last()).toHaveText('01 / 12 assessed')
     await row.getByRole('button', { name: 'Deals / restructuring: No favorable signal', exact: true }).click()
     const dialog = page.getByRole('dialog')
     await expect(dialog.getByText('✕ No favorable signal', { exact: true })).toBeVisible()
@@ -392,9 +392,62 @@ test('Embedded company assessments agree across green count, adverse/mixed cross
     await page.keyboard.press('Escape')
   }
   const pending = page.locator('tbody tr').filter({ hasText: 'Unassessed Corp' })
-  await expect(pending.locator('td').last()).toHaveText('0Green ticks')
+  await expect(pending.locator('td').last()).toHaveText('—Unassessed')
   await pending.getByRole('button', { name: 'Deals / restructuring: Unassessed', exact: true }).click()
   await expect(page.getByRole('dialog').getByText('— Impact unassessed', { exact: true })).toBeVisible()
   await expect(page.getByText('Company impact not proven from saved analysis.', { exact: true })).toBeVisible()
   expect(evidenceRequests).toBe(0)
+})
+
+
+test('Explicit engine start updates progress, green-count ranking and an already open popup', async ({ page, context }) => {
+  await page.clock.install()
+  const now = new Date().toISOString()
+  const quote = 'The contract adds $40 million of annual revenue with deliveries beginning next quarter.'
+  const analysis = { verdict: 'favorable' as const, source_quote: quote, read_at: now, story: ['A binding contract was announced.'], company_role: 'subject' as const,
+    effects: [{ side: 'beneficiary' as const, mechanism: 'Next-quarter deliveries add contracted sales.', magnitude: null, horizon: 'Next two quarters; inferred' }],
+    event_assessment: null, watch_item: 'Confirm deliveries next quarter.', provenance: { kind: 'saved_excerpt' as const, label: 'Codex · inferred', url: 'https://example.test/source' } }
+  const event = { id: 'STORY-ENGINE', source_event_id: 'ARTICLE-ENGINE', headline: 'Binding contract begins next quarter', excerpt: quote,
+    url: 'https://example.test/source', source: 'Company release', reported_at: now, source_tier: 'company', direction: 'positive' as const, assessment: null }
+  const rows: ModelRow[] = Array.from({ length: 105 }, (_, i) => ({ ticker: `CO${i}`, company: `Company ${String(i).padStart(3, '0')}`, price: 10, currency: 'USD', retrieved_at: now,
+    signals: i === 0 ? { contracts: [event] } : { contracts: [event], guidance: [event] } }))
+  const engine = { enabled: false, status: 'idle' as 'idle' | 'running' | 'complete' | 'blocked', model: null as string | null, run_id: null, updated_at: null, total_companies: 105,
+    processed_companies: 0, assessed_companies: 0, no_evidence_companies: 0, unavailable_companies: 0, insufficient_companies: 0, failed_companies: 0,
+    total_reports: 105, completed_reports: 0, failed_reports: 0, error: null as string | null, next_check_at: null }
+  const body: ModelRead = { schema_version: MODEL_SCHEMA, source_url: UNIVERSE_URL, rows, total: 105, complete: true, refreshing: false, fetched: 105,
+    started_at: now, completed_at: now, next_refresh_at: now, stale: false, error: null, events: null, engine }
+  let posts = 0
+  await context.route('**/api/screener/universe-model', (route) => route.fulfill({ json: body }))
+  await context.route('**/api/screener/universe-model/run', (route) => {
+    expect(route.request().method()).toBe('POST'); expect(route.request().postDataJSON()).toEqual({ retry: false }); posts++
+    engine.enabled = true; engine.status = 'running'; engine.model = 'codex:test'; engine.failed_reports = 1
+    return route.fulfill({ status: 202, json: engine })
+  })
+  await context.route('**/api/portfolio', (route) => route.fulfill({ json: { book: null } }))
+  await context.route('**/api/watchlist', (route) => route.fulfill({ json: { rows: [], unreadable: [] } }))
+  await page.goto('/e2e/ideas.html?surface=model')
+  await page.getByRole('button', { name: 'Model', exact: true }).click()
+  await expect(page.getByText('Signals · engine not started', { exact: true })).toBeVisible(); expect(posts).toBe(0)
+  await page.getByRole('button', { name: 'Run engine', exact: true }).click()
+  await expect(page.getByText('Signals · 0 / 105 companies processed · running', { exact: true })).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Engine on', exact: true })).toBeDisabled(); expect(posts).toBe(1)
+  await page.locator('tbody tr').first().getByRole('button', { name: 'Contracts / JVs: Unassessed', exact: true }).click()
+  const dialog = page.getByRole('dialog')
+  await expect(dialog.getByText('— Impact unassessed', { exact: true })).toBeVisible()
+  for (const row of rows) for (const reports of Object.values(row.signals!)) for (const report of reports) report.assessment = analysis
+  engine.status = 'complete'; engine.failed_reports = 0; engine.processed_companies = 105; engine.assessed_companies = 105; engine.completed_reports = 105
+  await page.clock.fastForward(15_100)
+  await expect(dialog.getByText('✓ Favorable impact · inferred', { exact: true })).toBeVisible()
+  await expect(dialog.locator('blockquote')).toHaveText(quote)
+  await expect(dialog.getByText('Next-quarter deliveries add contracted sales.', { exact: true })).toBeVisible()
+  await page.keyboard.press('Escape')
+  await expect(page.getByLabel('Company signals; scroll for more columns', { exact: true })).toBeFocused()
+  await expect(page.locator('tbody tr').first()).toContainText('Company 001')
+  await expect(page.locator('tbody tr').first().locator('td').last()).toHaveText('22 / 12 assessed')
+  await expect(page.locator('tbody tr').filter({ hasText: 'Company 000' })).toHaveCount(0)
+  await expect(page.getByText('Signals · 105 / 105 companies processed · complete', { exact: true })).toBeVisible(); expect(posts).toBe(1)
+  engine.status = 'blocked'; engine.error = 'Codex usage limit reached; completed results retained.'
+  await page.clock.fastForward(15_100)
+  await expect(page.getByRole('alert')).toContainText('Codex usage limit')
+  await expect(page.getByRole('button', { name: 'Retry engine', exact: true })).toBeEnabled()
 })

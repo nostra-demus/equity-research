@@ -10,7 +10,7 @@ import { execa, type ResultPromise } from 'execa'
 import { CHAT, CLAUDE_BIN, REPO_ROOT } from './config'
 import { childEnv, detectFlags } from './launcher'
 import { resolveAllowedChatModel, type ChatModelSpec } from './chat-models'
-import { codexChildEnv, createIsolatedCodexProbeHome, pinCodexExecutable, resolveCodexBin } from './providers/codex'
+import { assertChatGptLogin, codexChildEnv, createIsolatedCodexProbeHome, pinCodexExecutable, resolveCodexBin } from './providers/codex'
 
 // Light backstop so a stuck UI cannot spawn dozens of subscription CLIs at once.
 let activeChatTurns = 0
@@ -382,6 +382,12 @@ async function runCodexChatTurn(opts: ChatTurnOptions, choice: ChatModelSpec): P
     env.TEMP = chatRoot
     const pinnedCommand = pinCodexExecutable(resolveCodexBin(), env)
     const command = pinnedCommand.command
+    // Verify the exact isolated credential snapshot before any inference. Scrubbing API-key env vars
+    // alone does not reject an auth.json whose active login method is a paid API key.
+    const login = await execa(command, ['login', 'status'], { cwd: chatRoot, env, reject: false,
+      timeout: 20_000, cancelSignal: opts.signal })
+    if (login.exitCode !== 0 || login.failed) throw new Error('Codex ChatGPT authentication could not be verified.')
+    assertChatGptLogin(`${login.stdout}\n${login.stderr}`)
     const disabledFeatures = await inspectCodexChatFeatures(command, pinnedCommand.identity)
     if (opts.signal.aborted) return { costUsd: 0, error: 'aborted' }
     const args = buildCodexChatArgs(choice, chatRoot, opts.system, {

@@ -2,6 +2,8 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import { randomUUID } from 'node:crypto'
 import type { FastifyInstance } from 'fastify'
+import type { FastifyRequest } from 'fastify'
+import { createUniverseEngine } from './universe-engine'
 import { isModelRead, MODEL_CLIENT_VERSION, MODEL_PRICE_REFRESH_MS, MODEL_REFRESH_MS, MODEL_SCHEMA, UNIVERSE_URL, type ModelPricesRead, type ModelRead, type ModelRow } from '../../shared/universe-model'
 import { createUniverseEventsReader } from './universe-events'
 import { readUniverseAssessments, registerUniverseEvidence } from './universe-evidence'
@@ -407,11 +409,32 @@ export function createUniverseModel(file: string, deps: {
 export function registerUniverseModel(app: FastifyInstance, stateDir: string, root: string, archiveDir: string, deps: {
   quotes?: typeof getQuotes
   collector?: Parameters<typeof createUniverseModel>[1]
+  engine?: Omit<Parameters<typeof createUniverseEngine>[1], 'universe'>
+  canRun?: (req: FastifyRequest) => boolean
 } = {}) {
   registerUniverseEvidence(app, stateDir)
   const model = createUniverseModel(path.join(stateDir, 'universe-model.json'), deps.collector)
   const events = createUniverseEventsReader(root, archiveDir)
-  app.addHook('onReady', async () => { await model.start() })
+  const current = async () => {
+    const read = await model.read()
+    const observed = events(read.rows.map(({ finviz: _data, ...row }) => row))
+    return { ...read, ...observed, rows: readUniverseAssessments(stateDir, observed.rows) }
+  }
+  const engine = createUniverseEngine(stateDir, { ...deps.engine, universe: current })
+  app.addHook('onReady', async () => { await model.start(); await engine.start() })
+  app.post<{ Body: { retry?: boolean } }>('/api/screener/universe-model/run', { config: { rateLimit: { max: 3, timeWindow: '1 minute' } } }, async (req, reply) => {
+    if (deps.canRun ? !deps.canRun(req) : !!req.headers.origin) return reply.code(403).send({ error: 'Cross-origin engine request blocked.' })
+    if (req.body !== undefined && (!req.body || typeof req.body !== 'object' || Array.isArray(req.body) || Object.keys(req.body).some((key) => key !== 'retry') || req.body.retry !== undefined && typeof req.body.retry !== 'boolean')) return reply.code(400).send({ error: 'Invalid engine request.' })
+    try { await engine.run(req.body?.retry === true); return reply.code(202).send(await engine.read(await current())) }
+    catch (error: any) {
+      req.log.error({ err: error }, 'Universe engine admission failed')
+      const publicMessages = ['An allowed Codex subscription model is required. No external API fallback will be used.',
+        'Saved signal-engine state is unreadable. Existing results retained; repair is required.']
+      const message = error?.code === 'EBUSY' ? 'The signal engine is already active. Progress will update shortly.'
+        : publicMessages.includes(error?.message) ? error.message : 'The signal engine could not start. Saved results retained.'
+      return reply.code(error?.code === 'EBUSY' ? 409 : 503).send({ error: message })
+    }
+  })
   app.get('/api/screener/universe-model', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
     reply.header('Cache-Control', 'no-store')
     // An open pre-impact-assessment tab used event presence as green. Clear its grid and require
@@ -421,10 +444,9 @@ export function registerUniverseModel(app: FastifyInstance, stateDir: string, ro
       refreshing: false, fetched: 0, started_at: null, completed_at: null, next_refresh_at: null,
       stale: true, events: null, error: 'Model updated. Reload this page for current prices and favorable-impact signals.',
     } satisfies ModelRead
-    const read = await model.read()
-    // Keep the frequent grid response small. All raw fields and news are served on demand below.
-    const observed = events(read.rows.map(({ finviz: _data, ...row }) => row))
-    return { ...read, ...observed, rows: readUniverseAssessments(stateDir, observed.rows) }
+    const read = await current()
+    const status = await engine.read(read)
+    return { ...read, engine: status, rows: engine.project(read.rows) }
   })
   app.get<{ Querystring: { tickers?: string } }>('/api/screener/universe-model/quotes', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
     reply.header('Cache-Control', 'no-store')
@@ -458,5 +480,5 @@ export function registerUniverseModel(app: FastifyInstance, stateDir: string, ro
     return { source_url: UNIVERSE_URL, refreshing: read.refreshing || !!read.data?.refreshing, error: read.error || read.data?.error || null,
       fields: Object.fromEntries([...keys].map((key) => [key, finvizField(key)])), rows }
   })
-  app.addHook('onClose', async () => { await model.close() })
+  app.addHook('onClose', async () => { await engine.close(); await model.close() })
 }
