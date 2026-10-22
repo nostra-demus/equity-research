@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T11:39:10Z",
+  "generated_at": "2026-10-22T11:45:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-740",
@@ -496,6 +496,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-826",
+      "headline": "Dow forecasts profit above estimates on pricing gains and cost cuts",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/chemicals-maker-dow-beats-third-quarter-profit-estimates-2026-10-22/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T10:11:57Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Dow Inc. issued a profit forecast above analyst estimates, driven by pricing gains and cost reductions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dow Inc. issued a profit forecast above analyst estimates, driven by pricing gains and cost reductions.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dow",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1937,55 +1986,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-009",
-      "headline": "Pulp Maker Mercer Is Weighing Possible Chapter 11 Bankruptcy",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-21/pulp-maker-mercer-is-weighing-possible-chapter-11-bankruptcy",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T23:25:37Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Mercer is weighing a potential Chapter 11 bankruptcy filing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Mercer is weighing a potential Chapter 11 bankruptcy filing.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mercer",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235067,9 +235067,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1721765,
-    "news_picked_today": 1591,
-    "news_dropped_today": 14057
+    "news_seen_today": 1732550,
+    "news_picked_today": 1598,
+    "news_dropped_today": 14218
   },
   "book_momentum": {
     "live_count": 8,
