@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-24T05:59:51Z",
+  "archived_at": "2026-10-22T07:03:24Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-9048ab0ec675",
-    "idea_version": "IDEAV-98c5d9a0646b944d",
-    "idea_version_started_at": "2026-09-21T04:44:10Z",
-    "ticker": "ING",
-    "company": "Ingenia Communities",
-    "exchange": "ASX",
+    "idea_id": "IDEA-154422e5621e",
+    "idea_version": "IDEAV-b81d4b971b3efd30",
+    "idea_version_started_at": "2026-10-19T03:56:14Z",
+    "ticker": "AXISBANK",
+    "company": "Axis Bank",
+    "exchange": "NSE",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "Ingenia Communities rejected an improved $1.47 billion takeover offer from Warburg Pincus, removing a potential premium for shareholders.",
-    "why_now": "The rejection of the improved offer was announced on September 21, 2026, eliminating a near-term M&A catalyst.",
-    "conviction": 55,
+    "reason": "The bank's shares are under selling pressure following poor Q2 results, reflecting broader concerns about asset quality or margin sustainability in the current Indian banking cycle.",
+    "why_now": "The earnings reaction is live as of 2026-10-19.",
+    "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 21,
+      "impact": 16,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "priced-in risk",
       "independent confirmation",
       "live price, liquidity, and consensus"
     ],
@@ -48,31 +49,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "room",
+    "priced_in": "priced",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-8e18c6f14773"
+      "EVT-3ec766b7002e"
     ],
-    "primary_source_event_id": "EVT-8e18c6f14773",
+    "primary_source_event_id": "EVT-3ec766b7002e",
     "source_headlines": [
-      "Ingenia Communities Rejects Warburg Pincus’s Improved $1.47 Billion Takeover Offer"
+      "Q2 Results LIVE Updates: Axis Bank shares decline nearly 4%; UltraTech, Bajaj Fin report today"
     ],
-    "source_headline": "Ingenia Communities Rejects Warburg Pincus’s Improved $1.47 Billion Takeover Offer",
-    "source_url": "https://www.wsj.com/business/deals/ingenia-communities-rejects-warburg-pincuss-improved-1-47-billion-takeover-offer-c36f1391?mod=pls_whats_news_us_business_f",
-    "source_name": "The Wall Street Journal",
-    "materiality_max": 100,
-    "newest_source_at": "2026-09-21T04:16:00Z",
+    "source_headline": "Q2 Results LIVE Updates: Axis Bank shares decline nearly 4%; UltraTech, Bajaj Fin report today",
+    "source_url": "https://www.cnbctv18.com/market/q2-results-live-updates-today-ultratech-bajaj-fin-ireda-piramal-union-bank-hzl-hdfc-axis-icici-yes-hfcl-just-dial-share-price-liveblog-20014571.htm",
+    "source_name": "CNBC-TV18",
+    "materiality_max": 88,
+    "newest_source_at": "2026-10-19T03:46:47Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-21T04:44:10Z",
-    "updated_at": "2026-09-21T04:44:10Z",
-    "decay_at": "2026-09-22T16:16:00Z",
+    "surfaced_at": "2026-10-19T03:56:14Z",
+    "updated_at": "2026-10-19T03:56:14Z",
+    "decay_at": "2026-10-20T15:46:47Z",
     "status": "live",
     "promoted_signal_id": null
   }

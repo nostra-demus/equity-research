@@ -1,13 +1,13 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-24T04:13:25Z",
+  "archived_at": "2026-10-22T07:03:24Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-21c21ede9213",
-    "idea_version": "IDEAV-f3b2988e8c93d157",
-    "idea_version_started_at": "2026-09-21T04:05:35Z",
-    "ticker": "PPT",
-    "company": "Perpetual Limited",
+    "idea_id": "IDEA-9336a4ac932b",
+    "idea_version": "IDEAV-4a978add98180b23",
+    "idea_version_started_at": "2026-10-19T10:36:10Z",
+    "ticker": "FNX",
+    "company": "FNX: Shared Beginnings",
     "exchange": "ASX",
     "ticker_verified": false,
     "listing_verified": false,
@@ -15,15 +15,15 @@
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "The termination of takeover talks with EQT AB removes the acquisition premium that had been supporting the share price, likely leading to a re-rating toward fundamental valuation.",
-    "why_now": "The rejection of the improved offer and cessation of talks was announced on September 21, 2026.",
-    "conviction": 70,
+    "reason": "FNX: Shared Beginnings has been placed into voluntary administration, indicating severe financial distress and likely impairment of shareholder value.",
+    "why_now": "The company announced its placement into voluntary administration today, 2026-10-19.",
+    "conviction": 75,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 14,
-      "impact": 19,
+      "evidence": 25,
+      "impact": 21,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -49,30 +48,30 @@
       "evidenceIds": []
     },
     "priced_in": "room",
-    "thesis_type": "company_specific",
+    "thesis_type": "balance_sheet_survival",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-b36d18b04081"
+      "EVT-efcf22c53e2b"
     ],
-    "primary_source_event_id": "EVT-b36d18b04081",
+    "primary_source_event_id": "EVT-efcf22c53e2b",
     "source_headlines": [
-      "Perpetual Rejects EQT AB’s Improved Offer, Ends Takeover Talks"
+      "FNX: Shared Beginnings placed into voluntary administration [price-sensitive]"
     ],
-    "source_headline": "Perpetual Rejects EQT AB’s Improved Offer, Ends Takeover Talks",
-    "source_url": "https://www.wsj.com/business/deals/perpetual-rejects-eqt-abs-improved-offer-ends-takeover-talks-44f70f5e?mod=pls_whats_news_us_business_f",
-    "source_name": "The Wall Street Journal",
-    "materiality_max": 95,
-    "newest_source_at": "2026-09-21T03:53:00Z",
+    "source_headline": "FNX: Shared Beginnings placed into voluntary administration [price-sensitive]",
+    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FNX?key=2924-03150100-6A1349953",
+    "source_name": "ASX (Australia Exchange Filing)",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-19T06:12:21Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-21T04:05:35Z",
-    "updated_at": "2026-09-21T04:05:35Z",
-    "decay_at": "2026-09-22T15:53:00Z",
+    "surfaced_at": "2026-10-19T10:36:10Z",
+    "updated_at": "2026-10-19T10:36:10Z",
+    "decay_at": "2026-10-20T18:12:21Z",
     "status": "live",
     "promoted_signal_id": null
   }

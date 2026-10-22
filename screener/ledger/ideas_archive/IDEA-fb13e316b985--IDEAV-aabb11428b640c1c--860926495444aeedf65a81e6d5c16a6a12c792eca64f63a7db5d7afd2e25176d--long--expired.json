@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-09T00:14:10Z",
+  "archived_at": "2026-10-22T07:03:24Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-5253ff98b1df",
-    "idea_version": "IDEAV-671fc7f5e19034cf",
-    "idea_version_started_at": "2026-10-06T00:37:28Z",
-    "ticker": "SCP",
-    "company": "Shopping Centres Australasia Property Group",
-    "exchange": "ASX",
+    "idea_id": "IDEA-fb13e316b985",
+    "idea_version": "IDEAV-aabb11428b640c1c",
+    "idea_version_started_at": "2026-10-19T04:16:06Z",
+    "ticker": "7011",
+    "company": "Mitsubishi Heavy Industries",
+    "exchange": "TSE",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "long",
     "pair_with": null,
-    "reason": "The company has entered a trading halt pending a strategic review, which typically precedes a significant corporate action or asset transaction.",
-    "why_now": "The trading halt is active as of 2026-10-05, making this a live event-driven situation.",
-    "conviction": 60,
+    "reason": "The company is expanding its defense-related shipbuilding capacity to meet government demand, which will increase long-term revenue visibility in its defense segment.",
+    "why_now": "The company announced the revival of a specific shipbuilding line for defense equipment starting in FY 2027.",
+    "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
-      "impact": 19,
+      "evidence": 14,
+      "impact": 18,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,7 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "price and market expectations",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -48,31 +48,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "unknown",
+    "priced_in": "room",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-1216eb49ccd0"
+      "EVT-db27871f667b"
     ],
-    "primary_source_event_id": "EVT-1216eb49ccd0",
+    "primary_source_event_id": "EVT-db27871f667b",
     "source_headlines": [
-      "SCP: Trading Halt [price-sensitive]"
+      "Mitsubishi Heavy to revive shipbuilding line for defense equipment in FY 2027"
     ],
-    "source_headline": "SCP: Trading Halt [price-sensitive]",
-    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SCP?key=2924-03144810-3A703400",
-    "source_name": "ASX (Australia Exchange Filing)",
-    "materiality_max": 100,
-    "newest_source_at": "2026-10-05T23:59:30Z",
+    "source_headline": "Mitsubishi Heavy to revive shipbuilding line for defense equipment in FY 2027",
+    "source_url": "https://english.kyodonews.net/articles/-/88665",
+    "source_name": "Kyodo News (Japan Wire)",
+    "materiality_max": 89,
+    "newest_source_at": "2026-10-19T03:45:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-06T00:37:28Z",
-    "updated_at": "2026-10-06T00:37:28Z",
-    "decay_at": "2026-10-07T11:59:30Z",
+    "surfaced_at": "2026-10-19T03:38:08Z",
+    "updated_at": "2026-10-19T04:16:06Z",
+    "decay_at": "2026-10-20T15:45:00Z",
     "status": "live",
     "promoted_signal_id": null
   }
