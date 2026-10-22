@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T13:22:30Z",
+  "generated_at": "2026-10-22T13:28:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-828",
@@ -1440,6 +1440,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261022-957",
+      "headline": "Spotify forecasts fourth-quarter profit above estimates on AI bets",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/spotify-forecasts-fourth-quarter-profit-above-estimates-ai-bets-2026-10-22/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T10:02:45Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Spotify issued Q4 profit guidance above analyst estimates, driven by AI-related efficiencies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Spotify issued Q4 profit guidance above analyst estimates, driven by AI-related efficiencies.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Spotify",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261022-808",
       "headline": "Chennai Petroleum Reports 212% Rise In Consolidated Net Profit To ₹2,247.03 Crore For September Quarter, Announces ₹25 Dividend",
       "headline_en": null,
@@ -1485,6 +1534,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-952",
+      "headline": "Adani Energy Solutions Q2 FY27 Net Profit Jumps 145% To ₹1,364 Crore; Revenue Rises 53%",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/adani-energy-solutions-q2-fy27-net-profit-jumps-145-to-1364-crore-revenue-rises-53",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T10:01:18Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Adani Energy Solutions reported a 145% increase in net profit to ₹1,364 crore and a 53% revenue rise for Q2 FY27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Adani Energy Solutions reported a 145% increase in net profit to ₹1,364 crore and a 53% revenue rise for Q2 FY27.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Energy Solutions",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1887,104 +1985,6 @@
           "name": "Octus",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-708",
-      "headline": "BL Agro to invest ₹7,000 cr in Tanzania over 10 years across edible oils, dairy, agriculture",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/economy/agri-business/bl-agro-to-invest-7000-cr-in-tanzania-over-10-years-across-edible-oils-dairy-agriculture/article71610204.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T05:35:02Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "BL Agro announced a major 7,000 crore INR investment in Tanzania over 10 years.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BL Agro announced a major 7,000 crore INR investment in Tanzania over 10 years.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BL Agro",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-714",
-      "headline": "Tesla überrascht mit positivem Cashflow - Auch Umsatz leicht über den Erwartungen",
-      "headline_en": "Tesla surprises with positive cash flow - revenue also slightly above expectations",
-      "url": "https://www.reuters.com/de/firma/tesla-berrascht-mit-positivem-cashflow-auch-umsatz-leicht-ber-den-erwartungen-2026-10-22/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T05:33:31Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Tesla reported positive cash flow and revenue slightly above expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tesla reported positive cash flow and revenue slightly above expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -235068,9 +235068,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2032426,
-    "news_picked_today": 1888,
-    "news_dropped_today": 15608
+    "news_seen_today": 2049150,
+    "news_picked_today": 1904,
+    "news_dropped_today": 15640
   },
   "book_momentum": {
     "live_count": 8,
