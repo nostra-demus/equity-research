@@ -1,6 +1,1438 @@
 {
-  "generated_at": "2026-10-21T23:57:22Z",
+  "generated_at": "2026-10-22T00:08:55Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261022-020",
+      "headline": "WMC: Wiluna Mining Lists on the ASX Following $180m IPO",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WMC?key=2924-03151631-6A1350655",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T23:26:15Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Wiluna Mining completes a $180m IPO and lists on the ASX.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Wiluna Mining completes a $180m IPO and lists on the ASX.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wiluna Mining",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-006",
+      "headline": "ASX falls; Nick Scali plunges 16pc on profit downgrade",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/asx-steady-nasdaq-surges-meta-to-report-20261022-p617mq?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T23:46:46Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Nick Scali shares plunged 16% following a profit downgrade.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nick Scali shares plunged 16% following a profit downgrade.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nick Scali",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-009",
+      "headline": "Pulp Maker Mercer Is Weighing Possible Chapter 11 Bankruptcy",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-21/pulp-maker-mercer-is-weighing-possible-chapter-11-bankruptcy",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T23:25:37Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Mercer is weighing a potential Chapter 11 bankruptcy filing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mercer is weighing a potential Chapter 11 bankruptcy filing.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mercer",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-014",
+      "headline": "Buyout firm EQT acquires German diagnostics group in €10.8bn deal",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/5833c24e-3a4b-4242-a8c2-8f9918c4670c?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T22:23:49Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "EQT is acquiring a German diagnostics group for €10.8 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EQT is acquiring a German diagnostics group for €10.8 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EQT",
+          "ticker": null,
+          "listing_country": "SE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-019",
+      "headline": "ECL: Removal from Official List",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ECL?key=2924-03151634-2A1705533",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T23:36:15Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Company is being removed from the official exchange list.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Company is being removed from the official exchange list.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ECL",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-010",
+      "headline": "Comcast Planning Significant Jobs Cuts as Part of Reorganization",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-21/comcast-planning-significant-jobs-cuts-as-part-of-reorganization",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T22:53:38Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Comcast is planning significant job cuts as part of a reorganization.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Comcast is planning significant job cuts as part of a reorganization.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Comcast",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-001",
+      "headline": "RMI: GOLD-SILVER RESULTS EXPAND WADI SALAMAH POTENTIAL [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RMI?key=2924-03151624-6A1350653",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T23:07:55Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "The company reported positive exploration results expanding the potential of the Wadi Salamah project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "The company reported positive exploration results expanding the potential of the Wadi Salamah project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RMI",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-026",
+      "headline": "TWL: TradeWindow secures Lactalis as a Prodoc customer [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TWL?key=2924-03151621-2A1705525",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T23:03:45Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "TradeWindow secures a new customer contract with Lactalis.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "TradeWindow secures a new customer contract with Lactalis.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TradeWindow",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-008",
+      "headline": "Musk sets lower sales target for Tesla as it explores SpaceX merger",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/16bdf332-2a75-4e57-81ea-a37caf50ec0f?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T23:30:29Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Tesla set a lower sales target and is exploring a potential merger with SpaceX.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Tesla set a lower sales target and is exploring a potential merger with SpaceX.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-005",
+      "headline": "Meta beats expectations but legal penalties hit profit amid AI race",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/meta-beats-expectations-but-legal-penalties-hit-profit-amid-ai-race",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T23:03:00Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Meta beat earnings expectations but faced significant legal penalties impacting profit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Meta beat earnings expectations but faced significant legal penalties impacting profit.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-007",
+      "headline": "Amazon warns new cyber flaws detected using AI are being ‘broadly exploited’",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/245778d9-597b-492d-b5b6-a2967c77e853?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T23:20:30Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Amazon warned that new AI-driven cyber flaws are being broadly exploited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Amazon warned that new AI-driven cyber flaws are being broadly exploited.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-012",
+      "headline": "Fortescue Says Risk to Full-Year Results On China Standoff",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-21/fortescue-says-risk-to-full-year-sales-as-china-dispute-drags-on",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T22:32:37Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Fortescue warned that a standoff with a Chinese state buyer poses a risk to its full-year results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Fortescue warned that a standoff with a Chinese state buyer poses a risk to its full-year results.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fortescue",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-016",
+      "headline": "Australia's Fortescue warns of operations hit as China state buyer talks rumble on",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/asia-pacific/australias-fortescue-posts-6-fall-quarterly-iron-ore-shipments-2026-10-21/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T22:11:02Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Fortescue warned of operational hits due to ongoing negotiations with a Chinese state buyer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Fortescue warned of operational hits due to ongoing negotiations with a Chinese state buyer.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fortescue",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-025",
+      "headline": "SPL: Quarterly Activities/Appendix 4C Cash Flow Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SPL?key=2924-03151622-3A704681",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T23:05:05Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Quarterly cash flow report released for SPL.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "Quarterly cash flow report released for SPL.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SPL",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-023",
+      "headline": "EGY: EGY Cogenic Investor Presentation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EGY?key=2924-03151625-2A1705530",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T23:09:45Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Investor presentation released containing price-sensitive information.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 74,
+      "triage_reason": "Investor presentation released containing price-sensitive information.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EGY",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-018",
+      "headline": "AMP: AMP Limited provides update on China partnership",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AMP?key=2924-03151635-2A1705535",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T23:38:05Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Update on a strategic partnership in China for AMP Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 71,
+      "triage_reason": "Update on a strategic partnership in China for AMP Limited.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AMP Limited",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-004",
+      "headline": "QIAGEN and EQT Private Equity announce agreement on a recommended voluntary all-cash public takeover offer",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/qiagen-and-eqt-private-equity-announce-agreement-on-a-recommended-voluntary-all-cash-public-takeover-offer-302916100.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-21T22:46:00Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "QIAGEN and EQT have announced a recommended all-cash public takeover offer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "QIAGEN and EQT have announced a recommended all-cash public takeover offer.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "QIAGEN",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "EQT",
+          "ticker": null,
+          "listing_country": "SE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-021",
+      "headline": "LU7: Management Appointments",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LU7?key=2924-03151628-6A1350654",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T23:12:45Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Announcement of new management appointments.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Announcement of new management appointments.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LU7",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-027",
+      "headline": "SCHEDULE 13G - Cipher Digital Inc. (0001819989) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1819989/000110465926117904/0001104659-26-117904-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-21T22:45:10Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "A Schedule 13G discloses a beneficial-ownership stake in Cipher Digital Inc., but the headline provides no ownership percentage or indication of a new position.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "A Schedule 13G discloses a beneficial-ownership stake in Cipher Digital Inc., but the headline provides no ownership percentage or indication of a new position.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 43,
+      "rank_factors": {
+        "materiality": 43,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cipher Digital Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-028",
+      "headline": "SCHEDULE 13G - Citadel Securities GP LLC (0001721695) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1721695/000110465926117904/0001104659-26-117904-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-21T22:45:10Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Citadel Securities GP LLC filed a Schedule 13G, but the headline does not identify the issuer, ownership percentage, or whether the position changed materially.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "Citadel Securities GP LLC filed a Schedule 13G, but the headline does not identify the issuer, ownership percentage, or whether the position changed materially.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 42,
+      "rank_factors": {
+        "materiality": 42,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Citadel Securities GP LLC",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-013",
+      "headline": "ASX to Unveil New Strategy in 2027 as CEO Attia Lays Out Roadmap",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-21/asx-to-unveil-new-strategy-in-2027-as-ceo-attia-lays-out-roadmap",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T22:40:54Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "ASX is preparing a new strategic roadmap to be unveiled in 2027.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "ASX is preparing a new strategic roadmap to be unveiled in 2027.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ASX",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-011",
+      "headline": "Bonefish Grill closes another restaurant as parent company cuts locations",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/restaurants/bonefish-grill-restaurant-closure-bloomin-brands",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T22:47:00Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Bloomin' Brands is closing additional Bonefish Grill locations as part of a broader footprint reduction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "Bloomin' Brands is closing additional Bonefish Grill locations as part of a broader footprint reduction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bloomin' Brands",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-015",
+      "headline": "UK Chancellor to Court Entrepreneurs with Cuts to Regulation",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-21/uk-chancellor-to-court-entrepreneurs-with-cuts-to-regulation",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T22:20:56Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "The UK government is planning regulatory cuts to attract entrepreneurs, impacting the broader business environment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "The UK government is planning regulatory cuts to attract entrepreneurs, impacting the broader business environment.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-024",
+      "headline": "TWL: TradeWindow clarifies Lactalis announcement [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TWL?key=2924-03151623-2A1705529",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T23:06:40Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Clarification of a previous commercial announcement regarding Lactalis.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "Clarification of a previous commercial announcement regarding Lactalis.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TradeWindow",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-022",
+      "headline": "OSS: Change in substantial holding",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OSS?key=2924-03151626-2A1705531",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T23:10:05Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Routine disclosure of change in substantial shareholding.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "Routine disclosure of change in substantial shareholding.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 35,
+      "rank_factors": {
+        "materiality": 35,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OSS",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-017",
+      "headline": "TEK: Update - Notification of buy-back - TEK",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TEK?key=2924-03151637-3A704684",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-21T23:40:16Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Routine notification of share buy-back program update.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 59,
+      "triage_reason": "Routine notification of share buy-back program update.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TEK",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-002",
+      "headline": "Cognizant to Acquire DyFlex Solutions, Accelerating AI-Led Enterprise Transformation for SAP Clients in Australia and New Zealand",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/cognizant-to-acquire-dyflex-solutions-accelerating-ai-led-enterprise-transformation-for-sap-clients-in-australia-and-new-zealand-302916092.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-21T23:25:00Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Cognizant is acquiring DyFlex Solutions to expand its SAP and AI capabilities in the ANZ region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "Cognizant is acquiring DyFlex Solutions to expand its SAP and AI capabilities in the ANZ region.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cognizant",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "DyFlex Solutions",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-003",
+      "headline": "Cognizant to Acquire DyFlex Solutions, Accelerating AI-Led Enterprise Transformation for SAP Clients in Australia and New Zealand | CTSH Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/CTSH/cognizant-to-acquire-dy-flex-solutions-accelerating-ai-led-kem8fp4o572z.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-21T23:25:00Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Cognizant is acquiring DyFlex Solutions to expand its SAP and AI capabilities in the ANZ region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "Cognizant is acquiring DyFlex Solutions to expand its SAP and AI capabilities in the ANZ region.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cognizant",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "DyFlex Solutions",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-029",
+      "headline": "Iraq Resumes Commercial Shipping After 50 Years as Ship Departs UAE",
+      "headline_en": null,
+      "url": "https://maritime-executive.com/article/iraq-resumes-commercial-shipping-after-50-years-as-ship-departs-uae",
+      "source_name": "Maritime Executive",
+      "input_nature": "shipping_rate_move",
+      "found_at": "2026-10-21T19:44:57Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Iraq resumes commercial shipping after 50 years, signaling major policy and sanctions shift; affects regional shipping, port operations, trade flows, and Middle East-exposed equities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "Iraq resumes commercial shipping after 50 years, signaling major policy and sanctions shift; affects regional shipping, port operations, trade flows, and Middle East-exposed equities.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": -33,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 2,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "official_data",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector",
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261021-477",
       "headline": "GDF: $300 million portfolio divestment and guidance upgrade [price-sensitive]",
@@ -234292,7 +235724,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3887,
+    "inbox_unconsumed": 3916,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -234301,9 +235733,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8557377,
-    "news_picked_today": 1041,
-    "news_dropped_today": 20367
+    "news_seen_today": 15234,
+    "news_picked_today": 29,
+    "news_dropped_today": 139
   },
   "book_momentum": {
     "live_count": 8,
