@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T23:51:13Z",
+  "generated_at": "2026-10-22T23:57:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-1078",
@@ -940,6 +940,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261022-1194",
+      "headline": "STAT+: Gilead to pay $45 million to settle kickback charges filed by Texas attorney general",
+      "headline_en": null,
+      "url": "https://www.statnews.com/pharmalot/2026/10/22/gilead-settles-kickback-lawsuit-texas-attorney-general/?utm_campaign=rss",
+      "source_name": "STAT News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T23:12:17Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Gilead Sciences agreed to pay $45 million to settle kickback charges.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Gilead Sciences agreed to pay $45 million to settle kickback charges.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gilead Sciences",
+          "ticker": "GILD",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-1191",
+      "headline": "Associated Banc-Corp Reports Third Quarter 2026 Net Income of $144 million",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/associated-banc-corp-reports-third-quarter-2026-net-income-144-million",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T23:03:00Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Associated Banc-Corp reported Q3 2026 net income of $144 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Associated Banc-Corp reported Q3 2026 net income of $144 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Associated Banc-Corp",
+          "ticker": "ASB",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261022-1114",
       "headline": "Australia's Rio Tinto to invest $1.9 billion in Queensland bauxite project",
       "headline_en": null,
@@ -1873,105 +1971,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-1002",
-      "headline": "American Airlines Cuts Full-Year Outlook Again as Fuel Costs Climb",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-10-22/american-cuts-outlook-again-as-fuel-costs-climb-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T14:28:02Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "American Airlines cut its full-year outlook again due to climbing fuel costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "American Airlines cut its full-year outlook again due to climbing fuel costs.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "American Airlines",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-996",
-      "headline": "CreditAccess Grameen Q2 Results: Profit jumps 4-fold as credit costs fall 43%; FY27 guidance raised",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/creditaccess-grameen-share-price-q2-results-profit-jumps-4-fold-as-credit-costs-fall-43-fy27-guidance-raised-20017322.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T14:24:11Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "CreditAccess Grameen's Q2 profit jumped four-fold as credit costs fell 43%, and its FY27 guidance was raised.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CreditAccess Grameen's Q2 profit jumped four-fold as credit costs fell 43%, and its FY27 guidance was raised.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CreditAccess Grameen",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -234406,9 +234405,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3249419,
-    "news_picked_today": 2737,
-    "news_dropped_today": 21551
+    "news_seen_today": 3256791,
+    "news_picked_today": 2754,
+    "news_dropped_today": 21606
   },
   "book_momentum": {
     "live_count": 8,
