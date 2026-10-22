@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T14:08:28Z",
+  "generated_at": "2026-10-22T14:16:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-828",
@@ -1691,6 +1691,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261022-971",
+      "headline": "Barclays to axe 5,000 jobs in huge blow to City as AI replaces workers",
+      "headline_en": null,
+      "url": "https://www.standard.co.uk/news/london/barclays-cut-jobs-city-ai-artificial-intelligence-replace-workers-b1301866.html",
+      "source_name": "The Standard (Evening Standard) — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T08:20:55Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Barclays plans to cut 5,000 jobs, a significant restructuring event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Barclays plans to cut 5,000 jobs, a significant restructuring event.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Barclays",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261022-727",
       "headline": "Barclays cuts 5,000 jobs as profits jump ahead of looming bank tax; French bond yields hit fresh 24-year high – business live",
       "headline_en": null,
@@ -1934,60 +1983,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-717",
-      "headline": "LSEG to buy Octus for $3.5 billion in data analytics push",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/finance/lseg-buy-octus-35-billion-data-analytics-push-2026-10-22/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T06:05:16Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "LSEG to acquire Octus for $3.5 billion — a named-value M&A transaction affecting capital structure and capital-allocation trajectory.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "LSEG to acquire Octus for $3.5 billion — a named-value M&A transaction affecting capital structure and capital-allocation trajectory.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "London Stock Exchange Group",
-          "ticker": "LSEG",
-          "listing_country": "GB"
-        },
-        {
-          "name": "Octus",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235068,9 +235063,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2114564,
-    "news_picked_today": 1981,
-    "news_dropped_today": 15851
+    "news_seen_today": 2130118,
+    "news_picked_today": 2012,
+    "news_dropped_today": 15940
   },
   "book_momentum": {
     "live_count": 8,
