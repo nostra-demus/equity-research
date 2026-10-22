@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T05:53:53Z",
+  "generated_at": "2026-10-22T05:59:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-383",
@@ -292,6 +292,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-688",
+      "headline": "First Merchants Corporation Reports Third Quarter 2026 Net Income of $67.8 Million and Announces CEO Transition",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/first-merchants-corporation-reports-third-quarter-2026-net-income-678-million-and",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T04:48:51Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "First Merchants Corporation reported $67.8 million in Q3 2026 net income and announced a CEO transition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "First Merchants Corporation reported $67.8 million in Q3 2026 net income and announced a CEO transition.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "First Merchants Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1920,55 +1970,6 @@
       "companies": [
         {
           "name": "Meta",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-636",
-      "headline": "Meta to pay New Mexico a historic US$25 billion in Cambridge Analytica Facebook case",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/world/united-states-canada/article/3371689/meta-pay-new-mexico-historic-us25-billion-cambridge-analytica-case",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T19:08:19Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Meta is reported to face a $25 billion settlement in a legal case, which would be a massive financial impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Meta is reported to face a $25 billion settlement in a legal case, which would be a massive financial impact.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta Platforms",
           "ticker": null,
           "listing_country": "US"
         }
@@ -235277,9 +235278,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 783585,
-    "news_picked_today": 1179,
-    "news_dropped_today": 7437
+    "news_seen_today": 794009,
+    "news_picked_today": 1194,
+    "news_dropped_today": 7470
   },
   "book_momentum": {
     "live_count": 8,
