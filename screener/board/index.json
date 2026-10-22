@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T02:38:31Z",
+  "generated_at": "2026-10-22T02:45:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-020",
@@ -989,6 +989,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261022-371",
+      "headline": "Tesla’s profits slip on weaker vehicle sales",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/16bdf332-2a75-4e57-81ea-a37caf50ec0f?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T20:44:43Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Tesla reported a decline in profits due to weaker vehicle sales, directly impacting financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tesla reported a decline in profits due to weaker vehicle sales, directly impacting financial performance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261022-101",
       "headline": "Australian data center operator NextDC shares fall 40% after power backlash",
       "headline_en": null,
@@ -1462,6 +1511,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261022-364",
+      "headline": "Two Palestinians killed, several injured in Israeli drone strike in Gaza City",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/two-palestinians-killed-several-injured-israeli-drone-strike-gaza-city",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T20:46:13Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Escalation of military conflict in Gaza represents a geopolitical risk event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Escalation of military conflict in Gaza represents a geopolitical risk event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261022-257",
       "headline": "IBM Q3 results: Tech behemoth records 5% sales growth, raises annual software revenue outlook",
       "headline_en": null,
@@ -1856,109 +1948,6 @@
       "companies": [
         {
           "name": "Meta Platforms",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-247",
-      "headline": "IBM posts 5% sales growth that tops estimates, says infrastructure deals came back",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/ibm-posts-5-sales-growth-tops-estimates-says-infrastructure-deals-came-back",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T22:45:17Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "IBM reported 5% sales growth, beating estimates and signaling a recovery in infrastructure deals.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "IBM reported 5% sales growth, beating estimates and signaling a recovery in infrastructure deals.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IBM",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-157",
-      "headline": "SpaceX and Tesla Are Joined at the Hip. A Merger Would Make It Formal.",
-      "headline_en": null,
-      "url": "https://www.wsj.com/tech/spacex-and-tesla-are-joined-at-the-hip-a-merger-would-make-it-formal-507c475f?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T01:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Speculation regarding a potential merger between Tesla and SpaceX.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Speculation regarding a potential merger between Tesla and SpaceX.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "SpaceX",
           "ticker": null,
           "listing_country": "US"
         }
