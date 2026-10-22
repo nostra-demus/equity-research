@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T22:53:10Z",
+  "generated_at": "2026-10-22T23:02:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-1078",
@@ -935,6 +935,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-1114",
+      "headline": "Australia's Rio Tinto to invest $1.9 billion in Queensland bauxite project",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/asia-pacific/australias-rio-tinto-invest-19-billion-queensland-bauxite-project-2026-10-22/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T22:07:26Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Rio Tinto announced a $1.9 billion investment in a new bauxite project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Rio Tinto announced a $1.9 billion investment in a new bauxite project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rio Tinto",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1918,55 +1967,6 @@
       "companies": [
         {
           "name": "Carrier Global",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-882",
-      "headline": "American Airlines Group Inc Q3 Loss Widens",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/american-airlines-group-inc-q3-loss-widens",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T11:11:47Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "American Airlines reported a widening net loss for Q3.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "American Airlines reported a widening net loss for Q3.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "American Airlines",
           "ticker": null,
           "listing_country": null
         }
@@ -235052,9 +235052,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3143652,
-    "news_picked_today": 2561,
-    "news_dropped_today": 21079
+    "news_seen_today": 3159043,
+    "news_picked_today": 2573,
+    "news_dropped_today": 21091
   },
   "book_momentum": {
     "live_count": 8,
