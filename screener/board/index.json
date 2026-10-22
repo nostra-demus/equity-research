@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T04:50:51Z",
+  "generated_at": "2026-10-22T04:57:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-383",
@@ -1830,96 +1830,47 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261022-101",
-      "headline": "Australian data center operator NextDC shares fall 40% after power backlash",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/technology/australian-data-center-operator-nextdc-shares-fall-40-after-power-backlash",
-      "source_name": "Nikkei Asia",
+      "inbox_id": "INB-20261022-650",
+      "headline": "Meta é condenada a pagar US$25 bilhões ao Novo México em caso sobre privacidade de dados",
+      "headline_en": "Meta is ordered to pay $25 billion to New Mexico in data privacy case",
+      "url": "https://www.reuters.com/pt/mundo/Z5R4HFXNINM6NH2PG3P42KYC2Q-2026-10-21/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
       "input_nature": "news_headline",
-      "found_at": "2026-10-22T00:45:30Z",
+      "found_at": "2026-10-21T18:38:43Z",
       "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "NextDC shares fell 40% following significant operational backlash regarding power usage.",
+      "prelim_note": "A $25 billion judgment against Meta for data privacy violations is a massive financial and regulatory event.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "NextDC shares fell 40% following significant operational backlash regarding power usage.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NextDC",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-226",
-      "headline": "Saudi Arabia attacks kill 3 and injure 10 at Dammam airport and Aramco oilfield",
-      "headline_en": null,
-      "url": "https://www.arabianbusiness.com/abnews/saudi-arabia-attacks-kill-3-and-injure-10-at-dammam-airport-and-aramco-oilfield",
-      "source_name": "Arabian Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T23:29:45Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Attacks on Saudi Aramco infrastructure and Dammam airport represent a major supply shock and security escalation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Attacks on Saudi Aramco infrastructure and Dammam airport represent a major supply shock and security escalation.",
-      "region": "OTHER",
+      "triage_score": 100,
+      "triage_reason": "A $25 billion judgment against Meta for data privacy violations is a massive financial and regulatory event.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 85,
       "rank_factors": {
         "materiality": 85,
         "source_tier": 0,
         "scope": 6,
-        "event": 2,
+        "event": 6,
         "size": 2,
-        "recency": 4,
+        "recency": 2,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "operations",
+        "event_id": "litigation_enforcement",
         "size_bucket": "mega"
       },
       "event_types": [
-        "operations"
+        "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Saudi Aramco",
+          "name": "Meta Platforms",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -1928,47 +1879,96 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261022-249",
-      "headline": "Two killed in attack on Aramco oil field in Saudi eastern region",
+      "inbox_id": "INB-20261022-656",
+      "headline": "Meta Platforms ordered to pay $25 billion in New Mexico consumer data protection case",
       "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/two-killed-attack-aramco-oil-field-saudi-eastern-region",
-      "source_name": "The Business Times (Singapore)",
+      "url": "https://www.livemint.com/news/us-news/meta-platforms-ordered-to-pay-25-billion-in-new-mexico-consumer-data-protection-case-11792604690684.html",
+      "source_name": "Mint",
       "input_nature": "news_headline",
-      "found_at": "2026-10-21T22:58:04Z",
+      "found_at": "2026-10-21T18:33:46Z",
       "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "An attack on an Aramco oil field resulting in fatalities represents a significant operational and geopolitical risk.",
+      "prelim_note": "Meta Platforms faces a massive $25 billion judgment in a consumer data protection case.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "An attack on an Aramco oil field resulting in fatalities represents a significant operational and geopolitical risk.",
-      "region": "OTHER",
+      "triage_score": 100,
+      "triage_reason": "Meta Platforms faces a massive $25 billion judgment in a consumer data protection case.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 80,
+      "materiality_pre_score": 85,
       "rank_factors": {
-        "materiality": 80,
+        "materiality": 85,
         "source_tier": 0,
         "scope": 6,
-        "event": 2,
+        "event": 6,
         "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
+        "recency": 2,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "operations",
+        "event_id": "litigation_enforcement",
         "size_bucket": "mega"
       },
       "event_types": [
-        "operations"
+        "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Saudi Aramco",
+          "name": "Meta Platforms",
           "ticker": null,
-          "listing_country": "SA"
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-658",
+      "headline": "New Mexico took on Meta alone and won a $25 billion judgment over Facebook’s privacy violations",
+      "headline_en": null,
+      "url": "https://fortune.com/2026/10/21/new-mexico-took-on-meta-alone-and-won-a-25-billion-judgment-over-facebooks-privacy-violations/",
+      "source_name": "Fortune",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T18:33:36Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Meta Platforms faces a $25 billion judgment for privacy violations, representing a major legal and financial risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta Platforms faces a $25 billion judgment for privacy violations, representing a major legal and financial risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta Platforms",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -235275,9 +235275,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 687914,
-    "news_picked_today": 1048,
-    "news_dropped_today": 5456
+    "news_seen_today": 698449,
+    "news_picked_today": 1085,
+    "news_dropped_today": 5539
   },
   "book_momentum": {
     "live_count": 8,
