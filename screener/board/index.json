@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T23:29:16Z",
+  "generated_at": "2026-10-22T23:35:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-1078",
@@ -1186,6 +1186,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261022-1125",
+      "headline": "Newmont beats quarterly profit estimates as company benefits from higher gold prices",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-newmont-gold-profit-earnings-mining/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T20:42:28Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Newmont reported a quarterly profit beat driven by higher gold prices, directly impacting financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Newmont reported a quarterly profit beat driven by higher gold prices, directly impacting financial performance.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Newmont",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261022-1120",
       "headline": "Moderna shares sink over 25% as cancer vaccine data triggers ‘sell-the-news’ retreat",
       "headline_en": null,
@@ -1923,55 +1972,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-891",
-      "headline": "Tesla Was Expected to Burn $5 Billion. It Made $1.5 Billion Instead",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/10/22/tesla-was-expected-to-burn-5-billion-it-made-1-5-billion-instead/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T11:15:30Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Tesla reported $1.5 billion in profit, beating expectations of a $5 billion burn.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tesla reported $1.5 billion in profit, beating expectations of a $5 billion burn.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235052,9 +235052,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3219772,
-    "news_picked_today": 2611,
-    "news_dropped_today": 21221
+    "news_seen_today": 3227213,
+    "news_picked_today": 2630,
+    "news_dropped_today": 21274
   },
   "book_momentum": {
     "live_count": 8,
