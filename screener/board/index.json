@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T22:44:10Z",
+  "generated_at": "2026-10-22T22:47:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-1078",
@@ -935,6 +935,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-1109",
+      "headline": "Deckers Cuts Sales Outlook as Shoppers Seek Out Discounted Shoes",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/earnings/deckers-cuts-sales-outlook-amid-slower-hoka-ugg-growth-84f46d5c?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T22:04:00Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Deckers cut its sales outlook due to changing consumer behavior.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Deckers cut its sales outlook due to changing consumer behavior.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Deckers",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1920,55 +1969,6 @@
           "name": "American Airlines",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-869",
-      "headline": "American Airlines expects deeper 2026 loss on pricier fuel despite record revenue",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/22/american-airlines-aal-q3-2026-earnings.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T11:11:32Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "American Airlines expects a deeper loss in 2026 due to fuel costs, signaling a negative outlook for profitability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "American Airlines expects a deeper loss in 2026 due to fuel costs, signaling a negative outlook for profitability.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "American Airlines",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -235052,9 +235052,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3120390,
-    "news_picked_today": 2544,
-    "news_dropped_today": 21024
+    "news_seen_today": 3135915,
+    "news_picked_today": 2559,
+    "news_dropped_today": 21057
   },
   "book_momentum": {
     "live_count": 8,
