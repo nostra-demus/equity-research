@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T17:07:56Z",
+  "generated_at": "2026-10-22T17:13:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-985",
@@ -44,6 +44,55 @@
           "name": "Tianjin Port Development",
           "ticker": "03382",
           "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-1028",
+      "headline": "NLC India Limited: NLC India Limited has informed the Exchange regarding a press release dated October 22, 2026, titled \"NLCIL Signs MoU with IPICOL for Establishment of a 3200 MW (4x800 MW)Ultra Super Critical coal-based thermal power plant and Exploration of CoalGasification-Based Fertilizer Production and Beach Sand Mineral ProcessingFacility in Odisha\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/NLCINDIA_22102026200744_SE_MoU_with_IPICOL_Press_Release.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-22T14:37:54Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "NLC India announces a non-binding MoU for a 3,200 MW ultra-super-critical thermal power plant, coal-gasification fertilizer facility, and beach-sand mineral processing in Odisha, expanding capex into a new state and new business segments.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NLC India announces a non-binding MoU for a 3,200 MW ultra-super-critical thermal power plant, coal-gasification fertilizer facility, and beach-sand mineral processing in Odisha, expanding capex into a new state and new business segments.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NLC India Limited",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1928,55 +1977,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-819",
-      "headline": "Batterie-Pionier: Deutscher Speicherhersteller Sonnen GmbH meldet Insolvenz an",
-      "headline_en": "Battery pioneer: German storage manufacturer Sonnen GmbH files for insolvency",
-      "url": "https://www.handelsblatt.com/unternehmen/energie/sonnen-gmbh-deutscher-speicherhersteller-meldet-insolvenz-an/100263496.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T09:53:39Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "German battery storage manufacturer Sonnen GmbH has filed for insolvency.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "German battery storage manufacturer Sonnen GmbH has filed for insolvency.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sonnen GmbH",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235057,9 +235057,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2527724,
-    "news_picked_today": 2165,
-    "news_dropped_today": 17059
+    "news_seen_today": 2546406,
+    "news_picked_today": 2172,
+    "news_dropped_today": 17148
   },
   "book_momentum": {
     "live_count": 8,
