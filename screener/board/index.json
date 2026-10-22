@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-10-22T15:03:52Z",
+  "generated_at": "2026-10-22T15:13:49Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261022-985",
+      "headline": "TIANJINPORT DEV (03382): VERY SUBSTANTIAL ACQUISITION, VERY SUBSTANTIAL DISPOSAL AND CONNECTED TRANSACTION IN RELATION TO THE ISSUANCE OF SHARES BY TIANJIN PORT HOLDINGS CO LTD FOR ASSET ACQUISITION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1022/2026102201622.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-22T14:44:00Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Very substantial acquisition and disposal announced by Tianjin Port Holdings with share issuance for asset acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Very substantial acquisition and disposal announced by Tianjin Port Holdings with share issuance for asset acquisition.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tianjin Port Development",
+          "ticker": "03382",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261022-983",
       "headline": "XIN YUAN ENT (01748): JOINT ANNOUNCEMENT ADDITIONAL IRREVOCABLE UNDERTAKING WITH RESPECT TO PRE-CONDITIONAL VOLUNTARY GENERAL CASH OFFER BY ICBC INTERNATIONAL CAPITAL LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND/OR PARTIES ACTING IN CONCERT WITH IT)",
@@ -42,6 +92,104 @@
         {
           "name": "XIN YUAN ENT",
           "ticker": "01748",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-987",
+      "headline": "SLING GROUP (08285): JOINT ANNOUNCEMENT (1) SALE AND PURCHASE AGREEMENTS; (2) POSSIBLE MANDATORY UNCONDITIONAL CASH OFFER BY SANFULL SECURITIES LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND/OR PARTIES ACTING IN CONCERT WITH IT); (3) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER; AND (4) RESUMPTION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1022/2026102201418.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-22T13:17:00Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Named mandatory unconditional cash offer by Sanfull Securities to acquire all issued shares of Sling Group constitutes material M&A transaction changing ownership and control.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Named mandatory unconditional cash offer by Sanfull Securities to acquire all issued shares of Sling Group constitutes material M&A transaction changing ownership and control.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sling Group",
+          "ticker": "08285",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-989",
+      "headline": "SOMERLEY CAP (08439): JOINT ANNOUNCEMENT DESPATCH OF COMPOSITE DOCUMENT RELATING TO MANDATORY UNCONDITIONAL CASH OFFERS BY EDDID CAPITAL LIMITED AND RED SUN CAPITAL LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND THE PARTIES ACTING IN CONCERT WITH IT) AND TO CANCEL ALL OUTSTANDING OPTIONS OF THE COMPANY AND CHANGE OF BOARD COMPOSITION AND AUTHORISED REPRESENTATIVE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1022/2026102201328.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-22T11:51:00Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Mandatory unconditional cash offer by Eddid Capital and Red Sun Capital to acquire all shares, cancel options, and change board composition constitutes material M&A and control transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mandatory unconditional cash offer by Eddid Capital and Red Sun Capital to acquire all shares, cancel options, and change board composition constitutes material M&A and control transaction.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 77,
+      "rank_factors": {
+        "materiality": 77,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Somerley Capital",
+          "ticker": "08439",
           "listing_country": "HK"
         }
       ],
@@ -1833,154 +1981,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-727",
-      "headline": "Barclays cuts 5,000 jobs as profits jump ahead of looming bank tax; French bond yields hit fresh 24-year high – business live",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/business/live/2026/oct/22/barclays-profits-jump-looming-bank-tax-french-bond-yields-hit-fresh-24-year-high-latest-live-updates",
-      "source_name": "The Guardian — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T08:06:45Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Barclays announced 5,000 job cuts alongside profit results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Barclays announced 5,000 job cuts alongside profit results.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Barclays",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-730",
-      "headline": "Vinci Compass Investments Ltd. Announces Launch of Vinci Permanent Capital Solutions and Agreement to Acquire AustralRe for R$336 million",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/vinci-compass-investments-ltd-announces-launch-vinci-permanent-capital-solutions-and",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T07:48:34Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Vinci Compass Investments agreed to acquire AustralRe for R$336 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Vinci Compass Investments agreed to acquire AustralRe for R$336 million.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vinci Compass Investments",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-728",
-      "headline": "LSEG Agrees To Acquire Octus For $3.535 Bln",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/lseg-agrees-acquire-octus-3535-bln",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T07:29:28Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "LSEG agreed to acquire Octus for $3.535 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "LSEG agreed to acquire Octus for $3.535 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "London Stock Exchange Group",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235061,9 +235061,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2267630,
-    "news_picked_today": 2045,
-    "news_dropped_today": 16051
+    "news_seen_today": 2286872,
+    "news_picked_today": 2052,
+    "news_dropped_today": 16068
   },
   "book_momentum": {
     "live_count": 8,
