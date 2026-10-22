@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T10:16:08Z",
+  "generated_at": "2026-10-22T10:27:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-740",
@@ -192629,76 +192629,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b0586fbde26d",
-      "idea_version": "IDEAV-29f2332fa3004d4d",
-      "idea_version_started_at": "2026-10-21T01:02:58Z",
-      "ticker": "NFLX",
-      "company": "Netflix",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A $300 million reduction in ad revenue forecasts suggests potential headwinds in their monetization strategy.",
-      "why_now": "The forecast cut was disclosed on 2026-10-20, creating a negative sentiment shift.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0afda8c1a5ee"
-      ],
-      "primary_source_event_id": "EVT-0afda8c1a5ee",
-      "source_headlines": [
-        "Netflix Cut Its Ad Revenue Forecast by $300 Million. Does That Matter More Than Its Earnings Beat?"
-      ],
-      "source_headline": "Netflix Cut Its Ad Revenue Forecast by $300 Million. Does That Matter More Than Its Earnings Beat?",
-      "source_url": "https://www.nasdaq.com/articles/netflix-cut-its-ad-revenue-forecast-300-million-does-matter-more-its-earnings-beat",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-20T22:23:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-21T01:02:58Z",
-      "updated_at": "2026-10-21T01:02:58Z",
-      "decay_at": "2026-10-22T10:23:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-0ac5d784c64f",
       "idea_version": "IDEAV-dfe05967585b98a6",
       "idea_version_started_at": "2026-10-22T07:29:08Z",
@@ -195119,6 +195049,76 @@
       "surfaced_at": "2026-10-20T12:29:48Z",
       "updated_at": "2026-10-20T12:29:48Z",
       "decay_at": "2026-10-21T22:36:35Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-b0586fbde26d",
+      "idea_version": "IDEAV-29f2332fa3004d4d",
+      "idea_version_started_at": "2026-10-21T01:02:58Z",
+      "ticker": "NFLX",
+      "company": "Netflix",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A $300 million reduction in ad revenue forecasts suggests potential headwinds in their monetization strategy.",
+      "why_now": "The forecast cut was disclosed on 2026-10-20, creating a negative sentiment shift.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0afda8c1a5ee"
+      ],
+      "primary_source_event_id": "EVT-0afda8c1a5ee",
+      "source_headlines": [
+        "Netflix Cut Its Ad Revenue Forecast by $300 Million. Does That Matter More Than Its Earnings Beat?"
+      ],
+      "source_headline": "Netflix Cut Its Ad Revenue Forecast by $300 Million. Does That Matter More Than Its Earnings Beat?",
+      "source_url": "https://www.nasdaq.com/articles/netflix-cut-its-ad-revenue-forecast-300-million-does-matter-more-its-earnings-beat",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-20T22:23:12Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-21T01:02:58Z",
+      "updated_at": "2026-10-21T01:02:58Z",
+      "decay_at": "2026-10-22T10:23:12Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -198138,9 +198138,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 551,
+    "total_count": 552,
     "shown_count": 499,
-    "hidden_count": 52,
+    "hidden_count": 53,
     "side_counts": {
       "long": {
         "total_count": 288,
@@ -198148,9 +198148,9 @@
         "hidden_count": 38
       },
       "short": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       }
     },
     "retention": {
@@ -198169,6 +198169,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b0586fbde26d",
+        "idea_version": "IDEAV-29f2332fa3004d4d",
+        "idea_version_started_at": "2026-10-21T01:02:58Z",
+        "ticker": "NFLX",
+        "company": "Netflix",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A $300 million reduction in ad revenue forecasts suggests potential headwinds in their monetization strategy.",
+        "why_now": "The forecast cut was disclosed on 2026-10-20, creating a negative sentiment shift.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0afda8c1a5ee"
+        ],
+        "primary_source_event_id": "EVT-0afda8c1a5ee",
+        "source_headlines": [
+          "Netflix Cut Its Ad Revenue Forecast by $300 Million. Does That Matter More Than Its Earnings Beat?"
+        ],
+        "source_headline": "Netflix Cut Its Ad Revenue Forecast by $300 Million. Does That Matter More Than Its Earnings Beat?",
+        "source_url": "https://www.nasdaq.com/articles/netflix-cut-its-ad-revenue-forecast-300-million-does-matter-more-its-earnings-beat",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-20T22:23:12Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-21T01:02:58Z",
+        "updated_at": "2026-10-21T01:02:58Z",
+        "decay_at": "2026-10-22T10:23:12Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-22T10:23:12Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1d4479b8075a",
         "idea_version": "IDEAV-3085819aeec46e73",
@@ -235258,86 +235331,12 @@
         "archived_at": "2026-09-27T02:53:57Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-d6a9504a0851",
-        "idea_version": "IDEAV-bd15eb0b21b08ad7",
-        "idea_version_started_at": "2026-09-23T20:19:33Z",
-        "ticker": "AGSTRANS",
-        "company": "AGS Transact Technologies Limited",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The initiation of a Corporate Insolvency Resolution Process indicates the company is entering a formal bankruptcy proceeding, likely resulting in significant equity impairment.",
-        "why_now": "The exchange filing confirming the insolvency process was released on 2026-09-23.",
-        "conviction": 90,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d2f3cebd5b3e"
-        ],
-        "primary_source_event_id": "EVT-d2f3cebd5b3e",
-        "source_headlines": [
-          "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-        ],
-        "source_headline": "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-        "source_url": "https://nsearchives.nseindia.com/corporate/AGSTRA_23092026210550_Intimation_to_BSE_And_NSE_-_18th_Coc_meeting_-_final.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-23T15:36:02Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-23T20:19:33Z",
-        "updated_at": "2026-09-23T20:19:33Z",
-        "decay_at": "2026-09-25T03:36:02Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-26T15:53:49Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1799,
-    "live_count": 34,
+    "live_count": 33,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -235356,9 +235355,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1545431,
-    "news_picked_today": 1436,
-    "news_dropped_today": 11404
+    "news_seen_today": 1568979,
+    "news_picked_today": 1442,
+    "news_dropped_today": 11734
   },
   "book_momentum": {
     "live_count": 8,
