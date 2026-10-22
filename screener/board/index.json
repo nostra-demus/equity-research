@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-22T21:11:06Z",
+  "generated_at": "2026-10-22T21:20:02Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261022-1077",
+      "headline": "25-NSE - SAB Biotherapeutics, Inc. (0001833214) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1833214/000135445726001016/0001354457-26-001016-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-22T20:23:34Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Form 25-NSE (delisting notification) filed for SAB Biotherapeutics; signals equity delisting and potential going-concern and capital-structure risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Form 25-NSE (delisting notification) filed for SAB Biotherapeutics; signals equity delisting and potential going-concern and capital-structure risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SAB Biotherapeutics Inc",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261022-985",
       "headline": "TIANJINPORT DEV (03382): VERY SUBSTANTIAL ACQUISITION, VERY SUBSTANTIAL DISPOSAL AND CONNECTED TRANSACTION IN RELATION TO THE ISSUANCE OF SHARES BY TIANJIN PORT HOLDINGS CO LTD FOR ASSET ACQUISITION",
@@ -1927,55 +1976,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-949",
-      "headline": "LSEG va racheter Octus pour $3,5 mds afin de renforcer l'analyse de données",
-      "headline_en": "LSEG to acquire Octus for $3.5 billion to strengthen data analysis",
-      "url": "https://www.reuters.com/fr/affaires/lseg-va-racheter-octus-pour-35-mds-afin-de-renforcer-lanalyse-de-donnes-2026-10-22/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T10:23:26Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "LSEG announced the acquisition of Octus for $3.5 billion to expand data analytics capabilities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "LSEG announced the acquisition of Octus for $3.5 billion to expand data analytics capabilities.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "London Stock Exchange Group",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193556,78 +193556,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-094b7f020f36",
-      "idea_version": "IDEAV-6ec764606ceb392b",
-      "idea_version_started_at": "2026-10-21T12:47:08Z",
-      "ticker": "ADANIGREEN",
-      "company": "Adani Green Energy",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 15% YoY profit increase and a 39% revenue jump in Q2, indicating strong operational scaling in its renewable energy portfolio.",
-      "why_now": "The Q2 results were released on October 21, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-026017282517"
-      ],
-      "primary_source_event_id": "EVT-026017282517",
-      "source_headlines": [
-        "Adani Green Q2 Results: Profit rises 15% YoY to Rs 673 crore; revenue jumps 39%"
-      ],
-      "source_headline": "Adani Green Q2 Results: Profit rises 15% YoY to Rs 673 crore; revenue jumps 39%",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/adani-green-q2-results-profit-rises-15-yoy-to-rs-673-crore-revenue-jumps-39/articleshow/135087375.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-21T09:12:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-21T12:47:08Z",
-      "updated_at": "2026-10-21T12:47:08Z",
-      "decay_at": "2026-10-22T21:12:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-c09be92dcb5d",
       "idea_version": "IDEAV-550d50b08ab5fc80",
       "idea_version_started_at": "2026-10-21T12:47:08Z",
@@ -195238,6 +195166,78 @@
       "surfaced_at": "2026-10-21T19:59:53Z",
       "updated_at": "2026-10-21T19:59:53Z",
       "decay_at": "2026-10-22T20:32:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-094b7f020f36",
+      "idea_version": "IDEAV-6ec764606ceb392b",
+      "idea_version_started_at": "2026-10-21T12:47:08Z",
+      "ticker": "ADANIGREEN",
+      "company": "Adani Green Energy",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 15% YoY profit increase and a 39% revenue jump in Q2, indicating strong operational scaling in its renewable energy portfolio.",
+      "why_now": "The Q2 results were released on October 21, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-026017282517"
+      ],
+      "primary_source_event_id": "EVT-026017282517",
+      "source_headlines": [
+        "Adani Green Q2 Results: Profit rises 15% YoY to Rs 673 crore; revenue jumps 39%"
+      ],
+      "source_headline": "Adani Green Q2 Results: Profit rises 15% YoY to Rs 673 crore; revenue jumps 39%",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/adani-green-q2-results-profit-rises-15-yoy-to-rs-673-crore-revenue-jumps-39/articleshow/135087375.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-21T09:12:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-21T12:47:08Z",
+      "updated_at": "2026-10-21T12:47:08Z",
+      "decay_at": "2026-10-22T21:12:54Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -197841,14 +197841,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 557,
+    "total_count": 558,
     "shown_count": 499,
-    "hidden_count": 58,
+    "hidden_count": 59,
     "side_counts": {
       "long": {
-        "total_count": 292,
+        "total_count": 293,
         "shown_count": 250,
-        "hidden_count": 42
+        "hidden_count": 43
       },
       "short": {
         "total_count": 266,
@@ -197872,6 +197872,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-094b7f020f36",
+        "idea_version": "IDEAV-6ec764606ceb392b",
+        "idea_version_started_at": "2026-10-21T12:47:08Z",
+        "ticker": "ADANIGREEN",
+        "company": "Adani Green Energy",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported a 15% YoY profit increase and a 39% revenue jump in Q2, indicating strong operational scaling in its renewable energy portfolio.",
+        "why_now": "The Q2 results were released on October 21, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-026017282517"
+        ],
+        "primary_source_event_id": "EVT-026017282517",
+        "source_headlines": [
+          "Adani Green Q2 Results: Profit rises 15% YoY to Rs 673 crore; revenue jumps 39%"
+        ],
+        "source_headline": "Adani Green Q2 Results: Profit rises 15% YoY to Rs 673 crore; revenue jumps 39%",
+        "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/adani-green-q2-results-profit-rises-15-yoy-to-rs-673-crore-revenue-jumps-39/articleshow/135087375.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-21T09:12:54Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-21T12:47:08Z",
+        "updated_at": "2026-10-21T12:47:08Z",
+        "decay_at": "2026-10-22T21:12:54Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-22T21:12:54Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a484f7194164",
         "idea_version": "IDEAV-d49fa2c8d0d60dcd",
@@ -225422,80 +225497,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-ee428476df74",
-        "idea_version": "IDEAV-cbfa3857d567820b",
-        "idea_version_started_at": "2026-10-07T04:37:41Z",
-        "ticker": "IZMO",
-        "company": "IZMO Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company secured a ₹99.94 crore government-sanctioned silicon photonics program, providing a significant revenue catalyst and validation of its R&D capabilities.",
-        "why_now": "The press release was issued on October 07, 2026, marking the start of Phase II of the program.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a57a967e975c"
-        ],
-        "primary_source_event_id": "EVT-a57a967e975c",
-        "source_headlines": [
-          "IZMO Limited: IZMO Limited has informed the Exchange regarding a press release dated October 07, 2026, titled \"izmo Microsystems and IIT Madras Enter Phase II of ₹99.94 Crore MeitY-Sanctioned Silicon Photonics Program\"."
-        ],
-        "source_headline": "IZMO Limited: IZMO Limited has informed the Exchange regarding a press release dated October 07, 2026, titled \"izmo Microsystems and IIT Madras Enter Phase II of ₹99.94 Crore MeitY-Sanctioned Silicon Photonics Program\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/IZMO_07102026094510_Intimation_and_PR.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 99,
-        "newest_source_at": "2026-10-07T04:19:32Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-07T04:37:41Z",
-        "updated_at": "2026-10-07T04:37:41Z",
-        "decay_at": "2026-10-08T16:19:32Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-10T06:14:18Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-b7b9a3ca82be",
         "idea_version": "IDEAV-104ab8f51e976f39",
         "idea_version_started_at": "2026-10-07T03:42:33Z",
@@ -235036,7 +235037,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1801,
-    "live_count": 24,
+    "live_count": 23,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -235055,9 +235056,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2987099,
-    "news_picked_today": 2394,
-    "news_dropped_today": 19734
+    "news_seen_today": 2995608,
+    "news_picked_today": 2399,
+    "news_dropped_today": 19969
   },
   "book_momentum": {
     "live_count": 8,
