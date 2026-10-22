@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T08:44:28Z",
+  "generated_at": "2026-10-22T08:52:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-691",
@@ -192761,76 +192761,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-9cfac215a8df",
-      "idea_version": "IDEAV-beb1bc3e7a45a4a6",
-      "idea_version_started_at": "2026-10-20T23:32:54Z",
-      "ticker": "UAL",
-      "company": "United Airlines",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Rising fuel costs are compressing margins and forcing the company to provide underwhelming forward guidance.",
-      "why_now": "The guidance update was released on 2026-10-20; the impact of fuel cost volatility is a live headwind.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b47735b98eb8"
-      ],
-      "primary_source_event_id": "EVT-b47735b98eb8",
-      "source_headlines": [
-        "United Airlines Guidance Underwhelms as Fuel Costs Sting"
-      ],
-      "source_headline": "United Airlines Guidance Underwhelms as Fuel Costs Sting",
-      "source_url": "https://www.wsj.com/business/earnings/united-airlines-revenue-rises-as-fare-hikes-offset-fuel-costs-196ddf48?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-20T20:52:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-20T23:32:54Z",
-      "updated_at": "2026-10-20T23:32:54Z",
-      "decay_at": "2026-10-22T08:52:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-0ac5d784c64f",
       "idea_version": "IDEAV-dfe05967585b98a6",
       "idea_version_started_at": "2026-10-22T07:29:08Z",
@@ -195033,6 +194963,76 @@
       "surfaced_at": "2026-10-20T12:29:48Z",
       "updated_at": "2026-10-20T12:29:48Z",
       "decay_at": "2026-10-21T22:36:35Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-9cfac215a8df",
+      "idea_version": "IDEAV-beb1bc3e7a45a4a6",
+      "idea_version_started_at": "2026-10-20T23:32:54Z",
+      "ticker": "UAL",
+      "company": "United Airlines",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Rising fuel costs are compressing margins and forcing the company to provide underwhelming forward guidance.",
+      "why_now": "The guidance update was released on 2026-10-20; the impact of fuel cost volatility is a live headwind.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b47735b98eb8"
+      ],
+      "primary_source_event_id": "EVT-b47735b98eb8",
+      "source_headlines": [
+        "United Airlines Guidance Underwhelms as Fuel Costs Sting"
+      ],
+      "source_headline": "United Airlines Guidance Underwhelms as Fuel Costs Sting",
+      "source_url": "https://www.wsj.com/business/earnings/united-airlines-revenue-rises-as-fare-hikes-offset-fuel-costs-196ddf48?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-20T20:52:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-20T23:32:54Z",
+      "updated_at": "2026-10-20T23:32:54Z",
+      "decay_at": "2026-10-22T08:52:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -197841,9 +197841,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 547,
+    "total_count": 548,
     "shown_count": 499,
-    "hidden_count": 48,
+    "hidden_count": 49,
     "side_counts": {
       "long": {
         "total_count": 286,
@@ -197851,9 +197851,9 @@
         "hidden_count": 36
       },
       "short": {
-        "total_count": 262,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 13
       }
     },
     "retention": {
@@ -197872,6 +197872,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-9cfac215a8df",
+        "idea_version": "IDEAV-beb1bc3e7a45a4a6",
+        "idea_version_started_at": "2026-10-20T23:32:54Z",
+        "ticker": "UAL",
+        "company": "United Airlines",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Rising fuel costs are compressing margins and forcing the company to provide underwhelming forward guidance.",
+        "why_now": "The guidance update was released on 2026-10-20; the impact of fuel cost volatility is a live headwind.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b47735b98eb8"
+        ],
+        "primary_source_event_id": "EVT-b47735b98eb8",
+        "source_headlines": [
+          "United Airlines Guidance Underwhelms as Fuel Costs Sting"
+        ],
+        "source_headline": "United Airlines Guidance Underwhelms as Fuel Costs Sting",
+        "source_url": "https://www.wsj.com/business/earnings/united-airlines-revenue-rises-as-fare-hikes-offset-fuel-costs-196ddf48?mod=pls_whats_news_us_business_f",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-20T20:52:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-20T23:32:54Z",
+        "updated_at": "2026-10-20T23:32:54Z",
+        "decay_at": "2026-10-22T08:52:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-22T08:52:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-51aefec10932",
         "idea_version": "IDEAV-d52e0a5538f2497e",
@@ -234961,85 +235034,12 @@
         "archived_at": "2026-09-26T14:20:14Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-c7fbf07093b3",
-        "idea_version": "IDEAV-3d68eb5d667f1a2e",
-        "idea_version_started_at": "2026-09-23T12:24:49Z",
-        "ticker": "JD.L",
-        "company": "JD Sports Fashion",
-        "exchange": "London",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A 20% decline in profits highlights margin pressure in the core footwear segment that apparel growth is failing to fully offset.",
-        "why_now": "The earnings report was released today, September 23, 2026, confirming the profit contraction.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 64,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-284cc43cc6fe"
-        ],
-        "primary_source_event_id": "EVT-284cc43cc6fe",
-        "source_headlines": [
-          "JD Sports profit falls 20% but holds guidance as apparel offsets footwear"
-        ],
-        "source_headline": "JD Sports profit falls 20% but holds guidance as apparel offsets footwear",
-        "source_url": "https://ukinvestormagazine.co.uk/jd-sports-profit-falls-20-but-holds-guidance-as-apparel-offsets-footwear/",
-        "source_name": "UK Investor Magazine",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-23T08:28:18Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-23T12:24:49Z",
-        "updated_at": "2026-09-23T12:24:49Z",
-        "decay_at": "2026-09-24T20:28:18Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-26T09:49:55Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1795,
-    "live_count": 34,
+    "live_count": 33,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -235058,9 +235058,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1261937,
-    "news_picked_today": 1367,
-    "news_dropped_today": 10009
+    "news_seen_today": 1274371,
+    "news_picked_today": 1373,
+    "news_dropped_today": 10099
   },
   "book_momentum": {
     "live_count": 8,
