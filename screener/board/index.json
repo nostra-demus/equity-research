@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T00:53:09Z",
+  "generated_at": "2026-10-22T00:53:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-020",
@@ -191987,6 +191987,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-17f472c61afc",
+      "idea_version": "IDEAV-ab4a26fa4707e8a9",
+      "idea_version_started_at": "2026-10-22T00:53:32Z",
+      "ticker": "ELV",
+      "company": "Elevance Health",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Elevance Health reported a Q3 profit of $1.4 billion, exceeding market expectations and signaling strong operational performance in its core insurance segments.",
+      "why_now": "The earnings beat was reported on October 21, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c5c0b0091e6f"
+      ],
+      "primary_source_event_id": "EVT-c5c0b0091e6f",
+      "source_headlines": [
+        "Elevance Health posts $1.4B in profit in Q3 earnings beat"
+      ],
+      "source_headline": "Elevance Health posts $1.4B in profit in Q3 earnings beat",
+      "source_url": "https://www.fiercehealthcare.com/payers/elevance-health-posts-14b-profit-q3-earnings-beat",
+      "source_name": "Fierce Healthcare",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-21T13:02:11Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-22T00:53:32Z",
+      "updated_at": "2026-10-22T00:53:32Z",
+      "decay_at": "2026-10-23T01:02:11Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-1d4479b8075a",
       "idea_version": "IDEAV-3085819aeec46e73",
       "idea_version_started_at": "2026-10-21T01:02:58Z",
@@ -192472,6 +192542,78 @@
       "surfaced_at": "2026-10-20T13:35:08Z",
       "updated_at": "2026-10-21T00:02:52Z",
       "decay_at": "2026-10-22T09:09:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-05d78fe56142",
+      "idea_version": "IDEAV-e81cda03748f9804",
+      "idea_version_started_at": "2026-10-22T00:53:32Z",
+      "ticker": "SCHMID",
+      "company": "Schmid Group",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company more than doubled its Q3 order intake and raised its FY26 guidance, indicating a significant acceleration in demand for its equipment.",
+      "why_now": "The guidance update and new $25 million order were announced on October 21, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1e17db55665a"
+      ],
+      "primary_source_event_id": "EVT-1e17db55665a",
+      "source_headlines": [
+        "SCHMID Q3 Order Intake More Than Doubles, Lifts FY26 Order Guidance; Bags $25 Mln Order, Shares Up"
+      ],
+      "source_headline": "SCHMID Q3 Order Intake More Than Doubles, Lifts FY26 Order Guidance; Bags $25 Mln Order, Shares Up",
+      "source_url": "https://www.nasdaq.com/articles/schmid-q3-order-intake-more-doubles-lifts-fy26-order-guidance-bags-25-mln-order-shares",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-21T13:06:36Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-22T00:53:32Z",
+      "updated_at": "2026-10-22T00:53:32Z",
+      "decay_at": "2026-10-23T01:06:36Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -194249,76 +194391,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-47cbab11b25a",
-      "idea_version": "IDEAV-da8a44dea59e2022",
-      "idea_version_started_at": "2026-10-19T00:02:05Z",
-      "ticker": "VKTX",
-      "company": "Viking Therapeutics",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The $575 million capital raise significantly strengthens the balance sheet, providing the necessary runway to fund late-stage clinical trials for its obesity drug pipeline.",
-      "why_now": "The capital raise was announced on 2026-10-18, providing immediate liquidity to accelerate development timelines.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9ee909dd2888"
-      ],
-      "primary_source_event_id": "EVT-9ee909dd2888",
-      "source_headlines": [
-        "Viking Therapeutics Just Raised $575 Million. Here's What It Means for the Obesity Stock's Next Chapter."
-      ],
-      "source_headline": "Viking Therapeutics Just Raised $575 Million. Here's What It Means for the Obesity Stock's Next Chapter.",
-      "source_url": "https://www.nasdaq.com/articles/viking-therapeutics-just-raised-575-million-heres-what-it-means-obesity-stocks-next",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-18T22:50:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-19T00:02:05Z",
-      "updated_at": "2026-10-19T00:02:05Z",
-      "decay_at": "2026-10-20T10:50:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-301c9958417a",
       "idea_version": "IDEAV-5ddbd040921f921a",
       "idea_version_started_at": "2026-10-19T04:16:06Z",
@@ -194596,77 +194668,6 @@
       "surfaced_at": "2026-10-19T21:35:55Z",
       "updated_at": "2026-10-19T21:35:55Z",
       "decay_at": "2026-10-21T00:48:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-2d38686e8413",
-      "idea_version": "IDEAV-c9e5dac1e2b982f4",
-      "idea_version_started_at": "2026-10-19T00:56:11Z",
-      "ticker": "KO",
-      "company": "Coca-Cola",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Coca-Cola is facing new competition from a classic soda launch by Keurig Dr Pepper, which is a product Coca-Cola does not currently offer.",
-      "why_now": "The product launch is a new competitive development occurring now.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 55,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 9,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "pair_trade",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c6b40fcaf9d1"
-      ],
-      "primary_source_event_id": "EVT-c6b40fcaf9d1",
-      "source_headlines": [
-        "7Up launches classic soda that Coke doesn't have"
-      ],
-      "source_headline": "7Up launches classic soda that Coke doesn't have",
-      "source_url": "https://www.thestreet.com/retail/7up-launches-classic-soda-that-coke-doesnt-have",
-      "source_name": "TheStreet",
-      "materiality_max": 47,
-      "newest_source_at": "2026-10-19T00:17:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-19T00:56:11Z",
-      "updated_at": "2026-10-19T00:56:11Z",
-      "decay_at": "2026-10-20T12:17:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -197050,865 +197051,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-24de08dd43f9",
-      "idea_version": "IDEAV-618ffe55a4a9ef4e",
-      "idea_version_started_at": "2026-10-19T00:36:54Z",
-      "ticker": "RHC",
-      "company": "Ramsay Health Care",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The registration of the demerger booklet with ASIC marks a definitive step in the corporate restructuring process, unlocking value by separating the Sante business.",
-      "why_now": "The filing occurred on 2026-10-19, providing a clear timeline for the upcoming corporate action.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2e01284e671a"
-      ],
-      "primary_source_event_id": "EVT-2e01284e671a",
-      "source_headlines": [
-        "RHC: Ramsay Sante Demerger Booklet Registered with ASIC [price-sensitive]"
-      ],
-      "source_headline": "RHC: Ramsay Sante Demerger Booklet Registered with ASIC [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RHC?key=2924-03149924-2A1704803",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-19T00:27:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-19T00:36:54Z",
-      "updated_at": "2026-10-19T00:36:54Z",
-      "decay_at": "2026-10-20T12:27:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-23d292b4cefa",
-      "idea_version": "IDEAV-d089209e36b9cb3b",
-      "idea_version_started_at": "2026-10-18T22:51:26Z",
-      "ticker": "RWC",
-      "company": "Reliance Worldwide",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Brookfield's $2.53 billion acquisition offer for the company cleared its 'go shop' period without superior proposals, paving the way for the transaction to proceed toward shareholder approval and closing.",
-      "why_now": "The 'go shop' hurdle cleared on October 18, 2026, removing a key deal condition and establishing a definitive pathway to completion.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5dbc22a79d70"
-      ],
-      "primary_source_event_id": "EVT-5dbc22a79d70",
-      "source_headlines": [
-        "Brookfield's $2.53 billion bid for Reliance Worldwide clears 'go shop' hurdle"
-      ],
-      "source_headline": "Brookfield's $2.53 billion bid for Reliance Worldwide clears 'go shop' hurdle",
-      "source_url": "https://www.reuters.com/legal/transactional/brookfields-253-billion-bid-reliance-worldwide-clears-go-shop-hurdle-2026-10-18/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-18T22:30:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-18T22:51:26Z",
-      "updated_at": "2026-10-18T22:51:26Z",
-      "decay_at": "2026-10-20T10:30:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-b01a0092d799",
-      "idea_version": "IDEAV-2f47a05eb5efc932",
-      "idea_version_started_at": "2026-10-18T22:31:17Z",
-      "ticker": "RTH",
-      "company": "RAS",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "RAS has entered a binding Scheme Implementation Deed, indicating a likely acquisition at a premium, which typically benefits shareholders of the target company.",
-      "why_now": "The binding Scheme Implementation Deed was announced on October 18, 2026, making this a live M&A event.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e04bab46ee95"
-      ],
-      "primary_source_event_id": "EVT-e04bab46ee95",
-      "source_headlines": [
-        "RTH: RAS enters binding Scheme Implementation Deed with The PA [price-sensitive]"
-      ],
-      "source_headline": "RTH: RAS enters binding Scheme Implementation Deed with The PA [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RTH?key=2924-03149739-3A704353",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-18T21:58:49Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-18T22:31:17Z",
-      "updated_at": "2026-10-18T22:31:17Z",
-      "decay_at": "2026-10-20T09:58:49Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-c8b303231aff",
-      "idea_version": "IDEAV-9deed6c2edd9ec03",
-      "idea_version_started_at": "2026-10-18T22:31:17Z",
-      "ticker": "OCN",
-      "company": "OCN",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "OCN has completed the acquisition of the Serra Negra Project, which should contribute to its asset base and future operational capacity.",
-      "why_now": "The completion of the acquisition was announced on October 18, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4d9fe5c7e3b3"
-      ],
-      "primary_source_event_id": "EVT-4d9fe5c7e3b3",
-      "source_headlines": [
-        "OCN: Completion of Serra Negra Project Acquisition [price-sensitive]"
-      ],
-      "source_headline": "OCN: Completion of Serra Negra Project Acquisition [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OCN?key=2924-03149775-6A1349833",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-18T22:10:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-18T22:31:17Z",
-      "updated_at": "2026-10-18T22:31:17Z",
-      "decay_at": "2026-10-20T10:10:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-045445bc6a74",
-      "idea_version": "IDEAV-d3e0a1f9f507758a",
-      "idea_version_started_at": "2026-10-18T22:11:20Z",
-      "ticker": "MTS",
-      "company": "Metcash",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Metcash is acquiring Peries Group, which should expand its wholesale grocery and food services operations.",
-      "why_now": "Metcash exercised its right to acquire Peries Group, making the deal actionable now.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-011c10509853"
-      ],
-      "primary_source_event_id": "EVT-011c10509853",
-      "source_headlines": [
-        "MTS: Metcash exercises right to acquire Peries Group"
-      ],
-      "source_headline": "MTS: Metcash exercises right to acquire Peries Group",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MTS?key=2924-03149726-2A1704708",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-18T21:49:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-18T22:11:20Z",
-      "updated_at": "2026-10-18T22:11:20Z",
-      "decay_at": "2026-10-20T09:49:24Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-dc0b63f20462",
-      "idea_version": "IDEAV-b21ce76817373ae4",
-      "idea_version_started_at": "2026-10-18T22:11:20Z",
-      "ticker": "RAS",
-      "company": "RAS",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "RAS is entering a binding Scheme Implementation Deed to acquire The PA, which is expected to be accretive to earnings.",
-      "why_now": "The binding Scheme Implementation Deed was announced, making the acquisition a live event.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e04bab46ee95"
-      ],
-      "primary_source_event_id": "EVT-e04bab46ee95",
-      "source_headlines": [
-        "RTH: RAS enters binding Scheme Implementation Deed with The PA [price-sensitive]"
-      ],
-      "source_headline": "RTH: RAS enters binding Scheme Implementation Deed with The PA [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RTH?key=2924-03149739-3A704353",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-18T21:58:49Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-18T22:11:20Z",
-      "updated_at": "2026-10-18T22:11:20Z",
-      "decay_at": "2026-10-20T09:58:49Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-b20aa2c1500f",
-      "idea_version": "IDEAV-d8eef733f195ab8a",
-      "idea_version_started_at": "2026-10-18T21:52:05Z",
-      "ticker": "CWY",
-      "company": "Cleanaway Waste Management",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Private equity firm EQT agreed to acquire Cleanaway Waste Management in a transaction valued at $9.4 billion.",
-      "why_now": "The acquisition agreement was reported on October 18, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-be003d1aceff"
-      ],
-      "primary_source_event_id": "EVT-be003d1aceff",
-      "source_headlines": [
-        "EQT signs $9.4b deal to buy Cleanaway Waste Management"
-      ],
-      "source_headline": "EQT signs $9.4b deal to buy Cleanaway Waste Management",
-      "source_url": "https://www.afr.com/street-talk/eqt-signs-9-4b-deal-to-buy-cleanaway-waste-management-20261019-p616l6?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-18T21:12:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-18T21:52:05Z",
-      "updated_at": "2026-10-18T21:52:05Z",
-      "decay_at": "2026-10-20T09:12:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-d6c3f18fcbf9",
-      "idea_version": "IDEAV-93949b5819d5f539",
-      "idea_version_started_at": "2026-10-18T21:52:05Z",
-      "ticker": "FPR",
-      "company": "FleetPartners Group Limited",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "FleetPartners entered into a definitive Scheme Implementation Deed for a acquisition deal valued at approximately $1 billion.",
-      "why_now": "The signing of the Scheme Implementation Deed was officially announced in a price-sensitive filing on October 18, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7c18044d1c03",
-        "EVT-a2d466b9203c"
-      ],
-      "primary_source_event_id": "EVT-7c18044d1c03",
-      "source_headlines": [
-        "Pacific Equity Partners drives away with FleetPartners in $1b deal",
-        "FPR: Scheme Implementation Deed with SG Fleet [price-sensitive]"
-      ],
-      "source_headline": "Pacific Equity Partners drives away with FleetPartners in $1b deal",
-      "source_url": "https://www.afr.com/street-talk/pacific-equity-partners-drives-away-with-fleetpartners-20261019-p616l1?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-18T21:28:49Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-18T21:52:05Z",
-      "updated_at": "2026-10-18T21:52:05Z",
-      "decay_at": "2026-10-20T09:28:49Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-e0193f24e51a",
-      "idea_version": "IDEAV-bbef580a45e982c7",
-      "idea_version_started_at": "2026-10-18T21:52:05Z",
-      "ticker": "NHC",
-      "company": "New Hope Corporation",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "New Hope Corporation announced a combination agreement with Malabar Resources, expanding its coal operational asset base and resource portfolio.",
-      "why_now": "The combination was announced via an official price-sensitive filing on October 18, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-407c4e347ff1"
-      ],
-      "primary_source_event_id": "EVT-407c4e347ff1",
-      "source_headlines": [
-        "NHC: New Hope and Malabar to combine [price-sensitive]"
-      ],
-      "source_headline": "NHC: New Hope and Malabar to combine [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NHC?key=2924-03149688-2A1704690",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-18T21:27:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-18T21:52:05Z",
-      "updated_at": "2026-10-18T21:52:05Z",
-      "decay_at": "2026-10-20T09:27:24Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-684ad4aa3e76",
-      "idea_version": "IDEAV-c5db5b03245531d4",
-      "idea_version_started_at": "2026-10-18T21:26:40Z",
-      "ticker": "ARF",
-      "company": "Arena REIT",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Arena REIT has upgraded its distribution guidance for FY2027, indicating improved shareholder returns.",
-      "why_now": "The company officially announced the FY2027 distribution guidance upgrade on October 18, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9caaee31bbab"
-      ],
-      "primary_source_event_id": "EVT-9caaee31bbab",
-      "source_headlines": [
-        "ARF: FY2027 Distribution Guidance Upgrade [price-sensitive]"
-      ],
-      "source_headline": "ARF: FY2027 Distribution Guidance Upgrade [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ARF?key=2924-03149682-3A704340",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-18T21:15:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-18T21:26:40Z",
-      "updated_at": "2026-10-18T21:26:40Z",
-      "decay_at": "2026-10-20T09:15:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-7892b0c68f87",
-      "idea_version": "IDEAV-bde4bf03cbfb2c03",
-      "idea_version_started_at": "2026-10-18T21:06:47Z",
-      "ticker": "FPA",
-      "company": "FleetPartners",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "FleetPartners is being acquired for $1 billion by Pacific Equity Partners, indicating a positive valuation for shareholders.",
-      "why_now": "The deal was reported on 2026-10-18, making the acquisition news timely.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7c18044d1c03"
-      ],
-      "primary_source_event_id": "EVT-7c18044d1c03",
-      "source_headlines": [
-        "Pacific Equity Partners drives away with FleetPartners in $1b deal"
-      ],
-      "source_headline": "Pacific Equity Partners drives away with FleetPartners in $1b deal",
-      "source_url": "https://www.afr.com/street-talk/pacific-equity-partners-drives-away-with-fleetpartners-20261019-p616l1?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-18T20:59:51Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-18T21:06:47Z",
-      "updated_at": "2026-10-18T21:06:47Z",
-      "decay_at": "2026-10-20T08:59:51Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-fea5fd602449",
-      "idea_version": "IDEAV-659ec47e8edee4a4",
-      "idea_version_started_at": "2026-10-18T21:06:47Z",
-      "ticker": "CGF",
-      "company": "Challenger Limited",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Challenger Limited has received an indicative non-binding offer, suggesting a potential acquisition at a premium.",
-      "why_now": "The offer was received on 2026-10-18, making the potential M&A event current.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2163ef7062b2"
-      ],
-      "primary_source_event_id": "EVT-2163ef7062b2",
-      "source_headlines": [
-        "CGF: Indicative non-binding offer received [price-sensitive]"
-      ],
-      "source_headline": "CGF: Indicative non-binding offer received [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CGF?key=2924-03149620-2A1704679",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-18T21:01:14Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-18T21:06:47Z",
-      "updated_at": "2026-10-18T21:06:47Z",
-      "decay_at": "2026-10-20T09:01:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-193acec1f3b7",
       "idea_version": "IDEAV-7976f5bd314505d0",
       "idea_version_started_at": "2026-10-20T05:56:49Z",
@@ -198259,78 +197401,6 @@
       "surfaced_at": "2026-10-20T09:35:45Z",
       "updated_at": "2026-10-20T09:35:45Z",
       "decay_at": "2026-10-21T19:19:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-d0f885895e09",
-      "idea_version": "IDEAV-dca1b1c93084f0ac",
-      "idea_version_started_at": "2026-10-19T00:56:11Z",
-      "ticker": "AIV",
-      "company": "Aurelia Metals Limited",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Aurelia Metals Limited announced an increase in the resource estimate for its Mt Hogan Gold Project, which is a positive operational development.",
-      "why_now": "The resource increase is a price-sensitive announcement made today.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-474cb25c3306"
-      ],
-      "primary_source_event_id": "EVT-474cb25c3306",
-      "source_headlines": [
-        "AIV: Mt Hogan Gold Project Resource Increase [price-sensitive]"
-      ],
-      "source_headline": "AIV: Mt Hogan Gold Project Resource Increase [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AIV?key=2924-03149934-2A1704812",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 91,
-      "newest_source_at": "2026-10-19T00:45:20Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-19T00:56:11Z",
-      "updated_at": "2026-10-19T00:56:11Z",
-      "decay_at": "2026-10-20T12:45:20Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -199065,33 +198135,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 578,
+    "total_count": 563,
     "shown_count": 499,
-    "hidden_count": 79,
+    "hidden_count": 64,
     "side_counts": {
       "long": {
-        "total_count": 309,
+        "total_count": 295,
         "shown_count": 250,
-        "hidden_count": 59
+        "hidden_count": 45
       },
       "short": {
-        "total_count": 270,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 20
+        "hidden_count": 19
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1181,
-      "oldest_retained_at": "2026-09-22T11:56:45Z",
+      "evicted_count": 1196,
+      "oldest_retained_at": "2026-09-22T14:51:27Z",
       "side_counts": {
         "long": {
-          "evicted_count": 784,
-          "oldest_retained_at": "2026-10-06T14:08:26Z"
+          "evicted_count": 798,
+          "oldest_retained_at": "2026-10-06T16:35:08Z"
         },
         "short": {
-          "evicted_count": 397,
-          "oldest_retained_at": "2026-09-22T11:56:45Z"
+          "evicted_count": 398,
+          "oldest_retained_at": "2026-09-22T14:51:27Z"
         }
       }
     },
@@ -203933,8 +203003,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-20T12:45:20Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-22T00:53:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -204007,8 +203077,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-20T12:27:45Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-22T00:53:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -204081,8 +203151,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-20T12:17:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-22T00:53:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -204154,8 +203224,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-20T10:50:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-22T00:53:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -204229,8 +203299,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-20T10:30:39Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-22T00:53:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -204303,8 +203373,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-20T10:10:54Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-22T00:53:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -204377,8 +203447,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-20T09:58:49Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-22T00:53:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -204451,8 +203521,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-20T09:58:49Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-22T00:53:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -204525,8 +203595,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-20T09:49:24Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-22T00:53:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -204601,8 +203671,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-20T09:28:49Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-22T00:53:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -204675,8 +203745,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-20T09:27:24Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-22T00:53:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -204749,8 +203819,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-20T09:15:09Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-22T00:53:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -204824,8 +203894,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-20T09:12:37Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-22T00:53:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -204899,8 +203969,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-20T09:01:14Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-22T00:53:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -204975,8 +204045,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-20T08:59:51Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-22T00:53:39Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -236263,8 +235333,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1780,
-    "live_count": 20,
+    "surfaced_total": 1782,
+    "live_count": 22,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
