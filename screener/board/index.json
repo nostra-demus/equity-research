@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T01:09:16Z",
+  "generated_at": "2026-10-22T01:18:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-020",
@@ -636,6 +636,60 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-149",
+      "headline": "MA Financial joins fray for $1b Lincoln Place, Stockland bankers up",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/ma-financial-joins-fray-for-1b-lincoln-place-stockland-bankers-up-20261022-p617pt?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T00:36:09Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "MA Financial and Stockland are competing to acquire the $1 billion Lincoln Place asset.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "MA Financial and Stockland are competing to acquire the $1 billion Lincoln Place asset.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MA Financial",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Stockland",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1336,6 +1390,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261022-155",
+      "headline": "FCT posts 2.6% higher H2 DPU to hit a new full-year record",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/property/fct-posts-2-6-higher-h2-dpu-hit-new-full-year-record",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T00:17:33Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Frasers Centrepoint Trust reported a 2.6% increase in H2 DPU, reaching a record full-year level.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Frasers Centrepoint Trust reported a 2.6% increase in H2 DPU, reaching a record full-year level.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Frasers Centrepoint Trust",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261022-080",
       "headline": "HDFC Bank probes 2 executives for leak of sensitive information",
       "headline_en": null,
@@ -1475,6 +1578,55 @@
           "name": "Vitalls",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-154",
+      "headline": "Ex-Marine and Microsoft vets launch Watchtower Labs with $35M to bring AI to military logistics",
+      "headline_en": null,
+      "url": "https://www.geekwire.com/2026/ex-marine-and-microsoft-vets-launch-watchtower-labs-with-35m-to-bring-ai-to-military-logistics/",
+      "source_name": "GeekWire",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T00:16:21Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Watchtower Labs raised $35M in funding to develop AI for military logistics.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Watchtower Labs raised $35M in funding to develop AI for military logistics.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Watchtower Labs",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -1827,141 +1979,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-126",
-      "headline": "French firm wins Abu Dhabi wastewater O&M contract",
-      "headline_en": null,
-      "url": "https://www.meed.com/french-firm-wins-abu-dhabi-wastewater-om-contract",
-      "source_name": "MEED — UAE",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T00:45:52Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "A French firm secured an operations and maintenance contract in Abu Dhabi, representing a confirmed commercial win.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "A French firm secured an operations and maintenance contract in Abu Dhabi, representing a confirmed commercial win.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-128",
-      "headline": "UAE firm signs Uzbekistan battery storage deal",
-      "headline_en": null,
-      "url": "https://www.meed.com/uae-firm-signs-uzbekistan-battery-storage-deal",
-      "source_name": "MEED — UAE",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T00:45:52Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "A UAE firm secured a battery storage project in Uzbekistan, representing a confirmed international contract win.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "A UAE firm secured a battery storage project in Uzbekistan, representing a confirmed international contract win.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-123",
-      "headline": "MNT-Halan completes IPO as retail tranche attracts over 41,500 subscription orders",
-      "headline_en": null,
-      "url": "http://wamda.com/2026/10/mnt-halan-completes-ipo-retail-tranche-attracts-41500-subscription-orders",
-      "source_name": "Wamda",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T00:45:50Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "MNT-Halan completed an IPO with significant retail demand, indicating successful capital raising and market interest.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "MNT-Halan completed an IPO with significant retail demand, indicating successful capital raising and market interest.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MNT-Halan",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235337,9 +235354,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 237793,
-    "news_picked_today": 160,
-    "news_dropped_today": 992
+    "news_seen_today": 252148,
+    "news_picked_today": 187,
+    "news_dropped_today": 1157
   },
   "book_momentum": {
     "live_count": 8,
