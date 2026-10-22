@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T02:01:40Z",
+  "generated_at": "2026-10-22T02:11:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-020",
@@ -1635,6 +1635,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261022-296",
+      "headline": "Meta Q3 revenue tops estimates and Zuckerberg says Muse accounts have topped 10 million",
+      "headline_en": null,
+      "url": "https://japantoday.com/category/tech/meta-q3-revenue-tops-estimates-and-zuckerberg-says-muse-accounts-have-topped-10-million",
+      "source_name": "Japan Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T22:32:06Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Meta reported Q3 revenue exceeding analyst estimates.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Meta reported Q3 revenue exceeding analyst estimates.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261022-164",
       "headline": "FRONTAGE (01521): TRADING HALT",
       "headline_en": null,
@@ -1925,55 +1974,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-160",
-      "headline": "Tesla cuts spending before potential SpaceX deal even as Musk bets future on AI, robots",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/tesla-cuts-spending-potential-spacex-deal-even-musk-bets-future-ai-robots",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T01:01:22Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Tesla is cutting capital expenditure ahead of a potential SpaceX deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Tesla is cutting capital expenditure ahead of a potential SpaceX deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235418,9 +235418,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 361201,
-    "news_picked_today": 430,
-    "news_dropped_today": 2234
+    "news_seen_today": 374036,
+    "news_picked_today": 470,
+    "news_dropped_today": 2434
   },
   "book_momentum": {
     "live_count": 8,
