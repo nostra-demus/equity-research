@@ -1,9 +1,9 @@
 {
   "idea_id": "IDEA-301c9958417a",
-  "idea_version": "IDEAV-5ddbd040921f921a",
-  "idea_version_started_at": "2026-10-19T04:16:06Z",
+  "idea_version": "IDEAV-22a9371e0822e7f3",
+  "idea_version_started_at": "2026-10-22T03:15:31Z",
   "ticker": "META",
-  "company": "Meta Platforms",
+  "company": "Meta Platforms, Inc.",
   "exchange": "NASDAQ",
   "ticker_verified": true,
   "listing_verified": true,
@@ -11,26 +11,25 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "Increased regulatory pressure from the Indian government to modify algorithms for content moderation creates operational friction and potential compliance costs.",
-  "why_now": "The Indian government issued a formal request for an algorithm review on October 19, 2026.",
-  "conviction": 50,
+  "reason": "A $25 billion legal penalty represents a massive, unexpected cash outflow that significantly impairs the company's balance sheet and free cash flow profile.",
+  "why_now": "The penalty was announced on October 21, 2026, and represents a sudden, material litigation event.",
+  "conviction": 85,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 62,
+  "trade_score": 79,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 16,
+    "impact": 23,
     "specificity": 15,
     "timing": 10,
     "expression": 7,
-    "corroboration": 0,
+    "corroboration": 10,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -43,21 +42,27 @@
     "evidenceIds": []
   },
   "priced_in": "room",
-  "thesis_type": "policy_conditional",
+  "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-79130937260c"
+    "EVT-53e3a01402a1",
+    "EVT-39f83d65e973",
+    "EVT-cedc1c3ffab2",
+    "EVT-d3771c78e877"
   ],
-  "primary_source_event_id": "EVT-79130937260c",
+  "primary_source_event_id": "EVT-53e3a01402a1",
   "source_headlines": [
-    "Centre Asks Meta To Review Instagram, Facebook Algorithms To Curb Misleading Content And Prevent Public Order Risks"
+    "Meta ordered to pay $25 billion penalty in New Mexico Cambridge Analytica case",
+    "Meta hit with $25-billion penalty for misleading consumers in New Mexico over Cambridge Analytica case",
+    "Meta ordered to pay $25 billion in penalties over the Cambridge Analytica scandal",
+    "Meta hit with $25 billion penalty for misleading Facebook users"
   ],
-  "source_headline": "Centre Asks Meta To Review Instagram, Facebook Algorithms To Curb Misleading Content And Prevent Public Order Risks",
-  "source_url": "https://www.freepressjournal.in/tech/centre-asks-meta-to-review-instagram-facebook-algorithms-to-curb-misleading-content-and-prevent-public-order-risks",
-  "source_name": "Free Press Journal",
-  "materiality_max": 87,
-  "newest_source_at": "2026-10-19T03:27:02Z",
+  "source_headline": "Meta ordered to pay $25 billion penalty in New Mexico Cambridge Analytica case",
+  "source_url": "https://www.cnbc.com/2026/10/21/meta-new-mexico-cambridge-analytica-penalty.html",
+  "source_name": "CNBC",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-21T19:13:17Z",
   "prior_coverage": {
     "has_run": true,
     "latest_run": "analyses/META_2026-08-31",
@@ -65,8 +70,8 @@
     "data_pool_present": true
   },
   "surfaced_at": "2026-10-19T04:16:06Z",
-  "updated_at": "2026-10-19T04:16:06Z",
-  "decay_at": "2026-10-20T15:27:02Z",
+  "updated_at": "2026-10-22T03:15:31Z",
+  "decay_at": "2026-10-23T07:13:17Z",
   "status": "live",
   "promoted_signal_id": null
 }
