@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T14:16:36Z",
+  "generated_at": "2026-10-22T14:29:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-828",
@@ -1691,6 +1691,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261022-972",
+      "headline": "43 million ‘willful violations’: Here’s why Meta has been ordered to pay $25 billion in privacy case",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/43-million-willful-violations-here-s-why-meta-has-been-ordered-to-pay-25-billion-in-privacy-case-11792656112112.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T08:26:05Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Meta ordered to pay $25 billion for 43 million willful privacy violations — a material regulatory enforcement cost.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta ordered to pay $25 billion for 43 million willful privacy violations — a material regulatory enforcement cost.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": "META",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261022-971",
       "headline": "Barclays to axe 5,000 jobs in huge blow to City as AI replaces workers",
       "headline_en": null,
@@ -1933,56 +1982,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-723",
-      "headline": "United Rentals, Inc. Reports Record Third Quarter 2026 Results and Raises Full-Year Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/united-rentals-inc-reports-record-third-quarter-2026-results-and-raises-full-year-guidance",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T07:08:26Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "United Rentals reports record Q3 2026 results and raises full-year guidance, confirming earnings acceleration and upward earnings revision.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "United Rentals reports record Q3 2026 results and raises full-year guidance, confirming earnings acceleration and upward earnings revision.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "United Rentals, Inc.",
-          "ticker": "URI",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235063,9 +235062,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2130118,
-    "news_picked_today": 2012,
-    "news_dropped_today": 15940
+    "news_seen_today": 2155065,
+    "news_picked_today": 2027,
+    "news_dropped_today": 15997
   },
   "book_momentum": {
     "live_count": 8,
