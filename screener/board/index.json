@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T13:12:26Z",
+  "generated_at": "2026-10-22T13:22:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-828",
@@ -1239,6 +1239,158 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261022-949",
+      "headline": "LSEG va racheter Octus pour $3,5 mds afin de renforcer l'analyse de données",
+      "headline_en": "LSEG to acquire Octus for $3.5 billion to strengthen data analysis",
+      "url": "https://www.reuters.com/fr/affaires/lseg-va-racheter-octus-pour-35-mds-afin-de-renforcer-lanalyse-de-donnes-2026-10-22/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T10:23:26Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "LSEG announced the acquisition of Octus for $3.5 billion to expand data analytics capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "LSEG announced the acquisition of Octus for $3.5 billion to expand data analytics capabilities.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "London Stock Exchange Group",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-950",
+      "headline": "Irish central bank fines Coinbase unit €3.25 million",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/government/irish-central-bank-fines-coinbase-unit-325-million-2026-10-22/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T10:19:52Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Coinbase unit fined €3.25 million by the Irish central bank for regulatory non-compliance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Coinbase unit fined €3.25 million by the Irish central bank for regulatory non-compliance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Coinbase",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-951",
+      "headline": "Londoner Börse: LSEG kauft Datenanbieter für 3,5 Milliarden Dollar – aber fällt hinter Deutsche Börse zurück",
+      "headline_en": "London Stock Exchange: LSEG buys data provider for 3.5 billion dollars – but falls behind Deutsche Börse",
+      "url": "https://www.handelsblatt.com/unternehmen/dienstleister/londoner-boerse-lseg-stemmt-zukauf-faellt-aber-hinter-deutsche-boerse-zurueck/100264129.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T10:16:14Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "LSEG is acquiring a data provider for $3.5 billion, though the headline notes competitive positioning against Deutsche Börse.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "LSEG is acquiring a data provider for $3.5 billion, though the headline notes competitive positioning against Deutsche Börse.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "London Stock Exchange Group",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "Deutsche Börse",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261022-826",
       "headline": "Dow forecasts profit above estimates on pricing gains and cost cuts",
       "headline_en": null,
@@ -1836,154 +1988,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-669",
-      "headline": "M&M Financial Services shares crash 10% after Q2 results. What are Nomura and other analysts saying?",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/mm-financial-services-shares-crash-10-after-q2-results-what-are-nomura-and-other-analysts-saying/articleshow/135107851.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T05:04:01Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "M&M Financial Services shares fell 10% following Q2 results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "M&M Financial Services shares fell 10% following Q2 results.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "M&M Financial Services",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-676",
-      "headline": "Swedish bank SEB Q3 net profit below forecast, pauses share buybacks",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/finance/swedish-bank-seb-q3-net-profit-below-forecast-pauses-share-buybacks-2026-10-22/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T04:55:50Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "SEB reported Q3 net profit below forecasts and suspended share buybacks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SEB reported Q3 net profit below forecasts and suspended share buybacks.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "dividend_cut"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SEB",
-          "ticker": null,
-          "listing_country": "SE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-665",
-      "headline": "Fortescue Warns of Output Guidance Cut If China Talks Aren’t Concluded Soon",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/fortescue-warns-of-output-guidance-cut-if-china-talks-arent-concluded-soon-3eaed714?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T04:51:00Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Fortescue warned of a potential output guidance cut pending negotiations with China.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Fortescue warned of a potential output guidance cut pending negotiations with China.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fortescue",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235064,9 +235068,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2023848,
-    "news_picked_today": 1850,
-    "news_dropped_today": 15502
+    "news_seen_today": 2032426,
+    "news_picked_today": 1888,
+    "news_dropped_today": 15608
   },
   "book_momentum": {
     "live_count": 8,
