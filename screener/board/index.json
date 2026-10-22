@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T02:28:06Z",
+  "generated_at": "2026-10-22T02:38:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-020",
@@ -95,6 +95,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-324",
+      "headline": "Meta faces $25 billion penalty in New Mexico over Facebook data scandal",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/technology/meta-faces-25-billion-penalty-in-new-mexico-over-facebook-data-scandal-20016559.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T02:19:09Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Meta facing $25 billion penalty in New Mexico regulatory action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta facing $25 billion penalty in New Mexico regulatory action.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": "META",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-342",
+      "headline": "Receivers to sell mainland developer Shimao’s 2 Hong Kong hotels for US$344 million",
+      "headline_en": null,
+      "url": "https://www.scmp.com/business/article/3371707/debt-laden-mainland-developer-shimao-sells-its-2-hong-kong-hotels-us344-million",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T01:38:42Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Receivers are selling Shimao's Hong Kong hotels for US$344 million, indicating distress and asset liquidation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Receivers are selling Shimao's Hong Kong hotels for US$344 million, indicating distress and asset liquidation.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shimao Group",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1861,109 +1959,6 @@
         },
         {
           "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-149",
-      "headline": "MA Financial joins fray for $1b Lincoln Place, Stockland bankers up",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/ma-financial-joins-fray-for-1b-lincoln-place-stockland-bankers-up-20261022-p617pt?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T00:36:09Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "MA Financial and Stockland are competing to acquire the $1 billion Lincoln Place asset.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "MA Financial and Stockland are competing to acquire the $1 billion Lincoln Place asset.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MA Financial",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Stockland",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-227",
-      "headline": "Comcast plans significant job cuts, Bloomberg News reports",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/world-at-work/comcast-planning-significant-jobs-cuts-bloomberg-news-reports-2026-10-21/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T23:24:21Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Comcast is planning significant job cuts, indicating potential cost-cutting or operational headwinds.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Comcast is planning significant job cuts, indicating potential cost-cutting or operational headwinds.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Comcast",
           "ticker": null,
           "listing_country": "US"
         }
@@ -235413,9 +235408,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 399068,
-    "news_picked_today": 509,
-    "news_dropped_today": 2611
+    "news_seen_today": 423952,
+    "news_picked_today": 542,
+    "news_dropped_today": 2770
   },
   "book_momentum": {
     "live_count": 8,
