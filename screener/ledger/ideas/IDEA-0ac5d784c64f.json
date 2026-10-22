@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-0ac5d784c64f",
+  "idea_version": "IDEAV-dfe05967585b98a6",
+  "idea_version_started_at": "2026-10-22T07:29:08Z",
+  "ticker": "TSLA",
+  "company": "Tesla",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "Weaker vehicle sales and slipping profits suggest margin compression as the company faces increased competition and demand saturation.",
+  "why_now": "The earnings report was released on October 21, 2026, confirming the downward trend in profitability.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 60,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 20,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "priced-in risk",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "priced",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-9072abc44f71"
+  ],
+  "primary_source_event_id": "EVT-9072abc44f71",
+  "source_headlines": [
+    "Tesla’s profits slip on weaker vehicle sales"
+  ],
+  "source_headline": "Tesla’s profits slip on weaker vehicle sales",
+  "source_url": "https://www.ft.com/content/16bdf332-2a75-4e57-81ea-a37caf50ec0f?syn-25a6b1a6=1",
+  "source_name": "Financial Times",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-21T20:44:43Z",
+  "prior_coverage": {
+    "has_run": true,
+    "latest_run": "analyses/TSLA_2026-07-25",
+    "latest_decision": "Short Candidate",
+    "data_pool_present": true
+  },
+  "surfaced_at": "2026-10-22T07:29:08Z",
+  "updated_at": "2026-10-22T07:29:08Z",
+  "decay_at": "2026-10-23T08:44:43Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
