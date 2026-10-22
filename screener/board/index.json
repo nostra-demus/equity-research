@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-22T03:16:49Z",
+  "generated_at": "2026-10-22T03:22:50Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261022-383",
+      "headline": "EWC: Gas Turbines Delivered $50m Received $265m in Escrow [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EWC?key=2924-03151724-2A1705592",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-22T03:02:41Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "EWC received $265 million in escrow following the delivery of gas turbines.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EWC received $265 million in escrow following the delivery of gas turbines.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EWC",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261022-020",
       "headline": "WMC: Wiluna Mining Lists on the ASX Following $180m IPO",
@@ -1702,6 +1751,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261022-384",
+      "headline": "ATX: Amplia Receives R&D Tax Rebate Totalling $4.78 Million [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ATX?key=2924-03151719-2A1705589",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-22T02:45:56Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Amplia received a $4.78 million R&D tax rebate, providing a cash inflow.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Amplia received a $4.78 million R&D tax rebate, providing a cash inflow.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amplia",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261022-050",
       "headline": "BLOKS (00325): VOLUNTARY ANNOUNCEMENT DECREASE IN SHAREHOLDING BY THE CONTROLLING SHAREHOLDER",
       "headline_en": null,
@@ -1845,114 +1943,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-260",
-      "headline": "S. Korea's Big Four Financial Groups Eye $4.2 Billion Q3 Profit",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279394",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T04:31:56Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "South Korea's four major financial groups are projected to report a combined Q3 profit of $4.2 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "South Korea's four major financial groups are projected to report a combined Q3 profit of $4.2 billion.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "KB Financial Group",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "Shinhan Financial Group",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "Hana Financial Group",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-251",
-      "headline": "Meta Q3 revenue tops estimates and Zuckerberg says Muse accounts have topped 10 million",
-      "headline_en": null,
-      "url": "https://mainichi.jp/english/articles/20261022/p2g/00m/0bu/004000c",
-      "source_name": "The Mainichi",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T23:00:11Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Meta reported Q3 revenue that exceeded analyst estimates.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Meta reported Q3 revenue that exceeded analyst estimates.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta Platforms",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235256,9 +235246,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 495247,
-    "news_picked_today": 642,
-    "news_dropped_today": 3198
+    "news_seen_today": 507129,
+    "news_picked_today": 656,
+    "news_dropped_today": 3280
   },
   "book_momentum": {
     "live_count": 8,
