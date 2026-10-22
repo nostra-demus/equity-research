@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T12:46:37Z",
+  "generated_at": "2026-10-22T12:52:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-828",
@@ -1038,6 +1038,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261022-911",
+      "headline": "Leslie's, Inc. Files Chapter 11 Plan of Reorganization and Disclosure Statement",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/leslies-inc-files-chapter-11-plan-reorganization-and-disclosure-statement",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T10:52:23Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Leslie's, Inc. has filed for Chapter 11 bankruptcy reorganization.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Leslie's, Inc. has filed for Chapter 11 bankruptcy reorganization.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Leslie's, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-947",
+      "headline": "Braskem S.A. Announces Involuntary Chapter 11 Petition Filed Against Subsidiary America Finance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/braskem-sa-announces-involuntary-chapter-11-petition-filed-against-subsidiary-america",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T10:32:14Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "An involuntary Chapter 11 petition was filed against a subsidiary of Braskem S.A.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "An involuntary Chapter 11 petition was filed against a subsidiary of Braskem S.A.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Braskem",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261022-793",
       "headline": "Q2 Results Live: Swiggy's Net Loss Narrows To Rs 922 Crore, Jindal Stainless Profit Rises 16%",
       "headline_en": null,
@@ -1886,106 +1984,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-688",
-      "headline": "First Merchants Corporation Reports Third Quarter 2026 Net Income of $67.8 Million and Announces CEO Transition",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/first-merchants-corporation-reports-third-quarter-2026-net-income-678-million-and",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T04:48:51Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "First Merchants Corporation reported $67.8 million in Q3 2026 net income and announced a CEO transition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "First Merchants Corporation reported $67.8 million in Q3 2026 net income and announced a CEO transition.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "First Merchants Corporation",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-667",
-      "headline": "Martin Midstream Partners L.P. Reports Third Quarter 2026 Financial Results and Increases Full Year Adjusted EBITDA Guidance to $94 million",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/martin-midstream-partners-lp-reports-third-quarter-2026-financial-results-and-increases",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T04:38:40Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Martin Midstream Partners reported Q3 2026 results and increased full-year adjusted EBITDA guidance to $94 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Martin Midstream Partners reported Q3 2026 results and increased full-year adjusted EBITDA guidance to $94 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Martin Midstream Partners",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235066,9 +235064,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1979381,
-    "news_picked_today": 1751,
-    "news_dropped_today": 15265
+    "news_seen_today": 1988415,
+    "news_picked_today": 1807,
+    "news_dropped_today": 15329
   },
   "book_momentum": {
     "live_count": 8,
