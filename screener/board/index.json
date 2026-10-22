@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T01:01:07Z",
+  "generated_at": "2026-10-22T01:09:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-020",
@@ -100,6 +100,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261022-133",
+      "headline": "Australia's APA commits $492 million for key gas pipeline project",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/australias-apa-commits-492-million-key-gas-pipeline-project-2026-10-22/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T00:15:19Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "APA committed $492 million for a gas pipeline project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "APA committed $492 million for a gas pipeline project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "APA",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261022-055",
       "headline": "Meta ordered to pay $25 billion in New Mexico privacy lawsuit",
       "headline_en": null,
@@ -141,6 +190,56 @@
           "name": "Meta",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-114",
+      "headline": "Germany’s SAP hits $14.3 billion quarterly revenue milestone, lifts 2026 view",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/germanys-sap-hits-14-3-billion-quarterly-revenue-milestone-lifts-2026-view",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T00:05:00Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "SAP reported $14.3 billion in quarterly revenue and raised its 2026 guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SAP reported $14.3 billion in quarterly revenue and raised its 2026 guidance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SAP",
+          "ticker": null,
+          "listing_country": "DE"
         }
       ],
       "size_bucket": "mega",
@@ -288,6 +387,104 @@
           "name": "EQT",
           "ticker": null,
           "listing_country": "SE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-101",
+      "headline": "Australian data center operator NextDC shares fall 40% after power backlash",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/technology/australian-data-center-operator-nextdc-shares-fall-40-after-power-backlash",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T00:45:30Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "NextDC shares fell 40% following significant operational backlash regarding power usage.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "NextDC shares fell 40% following significant operational backlash regarding power usage.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NextDC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-100",
+      "headline": "Ambani's tech shift in focus as investors pile into Jio's record IPO",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/markets/ipo/ambani-s-tech-shift-in-focus-as-investors-pile-into-jio-s-record-ipo",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T00:45:30Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Jio's record IPO and strategic tech shift represent a major capital event for the Indian market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Jio's record IPO and strategic tech shift represent a major capital event for the Indian market.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jio",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -641,6 +838,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261022-129",
+      "headline": "Adnoc weighs early engagement for Umm Shaif expansion",
+      "headline_en": null,
+      "url": "https://www.meed.com/adnoc-offshore-to-start-early-engagement-for-umm-shaif-field-expansion",
+      "source_name": "MEED — UAE",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T00:45:52Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Adnoc is evaluating early engagement for a major expansion project at Umm Shaif, signaling future capex.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Adnoc is evaluating early engagement for a major expansion project at Umm Shaif, signaling future capex.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adnoc",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-109",
+      "headline": "Toyota to build hydrogen-powered Hilux pickup in Thailand",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/automobiles/toyota-to-build-hydrogen-powered-hilux-pickup-in-thailand",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T00:45:30Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Toyota is expanding its hydrogen vehicle production capacity by building a new Hilux pickup line in Thailand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Toyota is expanding its hydrogen vehicle production capacity by building a new Hilux pickup line in Thailand.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Toyota",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261022-008",
       "headline": "Musk sets lower sales target for Tesla as it explores SpaceX merger",
       "headline_en": null,
@@ -795,6 +1090,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261022-131",
+      "headline": "Sharjah and Equinor to seek downstream opportunities",
+      "headline_en": null,
+      "url": "https://www.meed.com/snoc-and-equinor-to-jointly-seek-downstream-opportunities",
+      "source_name": "MEED — UAE",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T00:45:52Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Sharjah and Equinor are exploring downstream opportunities, indicating potential future joint investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Sharjah and Equinor are exploring downstream opportunities, indicating potential future joint investment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Equinor",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261022-094",
       "headline": "Japan's Kansai Paint to double India automotive coating output",
       "headline_en": null,
@@ -840,6 +1184,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-115",
+      "headline": "Santos delivers record quarter despite Alaska snags",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/energy/santos-delivers-record-quarter-despite-alaska-snags-20261022-p617oh?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T00:15:48Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Santos reported record quarterly results despite operational challenges in Alaska.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Santos reported record quarterly results despite operational challenges in Alaska.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Santos",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1041,6 +1434,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261022-124",
+      "headline": "UAE healthtech Vitalls secures $1.5 million investment from EST Growmore",
+      "headline_en": null,
+      "url": "http://wamda.com/2026/10/uae-healthtech-vitalls-secures-1-5-million-investment-est-growmore",
+      "source_name": "Wamda",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T00:45:50Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Vitalls secured $1.5 million in funding, providing capital for growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Vitalls secured $1.5 million in funding, providing capital for growth.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 25,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vitalls",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261022-083",
       "headline": "ASML Warns of Equipment Shortages Through 2028 as AI Demand Surges",
       "headline_en": null,
@@ -1082,6 +1524,55 @@
           "name": "ASML",
           "ticker": null,
           "listing_country": "NL"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-102",
+      "headline": "'De-CATLization' tests China's battery king as share price falls 10%",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/markets/de-catlization-tests-china-s-battery-king-as-share-price-falls-10",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T00:45:30Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "CATL faces market share challenges and a 10% share price decline amid competitive pressures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "CATL faces market share challenges and a 10% share price decline amid competitive pressures.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CATL",
+          "ticker": null,
+          "listing_country": "CN"
         }
       ],
       "size_bucket": "mega",
@@ -1135,6 +1626,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-107",
+      "headline": "Japan brokerage IwaiCosmo hit with unauthorized trades in cyberattack",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/spotlight/cybersecurity/japan-brokerage-iwaicosmo-hit-with-unauthorized-trades-in-cyberattack",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T00:45:30Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "IwaiCosmo Securities suffered unauthorized trades due to a cyberattack, posing operational and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "IwaiCosmo Securities suffered unauthorized trades due to a cyberattack, posing operational and reputational risk.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IwaiCosmo Securities",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1292,275 +1832,35 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261022-089",
-      "headline": "Indian banks open cheque books for ₹10,000 crore-plus in M&A funding after RBI rule change",
+      "inbox_id": "INB-20261022-126",
+      "headline": "French firm wins Abu Dhabi wastewater O&M contract",
       "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/indian-banks-open-cheque-books-for-10000-crore-plus-in-ma-funding-after-rbi-rule-change/articleshow/135099726.cms",
-      "source_name": "The Economic Times",
+      "url": "https://www.meed.com/french-firm-wins-abu-dhabi-wastewater-om-contract",
+      "source_name": "MEED — UAE",
       "input_nature": "news_headline",
-      "found_at": "2026-10-22T00:00:00Z",
+      "found_at": "2026-10-22T00:45:52Z",
       "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Indian banks are opening over ₹10,000 crore in M&A funding following a regulatory change by the RBI, signaling increased deal activity.",
+      "prelim_note": "A French firm secured an operations and maintenance contract in Abu Dhabi, representing a confirmed commercial win.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Indian banks are opening over ₹10,000 crore in M&A funding following a regulatory change by the RBI, signaling increased deal activity.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector",
-        "mna"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-025",
-      "headline": "SPL: Quarterly Activities/Appendix 4C Cash Flow Report [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SPL?key=2924-03151622-3A704681",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-21T23:05:05Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Quarterly cash flow report released for SPL.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Quarterly cash flow report released for SPL.",
+      "triage_score": 81,
+      "triage_reason": "A French firm secured an operations and maintenance contract in Abu Dhabi, representing a confirmed commercial win.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 55,
+      "materiality_pre_score": 50,
       "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SPL",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-081",
-      "headline": "Rate hike: RBI more hawkish than external members at meet",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/rate-hike-rbi-more-hawkish-than-external-members-at-meet/articleshow/135100963.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T23:57:57Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "The RBI's hawkish stance suggests a higher probability of sustained or increased interest rates.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "The RBI's hawkish stance suggests a higher probability of sustained or increased interest rates.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
+        "materiality": 50,
         "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-054",
-      "headline": "Tesla shares fall after Q3 results, Musk calls SpaceX merger 'quite a high hurdle'",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/tesla-q3-results-auto-revenue-guidance-spacex-merger-elon-musk-shareholder-approval-capex-cut-share-price-20016503.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T23:54:41Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Tesla shares fell following Q3 results and comments regarding a potential SpaceX merger.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "Tesla shares fell following Q3 results and comments regarding a potential SpaceX merger.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-092",
-      "headline": "Micron won't pursue 4F-squared memory chips despite CXMT's advance: CTO",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/tech/semiconductors/micron-won-t-pursue-4f-squared-memory-chips-despite-cxmt-s-advance-cto",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T00:45:30Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Micron's CTO stated the company will not pursue 4F-squared memory chips, a strategic technology choice despite competition from CXMT.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "Micron's CTO stated the company will not pursue 4F-squared memory chips, a strategic technology choice despite competition from CXMT.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Micron Technology",
-          "ticker": "MU",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-086",
-      "headline": "JYC: Security Trading Update",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.JYC?key=2924-03151645-6A1350658",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-22T00:24:06Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "JYC provided a security trading update, which may contain material operational or financial information.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 74,
-      "triage_reason": "JYC provided a security trading update, which may contain material operational or financial information.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
         "scope": 6,
         "event": 0,
         "size": 0,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 20,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
+        "source_tier_id": "news",
         "event_id": null,
         "size_bucket": "unknown"
       },
@@ -1568,414 +1868,100 @@
         "commercial"
       ],
       "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JYC",
-          "ticker": "JYC",
-          "listing_country": null
-        }
-      ],
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261022-048",
-      "headline": "TIGERMED (03347): INSIDE INFORMATION",
+      "inbox_id": "INB-20261022-128",
+      "headline": "UAE firm signs Uzbekistan battery storage deal",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1022/2026102200045.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-21T23:58:00Z",
+      "url": "https://www.meed.com/uae-firm-signs-uzbekistan-battery-storage-deal",
+      "source_name": "MEED — UAE",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T00:45:52Z",
       "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "INSIDE INFORMATION filing by TigerMed; material by Hong Kong regulation but content not disclosed in headline.",
+      "prelim_note": "A UAE firm secured a battery storage project in Uzbekistan, representing a confirmed international contract win.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 74,
-      "triage_reason": "INSIDE INFORMATION filing by TigerMed; material by Hong Kong regulation but content not disclosed in headline.",
-      "region": "CN",
+      "triage_score": 81,
+      "triage_reason": "A UAE firm secured a battery storage project in Uzbekistan, representing a confirmed international contract win.",
+      "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 55,
+      "materiality_pre_score": 50,
       "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
+        "materiality": 50,
+        "source_tier": 0,
         "scope": 6,
         "event": 0,
         "size": 0,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 20,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
+        "source_tier_id": "news",
         "event_id": null,
         "size_bucket": "unknown"
       },
-      "event_types": [],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TigerMed",
-          "ticker": "03347",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-023",
-      "headline": "EGY: EGY Cogenic Investor Presentation [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EGY?key=2924-03151625-2A1705530",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-21T23:09:45Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Investor presentation released containing price-sensitive information.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 74,
-      "triage_reason": "Investor presentation released containing price-sensitive information.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
       "event_types": [
-        "earnings_revenue_margin"
+        "commercial"
       ],
       "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EGY",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261022-058",
-      "headline": "Tesla cuts spending before potential SpaceX deal even as Musk bets future on AI, robots",
+      "inbox_id": "INB-20261022-123",
+      "headline": "MNT-Halan completes IPO as retail tranche attracts over 41,500 subscription orders",
       "headline_en": null,
-      "url": "https://www.straitstimes.com/business/tesla-posts-surprise-positive-cash-flow-on-lower-than-expected-ai-spending",
-      "source_name": "The Straits Times",
+      "url": "http://wamda.com/2026/10/mnt-halan-completes-ipo-retail-tranche-attracts-41500-subscription-orders",
+      "source_name": "Wamda",
       "input_nature": "news_headline",
-      "found_at": "2026-10-21T23:54:00Z",
+      "found_at": "2026-10-22T00:45:50Z",
       "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Tesla is cutting spending ahead of a potential SpaceX deal.",
+      "prelim_note": "MNT-Halan completed an IPO with significant retail demand, indicating successful capital raising and market interest.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Tesla is cutting spending ahead of a potential SpaceX deal.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-085",
-      "headline": "SFX: Withdrawal of 2026 AGM Resolution",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SFX?key=2924-03151651-6A1350662",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-22T00:38:11Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Shearwater Group withdrew a resolution for its 2026 AGM, which is a routine corporate governance update.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "Shearwater Group withdrew a resolution for its 2026 AGM, which is a routine corporate governance update.",
+      "triage_score": 81,
+      "triage_reason": "MNT-Halan completed an IPO with significant retail demand, indicating successful capital raising and market interest.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 50,
+      "materiality_pre_score": 60,
       "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shearwater Group",
-          "ticker": "SFX",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-018",
-      "headline": "AMP: AMP Limited provides update on China partnership",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AMP?key=2924-03151635-2A1705535",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-21T23:38:05Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Update on a strategic partnership in China for AMP Limited.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 71,
-      "triage_reason": "Update on a strategic partnership in China for AMP Limited.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AMP Limited",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-077",
-      "headline": "Jefferies Upgrades Chagee Holdings Limited - Depositary Receipt to Buy from Hold",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/jefferies-upgrades-chagee-holdings-limited-depositary-receipt-buy-hold",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T00:02:01Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Jefferies upgraded Chagee Holdings, which can influence market sentiment and analyst expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Jefferies upgraded Chagee Holdings, which can influence market sentiment and analyst expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
+        "materiality": 60,
         "source_tier": 0,
         "scope": 6,
-        "event": 4,
+        "event": 0,
         "size": 0,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "regulatory",
+        "event_id": null,
         "size_bucket": "unknown"
       },
       "event_types": [
-        "regulatory"
+        "capital_actions"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Chagee Holdings Limited",
+          "name": "MNT-Halan",
           "ticker": null,
           "listing_country": null
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-042",
-      "headline": "Australian fund takes control of UK ports giant in £10bn deal",
-      "headline_en": null,
-      "url": "https://splash247.com/australian-fund-takes-control-of-uk-ports-giant-in-10bn-deal/",
-      "source_name": "Splash247",
-      "input_nature": "shipping_rate_move",
-      "found_at": "2026-10-21T08:57:49Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "An Australian fund is acquiring a UK ports operator for £10 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "An Australian fund is acquiring a UK ports operator for £10 billion.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": -33,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "official_data",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Associated British Ports",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-004",
-      "headline": "QIAGEN and EQT Private Equity announce agreement on a recommended voluntary all-cash public takeover offer",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/qiagen-and-eqt-private-equity-announce-agreement-on-a-recommended-voluntary-all-cash-public-takeover-offer-302916100.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-21T22:46:00Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "QIAGEN and EQT have announced a recommended all-cash public takeover offer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "QIAGEN and EQT have announced a recommended all-cash public takeover offer.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "QIAGEN",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "EQT",
-          "ticker": null,
-          "listing_country": "SE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192405,76 +192391,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-92d8a841ea97",
-      "idea_version": "IDEAV-c50f625b6846261a",
-      "idea_version_started_at": "2026-10-20T13:59:38Z",
-      "ticker": "HAS",
-      "company": "Hasbro",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Hasbro raised its annual revenue forecast driven by higher-than-expected demand for its digital gaming segment, which carries higher margins than traditional toys.",
-      "why_now": "The guidance update was released on 2026-10-20.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4a79b8e46aa8"
-      ],
-      "primary_source_event_id": "EVT-4a79b8e46aa8",
-      "source_headlines": [
-        "Hasbro raises annual revenue forecast on strong demand for digital games"
-      ],
-      "source_headline": "Hasbro raises annual revenue forecast on strong demand for digital games",
-      "source_url": "https://www.businesstimes.com.sg/companies-markets/consumer-healthcare/hasbro-raises-annual-revenue-forecast-strong-demand-digital-games",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-20T13:07:21Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-20T13:59:38Z",
-      "updated_at": "2026-10-20T13:59:38Z",
-      "decay_at": "2026-10-22T01:07:21Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7d586ae27403",
       "idea_version": "IDEAV-de1cfa1d6540f67e",
       "idea_version_started_at": "2026-10-21T00:02:52Z",
@@ -194243,6 +194159,76 @@
       "surfaced_at": "2026-10-20T12:29:48Z",
       "updated_at": "2026-10-20T12:29:48Z",
       "decay_at": "2026-10-21T22:36:35Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-92d8a841ea97",
+      "idea_version": "IDEAV-c50f625b6846261a",
+      "idea_version_started_at": "2026-10-20T13:59:38Z",
+      "ticker": "HAS",
+      "company": "Hasbro",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Hasbro raised its annual revenue forecast driven by higher-than-expected demand for its digital gaming segment, which carries higher margins than traditional toys.",
+      "why_now": "The guidance update was released on 2026-10-20.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4a79b8e46aa8"
+      ],
+      "primary_source_event_id": "EVT-4a79b8e46aa8",
+      "source_headlines": [
+        "Hasbro raises annual revenue forecast on strong demand for digital games"
+      ],
+      "source_headline": "Hasbro raises annual revenue forecast on strong demand for digital games",
+      "source_url": "https://www.businesstimes.com.sg/companies-markets/consumer-healthcare/hasbro-raises-annual-revenue-forecast-strong-demand-digital-games",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-20T13:07:21Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-20T13:59:38Z",
+      "updated_at": "2026-10-20T13:59:38Z",
+      "decay_at": "2026-10-22T01:07:21Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -198133,14 +198119,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 563,
+    "total_count": 564,
     "shown_count": 499,
-    "hidden_count": 64,
+    "hidden_count": 65,
     "side_counts": {
       "long": {
-        "total_count": 295,
+        "total_count": 296,
         "shown_count": 250,
-        "hidden_count": 45
+        "hidden_count": 46
       },
       "short": {
         "total_count": 269,
@@ -198164,6 +198150,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-92d8a841ea97",
+        "idea_version": "IDEAV-c50f625b6846261a",
+        "idea_version_started_at": "2026-10-20T13:59:38Z",
+        "ticker": "HAS",
+        "company": "Hasbro",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Hasbro raised its annual revenue forecast driven by higher-than-expected demand for its digital gaming segment, which carries higher margins than traditional toys.",
+        "why_now": "The guidance update was released on 2026-10-20.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4a79b8e46aa8"
+        ],
+        "primary_source_event_id": "EVT-4a79b8e46aa8",
+        "source_headlines": [
+          "Hasbro raises annual revenue forecast on strong demand for digital games"
+        ],
+        "source_headline": "Hasbro raises annual revenue forecast on strong demand for digital games",
+        "source_url": "https://www.businesstimes.com.sg/companies-markets/consumer-healthcare/hasbro-raises-annual-revenue-forecast-strong-demand-digital-games",
+        "source_name": "The Business Times (Singapore)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-20T13:07:21Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-20T13:59:38Z",
+        "updated_at": "2026-10-20T13:59:38Z",
+        "decay_at": "2026-10-22T01:07:21Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-22T01:07:21Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-abd218ca6c78",
         "idea_version": "IDEAV-71e79dc693f22d71",
@@ -225423,79 +225482,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-8f220a5a3968",
-        "idea_version": "IDEAV-9caedc01668f4d84",
-        "idea_version_started_at": "2026-10-07T01:07:10Z",
-        "ticker": "APO",
-        "company": "Apollo Global Management",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Leading a $40 billion financing round for SpaceX generates significant fee income and strengthens Apollo's position in high-profile private credit and structured equity.",
-        "why_now": "The FT report on Apollo leading this specific financing round was published October 7, 2026.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-dab3c6cf4f3f"
-        ],
-        "primary_source_event_id": "EVT-dab3c6cf4f3f",
-        "source_headlines": [
-          "SpaceX seeks $40 billion financing led by Apollo to buy Nvidia chips, FT reports"
-        ],
-        "source_headline": "SpaceX seeks $40 billion financing led by Apollo to buy Nvidia chips, FT reports",
-        "source_url": "https://www.reuters.com/business/media-telecom/spacex-seeks-40-billion-buy-nvidia-chips-ft-reports-2026-10-06/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-07T00:15:28Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-07T01:07:10Z",
-        "updated_at": "2026-10-07T01:07:10Z",
-        "decay_at": "2026-10-08T12:15:28Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-10T00:20:12Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-a64262a5c954",
         "idea_version": "IDEAV-922a73086f5125d5",
         "idea_version_started_at": "2026-10-07T01:37:33Z",
@@ -235332,7 +235318,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1782,
-    "live_count": 22,
+    "live_count": 21,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -235351,9 +235337,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 208973,
-    "news_picked_today": 102,
-    "news_dropped_today": 690
+    "news_seen_today": 237793,
+    "news_picked_today": 160,
+    "news_dropped_today": 992
   },
   "book_momentum": {
     "live_count": 8,
