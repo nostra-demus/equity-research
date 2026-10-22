@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T22:34:06Z",
+  "generated_at": "2026-10-22T22:44:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-1078",
@@ -935,6 +935,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-1102",
+      "headline": "Getty Images says investor litigation helped push it to bankruptcy",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/getty-images-says-investor-litigation-helped-push-it-bankruptcy-2026-10-22/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T22:00:45Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Getty Images attributes investor litigation to bankruptcy; destroys equity value and reshapes capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Getty Images attributes investor litigation to bankruptcy; destroys equity value and reshapes capital structure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 74,
+      "rank_factors": {
+        "materiality": 74,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 11,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Getty Images",
+          "ticker": "GYZ",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1920,55 +1969,6 @@
           "name": "American Airlines",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-880",
-      "headline": "Lockheed Martin relève ses prévisions grâce à la demande de défense antimissile et d'avions de chasse",
-      "headline_en": "Lockheed Martin raises its forecasts thanks to demand for missile defense and fighter jets",
-      "url": "https://www.reuters.com/fr/affaires/lockheed-martin-relve-ses-prvisions-grce-la-demande-de-dfense-antimissile-et-2026-10-22/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T11:11:21Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Lockheed Martin raised its financial guidance due to strong demand for missile defense and fighter jets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lockheed Martin raised its financial guidance due to strong demand for missile defense and fighter jets.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lockheed Martin",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -235052,9 +235052,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3112375,
-    "news_picked_today": 2512,
-    "news_dropped_today": 20864
+    "news_seen_today": 3120390,
+    "news_picked_today": 2544,
+    "news_dropped_today": 21024
   },
   "book_momentum": {
     "live_count": 8,
