@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T07:29:36Z",
+  "generated_at": "2026-10-22T07:38:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-691",
@@ -193,6 +193,110 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-723",
+      "headline": "United Rentals, Inc. Reports Record Third Quarter 2026 Results and Raises Full-Year Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/united-rentals-inc-reports-record-third-quarter-2026-results-and-raises-full-year-guidance",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T07:08:26Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "United Rentals reports record Q3 2026 results and raises full-year guidance, confirming earnings acceleration and upward earnings revision.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "United Rentals reports record Q3 2026 results and raises full-year guidance, confirming earnings acceleration and upward earnings revision.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "United Rentals, Inc.",
+          "ticker": "URI",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-720",
+      "headline": "London Stock Exchange Group Agrees to Buy Octus From Permira For $3.5 Billion",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/london-stock-exchange-group-agrees-to-buy-octus-from-permira-for-3-5-billion-69361aa5?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T06:55:00Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "LSE Group agreed to acquire Octus from Permira for $3.5 billion, a named M&A deal with confirmed pricing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "LSE Group agreed to acquire Octus from Permira for $3.5 billion, a named M&A deal with confirmed pricing.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "London Stock Exchange Group",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "Permira",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1877,104 +1981,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-545",
-      "headline": "Justiça nos EUA manda Meta pagar multa de US$25 bilhões",
-      "headline_en": "US court orders Meta to pay $25 billion fine",
-      "url": "https://www.reuters.com/pt/tecnologia/KKCFRV6XERJQJIZBCKGUP2W3QY-2026-10-21/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T20:20:52Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "A US court has ordered Meta to pay a $25 billion fine.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A US court has ordered Meta to pay a $25 billion fine.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-555",
-      "headline": "Meta’s revenue surges to $64.6 billion, but billions in settlements and skyrocketing AI spending turn screws on profit, free cash flow",
-      "headline_en": null,
-      "url": "https://fortune.com/2026/10/21/meta-q3-earnings-mark-zuckerberg-capex-muse/",
-      "source_name": "Fortune",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T20:17:52Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Meta reported $64.6 billion in revenue but highlighted significant margin pressure from AI spending and legal settlements.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Meta reported $64.6 billion in revenue but highlighted significant margin pressure from AI spending and legal settlements.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235128,9 +235134,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1007939,
-    "news_picked_today": 1286,
-    "news_dropped_today": 8866
+    "news_seen_today": 1020966,
+    "news_picked_today": 1295,
+    "news_dropped_today": 8905
   },
   "book_momentum": {
     "live_count": 8,
