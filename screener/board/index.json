@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T00:44:06Z",
+  "generated_at": "2026-10-22T00:53:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-020",
@@ -345,6 +345,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261022-076",
+      "headline": "Meta Will Split Stock, Create New Class to Fund AI Spending",
+      "headline_en": null,
+      "url": "https://www.wsj.com/articles/metaplatforms-meta-3q-earnings-report-2026-stock-f28d64c2?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T00:32:00Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Meta announced stock split and creation of a new share class to fund major AI capital spending, restructuring shareholder capital.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Meta announced stock split and creation of a new share class to fund major AI capital spending, restructuring shareholder capital.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": "META",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261022-019",
       "headline": "ECL: Removal from Official List",
       "headline_en": null,
@@ -487,6 +537,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-075",
+      "headline": "Musk Says Tesla Aims to Begin Humanoid Robot Sales Next Year",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/autos/tesla-tsla-3q-earnings-report-2026-stock-a1dc9ce2?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T00:05:00Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "CEO Musk announces humanoid-robot (Optimus) sales target for next year; unconfirmed in SEC filing but material as forward guidance that could move analyst FY2027 revenue expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "CEO Musk announces humanoid-robot (Optimus) sales target for next year; unconfirmed in SEC filing but material as forward guidance that could move analyst FY2027 revenue expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 8,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla, Inc.",
+          "ticker": "TSLA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1595,6 +1695,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261022-074",
+      "headline": "Cathie Wood Trimmed Ark's Alphabet Stake Even as Google Search Revenue Grew, While Ark Piled Into Rocket Lab Even After Its Neutron Launch Delay. Is Ark Betting Against the Wrong AI Winner?",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/cathie-wood-trimmed-arks-alphabet-stake-even-google-search-revenue-grew-while-ark-piled",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-21T23:50:00Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Ark Investment Management trimmed Alphabet and increased Rocket Lab positions; headline frames this as fund-manager opinion on AI positioning rather than company-specific catalyst.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "Ark Investment Management trimmed Alphabet and increased Rocket Lab positions; headline frames this as fund-manager opinion on AI positioning rather than company-specific catalyst.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 48,
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alphabet",
+          "ticker": "GOOGL",
+          "listing_country": "US"
+        },
+        {
+          "name": "Rocket Lab",
+          "ticker": "RKLB",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261022-013",
       "headline": "ASX to Unveil New Strategy in 2027 as CEO Attia Lays Out Roadmap",
       "headline_en": null,
@@ -1823,159 +1977,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-024",
-      "headline": "TWL: TradeWindow clarifies Lactalis announcement [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TWL?key=2924-03151623-2A1705529",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-21T23:06:40Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Clarification of a previous commercial announcement regarding Lactalis.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "Clarification of a previous commercial announcement regarding Lactalis.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TradeWindow",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-056",
-      "headline": "Tesla-SpaceX Merger: Why Musk Wants a Deal Before Trump Leaves Office",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/features/2026-10-22/tesla-spacex-merger-why-musk-wants-a-deal-before-trump-leaves-office",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T00:10:25Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Speculation regarding a potential merger between Tesla and SpaceX.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Speculation regarding a potential merger between Tesla and SpaceX.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "unconfirmed",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "rumor"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-022",
-      "headline": "OSS: Change in substantial holding",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OSS?key=2924-03151626-2A1705531",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-21T23:10:05Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Routine disclosure of change in substantial shareholding.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 60,
-      "triage_reason": "Routine disclosure of change in substantial shareholding.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OSS",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -191986,77 +191987,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-abd218ca6c78",
-      "idea_version": "IDEAV-71e79dc693f22d71",
-      "idea_version_started_at": "2026-10-20T13:59:38Z",
-      "ticker": "RGR",
-      "company": "Sturm Ruger & Co Inc",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Beretta Holding S.A. has filed a tender offer amendment for Sturm Ruger, signaling potential acquisition interest or a control premium event.",
-      "why_now": "The SEC filing was updated on 2026-10-20, making the tender offer status live.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 76,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6968ee2dacde",
-        "EVT-a3fe14b33527"
-      ],
-      "primary_source_event_id": "EVT-6968ee2dacde",
-      "source_headlines": [
-        "SC TO-T/A - Beretta Holding S.A. (0002086731) (Filed by)",
-        "SC TO-T/A - STURM RUGER & CO INC (0000095029) (Subject)"
-      ],
-      "source_headline": "SC TO-T/A - Beretta Holding S.A. (0002086731) (Filed by)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/2086731/000119380526001383/0001193805-26-001383-index.htm",
-      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-20T12:51:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-20T13:59:38Z",
-      "updated_at": "2026-10-20T13:59:38Z",
-      "decay_at": "2026-10-22T00:51:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-1d4479b8075a",
       "idea_version": "IDEAV-3085819aeec46e73",
       "idea_version_started_at": "2026-10-21T01:02:58Z",
@@ -193542,6 +193472,77 @@
       "surfaced_at": "2026-10-19T23:11:18Z",
       "updated_at": "2026-10-19T23:11:18Z",
       "decay_at": "2026-10-21T03:00:30Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-abd218ca6c78",
+      "idea_version": "IDEAV-71e79dc693f22d71",
+      "idea_version_started_at": "2026-10-20T13:59:38Z",
+      "ticker": "RGR",
+      "company": "Sturm Ruger & Co Inc",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Beretta Holding S.A. has filed a tender offer amendment for Sturm Ruger, signaling potential acquisition interest or a control premium event.",
+      "why_now": "The SEC filing was updated on 2026-10-20, making the tender offer status live.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 76,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6968ee2dacde",
+        "EVT-a3fe14b33527"
+      ],
+      "primary_source_event_id": "EVT-6968ee2dacde",
+      "source_headlines": [
+        "SC TO-T/A - Beretta Holding S.A. (0002086731) (Filed by)",
+        "SC TO-T/A - STURM RUGER & CO INC (0000095029) (Subject)"
+      ],
+      "source_headline": "SC TO-T/A - Beretta Holding S.A. (0002086731) (Filed by)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2086731/000119380526001383/0001193805-26-001383-index.htm",
+      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-20T12:51:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-20T13:59:38Z",
+      "updated_at": "2026-10-20T13:59:38Z",
+      "decay_at": "2026-10-22T00:51:09Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -199064,14 +199065,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 577,
+    "total_count": 578,
     "shown_count": 499,
-    "hidden_count": 78,
+    "hidden_count": 79,
     "side_counts": {
       "long": {
-        "total_count": 308,
+        "total_count": 309,
         "shown_count": 250,
-        "hidden_count": 58
+        "hidden_count": 59
       },
       "short": {
         "total_count": 270,
@@ -199095,6 +199096,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-abd218ca6c78",
+        "idea_version": "IDEAV-71e79dc693f22d71",
+        "idea_version_started_at": "2026-10-20T13:59:38Z",
+        "ticker": "RGR",
+        "company": "Sturm Ruger & Co Inc",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Beretta Holding S.A. has filed a tender offer amendment for Sturm Ruger, signaling potential acquisition interest or a control premium event.",
+        "why_now": "The SEC filing was updated on 2026-10-20, making the tender offer status live.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 76,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6968ee2dacde",
+          "EVT-a3fe14b33527"
+        ],
+        "primary_source_event_id": "EVT-6968ee2dacde",
+        "source_headlines": [
+          "SC TO-T/A - Beretta Holding S.A. (0002086731) (Filed by)",
+          "SC TO-T/A - STURM RUGER & CO INC (0000095029) (Subject)"
+        ],
+        "source_headline": "SC TO-T/A - Beretta Holding S.A. (0002086731) (Filed by)",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/2086731/000119380526001383/0001193805-26-001383-index.htm",
+        "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-20T12:51:09Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-20T13:59:38Z",
+        "updated_at": "2026-10-20T13:59:38Z",
+        "decay_at": "2026-10-22T00:51:09Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-22T00:51:09Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-eca197f63cec",
         "idea_version": "IDEAV-7769692cccdb0f13",
@@ -226575,79 +226650,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-07f356ae2f72",
-        "idea_version": "IDEAV-685d83b96b5f9738",
-        "idea_version_started_at": "2026-10-07T18:07:00Z",
-        "ticker": "MRVL",
-        "company": "Marvell Technology",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company raised its FY2028 revenue outlook to $20 billion, signaling stronger-than-expected demand for its AI-related semiconductor products.",
-        "why_now": "The guidance update was released on October 6, 2026, providing a fresh catalyst for re-rating.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 67,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-eea8fac841cc"
-        ],
-        "primary_source_event_id": "EVT-eea8fac841cc",
-        "source_headlines": [
-          "Stock Market Today, Oct. 6: Marvell Stock Is Up as the Company Raises FY2028 Revenue Outlook to $20 Billion"
-        ],
-        "source_headline": "Stock Market Today, Oct. 6: Marvell Stock Is Up as the Company Raises FY2028 Revenue Outlook to $20 Billion",
-        "source_url": "https://www.nasdaq.com/articles/stock-market-today-oct-6-marvell-stock-company-raises-fy2028-revenue-outlook-20-billion",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-06T21:30:04Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-06T23:57:28Z",
-        "updated_at": "2026-10-07T18:07:00Z",
-        "decay_at": "2026-10-08T09:30:04Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-09T21:36:02Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-b07e95090e8c",
         "idea_version": "IDEAV-12eeb52aaffdf41b",
         "idea_version_started_at": "2026-10-07T18:07:00Z",
@@ -236262,7 +236264,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1780,
-    "live_count": 21,
+    "live_count": 20,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -236281,9 +236283,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 164886,
-    "news_picked_today": 72,
-    "news_dropped_today": 528
+    "news_seen_today": 179691,
+    "news_picked_today": 84,
+    "news_dropped_today": 612
   },
   "book_momentum": {
     "live_count": 8,
