@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T20:59:36Z",
+  "generated_at": "2026-10-22T21:11:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-985",
@@ -837,6 +837,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-1072",
+      "headline": "Gilead to buy PepStar's inflammation drug program in $1.28 billion deal",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/gilead-buy-pepstars-inflammation-drug-program-128-billion-deal-2026-10-22/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T20:12:39Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Gilead Sciences to acquire PepStar's inflammation drug program for stated $1.28 billion, a material capital-allocation event affecting R&D pipeline and future cash flow.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Gilead Sciences to acquire PepStar's inflammation drug program for stated $1.28 billion, a material capital-allocation event affecting R&D pipeline and future cash flow.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gilead Sciences",
+          "ticker": "GILD",
+          "listing_country": "US"
+        },
+        {
+          "name": "PepStar",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1922,55 +1976,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-950",
-      "headline": "Irish central bank fines Coinbase unit €3.25 million",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/government/irish-central-bank-fines-coinbase-unit-325-million-2026-10-22/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T10:19:52Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Coinbase unit fined €3.25 million by the Irish central bank for regulatory non-compliance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Coinbase unit fined €3.25 million by the Irish central bank for regulatory non-compliance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coinbase",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235050,9 +235055,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2978398,
-    "news_picked_today": 2385,
-    "news_dropped_today": 19575
+    "news_seen_today": 2987099,
+    "news_picked_today": 2394,
+    "news_dropped_today": 19734
   },
   "book_momentum": {
     "live_count": 8,
