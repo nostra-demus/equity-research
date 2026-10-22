@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T19:48:02Z",
+  "generated_at": "2026-10-22T19:56:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-985",
@@ -886,6 +886,104 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-1064",
+      "headline": "Navient CDS Widen by Most in Eight Years as Debtholders Left Out",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-22/navient-cds-widen-by-most-in-eight-years-as-debtholders-left-out",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T17:49:07Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Navient CDS spreads widened by the most in eight years, signaling significant credit distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Navient CDS spreads widened by the most in eight years, signaling significant credit distress.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Navient",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-1062",
+      "headline": "Why TTM Technologies Stock Jumped Plunged 30% Today",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/why-ttm-technologies-stock-jumped-plunged-30-today",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T17:49:01Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "TTM Technologies stock plunged 30% in a single session, indicating a major negative catalyst.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TTM Technologies stock plunged 30% in a single session, indicating a major negative catalyst.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TTM Technologies",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1868,109 +1966,6 @@
       "companies": [
         {
           "name": "Coinbase",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-951",
-      "headline": "Londoner Börse: LSEG kauft Datenanbieter für 3,5 Milliarden Dollar – aber fällt hinter Deutsche Börse zurück",
-      "headline_en": "London Stock Exchange: LSEG buys data provider for 3.5 billion dollars – but falls behind Deutsche Börse",
-      "url": "https://www.handelsblatt.com/unternehmen/dienstleister/londoner-boerse-lseg-stemmt-zukauf-faellt-aber-hinter-deutsche-boerse-zurueck/100264129.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T10:16:14Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "LSEG is acquiring a data provider for $3.5 billion, though the headline notes competitive positioning against Deutsche Börse.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "LSEG is acquiring a data provider for $3.5 billion, though the headline notes competitive positioning against Deutsche Börse.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "London Stock Exchange Group",
-          "ticker": null,
-          "listing_country": "GB"
-        },
-        {
-          "name": "Deutsche Börse",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-826",
-      "headline": "Dow forecasts profit above estimates on pricing gains and cost cuts",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/chemicals-maker-dow-beats-third-quarter-profit-estimates-2026-10-22/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T10:11:57Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Dow Inc. issued a profit forecast above analyst estimates, driven by pricing gains and cost reductions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Dow Inc. issued a profit forecast above analyst estimates, driven by pricing gains and cost reductions.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dow",
           "ticker": null,
           "listing_country": "US"
         }
@@ -235056,9 +235051,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2854797,
-    "news_picked_today": 2318,
-    "news_dropped_today": 18874
+    "news_seen_today": 2862639,
+    "news_picked_today": 2334,
+    "news_dropped_today": 18930
   },
   "book_momentum": {
     "live_count": 8,
