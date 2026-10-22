@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-22T21:28:02Z",
+  "generated_at": "2026-10-22T21:36:11Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261022-1078",
+      "headline": "25-NSE/A - Armada Acquisition Corp. II (0002044009) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2044009/000135445726001018/0001354457-26-001018-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-22T21:00:13Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "SEC delisting notification for Armada Acquisition Corp. II; loss of exchange listing forces shareholders to liquidate or trade OTC.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SEC delisting notification for Armada Acquisition Corp. II; loss of exchange listing forces shareholders to liquidate or trade OTC.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Armada Acquisition Corp. II",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261022-1077",
       "headline": "25-NSE - SAB Biotherapeutics, Inc. (0001833214) (Subject)",
@@ -1927,55 +1976,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-777",
-      "headline": "Chinese AI Startup DeekSeek Raises $15 Billion Ahead of Potential IPO",
-      "headline_en": null,
-      "url": "https://www.wsj.com/tech/ai/chinese-ai-startup-deekseek-raises-15-billion-ahead-of-potential-ipo-f7fe3a49?mod=rss_Technology",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T10:28:00Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "DeepSeek raised $15 billion in funding ahead of a potential IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "DeepSeek raised $15 billion in funding ahead of a potential IPO.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DeepSeek",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235056,9 +235056,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2995608,
-    "news_picked_today": 2399,
-    "news_dropped_today": 19969
+    "news_seen_today": 3038575,
+    "news_picked_today": 2421,
+    "news_dropped_today": 20043
   },
   "book_momentum": {
     "live_count": 8,
