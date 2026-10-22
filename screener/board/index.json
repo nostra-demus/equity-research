@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T02:20:27Z",
+  "generated_at": "2026-10-22T02:28:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-020",
@@ -832,6 +832,55 @@
       "companies": [
         {
           "name": "Meta Platforms",
+          "ticker": "META",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-323",
+      "headline": "Judge orders Meta to pay $25bn in fines for Facebook privacy violations",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/10/21/judge-orders-meta-to-pay-25bn-in-fines-for-facebook-privacy-violations?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-10-21T21:01:32Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Judge orders Meta to pay $25 billion for Facebook privacy violations — a major enforcement action representing ~4–5% of Meta's market cap; material to legal risk, capital structure, and investor expectations; sourced from Al Jazeera (reputable but secondary) and should be verifie",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Judge orders Meta to pay $25 billion for Facebook privacy violations — a major enforcement action representing ~4–5% of Meta's market cap; material to legal risk, capital structure, and investor expectations; sourced from Al Jazeera (reputable but secondary) and should be verifie",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 7,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta Platforms Inc.",
           "ticker": "META",
           "listing_country": "US"
         }
@@ -1890,55 +1939,6 @@
       "launched_signal_id": null,
       "triage_score": 91,
       "triage_reason": "Comcast is planning significant job cuts, indicating potential cost-cutting or operational headwinds.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Comcast",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-010",
-      "headline": "Comcast Planning Significant Jobs Cuts as Part of Reorganization",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-21/comcast-planning-significant-jobs-cuts-as-part-of-reorganization",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-21T22:53:38Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Comcast is planning significant job cuts as part of a reorganization.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Comcast is planning significant job cuts as part of a reorganization.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -235413,9 +235413,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 386552,
-    "news_picked_today": 503,
-    "news_dropped_today": 2569
+    "news_seen_today": 399068,
+    "news_picked_today": 509,
+    "news_dropped_today": 2611
   },
   "book_momentum": {
     "live_count": 8,
