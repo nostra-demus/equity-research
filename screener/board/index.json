@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T11:57:28Z",
+  "generated_at": "2026-10-22T12:00:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-828",
@@ -95,6 +95,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-829",
+      "headline": "SINO OIL & GAS (00702): DECISION OF THE LISTING COMMITTEE ON CANCELLATION OF LISTING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1022/2026102201099.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-22T10:40:00Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "A Hong Kong listing committee decision to cancel listing eliminates the public trading venue and is a survival event for equity holders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A Hong Kong listing committee decision to cancel listing eliminates the public trading venue and is a survival event for equity holders.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sino Oil & Gas",
+          "ticker": "00702",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1936,55 +1986,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-055",
-      "headline": "Meta ordered to pay $25 billion in New Mexico privacy lawsuit",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/meta-ordered-to-pay-25-billion-in-new-mexico-privacy-lawsuit/article71609473.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T00:08:34Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Meta has been ordered to pay a $25 billion fine in a privacy lawsuit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Meta has been ordered to pay a $25 billion fine in a privacy lawsuit.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -194139,77 +194140,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-52c1133413b1",
-      "idea_version": "IDEAV-1ae64137af195dd1",
-      "idea_version_started_at": "2026-10-21T03:43:27Z",
-      "ticker": "00013",
-      "company": "HUTCHMED",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The closing of the license agreement with GSK for the KRAS-EGFR-Antibody Conjugate therapy provides a significant upfront cash infusion and validates the company's R&D pipeline.",
-      "why_now": "The deal closing was officially announced on 2026-10-21.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a03bab1cda93"
-      ],
-      "primary_source_event_id": "EVT-a03bab1cda93",
-      "source_headlines": [
-        "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces Closing of KRAS-EGFR-Antibody Conjugate Therapy License to GSK Outside China"
-      ],
-      "source_headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces Closing of KRAS-EGFR-Antibody Conjugate Therapy License to GSK Outside China",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102100053.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 94,
-      "newest_source_at": "2026-10-21T00:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-21T03:43:27Z",
-      "updated_at": "2026-10-21T03:43:27Z",
-      "decay_at": "2026-10-22T12:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9d6049b683f8",
       "idea_version": "IDEAV-4943447f0fca889c",
       "idea_version_started_at": "2026-10-21T06:15:19Z",
@@ -197484,6 +197414,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-52c1133413b1",
+      "idea_version": "IDEAV-1ae64137af195dd1",
+      "idea_version_started_at": "2026-10-21T03:43:27Z",
+      "ticker": "00013",
+      "company": "HUTCHMED",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The closing of the license agreement with GSK for the KRAS-EGFR-Antibody Conjugate therapy provides a significant upfront cash infusion and validates the company's R&D pipeline.",
+      "why_now": "The deal closing was officially announced on 2026-10-21.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a03bab1cda93"
+      ],
+      "primary_source_event_id": "EVT-a03bab1cda93",
+      "source_headlines": [
+        "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces Closing of KRAS-EGFR-Antibody Conjugate Therapy License to GSK Outside China"
+      ],
+      "source_headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces Closing of KRAS-EGFR-Antibody Conjugate Therapy License to GSK Outside China",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102100053.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 94,
+      "newest_source_at": "2026-10-21T00:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-21T03:43:27Z",
+      "updated_at": "2026-10-21T03:43:27Z",
+      "decay_at": "2026-10-22T12:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-86ad1d17dce0",
       "idea_version": "IDEAV-d424e4fb1889f9bc",
       "idea_version_started_at": "2026-10-20T09:35:45Z",
@@ -197850,14 +197851,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 549,
+    "total_count": 550,
     "shown_count": 499,
-    "hidden_count": 50,
+    "hidden_count": 51,
     "side_counts": {
       "long": {
-        "total_count": 286,
+        "total_count": 287,
         "shown_count": 250,
-        "hidden_count": 36
+        "hidden_count": 37
       },
       "short": {
         "total_count": 264,
@@ -197881,6 +197882,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-52c1133413b1",
+        "idea_version": "IDEAV-1ae64137af195dd1",
+        "idea_version_started_at": "2026-10-21T03:43:27Z",
+        "ticker": "00013",
+        "company": "HUTCHMED",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The closing of the license agreement with GSK for the KRAS-EGFR-Antibody Conjugate therapy provides a significant upfront cash infusion and validates the company's R&D pipeline.",
+        "why_now": "The deal closing was officially announced on 2026-10-21.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a03bab1cda93"
+        ],
+        "primary_source_event_id": "EVT-a03bab1cda93",
+        "source_headlines": [
+          "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces Closing of KRAS-EGFR-Antibody Conjugate Therapy License to GSK Outside China"
+        ],
+        "source_headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Announces Closing of KRAS-EGFR-Antibody Conjugate Therapy License to GSK Outside China",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102100053.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 94,
+        "newest_source_at": "2026-10-21T00:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-21T03:43:27Z",
+        "updated_at": "2026-10-21T03:43:27Z",
+        "decay_at": "2026-10-22T12:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-22T12:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-dbcd29e8ecf7",
         "idea_version": "IDEAV-3c165f12640d6237",
@@ -225433,81 +225508,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-fe0a4c2c5819",
-        "idea_version": "IDEAV-d68460b7735328f4",
-        "idea_version_started_at": "2026-10-07T02:20:38Z",
-        "ticker": "005930",
-        "company": "Samsung Electronics",
-        "exchange": "KRX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Samsung's $5 billion expansion in Vietnam aims to move it up the semiconductor value chain, potentially boosting future revenue and market share in a critical industry.",
-        "why_now": "The expansion news was reported on October 7, 2026, indicating a new strategic investment that will impact future growth.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c19172418c92"
-        ],
-        "primary_source_event_id": "EVT-c19172418c92",
-        "source_headlines": [
-          "Samsung takes Vietnam up semiconductor value chain with $5bn expansion"
-        ],
-        "source_headline": "Samsung takes Vietnam up semiconductor value chain with $5bn expansion",
-        "source_url": "https://asia.nikkei.com/business/tech/semiconductors/samsung-takes-vietnam-up-semiconductor-value-chain-with-5bn-expansion",
-        "source_name": "Nikkei Asia",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-07T01:34:24Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-07T02:20:38Z",
-        "updated_at": "2026-10-07T02:20:38Z",
-        "decay_at": "2026-10-08T13:34:24Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-10T01:49:05Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-a64262a5c954",
         "idea_version": "IDEAV-922a73086f5125d5",
         "idea_version_started_at": "2026-10-07T01:37:33Z",
@@ -235047,7 +235047,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1801,
-    "live_count": 32,
+    "live_count": 31,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -235066,9 +235066,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1805313,
-    "news_picked_today": 1614,
-    "news_dropped_today": 14610
+    "news_seen_today": 1825441,
+    "news_picked_today": 1615,
+    "news_dropped_today": 14633
   },
   "book_momentum": {
     "live_count": 8,
