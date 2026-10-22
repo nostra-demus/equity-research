@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T22:26:06Z",
+  "generated_at": "2026-10-22T22:33:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-1078",
@@ -940,6 +940,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261022-1090",
+      "headline": "Moderna Stock Plunges 18% As Leaked Melanoma Vaccine Data Underperforms",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/moderna-stock-plunges-18-leaked-melanoma-vaccine-data-underperforms",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T20:55:58Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Moderna stock fell 18% following negative clinical trial data for its melanoma vaccine.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Moderna stock fell 18% following negative clinical trial data for its melanoma vaccine.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Moderna",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-1091",
+      "headline": "Sallie Mae Swings To Q3 Loss",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/sallie-mae-swings-q3-loss",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T20:53:38Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Sallie Mae reported a swing to a net loss in Q3, indicating a significant deterioration in financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sallie Mae reported a swing to a net loss in Q3, indicating a significant deterioration in financial performance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sallie Mae",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261022-1072",
       "headline": "Gilead to buy PepStar's inflammation drug program in $1.28 billion deal",
       "headline_en": null,
@@ -986,6 +1085,55 @@
           "name": "PepStar",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261022-1100",
+      "headline": "Meta stock sinks nearly 7% as AI spend pushes free cash flow negative",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/22/meta-stock-q3-earnings-free-cash-flow.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T20:03:03Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Meta stock fell nearly 7% following reports that AI spending has pushed free cash flow into negative territory.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta stock fell nearly 7% following reports that AI spending has pushed free cash flow into negative territory.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta Platforms",
+          "ticker": "META",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -1821,158 +1969,6 @@
           "name": "Lockheed Martin",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-911",
-      "headline": "Leslie's, Inc. Files Chapter 11 Plan of Reorganization and Disclosure Statement",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/leslies-inc-files-chapter-11-plan-reorganization-and-disclosure-statement",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T10:52:23Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Leslie's, Inc. has filed for Chapter 11 bankruptcy reorganization.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Leslie's, Inc. has filed for Chapter 11 bankruptcy reorganization.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Leslie's, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-947",
-      "headline": "Braskem S.A. Announces Involuntary Chapter 11 Petition Filed Against Subsidiary America Finance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/braskem-sa-announces-involuntary-chapter-11-petition-filed-against-subsidiary-america",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T10:32:14Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "An involuntary Chapter 11 petition was filed against a subsidiary of Braskem S.A.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "An involuntary Chapter 11 petition was filed against a subsidiary of Braskem S.A.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Braskem",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-793",
-      "headline": "Q2 Results Live: Swiggy's Net Loss Narrows To Rs 922 Crore, Jindal Stainless Profit Rises 16%",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/q2-fy27-results-live-updates-swiggy-havells-india-colgate-palmolive-adani-total-gas-adani-energy-j-k-bank-nippon-life-amc-earnings-today-12218492#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T10:32:01Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Swiggy reported a net loss of Rs 922 crore and Jindal Stainless reported a 16% profit increase.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Swiggy reported a net loss of Rs 922 crore and Jindal Stainless reported a 16% profit increase.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Swiggy",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Jindal Stainless",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -235056,9 +235052,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3096321,
-    "news_picked_today": 2478,
-    "news_dropped_today": 20730
+    "news_seen_today": 3112375,
+    "news_picked_today": 2512,
+    "news_dropped_today": 20864
   },
   "book_momentum": {
     "live_count": 8,
