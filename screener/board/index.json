@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T17:29:02Z",
+  "generated_at": "2026-10-22T17:44:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-985",
@@ -193916,78 +193916,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b22ee26f6b6d",
-      "idea_version": "IDEAV-d0c8685438b4d709",
-      "idea_version_started_at": "2026-10-21T12:30:01Z",
-      "ticker": "VAR",
-      "company": "Vaar Energi",
-      "exchange": "OSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company doubled its profit due to high oil and gas prices and subsequently increased its dividend payout.",
-      "why_now": "The dividend increase and earnings beat were reported on 2026-10-21.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "commodity_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7f334c8b4a5c"
-      ],
-      "primary_source_event_id": "EVT-7f334c8b4a5c",
-      "source_headlines": [
-        "Vaar Energi raises dividend as profit doubles on high oil, gas prices"
-      ],
-      "source_headline": "Vaar Energi raises dividend as profit doubles on high oil, gas prices",
-      "source_url": "https://www.reuters.com/business/energy/vaar-energi-raises-dividend-profit-doubles-high-oil-gas-prices-2026-10-21/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-21T05:30:28Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-21T12:30:01Z",
-      "updated_at": "2026-10-21T12:30:01Z",
-      "decay_at": "2026-10-22T17:30:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b3d9e69e9e23",
       "idea_version": "IDEAV-4b4823414f0e506e",
       "idea_version_started_at": "2026-10-21T12:30:01Z",
@@ -195528,6 +195456,78 @@
       "surfaced_at": "2026-10-19T21:35:55Z",
       "updated_at": "2026-10-19T21:35:55Z",
       "decay_at": "2026-10-21T00:48:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-b22ee26f6b6d",
+      "idea_version": "IDEAV-d0c8685438b4d709",
+      "idea_version_started_at": "2026-10-21T12:30:01Z",
+      "ticker": "VAR",
+      "company": "Vaar Energi",
+      "exchange": "OSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company doubled its profit due to high oil and gas prices and subsequently increased its dividend payout.",
+      "why_now": "The dividend increase and earnings beat were reported on 2026-10-21.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "commodity_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7f334c8b4a5c"
+      ],
+      "primary_source_event_id": "EVT-7f334c8b4a5c",
+      "source_headlines": [
+        "Vaar Energi raises dividend as profit doubles on high oil, gas prices"
+      ],
+      "source_headline": "Vaar Energi raises dividend as profit doubles on high oil, gas prices",
+      "source_url": "https://www.reuters.com/business/energy/vaar-energi-raises-dividend-profit-doubles-high-oil-gas-prices-2026-10-21/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-21T05:30:28Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-21T12:30:01Z",
+      "updated_at": "2026-10-21T12:30:01Z",
+      "decay_at": "2026-10-22T17:30:28Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -197842,14 +197842,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 552,
+    "total_count": 553,
     "shown_count": 499,
-    "hidden_count": 53,
+    "hidden_count": 54,
     "side_counts": {
       "long": {
-        "total_count": 289,
+        "total_count": 290,
         "shown_count": 250,
-        "hidden_count": 39
+        "hidden_count": 40
       },
       "short": {
         "total_count": 264,
@@ -197873,6 +197873,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b22ee26f6b6d",
+        "idea_version": "IDEAV-d0c8685438b4d709",
+        "idea_version_started_at": "2026-10-21T12:30:01Z",
+        "ticker": "VAR",
+        "company": "Vaar Energi",
+        "exchange": "OSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company doubled its profit due to high oil and gas prices and subsequently increased its dividend payout.",
+        "why_now": "The dividend increase and earnings beat were reported on 2026-10-21.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "commodity_conditional",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7f334c8b4a5c"
+        ],
+        "primary_source_event_id": "EVT-7f334c8b4a5c",
+        "source_headlines": [
+          "Vaar Energi raises dividend as profit doubles on high oil, gas prices"
+        ],
+        "source_headline": "Vaar Energi raises dividend as profit doubles on high oil, gas prices",
+        "source_url": "https://www.reuters.com/business/energy/vaar-energi-raises-dividend-profit-doubles-high-oil-gas-prices-2026-10-21/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-21T05:30:28Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-21T12:30:01Z",
+        "updated_at": "2026-10-21T12:30:01Z",
+        "decay_at": "2026-10-22T17:30:28Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-22T17:30:28Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a6b4b796e78e",
         "idea_version": "IDEAV-ab39be73913ec9f6",
@@ -225273,82 +225348,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-e1403380b9dd",
-        "idea_version": "IDEAV-0f06fb0d201cfb52",
-        "idea_version_started_at": "2026-10-07T04:00:46Z",
-        "ticker": "ANANTRAJ",
-        "company": "Anant Raj Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company has entered a strategic MoU with Orange Business Singapore and the Haryana government to expand its cloud services, signaling a significant expansion into the high-growth data center and cloud infrastructure market.",
-        "why_now": "The official exchange filing regarding the MoU was released on October 07, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 14,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-470e6c75b15f",
-          "EVT-a2d225d323a2"
-        ],
-        "primary_source_event_id": "EVT-470e6c75b15f",
-        "source_headlines": [
-          "Anant Raj Limited: Anant Raj Limited has informed the Exchange regarding a press release dated October 07, 2026, titled \"Anant Raj Cloud, Orange Business Singapore Sign MoU with Haryana Govt to take the State s Cloud Services to Global Markets\".",
-          "Anant Raj Limited: Anant Raj Limited has informed the Exchange about Arrangements for strategic, technical, manufacturing, or marketing tie up"
-        ],
-        "source_headline": "Anant Raj Limited: Anant Raj Limited has informed the Exchange regarding a press release dated October 07, 2026, titled \"Anant Raj Cloud, Orange Business Singapore Sign MoU with Haryana Govt to take the State s Cloud Services to Global Markets\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/ANANTRAJ_07102026085336_Intimation_MoU_07102026.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 90,
-        "newest_source_at": "2026-10-07T03:27:15Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-07T04:00:46Z",
-        "updated_at": "2026-10-07T04:00:46Z",
-        "decay_at": "2026-10-08T15:27:15Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-10T03:44:41Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-b7b9a3ca82be",
         "idea_version": "IDEAV-104ab8f51e976f39",
         "idea_version_started_at": "2026-10-07T03:42:33Z",
@@ -235038,7 +235037,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1801,
-    "live_count": 29,
+    "live_count": 28,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -235057,9 +235056,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2592263,
-    "news_picked_today": 2184,
-    "news_dropped_today": 17352
+    "news_seen_today": 2627667,
+    "news_picked_today": 2196,
+    "news_dropped_today": 17532
   },
   "book_momentum": {
     "live_count": 8,
