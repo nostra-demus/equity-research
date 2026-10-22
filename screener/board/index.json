@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-22T23:02:09Z",
+  "generated_at": "2026-10-22T23:06:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261022-1078",
@@ -1186,6 +1186,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261022-1120",
+      "headline": "Moderna shares sink over 25% as cancer vaccine data triggers ‘sell-the-news’ retreat",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-moderna-shares-cancer-vaccine-merck/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T20:16:19Z",
+      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
+      "prelim_note": "Moderna shares fell over 25% following cancer vaccine data that triggered a sell-off.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Moderna shares fell over 25% following cancer vaccine data that triggered a sell-off.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Moderna",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261022-1072",
       "headline": "Gilead to buy PepStar's inflammation drug program in $1.28 billion deal",
       "headline_en": null,
@@ -1923,55 +1972,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261022-881",
-      "headline": "Carrier Global Plans To Expand US Operations With $600 Mln Investment In Texas",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/carrier-global-plans-expand-us-operations-600-mln-investment-texas",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T11:12:40Z",
-      "sweep_file": "screener/inbox/2026-10-22_sweep.json",
-      "prelim_note": "Carrier Global announced a $600 million investment to expand operations in Texas.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Carrier Global announced a $600 million investment to expand operations in Texas.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Carrier Global",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235052,9 +235052,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3159043,
-    "news_picked_today": 2573,
-    "news_dropped_today": 21091
+    "news_seen_today": 3166683,
+    "news_picked_today": 2582,
+    "news_dropped_today": 21106
   },
   "book_momentum": {
     "live_count": 8,
