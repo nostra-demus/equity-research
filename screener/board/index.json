@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-23T16:15:55Z",
+  "generated_at": "2026-10-23T16:21:52Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261023-1159",
+      "headline": "25-NSE - Arcosa, Inc. (0001739445) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1739445/000087688226000033/0000876882-26-000033-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-23T15:57:49Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Form 25-NSE delisting notification for Arcosa, Inc.; affects listing status, public trading availability, and equity liquidity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Form 25-NSE delisting notification for Arcosa, Inc.; affects listing status, public trading availability, and equity liquidity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Arcosa, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261023-1150",
       "headline": "TruAlt Bioenergy Limited: TruAlt Bioenergy Limited has informed the Exchange regarding a press release dated October 23, 2026, titled \"TruAlt Bioenergy Delivers Strong H1 FY27 Growth; Revenue rises 243% to₹1,437.98 crore; EBITDA grows 532% to ₹233.92 crore; PAT reaches ₹94.27 crore\".",
@@ -1932,55 +1981,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-1041",
-      "headline": "Torrent Pharma Q2 Results: Net profit declines despite 51% revenue growth; misses estimates",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/torrent-pharma-share-price-q2-results-net-profit-declines-despite-51-revenue-growth-misses-estimates-20018208.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:24:55Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Torrent Pharma reported a net profit decline and missed analyst estimates despite 51% revenue growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Torrent Pharma reported a net profit decline and missed analyst estimates despite 51% revenue growth.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Torrent Pharmaceuticals",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -236050,9 +236050,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 762337,
-    "news_picked_today": 3130,
-    "news_dropped_today": 17606
+    "news_seen_today": 767428,
+    "news_picked_today": 3135,
+    "news_dropped_today": 17697
   },
   "book_momentum": {
     "live_count": 8,
