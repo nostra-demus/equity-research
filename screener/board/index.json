@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T01:53:22Z",
+  "generated_at": "2026-10-23T01:58:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-002",
@@ -95,6 +95,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-128",
+      "headline": "Samsung E&A Posts 184% Profit Surge, Announcing 780 Billion Won Share Buyback",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279504",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T01:20:18Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Samsung E&A reported 184% profit growth and authorized a 780 billion won share buyback.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Samsung E&A reported 184% profit growth and authorized a 780 billion won share buyback.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung E&A",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1530,6 +1580,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261023-130",
+      "headline": "Mueller Water Products, Inc. Increases Quarterly Dividend to $0.080 and Authorizes Additional $300 million Share Repurchase",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/mueller-water-products-inc-increases-quarterly-dividend-0080-and-authorizes-additional-300",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T00:43:19Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Mueller Water authorized $300 million share repurchase and increased quarterly dividend to $0.080.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Mueller Water authorized $300 million share repurchase and increased quarterly dividend to $0.080.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mueller Water Products",
+          "ticker": "MWA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261023-019",
       "headline": "Boroo signs $100M deal for Yukon Eagle gold mine",
       "headline_en": null,
@@ -1864,104 +1963,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-070",
-      "headline": "SK하이닉스, 솔리다임 IPO 검토 전격 중단",
-      "headline_en": "SK Hynix abruptly halts Solidigm IPO review",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279487",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T00:11:50Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "SK Hynix has abruptly halted its review of a Solidigm IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "SK Hynix has abruptly halted its review of a Solidigm IPO.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK Hynix",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-027",
-      "headline": "Moderna shares plunge as leaked cancer vaccine data disappoints",
-      "headline_en": null,
-      "url": "https://www.afr.com/world/north-america/moderna-shares-plunge-as-leaked-cancer-vaccine-data-disappoints-20261023-p6180f?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T22:39:52Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Moderna's cancer-vaccine clinical data leaked and disappointed market; stock fell sharply, signaling material re-rating of key pipeline asset and forward revenue forecasts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Moderna's cancer-vaccine clinical data leaked and disappointed market; stock fell sharply, signaling material re-rating of key pipeline asset and forward revenue forecasts.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Moderna",
-          "ticker": "MRNA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -236373,9 +236374,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 144595,
-    "news_picked_today": 135,
-    "news_dropped_today": 777
+    "news_seen_today": 157881,
+    "news_picked_today": 142,
+    "news_dropped_today": 794
   },
   "book_momentum": {
     "live_count": 8,
