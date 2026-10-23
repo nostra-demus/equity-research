@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T23:46:41Z",
+  "generated_at": "2026-10-23T23:58:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-1159",
@@ -832,6 +832,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-1362",
+      "headline": "Mass General Brigham cuts jobs impacting clinical, operational programs amid $300M budget shortfall",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/providers/mass-general-brigham-cuts-jobs-impacting-clinical-operational-programs-amid-300m-budget",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T23:38:12Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Mass General Brigham cut jobs impacting clinical and operational programs amid a $300 million budget shortfall.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mass General Brigham cut jobs impacting clinical and operational programs amid a $300 million budget shortfall.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mass General Brigham",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1928,55 +1977,6 @@
           "name": "Volvo Cars",
           "ticker": null,
           "listing_country": "SE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-1356",
-      "headline": "Jindal Steel Q2 profit rises 21% as revenue hits record Rs 19,448 crore",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/jindal-steel-q2-profit-rises-21-as-revenue-hits-record-rs-19448-crore/articleshow/135149749.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T15:33:11Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Jindal Steel reported a 21% profit increase and record revenue of Rs 19,448 crore for Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Jindal Steel reported a 21% profit increase and record revenue of Rs 19,448 crore for Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jindal Steel",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -236334,9 +236334,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1289754,
-    "news_picked_today": 3975,
-    "news_dropped_today": 24537
+    "news_seen_today": 1291993,
+    "news_picked_today": 4019,
+    "news_dropped_today": 24781
   },
   "book_momentum": {
     "live_count": 8,
