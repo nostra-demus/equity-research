@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T05:56:27Z",
+  "generated_at": "2026-10-23T05:57:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-767",
@@ -194426,6 +194426,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-af5637c58aec",
+      "idea_version": "IDEAV-035c9d5387d56ed9",
+      "idea_version_started_at": "2026-10-23T05:56:42Z",
+      "ticker": "DECK",
+      "company": "Deckers Outdoor",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company lowered its sales outlook due to a shift in consumer demand toward discounted footwear, signaling margin pressure and weakening brand pricing power.",
+      "why_now": "The guidance cut was announced on 2026-10-22, creating an immediate negative catalyst for the stock.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-68ad7da57380"
+      ],
+      "primary_source_event_id": "EVT-68ad7da57380",
+      "source_headlines": [
+        "Deckers Cuts Sales Outlook as Shoppers Seek Out Discounted Shoes"
+      ],
+      "source_headline": "Deckers Cuts Sales Outlook as Shoppers Seek Out Discounted Shoes",
+      "source_url": "https://www.wsj.com/business/earnings/deckers-cuts-sales-outlook-amid-slower-hoka-ugg-growth-84f46d5c?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-22T22:04:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T05:56:42Z",
+      "updated_at": "2026-10-23T05:56:42Z",
+      "decay_at": "2026-10-24T10:04:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-e66b413e23df",
       "idea_version": "IDEAV-537c16c6b2148e97",
       "idea_version_started_at": "2026-10-22T11:04:03Z",
@@ -194840,6 +194910,77 @@
       "surfaced_at": "2026-10-22T03:15:31Z",
       "updated_at": "2026-10-22T03:15:31Z",
       "decay_at": "2026-10-23T08:23:40Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-52e98452feee",
+      "idea_version": "IDEAV-1e83ff2c535a0500",
+      "idea_version_started_at": "2026-10-23T05:56:42Z",
+      "ticker": "NEM",
+      "company": "Newmont",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is benefiting from higher gold prices, which directly expands its operating margins and free cash flow generation.",
+      "why_now": "The earnings beat reported on 2026-10-22 confirms the positive impact of current commodity price trends on the company's bottom line.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "commodity_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-54f83965c797"
+      ],
+      "primary_source_event_id": "EVT-54f83965c797",
+      "source_headlines": [
+        "Newmont beats quarterly profit estimates as company benefits from higher gold prices"
+      ],
+      "source_headline": "Newmont beats quarterly profit estimates as company benefits from higher gold prices",
+      "source_url": "https://www.theglobeandmail.com/business/article-newmont-gold-profit-earnings-mining/",
+      "source_name": "The Globe and Mail",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-22T20:42:28Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T05:56:42Z",
+      "updated_at": "2026-10-23T05:56:42Z",
+      "decay_at": "2026-10-24T08:42:28Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -198413,78 +198554,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-1ab96d880872",
-      "idea_version": "IDEAV-c1dd138dade36dfb",
-      "idea_version_started_at": "2026-10-20T09:35:45Z",
-      "ticker": "ABB",
-      "company": "ABB Ltd",
-      "exchange": "SIX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of a 51% stake in a joint venture with Mitsubishi Electric expands ABB's industrial automation footprint in Japan, providing a direct revenue synergy in the power and automation sector.",
-      "why_now": "The deal was announced today, October 20, 2026, with a valuation of JPY 82.4 billion.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ddddc5d57a67"
-      ],
-      "primary_source_event_id": "EVT-ddddc5d57a67",
-      "source_headlines": [
-        "ABB To Acquire 51% Stake In Mitsubishi Electric Joint Venture For JPY 82.4 Bln"
-      ],
-      "source_headline": "ABB To Acquire 51% Stake In Mitsubishi Electric Joint Venture For JPY 82.4 Bln",
-      "source_url": "https://www.nasdaq.com/articles/abb-acquire-51-stake-mitsubishi-electric-joint-venture-jpy-824-bln",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-20T05:34:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-20T09:35:45Z",
-      "updated_at": "2026-10-20T09:35:45Z",
-      "decay_at": "2026-10-21T17:34:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-81be6afe314c",
       "idea_version": "IDEAV-c042039f00bb78f7",
       "idea_version_started_at": "2026-10-20T09:35:45Z",
@@ -198925,14 +198994,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 544,
+    "total_count": 543,
     "shown_count": 499,
-    "hidden_count": 45,
+    "hidden_count": 44,
     "side_counts": {
       "long": {
-        "total_count": 282,
+        "total_count": 281,
         "shown_count": 250,
-        "hidden_count": 32
+        "hidden_count": 31
       },
       "short": {
         "total_count": 263,
@@ -198942,12 +199011,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1240,
+      "evicted_count": 1241,
       "oldest_retained_at": "2026-09-24T10:31:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 829,
-          "oldest_retained_at": "2026-10-07T20:03:09Z"
+          "evicted_count": 830,
+          "oldest_retained_at": "2026-10-07T20:23:00Z"
         },
         "short": {
           "evicted_count": 411,
@@ -202290,8 +202359,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-21T17:34:17Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-23T05:56:49Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -236125,8 +236194,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1809,
-    "live_count": 24,
+    "surfaced_total": 1811,
+    "live_count": 26,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
