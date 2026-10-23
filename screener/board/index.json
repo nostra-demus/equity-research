@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T04:15:41Z",
+  "generated_at": "2026-10-23T04:16:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-767",
@@ -194146,6 +194146,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-a9e3b13426c6",
+      "idea_version": "IDEAV-76ed845b6ab19a4f",
+      "idea_version_started_at": "2026-10-23T04:15:56Z",
+      "ticker": "MRNA",
+      "company": "Moderna",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Leaked clinical data for the company's melanoma vaccine candidate indicates underperformance, threatening the core pipeline valuation.",
+      "why_now": "The data leak occurred on October 22, 2026, and the market is currently reacting to the negative read-through for future revenue.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 74,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4db612a072f3",
+        "EVT-047f6e387f8f"
+      ],
+      "primary_source_event_id": "EVT-4db612a072f3",
+      "source_headlines": [
+        "Moderna Stock Plunges 25% After Possible Cancer Vaccine Data Leak",
+        "Moderna Stock Plunges 18% As Leaked Melanoma Vaccine Data Underperforms"
+      ],
+      "source_headline": "Moderna Stock Plunges 25% After Possible Cancer Vaccine Data Leak",
+      "source_url": "https://www.forbes.com/sites/maryroeloffs/2026/10/22/moderna-stock-plunges-25-after-possible-cancer-vaccine-data-leak/",
+      "source_name": "Forbes",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-22T20:55:58Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T04:15:56Z",
+      "updated_at": "2026-10-23T04:15:56Z",
+      "decay_at": "2026-10-24T08:55:58Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-021cb7d43110",
       "idea_version": "IDEAV-4c92366d879a9c10",
       "idea_version_started_at": "2026-10-22T07:29:08Z",
@@ -194566,6 +194637,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-b55a54640cc9",
+      "idea_version": "IDEAV-b476c758b99a0218",
+      "idea_version_started_at": "2026-10-23T04:15:56Z",
+      "ticker": "NAVI",
+      "company": "Navient",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Widening credit default swaps indicate heightened market concern regarding the company's solvency and potential exclusion of debtholders in restructuring scenarios.",
+      "why_now": "CDS spreads widened significantly on October 22, 2026, reflecting a sharp increase in perceived default risk.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-eee1d3560c00"
+      ],
+      "primary_source_event_id": "EVT-eee1d3560c00",
+      "source_headlines": [
+        "Navient CDS Widen by Most in Eight Years as Debtholders Left Out"
+      ],
+      "source_headline": "Navient CDS Widen by Most in Eight Years as Debtholders Left Out",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-22/navient-cds-widen-by-most-in-eight-years-as-debtholders-left-out",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-22T17:49:07Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T04:15:56Z",
+      "updated_at": "2026-10-23T04:15:56Z",
+      "decay_at": "2026-10-24T05:49:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-e6d1d0d41652",
       "idea_version": "IDEAV-ca31e63d9edd3127",
       "idea_version_started_at": "2026-10-22T07:29:08Z",
@@ -194916,6 +195057,79 @@
       "surfaced_at": "2026-10-22T07:03:06Z",
       "updated_at": "2026-10-22T07:03:06Z",
       "decay_at": "2026-10-23T10:47:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-5dcc3d54eb17",
+      "idea_version": "IDEAV-891fcfddb1c570c7",
+      "idea_version_started_at": "2026-10-23T04:15:56Z",
+      "ticker": "NLCINDIA",
+      "company": "NLC India",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company signed a memorandum of understanding for a massive 3200 MW thermal power project, providing long-term revenue visibility and government-backed capital deployment.",
+      "why_now": "The official press release regarding the MoU was issued on October 22, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0bd35df8ba9a",
+        "EVT-f5c9288ce1b5"
+      ],
+      "primary_source_event_id": "EVT-0bd35df8ba9a",
+      "source_headlines": [
+        "NLC India Limited: NLC India Limited has informed the Exchange regarding a press release dated October 22, 2026, titled \"NLCIL Signs MoU with IPICOL for Establishment of a 3200 MW (4x800 MW)Ultra Super Critical coal-based thermal power plant and Exploration of CoalGasification-Based Fertilizer Production and Beach Sand Mineral ProcessingFacility in Odisha\".",
+        "NLC India plans ₹35,000-crore Odisha power plant, explores coal gasification and mineral processing"
+      ],
+      "source_headline": "NLC India Limited: NLC India Limited has informed the Exchange regarding a press release dated October 22, 2026, titled \"NLCIL Signs MoU with IPICOL for Establishment of a 3200 MW (4x800 MW)Ultra Super Critical coal-based thermal power plant and Exploration of CoalGasification-Based Fertilizer Production and Beach Sand Mineral ProcessingFacility in Odisha\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/NLCINDIA_22102026200744_SE_MoU_with_IPICOL_Press_Release.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-22T17:47:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T04:15:56Z",
+      "updated_at": "2026-10-23T04:15:56Z",
+      "decay_at": "2026-10-24T05:47:47Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -198345,364 +198559,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-6a677867cd74",
-      "idea_version": "IDEAV-95af84df83052fb4",
-      "idea_version_started_at": "2026-10-20T09:20:11Z",
-      "ticker": "00052",
-      "company": "Fairwood Holdings",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company issued a positive profit alert, indicating earnings growth that likely exceeds current market expectations.",
-      "why_now": "The filing was released on 2026-10-20.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2b17f74d2922"
-      ],
-      "primary_source_event_id": "EVT-2b17f74d2922",
-      "source_headlines": [
-        "FAIRWOOD HOLD (00052): Positive Profit Alert"
-      ],
-      "source_headline": "FAIRWOOD HOLD (00052): Positive Profit Alert",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000265.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-20T04:05:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-20T09:20:11Z",
-      "updated_at": "2026-10-20T09:20:11Z",
-      "decay_at": "2026-10-21T16:05:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-aaa2cb1ecefc",
-      "idea_version": "IDEAV-a400997e7a2405c3",
-      "idea_version_started_at": "2026-10-20T05:56:49Z",
-      "ticker": "NAB",
-      "company": "National Australia Bank",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The bank is initiating a significant restructuring involving 2,500 job cuts, which is expected to improve operational efficiency and reduce long-term cost bases.",
-      "why_now": "The announcement was made on October 20, 2026, with the majority of cuts scheduled to occur within the coming months.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b8af2e8030f1",
-        "EVT-63368d24348e"
-      ],
-      "primary_source_event_id": "EVT-b8af2e8030f1",
-      "source_headlines": [
-        "NAB to cut 2,500 jobs in massive restructure",
-        "NAB to cut 2500 jobs in huge restructuring, most to go within months"
-      ],
-      "source_headline": "NAB to cut 2,500 jobs in massive restructure",
-      "source_url": "https://www.theguardian.com/australia-news/2026/oct/20/nab-bank-restructure-2500-jobs-cuts",
-      "source_name": "The Guardian — World news",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-20T01:27:04Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-20T05:56:49Z",
-      "updated_at": "2026-10-20T05:56:49Z",
-      "decay_at": "2026-10-21T13:27:04Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-ce1429be5073",
-      "idea_version": "IDEAV-97aefb9f10f608e3",
-      "idea_version_started_at": "2026-10-20T04:00:57Z",
-      "ticker": "K71U",
-      "company": "Keppel Reit",
-      "exchange": "SGX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of a 51% stake in Keppel South Central for $610.9 million increases the REIT's exposure to high-quality office assets and is accretive to its portfolio.",
-      "why_now": "The deal was announced on 2026-10-20, providing immediate clarity on capital deployment.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2b39d07ccc39"
-      ],
-      "primary_source_event_id": "EVT-2b39d07ccc39",
-      "source_headlines": [
-        "Keppel Reit to buy 51% stake in Keppel South Central for $610.9 million"
-      ],
-      "source_headline": "Keppel Reit to buy 51% stake in Keppel South Central for $610.9 million",
-      "source_url": "https://www.straitstimes.com/business/keppel-reit-to-buy-51-stake-in-keppel-south-central-for-610-9-million",
-      "source_name": "The Straits Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-20T01:03:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-20T04:00:57Z",
-      "updated_at": "2026-10-20T04:00:57Z",
-      "decay_at": "2026-10-21T13:03:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-193acec1f3b7",
-      "idea_version": "IDEAV-7976f5bd314505d0",
-      "idea_version_started_at": "2026-10-20T05:56:49Z",
-      "ticker": "MAT",
-      "company": "Matador Mining",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has finalized the payment and completion of its option agreement with AngloGold Ashanti, clearing a major hurdle for project development and asset control.",
-      "why_now": "The filing was released on October 20, 2026, confirming the immediate completion of the transaction.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e924cabe7066"
-      ],
-      "primary_source_event_id": "EVT-e924cabe7066",
-      "source_headlines": [
-        "MAT: Final Payment and Completion of AngloGold Ashanti Option [price-sensitive]"
-      ],
-      "source_headline": "MAT: Final Payment and Completion of AngloGold Ashanti Option [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MAT?key=2924-03150539-6A1350156",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 97,
-      "newest_source_at": "2026-10-20T02:04:16Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-20T05:56:49Z",
-      "updated_at": "2026-10-20T05:56:49Z",
-      "decay_at": "2026-10-21T14:04:16Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-20aa195678e4",
-      "idea_version": "IDEAV-0b7c7fb4ddbc93d0",
-      "idea_version_started_at": "2026-10-20T02:20:53Z",
-      "ticker": "01477",
-      "company": "Ocumension-B",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Positive topline results from the 36-month Phase III trial of OT-101 significantly de-risk the product's path to commercialization and market share capture in myopia management.",
-      "why_now": "The trial results were released on October 20, 2026, providing a clear catalyst for re-rating.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4dcb3ba55279"
-      ],
-      "primary_source_event_id": "EVT-4dcb3ba55279",
-      "source_headlines": [
-        "OCUMENSION-B (01477): INSIDE INFORMATION ANNOUNCEMENT TOPLINE RESULTS OF THE MONTH 36 PRIMARY ANALYSIS OF THE GLOBAL MULTI-CENTRE PHASE III CLINICAL TRIAL OF OT-101 (0.01% ATROPINE SULFATE EYE DROPS)"
-      ],
-      "source_headline": "OCUMENSION-B (01477): INSIDE INFORMATION ANNOUNCEMENT TOPLINE RESULTS OF THE MONTH 36 PRIMARY ANALYSIS OF THE GLOBAL MULTI-CENTRE PHASE III CLINICAL TRIAL OF OT-101 (0.01% ATROPINE SULFATE EYE DROPS)",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000141.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 95,
-      "newest_source_at": "2026-10-20T00:25:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-20T02:20:53Z",
-      "updated_at": "2026-10-20T02:20:53Z",
-      "decay_at": "2026-10-21T12:25:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-52c1133413b1",
       "idea_version": "IDEAV-1ae64137af195dd1",
       "idea_version_started_at": "2026-10-21T03:43:27Z",
@@ -198989,77 +198845,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-12b791fa381c",
-      "idea_version": "IDEAV-306049d2351733b1",
-      "idea_version_started_at": "2026-10-20T02:20:53Z",
-      "ticker": "03696",
-      "company": "Insilico Medicine",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The achievement of an early drug discovery milestone triggers a cash payment from Servier, validating the company's AI-driven R&D platform and improving near-term cash flow.",
-      "why_now": "The milestone was announced on October 20, 2026, providing immediate positive sentiment for the stock.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8a50cb54e9f0"
-      ],
-      "primary_source_event_id": "EVT-8a50cb54e9f0",
-      "source_headlines": [
-        "INSILICO (03696): VOLUNTARY ANNOUNCEMENT INSILICO MEDICINE TRIGGERS A MILESTONE PAYMENT IN AI-DRIVEN R&D COLLABORATION WITH SERVIER FOR ACHIEVING EARLY DRUG DISCOVERY MILESTONE"
-      ],
-      "source_headline": "INSILICO (03696): VOLUNTARY ANNOUNCEMENT INSILICO MEDICINE TRIGGERS A MILESTONE PAYMENT IN AI-DRIVEN R&D COLLABORATION WITH SERVIER FOR ACHIEVING EARLY DRUG DISCOVERY MILESTONE",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000129.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 90,
-      "newest_source_at": "2026-10-20T00:15:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-20T02:20:53Z",
-      "updated_at": "2026-10-20T02:20:53Z",
-      "decay_at": "2026-10-21T12:15:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-84d75df2a38c",
       "idea_version": "IDEAV-4229bad0a9deb202",
       "idea_version_started_at": "2026-10-21T01:23:08Z",
@@ -199129,77 +198914,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-7ac6a207250e",
-      "idea_version": "IDEAV-c6b1c76a73c6b16b",
-      "idea_version_started_at": "2026-10-20T00:46:02Z",
-      "ticker": "01672",
-      "company": "Ascletis Pharma",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Positive preclinical data for an oral once-weekly obesity peptide pipeline provides a potential catalyst for valuation re-rating in the competitive weight-loss drug market.",
-      "why_now": "The announcement was made on October 20, 2026, and the market has yet to fully digest the clinical implications.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 13,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3e8d612249ff"
-      ],
-      "primary_source_event_id": "EVT-3e8d612249ff",
-      "source_headlines": [
-        "ASCLETIS-B (01672): VOLUNTARY ANNOUNCEMENT - ASCLETIS ANNOUNCES POSITIVE PRECLINICAL DATA FOR THE MOST COMPREHENSIVE ONCE-WEEKLY ORAL PEPTIDE PIPELINE FOR THE TREATMENT OF OBESITY"
-      ],
-      "source_headline": "ASCLETIS-B (01672): VOLUNTARY ANNOUNCEMENT - ASCLETIS ANNOUNCES POSITIVE PRECLINICAL DATA FOR THE MOST COMPREHENSIVE ONCE-WEEKLY ORAL PEPTIDE PIPELINE FOR THE TREATMENT OF OBESITY",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1020/2026102000107.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 68,
-      "newest_source_at": "2026-10-20T00:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-20T00:46:02Z",
-      "updated_at": "2026-10-20T00:46:02Z",
-      "decay_at": "2026-10-21T12:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -199212,14 +198926,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 550,
+    "total_count": 543,
     "shown_count": 499,
-    "hidden_count": 51,
+    "hidden_count": 44,
     "side_counts": {
       "long": {
-        "total_count": 289,
+        "total_count": 282,
         "shown_count": 250,
-        "hidden_count": 39
+        "hidden_count": 32
       },
       "short": {
         "total_count": 262,
@@ -199229,12 +198943,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1233,
+      "evicted_count": 1240,
       "oldest_retained_at": "2026-09-24T10:31:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 822,
-          "oldest_retained_at": "2026-10-07T16:07:03Z"
+          "evicted_count": 829,
+          "oldest_retained_at": "2026-10-07T20:03:09Z"
         },
         "short": {
           "evicted_count": 411,
@@ -202577,8 +202291,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-21T16:05:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-23T04:16:07Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -202651,8 +202365,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-21T14:04:16Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-23T04:16:07Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -202727,8 +202441,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-21T13:27:04Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-23T04:16:07Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -202802,8 +202516,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-21T13:03:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-23T04:16:07Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -202876,8 +202590,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-21T12:25:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-23T04:16:07Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -202950,8 +202664,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-21T12:15:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-23T04:16:07Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -203024,8 +202738,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-21T12:00:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-23T04:16:07Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -236413,8 +236127,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1806,
-    "live_count": 22,
+    "surfaced_total": 1809,
+    "live_count": 25,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,

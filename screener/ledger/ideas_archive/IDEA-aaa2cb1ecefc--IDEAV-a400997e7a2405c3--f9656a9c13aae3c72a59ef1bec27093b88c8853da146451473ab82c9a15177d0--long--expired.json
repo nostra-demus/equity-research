@@ -1,33 +1,33 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-09T08:52:59Z",
+  "archived_at": "2026-10-23T04:16:07Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-2d5d4f09011b",
-    "idea_version": "IDEAV-3f6e7565549b15b5",
-    "idea_version_started_at": "2026-10-06T13:00:06Z",
-    "ticker": "CLX",
-    "company": "Clarksons",
-    "exchange": "LSE",
+    "idea_id": "IDEA-aaa2cb1ecefc",
+    "idea_version": "IDEAV-a400997e7a2405c3",
+    "idea_version_started_at": "2026-10-20T05:56:49Z",
+    "ticker": "NAB",
+    "company": "National Australia Bank",
+    "exchange": "ASX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "long",
     "pair_with": null,
-    "reason": "Clarksons has lifted its profit guidance due to strong performance in the freight market driven by volatility and record rates.",
-    "why_now": "The company has updated its profit forecast upwards, reflecting current favorable market conditions.",
-    "conviction": 55,
+    "reason": "The bank is initiating a significant restructuring involving 2,500 job cuts, which is expected to improve operational efficiency and reduce long-term cost bases.",
+    "why_now": "The announcement was made on October 20, 2026, with the majority of cuts scheduled to occur within the coming months.",
+    "conviction": 75,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 19,
+      "impact": 20,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
-      "corroboration": 0,
+      "corroboration": 7,
       "learning_adjustment": 0
     },
     "trade_readiness": "watch_only",
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -49,30 +48,32 @@
       "evidenceIds": []
     },
     "priced_in": "room",
-    "thesis_type": "commodity_conditional",
+    "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-d05f6f5122d4"
+      "EVT-b8af2e8030f1",
+      "EVT-63368d24348e"
     ],
-    "primary_source_event_id": "EVT-d05f6f5122d4",
+    "primary_source_event_id": "EVT-b8af2e8030f1",
     "source_headlines": [
-      "Clarksons lifts profit guidance as freight market volatility drives record rates"
+      "NAB to cut 2,500 jobs in massive restructure",
+      "NAB to cut 2500 jobs in huge restructuring, most to go within months"
     ],
-    "source_headline": "Clarksons lifts profit guidance as freight market volatility drives record rates",
-    "source_url": "https://ukinvestormagazine.co.uk/clarksons-lifts-profit-guidance-as-freight-market-volatility-drives-record-rates/",
-    "source_name": "UK Investor Magazine",
+    "source_headline": "NAB to cut 2,500 jobs in massive restructure",
+    "source_url": "https://www.theguardian.com/australia-news/2026/oct/20/nab-bank-restructure-2500-jobs-cuts",
+    "source_name": "The Guardian — World news",
     "materiality_max": 100,
-    "newest_source_at": "2026-10-06T06:53:47Z",
+    "newest_source_at": "2026-10-20T01:27:04Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-06T13:00:06Z",
-    "updated_at": "2026-10-06T13:00:06Z",
-    "decay_at": "2026-10-07T18:53:47Z",
+    "surfaced_at": "2026-10-20T05:56:49Z",
+    "updated_at": "2026-10-20T05:56:49Z",
+    "decay_at": "2026-10-21T13:27:04Z",
     "status": "live",
     "promoted_signal_id": null
   }
