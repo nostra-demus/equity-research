@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T18:42:03Z",
+  "generated_at": "2026-10-23T18:47:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-1159",
@@ -837,32 +837,81 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261023-1185",
-      "headline": "Sebi orders Avadhut Sathe Trading Academy to refund ₹546 cr; imposes ₹11.5 cr penalty",
+      "inbox_id": "INB-20261023-1190",
+      "headline": "BPCL Q2 Results: Profit Swings To Rs 4,993 Crore From Loss, EBITDA Rebounds",
       "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/sebi-orders-avadhut-sathe-trading-academy-to-refund-rs-546-cr-imposes-rs-11-5-cr-penalty-20018417.htm",
-      "source_name": "CNBC-TV18",
+      "url": "https://www.ndtvprofit.com/markets/bpcl-q2-results-profit-swings-to-rs-4-993-crore-from-loss-ebitda-rebounds-12227587#publisher=newsstand",
+      "source_name": "NDTV Profit",
       "input_nature": "news_headline",
-      "found_at": "2026-10-23T17:41:51Z",
+      "found_at": "2026-10-23T18:06:33Z",
       "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "SEBI ordered a refund of 5.46 billion INR and imposed an 115 million INR penalty on Avadhut Sathe Trading Academy.",
+      "prelim_note": "BPCL reported a profit of Rs 4,993 crore, swinging from a loss in the previous period.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "SEBI ordered a refund of 5.46 billion INR and imposed an 115 million INR penalty on Avadhut Sathe Trading Academy.",
+      "triage_reason": "BPCL reported a profit of Rs 4,993 crore, swinging from a loss in the previous period.",
       "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 70,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 70,
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bharat Petroleum Corporation Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-1191",
+      "headline": "SEBI Imposes Rs 11.5 Crore Penalty Against Avadhut Sathe Trading Academy; Rs 546 Crore Refund Ordered",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/sebi-imposes-rs-11-5-crore-penalty-against-avadhut-sathe-trading-academy-rs-546-crore-refund-ordered-12227586#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T18:02:52Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "SEBI imposed an Rs 11.5 crore penalty and ordered a Rs 546 crore refund against Avadhut Sathe Trading Academy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SEBI imposed an Rs 11.5 crore penalty and ordered a Rs 546 crore refund against Avadhut Sathe Trading Academy.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
         "source_tier": 0,
         "scope": 6,
         "event": 6,
         "size": -1,
         "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
+        "materiality_label_floor": 10,
+        "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
@@ -1929,56 +1978,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-1126",
-      "headline": "Infosys FY27 Guidance Cut Counters $5.2B Deal Bonanza, AI Revenue Uptick; Margins Steady Amid External",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/infosys-fy27-guidance-cut-counters-5-2b-deal-bonanza-ai-revenue-uptick-margins-steady-amid-external-headwinds-12225847#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T13:27:32Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Infosys guidance cut offsets a $5.2 billion deal win.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Infosys guidance cut offsets a $5.2 billion deal win.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Infosys",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -236334,9 +236333,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1071106,
-    "news_picked_today": 3208,
-    "news_dropped_today": 19472
+    "news_seen_today": 1075892,
+    "news_picked_today": 3217,
+    "news_dropped_today": 19511
   },
   "book_momentum": {
     "live_count": 8,
