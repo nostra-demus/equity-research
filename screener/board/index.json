@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T21:43:34Z",
+  "generated_at": "2026-10-23T21:54:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-1159",
@@ -994,6 +994,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261023-1224",
+      "headline": "Novartis presenta datos sobre fármaco para esclerosis múltiple peores de lo esperado",
+      "headline_en": "Novartis presents worse-than-expected data on multiple sclerosis drug",
+      "url": "https://www.reuters.com/latam/negocio/O63PQIQOIJLR5GRG5KMZMRLYPE-2026-10-23/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T19:16:50Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Novartis reported clinical trial data for its multiple sclerosis drug that were worse than expected, negatively impacting the drug's commercial outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Novartis reported clinical trial data for its multiple sclerosis drug that were worse than expected, negatively impacting the drug's commercial outlook.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Novartis",
+          "ticker": null,
+          "listing_country": "CH"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261023-1190",
       "headline": "BPCL Q2 Results: Profit Swings To Rs 4,993 Crore From Loss, EBITDA Rebounds",
       "headline_en": null,
@@ -1933,57 +1982,6 @@
           "name": "Shriram Finance",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-1094",
-      "headline": "LKQ Corporation Appoints Salvatore A. Abbate as CEO, Announces Preliminary Third Quarter 2026 Results and Withdraws 2026 Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/lkq-corporation-appoints-salvatore-abbate-ceo-announces-preliminary-third-quarter-2026",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T13:33:57Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "LKQ Corporation appointed a new CEO, reported preliminary Q3 results, and withdrew 2026 guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "LKQ Corporation appointed a new CEO, reported preliminary Q3 results, and withdrew 2026 guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "executive_exit",
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LKQ Corporation",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -236342,9 +236340,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1220435,
-    "news_picked_today": 3443,
-    "news_dropped_today": 23245
+    "news_seen_today": 1224133,
+    "news_picked_today": 3476,
+    "news_dropped_today": 23404
   },
   "book_momentum": {
     "live_count": 8,
