@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T15:28:47Z",
+  "generated_at": "2026-10-23T15:32:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-1105",
@@ -242,6 +242,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-1138",
+      "headline": "WANDA HOTEL DEV (00169): VERY SUBSTANTIAL DISPOSAL - DISPOSAL OF A SUBSIDIARY DETERMINATION OF FINAL CONSIDERATION AND UPDATE ON USE OF PROCEEDS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1023/2026102301481.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-23T12:39:00Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Wanda Hotel Development finalized the consideration for a previously announced disposal of a subsidiary.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Wanda Hotel Development finalized the consideration for a previously announced disposal of a subsidiary.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wanda Hotel Development",
+          "ticker": "00169",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1934,56 +1983,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-986",
-      "headline": "Coforge Reports ₹6,170.8 Crore Revenue For Q2, Posts 56.5% PAT Growth, Raises FY27 EBIT Margin Outlook",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/coforge-reports-61708-crore-revenue-for-q2-posts-565-pat-growth-raises-fy27-ebit-margin-outlook",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T11:17:37Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Coforge reported Q2 revenue of ₹6,170.8 crore, 56.5% PAT growth, and raised its FY27 EBIT margin outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Coforge reported Q2 revenue of ₹6,170.8 crore, 56.5% PAT growth, and raised its FY27 EBIT margin outlook.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coforge",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235903,9 +235902,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 702113,
-    "news_picked_today": 3078,
-    "news_dropped_today": 16986
+    "news_seen_today": 706873,
+    "news_picked_today": 3083,
+    "news_dropped_today": 17029
   },
   "book_momentum": {
     "live_count": 8,
