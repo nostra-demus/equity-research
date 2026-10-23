@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-23T13:20:41Z",
+  "generated_at": "2026-10-23T13:24:42Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261023-1053",
+      "headline": "HAITONG UT HTUTB N2703-R HTUTB N2803-R (01905 84497 85014): JOINT ANNOUNCEMENT - (1) PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY THE DOMESTIC SHARE OFFEROR TO ACQUIRE 1,244,831,880 DOMESTIC SHARES IN THE ISSUED SHARE CAPITAL OF THE COMPANY; (2) PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY THE JOINT FINANCIAL ADVISER ON BEHALF OF THE H SHARE OFFEROR TO ACQUIRE 2,955,171,120 H SHARES IN THE ISSUED SHARE CAPITAL OF THE COMPANY; AND (3) RESUMPTION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1023/2026102301533.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-23T13:03:00Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Haitong Unit Trust announced a voluntary cash partial offer to acquire significant stakes in the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Haitong Unit Trust announced a voluntary cash partial offer to acquire significant stakes in the company.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Haitong Unit Trust",
+          "ticker": "01905",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-1056",
+      "headline": "CHINA SHENHUA (01088): CONNECTED TRANSACTION - ACQUISITION OF 50% EQUITY INTEREST IN GUONENG XINJIANG COAL-TO-GAS CO., LTD.",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1023/2026102301513.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-23T12:58:00Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Company announced the acquisition of a 50% equity interest in Guoneng Xinjiang Coal-to-Gas Co., Ltd.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced the acquisition of a 50% equity interest in Guoneng Xinjiang Coal-to-Gas Co., Ltd.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CHINA SHENHUA",
+          "ticker": "01088",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261023-1007",
       "headline": "FIRST CAP GP (01269): INSIDE INFORMATION - UPDATE ON WINDING UP PETITION AND PROPOSED DEBT RESTRUCTURING",
@@ -846,6 +944,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-1071",
+      "headline": "American Express raises annual profit outlook, plans to cut 5% of work force",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-american-express-third-quarter-results-annual-profit-outlook/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T11:29:34Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "American Express raised its annual profit outlook but announced a 5% workforce reduction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "American Express raised its annual profit outlook but announced a 5% workforce reduction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "American Express",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1838,155 +1986,6 @@
           "name": "PepStar",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-822",
-      "headline": "Volvo Cars to cut 2,500 jobs as third quarter swings to loss",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/volvo-cars-to-cut-2500-jobs-as-third-quarter-swings-to-loss",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T06:14:44Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Volvo Cars announced 2,500 job cuts and reported a quarterly loss.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Volvo Cars announced 2,500 job cuts and reported a quarterly loss.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volvo Cars",
-          "ticker": null,
-          "listing_country": "SE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-834",
-      "headline": "Volvo Car to Cut 2,500 Jobs as Part of Plan to Cut Costs Further",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/volvo-car-to-cut-2-500-jobs-as-part-of-plan-to-cut-costs-further-c304f1f8?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T05:57:00Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Volvo Car is cutting 2,500 jobs to reduce costs, indicating operational stress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Volvo Car is cutting 2,500 jobs to reduce costs, indicating operational stress.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volvo Car",
-          "ticker": null,
-          "listing_country": "SE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-819",
-      "headline": "Holcim Q3 Recurring EBIT, Net Sales Climb; Lifts FY26 Earnings View, Backs Sales Forecast",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/holcim-q3-recurring-ebit-net-sales-climb-lifts-fy26-earnings-view-backs-sales-forecast",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T05:51:24Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Company reported earnings growth and raised its full-year guidance, directly impacting analyst expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company reported earnings growth and raised its full-year guidance, directly impacting analyst expectations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Holcim",
-          "ticker": null,
-          "listing_country": "CH"
         }
       ],
       "size_bucket": "mega",
@@ -235557,9 +235556,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 518328,
-    "news_picked_today": 2937,
-    "news_dropped_today": 14991
+    "news_seen_today": 527706,
+    "news_picked_today": 2957,
+    "news_dropped_today": 15091
   },
   "book_momentum": {
     "live_count": 8,
