@@ -1,0 +1,75 @@
+{
+  "idea_id": "IDEA-e8c55fdf66d6",
+  "idea_version": "IDEAV-637d4ad89d614eef",
+  "idea_version_started_at": "2026-10-23T06:49:05Z",
+  "ticker": "AAL",
+  "company": "American Airlines",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "Rising fuel costs are eroding margins and forcing the company to forecast a full-year loss and reduce capacity growth.",
+  "why_now": "The guidance downgrade was issued on 2026-10-22.",
+  "conviction": 80,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 77,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 10,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-290831eda20b",
+    "EVT-292bbf4a6100",
+    "EVT-45c25f00cca7"
+  ],
+  "primary_source_event_id": "EVT-290831eda20b",
+  "source_headlines": [
+    "American Airlines Sees Another Quarterly Loss as Fuel Costs Rise",
+    "American Airlines forecasts bigger loss in 2026 on fuel spike, plans to slow growth next year",
+    "American Airlines Sinks 4% as Fuel Costs Push Outlook to Full-Year Loss; Delta and United Airlines Drop 3%"
+  ],
+  "source_headline": "American Airlines Sees Another Quarterly Loss as Fuel Costs Rise",
+  "source_url": "https://www.wsj.com/business/earnings/american-airlines-forecasts-another-quarterly-loss-on-surging-fuel-costs-68307f23?mod=pls_whats_news_us_business_f",
+  "source_name": "The Wall Street Journal",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-22T15:24:00Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-23T06:49:05Z",
+  "updated_at": "2026-10-23T06:49:05Z",
+  "decay_at": "2026-10-24T03:24:00Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

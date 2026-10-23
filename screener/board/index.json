@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T06:48:51Z",
+  "generated_at": "2026-10-23T06:49:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-767",
@@ -194145,6 +194145,79 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-e8c55fdf66d6",
+      "idea_version": "IDEAV-637d4ad89d614eef",
+      "idea_version_started_at": "2026-10-23T06:49:05Z",
+      "ticker": "AAL",
+      "company": "American Airlines",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Rising fuel costs are eroding margins and forcing the company to forecast a full-year loss and reduce capacity growth.",
+      "why_now": "The guidance downgrade was issued on 2026-10-22.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 77,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-290831eda20b",
+        "EVT-292bbf4a6100",
+        "EVT-45c25f00cca7"
+      ],
+      "primary_source_event_id": "EVT-290831eda20b",
+      "source_headlines": [
+        "American Airlines Sees Another Quarterly Loss as Fuel Costs Rise",
+        "American Airlines forecasts bigger loss in 2026 on fuel spike, plans to slow growth next year",
+        "American Airlines Sinks 4% as Fuel Costs Push Outlook to Full-Year Loss; Delta and United Airlines Drop 3%"
+      ],
+      "source_headline": "American Airlines Sees Another Quarterly Loss as Fuel Costs Rise",
+      "source_url": "https://www.wsj.com/business/earnings/american-airlines-forecasts-another-quarterly-loss-on-surging-fuel-costs-68307f23?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-22T15:24:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T06:49:05Z",
+      "updated_at": "2026-10-23T06:49:05Z",
+      "decay_at": "2026-10-24T03:24:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-a9e3b13426c6",
       "idea_version": "IDEAV-76ed845b6ab19a4f",
       "idea_version_started_at": "2026-10-23T04:15:56Z",
@@ -194420,6 +194493,76 @@
       "surfaced_at": "2026-10-22T07:03:06Z",
       "updated_at": "2026-10-22T07:03:06Z",
       "decay_at": "2026-10-23T10:46:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-728bca4e5df0",
+      "idea_version": "IDEAV-b2abd1984cc77bb7",
+      "idea_version_started_at": "2026-10-23T06:49:05Z",
+      "ticker": "LRCX",
+      "company": "Lam Research",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Supply chain constraints are actively capping revenue growth and forcing a downward revision to the company's outlook.",
+      "why_now": "The guidance change was reported on 2026-10-22, triggering an immediate market reaction.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-200b1eefdf75"
+      ],
+      "primary_source_event_id": "EVT-200b1eefdf75",
+      "source_headlines": [
+        "Lam Research Sinks 9% as Supply Constraints Cap Outlook; Applied Materials Drops 6%, ASML Holding Falls 4%"
+      ],
+      "source_headline": "Lam Research Sinks 9% as Supply Constraints Cap Outlook; Applied Materials Drops 6%, ASML Holding Falls 4%",
+      "source_url": "https://247wallst.com/investing/2026/10/22/lam-research-sinks-9-as-supply-constraints-cap-outlook-applied-materials-drops-6-asml-holding-falls-4/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-22T14:44:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T06:49:05Z",
+      "updated_at": "2026-10-23T06:49:05Z",
+      "decay_at": "2026-10-24T02:44:50Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -198337,78 +198480,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-049dd080737f",
-      "idea_version": "IDEAV-6450a4a8151902a7",
-      "idea_version_started_at": "2026-10-20T10:11:37Z",
-      "ticker": "PLUS",
-      "company": "Plus500",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of Brazilian broker-dealer Guru provides Plus500 with immediate access to the growing Latin American retail trading market, diversifying its geographic revenue base.",
-      "why_now": "The acquisition was announced on 2026-10-20.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b87476716b4a"
-      ],
-      "primary_source_event_id": "EVT-b87476716b4a",
-      "source_headlines": [
-        "Plus500 To Acquire Brazilian Broker-Dealer Guru"
-      ],
-      "source_headline": "Plus500 To Acquire Brazilian Broker-Dealer Guru",
-      "source_url": "https://www.nasdaq.com/articles/plus500-acquire-brazilian-broker-dealer-guru",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-20T06:27:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-20T10:11:37Z",
-      "updated_at": "2026-10-20T10:11:37Z",
-      "decay_at": "2026-10-21T18:27:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-19eb7ab0fd47",
       "idea_version": "IDEAV-9660818a1ee322cd",
       "idea_version_started_at": "2026-10-20T10:11:37Z",
@@ -198476,78 +198547,6 @@
       "surfaced_at": "2026-10-20T10:11:37Z",
       "updated_at": "2026-10-20T10:11:37Z",
       "decay_at": "2026-10-21T21:30:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-672d7d806521",
-      "idea_version": "IDEAV-f46726a6567f2eb2",
-      "idea_version_started_at": "2026-10-20T10:11:37Z",
-      "ticker": "GKP",
-      "company": "Gulf Keystone Petroleum",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The $601 million merger with ShaMaran Petroleum consolidates assets in the Kurdistan region, likely leading to operational efficiencies and improved scale in a high-margin oil production area.",
-      "why_now": "The merger agreement was officially announced on 2026-10-20.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ca95de80bad5"
-      ],
-      "primary_source_event_id": "EVT-ca95de80bad5",
-      "source_headlines": [
-        "UK-listed Gulf Keystone, Norway's ShaMaran agree $601 million merger in Kurdistan"
-      ],
-      "source_headline": "UK-listed Gulf Keystone, Norway's ShaMaran agree $601 million merger in Kurdistan",
-      "source_url": "https://www.reuters.com/business/uk-listed-gulf-keystone-norways-shamaran-agree-601-million-merger-kurdistan-2026-10-20/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-20T06:26:29Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-20T10:11:37Z",
-      "updated_at": "2026-10-20T10:11:37Z",
-      "decay_at": "2026-10-21T18:26:29Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -198770,77 +198769,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-86ad1d17dce0",
-      "idea_version": "IDEAV-d424e4fb1889f9bc",
-      "idea_version_started_at": "2026-10-20T09:35:45Z",
-      "ticker": "VEE",
-      "company": "VEEM Ltd",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Securing orders for the Virginia-class submarine program provides long-term revenue visibility and validates the company's specialized manufacturing capabilities for the defense sector.",
-      "why_now": "The contract win was confirmed in a price-sensitive filing today, October 20, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-07b1a68ef602"
-      ],
-      "primary_source_event_id": "EVT-07b1a68ef602",
-      "source_headlines": [
-        "VEE: VEEM Secures HII Virginia Class Submarine Orders [price-sensitive]"
-      ],
-      "source_headline": "VEE: VEEM Secures HII Virginia Class Submarine Orders [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VEE?key=2924-03150685-6A1350223",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 93,
-      "newest_source_at": "2026-10-20T06:46:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-20T09:35:45Z",
-      "updated_at": "2026-10-20T09:35:45Z",
-      "decay_at": "2026-10-21T18:46:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-779eed182ae6",
       "idea_version": "IDEAV-95bd4585bc441eee",
       "idea_version_started_at": "2026-10-20T09:35:45Z",
@@ -198994,14 +198922,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 543,
+    "total_count": 540,
     "shown_count": 499,
-    "hidden_count": 44,
+    "hidden_count": 41,
     "side_counts": {
       "long": {
-        "total_count": 281,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 31
+        "hidden_count": 28
       },
       "short": {
         "total_count": 263,
@@ -199011,12 +198939,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1241,
+      "evicted_count": 1244,
       "oldest_retained_at": "2026-09-24T10:31:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 830,
-          "oldest_retained_at": "2026-10-07T20:23:00Z"
+          "evicted_count": 833,
+          "oldest_retained_at": "2026-10-08T02:24:15Z"
         },
         "short": {
           "evicted_count": 411,
@@ -202134,8 +202062,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-21T18:46:02Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-23T06:49:13Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -202209,8 +202137,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-21T18:27:07Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-23T06:49:13Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -202284,8 +202212,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-21T18:26:29Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-23T06:49:13Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -236194,8 +236122,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1811,
-    "live_count": 26,
+    "surfaced_total": 1813,
+    "live_count": 28,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
