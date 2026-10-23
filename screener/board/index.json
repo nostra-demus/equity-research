@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T17:54:58Z",
+  "generated_at": "2026-10-23T18:15:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-1159",
@@ -832,6 +832,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-1185",
+      "headline": "Sebi orders Avadhut Sathe Trading Academy to refund ₹546 cr; imposes ₹11.5 cr penalty",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/sebi-orders-avadhut-sathe-trading-academy-to-refund-rs-546-cr-imposes-rs-11-5-cr-penalty-20018417.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T17:41:51Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "SEBI ordered a refund of 5.46 billion INR and imposed an 115 million INR penalty on Avadhut Sathe Trading Academy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SEBI ordered a refund of 5.46 billion INR and imposed an 115 million INR penalty on Avadhut Sathe Trading Academy.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Avadhut Sathe Trading Academy",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1925,55 +1974,6 @@
       "companies": [
         {
           "name": "Infosys",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-1080",
-      "headline": "Torrent Pharmaceuticals Q2 Results FY27: Net Profit Falls 9.64% To ₹534 Crore Despite 50.78% Revenue Growth",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/torrent-pharmaceuticals-q2-results-fy27-net-profit-falls-964-to-534-crore-despite-5078-revenue-growth",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T13:24:40Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Company reported a 9.64% net profit decline to ₹534 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company reported a 9.64% net profit decline to ₹534 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Torrent Pharmaceuticals",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -236191,9 +236191,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 967054,
-    "news_picked_today": 3192,
-    "news_dropped_today": 18936
+    "news_seen_today": 1010483,
+    "news_picked_today": 3208,
+    "news_dropped_today": 19184
   },
   "book_momentum": {
     "live_count": 8,
