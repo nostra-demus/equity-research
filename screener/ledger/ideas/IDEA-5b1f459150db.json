@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-5b1f459150db",
+  "idea_version": "IDEAV-da7b88b743ff7db6",
+  "idea_version_started_at": "2026-10-23T13:59:14Z",
+  "ticker": "06603",
+  "company": "IFBH",
+  "exchange": "HKEX",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The company issued a profit warning, indicating a significant deterioration in earnings performance compared to previous expectations.",
+  "why_now": "The profit warning was filed today, October 23, 2026, and the market has yet to fully digest the magnitude of the earnings miss.",
+  "conviction": 75,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 25,
+    "impact": 21,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-cd09c9093250"
+  ],
+  "primary_source_event_id": "EVT-cd09c9093250",
+  "source_headlines": [
+    "IFBH (06603): PROFIT WARNING"
+  ],
+  "source_headline": "IFBH (06603): PROFIT WARNING",
+  "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1023/2026102300526.pdf",
+  "source_name": "HKEXnews (HK Exchange Filing)",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-23T09:00:00Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-23T13:59:14Z",
+  "updated_at": "2026-10-23T13:59:14Z",
+  "decay_at": "2026-10-24T21:00:00Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
