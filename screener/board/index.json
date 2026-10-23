@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-23T09:11:00Z",
+  "generated_at": "2026-10-23T09:16:04Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261023-869",
+      "headline": "IFBH (06603): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1023/2026102300526.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-23T09:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Company issued a profit warning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company issued a profit warning.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IFBH",
+          "ticker": "06603",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-870",
+      "headline": "CTR HOLDINGS (01416): VERY SUBSTANTIAL ACQUISITION IN RELATION TO SUCCESSFUL TENDER OF LAND AT KAKI BUKIT, SINGAPORE NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1023/2026102300484.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-23T08:55:00Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Company announced a very substantial acquisition of land.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced a very substantial acquisition of land.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CTR HOLDINGS",
+          "ticker": "01416",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261023-767",
       "headline": "Welspun Corp Limited: Welspun Corp Limited has informed the Exchange about Bagging/Receiving of orders/contracts - Welspun Corp Awarded a Very Large and Prestigious Order, Valued at approx ( approx. Rs.5,500 crore) to Supply Coated Line Pipes for a Natural Gas Pipeline Project in USA",
@@ -1890,115 +1988,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-462",
-      "headline": "American Airlines Sinks 4% as Fuel Costs Push Outlook to Full-Year Loss; Delta and United Airlines Drop 3%",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/10/22/american-airlines-sinks-4-as-fuel-costs-push-outlook-to-full-year-loss-delta-and-united-airlines-drop-3/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T13:35:40Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "American Airlines shares fell 4% after revising its full-year outlook to a loss due to fuel costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "American Airlines shares fell 4% after revising its full-year outlook to a loss due to fuel costs.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "American Airlines",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Delta Air Lines",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "United Airlines",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-473",
-      "headline": "Barclays To Cut 5,000 Jobs, Sees £1.1 Bln Savings After Higher Q3, Positive Outlook - Update",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/barclays-cut-5000-jobs-sees-ps11-bln-savings-after-higher-q3-positive-outlook-update",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T13:29:30Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Barclays to cut 5,000 jobs to achieve £1.1 billion in savings, following a positive Q3 outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Barclays to cut 5,000 jobs to achieve £1.1 billion in savings, following a positive Q3 outlook.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Barclays",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235913,9 +235902,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 305858,
-    "news_picked_today": 2557,
-    "news_dropped_today": 11387
+    "news_seen_today": 308062,
+    "news_picked_today": 2570,
+    "news_dropped_today": 11398
   },
   "book_momentum": {
     "live_count": 8,
