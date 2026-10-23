@@ -1,0 +1,76 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-10-22T23:50:46Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-c8223fdddd69",
+    "idea_version": "IDEAV-355db0a12ef48e17",
+    "idea_version_started_at": "2026-10-19T23:11:18Z",
+    "ticker": "BAESY",
+    "company": "BAE Systems",
+    "exchange": "OTC Markets",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "The company secured a government framework agreement to scale production of counter-drone interceptors to 25,000 units annually, providing a significant long-term revenue tailwind in the defense sector.",
+    "why_now": "The agreement was officially announced on October 19, 2026, initiating the production surge.",
+    "conviction": 75,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 78,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 25,
+      "impact": 21,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-fcdc39c82341"
+    ],
+    "primary_source_event_id": "EVT-fcdc39c82341",
+    "source_headlines": [
+      "Department of War and BAE Systems Sign Framework Agreement to Surge Counter-Drone Production to 25,000 Precision Interceptors Annually"
+    ],
+    "source_headline": "Department of War and BAE Systems Sign Framework Agreement to Surge Counter-Drone Production to 25,000 Precision Interceptors Annually",
+    "source_url": "https://www.war.gov/News/Releases/Release/Article/4628487/department-of-war-and-bae-systems-sign-framework-agreement-to-surge-counter-dro/",
+    "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-19T15:00:30Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-10-19T23:11:18Z",
+    "updated_at": "2026-10-19T23:11:18Z",
+    "decay_at": "2026-10-21T03:00:30Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

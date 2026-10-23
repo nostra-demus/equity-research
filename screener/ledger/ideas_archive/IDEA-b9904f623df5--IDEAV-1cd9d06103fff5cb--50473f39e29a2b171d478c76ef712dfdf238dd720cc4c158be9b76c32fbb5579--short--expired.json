@@ -1,13 +1,13 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-25T20:29:34Z",
+  "archived_at": "2026-10-22T23:50:46Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-3a6081c35649",
-    "idea_version": "IDEAV-95502f06ea22c3a9",
-    "idea_version_started_at": "2026-09-22T13:43:31Z",
-    "ticker": "THO",
-    "company": "Thor Industries",
+    "idea_id": "IDEA-b9904f623df5",
+    "idea_version": "IDEAV-1cd9d06103fff5cb",
+    "idea_version_started_at": "2026-10-20T00:46:02Z",
+    "ticker": "ATKR",
+    "company": "Atkore Inc.",
     "exchange": "NYSE",
     "ticker_verified": true,
     "listing_verified": true,
@@ -15,14 +15,14 @@
     "listing_verification_source": "yahoo_symbol_directory",
     "direction": "short",
     "pair_with": null,
-    "reason": "Thor Industries reported Q4 earnings that missed analyst estimates, signaling potential demand weakness or margin pressure in the recreational vehicle market.",
-    "why_now": "The earnings miss was reported today, September 22, 2026.",
-    "conviction": 65,
+    "reason": "The filing of a 25-NSE delisting notification indicates severe financial distress or regulatory non-compliance, signaling a high risk of equity impairment.",
+    "why_now": "The delisting notice was issued on October 19, 2026, making this a live liquidity and solvency event.",
+    "conviction": 85,
     "conviction_basis": "pre_edge_proxy",
-    "trade_score": 60,
+    "trade_score": 76,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 14,
+      "evidence": 25,
       "impact": 19,
       "specificity": 15,
       "timing": 10,
@@ -34,8 +34,6 @@
     "missing_checks": [
       "live liquidity",
       "dated catalyst",
-      "priced-in risk",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -47,31 +45,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "priced",
-    "thesis_type": "company_specific",
+    "priced_in": "room",
+    "thesis_type": "balance_sheet_survival",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-99affd9b18c2"
+      "EVT-eb571881eeac"
     ],
-    "primary_source_event_id": "EVT-99affd9b18c2",
+    "primary_source_event_id": "EVT-eb571881eeac",
     "source_headlines": [
-      "Thor Industries (THO) Q4 Earnings Lag Estimates"
+      "25-NSE - Atkore Inc. (0001666138) (Subject)"
     ],
-    "source_headline": "Thor Industries (THO) Q4 Earnings Lag Estimates",
-    "source_url": "https://www.nasdaq.com/articles/thor-industries-tho-q4-earnings-lag-estimates",
-    "source_name": "Nasdaq",
+    "source_headline": "25-NSE - Atkore Inc. (0001666138) (Subject)",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1666138/000087666126000843/0000876661-26-000843-index.htm",
+    "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
     "materiality_max": 100,
-    "newest_source_at": "2026-09-22T11:40:01Z",
+    "newest_source_at": "2026-10-19T14:02:31Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-22T13:43:31Z",
-    "updated_at": "2026-09-22T13:43:31Z",
-    "decay_at": "2026-09-23T23:40:01Z",
+    "surfaced_at": "2026-10-20T00:46:02Z",
+    "updated_at": "2026-10-20T00:46:02Z",
+    "decay_at": "2026-10-21T02:02:31Z",
     "status": "live",
     "promoted_signal_id": null
   }
