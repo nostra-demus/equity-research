@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T08:28:04Z",
+  "generated_at": "2026-10-23T08:32:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-767",
@@ -46,6 +46,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-822",
+      "headline": "Volvo Cars to cut 2,500 jobs as third quarter swings to loss",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/volvo-cars-to-cut-2500-jobs-as-third-quarter-swings-to-loss",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T06:14:44Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Volvo Cars announced 2,500 job cuts and reported a quarterly loss.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volvo Cars announced 2,500 job cuts and reported a quarterly loss.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volvo Cars",
+          "ticker": null,
+          "listing_country": "SE"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1956,56 +2006,6 @@
           "name": "Huawei",
           "ticker": null,
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-617",
-      "headline": "Galderma Q3 Sales Climb; Confirms FY26 Core EBITDA Margin View, Lifts Sales Growth Outlook; Stock Up",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/galderma-q3-sales-climb-confirms-fy26-core-ebitda-margin-view-lifts-sales-growth-outlook",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T07:27:20Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Galderma reported Q3 sales growth and raised its sales growth outlook, signaling strong performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Galderma reported Q3 sales growth and raised its sales growth outlook, signaling strong performance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Galderma",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -236137,9 +236137,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 287621,
-    "news_picked_today": 2416,
-    "news_dropped_today": 10928
+    "news_seen_today": 287911,
+    "news_picked_today": 2423,
+    "news_dropped_today": 10945
   },
   "book_momentum": {
     "live_count": 8,
