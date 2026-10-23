@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T10:10:40Z",
+  "generated_at": "2026-10-23T10:14:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-869",
@@ -193,6 +193,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-918",
+      "headline": "JSW Steel Q2 Results: Net profit jumps 3-fold on record steel sales, beats estimates",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/jsw-steel-share-price-q2-results-net-profit-jumps-3-fold-on-record-steel-sales-beats-estimates-20018050.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T09:57:12Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "JSW Steel Q2 net profit jumped 3-fold on record sales, beating analyst estimates.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "JSW Steel Q2 net profit jumped 3-fold on record sales, beating analyst estimates.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JSW Steel",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1929,55 +1978,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-371",
-      "headline": "Turkey’s Zorlu Enerji to Miss Coupon on $1.1 Billion Bond",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-22/turkey-s-zorlu-enerji-to-miss-coupon-on-1-1-billion-bond",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T14:19:47Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Zorlu Enerji is set to miss a coupon payment on a $1.1 billion bond, indicating severe financial distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Zorlu Enerji is set to miss a coupon payment on a $1.1 billion bond, indicating severe financial distress.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zorlu Enerji",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235892,9 +235892,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 341147,
-    "news_picked_today": 2632,
-    "news_dropped_today": 13040
+    "news_seen_today": 343080,
+    "news_picked_today": 2646,
+    "news_dropped_today": 13050
   },
   "book_momentum": {
     "live_count": 8,
