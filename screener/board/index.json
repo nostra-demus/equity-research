@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T00:16:21Z",
+  "generated_at": "2026-10-23T00:25:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-002",
@@ -46,6 +46,460 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-021",
+      "headline": "Rio Tinto to Spend $1.9 Billion on Australian Bauxite Expansion",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-22/rio-tinto-to-spend-1-9-billion-on-australian-bauxite-expansion",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T22:22:10Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "$1.9B Australian bauxite capacity expansion is a named capex commitment signaling management confidence in alumina demand and forward capital discipline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "$1.9B Australian bauxite capacity expansion is a named capex commitment signaling management confidence in alumina demand and forward capital discipline.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rio Tinto",
+          "ticker": "RIO",
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-013",
+      "headline": "Pentagon, Lockheed announce agreement for 850 F-35 jets over 10 years",
+      "headline_en": null,
+      "url": "https://gulfnews.com/world/americas/pentagon-lockheed-announce-agreement-for-850-f-35-jets-over-10-years-1.500720044",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T23:29:35Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Pentagon and Lockheed Martin confirm procurement agreement for 850 F-35 aircraft over 10 years, a confirmed multi-billion-dollar defense contract.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Pentagon and Lockheed Martin confirm procurement agreement for 850 F-35 aircraft over 10 years, a confirmed multi-billion-dollar defense contract.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lockheed Martin",
+          "ticker": "LMT",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-010",
+      "headline": "Karyopharm Therapeutics Inc. Extends Forbearance Period to November 1, 2026",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/karyopharm-therapeutics-inc-extends-forbearance-period-november-1-2026",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T23:22:13Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Karyopharm extends debt-covenant forbearance to 2026-11-01, nine days away; signals acute liquidity crisis with imminent default risk, forcing emergency refinancing or equity dilution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Karyopharm extends debt-covenant forbearance to 2026-11-01, nine days away; signals acute liquidity crisis with imminent default risk, forcing emergency refinancing or equity dilution.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Karyopharm Therapeutics Inc.",
+          "ticker": "KPTI",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-012",
+      "headline": "(LEAD) SK hynix halts review of Solidigm U.S. IPO",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261023000951320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T23:44:11Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "SK hynix halts review of Solidigm IPO, removing a planned capital raise and signaling revised subsidiary strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "SK hynix halts review of Solidigm IPO, removing a planned capital raise and signaling revised subsidiary strategy.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK hynix",
+          "ticker": "000660",
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-019",
+      "headline": "Boroo signs $100M deal for Yukon Eagle gold mine",
+      "headline_en": null,
+      "url": "https://www.mining.com/boroo-signs-100m-deal-for-yukon-eagle-gold-mine/",
+      "source_name": "Mining.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T22:06:00Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Boroo signs $100 million deal to acquire and develop Yukon Eagle gold mine, adding material production capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Boroo signs $100 million deal to acquire and develop Yukon Eagle gold mine, adding material production capacity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 8,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boroo",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-008",
+      "headline": "SK hynix halts review of Solidigm U.S. IPO",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261023000900320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T23:16:43Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "SK hynix halts review of Solidigm U.S. IPO, signaling a change in capital allocation or strategic priorities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "SK hynix halts review of Solidigm U.S. IPO, signaling a change in capital allocation or strategic priorities.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 2,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "strategic_review",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK hynix",
+          "ticker": "000660",
+          "listing_country": "KR"
+        },
+        {
+          "name": "Solidigm",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-017",
+      "headline": "L'Oreal says weight loss drugs are impacting beauty and skin care sales",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/cvglwgwpgrlpo?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T22:27:53Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "L'Oréal disclosed GLP-1 weight-loss drugs are reducing beauty and skincare demand, signaling demand headwind across major product categories.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "L'Oréal disclosed GLP-1 weight-loss drugs are reducing beauty and skincare demand, signaling demand headwind across major product categories.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "L'Oréal",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-016",
+      "headline": "SK Hynix Scraps Solidigm US IPO After Shareholder Concerns",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-22/sk-hynix-scraps-solidigm-us-ipo-after-shareholder-concerns",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T22:52:35Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "SK Hynix cancelled Solidigm subsidiary's planned US IPO following shareholder opposition, affecting group capital deployment and strategic optionality.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "SK Hynix cancelled Solidigm subsidiary's planned US IPO following shareholder opposition, affecting group capital deployment and strategic optionality.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK Hynix",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "Solidigm",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-022",
+      "headline": "JetBlue (JBLU) Stock, Bonds Plunge to Record Lows, Signaling Danger",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-22/jetblue-jblu-stock-bonds-plunge-to-record-lows-signaling-danger",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T22:23:40Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "JetBlue's stock and bonds both at record lows signal emerging financial distress and raise default risk, but no formal credit event (rating downgrade, covenant breach, bankruptcy filing) disclosed yet.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 76,
+      "triage_reason": "JetBlue's stock and bonds both at record lows signal emerging financial distress and raise default risk, but no formal credit event (rating downgrade, covenant breach, bankruptcy filing) disclosed yet.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JetBlue Airways",
+          "ticker": "JBLU",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -100,6 +554,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261023-018",
+      "headline": "Nebius borrows $3.5 billion as investors question neocloud debt",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/investing/nebius-citi-bridge-loan-gpu-prices",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T22:37:00Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Nebius raises $3.5 billion in debt while market questions neocloud-sector leverage.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "Nebius raises $3.5 billion in debt while market questions neocloud-sector leverage.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 58,
+      "rank_factors": {
+        "materiality": 58,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nebius",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261023-004",
       "headline": "Deckers results show aggressive discounts from rivals are hitting premium brands",
       "headline_en": null,
@@ -149,6 +652,236 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261023-014",
+      "headline": "US Treasury proposes tighter rules on investing in sensitive Chinese tech",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/f57a1f1c-60ce-432d-a901-673ae7d1241e?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T23:13:15Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "US Treasury proposes restrictions on US investment in sensitive Chinese technology, potentially reducing capital flows into the sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "US Treasury proposes restrictions on US investment in sensitive Chinese technology, potentially reducing capital flows into the sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 54,
+      "rank_factors": {
+        "materiality": 54,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-015",
+      "headline": "Spotify says yes, it is busting people for using Family Plan sharing too widely",
+      "headline_en": null,
+      "url": "https://www.theverge.com/entertainment/1017214/spotify-family-plan-sharing-qr-codes",
+      "source_name": "The Verge",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T23:02:43Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Spotify confirms enforcement of Family Plan sharing limits, affecting per-user revenue realization and growth metrics; no quantified impact disclosed but confirms execution of a disclosed monetization lever.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "Spotify confirms enforcement of Family Plan sharing limits, affecting per-user revenue realization and growth metrics; no quantified impact disclosed but confirms execution of a disclosed monetization lever.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 52,
+      "rank_factors": {
+        "materiality": 52,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Spotify Technology S.A.",
+          "ticker": "SPOT",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-011",
+      "headline": "Etsy bans AI-generated recipes and patterns from its online marketplace",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/22/etsy-bans-ai-generated-recipes-patterns-from-its-online-marketplace.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T23:45:50Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Etsy bans AI-generated recipes and patterns from its marketplace, a real content-policy shift, but no quantified impact on GMV, listings, or take-rate disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Etsy bans AI-generated recipes and patterns from its marketplace, a real content-policy shift, but no quantified impact on GMV, listings, or take-rate disclosed.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Etsy",
+          "ticker": "ETSY",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-020",
+      "headline": "Chalmers announces draft laws to let banks issue more bonds",
+      "headline_en": null,
+      "url": "https://www.afr.com/politics/federal/australia-news-live-updates-microsoft-ceo-alarmed-as-millions-of-hacking-attempts-shut-global-websites-20261023-p617ya?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T22:24:06Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Australian Treasurer announces draft laws to expand bank bond-issuance limits; positive for bank capital-raising but outcome unconfirmed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Australian Treasurer announces draft laws to expand bank bond-issuance limits; positive for bank capital-raising but outcome unconfirmed.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 48,
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-007",
+      "headline": "Crude oil shipping costs surge nearly 7-fold: Will Indian consumers pay more for fuel?",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/economy/story/crude-oil-shipping-costs-surge-nearly-7-fold-will-indian-consumers-pay-more-for-fuel-563160-2026-10-23?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T23:30:08Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Crude oil shipping costs surge 7-fold, raising operational and input costs across energy and transport sectors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Crude oil shipping costs surge 7-fold, raising operational and input costs across energy and transport sectors.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations",
+        "commercial",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261023-003",
       "headline": "Therakos erhält in Europa die MDR-Zulassung zur Behandlung immunbedingter unerwünschter Ereignisse bei Patienten, die unzureichend auf Kortikosteroide ansprechen",
       "headline_en": "Therakos receives MDR approval in Europe for treatment of immune-related adverse events in patients responding inadequately to corticosteroids",
@@ -193,6 +926,151 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-005",
+      "headline": "Lunai Bioworks Announces Receipt of Nasdaq Determination and Intention to Voluntarily Delist and Deregister",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/lunai-bioworks-announces-receipt-of-nasdaq-determination-and-intention-to-voluntarily-delist-and-deregister-302917510.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-22T23:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Nasdaq-listed biotech announces intention to voluntarily delist without disclosing going-private price, buyer, or strategic reason—silence suggests undisclosed distress or adverse reason.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 45,
+      "triage_reason": "Nasdaq-listed biotech announces intention to voluntarily delist without disclosing going-private price, buyer, or strategic reason—silence suggests undisclosed distress or adverse reason.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lunai Bioworks",
+          "ticker": "LNAI",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-009",
+      "headline": "Elon Musk pours another $76 million into boosting Republicans",
+      "headline_en": null,
+      "url": "https://www.politico.com/live-updates/2026/10/22/congress/more-musk-money-01133454",
+      "source_name": "POLITICO — Congress",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T23:42:12Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Elon Musk personal $76 million political donation is external to Tesla's operations and capital structure; does not alter revenue, margins, or guidance, though may influence ESG sentiment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 45,
+      "triage_reason": "Elon Musk personal $76 million political donation is external to Tesla's operations and capital structure; does not alter revenue, margins, or guidance, though may influence ESG sentiment.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 32,
+      "rank_factors": {
+        "materiality": 32,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Tesla, Inc.",
+          "ticker": "TSLA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-006",
+      "headline": "Lunai Bioworks Announces Receipt of Nasdaq Determination and Intention to Voluntarily Delist and Deregister | LNAI Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/LNAI/lunai-bioworks-announces-receipt-of-nasdaq-determination-and-qjfl8u5kp1ai.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-22T23:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Nasdaq-listed biotech announces intention to voluntarily delist without disclosing going-private price, buyer, or strategic reason—silence suggests undisclosed distress or adverse reason.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 45,
+      "triage_reason": "Nasdaq-listed biotech announces intention to voluntarily delist without disclosing going-private price, buyer, or strategic reason—silence suggests undisclosed distress or adverse reason.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lunai Bioworks",
+          "ticker": "LNAI",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -234592,7 +235470,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3931,
+    "inbox_unconsumed": 3949,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -234601,9 +235479,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 21444,
-    "news_picked_today": 4,
-    "news_dropped_today": 164
+    "news_seen_today": 28494,
+    "news_picked_today": 22,
+    "news_dropped_today": 266
   },
   "book_momentum": {
     "live_count": 8,
