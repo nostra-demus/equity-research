@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T12:33:02Z",
+  "generated_at": "2026-10-23T12:36:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-1007",
@@ -445,25 +445,25 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261023-1026",
-      "headline": "Infosys Q2 results LIVE updates: Infosys cuts FY27 topline guidance, flags pricing pressure; ADR falls",
+      "inbox_id": "INB-20261023-1040",
+      "headline": "Infosys Q2 results Highlights: Infosys cuts FY27 topline guidance, flags pricing pressure; ADR falls",
       "headline_en": null,
       "url": "https://www.cnbctv18.com/market/infosys-q2-results-live-updates-fy27-guidance-deal-wins-ai-impact-in-focus-liveblog-20017822.htm",
       "source_name": "CNBC-TV18",
       "input_nature": "news_headline",
-      "found_at": "2026-10-23T11:45:35Z",
+      "found_at": "2026-10-23T12:05:48Z",
       "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Company cuts FY27 topline guidance and flags pricing pressure.",
+      "prelim_note": "Infosys cut FY27 topline guidance and flagged pricing pressure.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Company cuts FY27 topline guidance and flags pricing pressure.",
+      "triage_reason": "Infosys cut FY27 topline guidance and flagged pricing pressure.",
       "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 80,
+      "materiality_pre_score": 85,
       "rank_factors": {
-        "materiality": 80,
+        "materiality": 85,
         "source_tier": 0,
         "scope": 6,
         "event": 7,
@@ -478,7 +478,58 @@
         "size_bucket": "mega"
       },
       "event_types": [
-        "guidance_change"
+        "guidance_change",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Infosys",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-1038",
+      "headline": "Infosys ADRs crash 6% after Q2 results as revenue guidance cut spooks investors",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/infosys-adrs-crash-6-after-q2-results-as-revenue-guidance-cut-spooks-investors/articleshow/135145145.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T12:03:48Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Infosys cut FY27 topline guidance, leading to a 6% drop in ADRs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Infosys cut FY27 topline guidance, leading to a 6% drop in ADRs.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change",
+        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -1932,55 +1983,6 @@
           "name": "SoftBank",
           "ticker": null,
           "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-805",
-      "headline": "Rio Tinto pledges $2.7b to revive ageing Queensland bauxite mines",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/mining/rio-tinto-pledges-2-7b-to-revive-ageing-queensland-bauxite-mines-20261023-p6184a?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T04:23:30Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Rio Tinto announced a $2.7 billion investment to extend the life of its Queensland bauxite operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Rio Tinto announced a $2.7 billion investment to extend the life of its Queensland bauxite operations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rio Tinto",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "mega",
@@ -235689,9 +235691,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 474163,
-    "news_picked_today": 2872,
-    "news_dropped_today": 14456
+    "news_seen_today": 482647,
+    "news_picked_today": 2886,
+    "news_dropped_today": 14466
   },
   "book_momentum": {
     "live_count": 8,
