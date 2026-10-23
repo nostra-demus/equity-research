@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T13:07:33Z",
+  "generated_at": "2026-10-23T13:11:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-1007",
@@ -194818,6 +194818,79 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-af4308e96a78",
+      "idea_version": "IDEAV-1d4d6af246754113",
+      "idea_version_started_at": "2026-10-23T13:11:36Z",
+      "ticker": "JSWSTEEL",
+      "company": "JSW Steel",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 225% year-over-year increase in net profit to ₹5,279 crore, significantly outperforming expectations.",
+      "why_now": "The Q2 results were released on October 23, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8cc9a35083a8"
+      ],
+      "primary_source_event_id": "EVT-8cc9a35083a8",
+      "source_headlines": [
+        "JSW Steel Q2 Results: Net profit rockets 225% YoY to Rs 5,279 crore; revenue rises 21%"
+      ],
+      "source_headline": "JSW Steel Q2 Results: Net profit rockets 225% YoY to Rs 5,279 crore; revenue rises 21%",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/jsw-steel-q2-results-net-profit-rockets-225-yoy-to-rs-5279-crore-revenue-rises-21/articleshow/135141641.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-23T09:29:26Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T13:11:36Z",
+      "updated_at": "2026-10-23T13:11:36Z",
+      "decay_at": "2026-10-24T21:29:26Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-7124724b5aaa",
       "idea_version": "IDEAV-b5ff26d2e694e4d3",
       "idea_version_started_at": "2026-10-23T12:15:36Z",
@@ -195905,77 +195978,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-abd218ca6c78",
-      "idea_version": "IDEAV-71e79dc693f22d71",
-      "idea_version_started_at": "2026-10-20T13:59:38Z",
-      "ticker": "RGR",
-      "company": "Sturm Ruger & Co Inc",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Beretta Holding S.A. has filed a tender offer amendment for Sturm Ruger, signaling potential acquisition interest or a control premium event.",
-      "why_now": "The SEC filing was updated on 2026-10-20, making the tender offer status live.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 76,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6968ee2dacde",
-        "EVT-a3fe14b33527"
-      ],
-      "primary_source_event_id": "EVT-6968ee2dacde",
-      "source_headlines": [
-        "SC TO-T/A - Beretta Holding S.A. (0002086731) (Filed by)",
-        "SC TO-T/A - STURM RUGER & CO INC (0000095029) (Subject)"
-      ],
-      "source_headline": "SC TO-T/A - Beretta Holding S.A. (0002086731) (Filed by)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/2086731/000119380526001383/0001193805-26-001383-index.htm",
-      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-20T12:51:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-20T13:59:38Z",
-      "updated_at": "2026-10-20T13:59:38Z",
-      "decay_at": "2026-10-22T00:51:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-be9e8ceba9c6",
       "idea_version": "IDEAV-678c1d1d96b5f54b",
       "idea_version_started_at": "2026-10-22T07:03:06Z",
@@ -196110,76 +196112,6 @@
       "surfaced_at": "2026-10-22T07:03:06Z",
       "updated_at": "2026-10-22T07:03:06Z",
       "decay_at": "2026-10-23T10:46:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-eca197f63cec",
-      "idea_version": "IDEAV-7769692cccdb0f13",
-      "idea_version_started_at": "2026-10-20T13:59:38Z",
-      "ticker": "CRM",
-      "company": "Salesforce",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Acquiring Braze for $5.66 billion represents a significant cash outlay and potential dilution or integration risk that may pressure Salesforce's near-term earnings multiples.",
-      "why_now": "The acquisition news broke on 2026-10-20.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c45fa87f4e96"
-      ],
-      "primary_source_event_id": "EVT-c45fa87f4e96",
-      "source_headlines": [
-        "Salesforce To Acquire Braze For $5.66 Bln"
-      ],
-      "source_headline": "Salesforce To Acquire Braze For $5.66 Bln",
-      "source_url": "https://www.nasdaq.com/articles/salesforce-acquire-braze-566-bln",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-20T12:19:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-20T13:59:38Z",
-      "updated_at": "2026-10-20T13:59:38Z",
-      "decay_at": "2026-10-22T00:19:12Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -196810,76 +196742,6 @@
       "surfaced_at": "2026-10-20T14:44:36Z",
       "updated_at": "2026-10-20T14:44:36Z",
       "decay_at": "2026-10-22T01:38:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-92d8a841ea97",
-      "idea_version": "IDEAV-c50f625b6846261a",
-      "idea_version_started_at": "2026-10-20T13:59:38Z",
-      "ticker": "HAS",
-      "company": "Hasbro",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Hasbro raised its annual revenue forecast driven by higher-than-expected demand for its digital gaming segment, which carries higher margins than traditional toys.",
-      "why_now": "The guidance update was released on 2026-10-20.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4a79b8e46aa8"
-      ],
-      "primary_source_event_id": "EVT-4a79b8e46aa8",
-      "source_headlines": [
-        "Hasbro raises annual revenue forecast on strong demand for digital games"
-      ],
-      "source_headline": "Hasbro raises annual revenue forecast on strong demand for digital games",
-      "source_url": "https://www.businesstimes.com.sg/companies-markets/consumer-healthcare/hasbro-raises-annual-revenue-forecast-strong-demand-digital-games",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-20T13:07:21Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-20T13:59:38Z",
-      "updated_at": "2026-10-20T13:59:38Z",
-      "decay_at": "2026-10-22T01:07:21Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -198474,32 +198336,32 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 536,
+    "total_count": 533,
     "shown_count": 499,
-    "hidden_count": 37,
+    "hidden_count": 34,
     "side_counts": {
       "long": {
-        "total_count": 273,
+        "total_count": 271,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 21
       },
       "short": {
-        "total_count": 264,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 13
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1257,
+      "evicted_count": 1260,
       "oldest_retained_at": "2026-09-24T20:28:18Z",
       "side_counts": {
         "long": {
-          "evicted_count": 842,
-          "oldest_retained_at": "2026-10-08T09:30:04Z"
+          "evicted_count": 844,
+          "oldest_retained_at": "2026-10-08T12:25:00Z"
         },
         "short": {
-          "evicted_count": 415,
+          "evicted_count": 416,
           "oldest_retained_at": "2026-09-24T20:28:18Z"
         }
       }
@@ -201099,8 +200961,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-22T01:07:21Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-23T13:11:41Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -201173,8 +201035,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-22T00:51:09Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-23T13:11:41Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -201246,8 +201108,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-22T00:19:12Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-23T13:11:41Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -235675,8 +235537,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1820,
-    "live_count": 26,
+    "surfaced_total": 1821,
+    "live_count": 27,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -235695,9 +235557,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 508835,
+    "news_seen_today": 513507,
     "news_picked_today": 2924,
-    "news_dropped_today": 14908
+    "news_dropped_today": 14932
   },
   "book_momentum": {
     "live_count": 8,

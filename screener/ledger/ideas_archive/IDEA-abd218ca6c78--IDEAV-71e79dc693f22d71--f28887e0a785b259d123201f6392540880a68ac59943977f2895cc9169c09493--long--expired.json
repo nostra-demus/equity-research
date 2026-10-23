@@ -1,13 +1,13 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-10T00:20:12Z",
+  "archived_at": "2026-10-23T13:11:41Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-8f220a5a3968",
-    "idea_version": "IDEAV-9caedc01668f4d84",
-    "idea_version_started_at": "2026-10-07T01:07:10Z",
-    "ticker": "APO",
-    "company": "Apollo Global Management",
+    "idea_id": "IDEA-abd218ca6c78",
+    "idea_version": "IDEAV-71e79dc693f22d71",
+    "idea_version_started_at": "2026-10-20T13:59:38Z",
+    "ticker": "RGR",
+    "company": "Sturm Ruger & Co Inc",
     "exchange": "NYSE",
     "ticker_verified": true,
     "listing_verified": true,
@@ -15,14 +15,14 @@
     "listing_verification_source": "yahoo_symbol_directory",
     "direction": "long",
     "pair_with": null,
-    "reason": "Leading a $40 billion financing round for SpaceX generates significant fee income and strengthens Apollo's position in high-profile private credit and structured equity.",
-    "why_now": "The FT report on Apollo leading this specific financing round was published October 7, 2026.",
-    "conviction": 50,
+    "reason": "Beretta Holding S.A. has filed a tender offer amendment for Sturm Ruger, signaling potential acquisition interest or a control premium event.",
+    "why_now": "The SEC filing was updated on 2026-10-20, making the tender offer status live.",
+    "conviction": 80,
     "conviction_basis": "pre_edge_proxy",
-    "trade_score": 65,
+    "trade_score": 76,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 14,
+      "evidence": 25,
       "impact": 19,
       "specificity": 15,
       "timing": 10,
@@ -34,7 +34,6 @@
     "missing_checks": [
       "live liquidity",
       "dated catalyst",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -51,26 +50,28 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-dab3c6cf4f3f"
+      "EVT-6968ee2dacde",
+      "EVT-a3fe14b33527"
     ],
-    "primary_source_event_id": "EVT-dab3c6cf4f3f",
+    "primary_source_event_id": "EVT-6968ee2dacde",
     "source_headlines": [
-      "SpaceX seeks $40 billion financing led by Apollo to buy Nvidia chips, FT reports"
+      "SC TO-T/A - Beretta Holding S.A. (0002086731) (Filed by)",
+      "SC TO-T/A - STURM RUGER & CO INC (0000095029) (Subject)"
     ],
-    "source_headline": "SpaceX seeks $40 billion financing led by Apollo to buy Nvidia chips, FT reports",
-    "source_url": "https://www.reuters.com/business/media-telecom/spacex-seeks-40-billion-buy-nvidia-chips-ft-reports-2026-10-06/",
-    "source_name": "Reuters — Latest (news sitemap)",
+    "source_headline": "SC TO-T/A - Beretta Holding S.A. (0002086731) (Filed by)",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/2086731/000119380526001383/0001193805-26-001383-index.htm",
+    "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
     "materiality_max": 100,
-    "newest_source_at": "2026-10-07T00:15:28Z",
+    "newest_source_at": "2026-10-20T12:51:09Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-07T01:07:10Z",
-    "updated_at": "2026-10-07T01:07:10Z",
-    "decay_at": "2026-10-08T12:15:28Z",
+    "surfaced_at": "2026-10-20T13:59:38Z",
+    "updated_at": "2026-10-20T13:59:38Z",
+    "decay_at": "2026-10-22T00:51:09Z",
     "status": "live",
     "promoted_signal_id": null
   }
