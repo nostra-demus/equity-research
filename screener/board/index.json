@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T11:29:31Z",
+  "generated_at": "2026-10-23T11:41:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-936",
@@ -342,6 +342,153 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-971",
+      "headline": "American Express Raises Profit Outlook on Increased Member Spending",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/earnings/american-express-raises-profit-outlook-on-increased-member-spending-375dac71?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T11:24:00Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Company raised profit outlook due to increased consumer spending.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company raised profit outlook due to increased consumer spending.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "American Express",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-974",
+      "headline": "Infosys Q2 results LIVE updates: Infosys ADR down 6% in pre-maket after guidance cut",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/infosys-q2-results-live-updates-fy27-guidance-deal-wins-ai-impact-in-focus-liveblog-20017822.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T11:21:00Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Infosys guidance cut confirmed; ADR down 6% pre-market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Infosys guidance cut confirmed; ADR down 6% pre-market.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Infosys Limited",
+          "ticker": "INFY",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-972",
+      "headline": "QIAGEN N.V. Enters Business Combination Agreement for Planned Tender Offer by Crown NL Bidco B.V. at €46.50 Per Share",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/qiagen-nv-enters-business-combination-agreement-planned-tender-offer-crown-nl-bidco-bv",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T11:12:33Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Crown NL Bidco B.V. announced tender offer for QIAGEN N.V. at €46.50 per share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Crown NL Bidco B.V. announced tender offer for QIAGEN N.V. at €46.50 per share.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 3,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "QIAGEN N.V.",
+          "ticker": "QGEN",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1828,153 +1975,6 @@
           "name": "SK",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-161",
-      "headline": "HD Hyundai to build US shipyard with Kiewit, create 3,000 jobs",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/hd-hyundai-build-us-shipyard-with-kiewit-create-3000-jobs-2026-10-23/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T00:56:04Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "HD Hyundai announced a major US shipyard project to create 3,000 jobs, representing a significant capital investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "HD Hyundai announced a major US shipyard project to create 3,000 jobs, representing a significant capital investment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HD Hyundai",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-166",
-      "headline": "OpenAI shifts value to US$1.25 trillion as funding talks finalise",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/openai-shifts-value-to-us1-25-trillion-as-funding-talks-finalise",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T00:45:00Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "OpenAI is finalizing funding talks at a valuation of US$1.25 trillion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "OpenAI is finalizing funding talks at a valuation of US$1.25 trillion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-194",
-      "headline": "Nippon’s U.S. Steel to Invest Nearly $3 Billion in Hot Strip Mill Near Pittsburgh",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/nippons-u-s-steel-to-invest-nearly-3-billion-in-hot-strip-mill-near-pittsburgh-b9784176?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T15:55:00Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Nippon Steel's US Steel unit announced a nearly $3 billion investment in a hot strip mill.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nippon Steel's US Steel unit announced a nearly $3 billion investment in a hot strip mill.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "United States Steel",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -235818,9 +235818,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 395427,
-    "news_picked_today": 2754,
-    "news_dropped_today": 13902
+    "news_seen_today": 411411,
+    "news_picked_today": 2776,
+    "news_dropped_today": 14024
   },
   "book_momentum": {
     "live_count": 8,
