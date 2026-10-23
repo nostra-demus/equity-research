@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-23T12:01:47Z",
+  "generated_at": "2026-10-23T12:05:56Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261023-1007",
+      "headline": "FIRST CAP GP (01269): INSIDE INFORMATION - UPDATE ON WINDING UP PETITION AND PROPOSED DEBT RESTRUCTURING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1023/2026102301343.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-23T11:42:00Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Update on a winding up petition and ongoing debt restructuring, indicating severe financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Update on a winding up petition and ongoing debt restructuring, indicating severe financial distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FIRST CAP GP",
+          "ticker": "01269",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261023-991",
       "headline": "CMOC (03993): 2026 THIRD QUARTERLY FINANCIAL REPORT",
@@ -1933,56 +1982,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-766",
-      "headline": "Betterware de México, S.A.P.I. de C.V. Reports Q3 2026 Results and Raises Full-Year Revenue Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/betterware-de-mexico-sapi-de-cv-reports-q3-2026-results-and-raises-full-year-revenue",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T03:08:29Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Company reported Q3 results and raised full-year revenue guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company reported Q3 results and raised full-year revenue guidance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Betterware de México",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -194249,76 +194248,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-be9e8ceba9c6",
-      "idea_version": "IDEAV-678c1d1d96b5f54b",
-      "idea_version_started_at": "2026-10-22T07:03:06Z",
-      "ticker": "SAP",
-      "company": "SAP",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "SAP achieved $14.3 billion in quarterly revenue and raised its full-year 2026 financial outlook, driving structural earnings growth expectations.",
-      "why_now": "Quarterly earnings beat and upgraded 2026 view announced on October 22, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a0c9d55e0cbc"
-      ],
-      "primary_source_event_id": "EVT-a0c9d55e0cbc",
-      "source_headlines": [
-        "Germany’s SAP hits $14.3 billion quarterly revenue milestone, lifts 2026 view"
-      ],
-      "source_headline": "Germany’s SAP hits $14.3 billion quarterly revenue milestone, lifts 2026 view",
-      "source_url": "https://www.straitstimes.com/business/germanys-sap-hits-14-3-billion-quarterly-revenue-milestone-lifts-2026-view",
-      "source_name": "The Straits Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-22T00:05:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-22T07:03:06Z",
-      "updated_at": "2026-10-22T07:03:06Z",
-      "decay_at": "2026-10-23T12:05:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-728bca4e5df0",
       "idea_version": "IDEAV-b2abd1984cc77bb7",
       "idea_version_started_at": "2026-10-23T06:49:05Z",
@@ -195813,6 +195742,76 @@
       "surfaced_at": "2026-10-20T13:35:08Z",
       "updated_at": "2026-10-20T13:35:08Z",
       "decay_at": "2026-10-21T23:19:35Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-be9e8ceba9c6",
+      "idea_version": "IDEAV-678c1d1d96b5f54b",
+      "idea_version_started_at": "2026-10-22T07:03:06Z",
+      "ticker": "SAP",
+      "company": "SAP",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "SAP achieved $14.3 billion in quarterly revenue and raised its full-year 2026 financial outlook, driving structural earnings growth expectations.",
+      "why_now": "Quarterly earnings beat and upgraded 2026 view announced on October 22, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a0c9d55e0cbc"
+      ],
+      "primary_source_event_id": "EVT-a0c9d55e0cbc",
+      "source_headlines": [
+        "Germany’s SAP hits $14.3 billion quarterly revenue milestone, lifts 2026 view"
+      ],
+      "source_headline": "Germany’s SAP hits $14.3 billion quarterly revenue milestone, lifts 2026 view",
+      "source_url": "https://www.straitstimes.com/business/germanys-sap-hits-14-3-billion-quarterly-revenue-milestone-lifts-2026-view",
+      "source_name": "The Straits Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-22T00:05:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-22T07:03:06Z",
+      "updated_at": "2026-10-22T07:03:06Z",
+      "decay_at": "2026-10-23T12:05:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -198600,14 +198599,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 541,
+    "total_count": 542,
     "shown_count": 499,
-    "hidden_count": 42,
+    "hidden_count": 43,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 27
       },
       "short": {
         "total_count": 266,
@@ -198631,6 +198630,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-be9e8ceba9c6",
+        "idea_version": "IDEAV-678c1d1d96b5f54b",
+        "idea_version_started_at": "2026-10-22T07:03:06Z",
+        "ticker": "SAP",
+        "company": "SAP",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "SAP achieved $14.3 billion in quarterly revenue and raised its full-year 2026 financial outlook, driving structural earnings growth expectations.",
+        "why_now": "Quarterly earnings beat and upgraded 2026 view announced on October 22, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a0c9d55e0cbc"
+        ],
+        "primary_source_event_id": "EVT-a0c9d55e0cbc",
+        "source_headlines": [
+          "Germany’s SAP hits $14.3 billion quarterly revenue milestone, lifts 2026 view"
+        ],
+        "source_headline": "Germany’s SAP hits $14.3 billion quarterly revenue milestone, lifts 2026 view",
+        "source_url": "https://www.straitstimes.com/business/germanys-sap-hits-14-3-billion-quarterly-revenue-milestone-lifts-2026-view",
+        "source_name": "The Straits Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-22T00:05:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-22T07:03:06Z",
+        "updated_at": "2026-10-22T07:03:06Z",
+        "decay_at": "2026-10-23T12:05:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-23T12:05:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-05d3d577ce24",
         "idea_version": "IDEAV-221c7211d855ef21",
@@ -226115,81 +226187,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-67f596a2a4df",
-        "idea_version": "IDEAV-718b024ba90f160f",
-        "idea_version_started_at": "2026-10-08T10:33:41Z",
-        "ticker": "TSCO",
-        "company": "Tesco",
-        "exchange": "LSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Tesco raised its profit outlook floor following a first-half earnings beat, signaling improved margin performance in its core retail business.",
-        "why_now": "The guidance update was released today, October 8, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-fa9275b02b12"
-        ],
-        "primary_source_event_id": "EVT-fa9275b02b12",
-        "source_headlines": [
-          "Tesco raises profit outlook floor after first-half beat"
-        ],
-        "source_headline": "Tesco raises profit outlook floor after first-half beat",
-        "source_url": "https://www.reuters.com/business/britains-tesco-raises-profit-outlook-floor-after-first-half-rise-2026-10-08/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-08T08:57:37Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-08T10:33:41Z",
-        "updated_at": "2026-10-08T10:33:41Z",
-        "decay_at": "2026-10-09T20:57:37Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-11T09:12:26Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c4367824b313",
         "idea_version": "IDEAV-a31dbf1764433a93",
         "idea_version_started_at": "2026-10-08T09:52:56Z",
@@ -235804,7 +235801,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1816,
-    "live_count": 23,
+    "live_count": 22,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -235823,9 +235820,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 432335,
-    "news_picked_today": 2814,
-    "news_dropped_today": 14250
+    "news_seen_today": 436124,
+    "news_picked_today": 2833,
+    "news_dropped_today": 14255
   },
   "book_momentum": {
     "live_count": 8,
