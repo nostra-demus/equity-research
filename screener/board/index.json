@@ -1,6 +1,106 @@
 {
-  "generated_at": "2026-10-23T10:52:32Z",
+  "generated_at": "2026-10-23T10:59:28Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261023-932",
+      "headline": "Infosys Limited: Infosys Limited has submitted to the Exchange, Financial Results for the quarter and half year ended September 30, 2026 and declaration of interim dividend",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/Infosys_23102026160704_BM_Outcome_Oct232026_1.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-23T10:38:26Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Quarterly earnings and interim dividend declaration from Infosys (mega-cap IT services) can move analyst expectations and valuation multiples; direction unknown without disclosed figures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Quarterly earnings and interim dividend declaration from Infosys (mega-cap IT services) can move analyst expectations and valuation multiples; direction unknown without disclosed figures.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Infosys Limited",
+          "ticker": "INFY",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-935",
+      "headline": "PACIFIC LEGEND (08547): INSIDE INFORMATION (1) POSTPONEMENT OF BOARD MEETING; (2) FURTHER DELAY IN PUBLICATION OF THE 2026 ANNUAL RESULTS AND DELAY IN DESPATCH OF THE 2026 ANNUAL REPORT; AND (3) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1023/2026102301076.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-23T10:29:00Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Hong Kong-listed company reports continued trading suspension with further delays in annual results publication, signaling potential going-concern or accounting distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hong Kong-listed company reports continued trading suspension with further delays in annual results publication, signaling potential going-concern or accounting distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 87,
+      "rank_factors": {
+        "materiality": 87,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress",
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pacific Legend",
+          "ticker": "08547",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261023-869",
       "headline": "IFBH (06603): PROFIT WARNING",
@@ -1877,114 +1977,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-317",
-      "headline": "Lam Research Sinks 9% as Supply Constraints Cap Outlook; Applied Materials Drops 6%, ASML Holding Falls 4%",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/10/22/lam-research-sinks-9-as-supply-constraints-cap-outlook-applied-materials-drops-6-asml-holding-falls-4/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T14:44:50Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Lam Research shares fell 9% following a guidance cap due to supply constraints, impacting the semiconductor equipment sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lam Research shares fell 9% following a guidance cap due to supply constraints, impacting the semiconductor equipment sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 7,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lam Research",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Applied Materials",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "ASML Holding",
-          "ticker": null,
-          "listing_country": "NL"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-319",
-      "headline": "The Procter & Gamble Company Reports Fiscal Year 2027 First Quarter Net Sales of $23.3 billion",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/procter-gamble-company-reports-fiscal-year-2027-first-quarter-net-sales-233-billion",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T14:44:26Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Procter & Gamble reported Q1 2027 net sales of $23.3 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Procter & Gamble reported Q1 2027 net sales of $23.3 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Procter & Gamble",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235897,9 +235889,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 374893,
-    "news_picked_today": 2687,
-    "news_dropped_today": 13585
+    "news_seen_today": 377646,
+    "news_picked_today": 2699,
+    "news_dropped_today": 13645
   },
   "book_momentum": {
     "live_count": 8,
