@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T12:36:32Z",
+  "generated_at": "2026-10-23T12:41:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-1007",
@@ -437,6 +437,104 @@
           "name": "Welspun Corp Limited",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-1041",
+      "headline": "Torrent Pharma Q2 Results: Net profit declines despite 51% revenue growth; misses estimates",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/torrent-pharma-share-price-q2-results-net-profit-declines-despite-51-revenue-growth-misses-estimates-20018208.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T12:24:55Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Torrent Pharma reported a net profit decline and missed analyst estimates despite 51% revenue growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Torrent Pharma reported a net profit decline and missed analyst estimates despite 51% revenue growth.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Torrent Pharmaceuticals",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-1044",
+      "headline": "Pitchwise to buy 42% Valencia CF stake, values the Spanish football club at $1.4 billion",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/pitchwise-buy-42-valencia-cf-stake-values-spanish-football-club-14-billion-2026-10-23/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T12:20:38Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Pitchwise is acquiring a 42% stake in Valencia CF, valuing the club at $1.4 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Pitchwise is acquiring a 42% stake in Valencia CF, valuing the club at $1.4 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Valencia CF",
+          "ticker": null,
+          "listing_country": "ES"
         }
       ],
       "size_bucket": "mid",
@@ -1887,105 +1985,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-845",
-      "headline": "Nuvoco Vistas Reports 78% PAT Growth In Q2 FY27, Commissions New Grinding Unit In Surat",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/nuvoco-vistas-reports-78-pat-growth-in-q2-fy27-commissions-new-grinding-unit-in-surat",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T05:19:43Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Nuvoco Vistas reported 78% PAT growth and commissioned a new grinding unit in Surat.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nuvoco Vistas reported 78% PAT growth and commissioned a new grinding unit in Surat.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nuvoco Vistas",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-762",
-      "headline": "SoftBank Loses Half Its Market Value in Four Months as AI Debt Fears Mount",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279508",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T05:01:50Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "SoftBank has experienced a significant decline in market value amid rising concerns regarding its debt levels and AI-related investments.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SoftBank has experienced a significant decline in market value amid rising concerns regarding its debt levels and AI-related investments.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SoftBank",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235691,9 +235690,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 482647,
-    "news_picked_today": 2886,
-    "news_dropped_today": 14466
+    "news_seen_today": 491035,
+    "news_picked_today": 2893,
+    "news_dropped_today": 14507
   },
   "book_momentum": {
     "live_count": 8,
