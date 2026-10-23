@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T22:35:37Z",
+  "generated_at": "2026-10-23T22:40:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-1159",
@@ -1787,6 +1787,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261023-1355",
+      "headline": "BPCL Q2 net profit falls almost 22% to ₹4,863 crore",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/bpcl-q2-net-profit-falls-almost-22-to-4863-crore/article71617190.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T15:50:27Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "BPCL reported a 22% decline in Q2 net profit to ₹4,863 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BPCL reported a 22% decline in Q2 net profit to ₹4,863 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BPCL",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261023-1166",
       "headline": "Infosys Limited Reports Q2 Revenues of $5,145 million and Revises FY 27 Revenue Guidance",
       "headline_en": null,
@@ -1931,56 +1980,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-1143",
-      "headline": "Supreme Petrochem Q2 Results: Net profit nearly doubles to ₹95 crore; declares ₹2.50 interim dividend",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/supreme-petrochem-share-price-q2-results-net-profit-nearly-doubles-to-rs-95-crore-declares-rs-2-50-interim-dividend-20018349.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T15:23:32Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Supreme Petrochem reported Q2 net profit nearly doubled to ₹95 crore and declared a ₹2.50 interim dividend.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Supreme Petrochem reported Q2 net profit nearly doubled to ₹95 crore and declared a ₹2.50 interim dividend.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Supreme Petrochem",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -236335,9 +236334,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1249949,
-    "news_picked_today": 3652,
-    "news_dropped_today": 23828
+    "news_seen_today": 1252855,
+    "news_picked_today": 3710,
+    "news_dropped_today": 23938
   },
   "book_momentum": {
     "live_count": 8,
