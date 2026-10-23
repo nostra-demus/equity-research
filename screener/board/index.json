@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T09:16:04Z",
+  "generated_at": "2026-10-23T09:27:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-869",
@@ -43,6 +43,55 @@
           "name": "IFBH",
           "ticker": "06603",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-891",
+      "headline": "CG Power and Industrial Solutions Limited: CG Power and Industrial Solutions Limited has informed the Exchange about Capacity addition",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/CGPOWER_23102026142708_OutcomeoftheBoardMeeting23102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-23T08:57:28Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "The company announced a capacity addition project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced a capacity addition project.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CG Power and Industrial Solutions Limited",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
@@ -1900,60 +1949,6 @@
       "triage_score": 100,
       "triage_reason": "Shell and Exxon are reportedly putting an $8 billion chemical unit up for sale, representing a major divestment.",
       "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shell",
-          "ticker": null,
-          "listing_country": "GB"
-        },
-        {
-          "name": "Exxon",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-466",
-      "headline": "Shell and Exxon’s $8bn UK chemicals unit put up for sale",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/2d4876ae-c707-4df5-a3ae-ae3268343ef2?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T13:36:58Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Shell and Exxon are putting their $8 billion UK chemicals unit up for sale.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shell and Exxon are putting their $8 billion UK chemicals unit up for sale.",
-      "region": "GB",
       "relevance": "material",
       "materiality_pre_score": 80,
       "rank_factors": {
@@ -235902,9 +235897,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 308062,
-    "news_picked_today": 2570,
-    "news_dropped_today": 11398
+    "news_seen_today": 314554,
+    "news_picked_today": 2608,
+    "news_dropped_today": 11624
   },
   "book_momentum": {
     "live_count": 8,
