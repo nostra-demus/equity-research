@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T14:08:15Z",
+  "generated_at": "2026-10-23T14:11:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-1085",
@@ -587,6 +587,60 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-1099",
+      "headline": "Q2 Results LIVE Updates: BPCL swings to profit QoQ; Dr Reddy's net profit down 36%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/q2-results-live-updates-infosys-jsw-steel-drl-shriram-fin-swiggy-bpcl-hpcl-indusind-csb-godrej-prop-coforge-cg-power-share-price-liveblog-20017506.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T13:56:24Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "BPCL reported a swing to profit while Dr Reddy's reported a 36% decline in net profit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BPCL reported a swing to profit while Dr Reddy's reported a 36% decline in net profit.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BPCL",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Dr Reddy's",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1932,60 +1986,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-931",
-      "headline": "French malt producer Malteurop acquires Chunlei to expand Chinese capacity",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/french-malt-producer-malteurop-acquires-chunlei-expand-chinese-capacity-2026-10-23/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T10:13:31Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "French malt producer Malteurop acquired Chunlei to expand its Chinese capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "French malt producer Malteurop acquired Chunlei to expand its Chinese capacity.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Malteurop",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Chunlei",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235554,9 +235554,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 579929,
-    "news_picked_today": 3004,
-    "news_dropped_today": 15716
+    "news_seen_today": 589849,
+    "news_picked_today": 3009,
+    "news_dropped_today": 15759
   },
   "book_momentum": {
     "live_count": 8,
