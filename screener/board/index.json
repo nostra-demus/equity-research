@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T14:45:51Z",
+  "generated_at": "2026-10-23T14:54:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-1105",
@@ -690,6 +690,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261023-1121",
+      "headline": "China-backed Shanghai International offers to buy 51% stake in Haitong UniTrust for $1.2 billion",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/asia-pacific/china-backed-shanghai-international-offers-buy-51-stake-haitong-unitrust-12-2026-10-23/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T14:25:05Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Shanghai International offered to acquire a 51% stake in Haitong UniTrust for $1.2 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shanghai International offered to acquire a 51% stake in Haitong UniTrust for $1.2 billion.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Haitong UniTrust",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-1115",
+      "headline": "PepsiCo Yields 4%. Is Its Dividend Still Safe After Lowering Guidance?",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/10/23/pepsico-yields-4-is-its-dividend-still-safe-after-lowering-guidance/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T14:15:44Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "PepsiCo lowered forward guidance; guidance cuts move earnings and cash-flow expectations, directly affecting dividend capacity and capital-allocation credibility at a mega-cap scale.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PepsiCo lowered forward guidance; guidance cuts move earnings and cash-flow expectations, directly affecting dividend capacity and capital-allocation credibility at a mega-cap scale.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PepsiCo",
+          "ticker": "PEP",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261023-1099",
       "headline": "Q2 Results LIVE Updates: BPCL swings to profit QoQ; Dr Reddy's net profit down 36%",
       "headline_en": null,
@@ -788,6 +886,104 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-1122",
+      "headline": "Infosys cuts FY27 growth guidance to 1-2% amid weak demand environment",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/infosys-cuts-fy27-growth-guidance-to-12-amid-weak-demand-environment/article71616396.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T13:49:43Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Infosys cut its FY27 growth guidance to 1-2% due to weak demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Infosys cut its FY27 growth guidance to 1-2% due to weak demand.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Infosys",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-1125",
+      "headline": "Shriram Finance Q2 Net Profit Rises 59 Per Cent To ₹3,684 Crore; Board Approves ₹6.50 Interim Dividend",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/shriram-finance-q2-net-profit-rises-59-per-cent-to-3684-crore-board-approves-650-interim-dividend",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T13:41:47Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Shriram Finance reported a 59% increase in Q2 net profit to ₹3,684 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shriram Finance reported a 59% increase in Q2 net profit to ₹3,684 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shriram Finance",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -987,6 +1183,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-1126",
+      "headline": "Infosys FY27 Guidance Cut Counters $5.2B Deal Bonanza, AI Revenue Uptick; Margins Steady Amid External",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/infosys-fy27-guidance-cut-counters-5-2b-deal-bonanza-ai-revenue-uptick-margins-steady-amid-external-headwinds-12225847#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T13:27:32Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Infosys guidance cut offsets a $5.2 billion deal win.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Infosys guidance cut offsets a $5.2 billion deal win.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Infosys",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1735,252 +1981,6 @@
           "name": "QIAGEN N.V.",
           "ticker": "QGEN",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-961",
-      "headline": "Infosys Q2 results LIVE updates: Revenue growth guidance cut; CC revenue misses estimates",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/infosys-q2-results-live-updates-fy27-guidance-deal-wins-ai-impact-in-focus-liveblog-20017822.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T11:08:21Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Infosys cut revenue growth guidance and missed CC revenue estimates in Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Infosys cut revenue growth guidance and missed CC revenue estimates in Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Infosys",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-988",
-      "headline": "IndusInd Bank Reports Strong Q2 FY27 Earnings, Net Profit Surges To ₹1,242 Crore; Asset Quality Improves",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/indusind-bank-reports-strong-q2-fy27-earnings-net-profit-surges-to-1242-crore-asset-quality-improves",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T11:03:25Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "IndusInd Bank reported a net profit of ₹1,242 crore for Q2 FY27 with improved asset quality.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "IndusInd Bank reported a net profit of ₹1,242 crore for Q2 FY27 with improved asset quality.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IndusInd Bank",
-          "ticker": "532187",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-958",
-      "headline": "IndusInd Bank Q2 Results: Lender swings to profit as gross NPA falls to 3%; beats estimates",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/indusind-bank-share-price-q2-results-lender-swings-to-profit-as-gross-npa-falls-to-3-beats-estimates-20018137.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T11:00:12Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Bank reported a swing to profit and beat estimates.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bank reported a swing to profit and beat estimates.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IndusInd Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-960",
-      "headline": "Infosys Q2 Results: FY27 revenue guidance revised to 1% to 2%; Margins projection maintained",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/infosys-q2-results-fy27-guidance-revenue-margin-deal-wins-ai-deflation-adr-share-price-20018067.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T10:58:59Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Infosys revised its FY27 revenue guidance to 1-2%, indicating a growth slowdown.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Infosys revised its FY27 revenue guidance to 1-2%, indicating a growth slowdown.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Infosys",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-959",
-      "headline": "Tata Motors CV Q2 results: Profitability returns on 42% revenue jump; H1 volumes up 35%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/tata-motors-cv-q2-result-profit-rebounds-beats-estimates-wholesales-jump-h1-volumes-up-35-pc-20018133.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T10:53:48Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Company reported a return to profitability on a 42% revenue jump.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company reported a return to profitability on a 42% revenue jump.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Motors",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -235697,9 +235697,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 646927,
-    "news_picked_today": 3036,
-    "news_dropped_today": 16284
+    "news_seen_today": 657155,
+    "news_picked_today": 3057,
+    "news_dropped_today": 16383
   },
   "book_momentum": {
     "live_count": 8,
