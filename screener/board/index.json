@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T22:18:41Z",
+  "generated_at": "2026-10-23T22:23:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-1159",
@@ -1343,6 +1343,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261023-1260",
+      "headline": "Dr Reddy’s Q2 profit falls 36%, plans semaglutide relaunch in November",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/dr-reddy-s-q2-profit-falls-36-plans-semaglutide-relaunch-in-november-11792761422390.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T16:49:46Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Dr Reddy's reported a 36% fall in Q2 profit and announced a product relaunch.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dr Reddy's reported a 36% fall in Q2 profit and announced a product relaunch.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dr Reddy's",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-1257",
+      "headline": "UTI AMC net up 17% to ₹132 crore",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/uti-amc-net-up-17-to-132-cr/article71617031.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T16:45:16Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "UTI AMC reported a 17% increase in net profit to ₹132 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "UTI AMC reported a 17% increase in net profit to ₹132 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UTI AMC",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261023-1174",
       "headline": "Volvo Cars cuts 2,500 jobs after posting $373M loss in Q3",
       "headline_en": null,
@@ -1887,109 +1986,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-1115",
-      "headline": "PepsiCo Yields 4%. Is Its Dividend Still Safe After Lowering Guidance?",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/10/23/pepsico-yields-4-is-its-dividend-still-safe-after-lowering-guidance/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T14:15:44Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "PepsiCo lowered forward guidance; guidance cuts move earnings and cash-flow expectations, directly affecting dividend capacity and capital-allocation credibility at a mega-cap scale.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "PepsiCo lowered forward guidance; guidance cuts move earnings and cash-flow expectations, directly affecting dividend capacity and capital-allocation credibility at a mega-cap scale.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PepsiCo",
-          "ticker": "PEP",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-1099",
-      "headline": "Q2 Results LIVE Updates: BPCL swings to profit QoQ; Dr Reddy's net profit down 36%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/q2-results-live-updates-infosys-jsw-steel-drl-shriram-fin-swiggy-bpcl-hpcl-indusind-csb-godrej-prop-coforge-cg-power-share-price-liveblog-20017506.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T13:56:24Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "BPCL reported a swing to profit while Dr Reddy's reported a 36% decline in net profit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BPCL reported a swing to profit while Dr Reddy's reported a 36% decline in net profit.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BPCL",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Dr Reddy's",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -236344,9 +236340,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1240583,
-    "news_picked_today": 3557,
-    "news_dropped_today": 23659
+    "news_seen_today": 1246851,
+    "news_picked_today": 3585,
+    "news_dropped_today": 23703
   },
   "book_momentum": {
     "live_count": 8,
