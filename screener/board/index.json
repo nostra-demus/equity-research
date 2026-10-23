@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-23T15:39:51Z",
+  "generated_at": "2026-10-23T15:47:49Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261023-1150",
+      "headline": "TruAlt Bioenergy Limited: TruAlt Bioenergy Limited has informed the Exchange regarding a press release dated October 23, 2026, titled \"TruAlt Bioenergy Delivers Strong H1 FY27 Growth; Revenue rises 243% to₹1,437.98 crore; EBITDA grows 532% to ₹233.92 crore; PAT reaches ₹94.27 crore\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TRUALTNSE123_23102026205523_PRESS_RELEASE-FINAL-Sd.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-23T15:25:34Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "TruAlt Bioenergy reported H1 FY27 revenue growth of 243% to ₹1,437.98 crore and EBITDA growth of 532% to ₹233.92 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TruAlt Bioenergy reported H1 FY27 revenue growth of 243% to ₹1,437.98 crore and EBITDA growth of 532% to ₹233.92 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TruAlt Bioenergy Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261023-1105",
       "headline": "Trent Limited: Trent Limited has informed the Exchange about Nahar Retail Trading Services Limited ( Nahar ), a wholly owned subsidiary of the Company, has entered into a binding term sheet dated 22nd October 2026 with TreBits Investment Trust, a Small and Medium Real Estate Investment Trust registered with the Securities and Exchange Board of India (the Trust ), in relation to the proposed divestment of its entire shareholding (100%) in its wholly owned subsidiary, Netria Property Holdings Limi",
@@ -888,6 +937,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-1147",
+      "headline": "Infosys reduces FY27 revenue growth guidance to 1-2%",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/business/companies/infosys-reduces-fy27-revenue-growth-guidance-to-1-2-4193066",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T15:01:23Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Infosys cuts FY27 revenue-growth guidance to 1–2%, a quantified reduction that moves analyst estimates and profit expectations downward.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Infosys cuts FY27 revenue-growth guidance to 1–2%, a quantified reduction that moves analyst estimates and profit expectations downward.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Infosys",
+          "ticker": "INFY",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1883,110 +1981,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-1038",
-      "headline": "Infosys ADRs crash 6% after Q2 results as revenue guidance cut spooks investors",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/infosys-adrs-crash-6-after-q2-results-as-revenue-guidance-cut-spooks-investors/articleshow/135145145.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:03:48Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Infosys cut FY27 topline guidance, leading to a 6% drop in ADRs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Infosys cut FY27 topline guidance, leading to a 6% drop in ADRs.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Infosys",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-1027",
-      "headline": "BASF raises Evonik offer to €24 a share, source says",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/basf-raises-evonik-offer-over-11-billion-bloomberg-news-reports-2026-10-23/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T11:36:02Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "BASF has increased its offer to acquire Evonik to €24 per share.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BASF has increased its offer to acquire Evonik to €24 per share.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BASF",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "Evonik",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235906,9 +235900,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 717097,
-    "news_picked_today": 3094,
-    "news_dropped_today": 17090
+    "news_seen_today": 722161,
+    "news_picked_today": 3105,
+    "news_dropped_today": 17295
   },
   "book_momentum": {
     "live_count": 8,
