@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T21:36:43Z",
+  "generated_at": "2026-10-23T21:43:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-1159",
@@ -927,6 +927,65 @@
           "name": "Ecopetrol",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-1211",
+      "headline": "Instacart Rallies on Report of Sale Talks With Uber, DoorDash",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-23/instacart-rallies-on-report-of-sale-talks-with-uber-doordash",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T20:22:28Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Instacart is reportedly exploring a potential sale to Uber or DoorDash, which would be a major M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Instacart is reportedly exploring a potential sale to Uber or DoorDash, which would be a major M&A event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Instacart",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Uber",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "DoorDash",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1925,55 +1984,6 @@
           "name": "LKQ Corporation",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-1095",
-      "headline": "Dr Reddy’s Q2 Results: Net profit falls 36% YoY to Rs 913 crore, revenue declines marginally",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/dr-reddys-q2-results-net-profit-falls-36-yoy-to-rs-913-crore-revenue-declines-marginally/articleshow/135147475.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T13:32:47Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Dr Reddy's reported a 36% YoY decline in net profit to Rs 913 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Dr Reddy's reported a 36% YoY decline in net profit to Rs 913 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dr Reddy's",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -236332,9 +236342,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1216665,
-    "news_picked_today": 3428,
-    "news_dropped_today": 23188
+    "news_seen_today": 1220435,
+    "news_picked_today": 3443,
+    "news_dropped_today": 23245
   },
   "book_momentum": {
     "live_count": 8,
