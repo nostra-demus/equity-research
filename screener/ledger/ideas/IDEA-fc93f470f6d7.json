@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-fc93f470f6d7",
+  "idea_version": "IDEAV-db4336a31f698ae9",
+  "idea_version_started_at": "2026-10-23T18:41:34Z",
+  "ticker": "LKQ",
+  "company": "LKQ Corporation",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The company announced a CEO transition, a third-quarter earnings shortfall, and the withdrawal of its 2026 financial guidance, signaling significant operational instability.",
+  "why_now": "The news was released on October 23, 2026, and the market has not yet fully digested the implications of the withdrawn guidance.",
+  "conviction": 80,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 74,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 7,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-bcd74c016a3b",
+    "EVT-fe2e15493aa0"
+  ],
+  "primary_source_event_id": "EVT-bcd74c016a3b",
+  "source_headlines": [
+    "LKQ Ousts CEO, Warns of Third-Quarter Shortfall",
+    "LKQ Corporation Appoints Salvatore A. Abbate as CEO, Announces Preliminary Third Quarter 2026 Results and Withdraws 2026 Guidance"
+  ],
+  "source_headline": "LKQ Ousts CEO, Warns of Third-Quarter Shortfall",
+  "source_url": "https://www.wsj.com/business/c-suite/lkq-ousts-ceo-warns-of-third-quarter-shortfall-95426635?mod=pls_whats_news_us_business_f",
+  "source_name": "The Wall Street Journal",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-23T13:33:57Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-23T18:41:34Z",
+  "updated_at": "2026-10-23T18:41:34Z",
+  "decay_at": "2026-10-25T01:33:57Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

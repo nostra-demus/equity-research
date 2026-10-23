@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T18:15:11Z",
+  "generated_at": "2026-10-23T18:41:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-1159",
@@ -194244,6 +194244,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-fc93f470f6d7",
+      "idea_version": "IDEAV-db4336a31f698ae9",
+      "idea_version_started_at": "2026-10-23T18:41:34Z",
+      "ticker": "LKQ",
+      "company": "LKQ Corporation",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company announced a CEO transition, a third-quarter earnings shortfall, and the withdrawal of its 2026 financial guidance, signaling significant operational instability.",
+      "why_now": "The news was released on October 23, 2026, and the market has not yet fully digested the implications of the withdrawn guidance.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 74,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-bcd74c016a3b",
+        "EVT-fe2e15493aa0"
+      ],
+      "primary_source_event_id": "EVT-bcd74c016a3b",
+      "source_headlines": [
+        "LKQ Ousts CEO, Warns of Third-Quarter Shortfall",
+        "LKQ Corporation Appoints Salvatore A. Abbate as CEO, Announces Preliminary Third Quarter 2026 Results and Withdraws 2026 Guidance"
+      ],
+      "source_headline": "LKQ Ousts CEO, Warns of Third-Quarter Shortfall",
+      "source_url": "https://www.wsj.com/business/c-suite/lkq-ousts-ceo-warns-of-third-quarter-shortfall-95426635?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-23T13:33:57Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T18:41:34Z",
+      "updated_at": "2026-10-23T18:41:34Z",
+      "decay_at": "2026-10-25T01:33:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-a9e3b13426c6",
       "idea_version": "IDEAV-76ed845b6ab19a4f",
       "idea_version_started_at": "2026-10-23T04:15:56Z",
@@ -194942,6 +195013,78 @@
       "surfaced_at": "2026-10-22T11:04:03Z",
       "updated_at": "2026-10-22T11:04:03Z",
       "decay_at": "2026-10-23T20:06:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-aba1e604fd86",
+      "idea_version": "IDEAV-7a1f0bfcc76955f4",
+      "idea_version_started_at": "2026-10-23T18:41:34Z",
+      "ticker": "SHRIRAMFIN",
+      "company": "Shriram Finance",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 59% increase in Q2 net profit to ₹3,684 crore and declared an interim dividend, reflecting strong underlying credit demand and operational efficiency.",
+      "why_now": "The earnings were released on October 23, 2026, providing a fresh catalyst for a re-rating of the stock.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3eb3cbd220c4"
+      ],
+      "primary_source_event_id": "EVT-3eb3cbd220c4",
+      "source_headlines": [
+        "Shriram Finance Q2 Net Profit Rises 59 Per Cent To ₹3,684 Crore; Board Approves ₹6.50 Interim Dividend"
+      ],
+      "source_headline": "Shriram Finance Q2 Net Profit Rises 59 Per Cent To ₹3,684 Crore; Board Approves ₹6.50 Interim Dividend",
+      "source_url": "https://www.freepressjournal.in/business/shriram-finance-q2-net-profit-rises-59-per-cent-to-3684-crore-board-approves-650-interim-dividend",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-23T13:41:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T18:41:34Z",
+      "updated_at": "2026-10-23T18:41:34Z",
+      "decay_at": "2026-10-25T01:41:47Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -236171,8 +236314,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1831,
-    "live_count": 32,
+    "surfaced_total": 1833,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -236191,9 +236334,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1010483,
+    "news_seen_today": 1071106,
     "news_picked_today": 3208,
-    "news_dropped_today": 19184
+    "news_dropped_today": 19472
   },
   "book_momentum": {
     "live_count": 8,
