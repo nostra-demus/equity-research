@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T00:31:18Z",
+  "generated_at": "2026-10-23T00:44:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-002",
@@ -95,6 +95,56 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-031",
+      "headline": "PROSPEROUSPRINT (08385): (1) RESIGNATION OF EXECUTIVE DIRECTOR;(2) CLARIFICATION IN RELATION TO THEANNOUNCEMENT DATED 22 OCTOBER 2026; AND (3) WITHDRAWAL OF ORDINARY RESOLUTION AT THE EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1023/2026102300029.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-22T23:39:00Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Executive director resignation, withdrawal of EGM resolution, and clarification of prior Oct 22 announcement bundled in one filing; suggests significant corporate reversal or crisis.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Executive director resignation, withdrawal of EGM resolution, and clarification of prior Oct 22 announcement bundled in one filing; suggests significant corporate reversal or crisis.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 2,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "executive_exit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "executive_exit",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PROSPEROUSPRINT",
+          "ticker": "08385",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -199,6 +249,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261023-036",
+      "headline": "Zip Shares Slide 50% After Flagging Costs Tied to US Fraud Event",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-23/zip-shares-slide-50-after-flagging-costs-tied-to-us-fraud-event",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T00:17:05Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Zip flagged quantified costs tied to US fraud event; 50% share decline reflects material legal and potential accounting impact, a clear enforcement-related company-moving event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Zip flagged quantified costs tied to US fraud event; 50% share decline reflects material legal and potential accounting impact, a clear enforcement-related company-moving event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zip",
+          "ticker": "Z",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261023-012",
       "headline": "(LEAD) SK hynix halts review of Solidigm U.S. IPO",
       "headline_en": null,
@@ -244,6 +344,99 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-038",
+      "headline": "Australia's Zip tumbles 50% after fraud incident dents first-quarter customer growth",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/government/australias-zip-tumbles-50-after-fraud-incident-dents-first-quarter-customer-2026-10-23/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T00:25:31Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Fraud incident confirmed, Q1 customer growth impacted, stock repriced 50%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Fraud incident confirmed, Q1 customer growth impacted, stock repriced 50%.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zip Co Limited",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-041",
+      "headline": "Libya central bank raided hours after governor's exit",
+      "headline_en": null,
+      "url": "https://www.newarab.com/news/libya-central-bank-raided-hours-after-governors-exit",
+      "source_name": "The New Arab",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T16:50:33Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "The raid on the Libyan central bank following a leadership change signals severe institutional instability and potential disruption to oil-related financial flows.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "The raid on the Libyan central bank following a leadership change signals severe institutional instability and potential disruption to oil-related financial flows.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -347,61 +540,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261023-008",
-      "headline": "SK hynix halts review of Solidigm U.S. IPO",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261023000900320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T23:16:43Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "SK hynix halts review of Solidigm U.S. IPO, signaling a change in capital allocation or strategic priorities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "SK hynix halts review of Solidigm U.S. IPO, signaling a change in capital allocation or strategic priorities.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 2,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "strategic_review",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK hynix",
-          "ticker": "000660",
-          "listing_country": "KR"
-        },
-        {
-          "name": "Solidigm",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20261023-027",
       "headline": "Moderna shares plunge as leaked cancer vaccine data disappoints",
       "headline_en": null,
@@ -495,6 +633,103 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-037",
+      "headline": "SK hynix Halts Solidigm U.S. IPO Review, Responding to Shareholder Concerns",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279492",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T03:54:34Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "SK hynix halts Solidigm U.S. IPO review in response to shareholder concerns, deferring planned capital proceeds and signaling governance tension over the disposal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "SK hynix halts Solidigm U.S. IPO review in response to shareholder concerns, deferring planned capital proceeds and signaling governance tension over the disposal.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 58,
+      "rank_factors": {
+        "materiality": 58,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 12,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK hynix",
+          "ticker": "000660",
+          "listing_country": "KR"
+        },
+        {
+          "name": "Solidigm",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-039",
+      "headline": "Japan Inflation Rises Above BOJ Target, Backing Rate Hikes",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-22/japan-inflation-rises-above-boj-target-level-backing-rate-hikes",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T23:32:16Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Japan inflation exceeding the BOJ target increases the likelihood of further interest rate hikes, impacting global liquidity and currency markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Japan inflation exceeding the BOJ target increases the likelihood of further interest rate hikes, impacting global liquidity and currency markets.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -598,6 +833,98 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-032",
+      "headline": "SITOY GROUP (01023): PROPOSALS FOR GENERAL MANDATES TO ISSUE SHARES AND SELL OR TRANSFER TREASURY SHARES AND REPURCHASE SHARES, RE-ELECTION OF RETIRING DIRECTORS, RE-APPOINTMENT OF AUDITOR, DECLARATION OF SPECIAL DIVIDEND AND NOTICE OF ANNUAL GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1023/2026102300017.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-22T23:02:00Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Annual general meeting with proposed declaration of special dividend, a material capital action; headline confirms dividend but omits per-share amount, total payout, ex-date, and yield.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Annual general meeting with proposed declaration of special dividend, a material capital action; headline confirms dividend but omits per-share amount, total payout, ex-date, and yield.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SITOY GROUP",
+          "ticker": "01023",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-040",
+      "headline": "Nhava Sheva Customs Arrests Trader In ₹35-Crore Customs Duty Evasion Case",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/nhava-sheva-customs-arrests-trader-in-35-crore-customs-duty-evasion-case",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T16:51:47Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "A trader was arrested for a 35-crore customs duty evasion, representing a significant enforcement action in the logistics/trade sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "A trader was arrested for a 35-crore customs duty evasion, representing a significant enforcement action in the logistics/trade sector.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1082,6 +1409,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261023-034",
+      "headline": "Carpenter Technology Corporation Reports First Quarter Fiscal Year 2027 Results and Authorizes New $1.0 Billion Share Repurchase Program",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/carpenter-technology-corporation-reports-first-quarter-fiscal-year-2027-results-and",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T23:53:11Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Carpenter Technology authorized a $1.0 billion share repurchase program alongside Q1 FY27 results; a real capital action but routine without pricing or cash-position context.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Carpenter Technology authorized a $1.0 billion share repurchase program alongside Q1 FY27 results; a real capital action but routine without pricing or cash-position context.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Carpenter Technology Corporation",
+          "ticker": "CRS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261023-024",
       "headline": "US proposes curbs on investment in Chinese biotech firms",
       "headline_en": null,
@@ -1117,6 +1493,50 @@
       "event_types": [
         "regulatory",
         "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-035",
+      "headline": "Government plans to pare stakes in 4 PSU banks to 75%",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/govt-plans-to-pare-its-stakes-in-four-psu-banks-to-75/articleshow/135125928.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T00:30:00Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "India government announces plan to pare stakes in 4 (unnamed) PSU banks to 75%; real capital-structure policy but no company named, so not actionable for a specific investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 59,
+      "triage_reason": "India government announces plan to pare stakes in 4 (unnamed) PSU banks to 75%; real capital-structure policy but no company named, so not actionable for a specific investment.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 48,
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions",
+        "regulatory"
       ],
       "issuer_linkage": "sector",
       "companies": [],
@@ -1306,6 +1726,49 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-033",
+      "headline": "Iran war live: Trump hints new strikes, says US knocked ‘hell out’ of Iran",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/liveblog/2026/10/23/trump-hints-new-strikes-says-us-knocked-hell-out-of-iran?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-10-23T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Trump hints at further US military strikes on Iran, escalating active military conflict with potential consequences for oil markets and geopolitical risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Trump hints at further US military strikes on Iran, escalating active military conflict with potential consequences for oil markets and geopolitical risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -235851,7 +236314,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3957,
+    "inbox_unconsumed": 3967,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -235860,9 +236323,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 28494,
-    "news_picked_today": 22,
-    "news_dropped_today": 266
+    "news_seen_today": 49566,
+    "news_picked_today": 41,
+    "news_dropped_today": 367
   },
   "book_momentum": {
     "live_count": 8,
