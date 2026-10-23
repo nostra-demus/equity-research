@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-23T14:19:47Z",
+  "generated_at": "2026-10-23T14:29:41Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261023-1101",
+      "headline": "25-NSE - Perfect Corp. (0001899830) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1899830/000087666126000856/0000876661-26-000856-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-23T13:57:15Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Perfect Corp. is being delisted from the NYSE, indicating a significant negative event for the company's capital structure and market access.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Perfect Corp. is being delisted from the NYSE, indicating a significant negative event for the company's capital structure and market access.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Perfect Corp.",
+          "ticker": "PERF",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261023-1085",
       "headline": "CHINA SCE GROUP (01966): UPDATES ON THE OFFSHORE DEBT RESTRUCTURING NOTICE OF RESTRUCTURING EFFECTIVE DATE",
@@ -1936,56 +1985,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-928",
-      "headline": "Shriram Finance Q2 Results: Profit Jumps 59% To Rs 3,677 Crore, Dividend Declared | Check Record Date",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/shriram-finance-q2-results-profit-jumps-59-to-rs-3-677-crore-dividend-declared-check-record-date-12224862#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T10:16:53Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Shriram Finance reported a 59% jump in Q2 profit to 3,677 crore rupees and declared a dividend.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shriram Finance reported a 59% jump in Q2 profit to 3,677 crore rupees and declared a dividend.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shriram Finance",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235554,9 +235553,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 604177,
-    "news_picked_today": 3019,
-    "news_dropped_today": 16037
+    "news_seen_today": 618001,
+    "news_picked_today": 3021,
+    "news_dropped_today": 16107
   },
   "book_momentum": {
     "live_count": 8,
