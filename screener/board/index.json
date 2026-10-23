@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T13:24:42Z",
+  "generated_at": "2026-10-23T13:35:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-1053",
@@ -194185,76 +194185,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-021cb7d43110",
-      "idea_version": "IDEAV-4c92366d879a9c10",
-      "idea_version_started_at": "2026-10-22T07:29:08Z",
-      "ticker": "MU",
-      "company": "Micron Technology",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A strike at a key production facility threatens to disrupt output and increase labor costs, directly impacting margins.",
-      "why_now": "The strike began today, October 22, 2026, creating immediate operational uncertainty.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-52611d0d9afd"
-      ],
-      "primary_source_event_id": "EVT-52611d0d9afd",
-      "source_headlines": [
-        "Taiwan's first-ever chip workers strike begins at Micron plant"
-      ],
-      "source_headline": "Taiwan's first-ever chip workers strike begins at Micron plant",
-      "source_url": "https://asia.nikkei.com/business/tech/semiconductors/taiwan-s-first-ever-chip-workers-strike-begins-at-micron-plant",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-22T01:35:25Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-22T07:29:08Z",
-      "updated_at": "2026-10-22T07:29:08Z",
-      "decay_at": "2026-10-23T13:35:25Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-728bca4e5df0",
       "idea_version": "IDEAV-b2abd1984cc77bb7",
       "idea_version_started_at": "2026-10-23T06:49:05Z",
@@ -195971,6 +195901,76 @@
       "surfaced_at": "2026-10-19T04:16:06Z",
       "updated_at": "2026-10-22T03:15:31Z",
       "decay_at": "2026-10-23T07:13:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-021cb7d43110",
+      "idea_version": "IDEAV-4c92366d879a9c10",
+      "idea_version_started_at": "2026-10-22T07:29:08Z",
+      "ticker": "MU",
+      "company": "Micron Technology",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A strike at a key production facility threatens to disrupt output and increase labor costs, directly impacting margins.",
+      "why_now": "The strike began today, October 22, 2026, creating immediate operational uncertainty.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-52611d0d9afd"
+      ],
+      "primary_source_event_id": "EVT-52611d0d9afd",
+      "source_headlines": [
+        "Taiwan's first-ever chip workers strike begins at Micron plant"
+      ],
+      "source_headline": "Taiwan's first-ever chip workers strike begins at Micron plant",
+      "source_url": "https://asia.nikkei.com/business/tech/semiconductors/taiwan-s-first-ever-chip-workers-strike-begins-at-micron-plant",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-22T01:35:25Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-22T07:29:08Z",
+      "updated_at": "2026-10-22T07:29:08Z",
+      "decay_at": "2026-10-23T13:35:25Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -198335,9 +198335,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 533,
+    "total_count": 534,
     "shown_count": 499,
-    "hidden_count": 34,
+    "hidden_count": 35,
     "side_counts": {
       "long": {
         "total_count": 271,
@@ -198345,9 +198345,9 @@
         "hidden_count": 21
       },
       "short": {
-        "total_count": 263,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 14
       }
     },
     "retention": {
@@ -198366,6 +198366,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-021cb7d43110",
+        "idea_version": "IDEAV-4c92366d879a9c10",
+        "idea_version_started_at": "2026-10-22T07:29:08Z",
+        "ticker": "MU",
+        "company": "Micron Technology",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A strike at a key production facility threatens to disrupt output and increase labor costs, directly impacting margins.",
+        "why_now": "The strike began today, October 22, 2026, creating immediate operational uncertainty.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-52611d0d9afd"
+        ],
+        "primary_source_event_id": "EVT-52611d0d9afd",
+        "source_headlines": [
+          "Taiwan's first-ever chip workers strike begins at Micron plant"
+        ],
+        "source_headline": "Taiwan's first-ever chip workers strike begins at Micron plant",
+        "source_url": "https://asia.nikkei.com/business/tech/semiconductors/taiwan-s-first-ever-chip-workers-strike-begins-at-micron-plant",
+        "source_name": "Nikkei Asia",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-22T01:35:25Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-22T07:29:08Z",
+        "updated_at": "2026-10-22T07:29:08Z",
+        "decay_at": "2026-10-23T13:35:25Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-23T13:35:25Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-be9e8ceba9c6",
         "idea_version": "IDEAV-678c1d1d96b5f54b",
@@ -235459,85 +235532,12 @@
         "archived_at": "2026-09-29T16:06:28Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-301c9958417a",
-        "idea_version": "IDEAV-ce099f2135153b22",
-        "idea_version_started_at": "2026-09-26T15:19:48Z",
-        "ticker": "META",
-        "company": "Meta Platforms",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A New Mexico jury verdict finding 43 million violations of consumer protection law creates a massive potential liability that could reach $200 billion, threatening the company's balance sheet and cash reserves.",
-        "why_now": "The verdict was delivered on 2026-09-26, creating immediate legal and financial uncertainty.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 67,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-05a5ca8f3d6e"
-        ],
-        "primary_source_event_id": "EVT-05a5ca8f3d6e",
-        "source_headlines": [
-          "New Mexico jury finds Facebook liable for over 43 million violations of consumer protection law—and Meta could owe over $200 billion in penalties"
-        ],
-        "source_headline": "New Mexico jury finds Facebook liable for over 43 million violations of consumer protection law—and Meta could owe over $200 billion in penalties",
-        "source_url": "https://fortune.com/2026/09/26/facebook-liable-violations-new-mexico-consumer-protection-lawand-meta-200-billion-penalties/",
-        "source_name": "Fortune",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-26T14:25:57Z",
-        "prior_coverage": {
-          "has_run": true,
-          "latest_run": "analyses/META_2026-08-31",
-          "latest_decision": null,
-          "data_pool_present": true
-        },
-        "surfaced_at": "2026-09-26T15:19:48Z",
-        "updated_at": "2026-09-26T15:19:48Z",
-        "decay_at": "2026-09-28T02:25:57Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-29T16:06:28Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1821,
-    "live_count": 27,
+    "live_count": 26,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -235556,9 +235556,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 527706,
-    "news_picked_today": 2957,
-    "news_dropped_today": 15091
+    "news_seen_today": 541870,
+    "news_picked_today": 2962,
+    "news_dropped_today": 15278
   },
   "book_momentum": {
     "live_count": 8,
