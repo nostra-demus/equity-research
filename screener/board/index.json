@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T12:05:56Z",
+  "generated_at": "2026-10-23T12:15:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-1007",
@@ -494,6 +494,57 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-1019",
+      "headline": "FTAI Infrastructure Inc. Subsidiaries Announce Proposed $270 million Private Offering to Fund $255 million Acquisition",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/ftai-infrastructure-inc-subsidiaries-announce-proposed-270-million-private-offering-fund",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T11:33:13Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Subsidiaries announce $270 million private offering to fund $255 million acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Subsidiaries announce $270 million private offering to fund $255 million acquisition.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna",
+        "debt_credit",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FTAI Infrastructure Inc.",
+          "ticker": "FTAI",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1930,55 +1981,6 @@
           "name": "Bombardier",
           "ticker": null,
           "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-792",
-      "headline": "Swiggy stock drops 4.4% after wider losses in quick-commerce business",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/stock-markets/swiggy-stock-drops-44-after-wider-losses-in-quick-commerce-business/article71614491.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T04:08:17Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Swiggy stock dropped 4.4% following a report of wider losses in its quick-commerce business segment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Swiggy stock dropped 4.4% following a report of wider losses in its quick-commerce business segment.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Swiggy",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -235820,9 +235822,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 436124,
-    "news_picked_today": 2833,
-    "news_dropped_today": 14255
+    "news_seen_today": 443742,
+    "news_picked_today": 2845,
+    "news_dropped_today": 14291
   },
   "book_momentum": {
     "live_count": 8,
