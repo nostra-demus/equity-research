@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T16:30:52Z",
+  "generated_at": "2026-10-23T16:34:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-1159",
@@ -832,6 +832,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-1166",
+      "headline": "Infosys Limited Reports Q2 Revenues of $5,145 million and Revises FY 27 Revenue Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/infosys-limited-reports-q2-revenues-5145-million-and-revises-fy-27-revenue-guidance",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T15:50:21Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Infosys reports Q2 revenues of $5,145 million and revises FY27 revenue guidance",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Infosys reports Q2 revenues of $5,145 million and revises FY27 revenue guidance",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Infosys Limited",
+          "ticker": "INFY",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1932,55 +1982,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-1051",
-      "headline": "Infosys FY27 Guidance Cut Counters $5.2B Deal Bonanza, AI Revenue Uptick; Margins Steady Amid External Headwinds",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/infosys-fy27-guidance-cut-counters-5-2b-deal-bonanza-ai-revenue-uptick-margins-steady-amid-external-headwinds-12225847#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:32:31Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Infosys cut its FY27 guidance despite a $5.2 billion deal win.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Infosys cut its FY27 guidance despite a $5.2 billion deal win.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Infosys",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -236188,9 +236189,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 782535,
-    "news_picked_today": 3136,
-    "news_dropped_today": 17744
+    "news_seen_today": 792841,
+    "news_picked_today": 3151,
+    "news_dropped_today": 17753
   },
   "book_momentum": {
     "live_count": 8,
