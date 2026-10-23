@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-23T11:56:39Z",
+  "generated_at": "2026-10-23T12:01:47Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261023-991",
+      "headline": "CMOC (03993): 2026 THIRD QUARTERLY FINANCIAL REPORT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1023/2026102301163.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-23T11:01:00Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "CMOC released its 2026 third quarter financial report, which is a key periodic disclosure for investors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CMOC released its 2026 third quarter financial report, which is a key periodic disclosure for investors.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CMOC Group Limited",
+          "ticker": "03993",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261023-936",
       "headline": "IndusInd Bank Limited: Indusind Bank Limited has informed the Exchange regarding a press release dated October 23, 2026, titled \"INDUSIND BANK LIMITED ANNOUNCES FINANCIAL RESULTS FOR THE QUARTER AND HALF YEAR ENDED SEPTEMBER 30, 2026\".",
@@ -1934,56 +1983,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-789",
-      "headline": "BranchOut Food Inc. Announces Proposed Public Offering and Expects Record Q4 Revenue of $6 million to $7 million",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/branchout-food-inc-announces-proposed-public-offering-and-expects-record-q4-revenue-6",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T03:00:55Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "BranchOut Food announced a public offering and provided specific Q4 revenue guidance of $6 million to $7 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BranchOut Food announced a public offering and provided specific Q4 revenue guidance of $6 million to $7 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "guidance_change",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BranchOut Food Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235824,9 +235823,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 428666,
-    "news_picked_today": 2811,
-    "news_dropped_today": 14205
+    "news_seen_today": 432335,
+    "news_picked_today": 2814,
+    "news_dropped_today": 14250
   },
   "book_momentum": {
     "live_count": 8,
