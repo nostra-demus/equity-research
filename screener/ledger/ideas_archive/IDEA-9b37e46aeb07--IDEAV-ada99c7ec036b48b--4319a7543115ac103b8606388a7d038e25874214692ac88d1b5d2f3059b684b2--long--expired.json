@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-09T02:44:31Z",
+  "archived_at": "2026-10-22T23:50:46Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-2c6e860326a2",
-    "idea_version": "IDEAV-7b25cf3a26a2fbfd",
-    "idea_version_started_at": "2026-10-06T03:10:09Z",
-    "ticker": "CEG",
-    "company": "Constellation Energy",
-    "exchange": "NASDAQ",
+    "idea_id": "IDEA-9b37e46aeb07",
+    "idea_version": "IDEAV-ada99c7ec036b48b",
+    "idea_version_started_at": "2026-10-19T23:11:18Z",
+    "ticker": "CLF",
+    "company": "Cleveland-Cliffs",
+    "exchange": "NYSE",
     "ticker_verified": true,
     "listing_verified": true,
     "liquidity_verified": false,
     "listing_verification_source": "yahoo_symbol_directory",
     "direction": "long",
     "pair_with": null,
-    "reason": "The company is finalizing a billion-dollar deal to supply nuclear power to Google, which provides a long-term, high-margin revenue stream from the growing data center energy demand.",
-    "why_now": "The deal is reported to be near completion as of October 6, 2026.",
-    "conviction": 85,
+    "reason": "The company reported stronger-than-expected Q3 results and raised its 2027 EBITDA outlook, signaling improved operational efficiency and margin expansion.",
+    "why_now": "The guidance update was released on October 19, 2026, providing a fresh catalyst for valuation re-rating.",
+    "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
-    "trade_score": 65,
+    "trade_score": 60,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 19,
+      "impact": 20,
       "specificity": 15,
       "timing": 10,
       "expression": 7,
@@ -34,6 +34,7 @@
     "missing_checks": [
       "live liquidity",
       "dated catalyst",
+      "priced-in risk",
       "independent confirmation",
       "live price, liquidity, and consensus"
     ],
@@ -46,31 +47,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "room",
+    "priced_in": "priced",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-7b6856d75fe5"
+      "EVT-8195c25709bf"
     ],
-    "primary_source_event_id": "EVT-7b6856d75fe5",
+    "primary_source_event_id": "EVT-8195c25709bf",
     "source_headlines": [
-      "Google, Constellation near billion-dollar deal for nuclear power"
+      "Stock Market Today, Oct. 19: Cleveland-Cliffs Surges on Stronger Q3 Results and Raised 2027 EBITDA Outlook"
     ],
-    "source_headline": "Google, Constellation near billion-dollar deal for nuclear power",
-    "source_url": "https://www.cnbctv18.com/business/alphabet-google-constellation-near-billion-dollar-deal-for-nuclear-power-energy-artificial-intelligence-data-center-20005305.htm",
-    "source_name": "CNBC-TV18",
+    "source_headline": "Stock Market Today, Oct. 19: Cleveland-Cliffs Surges on Stronger Q3 Results and Raised 2027 EBITDA Outlook",
+    "source_url": "https://www.nasdaq.com/articles/stock-market-today-oct-19-cleveland-cliffs-surges-stronger-q3-results-and-raised-2027",
+    "source_name": "Nasdaq",
     "materiality_max": 100,
-    "newest_source_at": "2026-10-06T02:42:15Z",
+    "newest_source_at": "2026-10-19T21:37:27Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-06T03:10:09Z",
-    "updated_at": "2026-10-06T03:10:09Z",
-    "decay_at": "2026-10-07T14:42:15Z",
+    "surfaced_at": "2026-10-19T23:11:18Z",
+    "updated_at": "2026-10-19T23:11:18Z",
+    "decay_at": "2026-10-21T09:37:27Z",
     "status": "live",
     "promoted_signal_id": null
   }
