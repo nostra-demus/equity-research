@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T16:26:59Z",
+  "generated_at": "2026-10-23T16:30:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-1159",
@@ -193965,26 +193965,26 @@
   "ideas": [
     {
       "idea_id": "IDEA-58d3e0cadc2a",
-      "idea_version": "IDEAV-924840ecfbdfee07",
-      "idea_version_started_at": "2026-10-23T15:52:59Z",
+      "idea_version": "IDEAV-94ccd0e8839b2a04",
+      "idea_version_started_at": "2026-10-23T16:30:30Z",
       "ticker": "INFY",
       "company": "Infosys Limited",
       "exchange": "NYSE",
       "direction": "short",
       "pair_with": null,
-      "reason": "The company cut its FY27 topline guidance and flagged pricing pressure, which outweighs the positive impact of new deal wins and AI revenue growth.",
-      "why_now": "The guidance cut was announced today, October 23, 2026, alongside Q2 results.",
-      "conviction": 80,
+      "reason": "The company reported a guidance cut for FY27, signaling weaker-than-expected future growth despite steady margins and recent deal wins.",
+      "why_now": "The guidance cut was reported following the Q2 results released on October 23, 2026.",
+      "conviction": 75,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 88,
+      "trade_score": 84,
       "trade_score_basis": "event_driven_v3",
       "trade_score_breakdown": {
         "evidence": 25,
-        "impact": 21,
+        "impact": 20,
         "specificity": 15,
         "timing": 10,
         "expression": 7,
-        "corroboration": 10,
+        "corroboration": 7,
         "learning_adjustment": 0
       },
       "trade_readiness": "needs_data",
@@ -194008,13 +194008,11 @@
       "source_themes": [],
       "source_event_ids": [
         "EVT-2240a834510b",
-        "EVT-7867d6022e18",
         "EVT-73f1ccb097a7"
       ],
       "primary_source_event_id": "EVT-2240a834510b",
       "source_headlines": [
         "Infosys Limited: Infosys Limited has submitted to the Exchange, Financial Results for the quarter and half year ended September 30, 2026 and declaration of interim dividend",
-        "Infosys Q2 results Highlights: Infosys cuts FY27 topline guidance, flags pricing pressure; ADR falls",
         "Infosys FY27 Guidance Cut Counters $5.2B Deal Bonanza, AI Revenue Uptick; Margins Steady Amid External Headwinds"
       ],
       "source_headline": "Infosys Limited: Infosys Limited has submitted to the Exchange, Financial Results for the quarter and half year ended September 30, 2026 and declaration of interim dividend",
@@ -194029,7 +194027,7 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-10-23T15:10:57Z",
-      "updated_at": "2026-10-23T15:52:59Z",
+      "updated_at": "2026-10-23T16:30:30Z",
       "decay_at": "2026-10-25T00:32:31Z",
       "status": "live",
       "promoted_signal_id": null,
@@ -194173,6 +194171,75 @@
       "surfaced_at": "2026-10-23T06:49:05Z",
       "updated_at": "2026-10-23T06:49:05Z",
       "decay_at": "2026-10-24T03:24:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-b85a0a4334ae",
+      "idea_version": "IDEAV-1e8de2d2906e05bc",
+      "idea_version_started_at": "2026-10-23T16:30:30Z",
+      "ticker": "PERF",
+      "company": "Perfect Corp.",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is facing a delisting notification from the exchange, which typically precedes severe liquidity or governance issues.",
+      "why_now": "The SEC filing for the delisting notification was processed on October 23, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 76,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3da582a1ce27"
+      ],
+      "primary_source_event_id": "EVT-3da582a1ce27",
+      "source_headlines": [
+        "25-NSE - Perfect Corp. (0001899830) (Subject)"
+      ],
+      "source_headline": "25-NSE - Perfect Corp. (0001899830) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1899830/000087666126000856/0000876661-26-000856-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-23T13:57:15Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T16:30:30Z",
+      "updated_at": "2026-10-23T16:30:30Z",
+      "decay_at": "2026-10-25T01:57:15Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -194947,6 +195014,77 @@
       "surfaced_at": "2026-10-22T11:04:03Z",
       "updated_at": "2026-10-22T11:04:03Z",
       "decay_at": "2026-10-23T20:06:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-2e56dda7a636",
+      "idea_version": "IDEAV-7c70b2ebfcd1305b",
+      "idea_version_started_at": "2026-10-23T16:30:30Z",
+      "ticker": "CGPOWER",
+      "company": "CG Power and Industrial Solutions Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is expanding its manufacturing capacity, which directly increases its potential for revenue growth in the industrial power sector.",
+      "why_now": "The capacity addition was officially announced via exchange filing on October 23, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7503987cbbce"
+      ],
+      "primary_source_event_id": "EVT-7503987cbbce",
+      "source_headlines": [
+        "CG Power and Industrial Solutions Limited: CG Power and Industrial Solutions Limited has informed the Exchange about Capacity addition"
+      ],
+      "source_headline": "CG Power and Industrial Solutions Limited: CG Power and Industrial Solutions Limited has informed the Exchange about Capacity addition",
+      "source_url": "https://nsearchives.nseindia.com/corporate/CGPOWER_23102026142708_OutcomeoftheBoardMeeting23102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-23T08:57:28Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T16:30:30Z",
+      "updated_at": "2026-10-23T16:30:30Z",
+      "decay_at": "2026-10-24T20:57:28Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -236030,8 +236168,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1829,
-    "live_count": 33,
+    "surfaced_total": 1831,
+    "live_count": 35,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -236050,7 +236188,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 777370,
+    "news_seen_today": 782535,
     "news_picked_today": 3136,
     "news_dropped_today": 17744
   },
