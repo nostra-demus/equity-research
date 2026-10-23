@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-23T04:01:42Z",
+  "generated_at": "2026-10-23T04:02:41Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261023-767",
+      "headline": "Welspun Corp Limited: Welspun Corp Limited has informed the Exchange about Bagging/Receiving of orders/contracts - Welspun Corp Awarded a Very Large and Prestigious Order, Valued at approx ( approx. Rs.5,500 crore) to Supply Coated Line Pipes for a Natural Gas Pipeline Project in USA",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/WELCORP_23102026090904_SEOrder.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-23T03:39:17Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Welspun Corp secured a major contract valued at approximately Rs. 5,500 crore for a natural gas pipeline project in the USA.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Welspun Corp secured a major contract valued at approximately Rs. 5,500 crore for a natural gas pipeline project in the USA.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Welspun Corp Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261023-762",
       "headline": "SoftBank Loses Half Its Market Value in Four Months as AI Debt Fears Mount",
@@ -1970,55 +2019,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-689",
-      "headline": "Investor EQT bietet 10,8 Mrd Euro für Dax-Konzern Qiagen",
-      "headline_en": "Investor EQT offers 10.8 billion Euro for DAX company Qiagen",
-      "url": "https://www.reuters.com/de/firma/investor-eqt-bietet-108-mrd-euro-fr-dax-konzern-qiagen-2026-10-22/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T06:46:58Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "EQT offers 10.8 billion Euro to acquire Qiagen.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "EQT offers 10.8 billion Euro to acquire Qiagen.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Qiagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -236433,9 +236433,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 219101,
-    "news_picked_today": 1917,
-    "news_dropped_today": 4515
+    "news_seen_today": 220499,
+    "news_picked_today": 1922,
+    "news_dropped_today": 4534
   },
   "book_momentum": {
     "live_count": 8,
