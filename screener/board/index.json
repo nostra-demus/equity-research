@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T01:02:22Z",
+  "generated_at": "2026-10-23T01:10:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-002",
@@ -301,6 +301,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261023-076",
+      "headline": "Blackstone Leads Debt for Gooch & Housego’s Take-Private",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-22/blackstone-leads-debt-package-to-take-gooch-housego-private",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T16:30:38Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Blackstone-led take-private of Gooch & Housego announced with debt financing arranged; change of control and delisting.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Blackstone-led take-private of Gooch & Housego announced with debt financing arranged; change of control and delisting.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gooch & Housego",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-085",
+      "headline": "Pentagon, Lockheed Martin agree to produce 850 F-35 jets over 10 years",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/pentagon-lockheed-martin-agree-to-produce-850-f-35-jets-over-10-years-20017383.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T16:25:06Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Pentagon and Lockheed Martin agree on 850 F-35 jets over 10 years—a quantified, multi-year production-capacity commitment expanding backlog and revenue visibility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Pentagon and Lockheed Martin agree on 850 F-35 jets over 10 years—a quantified, multi-year production-capacity commitment expanding backlog and revenue visibility.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lockheed Martin",
+          "ticker": "LMT",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261023-031",
       "headline": "PROSPEROUSPRINT (08385): (1) RESIGNATION OF EXECUTIVE DIRECTOR;(2) CLARIFICATION IN RELATION TO THEANNOUNCEMENT DATED 22 OCTOBER 2026; AND (3) WITHDRAWAL OF ORDINARY RESOLUTION AT THE EXTRAORDINARY GENERAL MEETING",
       "headline_en": null,
@@ -346,55 +444,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-013",
-      "headline": "Pentagon, Lockheed announce agreement for 850 F-35 jets over 10 years",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/americas/pentagon-lockheed-announce-agreement-for-850-f-35-jets-over-10-years-1.500720044",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T23:29:35Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Pentagon and Lockheed Martin confirm procurement agreement for 850 F-35 aircraft over 10 years, a confirmed multi-billion-dollar defense contract.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Pentagon and Lockheed Martin confirm procurement agreement for 850 F-35 aircraft over 10 years, a confirmed multi-billion-dollar defense contract.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lockheed Martin",
-          "ticker": "LMT",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -642,6 +691,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-078",
+      "headline": "Vinci-CA +5% au T3, évalue à €450 mlns l'impact éventuel de la taxe sur les infrastructures de transport",
+      "headline_en": "Vinci revenue +5% in Q3; evaluates potential €450 million impact from proposed transport infrastructure tax.",
+      "url": "https://www.reuters.com/fr/affaires/vinci-ca-5-au-t3-value-450-mlns-limpact-ventuel-de-la-taxe-sur-les-2026-10-22/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T16:33:03Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Vinci Q3 revenue +5% offset by €450 million quantified potential impact from proposed transport infrastructure tax.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Vinci Q3 revenue +5% offset by €450 million quantified potential impact from proposed transport infrastructure tax.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vinci",
+          "ticker": "VI",
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -986,6 +1085,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261023-077",
+      "headline": "L'Oréal dépasse les attentes au T3 avec le rebond de la demande en Chine",
+      "headline_en": "L'Oréal exceeds expectations in Q3 with rebound in China demand.",
+      "url": "https://www.reuters.com/fr/affaires/loral-dpasse-les-attentes-au-t3-avec-le-rebond-de-la-demande-en-chine-2026-10-22/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T16:34:59Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "L'Oréal Q3 earnings beat expectations with China demand recovery, a key geographic driver.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "L'Oréal Q3 earnings beat expectations with China demand recovery, a key geographic driver.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "L'Oréal",
+          "ticker": "OR",
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261023-019",
       "headline": "Boroo signs $100M deal for Yukon Eagle gold mine",
       "headline_en": null,
@@ -1035,6 +1183,106 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261023-075",
+      "headline": "Autobauer: Zwei Werke gegen Trumps Zölle – Audis geheimer Amerika-Plan",
+      "headline_en": "Automaker: Two Plants Against Trump's Tariffs—Audi's Secret America Plan",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/autobauer-zwei-werke-gegen-trumps-zoelle-audis-geheimer-amerika-plan/100263660.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T16:48:20Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Audi plans two U.S. manufacturing plants to mitigate Trump tariff exposure, a material capex and strategic production-footprint shift.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Audi plans two U.S. manufacturing plants to mitigate Trump tariff exposure, a material capex and strategic production-footprint shift.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex",
+        "commercial",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen Group (Audi)",
+          "ticker": "VOW3",
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-079",
+      "headline": "Microsoft files for data center campus in Floyd County, Georgia",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/microsoft-files-for-data-center-campus-in-floyd-county-georgia/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T16:30:25Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Microsoft files for a data-center campus in Georgia, a major capex investment signalling AI/cloud infrastructure expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Microsoft files for a data-center campus in Georgia, a major capex investment signalling AI/cloud infrastructure expansion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Microsoft",
+          "ticker": "MSFT",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261023-065",
       "headline": "Apple’s iPhone Duo Hits Stores in Face of Short Supply and High Demand",
       "headline_en": null,
@@ -1079,6 +1327,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-084",
+      "headline": "We just raised another $550 million to bring AI to the legal industry. I still believe there will be more work than lawyers",
+      "headline_en": null,
+      "url": "https://fortune.com/2026/10/22/legora-55-million-raise-ai-legal-industry-letter-max-junestrand/",
+      "source_name": "Fortune",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T16:25:23Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "An unidentified AI/legal-tech company reports a $550 million funding round, a material capital event if confirmed, but company identity and exact date missing from opinion-column headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "An unidentified AI/legal-tech company reports a $550 million funding round, a material capital event if confirmed, but company identity and exact date missing from opinion-column headline.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 20,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1426,6 +1717,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261023-080",
+      "headline": "David’s Bridal to spin off Pearl into stand-alone, publicly traded company",
+      "headline_en": null,
+      "url": "https://www.retaildive.com/news/davids-bridal-spin-off-pearl-AI-stand-alone-publicly-traded-company/833699/",
+      "source_name": "Retail Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T16:29:00Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "David's Bridal announces spin-off of Pearl jewelry unit into standalone publicly traded company, altering capital structure and shareholder value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "David's Bridal announces spin-off of Pearl jewelry unit into standalone publicly traded company, altering capital structure and shareholder value.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "David's Bridal",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261023-032",
       "headline": "SITOY GROUP (01023): PROPOSALS FOR GENERAL MANDATES TO ISSUE SHARES AND SELL OR TRANSFER TREASURY SHARES AND REPURCHASE SHARES, RE-ELECTION OF RETIRING DIRECTORS, RE-APPOINTMENT OF AUDITOR, DECLARATION OF SPECIAL DIVIDEND AND NOTICE OF ANNUAL GENERAL MEETING",
       "headline_en": null,
@@ -1608,349 +1948,6 @@
           "name": "Yes Bank",
           "ticker": "YESBANK",
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-048",
-      "headline": "OEC: Quarterly Activities/Appendix 4C Cash Flow Report [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OEC?key=2924-03152249-6A1350917",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-23T00:23:21Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "OEC released its quarterly cash flow report, which is a standard but price-sensitive disclosure for small-cap entities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 78,
-      "triage_reason": "OEC released its quarterly cash flow report, which is a standard but price-sensitive disclosure for small-cap entities.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OEC",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-022",
-      "headline": "JetBlue (JBLU) Stock, Bonds Plunge to Record Lows, Signaling Danger",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-22/jetblue-jblu-stock-bonds-plunge-to-record-lows-signaling-danger",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T22:23:40Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "JetBlue's stock and bonds both at record lows signal emerging financial distress and raise default risk, but no formal credit event (rating downgrade, covenant breach, bankruptcy filing) disclosed yet.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "JetBlue's stock and bonds both at record lows signal emerging financial distress and raise default risk, but no formal credit event (rating downgrade, covenant breach, bankruptcy filing) disclosed yet.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JetBlue Airways",
-          "ticker": "JBLU",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-001",
-      "headline": "SCHEDULE 13D/A - Suncrete, Inc. (0002094433) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2094433/000119312526429200/0001193125-26-429200-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-22T23:30:15Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Amended Schedule 13D for Suncrete, Inc. signals a major shareholder (>5% holder) updated its ownership disclosure, but the amendment's content and any change in stake size or stated intent are not specified in the headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "Amended Schedule 13D for Suncrete, Inc. signals a major shareholder (>5% holder) updated its ownership disclosure, but the amendment's content and any change in stake size or stated intent are not specified in the headline.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 51,
-      "rank_factors": {
-        "materiality": 51,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Suncrete, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-018",
-      "headline": "Nebius borrows $3.5 billion as investors question neocloud debt",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/investing/nebius-citi-bridge-loan-gpu-prices",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T22:37:00Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Nebius raises $3.5 billion in debt while market questions neocloud-sector leverage.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "Nebius raises $3.5 billion in debt while market questions neocloud-sector leverage.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 58,
-      "rank_factors": {
-        "materiality": 58,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nebius",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-026",
-      "headline": "eMudhra to exit global SSL/TLS business, shares tank",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/emudhra-to-exit-global-ssl/tls-business-shares-tank/articleshow/135127748.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T22:10:27Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "eMudhra announced exit from global SSL/TLS business; financial impact (revenue %, margin effect) not quantified but represents confirmed material portfolio discontinuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "eMudhra announced exit from global SSL/TLS business; financial impact (revenue %, margin effect) not quantified but represents confirmed material portfolio discontinuation.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 58,
-      "rank_factors": {
-        "materiality": 58,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "eMudhra",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-029",
-      "headline": "SK Hynix says Solidigm drops plan for US IPO amid market volatility",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/sk-hynix-drops-us-ipo-plan-solidigm-newspaper-reports-2026-10-22/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T21:57:25Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "SK Hynix's Solidigm subsidiary cancels planned US IPO, deferring capital-raise optionality and signaling weak semiconductor equity market conditions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "SK Hynix's Solidigm subsidiary cancels planned US IPO, deferring capital-raise optionality and signaling weak semiconductor equity market conditions.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 58,
-      "rank_factors": {
-        "materiality": 58,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK Hynix",
-          "ticker": "000660.KS",
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-004",
-      "headline": "Deckers results show aggressive discounts from rivals are hitting premium brands",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/deckers-results-show-aggressive-discounts-rivals-are-hitting-premium-brands-2026-10-22/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T22:41:34Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Deckers reports Q3 earnings; market analysis attributes margin/demand pressure to aggressive competitor discounting in premium apparel, but headline gives no specific numbers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Deckers reports Q3 earnings; market analysis attributes margin/demand pressure to aggressive competitor discounting in premium apparel, but headline gives no specific numbers.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 52,
-      "rank_factors": {
-        "materiality": 52,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Deckers",
-          "ticker": "DECK",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -195649,78 +195646,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-05d78fe56142",
-      "idea_version": "IDEAV-e81cda03748f9804",
-      "idea_version_started_at": "2026-10-22T00:53:32Z",
-      "ticker": "SCHMID",
-      "company": "Schmid Group",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company more than doubled its Q3 order intake and raised its FY26 guidance, indicating a significant acceleration in demand for its equipment.",
-      "why_now": "The guidance update and new $25 million order were announced on October 21, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1e17db55665a"
-      ],
-      "primary_source_event_id": "EVT-1e17db55665a",
-      "source_headlines": [
-        "SCHMID Q3 Order Intake More Than Doubles, Lifts FY26 Order Guidance; Bags $25 Mln Order, Shares Up"
-      ],
-      "source_headline": "SCHMID Q3 Order Intake More Than Doubles, Lifts FY26 Order Guidance; Bags $25 Mln Order, Shares Up",
-      "source_url": "https://www.nasdaq.com/articles/schmid-q3-order-intake-more-doubles-lifts-fy26-order-guidance-bags-25-mln-order-shares",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-21T13:06:36Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-22T00:53:32Z",
-      "updated_at": "2026-10-22T00:53:32Z",
-      "decay_at": "2026-10-23T01:06:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-abd218ca6c78",
       "idea_version": "IDEAV-71e79dc693f22d71",
       "idea_version_started_at": "2026-10-20T13:59:38Z",
@@ -196910,6 +196835,78 @@
       "surfaced_at": "2026-10-22T01:34:02Z",
       "updated_at": "2026-10-22T01:34:02Z",
       "decay_at": "2026-10-23T00:46:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-05d78fe56142",
+      "idea_version": "IDEAV-e81cda03748f9804",
+      "idea_version_started_at": "2026-10-22T00:53:32Z",
+      "ticker": "SCHMID",
+      "company": "Schmid Group",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company more than doubled its Q3 order intake and raised its FY26 guidance, indicating a significant acceleration in demand for its equipment.",
+      "why_now": "The guidance update and new $25 million order were announced on October 21, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1e17db55665a"
+      ],
+      "primary_source_event_id": "EVT-1e17db55665a",
+      "source_headlines": [
+        "SCHMID Q3 Order Intake More Than Doubles, Lifts FY26 Order Guidance; Bags $25 Mln Order, Shares Up"
+      ],
+      "source_headline": "SCHMID Q3 Order Intake More Than Doubles, Lifts FY26 Order Guidance; Bags $25 Mln Order, Shares Up",
+      "source_url": "https://www.nasdaq.com/articles/schmid-q3-order-intake-more-doubles-lifts-fy26-order-guidance-bags-25-mln-order-shares",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-21T13:06:36Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-22T00:53:32Z",
+      "updated_at": "2026-10-22T00:53:32Z",
+      "decay_at": "2026-10-23T01:06:36Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -199147,14 +199144,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 547,
+    "total_count": 548,
     "shown_count": 499,
-    "hidden_count": 48,
+    "hidden_count": 49,
     "side_counts": {
       "long": {
-        "total_count": 286,
+        "total_count": 287,
         "shown_count": 250,
-        "hidden_count": 36
+        "hidden_count": 37
       },
       "short": {
         "total_count": 262,
@@ -199178,6 +199175,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-05d78fe56142",
+        "idea_version": "IDEAV-e81cda03748f9804",
+        "idea_version_started_at": "2026-10-22T00:53:32Z",
+        "ticker": "SCHMID",
+        "company": "Schmid Group",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company more than doubled its Q3 order intake and raised its FY26 guidance, indicating a significant acceleration in demand for its equipment.",
+        "why_now": "The guidance update and new $25 million order were announced on October 21, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1e17db55665a"
+        ],
+        "primary_source_event_id": "EVT-1e17db55665a",
+        "source_headlines": [
+          "SCHMID Q3 Order Intake More Than Doubles, Lifts FY26 Order Guidance; Bags $25 Mln Order, Shares Up"
+        ],
+        "source_headline": "SCHMID Q3 Order Intake More Than Doubles, Lifts FY26 Order Guidance; Bags $25 Mln Order, Shares Up",
+        "source_url": "https://www.nasdaq.com/articles/schmid-q3-order-intake-more-doubles-lifts-fy26-order-guidance-bags-25-mln-order-shares",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-21T13:06:36Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-22T00:53:32Z",
+        "updated_at": "2026-10-22T00:53:32Z",
+        "decay_at": "2026-10-23T01:06:36Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-23T01:06:36Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-17f472c61afc",
         "idea_version": "IDEAV-ab4a26fa4707e8a9",
@@ -226580,79 +226652,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-850cc3e2123d",
-        "idea_version": "IDEAV-f1b28979f3548f01",
-        "idea_version_started_at": "2026-10-07T20:26:28Z",
-        "ticker": "CVE",
-        "company": "Cenovus Energy Inc.",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Cenovus is acquiring Athabasca Oil for $4B, which expands its oil sands asset base and increases production capacity.",
-        "why_now": "The deal was announced today, October 7, 2026, providing an immediate catalyst for consolidation in the energy sector.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 66,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5d88a5fea193"
-        ],
-        "primary_source_event_id": "EVT-5d88a5fea193",
-        "source_headlines": [
-          "Cenovus to Buy Athabasca in Deal Worth $4B"
-        ],
-        "source_headline": "Cenovus to Buy Athabasca in Deal Worth $4B",
-        "source_url": "https://www.rigzone.com/news/cenovus_to_buy_athabasca_in_deal_worth_4b-07-oct-2026-184791-article/?rss=true",
-        "source_name": "Rigzone",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-07T11:38:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-07T20:26:28Z",
-        "updated_at": "2026-10-07T20:26:28Z",
-        "decay_at": "2026-10-08T23:38:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-10T13:14:51Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-48fab202d92b",
         "idea_version": "IDEAV-65c5e22efadad95c",
         "idea_version_started_at": "2026-10-07T20:55:35Z",
@@ -236344,7 +236343,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1806,
-    "live_count": 25,
+    "live_count": 24,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -236363,9 +236362,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 70383,
-    "news_picked_today": 72,
-    "news_dropped_today": 480
+    "news_seen_today": 83913,
+    "news_picked_today": 88,
+    "news_dropped_today": 536
   },
   "book_momentum": {
     "live_count": 8,
