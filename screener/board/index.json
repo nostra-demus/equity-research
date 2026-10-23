@@ -1,6 +1,153 @@
 {
-  "generated_at": "2026-10-23T00:00:17Z",
+  "generated_at": "2026-10-23T00:11:20Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261023-002",
+      "headline": "SDF: Scheme of Arrangement - Outcome of First Court Hearing [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SDF?key=2924-03152217-2A1705790",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-22T23:22:51Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "A court's first-stage determination on a scheme-of-arrangement application is an official capital-structure event marked price-sensitive by the ASX, though the hearing outcome and subsequent procedural steps remain unspecified.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "A court's first-stage determination on a scheme-of-arrangement application is an official capital-structure event marked price-sensitive by the ASX, though the hearing outcome and subsequent procedural steps remain unspecified.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SDF",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-001",
+      "headline": "SCHEDULE 13D/A - Suncrete, Inc. (0002094433) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2094433/000119312526429200/0001193125-26-429200-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-22T23:30:15Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Amended Schedule 13D for Suncrete, Inc. signals a major shareholder (>5% holder) updated its ownership disclosure, but the amendment's content and any change in stake size or stated intent are not specified in the headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "Amended Schedule 13D for Suncrete, Inc. signals a major shareholder (>5% holder) updated its ownership disclosure, but the amendment's content and any change in stake size or stated intent are not specified in the headline.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 51,
+      "rank_factors": {
+        "materiality": 51,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Suncrete, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-003",
+      "headline": "Therakos erhält in Europa die MDR-Zulassung zur Behandlung immunbedingter unerwünschter Ereignisse bei Patienten, die unzureichend auf Kortikosteroide ansprechen",
+      "headline_en": "Therakos receives MDR approval in Europe for treatment of immune-related adverse events in patients responding inadequately to corticosteroids",
+      "url": "https://www.prnewswire.com/news-releases/therakos-erhalt-in-europa-die-mdr-zulassung-zur-behandlung-immunbedingter-unerwunschter-ereignisse-bei-patienten-die-unzureichend-auf-kortikosteroide-ansprechen-302917529.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-22T23:37:00Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "European MDR regulatory approval for immune-related adverse event treatment expands commercial pathway in EU and enables revenue generation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 49,
+      "triage_reason": "European MDR regulatory approval for immune-related adverse event treatment expands commercial pathway in EU and enables revenue generation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Therakos",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261022-1078",
       "headline": "25-NSE/A - Armada Acquisition Corp. II (0002044009) (Subject)",
@@ -234396,7 +234543,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3927,
+    "inbox_unconsumed": 3930,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -234405,9 +234552,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 0,
-    "news_picked_today": 0,
-    "news_dropped_today": 0
+    "news_seen_today": 7244,
+    "news_picked_today": 3,
+    "news_dropped_today": 141
   },
   "book_momentum": {
     "live_count": 8,
