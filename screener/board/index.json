@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T19:34:23Z",
+  "generated_at": "2026-10-23T19:35:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-1159",
@@ -193961,77 +193961,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-58d3e0cadc2a",
-      "idea_version": "IDEAV-94ccd0e8839b2a04",
-      "idea_version_started_at": "2026-10-23T16:30:30Z",
-      "ticker": "INFY",
-      "company": "Infosys Limited",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported a guidance cut for FY27, signaling weaker-than-expected future growth despite steady margins and recent deal wins.",
-      "why_now": "The guidance cut was reported following the Q2 results released on October 23, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 84,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2240a834510b",
-        "EVT-73f1ccb097a7"
-      ],
-      "primary_source_event_id": "EVT-2240a834510b",
-      "source_headlines": [
-        "Infosys Limited: Infosys Limited has submitted to the Exchange, Financial Results for the quarter and half year ended September 30, 2026 and declaration of interim dividend",
-        "Infosys FY27 Guidance Cut Counters $5.2B Deal Bonanza, AI Revenue Uptick; Margins Steady Amid External Headwinds"
-      ],
-      "source_headline": "Infosys Limited: Infosys Limited has submitted to the Exchange, Financial Results for the quarter and half year ended September 30, 2026 and declaration of interim dividend",
-      "source_url": "https://nsearchives.nseindia.com/corporate/Infosys_23102026160704_BM_Outcome_Oct232026_1.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-23T12:32:31Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T15:10:57Z",
-      "updated_at": "2026-10-23T16:30:30Z",
-      "decay_at": "2026-10-25T00:32:31Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9f47945c8197",
       "idea_version": "IDEAV-2060a956c90a65d0",
       "idea_version_started_at": "2026-10-22T23:50:30Z",
@@ -194379,6 +194308,76 @@
       "surfaced_at": "2026-10-23T04:15:56Z",
       "updated_at": "2026-10-23T04:15:56Z",
       "decay_at": "2026-10-24T08:55:58Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-58d3e0cadc2a",
+      "idea_version": "IDEAV-05636fe687693f3f",
+      "idea_version_started_at": "2026-10-23T19:34:45Z",
+      "ticker": "INFY",
+      "company": "Infosys",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company lowered its FY27 revenue growth guidance to 1-2% due to a weak demand environment, indicating a structural slowdown in its core IT services business.",
+      "why_now": "The guidance cut was reported on October 23, 2026, and typically leads to multiple compression in the IT services sector.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-925d2a5fb4f0"
+      ],
+      "primary_source_event_id": "EVT-925d2a5fb4f0",
+      "source_headlines": [
+        "Infosys cuts FY27 growth guidance to 1-2% amid weak demand environment"
+      ],
+      "source_headline": "Infosys cuts FY27 growth guidance to 1-2% amid weak demand environment",
+      "source_url": "https://www.thehindubusinessline.com/info-tech/infosys-cuts-fy27-growth-guidance-to-12-amid-weak-demand-environment/article71616396.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-23T13:49:43Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T15:10:57Z",
+      "updated_at": "2026-10-23T19:34:45Z",
+      "decay_at": "2026-10-25T01:49:43Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -194948,6 +194947,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-92e83afd6cf7",
+      "idea_version": "IDEAV-b6f2d3de0b6ae8c4",
+      "idea_version_started_at": "2026-10-23T19:34:45Z",
+      "ticker": "DRREDDY",
+      "company": "Dr. Reddy's Laboratories",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a 36% year-over-year decline in net profit for Q2, reflecting margin pressure and potential headwinds in its core pharmaceutical segments.",
+      "why_now": "The earnings miss was reported on October 23, 2026, and the magnitude of the profit decline is likely to trigger downward earnings revisions.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-678aebabf5a6"
+      ],
+      "primary_source_event_id": "EVT-678aebabf5a6",
+      "source_headlines": [
+        "Dr Reddy’s Q2 Results: Net profit falls 36% YoY to Rs 913 crore, revenue declines marginally"
+      ],
+      "source_headline": "Dr Reddy’s Q2 Results: Net profit falls 36% YoY to Rs 913 crore, revenue declines marginally",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/dr-reddys-q2-results-net-profit-falls-36-yoy-to-rs-913-crore-revenue-declines-marginally/articleshow/135147475.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-23T13:32:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T15:52:59Z",
+      "updated_at": "2026-10-23T19:34:45Z",
+      "decay_at": "2026-10-25T01:32:47Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-aba1e604fd86",
       "idea_version": "IDEAV-7a1f0bfcc76955f4",
       "idea_version_started_at": "2026-10-23T18:41:34Z",
@@ -195085,78 +195156,6 @@
       "surfaced_at": "2026-10-23T16:30:30Z",
       "updated_at": "2026-10-23T16:30:30Z",
       "decay_at": "2026-10-24T20:57:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-92e83afd6cf7",
-      "idea_version": "IDEAV-7709c16d959d2439",
-      "idea_version_started_at": "2026-10-23T15:52:59Z",
-      "ticker": "DRREDDY",
-      "company": "Dr. Reddy's Laboratories",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported a 36% decline in net profit for Q2, reflecting operational headwinds that will likely pressure the stock price.",
-      "why_now": "The results were released today, October 23, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e834224959ce"
-      ],
-      "primary_source_event_id": "EVT-e834224959ce",
-      "source_headlines": [
-        "Q2 Results LIVE Updates: SBI Funds Mgmt profit down 20%; Dr Reddy's net profit down 36%"
-      ],
-      "source_headline": "Q2 Results LIVE Updates: SBI Funds Mgmt profit down 20%; Dr Reddy's net profit down 36%",
-      "source_url": "https://www.cnbctv18.com/market/q2-results-live-updates-infosys-jsw-steel-drl-shriram-fin-swiggy-bpcl-hpcl-indusind-csb-godrej-prop-coforge-cg-power-share-price-liveblog-20017506.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-23T12:54:34Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T15:52:59Z",
-      "updated_at": "2026-10-23T15:52:59Z",
-      "decay_at": "2026-10-25T00:54:34Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
