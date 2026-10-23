@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T02:10:21Z",
+  "generated_at": "2026-10-23T02:19:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-143",
@@ -1370,101 +1370,48 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261023-002",
-      "headline": "SDF: Scheme of Arrangement - Outcome of First Court Hearing [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SDF?key=2924-03152217-2A1705790",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-22T23:22:51Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "A court's first-stage determination on a scheme-of-arrangement application is an official capital-structure event marked price-sensitive by the ASX, though the hearing outcome and subsequent procedural steps remain unspecified.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "A court's first-stage determination on a scheme-of-arrangement application is an official capital-structure event marked price-sensitive by the ASX, though the hearing outcome and subsequent procedural steps remain unspecified.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SDF",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-207",
-      "headline": "Gucci sales slid further in Q3, Kering says, dampening revival hopes",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/guccis-sales-drop-5-third-quarter-weak-chinese-demand-dampens-turnaround-hopes-2026-10-22/",
-      "source_name": "Reuters — Latest (news sitemap)",
+      "inbox_id": "INB-20261023-590",
+      "headline": "SAP alcanza el hito de los 10.000 millones de euros en ingresos trimestrales y eleva previsiones",
+      "headline_en": "SAP reaches the 10 billion euro milestone in quarterly revenue and raises forecasts",
+      "url": "https://www.reuters.com/latam/negocio/PQS44GFM4ROPNHC42RVNKHORG4-2026-10-22/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
       "input_nature": "news_headline",
-      "found_at": "2026-10-22T15:48:04Z",
+      "found_at": "2026-10-22T07:45:54Z",
       "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Kering reported that Gucci sales slid further in Q3, dampening revival hopes.",
+      "prelim_note": "SAP reached 10 billion euros in quarterly revenue and raised its guidance.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Kering reported that Gucci sales slid further in Q3, dampening revival hopes.",
-      "region": "GLOBAL",
+      "triage_score": 100,
+      "triage_reason": "SAP reached 10 billion euros in quarterly revenue and raised its guidance.",
+      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 80,
       "rank_factors": {
         "materiality": 80,
         "source_tier": 0,
-        "scope": 5,
-        "event": 5,
+        "scope": 6,
+        "event": 7,
         "size": 2,
-        "recency": 2,
+        "recency": 1,
         "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
+        "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
+        "event_id": "guidance_change",
         "size_bucket": "mega"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "earnings_revenue_margin",
+        "guidance_change"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Gucci",
+          "name": "SAP",
           "ticker": null,
-          "listing_country": "FR"
-        },
-        {
-          "name": "Kering",
-          "ticker": null,
-          "listing_country": "FR"
+          "listing_country": null
         }
       ],
       "size_bucket": "mega",
@@ -1473,69 +1420,120 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261023-277",
-      "headline": "J&K bank’s Q2 net profit rises 28.8% sequentially to ₹546 crore due to improved asset quality",
+      "inbox_id": "INB-20261023-588",
+      "headline": "Sainsbury’s lifts profit outlook as grocery grows and Argos sold",
       "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/jk-banks-q2-net-profit-rises-288-sequentially-to-546-crore-due-to-improved-asset-quality/article71611999.ece",
-      "source_name": "The Hindu BusinessLine",
+      "url": "https://ukinvestormagazine.co.uk/sainsburys-lifts-profit-outlook-as-grocery-grows-and-argos-sold/",
+      "source_name": "UK Investor Magazine",
       "input_nature": "news_headline",
-      "found_at": "2026-10-22T15:08:46Z",
+      "found_at": "2026-10-22T07:45:00Z",
       "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "J&K Bank reported a 28.8% sequential increase in Q2 net profit to ₹546 crore.",
+      "prelim_note": "Sainsbury's raised its profit outlook and announced the sale of its Argos business.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "J&K Bank reported a 28.8% sequential increase in Q2 net profit to ₹546 crore.",
-      "region": "IN",
+      "triage_score": 100,
+      "triage_reason": "Sainsbury's raised its profit outlook and announced the sale of its Argos business.",
+      "region": "GB",
       "relevance": "material",
-      "materiality_pre_score": 70,
+      "materiality_pre_score": 85,
       "rank_factors": {
-        "materiality": 70,
+        "materiality": 85,
         "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 15,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
+        "event_id": "mna",
+        "size_bucket": "large"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "guidance_change",
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "J&K Bank",
+          "name": "Sainsbury's",
           "ticker": null,
-          "listing_country": "IN"
+          "listing_country": "GB"
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261023-284",
-      "headline": "AstraZeneca PLC Announces US FDA Accelerated Approval of Ultomiris for IgAN on 22 October 2026",
+      "inbox_id": "INB-20261023-610",
+      "headline": "Huawei Gets $2.3 Billion Offshore Loan as Chip Spending Soars",
       "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/astrazeneca-plc-announces-us-fda-accelerated-approval-ultomiris-igan-22-october-2026",
-      "source_name": "Nasdaq",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-22/huawei-gets-2-3-billion-offshore-loan-as-chip-spending-soars",
+      "source_name": "Bloomberg",
       "input_nature": "news_headline",
-      "found_at": "2026-10-22T15:03:52Z",
+      "found_at": "2026-10-22T07:30:01Z",
       "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "AstraZeneca received US FDA accelerated approval for Ultomiris for IgAN, a significant regulatory milestone for a key drug.",
+      "prelim_note": "Huawei secured a $2.3 billion offshore loan to fund chip-related capital expenditures.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "AstraZeneca received US FDA accelerated approval for Ultomiris for IgAN, a significant regulatory milestone for a key drug.",
+      "triage_score": 100,
+      "triage_reason": "Huawei secured a $2.3 billion offshore loan to fund chip-related capital expenditures.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Huawei",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-617",
+      "headline": "Galderma Q3 Sales Climb; Confirms FY26 Core EBITDA Margin View, Lifts Sales Growth Outlook; Stock Up",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/galderma-q3-sales-climb-confirms-fy26-core-ebitda-margin-view-lifts-sales-growth-outlook",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T07:27:20Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Galderma reported Q3 sales growth and raised its sales growth outlook, signaling strong performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Galderma reported Q3 sales growth and raised its sales growth outlook, signaling strong performance.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -1543,24 +1541,182 @@
         "materiality": 75,
         "source_tier": 0,
         "scope": 6,
-        "event": 4,
+        "event": 7,
         "size": 2,
-        "recency": 2,
+        "recency": 1,
         "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
+        "event_id": "guidance_change",
+        "size_bucket": "large"
       },
       "event_types": [
-        "regulatory"
+        "earnings_revenue_margin",
+        "guidance_change"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "AstraZeneca",
+          "name": "Galderma",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-623",
+      "headline": "Samsung Electro-Mechanics gets $2.8 billion chip investment from Tesla, Nvidia, report says",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/autos-transportation/samsung-electro-mechanics-gets-28-billion-chip-investment-tesla-nvidia-report-2026-10-22/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T07:24:11Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Samsung Electro-Mechanics secured a $2.8 billion investment for chip production from major tech firms.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Samsung Electro-Mechanics secured a $2.8 billion investment for chip production from major tech firms.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung Electro-Mechanics",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "Tesla",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-642",
+      "headline": "Londoner Börse: LSEG investiert 3,5 Milliarden Dollar in Datenanbieter",
+      "headline_en": "London Stock Exchange: LSEG invests 3.5 billion dollars in data provider",
+      "url": "https://www.handelsblatt.com/unternehmen/dienstleister/londoner-boerse-lseg-investiert-35-milliarden-dollar-in-datenanbieter/100264129.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T07:10:27Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "LSEG is investing $3.5 billion in a data provider, representing a significant capital allocation and strategic expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "LSEG is investing $3.5 billion in a data provider, representing a significant capital allocation and strategic expansion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "London Stock Exchange Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-648",
+      "headline": "LSEG comprará Octus por 3.500 millones de dólares para reforzar su negocio de análisis de datos",
+      "headline_en": "LSEG to buy Octus for $3.5 billion to strengthen its data analytics business",
+      "url": "https://www.reuters.com/latam/negocio/IPT7HVNQMBODJI6JCJS2X2SOEI-2026-10-22/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T07:09:30Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "LSEG announced it will acquire Octus for $3.5 billion to expand its data analytics business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "LSEG announced it will acquire Octus for $3.5 billion to expand its data analytics business.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "London Stock Exchange Group",
           "ticker": null,
           "listing_country": "GB"
         }
@@ -1571,143 +1727,244 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261023-357",
-      "headline": "CreditAccess Grameen Q2 profit jumps fourfold to Rs 502 crore",
+      "inbox_id": "INB-20261023-680",
+      "headline": "LSEG pushes up profit forecast as it confirms $3.5bn Octus swoop",
       "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/creditaccess-grameen-q2-profit-jumps-fourfold-to-rs-502-crore/articleshow/135121186.cms",
-      "source_name": "The Economic Times",
+      "url": "https://www.cityam.com/lseg-pushes-up-profit-forecast-as-it-confirms-3-5bn-octus-swoop/",
+      "source_name": "City A.M.",
       "input_nature": "news_headline",
-      "found_at": "2026-10-22T14:22:46Z",
+      "found_at": "2026-10-22T06:52:14Z",
       "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "CreditAccess Grameen reported a fourfold increase in Q2 profit to Rs 502 crore.",
+      "prelim_note": "LSEG confirms $3.5bn acquisition of Octus and raises profit forecast.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "CreditAccess Grameen reported a fourfold increase in Q2 profit to Rs 502 crore.",
-      "region": "IN",
+      "triage_score": 100,
+      "triage_reason": "LSEG confirms $3.5bn acquisition of Octus and raises profit forecast.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LSEG",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-679",
+      "headline": "LSEG kauft für 3,5 Milliarden Dollar zu und hebt Prognose an",
+      "headline_en": "LSEG buys for 3.5 billion dollars and raises forecast",
+      "url": "https://www.reuters.com/de/firma/lseg-kauft-fr-35-milliarden-dollar-zu-und-hebt-prognose-an-2026-10-22/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T06:51:21Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "LSEG to acquire Octus for $3.5 billion and raised profit guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "LSEG to acquire Octus for $3.5 billion and raised profit guidance.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LSEG",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-689",
+      "headline": "Investor EQT bietet 10,8 Mrd Euro für Dax-Konzern Qiagen",
+      "headline_en": "Investor EQT offers 10.8 billion Euro for DAX company Qiagen",
+      "url": "https://www.reuters.com/de/firma/investor-eqt-bietet-108-mrd-euro-fr-dax-konzern-qiagen-2026-10-22/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T06:46:58Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "EQT offers 10.8 billion Euro to acquire Qiagen.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EQT offers 10.8 billion Euro to acquire Qiagen.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Qiagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-692",
+      "headline": "Ipsen relève ses objectifs après un bond du CA au T3",
+      "headline_en": "Ipsen raises its targets after a jump in Q3 revenue",
+      "url": "https://www.reuters.com/fr/affaires/ipsen-relve-ses-objectifs-aprs-un-bond-du-ca-au-t3-2026-10-22/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T06:44:48Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Ipsen raised its guidance following a jump in Q3 revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ipsen raised its guidance following a jump in Q3 revenue.",
+      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 70,
       "rank_factors": {
         "materiality": 70,
         "source_tier": 0,
         "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 2,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
         "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
+        "event_id": "guidance_change",
+        "size_bucket": "large"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "guidance_change"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "CreditAccess Grameen",
+          "name": "Ipsen",
           "ticker": null,
-          "listing_country": "IN"
+          "listing_country": "FR"
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261023-405",
-      "headline": "Hatsun Agro Product Q2 Profit Rises 5.61 Per Cent To ₹115.69 Crore, Total Income Jumps 19.35 Pc",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/hatsun-agro-product-q2-profit-rises-561-per-cent-to-11569-crore-total-income-jumps-1935-pc",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T14:07:13Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Hatsun Agro Product reported a Q2 profit increase of 5.61% to ₹115.69 crore and a 19.35% jump in total income.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Hatsun Agro Product reported a Q2 profit increase of 5.61% to ₹115.69 crore and a 19.35% jump in total income.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hatsun Agro Product",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-412",
-      "headline": "P&G affiche un CA meilleur que prévu, voit son bénéfice affecté par les coûts",
-      "headline_en": "P&G posts better-than-expected revenue, sees profit affected by costs",
-      "url": "https://www.reuters.com/fr/affaires/pg-affiche-un-ca-meilleur-que-prvu-voit-son-bnfice-affect-par-les-cots-2026-10-22/",
+      "inbox_id": "INB-20261023-722",
+      "headline": "Tesla-Gewinn bricht ein - Investitionen sinken",
+      "headline_en": "Tesla profit collapses - investments fall",
+      "url": "https://www.reuters.com/de/firma/tesla-gewinn-bricht-ein-investitionen-sinken-2026-10-22/",
       "source_name": "Reuters — Latest, next page (news sitemap)",
       "input_nature": "news_headline",
-      "found_at": "2026-10-22T14:03:43Z",
+      "found_at": "2026-10-22T06:26:25Z",
       "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "P&G reported better-than-expected revenue but noted that profits were negatively impacted by costs.",
+      "prelim_note": "Tesla reported a collapse in profits and a reduction in capital investments.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "P&G reported better-than-expected revenue but noted that profits were negatively impacted by costs.",
-      "region": "US",
+      "triage_score": 100,
+      "triage_reason": "Tesla reported a collapse in profits and a reduction in capital investments.",
+      "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 85,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 85,
         "source_tier": 0,
         "scope": 6,
-        "event": 5,
+        "event": 6,
         "size": 2,
         "recency": 1,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
+        "event_id": "capex",
         "size_bucket": "mega"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "earnings_revenue_margin",
+        "capex"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Procter & Gamble",
+          "name": "Tesla",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1718,297 +1975,45 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261023-427",
-      "headline": "Barclays To Cut 5,000 Jobs In AI-Led Cost Drive As Q3 Profit Rises 12 Per Cent, Bond Trading Revenue Falls 19 Pc",
+      "inbox_id": "INB-20261023-725",
+      "headline": "Meta to pay historic $25bn in New Mexico deception case",
       "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/barclays-to-cut-5000-jobs-in-ai-led-cost-drive-as-q3-profit-rises-12-per-cent-bond-trading-revenue-falls-19-pc",
-      "source_name": "Free Press Journal",
+      "url": "https://www.moneyweb.co.za/news/companies-and-deals/meta-to-pay-historic-25bn-in-new-mexico-deception-case/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
       "input_nature": "news_headline",
-      "found_at": "2026-10-22T13:58:14Z",
+      "found_at": "2026-10-22T06:24:52Z",
       "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Barclays reported a 12% rise in Q3 profit but announced 5,000 job cuts alongside a 19% drop in bond trading revenue.",
+      "prelim_note": "Meta is facing a $25 billion penalty in a deception case.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Barclays reported a 12% rise in Q3 profit but announced 5,000 job cuts alongside a 19% drop in bond trading revenue.",
-      "region": "GB",
+      "triage_score": 100,
+      "triage_reason": "Meta is facing a $25 billion penalty in a deception case.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 70,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Barclays",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-485",
-      "headline": "Santos Logs 49 Percent Quarter on Quarter Increase in Revenue",
-      "headline_en": null,
-      "url": "https://www.rigzone.com/news/santos_logs_49_percent_quarter_on_quarter_increase_in_revenue-22-oct-2026-184906-article/?rss=true",
-      "source_name": "Rigzone",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T13:22:18Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Santos reported a 49% quarter-on-quarter increase in revenue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Santos reported a 49% quarter-on-quarter increase in revenue.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Santos",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-483",
-      "headline": "Nippon Life India AMC Q2 Profit Falls 6 Per Cent To ₹324.4 Crore After ₹96.76 Crore SEBI-Related Charge",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/nippon-life-india-amc-q2-profit-falls-6-per-cent-to-3244-crore-after-9676-crore-sebi-related-charge",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T13:20:44Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Nippon Life India AMC reported a 6% profit decline to ₹324.4 crore due to a ₹96.76 crore SEBI charge.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Nippon Life India AMC reported a 6% profit decline to ₹324.4 crore due to a ₹96.76 crore SEBI charge.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
+        "materiality": 80,
         "source_tier": 0,
         "scope": 6,
         "event": 6,
-        "size": 1,
+        "size": 2,
         "recency": 1,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
+        "size_bucket": "mega"
       },
       "event_types": [
-        "earnings_revenue_margin",
         "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Nippon Life India AMC",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-554",
-      "headline": "HPCL Q2 Swings To Profit, Beats Estimates; Revenue Sees Marginal Dip",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/hpcl-q2-swings-to-profit-beats-estimates-revenue-sees-marginal-dip-12220481#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T12:38:37Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "HPCL swings to profit and beats analyst estimates.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "HPCL swings to profit and beats analyst estimates.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hindustan Petroleum",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-367",
-      "headline": "Eternal Q2 net profit up 92%, revenue up 77%",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/eternal-q2-net-profit-up-92-revenue-up-77/article71607974.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T14:18:08Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Eternal reported significant growth with Q2 net profit up 92% and revenue up 77%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Eternal reported significant growth with Q2 net profit up 92% and revenue up 77%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Eternal",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-435",
-      "headline": "Shell- and Exxon-backed UK chemicals group weighs $8 billion sale, FT reports",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/shell-exxon-backed-uk-chemicals-group-weighs-8-billion-sale-ft-reports-2026-10-22/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T13:50:38Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "A chemicals group backed by Shell and Exxon is weighing an $8 billion sale.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "A chemicals group backed by Shell and Exxon is weighing an $8 billion sale.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shell",
-          "ticker": null,
-          "listing_country": "GB"
-        },
-        {
-          "name": "Exxon",
+          "name": "Meta",
           "ticker": null,
           "listing_country": "US"
         }
@@ -236425,9 +236430,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 171093,
-    "news_picked_today": 566,
-    "news_dropped_today": 1594
+    "news_seen_today": 176475,
+    "news_picked_today": 1216,
+    "news_dropped_today": 2840
   },
   "book_momentum": {
     "live_count": 8,
