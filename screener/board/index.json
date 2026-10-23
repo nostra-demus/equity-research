@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T15:11:21Z",
+  "generated_at": "2026-10-23T15:15:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-1105",
@@ -685,6 +685,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-1136",
+      "headline": "Fast-fashion group Shein agrees to pay US$100m to settle US FTC probe",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/fast-fashion-group-shein-agrees-to-pay-us100m-to-settle-us-ftc-probe",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T14:39:00Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Shein agreed to pay a $100 million settlement to the US FTC.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shein agreed to pay a $100 million settlement to the US FTC.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shein",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1935,55 +1984,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-972",
-      "headline": "QIAGEN N.V. Enters Business Combination Agreement for Planned Tender Offer by Crown NL Bidco B.V. at €46.50 Per Share",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/qiagen-nv-enters-business-combination-agreement-planned-tender-offer-crown-nl-bidco-bv",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T11:12:33Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Crown NL Bidco B.V. announced tender offer for QIAGEN N.V. at €46.50 per share.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Crown NL Bidco B.V. announced tender offer for QIAGEN N.V. at €46.50 per share.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 3,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "QIAGEN N.V.",
-          "ticker": "QGEN",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235903,9 +235903,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 677233,
-    "news_picked_today": 3059,
-    "news_dropped_today": 16645
+    "news_seen_today": 687377,
+    "news_picked_today": 3069,
+    "news_dropped_today": 16731
   },
   "book_momentum": {
     "live_count": 8,
