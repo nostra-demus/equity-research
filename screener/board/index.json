@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T01:32:18Z",
+  "generated_at": "2026-10-23T01:39:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-002",
@@ -987,6 +987,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261023-103",
+      "headline": "Yes Bank unlikely to pay AT1 bond coupons despite bond holders demand, sources say",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/yes-bank-unlikely-to-pay-at1-bond-coupons-despite-bond-holders-demand-sources-say/articleshow/135122504.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T16:01:43Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Yes Bank reported as unlikely to pay AT1 bond coupons per unconfirmed sources; if confirmed, marks solvency deterioration and credit event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Yes Bank reported as unlikely to pay AT1 bond coupons per unconfirmed sources; if confirmed, marks solvency deterioration and credit event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yes Bank",
+          "ticker": "YESBANK",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261023-053",
       "headline": "XUNZHONG (02597): PLACING OF NEW H SHARES UNDER GENERAL MANDATE",
       "headline_en": null,
@@ -1174,6 +1223,57 @@
         {
           "name": "L'Oréal",
           "ticker": "OR",
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-106",
+      "headline": "L’Oreal Sales Beat Expectations as Premium Products Surge",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-22/l-oreal-sales-beat-expectations-as-premium-products-surge",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T16:00:18Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Sales beat consensus and premium-product growth improve revenue and product-mix profitability expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Sales beat consensus and premium-product growth improve revenue and product-mix profitability expectations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "product",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "L'Oréal",
+          "ticker": null,
           "listing_country": "FR"
         }
       ],
@@ -1473,6 +1573,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261023-100",
+      "headline": "Barclays to cut 5,000 employees this year",
+      "headline_en": null,
+      "url": "https://www.bankingdive.com/news/barclays-cut-5000-employees-ai-q3-earnings-venkat/833747/",
+      "source_name": "Banking Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T16:23:58Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Barclays announces 5,000 job cuts this year, a quantified restructuring that reduces cost base and improves margins but introduces execution risk and potential client/talent attrition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Barclays announces 5,000 job cuts this year, a quantified restructuring that reduces cost base and improves margins but introduces execution risk and potential client/talent attrition.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Barclays",
+          "ticker": "BARC",
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261023-056",
       "headline": "SK Hynix scraps Solidigm US IPO after ‘duplicate listing’ concerns, market volatility",
       "headline_en": null,
@@ -1669,6 +1818,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261023-099",
+      "headline": "Biohaven’s previously rejected rare disease drug to get fresh FDA review",
+      "headline_en": null,
+      "url": "https://www.biopharmadive.com/news/biohaven-troriluzole-vyglxia-sca-fda-accept-application/833703/",
+      "source_name": "BioPharma Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-22T16:24:00Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Biohaven's previously FDA-rejected rare-disease drug receives fresh regulatory review, a material pipeline catalyst for future revenue potential but with uncertain approval outcome.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Biohaven's previously FDA-rejected rare-disease drug receives fresh regulatory review, a material pipeline catalyst for future revenue potential but with uncertain approval outcome.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Biohaven Pharmaceutical",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261023-090",
       "headline": "What the eMudhra fiasco means to users, investors",
       "headline_en": null,
@@ -1757,207 +1956,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-023",
-      "headline": "Mexico's Bimbo lifts lower end of full-year EBITDA outlook",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/mexicos-bimbo-lifts-lower-end-full-year-ebitda-outlook-2026-10-22/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T23:00:51Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Bimbo raised the floor of its full-year EBITDA guidance, signaling confidence in profit stability or margin improvement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Bimbo raised the floor of its full-year EBITDA guidance, signaling confidence in profit stability or margin improvement.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Grupo Bimbo",
-          "ticker": "BIMBO.MX",
-          "listing_country": "MX"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-016",
-      "headline": "SK Hynix Scraps Solidigm US IPO After Shareholder Concerns",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-22/sk-hynix-scraps-solidigm-us-ipo-after-shareholder-concerns",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T22:52:35Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "SK Hynix cancelled Solidigm subsidiary's planned US IPO following shareholder opposition, affecting group capital deployment and strategic optionality.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "SK Hynix cancelled Solidigm subsidiary's planned US IPO following shareholder opposition, affecting group capital deployment and strategic optionality.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK Hynix",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "Solidigm",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-080",
-      "headline": "David’s Bridal to spin off Pearl into stand-alone, publicly traded company",
-      "headline_en": null,
-      "url": "https://www.retaildive.com/news/davids-bridal-spin-off-pearl-AI-stand-alone-publicly-traded-company/833699/",
-      "source_name": "Retail Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T16:29:00Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "David's Bridal announces spin-off of Pearl jewelry unit into standalone publicly traded company, altering capital structure and shareholder value.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "David's Bridal announces spin-off of Pearl jewelry unit into standalone publicly traded company, altering capital structure and shareholder value.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "David's Bridal",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-032",
-      "headline": "SITOY GROUP (01023): PROPOSALS FOR GENERAL MANDATES TO ISSUE SHARES AND SELL OR TRANSFER TREASURY SHARES AND REPURCHASE SHARES, RE-ELECTION OF RETIRING DIRECTORS, RE-APPOINTMENT OF AUDITOR, DECLARATION OF SPECIAL DIVIDEND AND NOTICE OF ANNUAL GENERAL MEETING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1023/2026102300017.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-22T23:02:00Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Annual general meeting with proposed declaration of special dividend, a material capital action; headline confirms dividend but omits per-share amount, total payout, ex-date, and yield.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Annual general meeting with proposed declaration of special dividend, a material capital action; headline confirms dividend but omits per-share amount, total payout, ex-date, and yield.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SITOY GROUP",
-          "ticker": "01023",
-          "listing_country": "HK"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -236370,9 +236368,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 124114,
-    "news_picked_today": 105,
-    "news_dropped_today": 615
+    "news_seen_today": 130979,
+    "news_picked_today": 116,
+    "news_dropped_today": 652
   },
   "book_momentum": {
     "live_count": 8,
