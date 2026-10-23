@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T22:03:34Z",
+  "generated_at": "2026-10-23T22:08:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-1159",
@@ -1245,6 +1245,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261023-1241",
+      "headline": "American Express plans thousands of layoffs after two years of hiring",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/employment/american-express-layoff-cuts-thousands-jobs-after-two-years-of-hiring",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T17:15:41Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "American Express is planning thousands of layoffs, signaling a significant shift in operational strategy and cost structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "American Express is planning thousands of layoffs, signaling a significant shift in operational strategy and cost structure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "American Express",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-1245",
+      "headline": "Newmont prices Red Chris expansion at up to $4.8B",
+      "headline_en": null,
+      "url": "https://www.mining.com/newmont-prices-red-chris-expansion-at-up-to-4-8b/",
+      "source_name": "Mining.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T17:15:00Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Newmont announced a major capital expenditure of $4.8B for the Red Chris mine expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Newmont announced a major capital expenditure of $4.8B for the Red Chris mine expansion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Newmont",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261023-1174",
       "headline": "Volvo Cars cuts 2,500 jobs after posting $373M loss in Q3",
       "headline_en": null,
@@ -1887,104 +1985,6 @@
         },
         {
           "name": "Dr Reddy's",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-1082",
-      "headline": "DeepSeek reportedly raises $15 billion ahead of potential Shanghai IPO",
-      "headline_en": null,
-      "url": "https://technode.com/2026/10/23/deepseek-reportedly-raises-15-billion-ahead-of-potential-shanghai-ipo/",
-      "source_name": "TechNode",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T13:51:43Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Company reportedly raised $15 billion ahead of a potential IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company reportedly raised $15 billion ahead of a potential IPO.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DeepSeek",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-1122",
-      "headline": "Infosys cuts FY27 growth guidance to 1-2% amid weak demand environment",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/infosys-cuts-fy27-growth-guidance-to-12-amid-weak-demand-environment/article71616396.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T13:49:43Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Infosys cut its FY27 growth guidance to 1-2% due to weak demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Infosys cut its FY27 growth guidance to 1-2% due to weak demand.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Infosys",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -236344,9 +236344,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1227639,
-    "news_picked_today": 3523,
-    "news_dropped_today": 23573
+    "news_seen_today": 1234171,
+    "news_picked_today": 3541,
+    "news_dropped_today": 23603
   },
   "book_momentum": {
     "live_count": 8,
