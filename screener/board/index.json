@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T21:54:37Z",
+  "generated_at": "2026-10-23T22:03:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-1159",
@@ -1043,6 +1043,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261023-1228",
+      "headline": "Torrent Pharma Profit Falls 9.6 Per Cent, Dr Reddy’s Slumps 36 Pc In Q2 FY27",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/torrent-pharma-profit-falls-96-per-cent-dr-reddys-slumps-36-pc-in-q2-fy27",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T18:27:04Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Torrent Pharma reported a 9.6% profit decline and Dr Reddy's reported a 36% slump in Q2 FY27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Torrent Pharma reported a 9.6% profit decline and Dr Reddy's reported a 36% slump in Q2 FY27.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Torrent Pharmaceuticals",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Dr. Reddy's Laboratories",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261023-1190",
       "headline": "BPCL Q2 Results: Profit Swings To Rs 4,993 Crore From Loss, EBITDA Rebounds",
       "headline_en": null,
@@ -1931,55 +1985,6 @@
       "companies": [
         {
           "name": "Infosys",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-1125",
-      "headline": "Shriram Finance Q2 Net Profit Rises 59 Per Cent To ₹3,684 Crore; Board Approves ₹6.50 Interim Dividend",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/shriram-finance-q2-net-profit-rises-59-per-cent-to-3684-crore-board-approves-650-interim-dividend",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T13:41:47Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Shriram Finance reported a 59% increase in Q2 net profit to ₹3,684 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shriram Finance reported a 59% increase in Q2 net profit to ₹3,684 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shriram Finance",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -193968,75 +193973,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-9f47945c8197",
-      "idea_version": "IDEAV-2060a956c90a65d0",
-      "idea_version_started_at": "2026-10-22T23:50:30Z",
-      "ticker": "LMT",
-      "company": "Lockheed Martin",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The finalization of a landmark 10-year F-35 deal with the Department of War secures long-term revenue visibility and includes $7B in private investment support.",
-      "why_now": "The deal was finalized and announced on October 22, 2026, providing a concrete multi-year catalyst for the company's primary defense program.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 78,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ef29d525eda4"
-      ],
-      "primary_source_event_id": "EVT-ef29d525eda4",
-      "source_headlines": [
-        "Department of War and Lockheed Martin Finalize Landmark 10-Year F-35 Deal, Securing $7B in Private Investment"
-      ],
-      "source_headline": "Department of War and Lockheed Martin Finalize Landmark 10-Year F-35 Deal, Securing $7B in Private Investment",
-      "source_url": "https://www.war.gov/News/Releases/Release/Article/4631150/department-of-war-and-lockheed-martin-finalize-landmark-10-year-f-35-deal-secur/",
-      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-22T10:00:38Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-22T23:50:30Z",
-      "updated_at": "2026-10-22T23:50:30Z",
-      "decay_at": "2026-10-23T22:00:38Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-e8c55fdf66d6",
       "idea_version": "IDEAV-637d4ad89d614eef",
       "idea_version_started_at": "2026-10-23T06:49:05Z",
@@ -196396,6 +196332,75 @@
       "surfaced_at": "2026-10-19T04:16:06Z",
       "updated_at": "2026-10-22T03:15:31Z",
       "decay_at": "2026-10-23T07:13:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-9f47945c8197",
+      "idea_version": "IDEAV-2060a956c90a65d0",
+      "idea_version_started_at": "2026-10-22T23:50:30Z",
+      "ticker": "LMT",
+      "company": "Lockheed Martin",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The finalization of a landmark 10-year F-35 deal with the Department of War secures long-term revenue visibility and includes $7B in private investment support.",
+      "why_now": "The deal was finalized and announced on October 22, 2026, providing a concrete multi-year catalyst for the company's primary defense program.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 78,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ef29d525eda4"
+      ],
+      "primary_source_event_id": "EVT-ef29d525eda4",
+      "source_headlines": [
+        "Department of War and Lockheed Martin Finalize Landmark 10-Year F-35 Deal, Securing $7B in Private Investment"
+      ],
+      "source_headline": "Department of War and Lockheed Martin Finalize Landmark 10-Year F-35 Deal, Securing $7B in Private Investment",
+      "source_url": "https://www.war.gov/News/Releases/Release/Article/4631150/department-of-war-and-lockheed-martin-finalize-landmark-10-year-f-35-deal-secur/",
+      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-22T10:00:38Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-22T23:50:30Z",
+      "updated_at": "2026-10-22T23:50:30Z",
+      "decay_at": "2026-10-23T22:00:38Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -199118,14 +199123,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 539,
     "shown_count": 499,
-    "hidden_count": 39,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
-        "total_count": 273,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 24
       },
       "short": {
         "total_count": 266,
@@ -199149,6 +199154,78 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-9f47945c8197",
+        "idea_version": "IDEAV-2060a956c90a65d0",
+        "idea_version_started_at": "2026-10-22T23:50:30Z",
+        "ticker": "LMT",
+        "company": "Lockheed Martin",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The finalization of a landmark 10-year F-35 deal with the Department of War secures long-term revenue visibility and includes $7B in private investment support.",
+        "why_now": "The deal was finalized and announced on October 22, 2026, providing a concrete multi-year catalyst for the company's primary defense program.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 78,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ef29d525eda4"
+        ],
+        "primary_source_event_id": "EVT-ef29d525eda4",
+        "source_headlines": [
+          "Department of War and Lockheed Martin Finalize Landmark 10-Year F-35 Deal, Securing $7B in Private Investment"
+        ],
+        "source_headline": "Department of War and Lockheed Martin Finalize Landmark 10-Year F-35 Deal, Securing $7B in Private Investment",
+        "source_url": "https://www.war.gov/News/Releases/Release/Article/4631150/department-of-war-and-lockheed-martin-finalize-landmark-10-year-f-35-deal-secur/",
+        "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-22T10:00:38Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-22T23:50:30Z",
+        "updated_at": "2026-10-22T23:50:30Z",
+        "decay_at": "2026-10-23T22:00:38Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-23T22:00:38Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-183dfdd7894e",
         "idea_version": "IDEAV-e6b40535ee7c900a",
@@ -226555,79 +226632,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-5fe5950ec028",
-        "idea_version": "IDEAV-be753b1fa3a337c2",
-        "idea_version_started_at": "2026-10-08T20:23:44Z",
-        "ticker": "VTRS",
-        "company": "Viatris",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Viatris is acquiring Pacira BioSciences for $1.65 billion to expand its non-opioid pain management portfolio, which should improve long-term revenue diversification.",
-        "why_now": "The acquisition was announced on 2026-10-08, providing a clear catalyst for re-rating the company's growth profile.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 66,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-781272879d5e"
-        ],
-        "primary_source_event_id": "EVT-781272879d5e",
-        "source_headlines": [
-          "Viatris to make $1.65B Pacira acquisition, adding to momentum in pain"
-        ],
-        "source_headline": "Viatris to make $1.65B Pacira acquisition, adding to momentum in pain",
-        "source_url": "https://endpoints.news/viatris-to-make-1-65b-pacira-acquisition-adding-to-momentum-in-pain/",
-        "source_name": "Endpoints News",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-08T18:13:05Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-08T20:23:44Z",
-        "updated_at": "2026-10-08T20:23:44Z",
-        "decay_at": "2026-10-10T06:13:05Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-11T18:27:49Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c59cbad8d027",
         "idea_version": "IDEAV-84e3072f0ca2e2b5",
         "idea_version_started_at": "2026-10-08T16:19:11Z",
@@ -236321,7 +236325,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1835,
-    "live_count": 33,
+    "live_count": 32,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -236340,9 +236344,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1224133,
-    "news_picked_today": 3476,
-    "news_dropped_today": 23404
+    "news_seen_today": 1227639,
+    "news_picked_today": 3523,
+    "news_dropped_today": 23573
   },
   "book_momentum": {
     "live_count": 8,
