@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-23T03:08:45Z",
+  "generated_at": "2026-10-23T03:17:46Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261023-755",
+      "headline": "Knauf Group to invest additional €350 million in India, plans four new plants",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/economy/foreign-trade/knauf-group-to-invest-additional-350-million-in-india-plans-four-new-plants/articleshow/135131850.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T02:22:42Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Knauf Group is investing €350 million to build four new plants in India, representing a major capacity expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Knauf Group is investing €350 million to build four new plants in India, representing a major capacity expansion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Knauf Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261023-143",
       "headline": "Himadri Speciality Chemicals plans ₹1,613 crore capacity expansion across key businesses",
@@ -1965,55 +2014,6 @@
       "companies": [
         {
           "name": "Tesla",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-725",
-      "headline": "Meta to pay historic $25bn in New Mexico deception case",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/companies-and-deals/meta-to-pay-historic-25bn-in-new-mexico-deception-case/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T06:24:52Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Meta is facing a $25 billion penalty in a deception case.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Meta is facing a $25 billion penalty in a deception case.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta",
           "ticker": null,
           "listing_country": "US"
         }
@@ -236430,9 +236430,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 199185,
-    "news_picked_today": 1728,
-    "news_dropped_today": 3888
+    "news_seen_today": 203198,
+    "news_picked_today": 1764,
+    "news_dropped_today": 4044
   },
   "book_momentum": {
     "live_count": 8,
