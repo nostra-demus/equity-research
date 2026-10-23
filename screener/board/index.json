@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T04:16:20Z",
+  "generated_at": "2026-10-23T04:25:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-767",
@@ -195713,77 +195713,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-479f073739a8",
-      "idea_version": "IDEAV-4dab1f7584869ad2",
-      "idea_version_started_at": "2026-10-22T01:34:02Z",
-      "ticker": "ALKEM",
-      "company": "Alkem Laboratories Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The initiation of a forensic audit introduces significant governance risk and potential for negative findings that could impair the stock.",
-      "why_now": "The exchange filing regarding the audit was submitted on October 21, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6cd5a40c6403"
-      ],
-      "primary_source_event_id": "EVT-6cd5a40c6403",
-      "source_headlines": [
-        "Alkem Laboratories Limited: Alkem Laboratories Limited has informed the Exchange about Initiation of Forensic Audit"
-      ],
-      "source_headline": "Alkem Laboratories Limited: Alkem Laboratories Limited has informed the Exchange about Initiation of Forensic Audit",
-      "source_url": "https://nsearchives.nseindia.com/corporate/ALKEM_21102026215316_Reg30Disclosurefinalsigned.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-21T16:23:28Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-22T01:34:02Z",
-      "updated_at": "2026-10-22T01:34:02Z",
-      "decay_at": "2026-10-23T04:23:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-abd218ca6c78",
       "idea_version": "IDEAV-71e79dc693f22d71",
       "idea_version_started_at": "2026-10-20T13:59:38Z",
@@ -196973,6 +196902,77 @@
       "surfaced_at": "2026-10-22T01:34:02Z",
       "updated_at": "2026-10-22T01:34:02Z",
       "decay_at": "2026-10-23T00:46:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-479f073739a8",
+      "idea_version": "IDEAV-4dab1f7584869ad2",
+      "idea_version_started_at": "2026-10-22T01:34:02Z",
+      "ticker": "ALKEM",
+      "company": "Alkem Laboratories Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The initiation of a forensic audit introduces significant governance risk and potential for negative findings that could impair the stock.",
+      "why_now": "The exchange filing regarding the audit was submitted on October 21, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6cd5a40c6403"
+      ],
+      "primary_source_event_id": "EVT-6cd5a40c6403",
+      "source_headlines": [
+        "Alkem Laboratories Limited: Alkem Laboratories Limited has informed the Exchange about Initiation of Forensic Audit"
+      ],
+      "source_headline": "Alkem Laboratories Limited: Alkem Laboratories Limited has informed the Exchange about Initiation of Forensic Audit",
+      "source_url": "https://nsearchives.nseindia.com/corporate/ALKEM_21102026215316_Reg30Disclosurefinalsigned.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-21T16:23:28Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-22T01:34:02Z",
+      "updated_at": "2026-10-22T01:34:02Z",
+      "decay_at": "2026-10-23T04:23:28Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -198926,9 +198926,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 543,
+    "total_count": 544,
     "shown_count": 499,
-    "hidden_count": 44,
+    "hidden_count": 45,
     "side_counts": {
       "long": {
         "total_count": 282,
@@ -198936,9 +198936,9 @@
         "hidden_count": 32
       },
       "short": {
-        "total_count": 262,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 13
       }
     },
     "retention": {
@@ -198957,6 +198957,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-479f073739a8",
+        "idea_version": "IDEAV-4dab1f7584869ad2",
+        "idea_version_started_at": "2026-10-22T01:34:02Z",
+        "ticker": "ALKEM",
+        "company": "Alkem Laboratories Limited",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The initiation of a forensic audit introduces significant governance risk and potential for negative findings that could impair the stock.",
+        "why_now": "The exchange filing regarding the audit was submitted on October 21, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "governance_turnaround",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6cd5a40c6403"
+        ],
+        "primary_source_event_id": "EVT-6cd5a40c6403",
+        "source_headlines": [
+          "Alkem Laboratories Limited: Alkem Laboratories Limited has informed the Exchange about Initiation of Forensic Audit"
+        ],
+        "source_headline": "Alkem Laboratories Limited: Alkem Laboratories Limited has informed the Exchange about Initiation of Forensic Audit",
+        "source_url": "https://nsearchives.nseindia.com/corporate/ALKEM_21102026215316_Reg30Disclosurefinalsigned.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-21T16:23:28Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-22T01:34:02Z",
+        "updated_at": "2026-10-22T01:34:02Z",
+        "decay_at": "2026-10-23T04:23:28Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-23T04:23:28Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c61efe22df66",
         "idea_version": "IDEAV-94f60f88eec1ac27",
@@ -236048,87 +236122,12 @@
         "archived_at": "2026-09-27T14:29:46Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-5cafd3edd0bd",
-        "idea_version": "IDEAV-bea16d395573f816",
-        "idea_version_started_at": "2026-09-24T22:18:36Z",
-        "ticker": "VTY",
-        "company": "Vistry Group",
-        "exchange": "LSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Vistry Group issued a profit warning and announced it will scale back operations due to mounting charges, indicating significant margin pressure and operational headwinds.",
-        "why_now": "The news was released on 2026-09-24, and the market is currently reacting to the CEO's strategic pivot and downward earnings revision.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5a4758ed37f5"
-        ],
-        "primary_source_event_id": "EVT-5a4758ed37f5",
-        "source_headlines": [
-          "Vistry CEO to scale back housebuilder after profit warning and mounting charges"
-        ],
-        "source_headline": "Vistry CEO to scale back housebuilder after profit warning and mounting charges",
-        "source_url": "https://www.reuters.com/business/uks-vistry-lowers-profit-view-amid-strategic-overhaul-2026-09-24/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-24T11:10:39Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-24T20:05:57Z",
-        "updated_at": "2026-09-24T22:18:36Z",
-        "decay_at": "2026-09-25T23:10:39Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-27T11:35:43Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1809,
-    "live_count": 25,
+    "live_count": 24,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -236147,9 +236146,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 224495,
-    "news_picked_today": 1960,
-    "news_dropped_today": 4688
+    "news_seen_today": 226022,
+    "news_picked_today": 1962,
+    "news_dropped_today": 4974
   },
   "book_momentum": {
     "live_count": 8,
