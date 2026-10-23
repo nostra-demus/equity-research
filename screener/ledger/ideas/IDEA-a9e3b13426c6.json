@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-a9e3b13426c6",
+  "idea_version": "IDEAV-76ed845b6ab19a4f",
+  "idea_version_started_at": "2026-10-23T04:15:56Z",
+  "ticker": "MRNA",
+  "company": "Moderna",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "Leaked clinical data for the company's melanoma vaccine candidate indicates underperformance, threatening the core pipeline valuation.",
+  "why_now": "The data leak occurred on October 22, 2026, and the market is currently reacting to the negative read-through for future revenue.",
+  "conviction": 75,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 74,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 7,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-4db612a072f3",
+    "EVT-047f6e387f8f"
+  ],
+  "primary_source_event_id": "EVT-4db612a072f3",
+  "source_headlines": [
+    "Moderna Stock Plunges 25% After Possible Cancer Vaccine Data Leak",
+    "Moderna Stock Plunges 18% As Leaked Melanoma Vaccine Data Underperforms"
+  ],
+  "source_headline": "Moderna Stock Plunges 25% After Possible Cancer Vaccine Data Leak",
+  "source_url": "https://www.forbes.com/sites/maryroeloffs/2026/10/22/moderna-stock-plunges-25-after-possible-cancer-vaccine-data-leak/",
+  "source_name": "Forbes",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-22T20:55:58Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-23T04:15:56Z",
+  "updated_at": "2026-10-23T04:15:56Z",
+  "decay_at": "2026-10-24T08:55:58Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
