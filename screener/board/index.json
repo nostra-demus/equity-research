@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T11:50:04Z",
+  "generated_at": "2026-10-23T11:56:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-936",
@@ -347,6 +347,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261023-990",
+      "headline": "BASF raises Evonik offer to over €11 billion, Bloomberg News reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/basf-raises-evonik-offer-over-11-billion-bloomberg-news-reports-2026-10-23/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T11:36:02Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "BASF has reportedly raised its offer for Evonik to over €11 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BASF has reportedly raised its offer for Evonik to over €11 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BASF",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "Evonik",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261023-971",
       "headline": "American Express Raises Profit Outlook on Increased Member Spending",
       "headline_en": null,
@@ -440,6 +494,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-986",
+      "headline": "Coforge Reports ₹6,170.8 Crore Revenue For Q2, Posts 56.5% PAT Growth, Raises FY27 EBIT Margin Outlook",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/coforge-reports-61708-crore-revenue-for-q2-posts-565-pat-growth-raises-fy27-ebit-margin-outlook",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T11:17:37Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Coforge reported Q2 revenue of ₹6,170.8 crore, 56.5% PAT growth, and raised its FY27 EBIT margin outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Coforge reported Q2 revenue of ₹6,170.8 crore, 56.5% PAT growth, and raised its FY27 EBIT margin outlook.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Coforge",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -539,6 +643,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-988",
+      "headline": "IndusInd Bank Reports Strong Q2 FY27 Earnings, Net Profit Surges To ₹1,242 Crore; Asset Quality Improves",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/indusind-bank-reports-strong-q2-fy27-earnings-net-profit-surges-to-1242-crore-asset-quality-improves",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T11:03:25Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "IndusInd Bank reported a net profit of ₹1,242 crore for Q2 FY27 with improved asset quality.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IndusInd Bank reported a net profit of ₹1,242 crore for Q2 FY27 with improved asset quality.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IndusInd Bank",
+          "ticker": "532187",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1831,153 +1984,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-755",
-      "headline": "Knauf Group to invest additional €350 million in India, plans four new plants",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/news/economy/foreign-trade/knauf-group-to-invest-additional-350-million-in-india-plans-four-new-plants/articleshow/135131850.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T02:22:42Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Knauf Group is investing €350 million to build four new plants in India, representing a major capacity expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Knauf Group is investing €350 million to build four new plants in India, representing a major capacity expansion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Knauf Group",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-143",
-      "headline": "Himadri Speciality Chemicals plans ₹1,613 crore capacity expansion across key businesses",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/himadri-speciality-chemicals-plans-1-613-crore-capacity-expansion-across-key-businesses-11792718062571.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T01:25:57Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Himadri Speciality Chemicals announces a significant ₹1,613 crore capacity expansion plan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Himadri Speciality Chemicals announces a significant ₹1,613 crore capacity expansion plan.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Himadri Speciality Chemicals",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-148",
-      "headline": "SK Data Center Arm Plans to Fund $350B AI Buildout",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-10-23/sk-data-center-arm-plans-to-fund-350b-ai-buildout-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T01:13:27Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "SK's data center arm announced a massive $350 billion AI infrastructure investment plan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SK's data center arm announced a massive $350 billion AI infrastructure investment plan.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -235818,9 +235824,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 415006,
-    "news_picked_today": 2794,
-    "news_dropped_today": 14174
+    "news_seen_today": 428666,
+    "news_picked_today": 2811,
+    "news_dropped_today": 14205
   },
   "book_momentum": {
     "live_count": 8,
