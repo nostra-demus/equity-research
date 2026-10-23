@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T16:38:55Z",
+  "generated_at": "2026-10-23T17:00:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-1159",
@@ -196319,79 +196319,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5ff25db99b82",
-      "idea_version": "IDEAV-82159f4000c4a599",
-      "idea_version_started_at": "2026-10-22T09:01:10Z",
-      "ticker": "SEB-A",
-      "company": "SEB",
-      "exchange": "STO",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Q3 net profit missed forecasts and the company paused share buybacks, signaling capital allocation pressure.",
-      "why_now": "The earnings miss and buyback suspension were reported on 2026-10-22.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9b616d9c9b55"
-      ],
-      "primary_source_event_id": "EVT-9b616d9c9b55",
-      "source_headlines": [
-        "Swedish bank SEB Q3 net profit below forecast, pauses share buybacks"
-      ],
-      "source_headline": "Swedish bank SEB Q3 net profit below forecast, pauses share buybacks",
-      "source_url": "https://www.reuters.com/business/finance/swedish-bank-seb-q3-net-profit-below-forecast-pauses-share-buybacks-2026-10-22/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-22T04:55:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-22T09:01:10Z",
-      "updated_at": "2026-10-22T09:01:10Z",
-      "decay_at": "2026-10-23T16:55:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-e74617dc9ec3",
       "idea_version": "IDEAV-0d16b75e16bad2f9",
       "idea_version_started_at": "2026-10-22T09:01:10Z",
@@ -197517,6 +197444,79 @@
       "surfaced_at": "2026-10-22T23:50:30Z",
       "updated_at": "2026-10-22T23:50:30Z",
       "decay_at": "2026-10-23T15:02:41Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-5ff25db99b82",
+      "idea_version": "IDEAV-82159f4000c4a599",
+      "idea_version_started_at": "2026-10-22T09:01:10Z",
+      "ticker": "SEB-A",
+      "company": "SEB",
+      "exchange": "STO",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Q3 net profit missed forecasts and the company paused share buybacks, signaling capital allocation pressure.",
+      "why_now": "The earnings miss and buyback suspension were reported on 2026-10-22.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9b616d9c9b55"
+      ],
+      "primary_source_event_id": "EVT-9b616d9c9b55",
+      "source_headlines": [
+        "Swedish bank SEB Q3 net profit below forecast, pauses share buybacks"
+      ],
+      "source_headline": "Swedish bank SEB Q3 net profit below forecast, pauses share buybacks",
+      "source_url": "https://www.reuters.com/business/finance/swedish-bank-seb-q3-net-profit-below-forecast-pauses-share-buybacks-2026-10-22/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-22T04:55:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-22T09:01:10Z",
+      "updated_at": "2026-10-22T09:01:10Z",
+      "decay_at": "2026-10-23T16:55:50Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -198968,9 +198968,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 534,
+    "total_count": 535,
     "shown_count": 499,
-    "hidden_count": 35,
+    "hidden_count": 36,
     "side_counts": {
       "long": {
         "total_count": 271,
@@ -198978,9 +198978,9 @@
         "hidden_count": 21
       },
       "short": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       }
     },
     "retention": {
@@ -198999,6 +198999,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5ff25db99b82",
+        "idea_version": "IDEAV-82159f4000c4a599",
+        "idea_version_started_at": "2026-10-22T09:01:10Z",
+        "ticker": "SEB-A",
+        "company": "SEB",
+        "exchange": "STO",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Q3 net profit missed forecasts and the company paused share buybacks, signaling capital allocation pressure.",
+        "why_now": "The earnings miss and buyback suspension were reported on 2026-10-22.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9b616d9c9b55"
+        ],
+        "primary_source_event_id": "EVT-9b616d9c9b55",
+        "source_headlines": [
+          "Swedish bank SEB Q3 net profit below forecast, pauses share buybacks"
+        ],
+        "source_headline": "Swedish bank SEB Q3 net profit below forecast, pauses share buybacks",
+        "source_url": "https://www.reuters.com/business/finance/swedish-bank-seb-q3-net-profit-below-forecast-pauses-share-buybacks-2026-10-22/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-22T04:55:50Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-22T09:01:10Z",
+        "updated_at": "2026-10-22T09:01:10Z",
+        "decay_at": "2026-10-23T16:55:50Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-23T16:55:50Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-e5a33fd56bcc",
         "idea_version": "IDEAV-acbf90ced813c5c0",
@@ -236092,85 +236168,12 @@
         "archived_at": "2026-09-29T16:26:29Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-6a5a69a1366b",
-        "idea_version": "IDEAV-d4cbc43e591ded73",
-        "idea_version_started_at": "2026-09-26T21:35:18Z",
-        "ticker": "MCD",
-        "company": "McDonald's Corporation",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "McDonald's is experiencing a 30% sell-off due to consumer pushback against 'Big Mac inflation', indicating potential negative impact on sales and margins.",
-        "why_now": "The sell-off and consumer pushback are current, with the news reported on September 26, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1f45a7acd2f7"
-        ],
-        "primary_source_event_id": "EVT-1f45a7acd2f7",
-        "source_headlines": [
-          "McDonald's Sell-Off Hits 30% As Big Mac Inflation Spurs Pushback"
-        ],
-        "source_headline": "McDonald's Sell-Off Hits 30% As Big Mac Inflation Spurs Pushback",
-        "source_url": "https://www.ndtvprofit.com/markets/mcdonalds-sell-off-hits-30-as-big-mac-inflation-spurs-pushback-12102529#publisher=newsstand",
-        "source_name": "NDTV Profit",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-26T15:10:13Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-26T16:10:26Z",
-        "updated_at": "2026-09-26T21:35:18Z",
-        "decay_at": "2026-09-28T03:10:13Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-29T16:06:28Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1831,
-    "live_count": 35,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -236189,9 +236192,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 797982,
+    "news_seen_today": 876742,
     "news_picked_today": 3156,
-    "news_dropped_today": 17964
+    "news_dropped_today": 18012
   },
   "book_momentum": {
     "live_count": 8,
