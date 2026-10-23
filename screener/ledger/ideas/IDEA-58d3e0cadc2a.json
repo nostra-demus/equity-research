@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-58d3e0cadc2a",
-  "idea_version": "IDEAV-1cb0121552268b82",
-  "idea_version_started_at": "2026-10-23T15:10:57Z",
+  "idea_version": "IDEAV-924840ecfbdfee07",
+  "idea_version_started_at": "2026-10-23T15:52:59Z",
   "ticker": "INFY",
   "company": "Infosys Limited",
   "exchange": "NYSE",
@@ -11,26 +11,25 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "The company cut its forward guidance, signaling weaker demand or margin pressure in the IT services sector.",
-  "why_now": "The guidance cut was announced today, October 23, 2026, and is currently triggering a pre-market sell-off.",
-  "conviction": 75,
+  "reason": "The company cut its FY27 topline guidance and flagged pricing pressure, which outweighs the positive impact of new deal wins and AI revenue growth.",
+  "why_now": "The guidance cut was announced today, October 23, 2026, alongside Q2 results.",
+  "conviction": 80,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 66,
+  "trade_score": 88,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
-    "evidence": 14,
-    "impact": 20,
+    "evidence": 25,
+    "impact": 21,
     "specificity": 15,
     "timing": 10,
     "expression": 7,
-    "corroboration": 0,
+    "corroboration": 10,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -47,17 +46,21 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-05c28fb976c4"
+    "EVT-2240a834510b",
+    "EVT-7867d6022e18",
+    "EVT-73f1ccb097a7"
   ],
-  "primary_source_event_id": "EVT-05c28fb976c4",
+  "primary_source_event_id": "EVT-2240a834510b",
   "source_headlines": [
-    "Infosys Q2 results LIVE updates: Infosys ADR down 6% in pre-maket after guidance cut"
+    "Infosys Limited: Infosys Limited has submitted to the Exchange, Financial Results for the quarter and half year ended September 30, 2026 and declaration of interim dividend",
+    "Infosys Q2 results Highlights: Infosys cuts FY27 topline guidance, flags pricing pressure; ADR falls",
+    "Infosys FY27 Guidance Cut Counters $5.2B Deal Bonanza, AI Revenue Uptick; Margins Steady Amid External Headwinds"
   ],
-  "source_headline": "Infosys Q2 results LIVE updates: Infosys ADR down 6% in pre-maket after guidance cut",
-  "source_url": "https://www.cnbctv18.com/market/infosys-q2-results-live-updates-fy27-guidance-deal-wins-ai-impact-in-focus-liveblog-20017822.htm",
-  "source_name": "CNBC-TV18",
+  "source_headline": "Infosys Limited: Infosys Limited has submitted to the Exchange, Financial Results for the quarter and half year ended September 30, 2026 and declaration of interim dividend",
+  "source_url": "https://nsearchives.nseindia.com/corporate/Infosys_23102026160704_BM_Outcome_Oct232026_1.pdf",
+  "source_name": "BSE / NSE Exchange Filing",
   "materiality_max": 100,
-  "newest_source_at": "2026-10-23T11:21:00Z",
+  "newest_source_at": "2026-10-23T12:32:31Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -65,8 +68,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-10-23T15:10:57Z",
-  "updated_at": "2026-10-23T15:10:57Z",
-  "decay_at": "2026-10-24T23:21:00Z",
+  "updated_at": "2026-10-23T15:52:59Z",
+  "decay_at": "2026-10-25T00:32:31Z",
   "status": "live",
   "promoted_signal_id": null
 }
