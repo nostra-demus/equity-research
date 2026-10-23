@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T08:36:03Z",
+  "generated_at": "2026-10-23T08:42:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20261023-767",
@@ -91,6 +91,55 @@
       "companies": [
         {
           "name": "Volvo Cars",
+          "ticker": null,
+          "listing_country": "SE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261023-834",
+      "headline": "Volvo Car to Cut 2,500 Jobs as Part of Plan to Cut Costs Further",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/earnings/volvo-car-to-cut-2-500-jobs-as-part-of-plan-to-cut-costs-further-c304f1f8?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T05:57:00Z",
+      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
+      "prelim_note": "Volvo Car is cutting 2,500 jobs to reduce costs, indicating operational stress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volvo Car is cutting 2,500 jobs to reduce costs, indicating operational stress.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volvo Car",
           "ticker": null,
           "listing_country": "SE"
         }
@@ -1958,56 +2007,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261023-588",
-      "headline": "Sainsbury’s lifts profit outlook as grocery grows and Argos sold",
-      "headline_en": null,
-      "url": "https://ukinvestormagazine.co.uk/sainsburys-lifts-profit-outlook-as-grocery-grows-and-argos-sold/",
-      "source_name": "UK Investor Magazine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-22T07:45:00Z",
-      "sweep_file": "screener/inbox/2026-10-23_sweep.json",
-      "prelim_note": "Sainsbury's raised its profit outlook and announced the sale of its Argos business.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sainsbury's raised its profit outlook and announced the sale of its Argos business.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sainsbury's",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -236136,9 +236135,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 288395,
-    "news_picked_today": 2435,
-    "news_dropped_today": 10981
+    "news_seen_today": 288613,
+    "news_picked_today": 2461,
+    "news_dropped_today": 11027
   },
   "book_momentum": {
     "live_count": 8,
