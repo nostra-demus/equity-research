@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T02:56:05Z",
+  "generated_at": "2026-10-24T03:01:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-282",
@@ -1575,6 +1575,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261024-370",
+      "headline": "Deyaar posts 27% profit growth to Dh541.5 million as property handovers exceed 2,100 units",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/business/deyaar-posts-27-profit-growth-to-dh5415-million-as-property-handovers-exceed-2100-units",
+      "source_name": "Khaleej Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T08:04:06Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Deyaar reported a 27% profit increase to Dh541.5 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Deyaar reported a 27% profit increase to Dh541.5 million.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Deyaar Development",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261024-212",
       "headline": "Black Hills Corporation Announces Bright Horizon Energy Corporation as Proposed Name and HZN Ticker for Combined Company",
       "headline_en": null,
@@ -1894,49 +1943,6 @@
         "size": 0,
         "recency": 1,
         "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-184",
-      "headline": "Russia and Ukraine trade fresh strikes despite renewed push for U.S.-brokered peace talks",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/23/russia-ukraine-strikes-peace-talks.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T11:16:30Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Escalation of strikes in the Russia-Ukraine conflict despite peace talk efforts increases geopolitical risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Escalation of strikes in the Russia-Ukraine conflict despite peace talk efforts increases geopolitical risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "geopolitical",
@@ -238079,9 +238085,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 41997,
-    "news_picked_today": 530,
-    "news_dropped_today": 1438
+    "news_seen_today": 42304,
+    "news_picked_today": 538,
+    "news_dropped_today": 1478
   },
   "book_momentum": {
     "live_count": 8,
