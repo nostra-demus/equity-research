@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T21:33:26Z",
+  "generated_at": "2026-10-24T21:43:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-633",
@@ -345,6 +345,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-654",
+      "headline": "Trump set to announce plan by Audi to build US factory in Georgia, source says",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/autos-transportation/trump-set-announce-plan-by-audi-build-us-factory-georgia-source-says-2026-10-24/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T21:31:46Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Audi is reportedly planning a new factory in Georgia, representing a major capital investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Audi is reportedly planning a new factory in Georgia, representing a major capital investment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Audi",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1952,55 +2001,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-450",
-      "headline": "National Express owner in talks over £282m takeover deal",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/national-express-coach-takeover-mobico-shares-adl-b3072615.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-24T08:32:16Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Mobico Group (owner of National Express) is in talks for a £282m takeover deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Mobico Group (owner of National Express) is in talks for a £282m takeover deal.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mobico Group",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -199331,78 +199331,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-87199b2e9c59",
-      "idea_version": "IDEAV-6232dbb8cfbe6a85",
-      "idea_version_started_at": "2026-10-23T12:15:36Z",
-      "ticker": "SBICARD",
-      "company": "SBI Card",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 74.8% increase in net profit for Q2 FY27, indicating strong operational leverage despite modest revenue growth.",
-      "why_now": "The Q2 results were released on 2026-10-23.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3494211f7bee"
-      ],
-      "primary_source_event_id": "EVT-3494211f7bee",
-      "source_headlines": [
-        "SBI Card Q2 results: Net profit rises 74.8% to ₹778 crore, revenue up 3.6%"
-      ],
-      "source_headline": "SBI Card Q2 results: Net profit rises 74.8% to ₹778 crore, revenue up 3.6%",
-      "source_url": "https://www.cnbctv18.com/market/earnings/sbi-card-q2-results-net-profit-revenue-credit-card-share-price-stock-20018026.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-23T09:35:06Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T12:15:36Z",
-      "updated_at": "2026-10-23T12:15:36Z",
-      "decay_at": "2026-10-24T21:35:06Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f06d57fae0ea",
       "idea_version": "IDEAV-17c03295f74f7c03",
       "idea_version_started_at": "2026-10-24T05:01:36Z",
@@ -200962,6 +200890,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-87199b2e9c59",
+      "idea_version": "IDEAV-6232dbb8cfbe6a85",
+      "idea_version_started_at": "2026-10-23T12:15:36Z",
+      "ticker": "SBICARD",
+      "company": "SBI Card",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 74.8% increase in net profit for Q2 FY27, indicating strong operational leverage despite modest revenue growth.",
+      "why_now": "The Q2 results were released on 2026-10-23.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3494211f7bee"
+      ],
+      "primary_source_event_id": "EVT-3494211f7bee",
+      "source_headlines": [
+        "SBI Card Q2 results: Net profit rises 74.8% to ₹778 crore, revenue up 3.6%"
+      ],
+      "source_headline": "SBI Card Q2 results: Net profit rises 74.8% to ₹778 crore, revenue up 3.6%",
+      "source_url": "https://www.cnbctv18.com/market/earnings/sbi-card-q2-results-net-profit-revenue-credit-card-share-price-stock-20018026.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-23T09:35:06Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T12:15:36Z",
+      "updated_at": "2026-10-23T12:15:36Z",
+      "decay_at": "2026-10-24T21:35:06Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-9f7e74ae9645",
       "idea_version": "IDEAV-39146320d49b27b5",
       "idea_version_started_at": "2026-10-23T12:15:36Z",
@@ -201838,14 +201838,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 532,
+    "total_count": 533,
     "shown_count": 500,
-    "hidden_count": 32,
+    "hidden_count": 33,
     "side_counts": {
       "long": {
-        "total_count": 267,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 18
       },
       "short": {
         "total_count": 266,
@@ -201869,6 +201869,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-87199b2e9c59",
+        "idea_version": "IDEAV-6232dbb8cfbe6a85",
+        "idea_version_started_at": "2026-10-23T12:15:36Z",
+        "ticker": "SBICARD",
+        "company": "SBI Card",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported a 74.8% increase in net profit for Q2 FY27, indicating strong operational leverage despite modest revenue growth.",
+        "why_now": "The Q2 results were released on 2026-10-23.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3494211f7bee"
+        ],
+        "primary_source_event_id": "EVT-3494211f7bee",
+        "source_headlines": [
+          "SBI Card Q2 results: Net profit rises 74.8% to ₹778 crore, revenue up 3.6%"
+        ],
+        "source_headline": "SBI Card Q2 results: Net profit rises 74.8% to ₹778 crore, revenue up 3.6%",
+        "source_url": "https://www.cnbctv18.com/market/earnings/sbi-card-q2-results-net-profit-revenue-credit-card-share-price-stock-20018026.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-23T09:35:06Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-23T12:15:36Z",
+        "updated_at": "2026-10-23T12:15:36Z",
+        "decay_at": "2026-10-24T21:35:06Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-24T21:35:06Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-5b1f459150db",
         "idea_version": "IDEAV-da7b88b743ff7db6",
@@ -228972,80 +229047,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-567e2c9bb7a6",
-        "idea_version": "IDEAV-b400278b4ef17d14",
-        "idea_version_started_at": "2026-10-09T19:14:31Z",
-        "ticker": "03228",
-        "company": "Kinwong Electronic",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company issued a positive profit alert for Q3 2026, indicating significant earnings growth compared to the prior period.",
-        "why_now": "The official filing was released on October 9, 2026, signaling immediate fundamental improvement.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b1d7ffa31017"
-        ],
-        "primary_source_event_id": "EVT-b1d7ffa31017",
-        "source_headlines": [
-          "KINWONG (03228): ANNOUNCEMENT ON THE POSITIVE PROFIT ALERT FOR THE THIRD QUARTER OF 2026"
-        ],
-        "source_headline": "KINWONG (03228): ANNOUNCEMENT ON THE POSITIVE PROFIT ALERT FOR THE THIRD QUARTER OF 2026",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100901165.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-09T13:09:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-09T19:14:31Z",
-        "updated_at": "2026-10-09T19:14:31Z",
-        "decay_at": "2026-10-11T01:09:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-12T13:14:49Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-a8fae1eb73f2",
         "idea_version": "IDEAV-b3287e7154130c0c",
         "idea_version_started_at": "2026-10-09T13:03:03Z",
@@ -239109,7 +239110,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1868,
-    "live_count": 49,
+    "live_count": 48,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
