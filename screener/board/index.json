@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T10:23:06Z",
+  "generated_at": "2026-10-24T10:33:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-462",
@@ -140,6 +140,56 @@
         {
           "name": "KEC International",
           "ticker": "532714",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-485",
+      "headline": "JK Cement Q2 results: Profit rises 8%; board approves ₹130 crore paints plant in Telangana",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/jk-cement-share-price-q2-result-profit-set-up-%25e2%2582%25b9130-crore-paints-plant-in-telangana-20018579.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T10:23:37Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "JK Cement reported an 8% profit increase and announced a 130 crore paints plant investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "JK Cement reported an 8% profit increase and announced a 130 crore paints plant investment.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JK Cement",
+          "ticker": null,
           "listing_country": "IN"
         }
       ],
@@ -1924,55 +1974,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-483",
-      "headline": "Kotak Mahindra Bank Limited: Kotak Mahindra Bank Limited has informed the Exchange regarding Change in Director(s) of the company.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/KMBLTAB_24102026154235_OutcomeofBM24102026MDIDSIGNED.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-24T10:12:48Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Director change at major Indian bank disclosed to exchange, but headline does not specify which director(s) or whether key officer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Director change at major Indian bank disclosed to exchange, but headline does not specify which director(s) or whether key officer.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 48,
-      "rank_factors": {
-        "materiality": 48,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kotak Mahindra Bank Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -238377,9 +238378,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 46869,
-    "news_picked_today": 921,
-    "news_dropped_today": 3530
+    "news_seen_today": 47024,
+    "news_picked_today": 937,
+    "news_dropped_today": 3669
   },
   "book_momentum": {
     "live_count": 8,
