@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T00:42:42Z",
+  "generated_at": "2026-10-24T00:47:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-012",
@@ -1452,6 +1452,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261024-081",
+      "headline": "Solaryaan Showcases Hybrid Inverters At REI Expo 2026, Plans 5 GWh Battery Manufacturing Capacity In Gujarat",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/press-release/solaryaan-showcases-hybrid-inverters-at-rei-expo-2026-plans-5-gwh-battery-manufacturing-capacity-in-gujarat",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T12:07:16Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Solaryaan announces 5 GWh battery manufacturing capacity expansion in Gujarat, a named capex commitment with location and scale.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Solaryaan announces 5 GWh battery manufacturing capacity expansion in Gujarat, a named capex commitment with location and scale.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Solaryaan",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261024-031",
       "headline": "World Acceptance Corporation Posts Q2 Net Profit As Revenue Increases",
       "headline_en": null,
@@ -1889,49 +1938,6 @@
       "triage_score": 77,
       "triage_reason": "Denmark's government has decided to ban mink farming, effectively ending the industry in the country.",
       "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-071",
-      "headline": "FCC issues first bans under new chip-level rule",
-      "headline_en": null,
-      "url": "https://www.tomshardware.com/tech-industry/cyber-security/fcc-bans-first-two-devices-from-the-us-under-new-chip-level-rule-huawei-subsidiary-chip-boasts-face-detection-algorithm",
-      "source_name": "Tom's Hardware",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:15:00Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "The FCC has initiated enforcement actions under new chip-level rules, creating regulatory risk for hardware manufacturers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "The FCC has initiated enforcement actions under new chip-level rules, creating regulatory risk for hardware manufacturers.",
-      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 60,
       "rank_factors": {
@@ -238010,9 +238016,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 16451,
-    "news_picked_today": 84,
-    "news_dropped_today": 300
+    "news_seen_today": 19761,
+    "news_picked_today": 91,
+    "news_dropped_today": 317
   },
   "book_momentum": {
     "live_count": 8,
