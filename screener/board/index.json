@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T03:01:02Z",
+  "generated_at": "2026-10-24T03:02:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-282",
@@ -1428,6 +1428,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261024-375",
+      "headline": "Godrej Properties Q2 profit falls 62% to ₹154 crore as expenses surge",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/real-estate/godrej-properties-q2-profit-falls-62-to-154-crore-as-expenses-surge/article71615104.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T07:50:26Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Godrej Properties reported a 62% decline in Q2 profit to ₹154 crore due to rising expenses.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Godrej Properties reported a 62% decline in Q2 profit to ₹154 crore due to rising expenses.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Godrej Properties",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261024-093",
       "headline": "Cambricon’s third quarter profit surges 148% to US$210m amid push to replace Nvidia chips",
       "headline_en": null,
@@ -1900,49 +1949,6 @@
         "size": 0,
         "recency": 1,
         "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-147",
-      "headline": "Black Sea Ship Sinks in New Deadly Drone Strike Blamed on Russia",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-23/black-sea-ship-sinks-in-new-deadly-drone-strike-blamed-on-russia",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T11:42:00Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "A Black Sea ship sank due to a deadly drone strike blamed on Russia, indicating an escalation of military conflict.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "A Black Sea ship sank due to a deadly drone strike blamed on Russia, indicating an escalation of military conflict.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "geopolitical",
@@ -238085,9 +238091,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 42304,
-    "news_picked_today": 538,
-    "news_dropped_today": 1478
+    "news_seen_today": 42563,
+    "news_picked_today": 548,
+    "news_dropped_today": 1492
   },
   "book_momentum": {
     "live_count": 8,
