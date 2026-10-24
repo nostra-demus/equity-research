@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T09:25:05Z",
+  "generated_at": "2026-10-24T09:25:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-446",
@@ -196359,6 +196359,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-6f55bf31e25a",
+      "idea_version": "IDEAV-b4140cfc1806fcab",
+      "idea_version_started_at": "2026-10-24T09:25:22Z",
+      "ticker": "BA",
+      "company": "Boeing",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The cessation of 777 freighter production represents a negative operational development that impacts future revenue streams and manufacturing efficiency.",
+      "why_now": "The announcement was made on 2026-10-24, creating immediate negative sentiment for the stock.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-81e901448bf3"
+      ],
+      "primary_source_event_id": "EVT-81e901448bf3",
+      "source_headlines": [
+        "Aviation: Boeing stops production of the 777 freighter"
+      ],
+      "source_headline": "Luftfahrt: Boeing stoppt Produktion des Frachters 777",
+      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/luftfahrt-boeing-stoppt-produktion-des-frachters-777/100264660.html",
+      "source_name": "Handelsblatt",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-24T08:32:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T09:25:22Z",
+      "updated_at": "2026-10-24T09:25:22Z",
+      "decay_at": "2026-10-25T20:32:39Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-b785702282d7",
       "idea_version": "IDEAV-43228b340ac81080",
       "idea_version_started_at": "2026-10-24T03:46:54Z",
@@ -196705,6 +196775,151 @@
       "surfaced_at": "2026-10-22T07:03:06Z",
       "updated_at": "2026-10-23T15:10:57Z",
       "decay_at": "2026-10-24T23:12:33Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-71b9d8d7d868",
+      "idea_version": "IDEAV-b359861aeac48342",
+      "idea_version_started_at": "2026-10-24T09:25:22Z",
+      "ticker": "MCG",
+      "company": "Mobico Group",
+      "exchange": "LSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is in active takeover talks for a £282m deal, which typically provides a floor and potential premium for shareholders.",
+      "why_now": "The news of the takeover talks emerged on 2026-10-24.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-12e4c0a9e4ef"
+      ],
+      "primary_source_event_id": "EVT-12e4c0a9e4ef",
+      "source_headlines": [
+        "National Express owner in talks over £282m takeover deal"
+      ],
+      "source_headline": "National Express owner in talks over £282m takeover deal",
+      "source_url": "https://www.independent.co.uk/news/business/national-express-coach-takeover-mobico-shares-adl-b3072615.html",
+      "source_name": "The Independent — Business",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-24T08:32:16Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T09:25:22Z",
+      "updated_at": "2026-10-24T09:25:22Z",
+      "decay_at": "2026-10-25T20:32:16Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-f0e6ba50c3cf",
+      "idea_version": "IDEAV-e3bb43c664cc9ce4",
+      "idea_version_started_at": "2026-10-24T09:25:22Z",
+      "ticker": "KOTAKBANK",
+      "company": "Kotak Mahindra Bank",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The bank reported a 29% rise in Q2 profit, which exceeded market estimates, reflecting strong core banking performance.",
+      "why_now": "The official filing and subsequent news confirmation occurred on 2026-10-24.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2dd06a38816a",
+        "EVT-64ba8e776a13"
+      ],
+      "primary_source_event_id": "EVT-2dd06a38816a",
+      "source_headlines": [
+        "Kotak Mahindra Bank Limited: Kotak Mahindra Bank Limited has submitted to the Exchange, the financial results for the period ended September 30, 2026.",
+        "Kotak Bank Q2 profit rises 29%, beats estimates"
+      ],
+      "source_headline": "Kotak Mahindra Bank Limited: Kotak Mahindra Bank Limited has submitted to the Exchange, the financial results for the period ended September 30, 2026.",
+      "source_url": "https://nsearchives.nseindia.com/corporate/KMBLTAB_24102026131109_OutcomeofBMOct242026SIGNED.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-24T09:11:31Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T09:25:22Z",
+      "updated_at": "2026-10-24T09:25:22Z",
+      "decay_at": "2026-10-25T21:11:31Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -200935,220 +201150,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-a484f7194164",
-      "idea_version": "IDEAV-d49fa2c8d0d60dcd",
-      "idea_version_started_at": "2026-10-21T19:59:53Z",
-      "ticker": "01961",
-      "company": "INFINITIES TECH",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A winding-up petition threatens the listed company's ability to continue operating and could force liquidation or restructuring that severely impair equity value.",
-      "why_now": "The winding-up petition was disclosed on 21 October 2026, creating an immediate solvency and equity-dilution catalyst.",
-      "conviction": 68,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-673c5b3754ba"
-      ],
-      "primary_source_event_id": "EVT-673c5b3754ba",
-      "source_headlines": [
-        "INFINITIES TECH (01961): WINDING UP PETITION"
-      ],
-      "source_headline": "INFINITIES TECH (01961): WINDING UP PETITION",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102100332.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-21T08:32:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-21T19:59:53Z",
-      "updated_at": "2026-10-21T19:59:53Z",
-      "decay_at": "2026-10-22T20:32:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-094b7f020f36",
-      "idea_version": "IDEAV-6ec764606ceb392b",
-      "idea_version_started_at": "2026-10-21T12:47:08Z",
-      "ticker": "ADANIGREEN",
-      "company": "Adani Green Energy",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 15% YoY profit increase and a 39% revenue jump in Q2, indicating strong operational scaling in its renewable energy portfolio.",
-      "why_now": "The Q2 results were released on October 21, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-026017282517"
-      ],
-      "primary_source_event_id": "EVT-026017282517",
-      "source_headlines": [
-        "Adani Green Q2 Results: Profit rises 15% YoY to Rs 673 crore; revenue jumps 39%"
-      ],
-      "source_headline": "Adani Green Q2 Results: Profit rises 15% YoY to Rs 673 crore; revenue jumps 39%",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/adani-green-q2-results-profit-rises-15-yoy-to-rs-673-crore-revenue-jumps-39/articleshow/135087375.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-21T09:12:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-21T12:47:08Z",
-      "updated_at": "2026-10-21T12:47:08Z",
-      "decay_at": "2026-10-22T21:12:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-c09be92dcb5d",
-      "idea_version": "IDEAV-550d50b08ab5fc80",
-      "idea_version_started_at": "2026-10-21T12:47:08Z",
-      "ticker": "GRASIM",
-      "company": "Grasim Industries Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The commencement of commercial production at the new Epichlorohydrin plant in Gujarat adds a new revenue stream and improves vertical integration for the company's chemical business.",
-      "why_now": "The plant officially commenced commercial production as of the filing date, October 21, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-212f29aab722"
-      ],
-      "primary_source_event_id": "EVT-212f29aab722",
-      "source_headlines": [
-        "Grasim Industries Limited: Commencement of commercial production of EPICHLOROHYDRIN Plant at Vilayat, Gujarat"
-      ],
-      "source_headline": "Grasim Industries Limited: Commencement of commercial production of EPICHLOROHYDRIN Plant at Vilayat, Gujarat",
-      "source_url": "https://nsearchives.nseindia.com/corporate/GRASIM_21102026145138_SEIntimationCommencement.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-21T09:21:59Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-21T12:47:08Z",
-      "updated_at": "2026-10-21T12:47:08Z",
-      "decay_at": "2026-10-22T21:21:59Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -201161,33 +201162,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 534,
+    "total_count": 531,
     "shown_count": 499,
-    "hidden_count": 35,
+    "hidden_count": 32,
     "side_counts": {
       "long": {
-        "total_count": 269,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 19
+        "hidden_count": 17
       },
       "short": {
-        "total_count": 266,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 15
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1276,
-      "oldest_retained_at": "2026-09-25T20:51:06Z",
+      "evicted_count": 1279,
+      "oldest_retained_at": "2026-09-25T23:10:39Z",
       "side_counts": {
         "long": {
-          "evicted_count": 854,
-          "oldest_retained_at": "2026-10-08T16:19:32Z"
+          "evicted_count": 856,
+          "oldest_retained_at": "2026-10-08T22:46:00Z"
         },
         "short": {
-          "evicted_count": 422,
-          "oldest_retained_at": "2026-09-25T20:51:06Z"
+          "evicted_count": 423,
+          "oldest_retained_at": "2026-09-25T23:10:39Z"
         }
       }
     },
@@ -203635,8 +203636,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-22T21:21:59Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-24T09:25:32Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -203710,8 +203711,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-22T21:12:54Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-24T09:25:32Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -203784,8 +203785,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-22T20:32:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-24T09:25:32Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -238358,8 +238359,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1849,
-    "live_count": 38,
+    "surfaced_total": 1852,
+    "live_count": 41,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
