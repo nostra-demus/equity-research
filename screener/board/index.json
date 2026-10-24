@@ -1,6 +1,294 @@
 {
-  "generated_at": "2026-10-24T00:01:39Z",
+  "generated_at": "2026-10-24T00:13:44Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261024-005",
+      "headline": "Bannerman pulls trigger on $353M uranium mine",
+      "headline_en": null,
+      "url": "https://www.mining.com/bannerman-pulls-trigger-on-353m-uranium-mine/",
+      "source_name": "Mining.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T22:39:00Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Bannerman Resources commits $353M capital expenditure to uranium mine, a major capex expanding commodity production capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Bannerman Resources commits $353M capital expenditure to uranium mine, a major capex expanding commodity production capacity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bannerman Resources",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-006",
+      "headline": "Jio IPO draws Rs 7.4 lakh crore in bids, applications hit record",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/business/companies/jio-ipo-draws-rs-74-lakh-crore-in-bids-applications-hit-record-4193467",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T22:33:46Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Reliance Jio IPO subscription reached record Rs 7.4 lakh crore in bids, a major capital-raising event affecting shareholder structure and consolidated cash flows.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Reliance Jio IPO subscription reached record Rs 7.4 lakh crore in bids, a major capital-raising event affecting shareholder structure and consolidated cash flows.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Jio",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Reliance Industries Limited",
+          "ticker": "RIL",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-003",
+      "headline": "Boeing supplier dispute has halted 777 freighter production for two months, sources say",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/aerospace-defense/boeing-supplier-dispute-has-halted-777-freighter-production-two-months-sources-2026-10-23/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T23:43:22Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Boeing 777 freighter production halted two months due to supplier dispute, affecting output and cash flow, but the halt is unconfirmed (sources only) and no quantified revenue or margin impact stated.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "Boeing 777 freighter production halted two months due to supplier dispute, affecting output and cash flow, but the halt is unconfirmed (sources only) and no quantified revenue or margin impact stated.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boeing",
+          "ticker": "BA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-001",
+      "headline": "Amazon used AI tool to track risk of unionization in Canadian warehouses, documents show",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-amazon-ai-tool-risk-unionization-canadian-warehouses-documents/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T23:52:12Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Amazon disclosed using AI to track unionization risk in Canadian warehouses; a governance and labor-relations red flag, but no enforcement action or quantified operational impact yet reported.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Amazon disclosed using AI to track unionization risk in Canadian warehouses; a governance and labor-relations red flag, but no enforcement action or quantified operational impact yet reported.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": "AMZN",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-002",
+      "headline": "Oil prices jump US$3 on Houthi attacks, oil spill, highest settlement since April",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/energy-commodities/oil-prices-jump-us3-houthi-attacks-oil-spill-highest-settlement-april",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T23:58:09Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Houthi attacks and an oil spill drive oil prices to highest settlement since April, a US$3 jump repricing supply risk across energy, transport, and manufacturing sectors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Houthi attacks and an oil spill drive oil prices to highest settlement since April, a US$3 jump repricing supply risk across energy, transport, and manufacturing sectors.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector",
+        "operations"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-004",
+      "headline": "Pentagon designates Confucius Institutes in US a national security threat",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/china/pentagon-designates-confucius-institutes-national-security-threat-2026-10-23/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T21:46:21Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Pentagon designates Confucius Institutes as national security threat, potentially restricting Chinese universities' US operations and affecting some US-company partnerships, but no specific company or quantified impact named.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "Pentagon designates Confucius Institutes as national security threat, potentially restricting Chinese universities' US operations and affecting some US-company partnerships, but no specific company or quantified impact named.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261023-1159",
       "headline": "25-NSE - Arcosa, Inc. (0001739445) (Subject)",
@@ -236325,7 +236613,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3967,
+    "inbox_unconsumed": 3973,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -236334,9 +236622,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 0,
-    "news_picked_today": 0,
-    "news_dropped_today": 0
+    "news_seen_today": 5811,
+    "news_picked_today": 6,
+    "news_dropped_today": 66
   },
   "book_momentum": {
     "live_count": 8,
