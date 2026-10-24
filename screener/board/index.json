@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T15:08:59Z",
+  "generated_at": "2026-10-24T15:17:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-576",
@@ -291,6 +291,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-625",
+      "headline": "Can Specialty Meds Offset GSK’s $2.2B Legal Charges and Sizzling R&D Setbacks on Oct. 28?",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/10/24/can-specialty-meds-offset-gsks-2-2b-legal-charges-and-sizzling-rd-setbacks-on-oct-28/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T15:08:12Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "GSK faces $2.2 billion in legal charges and R&D setbacks impacting financial outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GSK faces $2.2 billion in legal charges and R&D setbacks impacting financial outlook.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GSK",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1936,55 +1986,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-406",
-      "headline": "DRL says cap on trade margins a positive, posts 36% dip in Q2 PAT",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/drl-says-cap-on-trade-margins-a-positive-posts-36-dip-in-q2-pat/articleshow/135161325.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-24T03:53:30Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Dr. Reddy's Laboratories reported a 36% decline in Q2 profit after tax.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Dr. Reddy's Laboratories reported a 36% decline in Q2 profit after tax.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dr. Reddy's Laboratories",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -238824,9 +238825,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 50335,
-    "news_picked_today": 1203,
-    "news_dropped_today": 5076
+    "news_seen_today": 50389,
+    "news_picked_today": 1217,
+    "news_dropped_today": 5116
   },
   "book_momentum": {
     "live_count": 8,
