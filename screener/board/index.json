@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T07:26:44Z",
+  "generated_at": "2026-10-24T07:31:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-405",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-444",
+      "headline": "South Africa moves towards ₹5,400 crore takeover of Lakshmi Mittal’s struggling steel business: What’s in the deal?",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/south-africa-moves-towards-5-400-crore-takeover-of-lakshmi-mittal-s-struggling-steel-business-what-s-in-the-deal-11792823948118.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T07:25:17Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "ArcelorMittal is potentially divesting a struggling steel business in a deal valued at ₹5,400 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ArcelorMittal is potentially divesting a struggling steel business in a deal valued at ₹5,400 crore.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ArcelorMittal",
+          "ticker": null,
+          "listing_country": "LU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1922,56 +1971,6 @@
           "name": "Kering",
           "ticker": null,
           "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-331",
-      "headline": "Volvo se desploma en bolsa tras registrar grandes pérdidas y anunciar el recorte de 2.500 empleos más",
-      "headline_en": "Volvo plunges on the stock market after recording large losses and announcing the cut of 2,500 more jobs.",
-      "url": "https://www.reuters.com/latam/negocio/DHS7CXLK6BMBRN7M3V53NSH2DU-2026-10-23/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T08:39:43Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Volvo shares plunge following large losses and the announcement of 2,500 job cuts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Volvo shares plunge following large losses and the announcement of 2,500 job cuts.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volvo",
-          "ticker": null,
-          "listing_country": "SE"
         }
       ],
       "size_bucket": "large",
