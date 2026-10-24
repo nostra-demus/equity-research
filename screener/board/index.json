@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T01:02:51Z",
+  "generated_at": "2026-10-24T01:12:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-131",
@@ -542,6 +542,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261024-180",
+      "headline": "Infosys beats Q2 estimates, lowers annual revenue forecast",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/company-results/infosys-q2-results-revenue-growth-forecast-11792753857538.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T11:20:14Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Infosys beat Q2 earnings estimates but lowered its annual revenue forecast, signaling potential sector headwinds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Infosys beat Q2 earnings estimates but lowered its annual revenue forecast, signaling potential sector headwinds.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Infosys",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261024-032",
       "headline": "Alpha Metallurgical Resources Reports Preliminary Q3 Loss",
       "headline_en": null,
@@ -971,6 +1021,103 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-184",
+      "headline": "Russia and Ukraine trade fresh strikes despite renewed push for U.S.-brokered peace talks",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/23/russia-ukraine-strikes-peace-talks.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T11:16:30Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Escalation of strikes in the Russia-Ukraine conflict despite peace talk efforts increases geopolitical risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Escalation of strikes in the Russia-Ukraine conflict despite peace talk efforts increases geopolitical risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-187",
+      "headline": "BASF Increases Bid for Chemicals Rival Evonik to Over €11 Billion",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-23/basf-increases-bid-for-chemicals-rival-evonik-to-over-11-billion",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T11:15:50Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "BASF raises unsolicited bid for Evonik to over €11 billion, affecting both issuers' capital structures and deal certainty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "BASF raises unsolicited bid for Evonik to over €11 billion, affecting both issuers' capital structures and deal certainty.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BASF",
+          "ticker": "BAS",
+          "listing_country": "DE"
+        },
+        {
+          "name": "Evonik",
+          "ticker": "EVK",
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1822,153 +1969,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-034",
-      "headline": "Whirlpool Consensus Price Target Cut by 18.08% to $35.51",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/whirlpool-consensus-price-target-cut-1808-3551",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:35:32Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Whirlpool's consensus price target was cut by 18.08% to $35.51, reflecting negative analyst sentiment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Whirlpool's consensus price target was cut by 18.08% to $35.51, reflecting negative analyst sentiment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Whirlpool",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-125",
-      "headline": "Phathom Pharmaceuticals, Inc. Announces Lawsuit Challenging VOQUEZNA Exclusivity Through May 3, 2032",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/phathom-pharmaceuticals-inc-announces-lawsuit-challenging-voquezna-exclusivity-through-may",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-24T00:08:20Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Phathom Pharmaceuticals faces a lawsuit challenging the exclusivity of its drug VOQUEZNA until 2032.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Phathom Pharmaceuticals faces a lawsuit challenging the exclusivity of its drug VOQUEZNA until 2032.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Phathom Pharmaceuticals, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-046",
-      "headline": "3 Things Investors Might Not Know About Rivian's $4.5 Billion Loan",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/3-things-investors-might-not-know-about-rivians-45-billion-loan",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:25:00Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Rivian is securing a $4.5 billion loan, which is a significant capital structure event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Rivian is securing a $4.5 billion loan, which is a significant capital structure event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rivian",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -238024,9 +238024,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 22991,
-    "news_picked_today": 176,
-    "news_dropped_today": 496
+    "news_seen_today": 24414,
+    "news_picked_today": 202,
+    "news_dropped_today": 614
   },
   "book_momentum": {
     "live_count": 8,
