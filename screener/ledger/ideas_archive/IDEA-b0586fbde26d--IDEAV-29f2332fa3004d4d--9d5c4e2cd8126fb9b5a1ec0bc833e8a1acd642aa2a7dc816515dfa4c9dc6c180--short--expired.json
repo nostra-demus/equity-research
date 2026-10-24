@@ -1,28 +1,28 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-10T01:49:05Z",
+  "archived_at": "2026-10-24T00:29:04Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-e402cc95df0c",
-    "idea_version": "IDEAV-429c2de77c7b4d0a",
-    "idea_version_started_at": "2026-10-07T02:20:38Z",
-    "ticker": "BHP",
-    "company": "BHP Group",
-    "exchange": "NYSE",
+    "idea_id": "IDEA-b0586fbde26d",
+    "idea_version": "IDEAV-29f2332fa3004d4d",
+    "idea_version_started_at": "2026-10-21T01:02:58Z",
+    "ticker": "NFLX",
+    "company": "Netflix",
+    "exchange": "NASDAQ",
     "ticker_verified": true,
     "listing_verified": true,
     "liquidity_verified": false,
     "listing_verification_source": "yahoo_symbol_directory",
-    "direction": "long",
+    "direction": "short",
     "pair_with": null,
-    "reason": "BHP Group has reported a transaction regarding its Kambalda Nickel Concentrator, which could optimize its asset portfolio and operational efficiency.",
-    "why_now": "The transaction was reported as price-sensitive information on October 7, 2026, indicating a fresh catalyst for the stock.",
+    "reason": "A $300 million reduction in ad revenue forecasts suggests potential headwinds in their monetization strategy.",
+    "why_now": "The forecast cut was disclosed on 2026-10-20, creating a negative sentiment shift.",
     "conviction": 60,
     "conviction_basis": "pre_edge_proxy",
-    "trade_score": 76,
+    "trade_score": 65,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
+      "evidence": 14,
       "impact": 19,
       "specificity": 15,
       "timing": 10,
@@ -34,6 +34,7 @@
     "missing_checks": [
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -50,26 +51,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-6a541f65451b"
+      "EVT-0afda8c1a5ee"
     ],
-    "primary_source_event_id": "EVT-6a541f65451b",
+    "primary_source_event_id": "EVT-0afda8c1a5ee",
     "source_headlines": [
-      "LM8: BHP Reports Kambalda Nickel Concentrator Transaction [price-sensitive]"
+      "Netflix Cut Its Ad Revenue Forecast by $300 Million. Does That Matter More Than Its Earnings Beat?"
     ],
-    "source_headline": "LM8: BHP Reports Kambalda Nickel Concentrator Transaction [price-sensitive]",
-    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LM8?key=2924-03145473-6A1348080",
-    "source_name": "ASX (Australia Exchange Filing)",
+    "source_headline": "Netflix Cut Its Ad Revenue Forecast by $300 Million. Does That Matter More Than Its Earnings Beat?",
+    "source_url": "https://www.nasdaq.com/articles/netflix-cut-its-ad-revenue-forecast-300-million-does-matter-more-its-earnings-beat",
+    "source_name": "Nasdaq",
     "materiality_max": 100,
-    "newest_source_at": "2026-10-07T01:04:55Z",
+    "newest_source_at": "2026-10-20T22:23:12Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-07T02:20:38Z",
-    "updated_at": "2026-10-07T02:20:38Z",
-    "decay_at": "2026-10-08T13:04:55Z",
+    "surfaced_at": "2026-10-21T01:02:58Z",
+    "updated_at": "2026-10-21T01:02:58Z",
+    "decay_at": "2026-10-22T10:23:12Z",
     "status": "live",
     "promoted_signal_id": null
   }

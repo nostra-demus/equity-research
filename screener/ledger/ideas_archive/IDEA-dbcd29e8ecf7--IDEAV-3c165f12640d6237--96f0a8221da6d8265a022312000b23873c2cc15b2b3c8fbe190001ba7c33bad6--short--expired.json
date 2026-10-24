@@ -1,28 +1,28 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-27T02:53:57Z",
+  "archived_at": "2026-10-24T00:29:04Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-bfad6f23179e",
-    "idea_version": "IDEAV-f73316026dc66369",
-    "idea_version_started_at": "2026-09-24T16:36:19Z",
-    "ticker": "ACFS.AX",
-    "company": "ACFS Logistics",
-    "exchange": "ASX",
+    "idea_id": "IDEA-dbcd29e8ecf7",
+    "idea_version": "IDEAV-3c165f12640d6237",
+    "idea_version_started_at": "2026-10-21T01:23:08Z",
+    "ticker": "03738",
+    "company": "Vobile Group",
+    "exchange": "HKEX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "ACFS Logistics' debts have significantly increased to nearly half a billion dollars, signaling potential default risk.",
-    "why_now": "The concerning debt levels were reported on September 24, 2026.",
-    "conviction": 65,
+    "reason": "The issuance of HK$530 million in convertible bonds creates immediate equity dilution risk and signals potential balance sheet strain or a need for liquidity that the market may not have fully priced.",
+    "why_now": "The announcement was filed on 2026-10-20, and the market has yet to digest the full impact of the dilution.",
+    "conviction": 70,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 14,
+      "evidence": 25,
       "impact": 19,
       "specificity": 7,
       "timing": 10,
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -53,26 +52,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-467b378e69cd"
+      "EVT-ba33b15c36b6"
     ],
-    "primary_source_event_id": "EVT-467b378e69cd",
+    "primary_source_event_id": "EVT-ba33b15c36b6",
     "source_headlines": [
-      "Tzaneros’ ACFS debts blow out to nearly half a billion dollars"
+      "VOBILE GROUP (03738): PROPOSED ISSUE OF HK$530,000,000 3.75 PER CENT. CONVERTIBLE BONDS DUE 2027 UNDER GENERAL MANDATE"
     ],
-    "source_headline": "Tzaneros’ ACFS debts blow out to nearly half a billion dollars",
-    "source_url": "https://www.afr.com/companies/transport/tzaneros-acfs-debts-blow-out-to-nearly-half-a-billion-dollars-20260924-p6102o?ref=rss&utm_medium=rss&utm_source=rss_feed",
-    "source_name": "Australian Financial Review",
+    "source_headline": "VOBILE GROUP (03738): PROPOSED ISSUE OF HK$530,000,000 3.75 PER CENT. CONVERTIBLE BONDS DUE 2027 UNDER GENERAL MANDATE",
+    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102100033.pdf",
+    "source_name": "HKEXnews (HK Exchange Filing)",
     "materiality_max": 100,
-    "newest_source_at": "2026-09-24T02:22:03Z",
+    "newest_source_at": "2026-10-20T23:30:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-24T16:36:19Z",
-    "updated_at": "2026-09-24T16:36:19Z",
-    "decay_at": "2026-09-25T14:22:03Z",
+    "surfaced_at": "2026-10-21T01:23:08Z",
+    "updated_at": "2026-10-21T01:23:08Z",
+    "decay_at": "2026-10-22T11:30:00Z",
     "status": "live",
     "promoted_signal_id": null
   }

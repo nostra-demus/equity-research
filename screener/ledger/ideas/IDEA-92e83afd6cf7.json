@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-92e83afd6cf7",
-  "idea_version": "IDEAV-b6f2d3de0b6ae8c4",
-  "idea_version_started_at": "2026-10-23T19:34:45Z",
+  "idea_version": "IDEAV-c0550f7f8baa8373",
+  "idea_version_started_at": "2026-10-24T00:28:47Z",
   "ticker": "DRREDDY",
   "company": "Dr. Reddy's Laboratories",
   "exchange": "NSE",
@@ -11,19 +11,19 @@
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "The company reported a 36% year-over-year decline in net profit for Q2, reflecting margin pressure and potential headwinds in its core pharmaceutical segments.",
-  "why_now": "The earnings miss was reported on October 23, 2026, and the magnitude of the profit decline is likely to trigger downward earnings revisions.",
-  "conviction": 65,
+  "reason": "The company reported a significant 36% decline in Q2 net profit, missing expectations and indicating margin pressure.",
+  "why_now": "The earnings report was released on 2026-10-23.",
+  "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 20,
+    "impact": 21,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
-    "corroboration": 0,
+    "corroboration": 7,
     "learning_adjustment": 0
   },
   "trade_readiness": "watch_only",
@@ -32,7 +32,6 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -49,17 +48,19 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-678aebabf5a6"
+    "EVT-39870cfb5b17",
+    "EVT-42a04f4309cd"
   ],
-  "primary_source_event_id": "EVT-678aebabf5a6",
+  "primary_source_event_id": "EVT-39870cfb5b17",
   "source_headlines": [
-    "Dr Reddy’s Q2 Results: Net profit falls 36% YoY to Rs 913 crore, revenue declines marginally"
+    "Torrent Pharma Profit Falls 9.6 Per Cent, Dr Reddy’s Slumps 36 Pc In Q2 FY27",
+    "Dr Reddy’s Q2 FY27 net down 36% at ₹925 cr"
   ],
-  "source_headline": "Dr Reddy’s Q2 Results: Net profit falls 36% YoY to Rs 913 crore, revenue declines marginally",
-  "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/dr-reddys-q2-results-net-profit-falls-36-yoy-to-rs-913-crore-revenue-declines-marginally/articleshow/135147475.cms",
-  "source_name": "The Economic Times",
+  "source_headline": "Torrent Pharma Profit Falls 9.6 Per Cent, Dr Reddy’s Slumps 36 Pc In Q2 FY27",
+  "source_url": "https://www.freepressjournal.in/business/torrent-pharma-profit-falls-96-per-cent-dr-reddys-slumps-36-pc-in-q2-fy27",
+  "source_name": "Free Press Journal",
   "materiality_max": 100,
-  "newest_source_at": "2026-10-23T13:32:47Z",
+  "newest_source_at": "2026-10-23T18:27:04Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -67,8 +68,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-10-23T15:52:59Z",
-  "updated_at": "2026-10-23T19:34:45Z",
-  "decay_at": "2026-10-25T01:32:47Z",
+  "updated_at": "2026-10-24T00:28:47Z",
+  "decay_at": "2026-10-25T06:27:04Z",
   "status": "live",
   "promoted_signal_id": null
 }
