@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T13:34:53Z",
+  "generated_at": "2026-10-24T13:37:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-524",
@@ -189,6 +189,55 @@
         {
           "name": "KEC International",
           "ticker": "532714",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-569",
+      "headline": "Castrol India Q3 profit falls 22.6% as raw-material costs surge 71%",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/castrol-india-q3-profit-falls-226-as-raw-material-costs-surge-71/article71619880.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T13:24:25Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Castrol India reported a 22.6% profit decline driven by a 71% surge in raw material costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Castrol India reported a 22.6% profit decline driven by a 71% surge in raw material costs.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Castrol India",
+          "ticker": null,
           "listing_country": "IN"
         }
       ],
@@ -1930,55 +1979,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-029",
-      "headline": "Trump diz que Bombardier investirá US$270 milhões nos EUA",
-      "headline_en": "Trump says Bombardier will invest US$270 million in the US",
-      "url": "https://www.reuters.com/pt/negocio/T2HISYVOXBN2VMFUK6LU7GVZQQ-2026-10-23/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:39:58Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Bombardier announced a US$270 million investment in the US.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bombardier announced a US$270 million investment in the US.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bombardier",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -238816,9 +238816,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 48771,
-    "news_picked_today": 1114,
-    "news_dropped_today": 4727
+    "news_seen_today": 48811,
+    "news_picked_today": 1120,
+    "news_dropped_today": 4761
   },
   "book_momentum": {
     "live_count": 8,
