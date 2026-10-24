@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T12:17:51Z",
+  "generated_at": "2026-10-24T12:22:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-524",
@@ -198,6 +198,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261024-543",
+      "headline": "Chevron Is Taking a $3 Billion to $4 Billion Loss on Hess Midstream. Should You Buy the Stock Anyway?",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/10/24/chevron-is-taking-a-3-billion-to-4-billion-loss-on/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T12:15:00Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Chevron is taking a $3 billion to $4 billion loss on its Hess Midstream investment, directly impacting its financial results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Chevron is taking a $3 billion to $4 billion loss on its Hess Midstream investment, directly impacting its financial results.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chevron",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Hess Midstream",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-541",
+      "headline": "AU Small Finance Bank Q2 profit jumps 53% to Rs 858 crore",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/au-small-finance-bank-q2-profit-jumps-53-to-rs-858-crore/articleshow/135169847.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T11:51:56Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "AU Small Finance Bank reported a 53% jump in Q2 profit to Rs 858 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AU Small Finance Bank reported a 53% jump in Q2 profit to Rs 858 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AU Small Finance Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261024-521",
       "headline": "Castrol India Q3 results: Profit drops 49% sequentially as raw material costs weigh on margins",
       "headline_en": null,
@@ -247,47 +350,53 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261024-513",
-      "headline": "AU Small Finance Bank Q2 profit jumps 53% to ₹858 cr",
+      "inbox_id": "INB-20261024-537",
+      "headline": "Rocket Lab Is Buying Iridium, and Guess What? Iridium Just Beat Earnings!",
       "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/au-small-finance-bank-q2-profit-jumps-53-to-858-cr/article71619821.ece",
-      "source_name": "The Hindu BusinessLine",
+      "url": "https://www.nasdaq.com/articles/rocket-lab-buying-iridium-and-guess-what-iridium-just-beat-earnings",
+      "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-10-24T11:24:55Z",
+      "found_at": "2026-10-24T11:27:00Z",
       "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "AU Small Finance Bank reported a 53% increase in Q2 profit to 858 crore rupees.",
+      "prelim_note": "Rocket Lab is acquiring Iridium, a significant M&A event, alongside Iridium reporting earnings.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "AU Small Finance Bank reported a 53% increase in Q2 profit to 858 crore rupees.",
-      "region": "IN",
+      "triage_reason": "Rocket Lab is acquiring Iridium, a significant M&A event, alongside Iridium reporting earnings.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 85,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 85,
+        "materiality": 80,
         "source_tier": 0,
-        "scope": 6,
-        "event": 5,
+        "scope": 5,
+        "event": 9,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
+        "event_id": "mna",
         "size_bucket": "large"
       },
       "event_types": [
+        "mna",
         "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "AU Small Finance Bank",
+          "name": "Rocket Lab",
           "ticker": null,
-          "listing_country": "IN"
+          "listing_country": "US"
+        },
+        {
+          "name": "Iridium Communications",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -389,61 +498,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-499",
-      "headline": "Rocket Lab Is Buying Iridium, and Guess What? Iridium Just Beat Earnings!",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/10/24/rocket-lab-buying-iridium-which-just-beat-earnings/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-24T11:07:00Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Rocket Lab announced the acquisition of Iridium, which also reported earnings results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Rocket Lab announced the acquisition of Iridium, which also reported earnings results.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rocket Lab",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Iridium",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1929,55 +1983,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-139",
-      "headline": "OpenAI Just Cut Its Valuation Target by $150 Billion",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/10/23/openai-just-cut-its-valuation-target-by-150-billion/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T11:45:23Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "OpenAI cut its valuation target by $150 billion, a significant downward revision that impacts expectations for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "OpenAI cut its valuation target by $150 billion, a significant downward revision that impacts expectations for the company.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -238815,9 +238820,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 47882,
-    "news_picked_today": 1045,
-    "news_dropped_today": 4311
+    "news_seen_today": 47944,
+    "news_picked_today": 1053,
+    "news_dropped_today": 4365
   },
   "book_momentum": {
     "live_count": 8,
