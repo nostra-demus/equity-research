@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T01:12:53Z",
+  "generated_at": "2026-10-24T01:17:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-131",
@@ -587,6 +587,105 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-197",
+      "headline": "AmEx lifts 2026 profit forecast, plans to cut 5% of workforce",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/american-express-raises-2026-profit-forecast-affluent-customers-keep-spending-2026-10-23/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T11:04:20Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "American Express raised its 2026 profit forecast but also announced plans to cut 5% of its workforce.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "American Express raised its 2026 profit forecast but also announced plans to cut 5% of its workforce.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "American Express",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-196",
+      "headline": "AmEx lifts 2026 profit forecast as travel, entertainment spending drives growth",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/american-express-raises-2026-profit-forecast-affluent-customers-keep-spending-2026-10-23/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T11:04:20Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "American Express raised its 2026 profit forecast, indicating stronger-than-expected growth in travel and entertainment spending.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "American Express raised its 2026 profit forecast, indicating stronger-than-expected growth in travel and entertainment spending.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "American Express",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1871,104 +1970,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-005",
-      "headline": "Bannerman pulls trigger on $353M uranium mine",
-      "headline_en": null,
-      "url": "https://www.mining.com/bannerman-pulls-trigger-on-353m-uranium-mine/",
-      "source_name": "Mining.com",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T22:39:00Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Bannerman Resources commits $353M capital expenditure to uranium mine, a major capex expanding commodity production capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Bannerman Resources commits $353M capital expenditure to uranium mine, a major capex expanding commodity production capacity.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bannerman Resources",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-020",
-      "headline": "OUE Reit buys another 50% stake in Salesforce Tower in US$606.4 million deal",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/reits-property/oue-reit-buys-another-50-stake-salesforce-tower-us606-4-million-deal",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:46:27Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "OUE Reit is acquiring a 50% stake in Salesforce Tower for US$606.4 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "OUE Reit is acquiring a 50% stake in Salesforce Tower for US$606.4 million.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OUE Reit",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -198367,78 +198368,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ae8e36d86cde",
-      "idea_version": "IDEAV-d2714929c5274672",
-      "idea_version_started_at": "2026-10-22T23:50:30Z",
-      "ticker": "8285",
-      "company": "Sling Group",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The announcement of a possible mandatory unconditional cash offer and the resumption of trading typically provides a floor for the stock price near the offer level.",
-      "why_now": "Trading is set to resume following the joint announcement of the sale and purchase agreements on October 22, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5c15334cecba"
-      ],
-      "primary_source_event_id": "EVT-5c15334cecba",
-      "source_headlines": [
-        "SLING GROUP (08285): JOINT ANNOUNCEMENT (1) SALE AND PURCHASE AGREEMENTS; (2) POSSIBLE MANDATORY UNCONDITIONAL CASH OFFER BY SANFULL SECURITIES LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND/OR PARTIES ACTING IN CONCERT WITH IT); (3) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER; AND (4) RESUMPTION OF TRADING"
-      ],
-      "source_headline": "SLING GROUP (08285): JOINT ANNOUNCEMENT (1) SALE AND PURCHASE AGREEMENTS; (2) POSSIBLE MANDATORY UNCONDITIONAL CASH OFFER BY SANFULL SECURITIES LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND/OR PARTIES ACTING IN CONCERT WITH IT); (3) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER; AND (4) RESUMPTION OF TRADING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1022/2026102201418.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-22T13:17:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-22T23:50:30Z",
-      "updated_at": "2026-10-22T23:50:30Z",
-      "decay_at": "2026-10-24T01:17:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-301c9958417a",
       "idea_version": "IDEAV-22a9371e0822e7f3",
       "idea_version_started_at": "2026-10-22T03:15:31Z",
@@ -199491,6 +199420,78 @@
       "surfaced_at": "2026-10-22T23:50:30Z",
       "updated_at": "2026-10-22T23:50:30Z",
       "decay_at": "2026-10-23T15:02:41Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-ae8e36d86cde",
+      "idea_version": "IDEAV-d2714929c5274672",
+      "idea_version_started_at": "2026-10-22T23:50:30Z",
+      "ticker": "8285",
+      "company": "Sling Group",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The announcement of a possible mandatory unconditional cash offer and the resumption of trading typically provides a floor for the stock price near the offer level.",
+      "why_now": "Trading is set to resume following the joint announcement of the sale and purchase agreements on October 22, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5c15334cecba"
+      ],
+      "primary_source_event_id": "EVT-5c15334cecba",
+      "source_headlines": [
+        "SLING GROUP (08285): JOINT ANNOUNCEMENT (1) SALE AND PURCHASE AGREEMENTS; (2) POSSIBLE MANDATORY UNCONDITIONAL CASH OFFER BY SANFULL SECURITIES LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND/OR PARTIES ACTING IN CONCERT WITH IT); (3) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER; AND (4) RESUMPTION OF TRADING"
+      ],
+      "source_headline": "SLING GROUP (08285): JOINT ANNOUNCEMENT (1) SALE AND PURCHASE AGREEMENTS; (2) POSSIBLE MANDATORY UNCONDITIONAL CASH OFFER BY SANFULL SECURITIES LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND/OR PARTIES ACTING IN CONCERT WITH IT); (3) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER; AND (4) RESUMPTION OF TRADING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1022/2026102201418.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-22T13:17:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-22T23:50:30Z",
+      "updated_at": "2026-10-22T23:50:30Z",
+      "decay_at": "2026-10-24T01:17:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -200803,14 +200804,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 532,
+    "total_count": 533,
     "shown_count": 499,
-    "hidden_count": 33,
+    "hidden_count": 34,
     "side_counts": {
       "long": {
-        "total_count": 270,
+        "total_count": 271,
         "shown_count": 250,
-        "hidden_count": 20
+        "hidden_count": 21
       },
       "short": {
         "total_count": 263,
@@ -200834,6 +200835,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ae8e36d86cde",
+        "idea_version": "IDEAV-d2714929c5274672",
+        "idea_version_started_at": "2026-10-22T23:50:30Z",
+        "ticker": "8285",
+        "company": "Sling Group",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The announcement of a possible mandatory unconditional cash offer and the resumption of trading typically provides a floor for the stock price near the offer level.",
+        "why_now": "Trading is set to resume following the joint announcement of the sale and purchase agreements on October 22, 2026.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5c15334cecba"
+        ],
+        "primary_source_event_id": "EVT-5c15334cecba",
+        "source_headlines": [
+          "SLING GROUP (08285): JOINT ANNOUNCEMENT (1) SALE AND PURCHASE AGREEMENTS; (2) POSSIBLE MANDATORY UNCONDITIONAL CASH OFFER BY SANFULL SECURITIES LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND/OR PARTIES ACTING IN CONCERT WITH IT); (3) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER; AND (4) RESUMPTION OF TRADING"
+        ],
+        "source_headline": "SLING GROUP (08285): JOINT ANNOUNCEMENT (1) SALE AND PURCHASE AGREEMENTS; (2) POSSIBLE MANDATORY UNCONDITIONAL CASH OFFER BY SANFULL SECURITIES LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND/OR PARTIES ACTING IN CONCERT WITH IT); (3) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER; AND (4) RESUMPTION OF TRADING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1022/2026102201418.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-22T13:17:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-22T23:50:30Z",
+        "updated_at": "2026-10-22T23:50:30Z",
+        "decay_at": "2026-10-24T01:17:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-24T01:17:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-9f47945c8197",
         "idea_version": "IDEAV-2060a956c90a65d0",
@@ -228165,81 +228241,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-2e6c75dccccc",
-        "idea_version": "IDEAV-ab7b55e2c36052ff",
-        "idea_version_started_at": "2026-10-10T00:19:59Z",
-        "ticker": "ATZ",
-        "company": "Aritzia",
-        "exchange": "TSX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company raised guidance due to strong U.S. sales performance, indicating better-than-expected top-line growth and operating leverage.",
-        "why_now": "The guidance hike was reported on 2026-10-08, and the market is currently adjusting to the improved growth trajectory.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-81470be06949"
-        ],
-        "primary_source_event_id": "EVT-81470be06949",
-        "source_headlines": [
-          "Aritzia Lifts Guidance as U.S. Sales Support Higher Profit, Revenue"
-        ],
-        "source_headline": "Aritzia Lifts Guidance as U.S. Sales Support Higher Profit, Revenue",
-        "source_url": "https://www.wsj.com/business/retail/aritzia-lifts-guidance-as-u-s-sales-support-higher-profit-revenue-202583d7?mod=pls_whats_news_us_business_f",
-        "source_name": "The Wall Street Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-08T20:54:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-08T21:44:30Z",
-        "updated_at": "2026-10-10T00:19:59Z",
-        "decay_at": "2026-10-10T08:54:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-11T21:13:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-485c669a88ce",
         "idea_version": "IDEAV-90f4792b4029a5e4",
         "idea_version_started_at": "2026-10-09T23:48:51Z",
@@ -238005,7 +238006,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1838,
-    "live_count": 35,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -238024,9 +238025,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 24414,
-    "news_picked_today": 202,
-    "news_dropped_today": 614
+    "news_seen_today": 25693,
+    "news_picked_today": 216,
+    "news_dropped_today": 648
   },
   "book_momentum": {
     "live_count": 8,
