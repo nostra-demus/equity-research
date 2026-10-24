@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T16:27:35Z",
+  "generated_at": "2026-10-24T16:48:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-633",
@@ -446,6 +446,55 @@
           "name": "IDFC First Bank",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-635",
+      "headline": "Volvo Plans 2,500 More Job Cuts After 3,000 Layoffs, Targets $500 Million Savings",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/volvo-plans-2-500-more-job-cuts-after-3-000-layoffs-targets-500-million-savings-12230852#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T15:46:49Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Volvo plans 2,500 more job cuts after 3,000 layoffs, targeting $500 million in savings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volvo plans 2,500 more job cuts after 3,000 layoffs, targeting $500 million in savings.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volvo",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -1947,56 +1996,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-424",
-      "headline": "TruAlt Bioenergy Reports ₹94.27 Crore PAT In H1 FY27, Revenue Surges 243%; Dual-Feed Ethanol Capacity Expands",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/trualt-bioenergy-reports-9427-crore-pat-in-h1-fy27-revenue-surges-243-dual-feed-ethanol-capacity-expands",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-24T04:25:04Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "TruAlt Bioenergy reported ₹94.27 crore PAT and 243% revenue growth, alongside a capacity expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "TruAlt Bioenergy reported ₹94.27 crore PAT and 243% revenue growth, alongside a capacity expansion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TruAlt Bioenergy",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
