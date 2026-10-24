@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T11:43:30Z",
+  "generated_at": "2026-10-24T11:47:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-462",
@@ -193,6 +193,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-518",
+      "headline": "Netweb Technologies Reports Strong Q2 FY27, PAT Up 334.8% To ₹136.7 Crore; Revenue Grows 335.7%",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/netweb-technologies-reports-strong-q2-fy27-pat-up-3348-to-1367-crore-revenue-grows-3357",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T11:16:47Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Netweb Technologies reported significant growth with PAT up 334.8% to ₹136.7 crore and revenue up 335.7%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Netweb Technologies reported significant growth with PAT up 334.8% to ₹136.7 crore and revenue up 335.7%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Netweb Technologies",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1926,56 +1975,6 @@
         {
           "name": "Infosys Limited",
           "ticker": "INFY",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-180",
-      "headline": "Infosys beats Q2 estimates, lowers annual revenue forecast",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/company-results/infosys-q2-results-revenue-growth-forecast-11792753857538.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T11:20:14Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Infosys beat Q2 earnings estimates but lowered its annual revenue forecast, signaling potential sector headwinds.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Infosys beat Q2 earnings estimates but lowered its annual revenue forecast, signaling potential sector headwinds.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Infosys",
-          "ticker": null,
           "listing_country": "IN"
         }
       ],
@@ -238672,9 +238671,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 47575,
-    "news_picked_today": 1003,
-    "news_dropped_today": 4130
+    "news_seen_today": 47615,
+    "news_picked_today": 1008,
+    "news_dropped_today": 4165
   },
   "book_momentum": {
     "live_count": 8,
