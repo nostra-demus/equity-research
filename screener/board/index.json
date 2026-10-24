@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T16:08:00Z",
+  "generated_at": "2026-10-24T16:12:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-576",
@@ -291,6 +291,61 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-631",
+      "headline": "Setco Automotive swings to ₹203.61 crore profit, plans Lava Cast merger to cut costs",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/setco-automotive-swings-to-20361-crore-profit-plans-lava-cast-merger-to-cut-costs/article71620201.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T16:04:31Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Setco Automotive reported a profit of ₹203.61 crore and announced a merger with Lava Cast to reduce costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Setco Automotive reported a profit of ₹203.61 crore and announced a merger with Lava Cast to reduce costs.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Setco Automotive",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Lava Cast",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1934,55 +1989,6 @@
           "name": "Anthropic",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-416",
-      "headline": "BPCL reports 21.45% drop in Q2 FY27 net profit, attributes losses to fuel pricing issues",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/bpcl-reports-21-45-drop-in-q2-fy27-net-profit-attributes-losses-to-fuel-pricing-issues/articleshow/135161389.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-24T04:02:02Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "BPCL reported a 21.45% drop in Q2 FY27 net profit due to fuel pricing issues.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BPCL reported a 21.45% drop in Q2 FY27 net profit due to fuel pricing issues.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bharat Petroleum Corporation Ltd",
-          "ticker": "BPCL",
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -238825,9 +238831,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 50582,
-    "news_picked_today": 1257,
-    "news_dropped_today": 5249
+    "news_seen_today": 50596,
+    "news_picked_today": 1261,
+    "news_dropped_today": 5259
   },
   "book_momentum": {
     "live_count": 8,
