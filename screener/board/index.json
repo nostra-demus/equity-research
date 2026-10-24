@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T10:58:44Z",
+  "generated_at": "2026-10-24T11:07:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-462",
@@ -144,6 +144,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-496",
+      "headline": "Torrent Pharma Q2 Results: Net profit falls 10% to ₹534 cr; revenue rises 51%",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/torrent-pharma-q2-net-profit-falls-10-to-534-crore-revenue-rises-51/article71615894.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T10:42:38Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Torrent Pharma reported a 10% fall in net profit to ₹534 cr despite a 51% revenue rise.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Torrent Pharma reported a 10% fall in net profit to ₹534 cr despite a 51% revenue rise.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Torrent Pharma",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1925,55 +1974,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-032",
-      "headline": "Alpha Metallurgical Resources Reports Preliminary Q3 Loss",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/alpha-metallurgical-resources-reports-preliminary-q3-loss",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:37:23Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Alpha Metallurgical Resources reported a preliminary Q3 loss.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Alpha Metallurgical Resources reported a preliminary Q3 loss.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alpha Metallurgical Resources",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -238523,9 +238523,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 47200,
-    "news_picked_today": 951,
-    "news_dropped_today": 3807
+    "news_seen_today": 47255,
+    "news_picked_today": 968,
+    "news_dropped_today": 3845
   },
   "book_momentum": {
     "live_count": 8,
