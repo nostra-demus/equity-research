@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T01:50:53Z",
+  "generated_at": "2026-10-24T01:59:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-131",
@@ -1084,6 +1084,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261024-280",
+      "headline": "Shree Cement's Q2 profit falls 15% to ₹263.46 cr, revenue surges 23%",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/shree-cements-q2-profit-falls-15-to-26346-cr-revenue-surges-23/article71615377.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T09:28:52Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Shree Cement reported a 15% profit decline to ₹263.46 cr alongside a 23% revenue surge.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Shree Cement reported a 15% profit decline to ₹263.46 cr alongside a 23% revenue surge.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shree Cement",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261024-093",
       "headline": "Cambricon’s third quarter profit surges 148% to US$210m amid push to replace Nvidia chips",
       "headline_en": null,
@@ -1915,60 +1964,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-208",
-      "headline": "Jio Platforms IPO Day 3 Live Updates: Bids cross ₹3.5 lakh crore; subscription at 16.2x",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/jio-platforms-ipo-day-3-live-updates-subscription-bids-qib-nii-retail-gmp-allotment-listing-date-premium-demand-ril-shares-liveblog-20017498.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T10:46:56Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Jio Platforms IPO is 16.2x oversubscribed on Day 3 with bids crossing ₹3.5 lakh crore, confirming strong market demand and materially affecting Reliance Industries' capital structure and subsidiary valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Jio Platforms IPO is 16.2x oversubscribed on Day 3 with bids crossing ₹3.5 lakh crore, confirming strong market demand and materially affecting Reliance Industries' capital structure and subsidiary valuation.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jio Platforms",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Reliance Industries",
-          "ticker": "RIL",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -238024,9 +238019,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 32495,
-    "news_picked_today": 345,
-    "news_dropped_today": 975
+    "news_seen_today": 33322,
+    "news_picked_today": 386,
+    "news_dropped_today": 1078
   },
   "book_momentum": {
     "live_count": 8,
