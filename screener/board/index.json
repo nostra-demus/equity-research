@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T11:17:54Z",
+  "generated_at": "2026-10-24T11:27:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-462",
@@ -248,6 +248,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-512",
+      "headline": "JetBlue creditors hire advisers as airline’s shares, bonds sink",
+      "headline_en": null,
+      "url": "https://www.hindustantimes.com/business/jetblue-creditors-hire-advisers-as-airline-s-shares-bonds-sink-101792834097785.html",
+      "source_name": "Hindustan Times (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T11:00:22Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Creditors hiring advisers indicates potential debt restructuring or distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Creditors hiring advisers indicates potential debt restructuring or distress.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JetBlue",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1922,55 +1971,6 @@
       "event_types": [
         "guidance_change",
         "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "American Express",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-196",
-      "headline": "AmEx lifts 2026 profit forecast as travel, entertainment spending drives growth",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/american-express-raises-2026-profit-forecast-affluent-customers-keep-spending-2026-10-23/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T11:04:20Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "American Express raised its 2026 profit forecast, indicating stronger-than-expected growth in travel and entertainment spending.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "American Express raised its 2026 profit forecast, indicating stronger-than-expected growth in travel and entertainment spending.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -238530,9 +238530,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 47333,
-    "news_picked_today": 979,
-    "news_dropped_today": 3912
+    "news_seen_today": 47381,
+    "news_picked_today": 992,
+    "news_dropped_today": 3947
   },
   "book_momentum": {
     "live_count": 8,
