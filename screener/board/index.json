@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T11:57:49Z",
+  "generated_at": "2026-10-24T12:07:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-524",
@@ -498,6 +498,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261024-535",
+      "headline": "AU SMALL FINANCE BANK Q2: Profit Grows Over 50%, Asset Quality Improves",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/au-small-finance-bank-q2-profit-grows-over-50-asset-quality-improves-12229738#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T10:57:40Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "AU Small Finance Bank reported a profit growth of over 50% for Q2 with improved asset quality.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AU Small Finance Bank reported a profit growth of over 50% for Q2 with improved asset quality.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AU Small Finance Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261024-504",
       "headline": "Lumax Auto Technologies Q2 Profit Rises 50.44% To ₹116.67 Crore; Plans ₹150 Crore New Facility In Manesar",
       "headline_en": null,
@@ -637,55 +686,6 @@
       "companies": [
         {
           "name": "JK Cement",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-491",
-      "headline": "AU Small Finance Bank Reports 53% Q2 FY27 Profit Rise, Deposits Grow 28.6% As Asset Quality Improves",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/au-small-finance-bank-reports-53-q2-fy27-profit-rise-deposits-grow-286-as-asset-quality-improves",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-24T10:17:42Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "AU Small Finance Bank reported a 53% profit increase and 28.6% deposit growth for Q2 FY27.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "AU Small Finance Bank reported a 53% profit increase and 28.6% deposit growth for Q2 FY27.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AU Small Finance Bank",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -238742,9 +238742,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 47615,
-    "news_picked_today": 1008,
-    "news_dropped_today": 4165
+    "news_seen_today": 47750,
+    "news_picked_today": 1039,
+    "news_dropped_today": 4269
   },
   "book_momentum": {
     "live_count": 8,
