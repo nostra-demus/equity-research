@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-10T06:14:18Z",
+  "archived_at": "2026-10-24T07:02:29Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-684ad4aa3e76",
-    "idea_version": "IDEAV-8301f39fbc9bd8a6",
-    "idea_version_started_at": "2026-10-07T04:19:01Z",
-    "ticker": "ARF",
-    "company": "Arena REIT",
-    "exchange": "ASX",
+    "idea_id": "IDEA-4e64f81182d7",
+    "idea_version": "IDEAV-6d435676e92af205",
+    "idea_version_started_at": "2026-10-21T12:30:01Z",
+    "ticker": "IBE",
+    "company": "Iberdrola",
+    "exchange": "BME",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "long",
     "pair_with": null,
-    "reason": "The company announced a significant child care portfolio acquisition that is expected to be accretive to earnings and expands its footprint in a stable asset class.",
-    "why_now": "The deal was announced and market-reacted on October 7, 2026.",
-    "conviction": 60,
+    "reason": "The company raised its profit growth outlook through 2030, signaling improved long-term earnings visibility.",
+    "why_now": "The guidance hike was announced on 2026-10-21.",
+    "conviction": 70,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 14,
+      "impact": 20,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "priced-in risk",
       "independent confirmation",
       "live price, liquidity, and consensus"
     ],
@@ -49,31 +48,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "priced",
+    "priced_in": "room",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-3ac228adb398"
+      "EVT-5386c0113cb6"
     ],
-    "primary_source_event_id": "EVT-3ac228adb398",
+    "primary_source_event_id": "EVT-5386c0113cb6",
     "source_headlines": [
-      "ASX seesaws; Arena REIT soars 13pc on child care deal"
+      "Iberdrola raises outlook again, eyes higher profit growth through 2030"
     ],
-    "source_headline": "ASX seesaws; Arena REIT soars 13pc on child care deal",
-    "source_url": "https://www.afr.com/markets/equity-markets/s-and-p-500-resets-record-high-20261007-p613d9?ref=rss&utm_medium=rss&utm_source=rss_feed",
-    "source_name": "Australian Financial Review",
-    "materiality_max": 90,
-    "newest_source_at": "2026-10-07T04:13:49Z",
+    "source_headline": "Iberdrola raises outlook again, eyes higher profit growth through 2030",
+    "source_url": "https://www.reuters.com/business/energy/iberdrola-raises-outlook-again-eyes-higher-profit-growth-through-2030-2026-10-21/",
+    "source_name": "Reuters — Latest (news sitemap)",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-21T06:24:52Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-07T04:19:01Z",
-    "updated_at": "2026-10-07T04:19:01Z",
-    "decay_at": "2026-10-08T16:13:49Z",
+    "surfaced_at": "2026-10-21T12:30:01Z",
+    "updated_at": "2026-10-21T12:30:01Z",
+    "decay_at": "2026-10-22T18:24:52Z",
     "status": "live",
     "promoted_signal_id": null
   }

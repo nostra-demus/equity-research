@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-27T06:13:25Z",
+  "archived_at": "2026-10-24T07:02:29Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-befd8c2661c5",
-    "idea_version": "IDEAV-feecea063b9556bc",
-    "idea_version_started_at": "2026-09-24T22:39:26Z",
-    "ticker": "PEN",
-    "company": "Peninsula Energy",
-    "exchange": "ASX",
+    "idea_id": "IDEA-50ad421c79ef",
+    "idea_version": "IDEAV-245ced2e43158378",
+    "idea_version_started_at": "2026-10-21T12:30:01Z",
+    "ticker": "CA",
+    "company": "Carrefour",
+    "exchange": "EPA",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "The announcement of a non-cash impairment charge negatively impacts the company's book value and reflects potential asset valuation issues.",
-    "why_now": "The impairment disclosure was filed on 2026-09-24.",
-    "conviction": 55,
+    "reason": "The company cut its financial guidance citing the impact of riots in France, which will likely pressure near-term margins and revenue.",
+    "why_now": "The guidance cut was reported on 2026-10-21.",
+    "conviction": 80,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
-      "impact": 19,
+      "evidence": 14,
+      "impact": 21,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,6 +36,8 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "priced-in risk",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -47,31 +49,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "room",
+    "priced_in": "priced",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-2027c8aeb26c"
+      "EVT-545330ea0c4b"
     ],
-    "primary_source_event_id": "EVT-2027c8aeb26c",
+    "primary_source_event_id": "EVT-545330ea0c4b",
     "source_headlines": [
-      "PEN: Non-Cash Impairment [price-sensitive]"
+      "Carrefour shares seen sharply down after guidance cut on France riots"
     ],
-    "source_headline": "PEN: Non-Cash Impairment [price-sensitive]",
-    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PEN?key=2924-03139395-6A1345458",
-    "source_name": "ASX (Australia Exchange Filing)",
+    "source_headline": "Carrefour shares seen sharply down after guidance cut on France riots",
+    "source_url": "https://www.reuters.com/business/carrefour-shares-seen-sharply-down-after-guidance-cut-france-riots-2026-10-21/",
+    "source_name": "Reuters — Latest (news sitemap)",
     "materiality_max": 100,
-    "newest_source_at": "2026-09-24T06:11:53Z",
+    "newest_source_at": "2026-10-21T06:52:43Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-24T22:39:26Z",
-    "updated_at": "2026-09-24T22:39:26Z",
-    "decay_at": "2026-09-25T18:11:53Z",
+    "surfaced_at": "2026-10-21T12:30:01Z",
+    "updated_at": "2026-10-21T12:30:01Z",
+    "decay_at": "2026-10-22T18:52:43Z",
     "status": "live",
     "promoted_signal_id": null
   }
