@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T21:53:31Z",
+  "generated_at": "2026-10-24T21:54:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-633",
@@ -197020,6 +197020,79 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-87ad6cfca6a2",
+      "idea_version": "IDEAV-d01e66c496645ac9",
+      "idea_version_started_at": "2026-10-24T21:53:48Z",
+      "ticker": "VOW3",
+      "company": "Volkswagen AG",
+      "exchange": "XETRA",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Establishing a new Audi manufacturing plant in Georgia provides a strategic hedge against potential US import tariffs and localizes production for the North American market.",
+      "why_now": "The plan is being announced on October 24, 2026, signaling a major capital expenditure commitment and political alignment.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "macro_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cbfd2bf1ff2d",
+        "EVT-28a7c9e065fe"
+      ],
+      "primary_source_event_id": "EVT-cbfd2bf1ff2d",
+      "source_headlines": [
+        "Volkswagen Plans New Audi Plant in Georgia, Handing Trump a Win",
+        "Trump set to announce plan by Audi to build US factory in Georgia, source says"
+      ],
+      "source_headline": "Volkswagen Plans New Audi Plant in Georgia, Handing Trump a Win",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-24/volkswagen-plans-new-audi-plant-in-georgia-handing-trump-a-win",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-24T21:31:46Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T21:53:48Z",
+      "updated_at": "2026-10-24T21:53:48Z",
+      "decay_at": "2026-10-26T09:31:46Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-2086a06fc886",
       "idea_version": "IDEAV-9815baaab800b669",
       "idea_version_started_at": "2026-10-24T19:18:35Z",
@@ -200529,77 +200602,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-0ac5d784c64f",
-      "idea_version": "IDEAV-dfe05967585b98a6",
-      "idea_version_started_at": "2026-10-22T07:29:08Z",
-      "ticker": "TSLA",
-      "company": "Tesla",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Weaker vehicle sales and slipping profits suggest margin compression as the company faces increased competition and demand saturation.",
-      "why_now": "The earnings report was released on October 21, 2026, confirming the downward trend in profitability.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9072abc44f71"
-      ],
-      "primary_source_event_id": "EVT-9072abc44f71",
-      "source_headlines": [
-        "Tesla’s profits slip on weaker vehicle sales"
-      ],
-      "source_headline": "Tesla’s profits slip on weaker vehicle sales",
-      "source_url": "https://www.ft.com/content/16bdf332-2a75-4e57-81ea-a37caf50ec0f?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-21T20:44:43Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/TSLA_2026-07-25",
-        "latest_decision": "Short Candidate",
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-10-22T07:29:08Z",
-      "updated_at": "2026-10-22T07:29:08Z",
-      "decay_at": "2026-10-23T08:44:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-2e56dda7a636",
       "idea_version": "IDEAV-7c70b2ebfcd1305b",
       "idea_version_started_at": "2026-10-23T16:30:30Z",
@@ -201838,9 +201840,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 534,
+    "total_count": 533,
     "shown_count": 500,
-    "hidden_count": 34,
+    "hidden_count": 33,
     "side_counts": {
       "long": {
         "total_count": 268,
@@ -201848,23 +201850,23 @@
         "hidden_count": 18
       },
       "short": {
-        "total_count": 267,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 16
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1286,
-      "oldest_retained_at": "2026-09-26T02:29:00Z",
+      "evicted_count": 1287,
+      "oldest_retained_at": "2026-09-26T04:06:00Z",
       "side_counts": {
         "long": {
           "evicted_count": 861,
           "oldest_retained_at": "2026-10-09T11:17:32Z"
         },
         "short": {
-          "evicted_count": 425,
-          "oldest_retained_at": "2026-09-26T02:29:00Z"
+          "evicted_count": 426,
+          "oldest_retained_at": "2026-09-26T04:06:00Z"
         }
       }
     },
@@ -204467,8 +204469,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-23T08:44:43Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-24T21:53:52Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -239114,8 +239116,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1868,
-    "live_count": 47,
+    "surfaced_total": 1869,
+    "live_count": 48,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
