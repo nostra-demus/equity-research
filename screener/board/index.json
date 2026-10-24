@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T07:11:18Z",
+  "generated_at": "2026-10-24T07:16:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-405",
@@ -51,20 +51,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261024-432",
-      "headline": "Sebi orders Avadhut Sathe, academy to refund Rs 546 crore",
+      "inbox_id": "INB-20261024-435",
+      "headline": "SEBI Orders Avadhut Sathe Trading Academy To Refund ₹546.17 Cr Collected Through Unregistered Advisory Services",
       "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/sebi-orders-avadhut-sathe-academy-to-refund-rs-546-crore/articleshow/135162877.cms",
-      "source_name": "The Economic Times",
+      "url": "https://www.freepressjournal.in/business/sebi-orders-avadhut-sathe-trading-academy-to-refund-54617-cr-collected-through-unregistered-advisory-services",
+      "source_name": "Free Press Journal",
       "input_nature": "news_headline",
-      "found_at": "2026-10-24T05:31:13Z",
+      "found_at": "2026-10-24T06:56:54Z",
       "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "SEBI ordered a refund of Rs 546 crore for unauthorized investment activities.",
+      "prelim_note": "SEBI ordered a refund of ₹546.17 crore for unregistered advisory services.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "SEBI ordered a refund of Rs 546 crore for unauthorized investment activities.",
+      "triage_reason": "SEBI ordered a refund of ₹546.17 crore for unregistered advisory services.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -73,7 +73,7 @@
         "source_tier": 0,
         "scope": 6,
         "event": 6,
-        "size": -1,
+        "size": 0,
         "recency": 5,
         "materiality_label_floor": 10,
         "quantified": 0,
@@ -81,7 +81,7 @@
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "litigation_enforcement",
-        "size_bucket": "small"
+        "size_bucket": "unknown"
       },
       "event_types": [
         "litigation_enforcement"
@@ -94,7 +94,56 @@
           "listing_country": "IN"
         }
       ],
-      "size_bucket": "small",
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-438",
+      "headline": "Bharat Petroleum Corporation Ltd's Consolidated Net Profit Dropped 21.46 Per Cent To ₹4,863.05 Crore In Q2 FY27, Despite A Significant Rise",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/bharat-petroleum-corporation-ltds-consolidated-net-profit-dropped-2146-per-cent-to-486305-crore-in-q2-fy27-despite-a-significant-rise",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T06:33:39Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Bharat Petroleum Corporation Ltd reported a 21.46% decline in consolidated net profit to ₹4,863.05 crore for Q2 FY27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bharat Petroleum Corporation Ltd reported a 21.46% decline in consolidated net profit to ₹4,863.05 crore for Q2 FY27.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bharat Petroleum Corporation Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1926,55 +1975,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-368",
-      "headline": "Volvo Cars shares plunge 30% after it swings to loss",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/deb209b5-a5ed-4d24-a470-636ecc1e3668?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T08:06:03Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Volvo Cars shares fell 30% following a swing to a loss.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Volvo Cars shares fell 30% following a swing to a loss.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volvo Cars",
-          "ticker": null,
-          "listing_country": "SE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -238386,9 +238386,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 45213,
-    "news_picked_today": 797,
-    "news_dropped_today": 2481
+    "news_seen_today": 45240,
+    "news_picked_today": 804,
+    "news_dropped_today": 2501
   },
   "book_momentum": {
     "live_count": 8,
