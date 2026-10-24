@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T20:38:25Z",
+  "generated_at": "2026-10-24T20:39:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-633",
@@ -196457,6 +196457,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-9e0d39f688eb",
+      "idea_version": "IDEAV-c26d12c246d6382b",
+      "idea_version_started_at": "2026-10-24T20:38:50Z",
+      "ticker": "TECK",
+      "company": "Teck Resources",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A strike at the Highland Valley Copper mine halts production at one of the company's key copper assets, directly impacting quarterly output and revenue.",
+      "why_now": "The strike began on October 24, 2026, creating an immediate supply disruption.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7e383581d94f"
+      ],
+      "primary_source_event_id": "EVT-7e383581d94f",
+      "source_headlines": [
+        "Teck says strike begins at Highland Valley Copper mine in British Columbia"
+      ],
+      "source_headline": "Teck says strike begins at Highland Valley Copper mine in British Columbia",
+      "source_url": "https://www.reuters.com/business/world-at-work/teck-says-strike-begins-highland-valley-copper-mine-british-columbia-2026-10-24/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-24T20:21:48Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T20:38:50Z",
+      "updated_at": "2026-10-24T20:38:50Z",
+      "decay_at": "2026-10-26T08:21:48Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-dba8408df9af",
       "idea_version": "IDEAV-f875eb09a57c9a2f",
       "idea_version_started_at": "2026-10-24T19:18:35Z",
@@ -200538,76 +200608,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-b337de0eed53",
-      "idea_version": "IDEAV-fdb672952fac13cc",
-      "idea_version_started_at": "2026-10-22T03:15:31Z",
-      "ticker": "LUV",
-      "company": "Southwest Airlines",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Rising fuel costs are directly compressing operating margins and forcing a downward revision of profit guidance, undermining the company's turnaround narrative.",
-      "why_now": "The profit forecast cut was announced on October 21, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1406ef6bd7f7"
-      ],
-      "primary_source_event_id": "EVT-1406ef6bd7f7",
-      "source_headlines": [
-        "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains"
-      ],
-      "source_headline": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
-      "source_url": "https://www.reuters.com/business/southwest-airlines-cuts-2026-profit-forecast-fuel-costs-spike-2026-10-21/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-21T20:23:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-22T03:15:31Z",
-      "updated_at": "2026-10-22T03:15:31Z",
-      "decay_at": "2026-10-23T08:23:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-9f47945c8197",
       "idea_version": "IDEAV-7cf660c1f294d288",
       "idea_version_started_at": "2026-10-24T02:27:44Z",
@@ -201838,9 +201838,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 530,
+    "total_count": 529,
     "shown_count": 499,
-    "hidden_count": 31,
+    "hidden_count": 30,
     "side_counts": {
       "long": {
         "total_count": 266,
@@ -201848,23 +201848,23 @@
         "hidden_count": 16
       },
       "short": {
-        "total_count": 265,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 14
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1285,
-      "oldest_retained_at": "2026-09-26T02:22:00Z",
+      "evicted_count": 1286,
+      "oldest_retained_at": "2026-09-26T02:29:00Z",
       "side_counts": {
         "long": {
           "evicted_count": 861,
           "oldest_retained_at": "2026-10-09T11:17:32Z"
         },
         "short": {
-          "evicted_count": 424,
-          "oldest_retained_at": "2026-09-26T02:22:00Z"
+          "evicted_count": 425,
+          "oldest_retained_at": "2026-09-26T02:29:00Z"
         }
       }
     },
@@ -204162,8 +204162,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-23T08:23:40Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-24T20:38:54Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -239035,8 +239035,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1867,
-    "live_count": 51,
+    "surfaced_total": 1868,
+    "live_count": 52,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -239055,9 +239055,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 51241,
-    "news_picked_today": 1358,
-    "news_dropped_today": 5679
+    "news_seen_today": 51246,
+    "news_picked_today": 1359,
+    "news_dropped_today": 5683
   },
   "book_momentum": {
     "live_count": 8,
