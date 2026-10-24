@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T02:44:00Z",
+  "generated_at": "2026-10-24T02:47:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-282",
@@ -1428,6 +1428,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261024-339",
+      "headline": "IG Metall fordert von VW Rücknahme der Tarifkündigungen - sonst Streik",
+      "headline_en": "IG Metall demands VW withdraw tariff terminations - otherwise strike",
+      "url": "https://www.reuters.com/de/firma/ig-metall-fordert-von-vw-rcknahme-der-tarifkndigungen-sonst-streik-2026-10-23/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T08:33:32Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "IG Metall union threatens strike at Volkswagen following tariff contract terminations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "IG Metall union threatens strike at Volkswagen following tariff contract terminations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261024-212",
       "headline": "Black Hills Corporation Announces Bright Horizon Energy Corporation as Proposed Name and HZN Ticker for Combined Company",
       "headline_en": null,
@@ -1906,60 +1955,6 @@
         },
         {
           "name": "Transocean Ltd.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-115",
-      "headline": "Musk invests $1 bn in David Ellison's Skydance; here's how his father, Oracle co-founder Larry Ellison, figures in deal",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/musk-invests-1-bn-in-david-ellisons-skydance-heres-how-his-father-oracle-co-founder-larry-ellison-figures-in-deal-11792753080844.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T11:50:54Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Elon Musk invested $1 billion in Skydance Media.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Elon Musk invested $1 billion in Skydance Media.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Skydance Media",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Oracle",
           "ticker": null,
           "listing_country": "US"
         }
@@ -196425,76 +196420,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-728bca4e5df0",
-      "idea_version": "IDEAV-b2abd1984cc77bb7",
-      "idea_version_started_at": "2026-10-23T06:49:05Z",
-      "ticker": "LRCX",
-      "company": "Lam Research",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Supply chain constraints are actively capping revenue growth and forcing a downward revision to the company's outlook.",
-      "why_now": "The guidance change was reported on 2026-10-22, triggering an immediate market reaction.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-200b1eefdf75"
-      ],
-      "primary_source_event_id": "EVT-200b1eefdf75",
-      "source_headlines": [
-        "Lam Research Sinks 9% as Supply Constraints Cap Outlook; Applied Materials Drops 6%, ASML Holding Falls 4%"
-      ],
-      "source_headline": "Lam Research Sinks 9% as Supply Constraints Cap Outlook; Applied Materials Drops 6%, ASML Holding Falls 4%",
-      "source_url": "https://247wallst.com/investing/2026/10/22/lam-research-sinks-9-as-supply-constraints-cap-outlook-applied-materials-drops-6-asml-holding-falls-4/",
-      "source_name": "24/7 Wall St.",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-22T14:44:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T06:49:05Z",
-      "updated_at": "2026-10-23T06:49:05Z",
-      "decay_at": "2026-10-24T02:44:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-af5637c58aec",
       "idea_version": "IDEAV-035c9d5387d56ed9",
       "idea_version_started_at": "2026-10-23T05:56:42Z",
@@ -198718,6 +198643,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-728bca4e5df0",
+      "idea_version": "IDEAV-b2abd1984cc77bb7",
+      "idea_version_started_at": "2026-10-23T06:49:05Z",
+      "ticker": "LRCX",
+      "company": "Lam Research",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Supply chain constraints are actively capping revenue growth and forcing a downward revision to the company's outlook.",
+      "why_now": "The guidance change was reported on 2026-10-22, triggering an immediate market reaction.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-200b1eefdf75"
+      ],
+      "primary_source_event_id": "EVT-200b1eefdf75",
+      "source_headlines": [
+        "Lam Research Sinks 9% as Supply Constraints Cap Outlook; Applied Materials Drops 6%, ASML Holding Falls 4%"
+      ],
+      "source_headline": "Lam Research Sinks 9% as Supply Constraints Cap Outlook; Applied Materials Drops 6%, ASML Holding Falls 4%",
+      "source_url": "https://247wallst.com/investing/2026/10/22/lam-research-sinks-9-as-supply-constraints-cap-outlook-applied-materials-drops-6-asml-holding-falls-4/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-22T14:44:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T06:49:05Z",
+      "updated_at": "2026-10-23T06:49:05Z",
+      "decay_at": "2026-10-24T02:44:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-e66b413e23df",
       "idea_version": "IDEAV-537c16c6b2148e97",
       "idea_version_started_at": "2026-10-22T11:04:03Z",
@@ -200871,9 +200866,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 533,
+    "total_count": 534,
     "shown_count": 499,
-    "hidden_count": 34,
+    "hidden_count": 35,
     "side_counts": {
       "long": {
         "total_count": 271,
@@ -200881,9 +200876,9 @@
         "hidden_count": 21
       },
       "short": {
-        "total_count": 263,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 14
       }
     },
     "retention": {
@@ -200902,6 +200897,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-728bca4e5df0",
+        "idea_version": "IDEAV-b2abd1984cc77bb7",
+        "idea_version_started_at": "2026-10-23T06:49:05Z",
+        "ticker": "LRCX",
+        "company": "Lam Research",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Supply chain constraints are actively capping revenue growth and forcing a downward revision to the company's outlook.",
+        "why_now": "The guidance change was reported on 2026-10-22, triggering an immediate market reaction.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-200b1eefdf75"
+        ],
+        "primary_source_event_id": "EVT-200b1eefdf75",
+        "source_headlines": [
+          "Lam Research Sinks 9% as Supply Constraints Cap Outlook; Applied Materials Drops 6%, ASML Holding Falls 4%"
+        ],
+        "source_headline": "Lam Research Sinks 9% as Supply Constraints Cap Outlook; Applied Materials Drops 6%, ASML Holding Falls 4%",
+        "source_url": "https://247wallst.com/investing/2026/10/22/lam-research-sinks-9-as-supply-constraints-cap-outlook-applied-materials-drops-6-asml-holding-falls-4/",
+        "source_name": "24/7 Wall St.",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-22T14:44:50Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-23T06:49:05Z",
+        "updated_at": "2026-10-23T06:49:05Z",
+        "decay_at": "2026-10-24T02:44:50Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-24T02:44:50Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-9de62cf15faf",
         "idea_version": "IDEAV-5d12547e20e95cf0",
@@ -237997,85 +238065,12 @@
         "archived_at": "2026-09-30T02:00:53Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-7232e82f4459",
-        "idea_version": "IDEAV-fa7f94dea692ebd2",
-        "idea_version_started_at": "2026-09-27T02:00:37Z",
-        "ticker": "CXM",
-        "company": "Sprinklr",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The CEO's sale of 145,865 shares following a 35% decline in the stock price over the past year signals a lack of confidence from leadership in a potential turnaround.",
-        "why_now": "The insider transaction was reported on 2026-09-27, providing a fresh signal of management sentiment.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 57,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 11,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4b587740bb9d"
-        ],
-        "primary_source_event_id": "EVT-4b587740bb9d",
-        "source_headlines": [
-          "Sprinklr CEO Sells 145,865 Shares for $810,000 Amid a 35% One-Year Stock Price Decline"
-        ],
-        "source_headline": "Sprinklr CEO Sells 145,865 Shares for $810,000 Amid a 35% One-Year Stock Price Decline",
-        "source_url": "https://www.nasdaq.com/articles/sprinklr-ceo-sells-145865-shares-810000-amid-35-one-year-stock-price-decline",
-        "source_name": "Nasdaq",
-        "materiality_max": 60,
-        "newest_source_at": "2026-09-27T00:50:59Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-27T02:00:37Z",
-        "updated_at": "2026-09-27T02:00:37Z",
-        "decay_at": "2026-09-28T12:50:59Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-30T00:54:50Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1839,
-    "live_count": 35,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -238094,9 +238089,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 40006,
-    "news_picked_today": 487,
-    "news_dropped_today": 1337
+    "news_seen_today": 40457,
+    "news_picked_today": 495,
+    "news_dropped_today": 1353
   },
   "book_momentum": {
     "live_count": 8,
