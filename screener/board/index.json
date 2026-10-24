@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-24T07:41:23Z",
+  "generated_at": "2026-10-24T07:51:55Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261024-446",
+      "headline": "Kotak Mahindra Bank Limited: Kotak Mahindra Bank Limited has submitted to the Exchange, the financial results for the period ended September 30, 2026.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/KMBLTAB_24102026131109_OutcomeofBMOct242026SIGNED.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-24T07:47:22Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Official submission of quarterly financial results for a major private bank.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Official submission of quarterly financial results for a major private bank.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kotak Mahindra Bank Limited",
+          "ticker": "KOTAKBANK",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261024-405",
       "headline": "KEC International Limited: KEC wins Substantial Orders of Rs. 2,872 crores from PGCIL",
@@ -1922,55 +1971,6 @@
           "name": "Moderna",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-322",
-      "headline": "Shares in Gucci-Parent Kering Plunge as Hoped-For Recovery Keeps Receding",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/shares-in-gucci-parent-kering-plunge-as-hoped-for-recovery-keeps-receding-b08ebddc?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T08:44:00Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Kering reported a receding recovery, signaling continued revenue and margin pressure for the luxury group.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Kering reported a receding recovery, signaling continued revenue and margin pressure for the luxury group.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kering",
-          "ticker": null,
-          "listing_country": "FR"
         }
       ],
       "size_bucket": "large",
@@ -238382,9 +238382,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 45360,
-    "news_picked_today": 819,
-    "news_dropped_today": 2606
+    "news_seen_today": 45432,
+    "news_picked_today": 822,
+    "news_dropped_today": 2627
   },
   "book_momentum": {
     "live_count": 8,
