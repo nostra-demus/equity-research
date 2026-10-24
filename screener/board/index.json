@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T03:23:03Z",
+  "generated_at": "2026-10-24T03:28:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-379",
@@ -1586,6 +1586,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261024-399",
+      "headline": "Godrej Properties Reports Steep 64% Drop In Q2 FY27 Consolidated Net Profit To ₹145.47 Crore, Total Income Also Declines",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/godrej-properties-reports-steep-64-drop-in-q2-fy27-consolidated-net-profit-to-14547-crore-total-income-also-declines",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T07:15:44Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Godrej Properties reported a 64% drop in Q2 FY27 net profit to 145.47 crore INR.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Godrej Properties reported a 64% drop in Q2 FY27 net profit to 145.47 crore INR.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Godrej Properties",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261024-093",
       "headline": "Cambricon’s third quarter profit surges 148% to US$210m amid push to replace Nvidia chips",
       "headline_en": null,
@@ -1925,60 +1974,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-037",
-      "headline": "Chemie: BASF erhöht Übernahmeangebot für Evonik auf mehr als elf Milliarden Euro",
-      "headline_en": "Chemistry: BASF raises takeover offer for Evonik to more than eleven billion euros",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/evonik-basf-erhoeht-uebernahmeangebot-auf-mehr-als-elf-milliarden-euro/100264522.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:32:40Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "BASF raises unsolicited takeover offer for Evonik to €11 billion—a named, quantified M&A event affecting both issuers' capital structure, balance sheets, and shareholder returns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "BASF raises unsolicited takeover offer for Evonik to €11 billion—a named, quantified M&A event affecting both issuers' capital structure, balance sheets, and shareholder returns.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BASF",
-          "ticker": "BAS",
-          "listing_country": "DE"
-        },
-        {
-          "name": "Evonik",
-          "ticker": "EVK",
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -195945,79 +195940,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-e8c55fdf66d6",
-      "idea_version": "IDEAV-637d4ad89d614eef",
-      "idea_version_started_at": "2026-10-23T06:49:05Z",
-      "ticker": "AAL",
-      "company": "American Airlines",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Rising fuel costs are eroding margins and forcing the company to forecast a full-year loss and reduce capacity growth.",
-      "why_now": "The guidance downgrade was issued on 2026-10-22.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 77,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 10,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-290831eda20b",
-        "EVT-292bbf4a6100",
-        "EVT-45c25f00cca7"
-      ],
-      "primary_source_event_id": "EVT-290831eda20b",
-      "source_headlines": [
-        "American Airlines Sees Another Quarterly Loss as Fuel Costs Rise",
-        "American Airlines forecasts bigger loss in 2026 on fuel spike, plans to slow growth next year",
-        "American Airlines Sinks 4% as Fuel Costs Push Outlook to Full-Year Loss; Delta and United Airlines Drop 3%"
-      ],
-      "source_headline": "American Airlines Sees Another Quarterly Loss as Fuel Costs Rise",
-      "source_url": "https://www.wsj.com/business/earnings/american-airlines-forecasts-another-quarterly-loss-on-surging-fuel-costs-68307f23?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-22T15:24:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T06:49:05Z",
-      "updated_at": "2026-10-23T06:49:05Z",
-      "decay_at": "2026-10-24T03:24:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b85a0a4334ae",
       "idea_version": "IDEAV-1e8de2d2906e05bc",
       "idea_version_started_at": "2026-10-23T16:30:30Z",
@@ -198446,6 +198368,79 @@
       "surfaced_at": "2026-10-19T04:16:06Z",
       "updated_at": "2026-10-22T03:15:31Z",
       "decay_at": "2026-10-23T07:13:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-e8c55fdf66d6",
+      "idea_version": "IDEAV-637d4ad89d614eef",
+      "idea_version_started_at": "2026-10-23T06:49:05Z",
+      "ticker": "AAL",
+      "company": "American Airlines",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Rising fuel costs are eroding margins and forcing the company to forecast a full-year loss and reduce capacity growth.",
+      "why_now": "The guidance downgrade was issued on 2026-10-22.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 77,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-290831eda20b",
+        "EVT-292bbf4a6100",
+        "EVT-45c25f00cca7"
+      ],
+      "primary_source_event_id": "EVT-290831eda20b",
+      "source_headlines": [
+        "American Airlines Sees Another Quarterly Loss as Fuel Costs Rise",
+        "American Airlines forecasts bigger loss in 2026 on fuel spike, plans to slow growth next year",
+        "American Airlines Sinks 4% as Fuel Costs Push Outlook to Full-Year Loss; Delta and United Airlines Drop 3%"
+      ],
+      "source_headline": "American Airlines Sees Another Quarterly Loss as Fuel Costs Rise",
+      "source_url": "https://www.wsj.com/business/earnings/american-airlines-forecasts-another-quarterly-loss-on-surging-fuel-costs-68307f23?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-22T15:24:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T06:49:05Z",
+      "updated_at": "2026-10-23T06:49:05Z",
+      "decay_at": "2026-10-24T03:24:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -200885,9 +200880,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 534,
+    "total_count": 535,
     "shown_count": 499,
-    "hidden_count": 35,
+    "hidden_count": 36,
     "side_counts": {
       "long": {
         "total_count": 271,
@@ -200895,9 +200890,9 @@
         "hidden_count": 21
       },
       "short": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       }
     },
     "retention": {
@@ -200916,6 +200911,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e8c55fdf66d6",
+        "idea_version": "IDEAV-637d4ad89d614eef",
+        "idea_version_started_at": "2026-10-23T06:49:05Z",
+        "ticker": "AAL",
+        "company": "American Airlines",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Rising fuel costs are eroding margins and forcing the company to forecast a full-year loss and reduce capacity growth.",
+        "why_now": "The guidance downgrade was issued on 2026-10-22.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 77,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 10,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-290831eda20b",
+          "EVT-292bbf4a6100",
+          "EVT-45c25f00cca7"
+        ],
+        "primary_source_event_id": "EVT-290831eda20b",
+        "source_headlines": [
+          "American Airlines Sees Another Quarterly Loss as Fuel Costs Rise",
+          "American Airlines forecasts bigger loss in 2026 on fuel spike, plans to slow growth next year",
+          "American Airlines Sinks 4% as Fuel Costs Push Outlook to Full-Year Loss; Delta and United Airlines Drop 3%"
+        ],
+        "source_headline": "American Airlines Sees Another Quarterly Loss as Fuel Costs Rise",
+        "source_url": "https://www.wsj.com/business/earnings/american-airlines-forecasts-another-quarterly-loss-on-surging-fuel-costs-68307f23?mod=pls_whats_news_us_business_f",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-22T15:24:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-23T06:49:05Z",
+        "updated_at": "2026-10-23T06:49:05Z",
+        "decay_at": "2026-10-24T03:24:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-24T03:24:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-728bca4e5df0",
         "idea_version": "IDEAV-b2abd1984cc77bb7",
@@ -238009,87 +238080,12 @@
         "archived_at": "2026-09-30T02:00:53Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-ba09629655b3",
-        "idea_version": "IDEAV-02952a5f76c2d683",
-        "idea_version_started_at": "2026-09-27T02:19:51Z",
-        "ticker": "MPX",
-        "company": "MedImpact",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "MedImpact is under investigation for a data breach exposing sensitive personal and health information, which could lead to significant litigation and regulatory penalties.",
-        "why_now": "An investigation was launched on September 27, 2026, following the data breach.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 18,
-          "impact": 13,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-85e7c548e500"
-        ],
-        "primary_source_event_id": "EVT-85e7c548e500",
-        "source_headlines": [
-          "MEDIMPACT DATA BREACH: Edelson Lechtzin LLP Launches Investigation Into Exposure of Social Security Numbers and Health Information"
-        ],
-        "source_headline": "MEDIMPACT DATA BREACH: Edelson Lechtzin LLP Launches Investigation Into Exposure of Social Security Numbers and Health Information",
-        "source_url": "https://www.prnewswire.com/news-releases/medimpact-data-breach-edelson-lechtzin-llp-launches-investigation-into-exposure-of-social-security-numbers-and-health-information-302890807.html",
-        "source_name": "PR Newswire — All News Releases",
-        "materiality_max": 51,
-        "newest_source_at": "2026-09-27T01:21:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-27T02:19:51Z",
-        "updated_at": "2026-09-27T02:19:51Z",
-        "decay_at": "2026-09-28T13:21:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-30T02:00:53Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1839,
-    "live_count": 34,
+    "live_count": 33,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -238108,9 +238104,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 43964,
-    "news_picked_today": 594,
-    "news_dropped_today": 1614
+    "news_seen_today": 44128,
+    "news_picked_today": 643,
+    "news_dropped_today": 1705
   },
   "book_momentum": {
     "live_count": 8,
