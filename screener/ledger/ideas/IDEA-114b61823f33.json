@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-114b61823f33",
+  "idea_version": "IDEAV-61395174fb35a932",
+  "idea_version_started_at": "2026-10-24T02:27:44Z",
+  "ticker": "GNTX",
+  "company": "Gentex",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "Gentex is experiencing a decline in profitability and has lowered its FY26 revenue outlook, reflecting operational headwinds.",
+  "why_now": "The guidance reduction was issued on 2026-10-23, indicating immediate pressure on the company's financial performance.",
+  "conviction": 65,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 60,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 18,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "priced-in risk",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "priced",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-9a8e0c07caa1"
+  ],
+  "primary_source_event_id": "EVT-9a8e0c07caa1",
+  "source_headlines": [
+    "Gentex Q3 Profit Slips, Trims FY26 Revenue Outlook; FY27 Revenue In Line"
+  ],
+  "source_headline": "Gentex Q3 Profit Slips, Trims FY26 Revenue Outlook; FY27 Revenue In Line",
+  "source_url": "https://www.nasdaq.com/articles/gentex-q3-profit-slips-trims-fy26-revenue-outlook-fy27-revenue-line",
+  "source_name": "Nasdaq",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-23T16:25:32Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-24T02:27:44Z",
+  "updated_at": "2026-10-24T02:27:44Z",
+  "decay_at": "2026-10-25T04:25:32Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
