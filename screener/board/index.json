@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T19:19:24Z",
+  "generated_at": "2026-10-24T19:23:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-633",
@@ -391,6 +391,55 @@
           "name": "Bloom Energy",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-637",
+      "headline": "KIB Group reports KD 26.6 million in net profits in 9 months of 2026",
+      "headline_en": null,
+      "url": "https://kuwaittimes.com/article/52268/business/kib-group-reports-kd-266-million-in-net-profits-in-9-months-of-2026/",
+      "source_name": "Kuwait Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T17:29:00Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "KIB Group reported net profits of KD 26.6 million for the first 9 months of 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "KIB Group reported net profits of KD 26.6 million for the first 9 months of 2026.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KIB Group",
+          "ticker": null,
+          "listing_country": "KW"
         }
       ],
       "size_bucket": "mid",
@@ -1947,55 +1996,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-435",
-      "headline": "SEBI Orders Avadhut Sathe Trading Academy To Refund ₹546.17 Cr Collected Through Unregistered Advisory Services",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/sebi-orders-avadhut-sathe-trading-academy-to-refund-54617-cr-collected-through-unregistered-advisory-services",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-24T06:56:54Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "SEBI ordered a refund of ₹546.17 crore for unregistered advisory services.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SEBI ordered a refund of ₹546.17 crore for unregistered advisory services.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Avadhut Sathe Trading Academy",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -238980,9 +238980,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 51147,
-    "news_picked_today": 1336,
-    "news_dropped_today": 5607
+    "news_seen_today": 51158,
+    "news_picked_today": 1339,
+    "news_dropped_today": 5615
   },
   "book_momentum": {
     "live_count": 8,
