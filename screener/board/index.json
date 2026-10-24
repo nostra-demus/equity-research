@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T09:57:42Z",
+  "generated_at": "2026-10-24T10:22:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-462",
@@ -188,55 +188,6 @@
       "companies": [
         {
           "name": "Bharat Petroleum Corporation Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-465",
-      "headline": "India's Kotak Bank Q2 profit rises 29%, beats estimates",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/india/indias-kotak-bank-q2-profit-rises-29-beats-estimates-2026-10-24/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-24T09:18:01Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Kotak Mahindra Bank reported a 29% increase in Q2 profit, exceeding analyst expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Kotak Mahindra Bank reported a 29% increase in Q2 profit, exceeding analyst expectations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kotak Mahindra Bank",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -1973,6 +1924,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-483",
+      "headline": "Kotak Mahindra Bank Limited: Kotak Mahindra Bank Limited has informed the Exchange regarding Change in Director(s) of the company.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/KMBLTAB_24102026154235_OutcomeofBM24102026MDIDSIGNED.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-24T10:12:48Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Director change at major Indian bank disclosed to exchange, but headline does not specify which director(s) or whether key officer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "Director change at major Indian bank disclosed to exchange, but headline does not specify which director(s) or whether key officer.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 48,
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kotak Mahindra Bank Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -196289,76 +196289,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-af5637c58aec",
-      "idea_version": "IDEAV-035c9d5387d56ed9",
-      "idea_version_started_at": "2026-10-23T05:56:42Z",
-      "ticker": "DECK",
-      "company": "Deckers Outdoor",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company lowered its sales outlook due to a shift in consumer demand toward discounted footwear, signaling margin pressure and weakening brand pricing power.",
-      "why_now": "The guidance cut was announced on 2026-10-22, creating an immediate negative catalyst for the stock.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-68ad7da57380"
-      ],
-      "primary_source_event_id": "EVT-68ad7da57380",
-      "source_headlines": [
-        "Deckers Cuts Sales Outlook as Shoppers Seek Out Discounted Shoes"
-      ],
-      "source_headline": "Deckers Cuts Sales Outlook as Shoppers Seek Out Discounted Shoes",
-      "source_url": "https://www.wsj.com/business/earnings/deckers-cuts-sales-outlook-amid-slower-hoka-ugg-growth-84f46d5c?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-22T22:04:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T05:56:42Z",
-      "updated_at": "2026-10-23T05:56:42Z",
-      "decay_at": "2026-10-24T10:04:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-6f55bf31e25a",
       "idea_version": "IDEAV-b4140cfc1806fcab",
       "idea_version_started_at": "2026-10-24T09:25:22Z",
@@ -199298,6 +199228,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-af5637c58aec",
+      "idea_version": "IDEAV-035c9d5387d56ed9",
+      "idea_version_started_at": "2026-10-23T05:56:42Z",
+      "ticker": "DECK",
+      "company": "Deckers Outdoor",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company lowered its sales outlook due to a shift in consumer demand toward discounted footwear, signaling margin pressure and weakening brand pricing power.",
+      "why_now": "The guidance cut was announced on 2026-10-22, creating an immediate negative catalyst for the stock.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-68ad7da57380"
+      ],
+      "primary_source_event_id": "EVT-68ad7da57380",
+      "source_headlines": [
+        "Deckers Cuts Sales Outlook as Shoppers Seek Out Discounted Shoes"
+      ],
+      "source_headline": "Deckers Cuts Sales Outlook as Shoppers Seek Out Discounted Shoes",
+      "source_url": "https://www.wsj.com/business/earnings/deckers-cuts-sales-outlook-amid-slower-hoka-ugg-growth-84f46d5c?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-22T22:04:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T05:56:42Z",
+      "updated_at": "2026-10-23T05:56:42Z",
+      "decay_at": "2026-10-24T10:04:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-e66b413e23df",
       "idea_version": "IDEAV-537c16c6b2148e97",
       "idea_version_started_at": "2026-10-22T11:04:03Z",
@@ -201161,9 +201161,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 531,
+    "total_count": 532,
     "shown_count": 499,
-    "hidden_count": 32,
+    "hidden_count": 33,
     "side_counts": {
       "long": {
         "total_count": 267,
@@ -201171,9 +201171,9 @@
         "hidden_count": 17
       },
       "short": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       }
     },
     "retention": {
@@ -201192,6 +201192,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-af5637c58aec",
+        "idea_version": "IDEAV-035c9d5387d56ed9",
+        "idea_version_started_at": "2026-10-23T05:56:42Z",
+        "ticker": "DECK",
+        "company": "Deckers Outdoor",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company lowered its sales outlook due to a shift in consumer demand toward discounted footwear, signaling margin pressure and weakening brand pricing power.",
+        "why_now": "The guidance cut was announced on 2026-10-22, creating an immediate negative catalyst for the stock.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-68ad7da57380"
+        ],
+        "primary_source_event_id": "EVT-68ad7da57380",
+        "source_headlines": [
+          "Deckers Cuts Sales Outlook as Shoppers Seek Out Discounted Shoes"
+        ],
+        "source_headline": "Deckers Cuts Sales Outlook as Shoppers Seek Out Discounted Shoes",
+        "source_url": "https://www.wsj.com/business/earnings/deckers-cuts-sales-outlook-amid-slower-hoka-ugg-growth-84f46d5c?mod=pls_whats_news_us_business_f",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-22T22:04:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-23T05:56:42Z",
+        "updated_at": "2026-10-23T05:56:42Z",
+        "decay_at": "2026-10-24T10:04:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-24T10:04:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a9e3b13426c6",
         "idea_version": "IDEAV-76ed845b6ab19a4f",
@@ -238280,86 +238353,12 @@
         "archived_at": "2026-09-30T05:19:35Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-759cf3b531e6",
-        "idea_version": "IDEAV-a1be9d10a405ae28",
-        "idea_version_started_at": "2026-09-27T04:44:42Z",
-        "ticker": "AMZN",
-        "company": "Amazon.com, Inc.",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Amazon was fined ₹10 lakh by the CCPA for selling unregistered herbicides, indicating regulatory scrutiny.",
-        "why_now": "The fine was reported on September 27, 2026.",
-        "conviction": 45,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 60,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 14,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-7bc774b61636"
-        ],
-        "primary_source_event_id": "EVT-7bc774b61636",
-        "source_headlines": [
-          "CCPA slaps ₹10 lakh fine on Amazon, Flipkart; ₹5 lakh on JioMart over unregistered herbicide sales"
-        ],
-        "source_headline": "CCPA slaps ₹10 lakh fine on Amazon, Flipkart; ₹5 lakh on JioMart over unregistered herbicide sales",
-        "source_url": "https://www.thehindubusinessline.com/companies/ccpa-slaps-10-lakh-fine-on-amazon-flipkart-5-lakh-on-jiomart-over-unregistered-herbicide-sales/article71515152.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 94,
-        "newest_source_at": "2026-09-27T03:24:37Z",
-        "prior_coverage": {
-          "has_run": true,
-          "latest_run": "analyses/AMZN_2026-07-20",
-          "latest_decision": null,
-          "data_pool_present": true
-        },
-        "surfaced_at": "2026-09-27T04:44:42Z",
-        "updated_at": "2026-09-27T04:44:42Z",
-        "decay_at": "2026-09-28T15:24:37Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-30T03:44:43Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1852,
-    "live_count": 41,
+    "live_count": 40,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -238378,9 +238377,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 46701,
-    "news_picked_today": 909,
-    "news_dropped_today": 3398
+    "news_seen_today": 46869,
+    "news_picked_today": 921,
+    "news_dropped_today": 3530
   },
   "book_momentum": {
     "live_count": 8,
