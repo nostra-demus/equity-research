@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T04:27:10Z",
+  "generated_at": "2026-10-24T04:31:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-405",
@@ -95,6 +95,104 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-416",
+      "headline": "BPCL reports 21.45% drop in Q2 FY27 net profit, attributes losses to fuel pricing issues",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/bpcl-reports-21-45-drop-in-q2-fy27-net-profit-attributes-losses-to-fuel-pricing-issues/articleshow/135161389.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T04:02:02Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "BPCL reported a 21.45% drop in Q2 FY27 net profit due to fuel pricing issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BPCL reported a 21.45% drop in Q2 FY27 net profit due to fuel pricing issues.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bharat Petroleum Corporation Ltd",
+          "ticker": "BPCL",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-417",
+      "headline": "India Regulator Orders Options Trainer Avadhut Sathe to Refund INR 5.46B",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-24/india-regulator-orders-options-trainer-avadhut-sathe-to-refund-inr-5-46b",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T03:54:47Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "The Indian regulator ordered Avadhut Sathe to refund INR 5.46 billion to investors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Indian regulator ordered Avadhut Sathe to refund INR 5.46 billion to investors.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Avadhut Sathe",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1873,104 +1971,6 @@
           "name": "Godrej Properties",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-093",
-      "headline": "Cambricon’s third quarter profit surges 148% to US$210m amid push to replace Nvidia chips",
-      "headline_en": null,
-      "url": "https://www.scmp.com/tech/tech-trends/article/3371959/cambricons-third-quarter-profit-surges-148-us210m-amid-push-replace-nvidia-chips",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:03:10Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Cambricon reported a 148% surge in Q3 profit to US$210m.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Cambricon reported a 148% surge in Q3 profit to US$210m.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cambricon",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-235",
-      "headline": "Autohersteller: Volvo baut 2500 Stellen ab – Aktie bricht zeitweise um mehr als 30 Prozent ein",
-      "headline_en": "Automaker: Volvo cuts 2,500 jobs – stock drops by more than 30 percent at times",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/volvo-aktie-von-autohersteller-verliert-zeitweise-mehr-als-30-prozent/100264469.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T10:00:39Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Volvo is cutting 2,500 jobs, causing a significant drop in share price.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Volvo is cutting 2,500 jobs, causing a significant drop in share price.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volvo",
-          "ticker": null,
-          "listing_country": "SE"
         }
       ],
       "size_bucket": "large",
@@ -238168,9 +238168,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 44286,
-    "news_picked_today": 677,
-    "news_dropped_today": 1829
+    "news_seen_today": 44300,
+    "news_picked_today": 679,
+    "news_dropped_today": 1841
   },
   "book_momentum": {
     "live_count": 8,
