@@ -1,6 +1,202 @@
 {
-  "generated_at": "2026-10-24T04:06:49Z",
+  "generated_at": "2026-10-24T04:26:09Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261024-405",
+      "headline": "KEC International Limited: KEC wins Substantial Orders of Rs. 2,872 crores from PGCIL",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/KEC_24102026093524_PressRelease.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-24T04:05:46Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "KEC International won orders worth Rs 2,872 crores from PGCIL.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "KEC International won orders worth Rs 2,872 crores from PGCIL.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KEC International",
+          "ticker": "532714",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-415",
+      "headline": "Anthropic's Revenue Surged to $16.3 Billion in the First Half of 2026, Up From $1.1 Billion a Year Ago",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/10/24/anthropics-revenue-surged-to-163-billion-in-the-fi/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T04:05:00Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Anthropic reported a massive revenue surge to $16.3 billion in H1 2026, indicating rapid growth in the AI sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anthropic reported a massive revenue surge to $16.3 billion in H1 2026, indicating rapid growth in the AI sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-406",
+      "headline": "DRL says cap on trade margins a positive, posts 36% dip in Q2 PAT",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/drl-says-cap-on-trade-margins-a-positive-posts-36-dip-in-q2-pat/articleshow/135161325.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T03:53:30Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Dr. Reddy's Laboratories reported a 36% decline in Q2 profit after tax.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dr. Reddy's Laboratories reported a 36% decline in Q2 profit after tax.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dr. Reddy's Laboratories",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-407",
+      "headline": "Adani Power profit surges 142% on strong demand amid weak rains",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/adani-power-profit-surges-142-on-strong-demand-amid-weak-rains/articleshow/135161231.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T03:47:21Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Adani Power reported a 142% surge in quarterly profit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Adani Power reported a 142% surge in quarterly profit.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Power",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261024-403",
       "headline": "JSW Steel posts three-fold jump in profit, lines up capacity expansion",
@@ -1778,203 +1974,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-339",
-      "headline": "IG Metall fordert von VW Rücknahme der Tarifkündigungen - sonst Streik",
-      "headline_en": "IG Metall demands VW withdraw tariff terminations - otherwise strike",
-      "url": "https://www.reuters.com/de/firma/ig-metall-fordert-von-vw-rcknahme-der-tarifkndigungen-sonst-streik-2026-10-23/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T08:33:32Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "IG Metall union threatens strike at Volkswagen following tariff contract terminations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "IG Metall union threatens strike at Volkswagen following tariff contract terminations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-370",
-      "headline": "Deyaar posts 27% profit growth to Dh541.5 million as property handovers exceed 2,100 units",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/business/deyaar-posts-27-profit-growth-to-dh5415-million-as-property-handovers-exceed-2100-units",
-      "source_name": "Khaleej Times — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T08:04:06Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Deyaar reported a 27% profit increase to Dh541.5 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Deyaar reported a 27% profit increase to Dh541.5 million.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Deyaar Development",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-212",
-      "headline": "Black Hills Corporation Announces Bright Horizon Energy Corporation as Proposed Name and HZN Ticker for Combined Company",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/black-hills-corporation-announces-bright-horizon-energy-corporation-proposed-name-and-hzn",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T10:10:43Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Black Hills Corporation announces merger with Bright Horizon Energy Corporation; combined entity to trade as HZN, restructuring capital and ownership.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Black Hills Corporation announces merger with Bright Horizon Energy Corporation; combined entity to trade as HZN, restructuring capital and ownership.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Black Hills Corporation",
-          "ticker": "BKH",
-          "listing_country": "US"
-        },
-        {
-          "name": "Bright Horizon Energy Corporation",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-286",
-      "headline": "Pentagon designates China-backed campus cultural centers a threat to US national security",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/us-news/2026/oct/23/pentagon-china-hegseth",
-      "source_name": "The Guardian — World news",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-24T01:21:26Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Designation of China-backed centers as a national security threat by the Pentagon can lead to significant geopolitical and economic repercussions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Designation of China-backed centers as a national security threat by the Pentagon can lead to significant geopolitical and economic repercussions.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
