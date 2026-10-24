@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-24T09:25:45Z",
+  "generated_at": "2026-10-24T09:32:39Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261024-462",
+      "headline": "JK Cement Limited: JK Cement Limited has informed the Exchange about Capacity addition",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/JKCEMENT_24102026145535_FinalOutcome24102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-24T09:25:44Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "JK Cement announced a capacity addition, which is a material capital expenditure event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "JK Cement announced a capacity addition, which is a material capital expenditure event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JK Cement Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261024-446",
       "headline": "Kotak Mahindra Bank Limited: Kotak Mahindra Bank Limited has submitted to the Exchange, the financial results for the period ended September 30, 2026.",
@@ -100,31 +149,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261024-459",
-      "headline": "Kotak Bank Q2 profit rises 29%, beats estimates",
+      "inbox_id": "INB-20261024-465",
+      "headline": "India's Kotak Bank Q2 profit rises 29%, beats estimates",
       "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/kotak-bank-q2-profit-rises-29-beats-estimates/article71619508.ece",
-      "source_name": "The Hindu BusinessLine",
+      "url": "https://www.reuters.com/world/india/indias-kotak-bank-q2-profit-rises-29-beats-estimates-2026-10-24/",
+      "source_name": "Reuters — Latest (news sitemap)",
       "input_nature": "news_headline",
-      "found_at": "2026-10-24T09:11:31Z",
+      "found_at": "2026-10-24T09:18:01Z",
       "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Kotak Bank reported a 29% increase in Q2 profit, exceeding analyst expectations.",
+      "prelim_note": "Kotak Mahindra Bank reported a 29% increase in Q2 profit, exceeding analyst expectations.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Kotak Bank reported a 29% increase in Q2 profit, exceeding analyst expectations.",
+      "triage_reason": "Kotak Mahindra Bank reported a 29% increase in Q2 profit, exceeding analyst expectations.",
       "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 85,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 85,
+        "materiality": 75,
         "source_tier": 0,
         "scope": 6,
         "event": 5,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 10,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1919,55 +1968,6 @@
       "companies": [
         {
           "name": "Infosys",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-100",
-      "headline": "Adani Power Q2 FY27 Net Profit Jumps 142% To ₹7,019 Crore; Revenue Rises 44%",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/adani-power-q2-fy27-net-profit-jumps-142-to-7019-crore-revenue-rises-44",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:01:21Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Adani Power reported a 142% jump in Q2 FY27 net profit to ₹7,019 crore and a 44% revenue increase.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Adani Power reported a 142% jump in Q2 FY27 net profit to ₹7,019 crore and a 44% revenue increase.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Power",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -238379,9 +238379,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 46534,
-    "news_picked_today": 884,
-    "news_dropped_today": 3256
+    "news_seen_today": 46587,
+    "news_picked_today": 892,
+    "news_dropped_today": 3301
   },
   "book_momentum": {
     "live_count": 8,
