@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-24T11:48:12Z",
+  "generated_at": "2026-10-24T11:57:49Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261024-524",
+      "headline": "Yes Bank Limited: Yes Bank Limited has informed the Exchange about Update regarding judgment of the Hon ble Supreme Court of India in relation to Additional Tier-1 Bonds",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/YESBANK_24102026172125_YBL_Stock_Exchange_Intimation_AT1_Bonds_Disclosure_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-24T11:51:42Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "The Supreme Court of India issued a judgment regarding Yes Bank's Additional Tier-1 Bonds, which is a significant legal event for the bank's capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Supreme Court of India issued a judgment regarding Yes Bank's Additional Tier-1 Bonds, which is a significant legal event for the bank's capital structure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yes Bank Limited",
+          "ticker": "YESBANK",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261024-462",
       "headline": "JK Cement Limited: JK Cement Limited has informed the Exchange about Capacity addition",
@@ -144,6 +193,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-521",
+      "headline": "Castrol India Q3 results: Profit drops 49% sequentially as raw material costs weigh on margins",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/castrol-india-share-price-q3-results-profit-drops-raw-material-costs-weigh-margins-20018596.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T11:38:45Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Castrol India's Q3 profit dropped 49% sequentially due to raw material costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Castrol India's Q3 profit dropped 49% sequentially due to raw material costs.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Castrol India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1880,105 +1978,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-152",
-      "headline": "Rückversicherung: Munich Re hebt nach starkem Quartal die Prognose",
-      "headline_en": "Reinsurance: Munich Re raises forecast after strong quarter",
-      "url": "https://www.handelsblatt.com/unternehmen/dienstleister/rueckversicherung-munich-re-hebt-nach-starkem-quartal-die-prognose/100264519.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T11:39:56Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Munich Re raised its profit guidance following a strong quarterly performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Munich Re raised its profit guidance following a strong quarterly performance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Munich Re",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-163",
-      "headline": "Infosys trims FY27 revenue growth forecast to 1-2% despite Q2 beating estimates",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/infosys-q2-net-profit-rises-62-to-7823-crore/article71615859.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T11:32:19Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Infosys cut its FY27 revenue growth forecast to 1-2% despite beat in Q2 results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Infosys cut its FY27 revenue growth forecast to 1-2% despite beat in Q2 results.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Infosys Limited",
-          "ticker": "INFY",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
