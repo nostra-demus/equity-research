@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-24T14:01:54Z",
+  "generated_at": "2026-10-24T14:07:49Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261024-576",
+      "headline": "Kajaria Ceramics Limited: Please find enclosed herewith an Investors Release dated October 24, 2026, specifying the summary of Financial performance and other developments for the quarter ended September 30, 2026.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/KAJARIACER_24102026191859_Investor_Release.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-24T13:49:27Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "The company released its financial performance summary for the quarter ended September 30, 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company released its financial performance summary for the quarter ended September 30, 2026.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kajaria Ceramics Ltd",
+          "ticker": "500233",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261024-571",
       "headline": "Kajaria Ceramics Limited: a. Approved revised production capacity and cost thereto towards the expansion of the manufacturing facility at Srikalahasti (Andhra Pradesh)b. Approved revised cost towards the expansion of the manufacturing facility at Gailpur (Rajasthan)c. Approved to set up a new manufacturing facility of tiles adhesive in Durgapur (West Bengal)",
@@ -242,6 +291,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-580",
+      "headline": "India's Kotak Bank Q2 profit rises 29%, beats estimates",
+      "headline_en": null,
+      "url": "https://www.livemint.com/industry/banking/indias-kotak-bank-q2-profit-rises-29-beats-estimates-11792850207185.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T13:58:06Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Kotak Bank reported a 29% rise in Q2 profit, beating analyst estimates.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kotak Bank reported a 29% rise in Q2 profit, beating analyst estimates.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kotak Mahindra Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1886,99 +1984,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-131",
-      "headline": "US executives quit $25bn gas venture over claims of secret Russian control",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/e9cfbfbb-e65a-4303-aebb-20d59319ef1b?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-24T00:22:20Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "US executives are quitting a $25bn gas venture due to claims of secret Russian control, indicating significant operational and geopolitical risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "US executives are quitting a $25bn gas venture due to claims of secret Russian control, indicating significant operational and geopolitical risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "executive_exit",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-012",
-      "headline": "Infosys ADR slumps 8% after company lowers FY27 revenue growth outlook",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/infosys-adr-slumps-8-after-company-lowers-fy27-revenue-growth-outlook-20018240.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:53:37Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Infosys lowers FY27 revenue growth guidance, a quantified profit-outlook cut from a mega-cap software exporter.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Infosys lowers FY27 revenue growth guidance, a quantified profit-outlook cut from a mega-cap software exporter.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Infosys",
-          "ticker": "INFY",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -238816,9 +238821,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 49369,
-    "news_picked_today": 1125,
-    "news_dropped_today": 4818
+    "news_seen_today": 49448,
+    "news_picked_today": 1141,
+    "news_dropped_today": 4881
   },
   "book_momentum": {
     "live_count": 8,
