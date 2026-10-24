@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-24T13:37:53Z",
+  "generated_at": "2026-10-24T14:01:54Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261024-571",
+      "headline": "Kajaria Ceramics Limited: a. Approved revised production capacity and cost thereto towards the expansion of the manufacturing facility at Srikalahasti (Andhra Pradesh)b. Approved revised cost towards the expansion of the manufacturing facility at Gailpur (Rajasthan)c. Approved to set up a new manufacturing facility of tiles adhesive in Durgapur (West Bengal)",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/KAJARIACER_24102026190749_Outcome.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-24T13:39:00Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Kajaria Ceramics announced capacity expansion at two existing facilities and the setup of a new manufacturing plant in Durgapur.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kajaria Ceramics announced capacity expansion at two existing facilities and the setup of a new manufacturing plant in Durgapur.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kajaria Ceramics Ltd",
+          "ticker": "500233",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261024-524",
       "headline": "Yes Bank Limited: Yes Bank Limited has informed the Exchange about Update regarding judgment of the Hon ble Supreme Court of India in relation to Additional Tier-1 Bonds",
@@ -1930,55 +1979,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-028",
-      "headline": "KKR founders among investors buying 42% of Peter Lim’s Valencia; club valued at US$1.4 billion",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/global/kkr-founders-among-investors-buying-42-peter-lims-valencia-club-valued-us1-4-billion",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:42:24Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "KKR founders and others are acquiring a 42% stake in Valencia CF, valuing the club at US$1.4 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "KKR founders and others are acquiring a 42% stake in Valencia CF, valuing the club at US$1.4 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Valencia CF",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -238816,9 +238816,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 48811,
-    "news_picked_today": 1120,
-    "news_dropped_today": 4761
+    "news_seen_today": 49369,
+    "news_picked_today": 1125,
+    "news_dropped_today": 4818
   },
   "book_momentum": {
     "live_count": 8,
