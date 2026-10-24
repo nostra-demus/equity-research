@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T09:33:03Z",
+  "generated_at": "2026-10-24T09:42:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-462",
@@ -144,6 +144,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-472",
+      "headline": "BPCL Q2 profit falls 22% as EBITDA slips on fuel price freeze",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/bpcl-q2-profit-falls-22-as-ebitda-slips-on-fuel-price-freeze/article71619564.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T09:36:59Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "BPCL reported a 22% decline in Q2 profit due to margin pressure from fuel price freezes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BPCL reported a 22% decline in Q2 profit due to margin pressure from fuel price freezes.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bharat Petroleum Corporation Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1921,55 +1970,6 @@
           "name": "SLB",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-088",
-      "headline": "Infosys Q2 net profit rises 6.2% to Rs 7,823 crore",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/business/companies/infosys-q2-net-profit-rises-62-to-rs-7823-crore-4192666",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:11:32Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Infosys reported a 6.2% rise in Q2 net profit to Rs 7,823 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Infosys reported a 6.2% rise in Q2 net profit to Rs 7,823 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Infosys",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
