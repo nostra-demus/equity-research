@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T14:08:00Z",
+  "generated_at": "2026-10-24T14:17:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-576",
@@ -291,6 +291,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-588",
+      "headline": "Lumax profit jumps 58%, bets ₹150 crore on electronics plant to generate ₹500 crore revenue",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/lumax-profit-jumps-58-bets-150-crore-on-electronics-plant-to-generate-500-crore-revenue/article71619969.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T14:08:30Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Lumax profit jumped 58% and the company is investing ₹150 crore in an electronics plant expected to generate ₹500 crore revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lumax profit jumped 58% and the company is investing ₹150 crore in an electronics plant expected to generate ₹500 crore revenue.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lumax",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1935,55 +1985,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-282",
-      "headline": "Fast-fashion group Shein agrees to pay US$100 million to settle US FTC probe",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/consumer-healthcare/fast-fashion-group-shein-agrees-pay-us100-million-settle-us-ftc-probe",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-24T01:26:48Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Shein agreed to pay US$100 million to settle a US FTC probe.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shein agreed to pay US$100 million to settle a US FTC probe.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shein",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -238821,9 +238822,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 49448,
-    "news_picked_today": 1141,
-    "news_dropped_today": 4881
+    "news_seen_today": 49504,
+    "news_picked_today": 1155,
+    "news_dropped_today": 4923
   },
   "book_momentum": {
     "live_count": 8,
