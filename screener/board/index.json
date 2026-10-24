@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T02:28:03Z",
+  "generated_at": "2026-10-24T02:34:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-282",
@@ -1482,6 +1482,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261024-296",
+      "headline": "IndiGo Extends Saudi Arabia Flight Cancellations Till October 31 Amid Drone, Missile Attacks",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/india/indigo-extends-saudi-arabia-flight-cancellations-till-october-31-amid-drone-missile-attacks",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T09:13:31Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "IndiGo is extending flight cancellations due to ongoing security threats (drone/missile attacks), impacting operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "IndiGo is extending flight cancellations due to ongoing security threats (drone/missile attacks), impacting operations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IndiGo",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261024-084",
       "headline": "Israeli drone strike kills two Palestinians in Gaza City",
       "headline_en": null,
@@ -1907,55 +1956,6 @@
           "name": "Tata Motors Limited",
           "ticker": "TATAMOTORS",
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-166",
-      "headline": "Volvo Car Shares Plunge as Automaker Slashes More Jobs",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/autos/volvo-car-to-cut-2-500-jobs-as-part-of-plan-to-cut-costs-further-c304f1f8?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T11:31:00Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Volvo Car shares fell sharply after the automaker announced additional job cuts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Volvo Car shares fell sharply after the automaker announced additional job cuts.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volvo Car AB",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -238088,9 +238088,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 38768,
-    "news_picked_today": 422,
-    "news_dropped_today": 1186
+    "news_seen_today": 39435,
+    "news_picked_today": 452,
+    "news_dropped_today": 1252
   },
   "book_momentum": {
     "live_count": 8,
