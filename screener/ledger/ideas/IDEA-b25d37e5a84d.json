@@ -1,19 +1,19 @@
 {
   "idea_id": "IDEA-b25d37e5a84d",
-  "idea_version": "IDEAV-99b9fda1854a7304",
-  "idea_version_started_at": "2026-10-23T11:11:07Z",
+  "idea_version": "IDEAV-e612966bfecfd150",
+  "idea_version_started_at": "2026-10-24T05:01:36Z",
   "ticker": "KER",
-  "company": "Kering SA",
-  "exchange": "Euronext Paris",
+  "company": "Kering",
+  "exchange": "EPA",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "Gucci, which accounts for the majority of Kering's revenue and profit, reported a 5% sales decline due to weak demand in China, signaling a failure in the brand's turnaround strategy.",
-  "why_now": "The Q3 2026 earnings results were released on October 22, 2026, confirming the structural weakness in the core brand.",
-  "conviction": 80,
+  "reason": "The company's recovery remains elusive as earnings continue to disappoint, indicating a loss of brand momentum and market share in the luxury sector.",
+  "why_now": "The earnings report on 2026-10-23 confirmed the failure of the anticipated turnaround.",
+  "conviction": 70,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
@@ -23,7 +23,7 @@
     "specificity": 7,
     "timing": 10,
     "expression": 0,
-    "corroboration": 7,
+    "corroboration": 0,
     "learning_adjustment": 0
   },
   "trade_readiness": "watch_only",
@@ -32,6 +32,8 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
+    "priced-in risk",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -43,24 +45,22 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "room",
+  "priced_in": "priced",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-e8d35789214b",
-    "EVT-fb314657426c"
+    "EVT-b1133302aa7b"
   ],
-  "primary_source_event_id": "EVT-e8d35789214b",
+  "primary_source_event_id": "EVT-b1133302aa7b",
   "source_headlines": [
-    "Gucci's sales drop 5% in third quarter as weak Chinese demand dampens turnaround hopes",
-    "Gucci Sales Trail Estimates on China Slump as Turnaround Falters"
+    "Shares in Gucci-Parent Kering Plunge as Hoped-For Recovery Keeps Receding"
   ],
-  "source_headline": "Gucci's sales drop 5% in third quarter as weak Chinese demand dampens turnaround hopes",
-  "source_url": "https://www.reuters.com/business/retail-consumer/guccis-sales-drop-5-third-quarter-weak-chinese-demand-dampens-turnaround-hopes-2026-10-22/",
-  "source_name": "Reuters — Latest (news sitemap)",
-  "materiality_max": 100,
-  "newest_source_at": "2026-10-22T15:48:04Z",
+  "source_headline": "Shares in Gucci-Parent Kering Plunge as Hoped-For Recovery Keeps Receding",
+  "source_url": "https://www.wsj.com/business/shares-in-gucci-parent-kering-plunge-as-hoped-for-recovery-keeps-receding-b08ebddc?mod=pls_whats_news_us_business_f",
+  "source_name": "The Wall Street Journal",
+  "materiality_max": 99,
+  "newest_source_at": "2026-10-23T08:44:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -68,8 +68,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-10-23T11:11:07Z",
-  "updated_at": "2026-10-23T11:11:07Z",
-  "decay_at": "2026-10-24T03:48:04Z",
+  "updated_at": "2026-10-24T05:01:36Z",
+  "decay_at": "2026-10-24T20:44:00Z",
   "status": "live",
   "promoted_signal_id": null
 }
