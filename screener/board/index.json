@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T04:41:24Z",
+  "generated_at": "2026-10-24T04:51:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-405",
@@ -46,6 +46,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-424",
+      "headline": "TruAlt Bioenergy Reports ₹94.27 Crore PAT In H1 FY27, Revenue Surges 243%; Dual-Feed Ethanol Capacity Expands",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/trualt-bioenergy-reports-9427-crore-pat-in-h1-fy27-revenue-surges-243-dual-feed-ethanol-capacity-expands",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T04:25:04Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "TruAlt Bioenergy reported ₹94.27 crore PAT and 243% revenue growth, alongside a capacity expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TruAlt Bioenergy reported ₹94.27 crore PAT and 243% revenue growth, alongside a capacity expansion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TruAlt Bioenergy",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1906,55 +1956,6 @@
         "size": 2,
         "recency": 1,
         "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Godrej Properties",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-399",
-      "headline": "Godrej Properties Reports Steep 64% Drop In Q2 FY27 Consolidated Net Profit To ₹145.47 Crore, Total Income Also Declines",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/godrej-properties-reports-steep-64-drop-in-q2-fy27-consolidated-net-profit-to-14547-crore-total-income-also-declines",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T07:15:44Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Godrej Properties reported a 64% drop in Q2 FY27 net profit to 145.47 crore INR.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Godrej Properties reported a 64% drop in Q2 FY27 net profit to 145.47 crore INR.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -238168,9 +238169,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 44318,
-    "news_picked_today": 688,
-    "news_dropped_today": 1850
+    "news_seen_today": 44344,
+    "news_picked_today": 695,
+    "news_dropped_today": 1869
   },
   "book_momentum": {
     "live_count": 8,
