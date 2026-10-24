@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T15:59:00Z",
+  "generated_at": "2026-10-24T16:08:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-576",
@@ -291,6 +291,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-630",
+      "headline": "IDFC First Bank Q2 profit jumps nearly three-fold to ₹1,045 cr",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/money-and-banking/idfc-first-bank-q2-profit-jumps-nearly-three-fold-to-rs-1045-cr/article71620975.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T16:01:25Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "IDFC First Bank reported a significant Q2 profit jump to ₹1,045 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IDFC First Bank reported a significant Q2 profit jump to ₹1,045 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IDFC First Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -796,55 +845,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-549",
-      "headline": "IDFC First Bank Q2 Results: Net Profit Jumps Multifold To Rs 1,045 Crore, NII Up 21%",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/idfc-first-bank-q2-results-net-profit-jumps-multifold-to-rs-1-045-crore-nii-up-21-12230067#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-24T12:43:23Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "IDFC First Bank reported a net profit of 1,045 crore and a 21% increase in NII.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "IDFC First Bank reported a net profit of 1,045 crore and a 21% increase in NII.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IDFC First Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -238825,9 +238825,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 50550,
-    "news_picked_today": 1247,
-    "news_dropped_today": 5227
+    "news_seen_today": 50582,
+    "news_picked_today": 1257,
+    "news_dropped_today": 5249
   },
   "book_momentum": {
     "live_count": 8,
