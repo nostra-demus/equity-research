@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T20:03:24Z",
+  "generated_at": "2026-10-24T20:13:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-633",
@@ -345,6 +345,60 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-640",
+      "headline": "Volkswagen Plans New Audi Plant in Georgia, Handing Trump a Win",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-24/volkswagen-plans-new-audi-plant-in-georgia-handing-trump-a-win",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T19:52:40Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Volkswagen is planning a new manufacturing facility, representing a significant capital expenditure commitment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volkswagen is planning a new manufacturing facility, representing a significant capital expenditure commitment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "Audi",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1947,55 +2001,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-444",
-      "headline": "South Africa moves towards ₹5,400 crore takeover of Lakshmi Mittal’s struggling steel business: What’s in the deal?",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/south-africa-moves-towards-5-400-crore-takeover-of-lakshmi-mittal-s-struggling-steel-business-what-s-in-the-deal-11792823948118.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-24T07:25:17Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "ArcelorMittal is potentially divesting a struggling steel business in a deal valued at ₹5,400 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ArcelorMittal is potentially divesting a struggling steel business in a deal valued at ₹5,400 crore.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ArcelorMittal",
-          "ticker": null,
-          "listing_country": "LU"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -238980,9 +238985,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 51209,
-    "news_picked_today": 1350,
-    "news_dropped_today": 5655
+    "news_seen_today": 51220,
+    "news_picked_today": 1354,
+    "news_dropped_today": 5662
   },
   "book_momentum": {
     "live_count": 8,
