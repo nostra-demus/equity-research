@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T18:05:19Z",
+  "generated_at": "2026-10-24T18:08:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-633",
@@ -342,6 +342,55 @@
           "name": "KEC International",
           "ticker": "532714",
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-636",
+      "headline": "Bloom Energy Raised Its 2026 Forecast for the Third Time. Is the Stock a Buy More Than a Third Below Its Record?",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/bloom-energy-raised-its-2026-forecast-third-time-stock-buy-more-third-below-its-record",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T17:39:02Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Bloom Energy raised its 2026 revenue forecast for the third time, indicating strong growth momentum.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bloom Energy raised its 2026 revenue forecast for the third time, indicating strong growth momentum.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bloom Energy",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mid",
@@ -1947,55 +1996,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-438",
-      "headline": "Bharat Petroleum Corporation Ltd's Consolidated Net Profit Dropped 21.46 Per Cent To ₹4,863.05 Crore In Q2 FY27, Despite A Significant Rise",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/bharat-petroleum-corporation-ltds-consolidated-net-profit-dropped-2146-per-cent-to-486305-crore-in-q2-fy27-despite-a-significant-rise",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-24T06:33:39Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Bharat Petroleum Corporation Ltd reported a 21.46% decline in consolidated net profit to ₹4,863.05 crore for Q2 FY27.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bharat Petroleum Corporation Ltd reported a 21.46% decline in consolidated net profit to ₹4,863.05 crore for Q2 FY27.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bharat Petroleum Corporation Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -238981,9 +238981,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 51018,
-    "news_picked_today": 1309,
-    "news_dropped_today": 5505
+    "news_seen_today": 51037,
+    "news_picked_today": 1311,
+    "news_dropped_today": 5522
   },
   "book_momentum": {
     "live_count": 8,
