@@ -1,9 +1,9 @@
 {
-  "idea_id": "IDEA-dbcd29e8ecf7",
-  "idea_version": "IDEAV-3c165f12640d6237",
-  "idea_version_started_at": "2026-10-21T01:23:08Z",
-  "ticker": "03738",
-  "company": "Vobile Group",
+  "idea_id": "IDEA-5b1f459150db",
+  "idea_version": "IDEAV-da7b88b743ff7db6",
+  "idea_version_started_at": "2026-10-23T13:59:14Z",
+  "ticker": "06603",
+  "company": "IFBH",
   "exchange": "HKEX",
   "ticker_verified": false,
   "listing_verified": false,
@@ -11,15 +11,15 @@
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "The issuance of HK$530 million in convertible bonds creates immediate equity dilution risk and signals potential balance sheet strain or a need for liquidity that the market may not have fully priced.",
-  "why_now": "The announcement was filed on 2026-10-20, and the market has yet to digest the full impact of the dilution.",
-  "conviction": 70,
+  "reason": "The company issued a profit warning, indicating a significant deterioration in earnings performance compared to previous expectations.",
+  "why_now": "The profit warning was filed today, October 23, 2026, and the market has yet to fully digest the magnitude of the earnings miss.",
+  "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 25,
-    "impact": 19,
+    "impact": 21,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
@@ -44,30 +44,30 @@
     "evidenceIds": []
   },
   "priced_in": "room",
-  "thesis_type": "balance_sheet_survival",
+  "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-ba33b15c36b6"
+    "EVT-cd09c9093250"
   ],
-  "primary_source_event_id": "EVT-ba33b15c36b6",
+  "primary_source_event_id": "EVT-cd09c9093250",
   "source_headlines": [
-    "VOBILE GROUP (03738): PROPOSED ISSUE OF HK$530,000,000 3.75 PER CENT. CONVERTIBLE BONDS DUE 2027 UNDER GENERAL MANDATE"
+    "IFBH (06603): PROFIT WARNING"
   ],
-  "source_headline": "VOBILE GROUP (03738): PROPOSED ISSUE OF HK$530,000,000 3.75 PER CENT. CONVERTIBLE BONDS DUE 2027 UNDER GENERAL MANDATE",
-  "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1021/2026102100033.pdf",
+  "source_headline": "IFBH (06603): PROFIT WARNING",
+  "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1023/2026102300526.pdf",
   "source_name": "HKEXnews (HK Exchange Filing)",
   "materiality_max": 100,
-  "newest_source_at": "2026-10-20T23:30:00Z",
+  "newest_source_at": "2026-10-23T09:00:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-10-21T01:23:08Z",
-  "updated_at": "2026-10-21T01:23:08Z",
-  "decay_at": "2026-10-22T11:30:00Z",
+  "surfaced_at": "2026-10-23T13:59:14Z",
+  "updated_at": "2026-10-23T13:59:14Z",
+  "decay_at": "2026-10-24T21:00:00Z",
   "status": "live",
   "promoted_signal_id": null
 }

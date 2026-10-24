@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-10T01:49:05Z",
+  "archived_at": "2026-10-23T13:11:41Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-e402cc95df0c",
-    "idea_version": "IDEAV-429c2de77c7b4d0a",
-    "idea_version_started_at": "2026-10-07T02:20:38Z",
-    "ticker": "BHP",
-    "company": "BHP Group",
+    "idea_id": "IDEA-eca197f63cec",
+    "idea_version": "IDEAV-7769692cccdb0f13",
+    "idea_version_started_at": "2026-10-20T13:59:38Z",
+    "ticker": "CRM",
+    "company": "Salesforce",
     "exchange": "NYSE",
     "ticker_verified": true,
     "listing_verified": true,
     "liquidity_verified": false,
     "listing_verification_source": "yahoo_symbol_directory",
-    "direction": "long",
+    "direction": "short",
     "pair_with": null,
-    "reason": "BHP Group has reported a transaction regarding its Kambalda Nickel Concentrator, which could optimize its asset portfolio and operational efficiency.",
-    "why_now": "The transaction was reported as price-sensitive information on October 7, 2026, indicating a fresh catalyst for the stock.",
+    "reason": "Acquiring Braze for $5.66 billion represents a significant cash outlay and potential dilution or integration risk that may pressure Salesforce's near-term earnings multiples.",
+    "why_now": "The acquisition news broke on 2026-10-20.",
     "conviction": 60,
     "conviction_basis": "pre_edge_proxy",
-    "trade_score": 76,
+    "trade_score": 67,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
-      "impact": 19,
+      "evidence": 14,
+      "impact": 21,
       "specificity": 15,
       "timing": 10,
       "expression": 7,
@@ -34,6 +34,7 @@
     "missing_checks": [
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -50,26 +51,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-6a541f65451b"
+      "EVT-c45fa87f4e96"
     ],
-    "primary_source_event_id": "EVT-6a541f65451b",
+    "primary_source_event_id": "EVT-c45fa87f4e96",
     "source_headlines": [
-      "LM8: BHP Reports Kambalda Nickel Concentrator Transaction [price-sensitive]"
+      "Salesforce To Acquire Braze For $5.66 Bln"
     ],
-    "source_headline": "LM8: BHP Reports Kambalda Nickel Concentrator Transaction [price-sensitive]",
-    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LM8?key=2924-03145473-6A1348080",
-    "source_name": "ASX (Australia Exchange Filing)",
+    "source_headline": "Salesforce To Acquire Braze For $5.66 Bln",
+    "source_url": "https://www.nasdaq.com/articles/salesforce-acquire-braze-566-bln",
+    "source_name": "Nasdaq",
     "materiality_max": 100,
-    "newest_source_at": "2026-10-07T01:04:55Z",
+    "newest_source_at": "2026-10-20T12:19:12Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-07T02:20:38Z",
-    "updated_at": "2026-10-07T02:20:38Z",
-    "decay_at": "2026-10-08T13:04:55Z",
+    "surfaced_at": "2026-10-20T13:59:38Z",
+    "updated_at": "2026-10-20T13:59:38Z",
+    "decay_at": "2026-10-22T00:19:12Z",
     "status": "live",
     "promoted_signal_id": null
   }
