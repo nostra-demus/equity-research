@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T00:34:46Z",
+  "generated_at": "2026-10-24T00:38:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-012",
@@ -592,6 +592,60 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-069",
+      "headline": "Arm Comments on Jury Decision in Qualcomm Trial",
+      "headline_en": null,
+      "url": "https://www.eetimes.com/arm-comments-on-jury-decision-in-qualcomm-trial/",
+      "source_name": "EE Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Arm is responding to a jury decision in its ongoing legal dispute with Qualcomm.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Arm is responding to a jury decision in its ongoing legal dispute with Qualcomm.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Arm",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Qualcomm",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1890,55 +1944,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-017",
-      "headline": "Gentex Corp. Bottom Line Declines In Q3",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/gentex-corp-bottom-line-declines-q3",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:49:04Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Gentex Corp reported a decline in bottom-line earnings for the third quarter.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Gentex Corp reported a decline in bottom-line earnings for the third quarter.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gentex Corp.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -237994,9 +237999,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 13045,
-    "news_picked_today": 71,
-    "news_dropped_today": 265
+    "news_seen_today": 14760,
+    "news_picked_today": 78,
+    "news_dropped_today": 282
   },
   "book_momentum": {
     "live_count": 8,
