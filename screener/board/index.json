@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-24T02:10:51Z",
+  "generated_at": "2026-10-24T02:16:57Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261024-282",
+      "headline": "Fast-fashion group Shein agrees to pay US$100 million to settle US FTC probe",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/consumer-healthcare/fast-fashion-group-shein-agrees-pay-us100-million-settle-us-ftc-probe",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T01:26:48Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Shein agreed to pay US$100 million to settle a US FTC probe.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shein agreed to pay US$100 million to settle a US FTC probe.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shein",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261024-131",
       "headline": "US executives quit $25bn gas venture over claims of secret Russian control",
@@ -1286,6 +1335,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261024-286",
+      "headline": "Pentagon designates China-backed campus cultural centers a threat to US national security",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/us-news/2026/oct/23/pentagon-china-hegseth",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T01:21:26Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Designation of China-backed centers as a national security threat by the Pentagon can lead to significant geopolitical and economic repercussions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Designation of China-backed centers as a national security threat by the Pentagon can lead to significant geopolitical and economic repercussions.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261024-008",
       "headline": "Judge approves defunct talc supplier's $535 million settlement with Berkshire affiliate",
       "headline_en": null,
@@ -1866,104 +1959,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-047",
-      "headline": "Bombardier Expands U.S. Footprint With $270 Mln Investment And 800 New Jobs",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/bombardier-expands-us-footprint-270-mln-investment-and-800-new-jobs",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:24:52Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Bombardier is investing $270 million to expand its U.S. footprint and add 800 jobs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Bombardier is investing $270 million to expand its U.S. footprint and add 800 jobs.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bombardier",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-058",
-      "headline": "Soccer club Valencia says group backed by KKR founders buys 42% stake",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/pitchwise-buy-42-valencia-cf-stake-values-spanish-football-club-14-billion-2026-10-23/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:20:38Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Valencia CF announced that a group backed by KKR founders acquired a 42% stake in the club.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Valencia CF announced that a group backed by KKR founders acquired a 42% stake in the club.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Valencia CF",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -238019,9 +238014,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 35409,
-    "news_picked_today": 401,
-    "news_dropped_today": 1111
+    "news_seen_today": 36803,
+    "news_picked_today": 412,
+    "news_dropped_today": 1148
   },
   "book_momentum": {
     "live_count": 8,
