@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T00:38:40Z",
+  "generated_at": "2026-10-24T00:42:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-012",
@@ -391,6 +391,55 @@
           "name": "Evonik",
           "ticker": "EVK",
           "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-073",
+      "headline": "OpenAI Targets $1.25 Trillion Valuation in New Funding Round",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-10-23/the-pulse-10-232026-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T12:14:16Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "OpenAI is targeting a valuation of $1.25 trillion in a new funding round, a significant capital event for the AI sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "OpenAI is targeting a valuation of $1.25 trillion in a new funding round, a significant capital event for the AI sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -1452,6 +1501,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261024-074",
+      "headline": "LVHM-owned watchmaker Zenith to cut jobs, shift upmarket, source says",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/retail-consumer/lvhm-owned-watchmaker-zenith-cut-jobs-shift-upmarket-source-says-2026-10-23/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T12:14:14Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "LVMH-owned Zenith is planning job cuts and a strategic shift upmarket.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "LVMH-owned Zenith is planning job cuts and a strategic shift upmarket.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LVMH",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Zenith",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261024-051",
       "headline": "Barclays PLC Announces Future Share Buy-Back Programme of Up to £500m",
       "headline_en": null,
@@ -1814,120 +1917,28 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261024-023",
-      "headline": "Why is Meta creating a new class of non-voting shares amid its AI growth?",
+      "inbox_id": "INB-20261024-071",
+      "headline": "FCC issues first bans under new chip-level rule",
       "headline_en": null,
-      "url": "https://www.reuters.com/business/why-is-meta-creating-new-class-non-voting-shares-amid-its-ai-growth-2026-10-23/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "url": "https://www.tomshardware.com/tech-industry/cyber-security/fcc-bans-first-two-devices-from-the-us-under-new-chip-level-rule-huawei-subsidiary-chip-boasts-face-detection-algorithm",
+      "source_name": "Tom's Hardware",
       "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:46:49Z",
+      "found_at": "2026-10-23T12:15:00Z",
       "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Meta creating new class of non-voting shares linked to AI strategy; capital-structure change affecting governance, founder control, and shareholder rights.",
+      "prelim_note": "The FCC has initiated enforcement actions under new chip-level rules, creating regulatory risk for hardware manufacturers.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "Meta creating new class of non-voting shares linked to AI strategy; capital-structure change affecting governance, founder control, and shareholder rights.",
+      "triage_score": 77,
+      "triage_reason": "The FCC has initiated enforcement actions under new chip-level rules, creating regulatory risk for hardware manufacturers.",
       "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta",
-          "ticker": "META",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-048",
-      "headline": "Russische Zentralbank scheut Leitzinssenkung: \"Aktueller Preisdruck bleibt hoch\"",
-      "headline_en": "Russian Central Bank avoids key interest rate cut: 'Current price pressure remains high'",
-      "url": "https://www.reuters.com/de/welt/russische-zentralbank-scheut-leitzinssenkung-aktueller-preisdruck-bleibt-hoch-2026-10-23/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:24:26Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "The Russian Central Bank is avoiding interest rate cuts due to persistent inflationary pressure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "The Russian Central Bank is avoiding interest rate cuts due to persistent inflationary pressure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-052",
-      "headline": "India's Smartphone Market Hits 10-Year Low As Q3 Shipments Fall 20%, Budget Phones Worst Hit",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/tech/indias-smartphone-market-hits-10-year-low-as-q3-shipments-fall-20-budget-phones-worst-hit",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:21:53Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "India's smartphone market shipments fell 20% in Q3, hitting a 10-year low.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "India's smartphone market shipments fell 20% in Q3, hitting a 10-year low.",
-      "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 60,
       "rank_factors": {
         "materiality": 60,
         "source_tier": 0,
         "scope": 2,
-        "event": 0,
+        "event": 4,
         "size": 0,
         "recency": 1,
         "materiality_label_floor": 10,
@@ -1935,11 +1946,11 @@
         "boost_weight": 1,
         "scope_id": "policy",
         "source_tier_id": "news",
-        "event_id": null,
+        "event_id": "regulatory",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "macro_sector"
+        "regulatory"
       ],
       "issuer_linkage": "sector",
       "companies": [],
@@ -237999,9 +238010,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 14760,
-    "news_picked_today": 78,
-    "news_dropped_today": 282
+    "news_seen_today": 16451,
+    "news_picked_today": 84,
+    "news_dropped_today": 300
   },
   "book_momentum": {
     "live_count": 8,
