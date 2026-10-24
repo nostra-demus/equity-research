@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T00:29:42Z",
+  "generated_at": "2026-10-24T00:34:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-012",
@@ -443,6 +443,105 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-058",
+      "headline": "Soccer club Valencia says group backed by KKR founders buys 42% stake",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/pitchwise-buy-42-valencia-cf-stake-values-spanish-football-club-14-billion-2026-10-23/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T12:20:38Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Valencia CF announced that a group backed by KKR founders acquired a 42% stake in the club.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Valencia CF announced that a group backed by KKR founders acquired a 42% stake in the club.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Valencia CF",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-053",
+      "headline": "Class-action lawsuit filed against Canadian bitcoin firm Coinkite after $140-million hack",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-class-action-lawsuit-filed-bitcoin-firm-coinkite-140-million-hack/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T00:15:37Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "A confirmed $140-million cybersecurity breach at Coinkite with a subsequent class-action lawsuit materially impairs capital and increases legal exposure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "A confirmed $140-million cybersecurity breach at Coinkite with a subsequent class-action lawsuit materially impairs capital and increases legal exposure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Coinkite",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -896,6 +995,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261024-067",
+      "headline": "Yes Bank AT1 bonds: Supreme Court overturns write-off, but will investors get coupon payments? What's the entire matter",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/yes-bank-at1-bonds-supreme-court-overturns-write-off-but-will-investors-get-coupon-payments-11792752412594.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T12:17:50Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "The Supreme Court of India overturned the write-off of Yes Bank AT1 bonds, impacting investor recovery expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "The Supreme Court of India overturned the write-off of Yes Bank AT1 bonds, impacting investor recovery expectations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yes Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261024-006",
       "headline": "Jio IPO draws Rs 7.4 lakh crore in bids, applications hit record",
       "headline_en": null,
@@ -1054,6 +1202,153 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261024-060",
+      "headline": "Rithm Capital Q3 Profit Surges, Shares Up 6.26% In Pre-market",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/rithm-capital-q3-profit-surges-shares-626-pre-market",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T12:21:37Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Rithm Capital reported a surge in Q3 profit, driving a 6.26% pre-market share price increase.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Rithm Capital reported a surge in Q3 profit, driving a 6.26% pre-market share price increase.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rithm Capital",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-059",
+      "headline": "Los trabajadores de Volkswagen amenazan con huelgas si no se restablecen los acuerdos salariales",
+      "headline_en": "Volkswagen workers threaten strikes if wage agreements are not restored",
+      "url": "https://www.reuters.com/latam/negocio/L4EGEJA6OJLEXMC34QC3Q5GONM-2026-10-23/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T12:21:33Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Volkswagen workers are threatening strikes over wage agreement disputes, posing a risk to production operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Volkswagen workers are threatening strikes over wage agreement disputes, posing a risk to production operations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-068",
+      "headline": "Bank of India Q2 profit jumps 25% on stronger core income, better asset quality",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/bank-of-india-q2-results-profit-jumps-25-pc-stronger-core-income-asset-quality-20018198.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T12:18:19Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Bank of India reported a 25% jump in Q2 profit driven by core income growth and improved asset quality.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Bank of India reported a 25% jump in Q2 profit driven by core income growth and improved asset quality.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261024-031",
       "headline": "World Acceptance Corporation Posts Q2 Net Profit As Revenue Increases",
       "headline_en": null,
@@ -1147,6 +1442,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-066",
+      "headline": "Ukraine plans independent satellite system as Starlink issues persist",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/10/23/ukraine-plans-independent-satellite-system-as-starlink-issues-persist?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-10-23T12:16:50Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Ukraine is planning an independent satellite system due to ongoing reliability issues with Starlink.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "Ukraine is planning an independent satellite system due to ongoing reliability issues with Starlink.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1336,6 +1674,92 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261024-061",
+      "headline": "Tanker Carrying Russian Diesel Signals U.S. Port After Trump-Putin Deal",
+      "headline_en": null,
+      "url": "https://www.wsj.com/finance/commodities-futures/tanker-carrying-russian-diesel-signals-u-s-port-after-trump-putin-deal-c09c15dd?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T12:20:00Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "A tanker carrying Russian diesel is signaling a US port, highlighting potential shifts in trade compliance and sanctions enforcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "A tanker carrying Russian diesel is signaling a US port, highlighting potential shifts in trade compliance and sanctions enforcement.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-065",
+      "headline": "Denmark to ban mink farming in government U-turn",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/c59vzjm118j1o?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — World",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T12:17:45Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Denmark's government has decided to ban mink farming, effectively ending the industry in the country.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "Denmark's government has decided to ban mink farming, effectively ending the industry in the country.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261024-023",
       "headline": "Why is Meta creating a new class of non-voting shares amid its AI growth?",
       "headline_en": null,
@@ -1515,447 +1939,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-024",
-      "headline": "U.S. oil rises above $100, Brent at five-month high as Iran says it’s prepared for warfare",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/23/oil-price-brent-wti-iran-war-saudi-arabia.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:46:11Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Iran explicitly declares readiness for warfare; Brent crude hits five-month high above $100/bbl, signaling geopolitical escalation and Strait of Hormuz supply-disruption risk affecting global energy, shipping, and manufacturing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Iran explicitly declares readiness for warfare; Brent crude hits five-month high above $100/bbl, signaling geopolitical escalation and Strait of Hormuz supply-disruption risk affecting global energy, shipping, and manufacturing.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 2,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector",
-        "operations"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-038",
-      "headline": "Coforge posts strong quarterly growth on Encora integration, deal momentum",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/coforge-posts-strong-quarterly-growth-on-encora-integration-deal-momentum/article71616083.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:30:27Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Coforge reports quarterly earnings with strong growth and Encora acquisition integration progress, but headline lacks quantified guidance, beat/miss detail, or explicit forward direction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Coforge reports quarterly earnings with strong growth and Encora acquisition integration progress, but headline lacks quantified guidance, beat/miss detail, or explicit forward direction.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 52,
-      "rank_factors": {
-        "materiality": 52,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coforge",
-          "ticker": "COFORGE",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-014",
-      "headline": "Ações da L'Oréal se recuperam com vendas do 3º tri",
-      "headline_en": "L'Oreal shares recover with Q3 sales",
-      "url": "https://www.reuters.com/pt/negocio/Q6CBKZUEC5LHDBWAZ2BNIL5V5Y-2026-10-23/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:52:04Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "L'Oreal shares recovered following the release of their third-quarter sales results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "L'Oreal shares recovered following the release of their third-quarter sales results.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "L'Oreal",
-          "ticker": null,
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-001",
-      "headline": "Amazon used AI tool to track risk of unionization in Canadian warehouses, documents show",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-amazon-ai-tool-risk-unionization-canadian-warehouses-documents/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T23:52:12Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Amazon disclosed using AI to track unionization risk in Canadian warehouses; a governance and labor-relations red flag, but no enforcement action or quantified operational impact yet reported.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Amazon disclosed using AI to track unionization risk in Canadian warehouses; a governance and labor-relations red flag, but no enforcement action or quantified operational impact yet reported.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": "AMZN",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-035",
-      "headline": "Havells India Expects Festive Demand To Support Growth, Lloyd Margins To Improve",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/havells-india-expects-festive-demand-to-support-growth-lloyd-margins-to-improve-12225037#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:34:02Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Havells India management expects festive-season demand to support growth and Lloyd brand margins to improve — forward guidance with no quantified change or prior guidance comparison.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Havells India management expects festive-season demand to support growth and Lloyd brand margins to improve — forward guidance with no quantified change or prior guidance comparison.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Havells India",
-          "ticker": "HAVELLS",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-002",
-      "headline": "Oil prices jump US$3 on Houthi attacks, oil spill, highest settlement since April",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/energy-commodities/oil-prices-jump-us3-houthi-attacks-oil-spill-highest-settlement-april",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T23:58:09Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Houthi attacks and an oil spill drive oil prices to highest settlement since April, a US$3 jump repricing supply risk across energy, transport, and manufacturing sectors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "Houthi attacks and an oil spill drive oil prices to highest settlement since April, a US$3 jump repricing supply risk across energy, transport, and manufacturing sectors.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector",
-        "operations"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-019",
-      "headline": "Titan Company brand Zoya seeks to cash in on rising high-end jewellery demand, eyes ₹500 crore revenue by FY27",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/cons-products/fashion-/-cosmetics-/-jewellery/titan-company-brand-zoya-seeks-to-cash-in-on-rising-high-end-jewellery-demand-eyes-500-crore-revenue-by-fy27/articleshow/135145897.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:45:25Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Titan Company's Zoya brand is targeting ₹500 crore in revenue by FY27 through high-end jewelry expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 60,
-      "triage_reason": "Titan Company's Zoya brand is targeting ₹500 crore in revenue by FY27 through high-end jewelry expansion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Titan Company",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-025",
-      "headline": "OUE Reit strengthens presence in Sydney with further 50% stake in Salesforce Tower",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/reits-property/oue-reit-strengthens-presence-sydney-further-50-stake-salesforce-tower",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:46:27Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "OUE REIT increases stake in Salesforce Tower Sydney; routine property transaction without stated deal size or financial impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 59,
-      "triage_reason": "OUE REIT increases stake in Salesforce Tower Sydney; routine property transaction without stated deal size or financial impact.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OUE Limited",
-          "ticker": "OUE",
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-039",
-      "headline": "Pepsi renews Taco Bell partnership days after KFC switches to Coca-Cola in US: How the two have been linked for decades?",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/pepsi-renews-taco-bell-partnership-days-after-kfc-switches-to-coca-cola-in-us-how-the-two-have-been-linked-for-decades-11792756197109.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:29:13Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "KFC switched beverage supplier from PepsiCo to Coca-Cola; Pepsi renewed Taco Bell partnership. Confirmed supply-demand shift at two major QSR chains affecting revenue and competitive positioning for Pepsi and Coke, but impact unquantified.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 59,
-      "triage_reason": "KFC switched beverage supplier from PepsiCo to Coca-Cola; Pepsi renewed Taco Bell partnership. Confirmed supply-demand shift at two major QSR chains affecting revenue and competitive positioning for Pepsi and Coke, but impact unquantified.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PepsiCo",
-          "ticker": "PEP",
-          "listing_country": "US"
-        },
-        {
-          "name": "Coca-Cola Company",
-          "ticker": "KO",
-          "listing_country": "US"
-        },
-        {
-          "name": "Yum! Brands",
-          "ticker": "YUM",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -238011,9 +237994,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9543,
-    "news_picked_today": 52,
-    "news_dropped_today": 212
+    "news_seen_today": 13045,
+    "news_picked_today": 71,
+    "news_dropped_today": 265
   },
   "book_momentum": {
     "live_count": 8,
