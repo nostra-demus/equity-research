@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T04:06:16Z",
+  "generated_at": "2026-10-24T04:06:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-403",
@@ -196153,22 +196153,22 @@
     },
     {
       "idea_id": "IDEA-58d3e0cadc2a",
-      "idea_version": "IDEAV-05636fe687693f3f",
-      "idea_version_started_at": "2026-10-23T19:34:45Z",
+      "idea_version": "IDEAV-b0bfec588f475cce",
+      "idea_version_started_at": "2026-10-24T04:06:30Z",
       "ticker": "INFY",
       "company": "Infosys",
       "exchange": "NYSE",
       "direction": "short",
       "pair_with": null,
-      "reason": "The company lowered its FY27 revenue growth guidance to 1-2% due to a weak demand environment, indicating a structural slowdown in its core IT services business.",
-      "why_now": "The guidance cut was reported on October 23, 2026, and typically leads to multiple compression in the IT services sector.",
+      "reason": "The company lowered its FY27 revenue growth outlook, signaling a deceleration in demand for IT services.",
+      "why_now": "The guidance cut was announced on 2026-10-23, triggering an immediate 8% slump in the ADR.",
       "conviction": 75,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
+      "trade_score": 66,
       "trade_score_basis": "event_driven_v3",
       "trade_score_breakdown": {
         "evidence": 14,
-        "impact": 21,
+        "impact": 20,
         "specificity": 15,
         "timing": 10,
         "expression": 7,
@@ -196196,17 +196196,17 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-925d2a5fb4f0"
+        "EVT-7034de84f938"
       ],
-      "primary_source_event_id": "EVT-925d2a5fb4f0",
+      "primary_source_event_id": "EVT-7034de84f938",
       "source_headlines": [
-        "Infosys cuts FY27 growth guidance to 1-2% amid weak demand environment"
+        "Infosys ADR slumps 8% after company lowers FY27 revenue growth outlook"
       ],
-      "source_headline": "Infosys cuts FY27 growth guidance to 1-2% amid weak demand environment",
-      "source_url": "https://www.thehindubusinessline.com/info-tech/infosys-cuts-fy27-growth-guidance-to-12-amid-weak-demand-environment/article71616396.ece",
-      "source_name": "The Hindu BusinessLine",
+      "source_headline": "Infosys ADR slumps 8% after company lowers FY27 revenue growth outlook",
+      "source_url": "https://www.cnbctv18.com/market/infosys-adr-slumps-8-after-company-lowers-fy27-revenue-growth-outlook-20018240.htm",
+      "source_name": "CNBC-TV18",
       "materiality_max": 100,
-      "newest_source_at": "2026-10-23T13:49:43Z",
+      "newest_source_at": "2026-10-23T12:53:37Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
@@ -196214,8 +196214,8 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-10-23T15:10:57Z",
-      "updated_at": "2026-10-23T19:34:45Z",
-      "decay_at": "2026-10-25T01:49:43Z",
+      "updated_at": "2026-10-24T04:06:30Z",
+      "decay_at": "2026-10-25T00:53:37Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -196636,6 +196636,76 @@
       "surfaced_at": "2026-10-23T04:15:56Z",
       "updated_at": "2026-10-23T04:15:56Z",
       "decay_at": "2026-10-24T05:49:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-be88d1aa5221",
+      "idea_version": "IDEAV-159d6a7273dc37c9",
+      "idea_version_started_at": "2026-10-24T04:06:30Z",
+      "ticker": "AMR",
+      "company": "Alpha Metallurgical Resources",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a preliminary Q3 loss, indicating weakness in metallurgical coal pricing or operational efficiency.",
+      "why_now": "The preliminary loss announcement occurred on 2026-10-23.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 64,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c736d7bd08cb"
+      ],
+      "primary_source_event_id": "EVT-c736d7bd08cb",
+      "source_headlines": [
+        "Alpha Metallurgical Resources Reports Preliminary Q3 Loss"
+      ],
+      "source_headline": "Alpha Metallurgical Resources Reports Preliminary Q3 Loss",
+      "source_url": "https://www.nasdaq.com/articles/alpha-metallurgical-resources-reports-preliminary-q3-loss",
+      "source_name": "Nasdaq",
+      "materiality_max": 99,
+      "newest_source_at": "2026-10-23T12:37:23Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T04:06:30Z",
+      "updated_at": "2026-10-24T04:06:30Z",
+      "decay_at": "2026-10-25T00:37:23Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -238007,8 +238077,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1840,
-    "live_count": 34,
+    "surfaced_total": 1841,
+    "live_count": 35,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
