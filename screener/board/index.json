@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T12:32:56Z",
+  "generated_at": "2026-10-24T12:37:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-524",
@@ -189,6 +189,55 @@
         {
           "name": "KEC International",
           "ticker": "532714",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-546",
+      "headline": "Netweb Technologies Q2 profit soars 61% to ₹137 crore as AI demand surges",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/netweb-technologies-share-price-q2-results-profit-ai-demand-surges-20018612.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T12:26:46Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Netweb Technologies reported a 61% profit increase to ₹137 crore driven by AI demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Netweb Technologies reported a 61% profit increase to ₹137 crore driven by AI demand.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Netweb Technologies",
+          "ticker": null,
           "listing_country": "IN"
         }
       ],
@@ -1931,55 +1980,6 @@
           "name": "Bombardier",
           "ticker": null,
           "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-106",
-      "headline": "Evonik: Chemiekonzern erhöht Übernahmeangebot für Evonik auf mehr als elf Milliarden Euro",
-      "headline_en": "Evonik: Chemical group increases takeover offer for Evonik to more than eleven billion euros",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/evonik-basf-erhoeht-uebernahmeangebot-auf-mehr-als-elf-milliarden-euro/100264522.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T11:59:07Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Evonik increased its takeover offer to over 11 billion euros.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Evonik increased its takeover offer to over 11 billion euros.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Evonik",
-          "ticker": null,
-          "listing_country": "DE"
         }
       ],
       "size_bucket": "large",
@@ -238820,9 +238820,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 48035,
-    "news_picked_today": 1055,
-    "news_dropped_today": 4454
+    "news_seen_today": 48072,
+    "news_picked_today": 1064,
+    "news_dropped_today": 4482
   },
   "book_momentum": {
     "live_count": 8,
