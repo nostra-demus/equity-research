@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T01:22:57Z",
+  "generated_at": "2026-10-24T01:29:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-131",
@@ -683,6 +683,104 @@
           "name": "American Express",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-202",
+      "headline": "Lunai Bioworks Inc. to Voluntarily Delist from Nasdaq Following Stockholders' Deficit of $(9,024,946)",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/lunai-bioworks-inc-voluntarily-delist-nasdaq-following-stockholders-deficit-9024946",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T10:52:55Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Lunai Bioworks is voluntarily delisting due to a stockholders' deficit of over $9 million, indicating severe financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lunai Bioworks is voluntarily delisting due to a stockholders' deficit of over $9 million, indicating severe financial distress.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lunai Bioworks",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-206",
+      "headline": "Infosys Lowers Sales Forecast After Companies Curb IT Spending",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-23/infosys-lowers-sales-forecast-after-companies-curb-it-spending",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T10:52:40Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Infosys lowered its sales forecast due to reduced IT spending, a significant negative signal for the sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Infosys lowered its sales forecast due to reduced IT spending, a significant negative signal for the sector.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Infosys",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mega",
@@ -1619,6 +1717,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261024-208",
+      "headline": "Jio Platforms IPO Day 3 Live Updates: Bids cross ₹3.5 lakh crore; subscription at 16.2x",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/jio-platforms-ipo-day-3-live-updates-subscription-bids-qib-nii-retail-gmp-allotment-listing-date-premium-demand-ril-shares-liveblog-20017498.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T10:46:56Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Jio Platforms IPO is 16.2x oversubscribed on Day 3 with bids crossing ₹3.5 lakh crore, confirming strong market demand and materially affecting Reliance Industries' capital structure and subsidiary valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Jio Platforms IPO is 16.2x oversubscribed on Day 3 with bids crossing ₹3.5 lakh crore, confirming strong market demand and materially affecting Reliance Industries' capital structure and subsidiary valuation.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jio Platforms",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Reliance Industries",
+          "ticker": "RIL",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261024-053",
       "headline": "Class-action lawsuit filed against Canadian bitcoin firm Coinkite after $140-million hack",
       "headline_en": null,
@@ -1809,164 +1961,6 @@
           "name": "SLB",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-069",
-      "headline": "Arm Comments on Jury Decision in Qualcomm Trial",
-      "headline_en": null,
-      "url": "https://www.eetimes.com/arm-comments-on-jury-decision-in-qualcomm-trial/",
-      "source_name": "EE Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-24T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Arm is responding to a jury decision in its ongoing legal dispute with Qualcomm.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Arm is responding to a jury decision in its ongoing legal dispute with Qualcomm.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Arm",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Qualcomm",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-009",
-      "headline": "HD Hyundai Builds New U.S. Shipyard",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279572",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:57:32Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "HD Hyundai announces new U.S. shipyard construction, a major capacity-expansion capex commitment signaling market entry; scale and investment amount not quantified.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "HD Hyundai announces new U.S. shipyard construction, a major capacity-expansion capex commitment signaling market entry; scale and investment amount not quantified.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HD Hyundai",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-030",
-      "headline": "MMG diz que ofereceu concessões à UE por aval a acordo com Anglo American no Brasil",
-      "headline_en": "MMG says it offered concessions to the EU for approval of deal with Anglo American in Brazil",
-      "url": "https://www.reuters.com/pt/negocio/BC57X6TNDZKCXCEFXQUZLRXCNY-2026-10-23/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:37:41Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "MMG offered concessions to the EU to secure approval for its acquisition of Anglo American's assets in Brazil.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "MMG offered concessions to the EU to secure approval for its acquisition of Anglo American's assets in Brazil.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MMG",
-          "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "Anglo American",
-          "ticker": null,
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -238025,9 +238019,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 28107,
-    "news_picked_today": 229,
-    "news_dropped_today": 683
+    "news_seen_today": 29342,
+    "news_picked_today": 259,
+    "news_dropped_today": 749
   },
   "book_momentum": {
     "live_count": 8,
