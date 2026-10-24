@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T02:47:00Z",
+  "generated_at": "2026-10-24T02:49:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-282",
@@ -1330,6 +1330,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261024-344",
+      "headline": "BKT Tyres to ramp up Pirelli production over fivefold to 8 lakh tyres by 2030",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/companies/bkt-tyres-to-ramp-up-pirelli-production-over-fivefold-to-8-lakh-tyres-by-2030-20017872.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-23T08:28:43Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "BKT Tyres announces a major capacity expansion to produce 8 lakh tyres by 2030.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "BKT Tyres announces a major capacity expansion to produce 8 lakh tyres by 2030.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BKT Tyres",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261024-093",
       "headline": "Cambricon’s third quarter profit surges 148% to US$210m amid push to replace Nvidia chips",
       "headline_en": null,
@@ -1903,60 +1952,6 @@
           "name": "Evonik",
           "ticker": "EVK",
           "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-124",
-      "headline": "Valaris Limited Announces November 26, 2026 Court Sanction Hearing for Proposed Transocean Ltd. Business Combination",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/valaris-limited-announces-november-26-2026-court-sanction-hearing-proposed-transocean-ltd",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-24T00:08:30Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Valaris Limited announced a court hearing for a proposed business combination with Transocean Ltd.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Valaris Limited announced a court hearing for a proposed business combination with Transocean Ltd.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Valaris Limited",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Transocean Ltd.",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -238089,9 +238084,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 40457,
-    "news_picked_today": 495,
-    "news_dropped_today": 1353
+    "news_seen_today": 41287,
+    "news_picked_today": 503,
+    "news_dropped_today": 1369
   },
   "book_momentum": {
     "live_count": 8,
