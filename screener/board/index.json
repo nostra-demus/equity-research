@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T07:16:23Z",
+  "generated_at": "2026-10-24T07:26:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-405",
@@ -1439,6 +1439,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261024-442",
+      "headline": "Varmora Granito Shares Climb Nearly 6% As H1 Profit Jumps 498% To Rs 53.7 Crore",
+      "headline_en": null,
+      "url": "https://www.outlookbusiness.com/spotlight/news-wire/varmora-granito-shares-climb-nearly-6-as-h1-profit-jumps-498-to-rs-537-crore",
+      "source_name": "Outlook Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T05:23:50Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "The company reported a significant profit jump of 498% to Rs 53.7 crore for H1.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "The company reported a significant profit jump of 498% to Rs 53.7 crore for H1.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Varmora Granito",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261024-032",
       "headline": "Alpha Metallurgical Resources Reports Preliminary Q3 Loss",
       "headline_en": null,
@@ -1926,55 +1975,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-344",
-      "headline": "BKT Tyres to ramp up Pirelli production over fivefold to 8 lakh tyres by 2030",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/companies/bkt-tyres-to-ramp-up-pirelli-production-over-fivefold-to-8-lakh-tyres-by-2030-20017872.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T08:28:43Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "BKT Tyres announces a major capacity expansion to produce 8 lakh tyres by 2030.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "BKT Tyres announces a major capacity expansion to produce 8 lakh tyres by 2030.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BKT Tyres",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -238386,9 +238386,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 45240,
-    "news_picked_today": 804,
-    "news_dropped_today": 2501
+    "news_seen_today": 45276,
+    "news_picked_today": 809,
+    "news_dropped_today": 2532
   },
   "book_momentum": {
     "live_count": 8,
