@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T14:23:06Z",
+  "generated_at": "2026-10-24T14:33:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-576",
@@ -291,6 +291,66 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-589",
+      "headline": "Instacart Is Exploring a Sale, and Uber and DoorDash Are Circling",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/10/24/instacart-is-exploring-a-sale-and-uber-and-doordash-are-circling/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T14:22:38Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Instacart is exploring a potential sale with interest from Uber and DoorDash.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Instacart is exploring a potential sale with interest from Uber and DoorDash.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Instacart",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Uber",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "DoorDash",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1923,65 +1983,6 @@
           "name": "Volvo",
           "ticker": null,
           "listing_country": "SE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-386",
-      "headline": "Instacart in talks with DoorDash and Uber for sale: report",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/instacart-talks-doordash-and-uber-sale-report",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-24T02:52:30Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Instacart is reportedly in talks to be acquired by DoorDash or Uber, representing a major potential M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Instacart is reportedly in talks to be acquired by DoorDash or Uber, representing a major potential M&A event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Instacart",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "DoorDash",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Uber",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -238752,9 +238753,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 49527,
-    "news_picked_today": 1157,
-    "news_dropped_today": 4944
+    "news_seen_today": 49552,
+    "news_picked_today": 1162,
+    "news_dropped_today": 4963
   },
   "book_momentum": {
     "live_count": 8,
