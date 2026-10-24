@@ -1,9 +1,9 @@
 {
   "idea_id": "IDEA-301c9958417a",
-  "idea_version": "IDEAV-22a9371e0822e7f3",
-  "idea_version_started_at": "2026-10-22T03:15:31Z",
+  "idea_version": "IDEAV-af10e51d87cc5a7f",
+  "idea_version_started_at": "2026-10-24T03:46:54Z",
   "ticker": "META",
-  "company": "Meta Platforms, Inc.",
+  "company": "Meta Platforms",
   "exchange": "NASDAQ",
   "ticker_verified": true,
   "listing_verified": true,
@@ -11,25 +11,26 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "A $25 billion legal penalty represents a massive, unexpected cash outflow that significantly impairs the company's balance sheet and free cash flow profile.",
-  "why_now": "The penalty was announced on October 21, 2026, and represents a sudden, material litigation event.",
-  "conviction": 85,
+  "reason": "Aggressive capital expenditure on AI infrastructure has pushed free cash flow into negative territory, signaling a potential multi-quarter margin compression.",
+  "why_now": "The earnings report released on 2026-10-22 highlighted this shift in capital allocation, which is currently being repriced by investors.",
+  "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 79,
+  "trade_score": 62,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 23,
+    "impact": 20,
     "specificity": 15,
-    "timing": 10,
+    "timing": 6,
     "expression": 7,
-    "corroboration": 10,
+    "corroboration": 0,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -46,23 +47,19 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-53e3a01402a1",
-    "EVT-39f83d65e973",
-    "EVT-cedc1c3ffab2",
-    "EVT-d3771c78e877"
+    "EVT-8550489cb6de",
+    "EVT-06e66a945494"
   ],
-  "primary_source_event_id": "EVT-53e3a01402a1",
+  "primary_source_event_id": "EVT-8550489cb6de",
   "source_headlines": [
-    "Meta ordered to pay $25 billion penalty in New Mexico Cambridge Analytica case",
-    "Meta hit with $25-billion penalty for misleading consumers in New Mexico over Cambridge Analytica case",
-    "Meta ordered to pay $25 billion in penalties over the Cambridge Analytica scandal",
-    "Meta hit with $25 billion penalty for misleading Facebook users"
+    "Meta stock sinks 6% as AI spend pushes free cash flow negative",
+    "Meta stock sinks nearly 7% as AI spend pushes free cash flow negative"
   ],
-  "source_headline": "Meta ordered to pay $25 billion penalty in New Mexico Cambridge Analytica case",
-  "source_url": "https://www.cnbc.com/2026/10/21/meta-new-mexico-cambridge-analytica-penalty.html",
+  "source_headline": "Meta stock sinks 6% as AI spend pushes free cash flow negative",
+  "source_url": "https://www.cnbc.com/2026/10/22/meta-stock-q3-earnings-free-cash-flow.html",
   "source_name": "CNBC",
   "materiality_max": 100,
-  "newest_source_at": "2026-10-21T19:13:17Z",
+  "newest_source_at": "2026-10-22T20:03:03Z",
   "prior_coverage": {
     "has_run": true,
     "latest_run": "analyses/META_2026-08-31",
@@ -70,8 +67,8 @@
     "data_pool_present": true
   },
   "surfaced_at": "2026-10-19T04:16:06Z",
-  "updated_at": "2026-10-22T03:15:31Z",
-  "decay_at": "2026-10-23T07:13:17Z",
+  "updated_at": "2026-10-24T03:46:54Z",
+  "decay_at": "2026-10-24T08:03:03Z",
   "status": "live",
   "promoted_signal_id": null
 }
