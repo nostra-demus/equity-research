@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T23:13:26Z",
+  "generated_at": "2026-10-24T23:14:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-633",
@@ -196457,17 +196457,87 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-0157f621dab9",
+      "idea_version": "IDEAV-8b3d415a029aec76",
+      "idea_version_started_at": "2026-10-24T23:13:43Z",
+      "ticker": "VLVLY",
+      "company": "Volvo",
+      "exchange": "OTC Markets",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The announcement of an additional 2,500 job cuts following previous layoffs signals persistent structural cost issues and weak demand.",
+      "why_now": "The restructuring news was reported on 2026-10-24.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b0b68f30e984"
+      ],
+      "primary_source_event_id": "EVT-b0b68f30e984",
+      "source_headlines": [
+        "Volvo Plans 2,500 More Job Cuts After 3,000 Layoffs, Targets $500 Million Savings"
+      ],
+      "source_headline": "Volvo Plans 2,500 More Job Cuts After 3,000 Layoffs, Targets $500 Million Savings",
+      "source_url": "https://www.ndtvprofit.com/business/volvo-plans-2-500-more-job-cuts-after-3-000-layoffs-targets-500-million-savings-12230852#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-24T15:46:49Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T23:13:43Z",
+      "updated_at": "2026-10-24T23:13:43Z",
+      "decay_at": "2026-10-26T03:46:49Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-9e0d39f688eb",
-      "idea_version": "IDEAV-c26d12c246d6382b",
-      "idea_version_started_at": "2026-10-24T20:38:50Z",
+      "idea_version": "IDEAV-057499c62138cb58",
+      "idea_version_started_at": "2026-10-24T23:13:43Z",
       "ticker": "TECK",
       "company": "Teck Resources",
       "exchange": "NYSE",
       "direction": "short",
       "pair_with": null,
-      "reason": "A strike at the Highland Valley Copper mine halts production at one of the company's key copper assets, directly impacting quarterly output and revenue.",
-      "why_now": "The strike began on October 24, 2026, creating an immediate supply disruption.",
-      "conviction": 75,
+      "reason": "A strike at the Highland Valley Copper mine halts production, directly impacting copper output and near-term revenue generation.",
+      "why_now": "The strike began on 2026-10-24.",
+      "conviction": 70,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 65,
       "trade_score_basis": "event_driven_v3",
@@ -196519,7 +196589,7 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-10-24T20:38:50Z",
-      "updated_at": "2026-10-24T20:38:50Z",
+      "updated_at": "2026-10-24T23:13:43Z",
       "decay_at": "2026-10-26T08:21:48Z",
       "status": "live",
       "promoted_signal_id": null,
@@ -196949,6 +197019,226 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-3f31d30063da",
+      "idea_version": "IDEAV-e0cb16c2caa67eb6",
+      "idea_version_started_at": "2026-10-24T23:13:43Z",
+      "ticker": "GODREJPROP",
+      "company": "Godrej Properties",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A 62% plunge in Q2 profit highlights significant operational headwinds and margin compression in the current real estate cycle.",
+      "why_now": "The earnings report was released on 2026-10-24.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8b2539fdc13a"
+      ],
+      "primary_source_event_id": "EVT-8b2539fdc13a",
+      "source_headlines": [
+        "Godrej Properties Q2 profit plunges 62% to ₹154 crore, real estate stock down 6.5% in 1 week - What next for investors"
+      ],
+      "source_headline": "Godrej Properties Q2 profit plunges 62% to ₹154 crore, real estate stock down 6.5% in 1 week - What next for investors",
+      "source_url": "https://www.livemint.com/market/stock-market-news/godrej-properties-q2-profit-falls-62-to-rs-154-crore-real-estate-stock-down-6-5-in-1-week-what-s-next-for-investors-11792839670974.html",
+      "source_name": "Mint",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-24T11:07:13Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T05:01:36Z",
+      "updated_at": "2026-10-24T23:13:43Z",
+      "decay_at": "2026-10-25T23:07:13Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-e5a560bd4779",
+      "idea_version": "IDEAV-3fe3b2a84d312f0c",
+      "idea_version_started_at": "2026-10-24T23:13:43Z",
+      "ticker": "IDFCFIRSTB",
+      "company": "IDFC First Bank",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The bank reported a 197% surge in Q2FY27 net profit to ₹1,045 crore, indicating significant margin expansion and operational efficiency.",
+      "why_now": "The earnings results were released on 2026-10-24.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7dbbde0b231b",
+        "EVT-86e850cc0ed5"
+      ],
+      "primary_source_event_id": "EVT-7dbbde0b231b",
+      "source_headlines": [
+        "IDFC First Bank’s Q2FY27 net profit zooms 197% to ₹1,045 crore",
+        "IDFC First Bank Q2 profit jumps nearly three-fold to ₹1,045 cr"
+      ],
+      "source_headline": "IDFC First Bank’s Q2FY27 net profit zooms 197% to ₹1,045 crore",
+      "source_url": "https://www.thehindubusinessline.com/money-and-banking/idfc-first-banks-q2fy27-net-profit-zooms-197-to-1045-crore/article71620620.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-24T16:01:25Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T14:18:27Z",
+      "updated_at": "2026-10-24T23:13:43Z",
+      "decay_at": "2026-10-26T04:01:25Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-f0e6ba50c3cf",
+      "idea_version": "IDEAV-a5fa3cc49d783431",
+      "idea_version_started_at": "2026-10-24T23:13:43Z",
+      "ticker": "KOTAKBANK",
+      "company": "Kotak Mahindra Bank",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Consolidated net profit grew 26% to ₹5,645 crore in Q2, demonstrating strong core banking performance.",
+      "why_now": "The results were published on 2026-10-24.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-80405be6a3cb"
+      ],
+      "primary_source_event_id": "EVT-80405be6a3cb",
+      "source_headlines": [
+        "Kotak Mahindra Bank Q2 results: Consolidated net profit jumps 26% to Rs 5,645 crore"
+      ],
+      "source_headline": "Kotak Mahindra Bank Q2 results: Consolidated net profit jumps 26% to Rs 5,645 crore",
+      "source_url": "https://timesofindia.indiatimes.com/business/india-business/kotak-mahindra-bank-q2-results-consolidated-net-profit-jumps-26-to-rs-5645-crore-margins-narrow/articleshow/135172680.cms",
+      "source_name": "The Times of India (Business)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-24T15:05:10Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T09:25:22Z",
+      "updated_at": "2026-10-24T23:13:43Z",
+      "decay_at": "2026-10-26T03:05:10Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-87ad6cfca6a2",
       "idea_version": "IDEAV-d01e66c496645ac9",
       "idea_version_started_at": "2026-10-24T21:53:48Z",
@@ -197167,78 +197457,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3f31d30063da",
-      "idea_version": "IDEAV-5bfd8b96aeb6aa18",
-      "idea_version_started_at": "2026-10-24T18:38:46Z",
-      "ticker": "GODREJPROP",
-      "company": "Godrej Properties",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A 62% plunge in Q2 profit to ₹154 crore indicates significant margin pressure and potential operational headwinds in the real estate segment.",
-      "why_now": "The earnings report was released on 2026-10-24, and the stock has already begun to decline.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8b2539fdc13a"
-      ],
-      "primary_source_event_id": "EVT-8b2539fdc13a",
-      "source_headlines": [
-        "Godrej Properties Q2 profit plunges 62% to ₹154 crore, real estate stock down 6.5% in 1 week - What next for investors"
-      ],
-      "source_headline": "Godrej Properties Q2 profit plunges 62% to ₹154 crore, real estate stock down 6.5% in 1 week - What next for investors",
-      "source_url": "https://www.livemint.com/market/stock-market-news/godrej-properties-q2-profit-falls-62-to-rs-154-crore-real-estate-stock-down-6-5-in-1-week-what-s-next-for-investors-11792839670974.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-24T11:07:13Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T05:01:36Z",
-      "updated_at": "2026-10-24T18:38:46Z",
-      "decay_at": "2026-10-25T23:07:13Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d61317a6133a",
       "idea_version": "IDEAV-b58fd8f94044de85",
       "idea_version_started_at": "2026-10-24T18:38:46Z",
@@ -197378,153 +197596,6 @@
       "surfaced_at": "2026-10-24T10:55:46Z",
       "updated_at": "2026-10-24T18:38:46Z",
       "decay_at": "2026-10-25T22:57:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-e5a560bd4779",
-      "idea_version": "IDEAV-b228504f477a6e39",
-      "idea_version_started_at": "2026-10-24T18:38:46Z",
-      "ticker": "IDFCFIRSTB",
-      "company": "IDFC First Bank",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The bank reported a 197% increase in Q2FY27 net profit to ₹1,045 crore, signaling strong operational efficiency and margin expansion.",
-      "why_now": "The earnings results were released on 2026-10-24.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7dbbde0b231b",
-        "EVT-86e850cc0ed5"
-      ],
-      "primary_source_event_id": "EVT-7dbbde0b231b",
-      "source_headlines": [
-        "IDFC First Bank’s Q2FY27 net profit zooms 197% to ₹1,045 crore",
-        "IDFC First Bank Q2 profit jumps nearly three-fold to ₹1,045 cr"
-      ],
-      "source_headline": "IDFC First Bank’s Q2FY27 net profit zooms 197% to ₹1,045 crore",
-      "source_url": "https://www.thehindubusinessline.com/money-and-banking/idfc-first-banks-q2fy27-net-profit-zooms-197-to-1045-crore/article71620620.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-24T16:01:25Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T14:18:27Z",
-      "updated_at": "2026-10-24T18:38:46Z",
-      "decay_at": "2026-10-26T04:01:25Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-f0e6ba50c3cf",
-      "idea_version": "IDEAV-3f6273e8a926d4bc",
-      "idea_version_started_at": "2026-10-24T18:38:46Z",
-      "ticker": "KOTAKBANK",
-      "company": "Kotak Mahindra Bank",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Consolidated net profit grew 26% to ₹5,645 crore, demonstrating sustained earnings momentum in a competitive banking environment.",
-      "why_now": "The Q2 results were published on 2026-10-24.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-80405be6a3cb"
-      ],
-      "primary_source_event_id": "EVT-80405be6a3cb",
-      "source_headlines": [
-        "Kotak Mahindra Bank Q2 results: Consolidated net profit jumps 26% to Rs 5,645 crore"
-      ],
-      "source_headline": "Kotak Mahindra Bank Q2 results: Consolidated net profit jumps 26% to Rs 5,645 crore",
-      "source_url": "https://timesofindia.indiatimes.com/business/india-business/kotak-mahindra-bank-q2-results-consolidated-net-profit-jumps-26-to-rs-5645-crore-margins-narrow/articleshow/135172680.cms",
-      "source_name": "The Times of India (Business)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-24T15:05:10Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T09:25:22Z",
-      "updated_at": "2026-10-24T18:38:46Z",
-      "decay_at": "2026-10-26T03:05:10Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -199472,76 +199543,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-dc31306a310b",
-      "idea_version": "IDEAV-8f67dc3a13ea4bf6",
-      "idea_version_started_at": "2026-10-22T07:03:06Z",
-      "ticker": "KMI",
-      "company": "Kinder Morgan",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Kinder Morgan committed $4.7 billion to build two gas pipeline projects to capture surge in natural gas transportation demand, expanding future fee-based EBITDA.",
-      "why_now": "Major capex expansion commitment announced on October 21, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5ebda97b8e71"
-      ],
-      "primary_source_event_id": "EVT-5ebda97b8e71",
-      "source_headlines": [
-        "Kinder Morgan to invest $4.7 billion in two gas pipeline projects as demand surges"
-      ],
-      "source_headline": "Kinder Morgan to invest $4.7 billion in two gas pipeline projects as demand surges",
-      "source_url": "https://www.reuters.com/legal/litigation/kinder-morgan-invest-47-billion-two-gas-pipeline-projects-demand-surges-2026-10-21/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-21T22:46:57Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-22T07:03:06Z",
-      "updated_at": "2026-10-22T07:03:06Z",
-      "decay_at": "2026-10-23T10:46:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-728bca4e5df0",
       "idea_version": "IDEAV-b2abd1984cc77bb7",
       "idea_version_started_at": "2026-10-23T06:49:05Z",
@@ -200026,76 +200027,6 @@
       "surfaced_at": "2026-10-23T04:15:56Z",
       "updated_at": "2026-10-23T04:15:56Z",
       "decay_at": "2026-10-24T05:49:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-e6d1d0d41652",
-      "idea_version": "IDEAV-ca31e63d9edd3127",
-      "idea_version_started_at": "2026-10-22T07:29:08Z",
-      "ticker": "APA",
-      "company": "APA Group",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The commitment to build a major gas pipeline secures long-term infrastructure revenue and capital growth.",
-      "why_now": "The project announcement was made on October 21, 2026, signaling a new phase of capital expenditure.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a7bdaa6e5c16"
-      ],
-      "primary_source_event_id": "EVT-a7bdaa6e5c16",
-      "source_headlines": [
-        "APA to Build Major Australia Gas Pipeline to Avert Shortfalls"
-      ],
-      "source_headline": "APA to Build Major Australia Gas Pipeline to Avert Shortfalls",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-10-21/apa-to-build-major-australia-gas-pipeline-to-avert-shortfalls",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-21T22:23:06Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-22T07:29:08Z",
-      "updated_at": "2026-10-22T07:29:08Z",
-      "decay_at": "2026-10-23T10:23:06Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -201840,14 +201771,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 536,
+    "total_count": 534,
     "shown_count": 500,
-    "hidden_count": 36,
+    "hidden_count": 34,
     "side_counts": {
       "long": {
-        "total_count": 271,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 19
       },
       "short": {
         "total_count": 266,
@@ -201857,12 +201788,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1287,
+      "evicted_count": 1289,
       "oldest_retained_at": "2026-09-26T04:06:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 861,
-          "oldest_retained_at": "2026-10-09T11:17:32Z"
+          "evicted_count": 863,
+          "oldest_retained_at": "2026-10-09T16:31:41Z"
         },
         "short": {
           "evicted_count": 426,
@@ -204547,8 +204478,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-23T10:46:57Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-24T23:13:58Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -204620,8 +204551,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-23T10:23:06Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-24T23:13:58Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -239118,8 +239049,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1869,
-    "live_count": 45,
+    "surfaced_total": 1870,
+    "live_count": 46,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
