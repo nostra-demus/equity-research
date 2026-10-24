@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T08:37:25Z",
+  "generated_at": "2026-10-24T08:56:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-446",
@@ -196080,77 +196080,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a9e3b13426c6",
-      "idea_version": "IDEAV-76ed845b6ab19a4f",
-      "idea_version_started_at": "2026-10-23T04:15:56Z",
-      "ticker": "MRNA",
-      "company": "Moderna",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Leaked clinical data for the company's melanoma vaccine candidate indicates underperformance, threatening the core pipeline valuation.",
-      "why_now": "The data leak occurred on October 22, 2026, and the market is currently reacting to the negative read-through for future revenue.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 74,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4db612a072f3",
-        "EVT-047f6e387f8f"
-      ],
-      "primary_source_event_id": "EVT-4db612a072f3",
-      "source_headlines": [
-        "Moderna Stock Plunges 25% After Possible Cancer Vaccine Data Leak",
-        "Moderna Stock Plunges 18% As Leaked Melanoma Vaccine Data Underperforms"
-      ],
-      "source_headline": "Moderna Stock Plunges 25% After Possible Cancer Vaccine Data Leak",
-      "source_url": "https://www.forbes.com/sites/maryroeloffs/2026/10/22/moderna-stock-plunges-25-after-possible-cancer-vaccine-data-leak/",
-      "source_name": "Forbes",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-22T20:55:58Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T04:15:56Z",
-      "updated_at": "2026-10-23T04:15:56Z",
-      "decay_at": "2026-10-24T08:55:58Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-58d3e0cadc2a",
       "idea_version": "IDEAV-ffc58afc5ca4789f",
       "idea_version_started_at": "2026-10-24T08:09:01Z",
@@ -196777,77 +196706,6 @@
       "surfaced_at": "2026-10-22T07:03:06Z",
       "updated_at": "2026-10-23T15:10:57Z",
       "decay_at": "2026-10-24T23:12:33Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-52e98452feee",
-      "idea_version": "IDEAV-1e83ff2c535a0500",
-      "idea_version_started_at": "2026-10-23T05:56:42Z",
-      "ticker": "NEM",
-      "company": "Newmont",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is benefiting from higher gold prices, which directly expands its operating margins and free cash flow generation.",
-      "why_now": "The earnings beat reported on 2026-10-22 confirms the positive impact of current commodity price trends on the company's bottom line.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "commodity_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-54f83965c797"
-      ],
-      "primary_source_event_id": "EVT-54f83965c797",
-      "source_headlines": [
-        "Newmont beats quarterly profit estimates as company benefits from higher gold prices"
-      ],
-      "source_headline": "Newmont beats quarterly profit estimates as company benefits from higher gold prices",
-      "source_url": "https://www.theglobeandmail.com/business/article-newmont-gold-profit-earnings-mining/",
-      "source_name": "The Globe and Mail",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-22T20:42:28Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T05:56:42Z",
-      "updated_at": "2026-10-23T05:56:42Z",
-      "decay_at": "2026-10-24T08:42:28Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -198876,6 +198734,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-a9e3b13426c6",
+      "idea_version": "IDEAV-76ed845b6ab19a4f",
+      "idea_version_started_at": "2026-10-23T04:15:56Z",
+      "ticker": "MRNA",
+      "company": "Moderna",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Leaked clinical data for the company's melanoma vaccine candidate indicates underperformance, threatening the core pipeline valuation.",
+      "why_now": "The data leak occurred on October 22, 2026, and the market is currently reacting to the negative read-through for future revenue.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 74,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4db612a072f3",
+        "EVT-047f6e387f8f"
+      ],
+      "primary_source_event_id": "EVT-4db612a072f3",
+      "source_headlines": [
+        "Moderna Stock Plunges 25% After Possible Cancer Vaccine Data Leak",
+        "Moderna Stock Plunges 18% As Leaked Melanoma Vaccine Data Underperforms"
+      ],
+      "source_headline": "Moderna Stock Plunges 25% After Possible Cancer Vaccine Data Leak",
+      "source_url": "https://www.forbes.com/sites/maryroeloffs/2026/10/22/moderna-stock-plunges-25-after-possible-cancer-vaccine-data-leak/",
+      "source_name": "Forbes",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-22T20:55:58Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T04:15:56Z",
+      "updated_at": "2026-10-23T04:15:56Z",
+      "decay_at": "2026-10-24T08:55:58Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-021cb7d43110",
       "idea_version": "IDEAV-4c92366d879a9c10",
       "idea_version_started_at": "2026-10-22T07:29:08Z",
@@ -199782,6 +199711,77 @@
       "surfaced_at": "2026-10-19T04:16:06Z",
       "updated_at": "2026-10-24T03:46:54Z",
       "decay_at": "2026-10-24T08:03:03Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-52e98452feee",
+      "idea_version": "IDEAV-1e83ff2c535a0500",
+      "idea_version_started_at": "2026-10-23T05:56:42Z",
+      "ticker": "NEM",
+      "company": "Newmont",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is benefiting from higher gold prices, which directly expands its operating margins and free cash flow generation.",
+      "why_now": "The earnings beat reported on 2026-10-22 confirms the positive impact of current commodity price trends on the company's bottom line.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "commodity_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-54f83965c797"
+      ],
+      "primary_source_event_id": "EVT-54f83965c797",
+      "source_headlines": [
+        "Newmont beats quarterly profit estimates as company benefits from higher gold prices"
+      ],
+      "source_headline": "Newmont beats quarterly profit estimates as company benefits from higher gold prices",
+      "source_url": "https://www.theglobeandmail.com/business/article-newmont-gold-profit-earnings-mining/",
+      "source_name": "The Globe and Mail",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-22T20:42:28Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T05:56:42Z",
+      "updated_at": "2026-10-23T05:56:42Z",
+      "decay_at": "2026-10-24T08:42:28Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -201162,19 +201162,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 532,
+    "total_count": 534,
     "shown_count": 499,
-    "hidden_count": 33,
+    "hidden_count": 35,
     "side_counts": {
       "long": {
-        "total_count": 268,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 19
       },
       "short": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       }
     },
     "retention": {
@@ -201193,6 +201193,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a9e3b13426c6",
+        "idea_version": "IDEAV-76ed845b6ab19a4f",
+        "idea_version_started_at": "2026-10-23T04:15:56Z",
+        "ticker": "MRNA",
+        "company": "Moderna",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Leaked clinical data for the company's melanoma vaccine candidate indicates underperformance, threatening the core pipeline valuation.",
+        "why_now": "The data leak occurred on October 22, 2026, and the market is currently reacting to the negative read-through for future revenue.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 74,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4db612a072f3",
+          "EVT-047f6e387f8f"
+        ],
+        "primary_source_event_id": "EVT-4db612a072f3",
+        "source_headlines": [
+          "Moderna Stock Plunges 25% After Possible Cancer Vaccine Data Leak",
+          "Moderna Stock Plunges 18% As Leaked Melanoma Vaccine Data Underperforms"
+        ],
+        "source_headline": "Moderna Stock Plunges 25% After Possible Cancer Vaccine Data Leak",
+        "source_url": "https://www.forbes.com/sites/maryroeloffs/2026/10/22/moderna-stock-plunges-25-after-possible-cancer-vaccine-data-leak/",
+        "source_name": "Forbes",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-22T20:55:58Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-23T04:15:56Z",
+        "updated_at": "2026-10-23T04:15:56Z",
+        "decay_at": "2026-10-24T08:55:58Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-24T08:55:58Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-52e98452feee",
+        "idea_version": "IDEAV-1e83ff2c535a0500",
+        "idea_version_started_at": "2026-10-23T05:56:42Z",
+        "ticker": "NEM",
+        "company": "Newmont",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is benefiting from higher gold prices, which directly expands its operating margins and free cash flow generation.",
+        "why_now": "The earnings beat reported on 2026-10-22 confirms the positive impact of current commodity price trends on the company's bottom line.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "commodity_conditional",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-54f83965c797"
+        ],
+        "primary_source_event_id": "EVT-54f83965c797",
+        "source_headlines": [
+          "Newmont beats quarterly profit estimates as company benefits from higher gold prices"
+        ],
+        "source_headline": "Newmont beats quarterly profit estimates as company benefits from higher gold prices",
+        "source_url": "https://www.theglobeandmail.com/business/article-newmont-gold-profit-earnings-mining/",
+        "source_name": "The Globe and Mail",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-22T20:42:28Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-23T05:56:42Z",
+        "updated_at": "2026-10-23T05:56:42Z",
+        "decay_at": "2026-10-24T08:42:28Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-24T08:42:28Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-301c9958417a",
         "idea_version": "IDEAV-af10e51d87cc5a7f",
@@ -228674,80 +228822,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-a98d17bf56cf",
-        "idea_version": "IDEAV-6ca23660cd3ce8cd",
-        "idea_version_started_at": "2026-10-09T06:05:27Z",
-        "ticker": "PL3",
-        "company": "PL3",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported significant positive pump test results from Well 8, indicating improved production potential for their assets.",
-        "why_now": "The results were released in a price-sensitive filing on 2026-10-09.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-01cd6217a6ac"
-        ],
-        "primary_source_event_id": "EVT-01cd6217a6ac",
-        "source_headlines": [
-          "PL3: Significant Pump Test Results from Well 8 Correction [price-sensitive]"
-        ],
-        "source_headline": "PL3: Significant Pump Test Results from Well 8 Correction [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PL3?key=2924-03146543-3A703763",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 95,
-        "newest_source_at": "2026-10-09T00:55:34Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-09T06:05:27Z",
-        "updated_at": "2026-10-09T06:05:27Z",
-        "decay_at": "2026-10-10T12:55:34Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-12T00:57:44Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-ebfbd0cbbc7c",
         "idea_version": "IDEAV-a458d90141a3fd2e",
         "idea_version_started_at": "2026-10-09T00:14:06Z",
@@ -238281,88 +238355,12 @@
         "archived_at": "2026-09-30T03:44:43Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-cca1ae3fbca3",
-        "idea_version": "IDEAV-e521db373b57eed5",
-        "idea_version_started_at": "2026-09-27T04:44:42Z",
-        "ticker": "FLIPKART",
-        "company": "Flipkart",
-        "exchange": null,
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Flipkart was fined ₹10 lakh by the CCPA for selling unregistered herbicides, indicating regulatory scrutiny.",
-        "why_now": "The fine was reported on September 27, 2026.",
-        "conviction": 40,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 14,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-7bc774b61636"
-        ],
-        "primary_source_event_id": "EVT-7bc774b61636",
-        "source_headlines": [
-          "CCPA slaps ₹10 lakh fine on Amazon, Flipkart; ₹5 lakh on JioMart over unregistered herbicide sales"
-        ],
-        "source_headline": "CCPA slaps ₹10 lakh fine on Amazon, Flipkart; ₹5 lakh on JioMart over unregistered herbicide sales",
-        "source_url": "https://www.thehindubusinessline.com/companies/ccpa-slaps-10-lakh-fine-on-amazon-flipkart-5-lakh-on-jiomart-over-unregistered-herbicide-sales/article71515152.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 94,
-        "newest_source_at": "2026-09-27T03:24:37Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-27T04:44:42Z",
-        "updated_at": "2026-09-27T04:44:42Z",
-        "decay_at": "2026-09-28T15:24:37Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-30T03:44:43Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1849,
-    "live_count": 40,
+    "live_count": 38,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -238381,9 +238379,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 46120,
-    "news_picked_today": 845,
-    "news_dropped_today": 2945
+    "news_seen_today": 46208,
+    "news_picked_today": 846,
+    "news_dropped_today": 2968
   },
   "book_momentum": {
     "live_count": 8,
