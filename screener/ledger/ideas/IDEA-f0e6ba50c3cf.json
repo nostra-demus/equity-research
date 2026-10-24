@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-f0e6ba50c3cf",
-  "idea_version": "IDEAV-e3bb43c664cc9ce4",
-  "idea_version_started_at": "2026-10-24T09:25:22Z",
+  "idea_version": "IDEAV-e8744f8c8f2cc2f9",
+  "idea_version_started_at": "2026-10-24T09:43:08Z",
   "ticker": "KOTAKBANK",
   "company": "Kotak Mahindra Bank",
   "exchange": "NSE",
@@ -11,19 +11,19 @@
   "listing_verification_source": null,
   "direction": "long",
   "pair_with": null,
-  "reason": "The bank reported a 29% rise in Q2 profit, which exceeded market estimates, reflecting strong core banking performance.",
-  "why_now": "The official filing and subsequent news confirmation occurred on 2026-10-24.",
-  "conviction": 80,
+  "reason": "The bank reported a 29% increase in Q2 profit, exceeding analyst expectations and signaling strong operational performance.",
+  "why_now": "The earnings results were released today, October 24, 2026.",
+  "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
-    "evidence": 25,
-    "impact": 21,
+    "evidence": 14,
+    "impact": 19,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
-    "corroboration": 7,
+    "corroboration": 0,
     "learning_adjustment": 0
   },
   "trade_readiness": "watch_only",
@@ -32,6 +32,7 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -48,19 +49,17 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-2dd06a38816a",
-    "EVT-64ba8e776a13"
+    "EVT-63b5ff48b9d1"
   ],
-  "primary_source_event_id": "EVT-2dd06a38816a",
+  "primary_source_event_id": "EVT-63b5ff48b9d1",
   "source_headlines": [
-    "Kotak Mahindra Bank Limited: Kotak Mahindra Bank Limited has submitted to the Exchange, the financial results for the period ended September 30, 2026.",
-    "Kotak Bank Q2 profit rises 29%, beats estimates"
+    "India's Kotak Bank Q2 profit rises 29%, beats estimates"
   ],
-  "source_headline": "Kotak Mahindra Bank Limited: Kotak Mahindra Bank Limited has submitted to the Exchange, the financial results for the period ended September 30, 2026.",
-  "source_url": "https://nsearchives.nseindia.com/corporate/KMBLTAB_24102026131109_OutcomeofBMOct242026SIGNED.pdf",
-  "source_name": "BSE / NSE Exchange Filing",
+  "source_headline": "India's Kotak Bank Q2 profit rises 29%, beats estimates",
+  "source_url": "https://www.reuters.com/world/india/indias-kotak-bank-q2-profit-rises-29-beats-estimates-2026-10-24/",
+  "source_name": "Reuters — Latest (news sitemap)",
   "materiality_max": 100,
-  "newest_source_at": "2026-10-24T09:11:31Z",
+  "newest_source_at": "2026-10-24T09:18:01Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -68,8 +67,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-10-24T09:25:22Z",
-  "updated_at": "2026-10-24T09:25:22Z",
-  "decay_at": "2026-10-25T21:11:31Z",
+  "updated_at": "2026-10-24T09:43:08Z",
+  "decay_at": "2026-10-25T21:18:01Z",
   "status": "live",
   "promoted_signal_id": null
 }
