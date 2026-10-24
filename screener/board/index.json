@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-24T13:18:57Z",
+  "generated_at": "2026-10-24T13:34:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261024-524",
@@ -198,6 +198,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261024-548",
+      "headline": "Lumax Auto Q2 results: Profit jumps 58%; new Manesar plant targets ₹500 crore turnover",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/lumax-auto-share-price-q2-results-profit-manesar-plant-targets-rs-500-crore-turnover-20018622.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T13:23:56Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "Lumax Auto reported a 58% profit jump and announced a new plant targeting 500 crore turnover.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lumax Auto reported a 58% profit jump and announced a new plant targeting 500 crore turnover.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lumax Auto",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-549",
+      "headline": "IDFC First Bank Q2 Results: Net Profit Jumps Multifold To Rs 1,045 Crore, NII Up 21%",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/idfc-first-bank-q2-results-net-profit-jumps-multifold-to-rs-1-045-crore-nii-up-21-12230067#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T12:43:23Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "IDFC First Bank reported a net profit of 1,045 crore and a 21% increase in NII.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IDFC First Bank reported a net profit of 1,045 crore and a 21% increase in NII.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IDFC First Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261024-546",
       "headline": "Netweb Technologies Q2 profit soars 61% to ₹137 crore as AI demand surges",
       "headline_en": null,
@@ -242,6 +341,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261024-563",
+      "headline": "American Express Is Cutting 3,500 Jobs Globally--Here's Why",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/world/american-express-is-cutting-3-500-jobs-globally-heres-why-12230066#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T12:19:07Z",
+      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
+      "prelim_note": "American Express is cutting 3,500 jobs globally, indicating a significant operational restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "American Express is cutting 3,500 jobs globally, indicating a significant operational restructuring.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "American Express",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1812,158 +1960,6 @@
         "size": 2,
         "recency": 2,
         "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bombardier",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-042",
-      "headline": "Rogers posts $482-million quarterly profit, revenue edges up",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-rogers-third-quarter-results-mlse-stake/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:28:30Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Rogers reported a quarterly profit of $482 million with revenue growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Rogers reported a quarterly profit of $482 million with revenue growth.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rogers Communications",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-098",
-      "headline": "Barilla Paid $750 Million for Goodles in an All-Cash Deal",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-23/barilla-paid-750-million-for-goodles-in-an-all-cash-deal",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T12:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Barilla acquired Goodles for $750 million in an all-cash deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Barilla acquired Goodles for $750 million in an all-cash deal.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Barilla",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Goodles",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261024-103",
-      "headline": "Bombardier to invest $270-million in U.S., Trump says, days after backing down on ban",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-bombardier-to-invest-270-million-in-us/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-23T11:59:51Z",
-      "sweep_file": "screener/inbox/2026-10-24_sweep.json",
-      "prelim_note": "Bombardier announced a $270-million investment in the US following regulatory discussions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bombardier announced a $270-million investment in the US following regulatory discussions.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -238820,9 +238816,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 48320,
-    "news_picked_today": 1096,
-    "news_dropped_today": 4676
+    "news_seen_today": 48771,
+    "news_picked_today": 1114,
+    "news_dropped_today": 4727
   },
   "book_momentum": {
     "live_count": 8,
