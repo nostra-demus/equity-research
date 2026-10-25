@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T20:14:22Z",
+  "generated_at": "2026-10-25T21:15:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-198",
@@ -193,6 +193,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-279",
+      "headline": "SoftBank plans $50bn AI investment in Malaysia, PM says",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/softbank/softbank-plans-50bn-ai-investment-in-malaysia-pm-says",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T21:05:56Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "SoftBank announced a $50 billion AI investment in Malaysia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SoftBank announced a $50 billion AI investment in Malaysia.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SoftBank Group",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1838,6 +1887,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-286",
+      "headline": "Musk diz que SpaceX captou US$40 bi em dívida para comprar GPUs",
+      "headline_en": "Musk says SpaceX raised $40 billion in debt to buy GPUs",
+      "url": "https://www.reuters.com/pt/tecnologia/KF7Z33VNCBKJ7K735RTY5QL4AI-2026-10-25/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T20:19:19Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "SpaceX reportedly raised $40 billion in debt to fund GPU purchases, a significant capital expenditure for AI infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "SpaceX reportedly raised $40 billion in debt to fund GPU purchases, a significant capital expenditure for AI infrastructure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-267",
       "headline": "How is the US-Israeli war on Iran causing havoc in Europe?",
       "headline_en": null,
@@ -1863,92 +1961,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-100",
-      "headline": "'Maybe Tomorrow': Trump Threatens Iran With Fresh Strikes Amid Oil Rallying To $116",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/world/trump-hints-at-possible-us-strikes-on-iran-as-tehran-denies-hormuz-deal-12232220#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T05:01:04Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Geopolitical escalation involving Iran and oil price surge to $116 represents a major supply shock risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Geopolitical escalation involving Iran and oil price surge to $116 represents a major supply shock risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-059",
-      "headline": "US-Iran war: Trump warns of fresh strikes on Tehran, says attack could come ‘tomorrow’",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/us-news/usiran-war-trump-warns-of-fresh-strikes-on-tehran-says-attack-could-come-tomorrow-11792898072352.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T03:26:36Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Geopolitical escalation between the US and Iran poses a significant risk to global markets and oil prices.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Geopolitical escalation between the US and Iran poses a significant risk to global markets and oil prices.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "geopolitical",
@@ -198847,76 +198859,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-6f55bf31e25a",
-      "idea_version": "IDEAV-b4140cfc1806fcab",
-      "idea_version_started_at": "2026-10-24T09:25:22Z",
-      "ticker": "BA",
-      "company": "Boeing",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The cessation of 777 freighter production represents a negative operational development that impacts future revenue streams and manufacturing efficiency.",
-      "why_now": "The announcement was made on 2026-10-24, creating immediate negative sentiment for the stock.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-81e901448bf3"
-      ],
-      "primary_source_event_id": "EVT-81e901448bf3",
-      "source_headlines": [
-        "Aviation: Boeing stops production of the 777 freighter"
-      ],
-      "source_headline": "Luftfahrt: Boeing stoppt Produktion des Frachters 777",
-      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/luftfahrt-boeing-stoppt-produktion-des-frachters-777/100264660.html",
-      "source_name": "Handelsblatt",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-24T08:32:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T09:25:22Z",
-      "updated_at": "2026-10-24T09:25:22Z",
-      "decay_at": "2026-10-25T20:32:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-dd03ee33d73c",
       "idea_version": "IDEAV-f6c3ab8f229f23f2",
       "idea_version_started_at": "2026-10-25T09:03:43Z",
@@ -200997,78 +200939,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-71b9d8d7d868",
-      "idea_version": "IDEAV-b359861aeac48342",
-      "idea_version_started_at": "2026-10-24T09:25:22Z",
-      "ticker": "MCG",
-      "company": "Mobico Group",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is in active takeover talks for a £282m deal, which typically provides a floor and potential premium for shareholders.",
-      "why_now": "The news of the takeover talks emerged on 2026-10-24.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-12e4c0a9e4ef"
-      ],
-      "primary_source_event_id": "EVT-12e4c0a9e4ef",
-      "source_headlines": [
-        "National Express owner in talks over £282m takeover deal"
-      ],
-      "source_headline": "National Express owner in talks over £282m takeover deal",
-      "source_url": "https://www.independent.co.uk/news/business/national-express-coach-takeover-mobico-shares-adl-b3072615.html",
-      "source_name": "The Independent — Business",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-24T08:32:16Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T09:25:22Z",
-      "updated_at": "2026-10-24T09:25:22Z",
-      "decay_at": "2026-10-25T20:32:16Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9ad83da2d4c9",
       "idea_version": "IDEAV-07f8737aee9390cc",
       "idea_version_started_at": "2026-10-25T11:09:28Z",
@@ -202499,6 +202369,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-6f55bf31e25a",
+      "idea_version": "IDEAV-b4140cfc1806fcab",
+      "idea_version_started_at": "2026-10-24T09:25:22Z",
+      "ticker": "BA",
+      "company": "Boeing",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The cessation of 777 freighter production represents a negative operational development that impacts future revenue streams and manufacturing efficiency.",
+      "why_now": "The announcement was made on 2026-10-24, creating immediate negative sentiment for the stock.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-81e901448bf3"
+      ],
+      "primary_source_event_id": "EVT-81e901448bf3",
+      "source_headlines": [
+        "Aviation: Boeing stops production of the 777 freighter"
+      ],
+      "source_headline": "Luftfahrt: Boeing stoppt Produktion des Frachters 777",
+      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/luftfahrt-boeing-stoppt-produktion-des-frachters-777/100264660.html",
+      "source_name": "Handelsblatt",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-24T08:32:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T09:25:22Z",
+      "updated_at": "2026-10-24T09:25:22Z",
+      "decay_at": "2026-10-25T20:32:39Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-b785702282d7",
       "idea_version": "IDEAV-43228b340ac81080",
       "idea_version_started_at": "2026-10-24T03:46:54Z",
@@ -203199,6 +203139,78 @@
       "surfaced_at": "2026-10-24T05:27:38Z",
       "updated_at": "2026-10-24T18:03:05Z",
       "decay_at": "2026-10-25T16:05:46Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-71b9d8d7d868",
+      "idea_version": "IDEAV-b359861aeac48342",
+      "idea_version_started_at": "2026-10-24T09:25:22Z",
+      "ticker": "MCG",
+      "company": "Mobico Group",
+      "exchange": "LSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is in active takeover talks for a £282m deal, which typically provides a floor and potential premium for shareholders.",
+      "why_now": "The news of the takeover talks emerged on 2026-10-24.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-12e4c0a9e4ef"
+      ],
+      "primary_source_event_id": "EVT-12e4c0a9e4ef",
+      "source_headlines": [
+        "National Express owner in talks over £282m takeover deal"
+      ],
+      "source_headline": "National Express owner in talks over £282m takeover deal",
+      "source_url": "https://www.independent.co.uk/news/business/national-express-coach-takeover-mobico-shares-adl-b3072615.html",
+      "source_name": "The Independent — Business",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-24T08:32:16Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T09:25:22Z",
+      "updated_at": "2026-10-24T09:25:22Z",
+      "decay_at": "2026-10-25T20:32:16Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -205022,19 +205034,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 543,
+    "total_count": 545,
     "shown_count": 500,
-    "hidden_count": 43,
+    "hidden_count": 45,
     "side_counts": {
       "long": {
-        "total_count": 272,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 23
       },
       "short": {
-        "total_count": 272,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 23
       }
     },
     "retention": {
@@ -205053,6 +205065,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-6f55bf31e25a",
+        "idea_version": "IDEAV-b4140cfc1806fcab",
+        "idea_version_started_at": "2026-10-24T09:25:22Z",
+        "ticker": "BA",
+        "company": "Boeing",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The cessation of 777 freighter production represents a negative operational development that impacts future revenue streams and manufacturing efficiency.",
+        "why_now": "The announcement was made on 2026-10-24, creating immediate negative sentiment for the stock.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-81e901448bf3"
+        ],
+        "primary_source_event_id": "EVT-81e901448bf3",
+        "source_headlines": [
+          "Aviation: Boeing stops production of the 777 freighter"
+        ],
+        "source_headline": "Luftfahrt: Boeing stoppt Produktion des Frachters 777",
+        "source_url": "https://www.handelsblatt.com/unternehmen/industrie/luftfahrt-boeing-stoppt-produktion-des-frachters-777/100264660.html",
+        "source_name": "Handelsblatt",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-24T08:32:39Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-24T09:25:22Z",
+        "updated_at": "2026-10-24T09:25:22Z",
+        "decay_at": "2026-10-25T20:32:39Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-25T20:32:39Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-71b9d8d7d868",
+        "idea_version": "IDEAV-b359861aeac48342",
+        "idea_version_started_at": "2026-10-24T09:25:22Z",
+        "ticker": "MCG",
+        "company": "Mobico Group",
+        "exchange": "LSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is in active takeover talks for a £282m deal, which typically provides a floor and potential premium for shareholders.",
+        "why_now": "The news of the takeover talks emerged on 2026-10-24.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-12e4c0a9e4ef"
+        ],
+        "primary_source_event_id": "EVT-12e4c0a9e4ef",
+        "source_headlines": [
+          "National Express owner in talks over £282m takeover deal"
+        ],
+        "source_headline": "National Express owner in talks over £282m takeover deal",
+        "source_url": "https://www.independent.co.uk/news/business/national-express-coach-takeover-mobico-shares-adl-b3072615.html",
+        "source_name": "The Independent — Business",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-24T08:32:16Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-24T09:25:22Z",
+        "updated_at": "2026-10-24T09:25:22Z",
+        "decay_at": "2026-10-25T20:32:16Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-25T20:32:16Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3060680a62c4",
         "idea_version": "IDEAV-4edc1b0fe26afd63",
@@ -232678,80 +232838,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-e708b709e5cc",
-        "idea_version": "IDEAV-7abc0febf61e7c39",
-        "idea_version_started_at": "2026-10-10T13:14:35Z",
-        "ticker": "SHILPAMED",
-        "company": "Shilpa Medicare Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The receipt of Europe GMP approval for the Jadcherla unit allows the company to export pharmaceutical products to the European market, expanding its addressable revenue base.",
-        "why_now": "The approval was announced via an exchange filing on October 10, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-37996e1a05dd"
-        ],
-        "primary_source_event_id": "EVT-37996e1a05dd",
-        "source_headlines": [
-          "Shilpa Medicare Limited: Shilpa Medicare Limited has informed the Exchange about \"Europe GMP Approval of Shilpa Medicare Ltd. Unit 4, Jadcherla, Telangana.\""
-        ],
-        "source_headline": "Shilpa Medicare Limited: Shilpa Medicare Limited has informed the Exchange about \"Europe GMP Approval of Shilpa Medicare Ltd. Unit 4, Jadcherla, Telangana.\"",
-        "source_url": "https://nsearchives.nseindia.com/corporate/SHILPAMED_10102026131737_Intimationagisgmp.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 93,
-        "newest_source_at": "2026-10-10T07:48:03Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-10T13:14:35Z",
-        "updated_at": "2026-10-10T13:14:35Z",
-        "decay_at": "2026-10-11T19:48:03Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-13T09:12:43Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-671ed28cb051",
         "idea_version": "IDEAV-6e2ad3b85f33e576",
         "idea_version_started_at": "2026-10-10T08:29:45Z",
@@ -242219,86 +242305,12 @@
         "archived_at": "2026-10-02T00:48:49Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-0ff3dac31d35",
-        "idea_version": "IDEAV-02ba0a067e1fad75",
-        "idea_version_started_at": "2026-09-29T20:20:56Z",
-        "ticker": "02358",
-        "company": "Jiu Rong Holdings",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company announced a delay in annual results and a potential trading suspension, signaling severe accounting or liquidity issues.",
-        "why_now": "The filing was released on 2026-09-28, making the risk of a trading halt imminent.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2a45448f2536"
-        ],
-        "primary_source_event_id": "EVT-2a45448f2536",
-        "source_headlines": [
-          "JIU RONG HOLD (02358): INSIDE INFORMATION - (1) DELAY IN PUBLICATION OF THE 2026 ANNUAL RESULTS; (2) POSSIBLE DELAY IN DESPATCH OF THE 2026 ANNUAL REPORT; (3) POSTPONEMENT OF BOARD MEETING; AND (4) POSSIBLE SUSPENSION OF TRADING"
-        ],
-        "source_headline": "JIU RONG HOLD (02358): INSIDE INFORMATION - (1) DELAY IN PUBLICATION OF THE 2026 ANNUAL RESULTS; (2) POSSIBLE DELAY IN DESPATCH OF THE 2026 ANNUAL REPORT; (3) POSTPONEMENT OF BOARD MEETING; AND (4) POSSIBLE SUSPENSION OF TRADING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092801499.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-28T11:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-29T20:20:56Z",
-        "updated_at": "2026-09-29T20:20:56Z",
-        "decay_at": "2026-09-29T23:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-01T11:02:15Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1902,
-    "live_count": 55,
+    "live_count": 53,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -242317,9 +242329,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 74025,
-    "news_picked_today": 620,
-    "news_dropped_today": 1967
+    "news_seen_today": 96702,
+    "news_picked_today": 638,
+    "news_dropped_today": 2045
   },
   "book_momentum": {
     "live_count": 8,
