@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-25T21:54:00Z",
+  "generated_at": "2026-10-25T21:58:37Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261025-442",
+      "headline": "APE: Eagers to acquire remaining 20% interest in BYD Retail JV",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.APE?key=2924-03152775-2A1705984",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-25T21:52:01Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Eagers Automotive is acquiring the remaining 20% interest in its BYD retail joint venture, consolidating ownership.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Eagers Automotive is acquiring the remaining 20% interest in its BYD retail joint venture, consolidating ownership.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eagers Automotive",
+          "ticker": "APE",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261025-418",
       "headline": "PLS: PLS completes US$700M Senior Unsecured Notes Offering",
@@ -1934,55 +1983,6 @@
           "name": "Woori Financial Group",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-082",
-      "headline": "Trump hails tariffs for new US$4.2 billion Audi plant in Georgia",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/world/united-states-canada/article/3372051/trump-hails-tariffs-new-us42-billion-audi-plant-georgia",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T04:44:54Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Audi announced a US$4.2 billion investment in a new plant in Georgia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Audi announced a US$4.2 billion investment in a new plant in Georgia.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Audi",
-          "ticker": null,
-          "listing_country": "DE"
         }
       ],
       "size_bucket": "large",
@@ -242341,9 +242341,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 101460,
-    "news_picked_today": 840,
-    "news_dropped_today": 2589
+    "news_seen_today": 101473,
+    "news_picked_today": 844,
+    "news_dropped_today": 2598
   },
   "book_momentum": {
     "live_count": 8,
