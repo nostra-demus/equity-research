@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T03:49:12Z",
+  "generated_at": "2026-10-25T03:53:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-040",
@@ -1292,6 +1292,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-064",
+      "headline": "Air India and AI Express cancel Riyadh, Dammam flights till Nov 7",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/economy/logistics/air-india-and-ai-express-cancel-riyadh-dammam-flights-till-nov-7/article71622517.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T03:45:10Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Air India and AI Express have suspended flights to Riyadh and Dammam until Nov 7, impacting regional operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Air India and AI Express have suspended flights to Riyadh and Dammam until Nov 7, impacting regional operations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Air India",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Air India Express",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-060",
       "headline": "SEBI to come up with rules to prevent broker terminal misuse, says chairman Pandey",
       "headline_en": null,
@@ -1477,6 +1531,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-065",
+      "headline": "MP’s Satna Cooperative Society Manager Booked In Two EOW Cases Over ₹92 Lakh Assets, 122 Fake Farmers Found In Fertiliser Records",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/bhopal/mps-satna-cooperative-society-manager-booked-in-two-eow-cases-over-92-lakh-assets-122-fake-farmers-found-in-fertiliser-records",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T03:30:00Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "A cooperative society manager was booked for corruption involving 9.2 million INR in assets and fraudulent records.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "A cooperative society manager was booked for corruption involving 9.2 million INR in assets and fraudulent records.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1786,92 +1883,6 @@
       },
       "event_types": [
         "product"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-025",
-      "headline": "Bhopal Master Plan 2047 Faces Fourth Delay As Farmers Launch Protests Over Catchment Zones, BJP Government May Put Plan On Hold Again",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/bhopal/bhopal-master-plan-2047-faces-fourth-delay-as-farmers-launch-protests-over-catchment-zones-bjp-government-may-put-plan-on-hold-again",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T00:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "The delay of the Bhopal Master Plan 2047 due to protests creates regulatory uncertainty for regional development and infrastructure projects.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "The delay of the Bhopal Master Plan 2047 due to protests creates regulatory uncertainty for regional development and infrastructure projects.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-004",
-      "headline": "Cane costs soar, but sugar MSP stays stuck at ₹31",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/india/karnataka/cane-costs-soar-but-sugar-msp-stays-stuck-at-31-4194257",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T00:12:27Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "The disparity between rising input costs and a stagnant Minimum Selling Price (MSP) of ₹31 for sugar creates margin pressure for the Indian sugar sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "The disparity between rising input costs and a stagnant Minimum Selling Price (MSP) of ₹31 for sugar creates margin pressure for the Indian sugar sector.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
       ],
       "issuer_linkage": "sector",
       "companies": [],
@@ -240944,9 +240955,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 397,
-    "news_picked_today": 66,
-    "news_dropped_today": 331
+    "news_seen_today": 412,
+    "news_picked_today": 68,
+    "news_dropped_today": 344
   },
   "book_momentum": {
     "live_count": 8,
