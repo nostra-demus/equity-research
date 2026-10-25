@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T05:28:30Z",
+  "generated_at": "2026-10-25T05:38:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-093",
@@ -1029,6 +1029,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-095",
+      "headline": "NICDC launches Bihar Integrated Manufacturing City Gaya Limited, signs 12 MoUs worth ₹4,200 crore",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/economy/nicdc-launches-bihar-integrated-manufacturing-city-gaya-limited-signs-12-mous-worth-4200-crore/article71622528.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T05:26:14Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "NICDC announced the launch of a manufacturing city with signed MoUs worth ₹4,200 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "NICDC announced the launch of a manufacturing city with signed MoUs worth ₹4,200 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Industrial Corridor Development Corporation",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-034",
       "headline": "Hyundai Motor, Kia's combined China sales fall below 10,000 units in Sept.",
       "headline_en": null,
@@ -1881,55 +1930,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-070",
-      "headline": "Budget-friendly restaurant chain Saizeriya succumbs to rising costs",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/10/25/companies/saizeriya-price-hike/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T03:56:00Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Saizeriya reports negative impact from rising costs, indicating margin pressure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Saizeriya reports negative impact from rising costs, indicating margin pressure.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saizeriya",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -241068,9 +241068,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 601,
-    "news_picked_today": 112,
-    "news_dropped_today": 489
+    "news_seen_today": 614,
+    "news_picked_today": 114,
+    "news_dropped_today": 500
   },
   "book_momentum": {
     "live_count": 8,
