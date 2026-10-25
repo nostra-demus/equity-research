@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T10:48:28Z",
+  "generated_at": "2026-10-25T10:58:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-198",
@@ -193,6 +193,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-204",
+      "headline": "Audi to build first US plant in $4bn investment",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/8f034740-12a8-47fe-9010-149f87e70f8e?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T10:33:28Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Audi plans to build its first US plant with a $4 billion investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Audi plans to build its first US plant with a $4 billion investment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Audi",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1526,6 +1575,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-199",
+      "headline": "Chinese Manufacturer Dongshan Raises $1.3 Billion in HK Listing",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-25/chinese-manufacturer-dongshan-raises-1-3-billion-in-hk-listing",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T10:30:39Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Dongshan raised $1.3 billion in an IPO, representing a significant capital inflow.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Dongshan raised $1.3 billion in an IPO, representing a significant capital inflow.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dongshan",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-028",
       "headline": "Trump to announce Audi SUV plant in Georgia amid tariff push",
       "headline_en": null,
@@ -1865,110 +1963,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-071",
-      "headline": "New York Archdiocese agrees to pay $800m to 1,300 sexual abuse survivors",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/2026/10/25/new-york-archdiocese-agrees-to-pay-800m-to-1300-sexual-abuse-survivors?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-10-25T03:57:13Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "New York Archdiocese agreed to pay $800 million to 1,300 sexual abuse survivors, a major quantified settlement affecting its finances and reputation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "New York Archdiocese agreed to pay $800 million to 1,300 sexual abuse survivors, a major quantified settlement affecting its finances and reputation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "New York Archdiocese",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-173",
-      "headline": "JLR and Chery revive Freelander as British-Chinese SUV brand targets UAE",
-      "headline_en": null,
-      "url": "https://www.arabianbusiness.com/business/jlr-and-chery-revive-freelander-as-british-chinese-suv-brand-targets-uae",
-      "source_name": "Arabian Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T08:40:20Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Jaguar Land Rover and Chery are reviving the Freelander brand as a joint venture to target the UAE market, representing a strategic product expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Jaguar Land Rover and Chery are reviving the Freelander brand as a joint venture to target the UAE market, representing a strategic product expansion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jaguar Land Rover",
-          "ticker": null,
-          "listing_country": "GB"
-        },
-        {
-          "name": "Chery",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -241967,9 +241961,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1444,
-    "news_picked_today": 340,
-    "news_dropped_today": 1104
+    "news_seen_today": 1474,
+    "news_picked_today": 348,
+    "news_dropped_today": 1126
   },
   "book_momentum": {
     "live_count": 8,
