@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T00:18:33Z",
+  "generated_at": "2026-10-25T00:23:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-002",
@@ -45,6 +45,49 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-004",
+      "headline": "Cane costs soar, but sugar MSP stays stuck at ₹31",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/india/karnataka/cane-costs-soar-but-sugar-msp-stays-stuck-at-31-4194257",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T00:12:27Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "The disparity between rising input costs and a stagnant Minimum Selling Price (MSP) of ₹31 for sugar creates margin pressure for the Indian sugar sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "The disparity between rising input costs and a stagnant Minimum Selling Price (MSP) of ₹31 for sugar creates margin pressure for the Indian sugar sector.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -239128,7 +239171,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4010,
+    "inbox_unconsumed": 4011,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -239137,9 +239180,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 43,
-    "news_picked_today": 3,
-    "news_dropped_today": 40
+    "news_seen_today": 53,
+    "news_picked_today": 4,
+    "news_dropped_today": 49
   },
   "book_momentum": {
     "live_count": 8,
