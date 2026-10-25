@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T01:38:34Z",
+  "generated_at": "2026-10-25T01:53:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-007",
@@ -141,6 +141,55 @@
           "name": "Maplebear",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-028",
+      "headline": "Trump to announce Audi SUV plant in Georgia amid tariff push",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/us/trump-to-announce-audi-suv-plant-in-georgia-amid-tariff-push-4194380",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T01:37:04Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Audi is reportedly planning a new SUV plant in Georgia, representing a significant capital investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Audi is reportedly planning a new SUV plant in Georgia, representing a significant capital investment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Audi",
+          "ticker": null,
+          "listing_country": "DE"
         }
       ],
       "size_bucket": "large",
@@ -860,6 +909,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-029",
+      "headline": "Tving tops new streaming app installations in Sept.",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261025001700320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T01:35:21Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Tving led new streaming app installations in South Korea for September, indicating market share growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Tving led new streaming app installations in South Korea for September, indicating market share growth.",
+      "region": "KR",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tving",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-001",
       "headline": "SpaceX’s $1 Trillion Revenue Ambition: Can Elon Musk Deliver?",
       "headline_en": null,
@@ -901,6 +999,49 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-030",
+      "headline": "Iran urges France, Germany, UK to examine root cause of military conflict",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/iran-urges-france-germany-uk-examine-root-cause-military-conflict",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T01:39:11Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Iran's diplomatic call regarding military conflict highlights ongoing geopolitical instability in the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Iran's diplomatic call regarding military conflict highlights ongoing geopolitical instability in the region.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1165,6 +1306,49 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-027",
+      "headline": "China’s US$3.5 trillion stock rout deepens as profits sink, major stimulus stays elusive",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/capital-markets-currencies/chinas-us3-5-trillion-stock-rout-deepens-profits-sink-major-stimulus-stays-elusive",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T01:41:33Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "China's equity market has seen a US$3.5 trillion decline due to falling corporate profits and lack of effective stimulus.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 42,
+      "triage_reason": "China's equity market has seen a US$3.5 trillion decline due to falling corporate profits and lack of effective stimulus.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -199786,78 +199970,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-aba1e604fd86",
-      "idea_version": "IDEAV-7a1f0bfcc76955f4",
-      "idea_version_started_at": "2026-10-23T18:41:34Z",
-      "ticker": "SHRIRAMFIN",
-      "company": "Shriram Finance",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 59% increase in Q2 net profit to ₹3,684 crore and declared an interim dividend, reflecting strong underlying credit demand and operational efficiency.",
-      "why_now": "The earnings were released on October 23, 2026, providing a fresh catalyst for a re-rating of the stock.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3eb3cbd220c4"
-      ],
-      "primary_source_event_id": "EVT-3eb3cbd220c4",
-      "source_headlines": [
-        "Shriram Finance Q2 Net Profit Rises 59 Per Cent To ₹3,684 Crore; Board Approves ₹6.50 Interim Dividend"
-      ],
-      "source_headline": "Shriram Finance Q2 Net Profit Rises 59 Per Cent To ₹3,684 Crore; Board Approves ₹6.50 Interim Dividend",
-      "source_url": "https://www.freepressjournal.in/business/shriram-finance-q2-net-profit-rises-59-per-cent-to-3684-crore-board-approves-650-interim-dividend",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-23T13:41:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T18:41:34Z",
-      "updated_at": "2026-10-23T18:41:34Z",
-      "decay_at": "2026-10-25T01:41:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-e8c55fdf66d6",
       "idea_version": "IDEAV-637d4ad89d614eef",
       "idea_version_started_at": "2026-10-23T06:49:05Z",
@@ -201266,6 +201378,78 @@
       "surfaced_at": "2026-10-24T07:02:21Z",
       "updated_at": "2026-10-24T07:02:21Z",
       "decay_at": "2026-10-24T23:59:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-aba1e604fd86",
+      "idea_version": "IDEAV-7a1f0bfcc76955f4",
+      "idea_version_started_at": "2026-10-23T18:41:34Z",
+      "ticker": "SHRIRAMFIN",
+      "company": "Shriram Finance",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 59% increase in Q2 net profit to ₹3,684 crore and declared an interim dividend, reflecting strong underlying credit demand and operational efficiency.",
+      "why_now": "The earnings were released on October 23, 2026, providing a fresh catalyst for a re-rating of the stock.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3eb3cbd220c4"
+      ],
+      "primary_source_event_id": "EVT-3eb3cbd220c4",
+      "source_headlines": [
+        "Shriram Finance Q2 Net Profit Rises 59 Per Cent To ₹3,684 Crore; Board Approves ₹6.50 Interim Dividend"
+      ],
+      "source_headline": "Shriram Finance Q2 Net Profit Rises 59 Per Cent To ₹3,684 Crore; Board Approves ₹6.50 Interim Dividend",
+      "source_url": "https://www.freepressjournal.in/business/shriram-finance-q2-net-profit-rises-59-per-cent-to-3684-crore-board-approves-650-interim-dividend",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-23T13:41:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T18:41:34Z",
+      "updated_at": "2026-10-23T18:41:34Z",
+      "decay_at": "2026-10-25T01:41:47Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -202726,14 +202910,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 539,
+    "total_count": 540,
     "shown_count": 500,
-    "hidden_count": 39,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
-        "total_count": 272,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 23
       },
       "short": {
         "total_count": 268,
@@ -202757,6 +202941,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-aba1e604fd86",
+        "idea_version": "IDEAV-7a1f0bfcc76955f4",
+        "idea_version_started_at": "2026-10-23T18:41:34Z",
+        "ticker": "SHRIRAMFIN",
+        "company": "Shriram Finance",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported a 59% increase in Q2 net profit to ₹3,684 crore and declared an interim dividend, reflecting strong underlying credit demand and operational efficiency.",
+        "why_now": "The earnings were released on October 23, 2026, providing a fresh catalyst for a re-rating of the stock.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3eb3cbd220c4"
+        ],
+        "primary_source_event_id": "EVT-3eb3cbd220c4",
+        "source_headlines": [
+          "Shriram Finance Q2 Net Profit Rises 59 Per Cent To ₹3,684 Crore; Board Approves ₹6.50 Interim Dividend"
+        ],
+        "source_headline": "Shriram Finance Q2 Net Profit Rises 59 Per Cent To ₹3,684 Crore; Board Approves ₹6.50 Interim Dividend",
+        "source_url": "https://www.freepressjournal.in/business/shriram-finance-q2-net-profit-rises-59-per-cent-to-3684-crore-board-approves-650-interim-dividend",
+        "source_name": "Free Press Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-23T13:41:47Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-23T18:41:34Z",
+        "updated_at": "2026-10-23T18:41:34Z",
+        "decay_at": "2026-10-25T01:41:47Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-25T01:41:47Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-fc93f470f6d7",
         "idea_version": "IDEAV-db4336a31f698ae9",
@@ -230086,82 +230345,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-3f16c02405f0",
-        "idea_version": "IDEAV-9f1ab115389443ad",
-        "idea_version_started_at": "2026-10-10T03:24:22Z",
-        "ticker": "6762",
-        "company": "TDK",
-        "exchange": "TSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "TDK is considering selling its hard-drive head unit, which could streamline its operations, improve profitability by divesting a non-core or underperforming asset, or unlock capital for other investments.",
-        "why_now": "The company is actively weighing this strategic review as of October 10, 2026, indicating a potential near-term corporate action.",
-        "conviction": 45,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-6a66b1a8fd90"
-        ],
-        "primary_source_event_id": "EVT-6a66b1a8fd90",
-        "source_headlines": [
-          "TDK weighs sale of hard-drive head unit, but regulatory OK uncertain"
-        ],
-        "source_headline": "TDK weighs sale of hard-drive head unit, but regulatory OK uncertain",
-        "source_url": "https://asia.nikkei.com/business/business-deals/tdk-weighs-sale-of-hard-drive-head-unit-but-regulatory-ok-uncertain",
-        "source_name": "Nikkei Asia",
-        "materiality_max": 88,
-        "newest_source_at": "2026-10-10T01:21:11Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-10T03:24:22Z",
-        "updated_at": "2026-10-10T03:24:22Z",
-        "decay_at": "2026-10-11T13:21:11Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-13T05:16:49Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-675f9fa696a1",
         "idea_version": "IDEAV-1ca0e0c57f9c130d",
         "idea_version_started_at": "2026-10-10T03:24:22Z",
@@ -240001,7 +240184,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1870,
-    "live_count": 38,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -240011,7 +240194,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4032,
+    "inbox_unconsumed": 4036,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -240020,9 +240203,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 175,
-    "news_picked_today": 26,
-    "news_dropped_today": 149
+    "news_seen_today": 197,
+    "news_picked_today": 30,
+    "news_dropped_today": 167
   },
   "book_momentum": {
     "live_count": 8,
