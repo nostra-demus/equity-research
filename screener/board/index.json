@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T07:28:29Z",
+  "generated_at": "2026-10-25T07:39:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-109",
@@ -146,6 +146,55 @@
           "name": "Bahri",
           "ticker": null,
           "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-161",
+      "headline": "Trump says Audi to invest $4.2b in its first US auto plant",
+      "headline_en": null,
+      "url": "https://gulfnews.com/auto/news/trump-says-audi-to-invest-42b-in-its-first-us-auto-plant-1.500722693",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T07:17:29Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Audi announces a major $4.2 billion investment in its first US auto plant.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Audi announces a major $4.2 billion investment in its first US auto plant.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Audi",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -1908,55 +1957,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-050",
-      "headline": "PM Narendra Modi To Visit Varanasi, Bhubaneswar On October 25, Witness IAF Air Show & Inaugurate RBI Data Centre",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/india/pm-narendra-modi-to-visit-varanasi-bhubaneswar-on-october-25-witness-iaf-air-show-inaugurate-rbi-data-centre",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T02:11:01Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "The Reserve Bank of India is inaugurating a new data centre, representing a significant infrastructure investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "The Reserve Bank of India is inaugurating a new data centre, representing a significant infrastructure investment.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reserve Bank of India",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -241314,9 +241314,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 883,
-    "news_picked_today": 194,
-    "news_dropped_today": 689
+    "news_seen_today": 905,
+    "news_picked_today": 202,
+    "news_dropped_today": 703
   },
   "book_momentum": {
     "live_count": 8,
