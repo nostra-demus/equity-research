@@ -1,0 +1,80 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-10-25T00:34:02Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-05d3d577ce24",
+    "idea_version": "IDEAV-221c7211d855ef21",
+    "idea_version_started_at": "2026-10-22T07:03:06Z",
+    "ticker": "NCK",
+    "company": "Nick Scali",
+    "exchange": "ASX",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "short",
+    "pair_with": null,
+    "reason": "A profit downgrade drove a 16% single-session drop in shares, reflecting deteriorating retail furniture demand and compressed operating margins.",
+    "why_now": "Trading update and profit downgrade reported on October 21, 2026.",
+    "conviction": 70,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 19,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "priced-in risk",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "priced",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-d9013d58b3b3"
+    ],
+    "primary_source_event_id": "EVT-d9013d58b3b3",
+    "source_headlines": [
+      "ASX falls; Nick Scali plunges 16pc on profit downgrade"
+    ],
+    "source_headline": "ASX falls; Nick Scali plunges 16pc on profit downgrade",
+    "source_url": "https://www.afr.com/markets/equity-markets/asx-steady-nasdaq-surges-meta-to-report-20261022-p617mq?ref=rss&utm_medium=rss&utm_source=rss_feed",
+    "source_name": "Australian Financial Review",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-21T23:46:46Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-10-22T07:03:06Z",
+    "updated_at": "2026-10-22T07:03:06Z",
+    "decay_at": "2026-10-23T11:46:46Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
