@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T06:39:35Z",
+  "generated_at": "2026-10-25T06:43:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-109",
@@ -673,6 +673,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-136",
+      "headline": "GM Just Announced a $20 Billion Buyback. Tesla Trades at 350 Times Earnings. Here's Which Auto Stock I'd Buy Today.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/gm-just-announced-20-billion-buyback-tesla-trades-350-times-earnings-heres-which-auto",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T06:25:00Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "General Motors announced a $20 billion share buyback, which is a significant capital allocation event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "General Motors announced a $20 billion share buyback, which is a significant capital allocation event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "General Motors",
+          "ticker": "GM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1905,55 +1954,6 @@
           "name": "SpaceX",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-036",
-      "headline": "Rocket Lab Just Postponed Its Neutron Launch. Again.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/rocket-lab-just-postponed-its-neutron-launch-again",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T01:50:00Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Rocket Lab has delayed the launch of its Neutron rocket, which is a critical milestone for the company's growth strategy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Rocket Lab has delayed the launch of its Neutron rocket, which is a critical milestone for the company's growth strategy.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rocket Lab",
-          "ticker": "RKLB",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -241314,9 +241314,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 756,
-    "news_picked_today": 164,
-    "news_dropped_today": 592
+    "news_seen_today": 768,
+    "news_picked_today": 165,
+    "news_dropped_today": 603
   },
   "book_momentum": {
     "live_count": 8,
