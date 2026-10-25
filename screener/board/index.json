@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T04:23:55Z",
+  "generated_at": "2026-10-25T04:38:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-068",
@@ -429,6 +429,55 @@
           "name": "Audi",
           "ticker": null,
           "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-080",
+      "headline": "IDFC First Bank Q2 profit nearly triples to Rs 1,045 crore",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/idfc-first-bank-q2-profit-nearly-triples-to-rs-1045-cr/articleshow/135182984.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T04:11:15Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "IDFC First Bank's Q2 profit nearly tripled to Rs 1,045 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "IDFC First Bank's Q2 profit nearly tripled to Rs 1,045 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IDFC First Bank",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1066,6 +1115,55 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-081",
+      "headline": "Yes Bank makes an important announcement with regards to its AT-1 bonds; Here's what it said",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/yes-bank-share-price-at-1-bond-issue-repayment-decision-assessment-implications-20018667.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T04:33:52Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Yes Bank made an important announcement regarding its AT-1 bonds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "Yes Bank made an important announcement regarding its AT-1 bonds.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yes Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1813,98 +1911,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-060",
-      "headline": "SEBI to come up with rules to prevent broker terminal misuse, says chairman Pandey",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/sebi-to-come-up-with-rules-to-prevent-broker-terminal-misuse-says-chairman-pandey/article71622500.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T03:26:43Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "SEBI is introducing new regulations to prevent broker terminal misuse, impacting operational compliance for Indian brokerage firms.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "SEBI is introducing new regulations to prevent broker terminal misuse, impacting operational compliance for Indian brokerage firms.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-052",
-      "headline": "GMO asks government to take active cyberdefense measures",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/news/2026/10/25/japan/crime-legal/gmo-active-cyberdefense-government-request/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T03:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "GMO Internet Group is lobbying for government-level cyberdefense, indicating heightened operational risk awareness.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "GMO Internet Group is lobbying for government-level cyberdefense, indicating heightened operational risk awareness.",
-      "region": "JP",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GMO Internet Group",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -198506,77 +198512,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-114b61823f33",
-      "idea_version": "IDEAV-61395174fb35a932",
-      "idea_version_started_at": "2026-10-24T02:27:44Z",
-      "ticker": "GNTX",
-      "company": "Gentex",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Gentex is experiencing a decline in profitability and has lowered its FY26 revenue outlook, reflecting operational headwinds.",
-      "why_now": "The guidance reduction was issued on 2026-10-23, indicating immediate pressure on the company's financial performance.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9a8e0c07caa1"
-      ],
-      "primary_source_event_id": "EVT-9a8e0c07caa1",
-      "source_headlines": [
-        "Gentex Q3 Profit Slips, Trims FY26 Revenue Outlook; FY27 Revenue In Line"
-      ],
-      "source_headline": "Gentex Q3 Profit Slips, Trims FY26 Revenue Outlook; FY27 Revenue In Line",
-      "source_url": "https://www.nasdaq.com/articles/gentex-q3-profit-slips-trims-fy26-revenue-outlook-fy27-revenue-line",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-23T16:25:32Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T02:27:44Z",
-      "updated_at": "2026-10-24T02:27:44Z",
-      "decay_at": "2026-10-25T04:25:32Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b483d5aa9fc1",
       "idea_version": "IDEAV-5dd1c72d81beae0e",
       "idea_version_started_at": "2026-10-25T04:09:49Z",
@@ -201651,6 +201586,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-114b61823f33",
+      "idea_version": "IDEAV-61395174fb35a932",
+      "idea_version_started_at": "2026-10-24T02:27:44Z",
+      "ticker": "GNTX",
+      "company": "Gentex",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Gentex is experiencing a decline in profitability and has lowered its FY26 revenue outlook, reflecting operational headwinds.",
+      "why_now": "The guidance reduction was issued on 2026-10-23, indicating immediate pressure on the company's financial performance.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9a8e0c07caa1"
+      ],
+      "primary_source_event_id": "EVT-9a8e0c07caa1",
+      "source_headlines": [
+        "Gentex Q3 Profit Slips, Trims FY26 Revenue Outlook; FY27 Revenue In Line"
+      ],
+      "source_headline": "Gentex Q3 Profit Slips, Trims FY26 Revenue Outlook; FY27 Revenue In Line",
+      "source_url": "https://www.nasdaq.com/articles/gentex-q3-profit-slips-trims-fy26-revenue-outlook-fy27-revenue-line",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-23T16:25:32Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T02:27:44Z",
+      "updated_at": "2026-10-24T02:27:44Z",
+      "decay_at": "2026-10-25T04:25:32Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-f5730c4d2977",
       "idea_version": "IDEAV-f4b4d4ab08f03957",
       "idea_version_started_at": "2026-10-23T15:10:57Z",
@@ -203679,9 +203685,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 542,
+    "total_count": 543,
     "shown_count": 500,
-    "hidden_count": 42,
+    "hidden_count": 43,
     "side_counts": {
       "long": {
         "total_count": 273,
@@ -203689,9 +203695,9 @@
         "hidden_count": 23
       },
       "short": {
-        "total_count": 270,
+        "total_count": 271,
         "shown_count": 250,
-        "hidden_count": 20
+        "hidden_count": 21
       }
     },
     "retention": {
@@ -203710,6 +203716,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-114b61823f33",
+        "idea_version": "IDEAV-61395174fb35a932",
+        "idea_version_started_at": "2026-10-24T02:27:44Z",
+        "ticker": "GNTX",
+        "company": "Gentex",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Gentex is experiencing a decline in profitability and has lowered its FY26 revenue outlook, reflecting operational headwinds.",
+        "why_now": "The guidance reduction was issued on 2026-10-23, indicating immediate pressure on the company's financial performance.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9a8e0c07caa1"
+        ],
+        "primary_source_event_id": "EVT-9a8e0c07caa1",
+        "source_headlines": [
+          "Gentex Q3 Profit Slips, Trims FY26 Revenue Outlook; FY27 Revenue In Line"
+        ],
+        "source_headline": "Gentex Q3 Profit Slips, Trims FY26 Revenue Outlook; FY27 Revenue In Line",
+        "source_url": "https://www.nasdaq.com/articles/gentex-q3-profit-slips-trims-fy26-revenue-outlook-fy27-revenue-line",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-23T16:25:32Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-24T02:27:44Z",
+        "updated_at": "2026-10-24T02:27:44Z",
+        "decay_at": "2026-10-25T04:25:32Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-25T04:25:32Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-af4308e96a78",
         "idea_version": "IDEAV-a824af70ecdc0ee6",
@@ -240876,87 +240956,12 @@
         "archived_at": "2026-10-01T05:01:37Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-cc058e79f633",
-        "idea_version": "IDEAV-ff4cee524be55d68",
-        "idea_version_started_at": "2026-09-27T23:52:27Z",
-        "ticker": "BSA",
-        "company": "BSA Limited",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The suspension from quotation on the ASX often precedes significant negative corporate developments or financial distress, preventing liquidity for shareholders.",
-        "why_now": "The suspension was effective as of September 27, 2026, marking a critical liquidity event.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2589243d2ed9"
-        ],
-        "primary_source_event_id": "EVT-2589243d2ed9",
-        "source_headlines": [
-          "BSA: Suspension from Quotation [price-sensitive]"
-        ],
-        "source_headline": "BSA: Suspension from Quotation [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BSA?key=2924-03140515-2A1699721",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-27T23:37:29Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-27T23:52:27Z",
-        "updated_at": "2026-09-27T23:52:27Z",
-        "decay_at": "2026-09-29T11:37:29Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-01T01:46:30Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1876,
-    "live_count": 38,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -240975,9 +240980,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 472,
-    "news_picked_today": 85,
-    "news_dropped_today": 387
+    "news_seen_today": 498,
+    "news_picked_today": 88,
+    "news_dropped_today": 410
   },
   "book_momentum": {
     "live_count": 8,
