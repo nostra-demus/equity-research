@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-25T00:34:15Z",
+  "generated_at": "2026-10-25T00:48:29Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261025-007",
+      "headline": "Trump Announces Audi’s First-Ever U.S. Factory in Georgia as Tariffs Bite",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/autos/trump-announces-audis-first-ever-u-s-factory-in-georgia-ss-tariffs-bite-7e3220fe?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T00:40:00Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Audi announced its first-ever U.S. factory in Georgia, representing a major capital expenditure and capacity expansion project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Audi announced its first-ever U.S. factory in Georgia, representing a major capital expenditure and capacity expansion project.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Audi",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261025-002",
       "headline": "Víctimas de abusos aprueban acuerdo de 800 millones de dólares con Arquidiócesis de Nueva York",
@@ -45,6 +94,49 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-008",
+      "headline": "Israel restricts entry of Palestinian labourers to West Bank areas",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israel-restricts-entry-palestinian-labourers-west-bank-areas",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T00:40:49Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Increased restrictions on Palestinian laborers entering the West Bank represent a significant escalation in regional operational and geopolitical risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Increased restrictions on Palestinian laborers entering the West Bank represent a significant escalation in regional operational and geopolitical risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -197076,76 +197168,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-be88d1aa5221",
-      "idea_version": "IDEAV-159d6a7273dc37c9",
-      "idea_version_started_at": "2026-10-24T04:06:30Z",
-      "ticker": "AMR",
-      "company": "Alpha Metallurgical Resources",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported a preliminary Q3 loss, indicating weakness in metallurgical coal pricing or operational efficiency.",
-      "why_now": "The preliminary loss announcement occurred on 2026-10-23.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 64,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c736d7bd08cb"
-      ],
-      "primary_source_event_id": "EVT-c736d7bd08cb",
-      "source_headlines": [
-        "Alpha Metallurgical Resources Reports Preliminary Q3 Loss"
-      ],
-      "source_headline": "Alpha Metallurgical Resources Reports Preliminary Q3 Loss",
-      "source_url": "https://www.nasdaq.com/articles/alpha-metallurgical-resources-reports-preliminary-q3-loss",
-      "source_name": "Nasdaq",
-      "materiality_max": 99,
-      "newest_source_at": "2026-10-23T12:37:23Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T04:06:30Z",
-      "updated_at": "2026-10-24T04:06:30Z",
-      "decay_at": "2026-10-25T00:37:23Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-114b61823f33",
       "idea_version": "IDEAV-61395174fb35a932",
       "idea_version_started_at": "2026-10-24T02:27:44Z",
@@ -199872,6 +199894,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-be88d1aa5221",
+      "idea_version": "IDEAV-159d6a7273dc37c9",
+      "idea_version_started_at": "2026-10-24T04:06:30Z",
+      "ticker": "AMR",
+      "company": "Alpha Metallurgical Resources",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a preliminary Q3 loss, indicating weakness in metallurgical coal pricing or operational efficiency.",
+      "why_now": "The preliminary loss announcement occurred on 2026-10-23.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 64,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c736d7bd08cb"
+      ],
+      "primary_source_event_id": "EVT-c736d7bd08cb",
+      "source_headlines": [
+        "Alpha Metallurgical Resources Reports Preliminary Q3 Loss"
+      ],
+      "source_headline": "Alpha Metallurgical Resources Reports Preliminary Q3 Loss",
+      "source_url": "https://www.nasdaq.com/articles/alpha-metallurgical-resources-reports-preliminary-q3-loss",
+      "source_name": "Nasdaq",
+      "materiality_max": 99,
+      "newest_source_at": "2026-10-23T12:37:23Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T04:06:30Z",
+      "updated_at": "2026-10-24T04:06:30Z",
+      "decay_at": "2026-10-25T00:37:23Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-9f47945c8197",
       "idea_version": "IDEAV-7cf660c1f294d288",
       "idea_version_started_at": "2026-10-24T02:27:44Z",
@@ -201825,9 +201917,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 536,
+    "total_count": 537,
     "shown_count": 500,
-    "hidden_count": 36,
+    "hidden_count": 37,
     "side_counts": {
       "long": {
         "total_count": 272,
@@ -201835,9 +201927,9 @@
         "hidden_count": 22
       },
       "short": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       }
     },
     "retention": {
@@ -201856,6 +201948,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-be88d1aa5221",
+        "idea_version": "IDEAV-159d6a7273dc37c9",
+        "idea_version_started_at": "2026-10-24T04:06:30Z",
+        "ticker": "AMR",
+        "company": "Alpha Metallurgical Resources",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company reported a preliminary Q3 loss, indicating weakness in metallurgical coal pricing or operational efficiency.",
+        "why_now": "The preliminary loss announcement occurred on 2026-10-23.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 64,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c736d7bd08cb"
+        ],
+        "primary_source_event_id": "EVT-c736d7bd08cb",
+        "source_headlines": [
+          "Alpha Metallurgical Resources Reports Preliminary Q3 Loss"
+        ],
+        "source_headline": "Alpha Metallurgical Resources Reports Preliminary Q3 Loss",
+        "source_url": "https://www.nasdaq.com/articles/alpha-metallurgical-resources-reports-preliminary-q3-loss",
+        "source_name": "Nasdaq",
+        "materiality_max": 99,
+        "newest_source_at": "2026-10-23T12:37:23Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-24T04:06:30Z",
+        "updated_at": "2026-10-24T04:06:30Z",
+        "decay_at": "2026-10-25T00:37:23Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-25T00:37:23Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c2d69b9dc5d8",
         "idea_version": "IDEAV-e9ff7c86aa5ca5a6",
@@ -239024,87 +239189,12 @@
         "archived_at": "2026-09-30T13:55:34Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-8b18351c452b",
-        "idea_version": "IDEAV-74cc105ed3b65696",
-        "idea_version_started_at": "2026-09-27T09:54:29Z",
-        "ticker": "9023",
-        "company": "Tokyo Metro Co., Ltd.",
-        "exchange": "TSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The compromise of 59,000 customer email addresses creates immediate operational risk, potential regulatory fines, and reputational damage that will weigh on sentiment.",
-        "why_now": "The breach was reported today, September 27, 2026, and the market has not yet fully priced the potential remediation costs and loss of consumer trust.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 14,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c6eafa4a494c"
-        ],
-        "primary_source_event_id": "EVT-c6eafa4a494c",
-        "source_headlines": [
-          "BREAKING NEWS: Tokyo Metro says 59,000 customer email addresses may be compromised"
-        ],
-        "source_headline": "BREAKING NEWS: Tokyo Metro says 59,000 customer email addresses may be compromised",
-        "source_url": "https://english.kyodonews.net/articles/-/86475",
-        "source_name": "Kyodo News (Japan Wire)",
-        "materiality_max": 87,
-        "newest_source_at": "2026-09-27T09:19:24Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-27T09:54:29Z",
-        "updated_at": "2026-09-27T09:54:29Z",
-        "decay_at": "2026-09-28T21:19:24Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-30T09:32:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1870,
-    "live_count": 41,
+    "live_count": 40,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -239114,7 +239204,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4013,
+    "inbox_unconsumed": 4015,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -239123,9 +239213,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 67,
-    "news_picked_today": 6,
-    "news_dropped_today": 61
+    "news_seen_today": 90,
+    "news_picked_today": 8,
+    "news_dropped_today": 82
   },
   "book_momentum": {
     "live_count": 8,
