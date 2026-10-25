@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-25T06:04:24Z",
+  "generated_at": "2026-10-25T06:08:22Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261025-109",
+      "headline": "Shrenik Limited: Shrenik Limited has informed the Exchange about Prior Intimation of the 3rd (Third) Meeting of the Committee of Creditors (CoC) of Shrenik Limited (In CIRP).",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SHRENIK_25102026113110_Copy_of_Disclosure_of_the_Third_CoC_Meeting.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-25T06:02:33Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "The company is undergoing Corporate Insolvency Resolution Process (CIRP) and is holding a Committee of Creditors meeting, indicating severe financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is undergoing Corporate Insolvency Resolution Process (CIRP) and is holding a Committee of Creditors meeting, indicating severe financial distress.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shrenik Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261025-093",
       "headline": "우리금융 3분기 순익 1조492억원…사상 첫 2분기 연속 '1조 클럽'",
@@ -1876,55 +1925,6 @@
         {
           "name": "Bharat Heavy Electricals Limited",
           "ticker": "500103",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-103",
-      "headline": "PNB aims to bring cost-to-income ratio below 50% this fiscal, 45% by FY29: MD Chandra",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/pnb-aims-to-bring-cost-to-income-ratio-below-50-this-fiscal-45-by-fy29-md-chandra/articleshow/135184373.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T05:41:56Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "PNB management provided specific efficiency targets to reduce cost-to-income ratio below 50%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "PNB management provided specific efficiency targets to reduce cost-to-income ratio below 50%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Punjab National Bank",
-          "ticker": null,
           "listing_country": "IN"
         }
       ],
@@ -200331,78 +200331,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e0e4d2fdf192",
-      "idea_version": "IDEAV-814e9d4e77a84337",
-      "idea_version_started_at": "2026-10-23T21:01:21Z",
-      "ticker": "BPCL",
-      "company": "Bharat Petroleum Corporation Ltd",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a significant earnings turnaround with a Q2 profit of Rs 4,993 crore compared to a prior loss, driven by a rebound in EBITDA.",
-      "why_now": "The earnings were released on 2026-10-23, providing a fresh catalyst for a valuation re-rating.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a005c2a23f5e"
-      ],
-      "primary_source_event_id": "EVT-a005c2a23f5e",
-      "source_headlines": [
-        "BPCL Q2 Results: Profit Swings To Rs 4,993 Crore From Loss, EBITDA Rebounds"
-      ],
-      "source_headline": "BPCL Q2 Results: Profit Swings To Rs 4,993 Crore From Loss, EBITDA Rebounds",
-      "source_url": "https://www.ndtvprofit.com/markets/bpcl-q2-results-profit-swings-to-rs-4-993-crore-from-loss-ebitda-rebounds-12227587#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-23T18:06:33Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T21:01:21Z",
-      "updated_at": "2026-10-23T21:01:21Z",
-      "decay_at": "2026-10-25T06:06:33Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5d7e7121c615",
       "idea_version": "IDEAV-741d7a5410fa2ff8",
       "idea_version_started_at": "2026-10-25T06:04:01Z",
@@ -202611,6 +202539,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-e0e4d2fdf192",
+      "idea_version": "IDEAV-814e9d4e77a84337",
+      "idea_version_started_at": "2026-10-23T21:01:21Z",
+      "ticker": "BPCL",
+      "company": "Bharat Petroleum Corporation Ltd",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a significant earnings turnaround with a Q2 profit of Rs 4,993 crore compared to a prior loss, driven by a rebound in EBITDA.",
+      "why_now": "The earnings were released on 2026-10-23, providing a fresh catalyst for a valuation re-rating.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a005c2a23f5e"
+      ],
+      "primary_source_event_id": "EVT-a005c2a23f5e",
+      "source_headlines": [
+        "BPCL Q2 Results: Profit Swings To Rs 4,993 Crore From Loss, EBITDA Rebounds"
+      ],
+      "source_headline": "BPCL Q2 Results: Profit Swings To Rs 4,993 Crore From Loss, EBITDA Rebounds",
+      "source_url": "https://www.ndtvprofit.com/markets/bpcl-q2-results-profit-swings-to-rs-4-993-crore-from-loss-ebitda-rebounds-12227587#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-23T18:06:33Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T21:01:21Z",
+      "updated_at": "2026-10-23T21:01:21Z",
+      "decay_at": "2026-10-25T06:06:33Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-4f148c222ff7",
       "idea_version": "IDEAV-aaecc0073d363567",
       "idea_version_started_at": "2026-10-23T20:01:12Z",
@@ -203920,14 +203920,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 540,
+    "total_count": 541,
     "shown_count": 500,
-    "hidden_count": 40,
+    "hidden_count": 41,
     "side_counts": {
       "long": {
-        "total_count": 272,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 23
       },
       "short": {
         "total_count": 269,
@@ -203951,6 +203951,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e0e4d2fdf192",
+        "idea_version": "IDEAV-814e9d4e77a84337",
+        "idea_version_started_at": "2026-10-23T21:01:21Z",
+        "ticker": "BPCL",
+        "company": "Bharat Petroleum Corporation Ltd",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported a significant earnings turnaround with a Q2 profit of Rs 4,993 crore compared to a prior loss, driven by a rebound in EBITDA.",
+        "why_now": "The earnings were released on 2026-10-23, providing a fresh catalyst for a valuation re-rating.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a005c2a23f5e"
+        ],
+        "primary_source_event_id": "EVT-a005c2a23f5e",
+        "source_headlines": [
+          "BPCL Q2 Results: Profit Swings To Rs 4,993 Crore From Loss, EBITDA Rebounds"
+        ],
+        "source_headline": "BPCL Q2 Results: Profit Swings To Rs 4,993 Crore From Loss, EBITDA Rebounds",
+        "source_url": "https://www.ndtvprofit.com/markets/bpcl-q2-results-profit-swings-to-rs-4-993-crore-from-loss-ebitda-rebounds-12227587#publisher=newsstand",
+        "source_name": "NDTV Profit",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-23T18:06:33Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-23T21:01:21Z",
+        "updated_at": "2026-10-23T21:01:21Z",
+        "decay_at": "2026-10-25T06:06:33Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-25T06:06:33Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-114b61823f33",
         "idea_version": "IDEAV-61395174fb35a932",
@@ -231579,81 +231654,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-2fabc4574ced",
-        "idea_version": "IDEAV-407c46ab2cdd72ca",
-        "idea_version_started_at": "2026-10-10T07:05:33Z",
-        "ticker": "1211",
-        "company": "BYD Company",
-        "exchange": "HKG",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Reaching the 150,000 commercial NEV production milestone validates the company's ability to scale beyond passenger cars into higher-margin commercial truck segments.",
-        "why_now": "The production milestone and strategic shift to trucks were confirmed on October 10, 2024, signaling a new growth vector for the company's commercial division.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-063336d1347c"
-        ],
-        "primary_source_event_id": "EVT-063336d1347c",
-        "source_headlines": [
-          "BYD reaches 150,000 commercial NEV production milestone as growth focus shifts to trucks"
-        ],
-        "source_headline": "BYD reaches 150,000 commercial NEV production milestone as growth focus shifts to trucks",
-        "source_url": "https://cnevpost.com/2026/10/10/byd-150000-commercial-nev-production-focus-trucks/",
-        "source_name": "CnEVPost",
-        "materiality_max": 85,
-        "newest_source_at": "2026-10-10T01:34:49Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-10T07:05:33Z",
-        "updated_at": "2026-10-10T07:05:33Z",
-        "decay_at": "2026-10-11T13:34:49Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-13T05:16:49Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-675f9fa696a1",
         "idea_version": "IDEAV-1ca0e0c57f9c130d",
         "idea_version_started_at": "2026-10-10T03:24:22Z",
@@ -241196,7 +241196,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1882,
-    "live_count": 43,
+    "live_count": 42,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -241215,9 +241215,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 664,
-    "news_picked_today": 134,
-    "news_dropped_today": 530
+    "news_seen_today": 675,
+    "news_picked_today": 137,
+    "news_dropped_today": 538
   },
   "book_momentum": {
     "live_count": 8,
