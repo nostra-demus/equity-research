@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T09:24:20Z",
+  "generated_at": "2026-10-25T09:28:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-109",
@@ -247,6 +247,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-190",
+      "headline": "Audi To Invest $4 Bln In First U.S. Manufacturing Plant, Create 4,500 Jobs In Georgia",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/audi-invest-4-bln-first-us-manufacturing-plant-create-4500-jobs-georgia",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T08:37:24Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Audi plans to invest $4 billion in its first U.S. manufacturing plant, creating 4,500 jobs in Georgia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Audi plans to invest $4 billion in its first U.S. manufacturing plant, creating 4,500 jobs in Georgia.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Audi",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1183,6 +1232,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-189",
+      "headline": "Godrej Properties eyes record Rs 41,500 crore sales bookings, expects to beat FY27 guidance",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/services/property-/-cstruction/godrej-properties-eyes-record-rs-41500-crore-sales-bookings-expects-to-beat-fy27-guidance/articleshow/135187297.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T08:58:39Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Godrej Properties expects to beat its FY27 guidance and eyes record sales bookings of Rs 41,500 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Godrej Properties expects to beat its FY27 guidance and eyes record sales bookings of Rs 41,500 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Godrej Properties",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-012",
       "headline": "Instacart Parent Maplebear Agrees to $5 Million Joint Settlement. A Retiree’s Back-Pay Check Could Complicate Social Security",
       "headline_en": null,
@@ -1871,105 +1969,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-021",
-      "headline": "Ukraine says Starshield back to normal after week-long disruption, Elon Musk accuses Kyiv of violating Starlink’s terms",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/world/ukraine-says-starshield-back-to-normal-after-week-long-disruption-elon-musk-accuses-kyiv-of-violating-starlink-s-terms-11792890450707.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T01:22:18Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Disruptions to Starshield/Starlink services in Ukraine and public disputes between Elon Musk and Kyiv highlight operational and geopolitical risks for SpaceX.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Disruptions to Starshield/Starlink services in Ukraine and public disputes between Elon Musk and Kyiv highlight operational and geopolitical risks for SpaceX.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-151",
-      "headline": "‎SENAAT wins final dismissal of SAR 413.8M claim against subsidiary",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1946831",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T10:15:00Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "SENAAT successfully dismissed a SAR 413.8M legal claim against its subsidiary, removing a significant financial liability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "SENAAT successfully dismissed a SAR 413.8M legal claim against its subsidiary, removing a significant financial liability.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SENAAT",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -241754,9 +241753,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1212,
-    "news_picked_today": 280,
-    "news_dropped_today": 932
+    "news_seen_today": 1229,
+    "news_picked_today": 285,
+    "news_dropped_today": 944
   },
   "book_momentum": {
     "live_count": 8,
