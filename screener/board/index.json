@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-25T04:39:02Z",
+  "generated_at": "2026-10-25T04:48:22Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261025-082",
+      "headline": "Trump hails tariffs for new US$4.2 billion Audi plant in Georgia",
+      "headline_en": null,
+      "url": "https://www.scmp.com/news/world/united-states-canada/article/3372051/trump-hails-tariffs-new-us42-billion-audi-plant-georgia",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T04:44:54Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Audi announced a US$4.2 billion investment in a new plant in Georgia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Audi announced a US$4.2 billion investment in a new plant in Georgia.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Audi",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261025-068",
       "headline": "Netweb Tech Q2 profit surges manifold to ₹137 cr",
@@ -1358,6 +1407,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-083",
+      "headline": "Budget to include £1bn for social and affordable housing",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/cqm24j9y9zn7o?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T02:57:30Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "The UK government is allocating £1 billion for social and affordable housing, which will impact the construction and housing sectors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 76,
+      "triage_reason": "The UK government is allocating £1 billion for social and affordable housing, which will impact the construction and housing sectors.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-075",
       "headline": "Bharat Heavy Electricals Limited: Bharat Heavy Electricals Limited has informed the Exchange about change in Management",
       "headline_en": null,
@@ -1810,103 +1902,6 @@
       "event_types": [
         "regulatory",
         "litigation_enforcement"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-064",
-      "headline": "Air India and AI Express cancel Riyadh, Dammam flights till Nov 7",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/economy/logistics/air-india-and-ai-express-cancel-riyadh-dammam-flights-till-nov-7/article71622517.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T03:45:10Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Air India and AI Express have suspended flights to Riyadh and Dammam until Nov 7, impacting regional operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Air India and AI Express have suspended flights to Riyadh and Dammam until Nov 7, impacting regional operations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Air India",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Air India Express",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-074",
-      "headline": "Sebi to revamp short-selling, securities lending rules",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/sebi-to-revamp-short-selling-securities-lending-rules/articleshow/135182788.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T03:58:23Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "The Indian market regulator is planning to revise rules for short-selling and securities lending, which could impact market liquidity and trading strategies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "The Indian market regulator is planning to revise rules for short-selling and securities lending, which could impact market liquidity and trading strategies.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -241053,9 +241048,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 498,
-    "news_picked_today": 88,
-    "news_dropped_today": 410
+    "news_seen_today": 508,
+    "news_picked_today": 91,
+    "news_dropped_today": 417
   },
   "book_momentum": {
     "live_count": 8,
