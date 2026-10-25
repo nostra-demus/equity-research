@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T06:58:46Z",
+  "generated_at": "2026-10-25T07:03:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-109",
@@ -46,6 +46,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-137",
+      "headline": "‎NADEC signs MoU with NADA for SAR 370M deal to acquire dairy cattle herd",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1946818",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T09:59:00Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "NADEC signed an MoU with NADA for a SAR 370 million deal to acquire a dairy cattle herd.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NADEC signed an MoU with NADA for a SAR 370 million deal to acquire a dairy cattle herd.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NADEC",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "NADA",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1905,55 +1959,6 @@
           "name": "Kia",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-011",
-      "headline": "Musk says he was behind Starlink's slowdown in Ukraine",
-      "headline_en": null,
-      "url": "https://thehill.com/policy/international/6170415-musk-starlink-ukraine-slowdown/",
-      "source_name": "The Hill — Homenews",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T00:44:31Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Elon Musk confirmed personal involvement in restricting Starlink access in Ukraine, raising significant governance and geopolitical risk concerns for SpaceX.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Elon Musk confirmed personal involvement in restricting Starlink access in Ukraine, raising significant governance and geopolitical risk concerns for SpaceX.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -241314,9 +241319,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 807,
-    "news_picked_today": 175,
-    "news_dropped_today": 632
+    "news_seen_today": 817,
+    "news_picked_today": 176,
+    "news_dropped_today": 641
   },
   "book_momentum": {
     "live_count": 8,
