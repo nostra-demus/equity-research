@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T08:33:35Z",
+  "generated_at": "2026-10-25T08:44:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-109",
@@ -1478,6 +1478,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-173",
+      "headline": "JLR and Chery revive Freelander as British-Chinese SUV brand targets UAE",
+      "headline_en": null,
+      "url": "https://www.arabianbusiness.com/business/jlr-and-chery-revive-freelander-as-british-chinese-suv-brand-targets-uae",
+      "source_name": "Arabian Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T08:40:20Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Jaguar Land Rover and Chery are reviving the Freelander brand as a joint venture to target the UAE market, representing a strategic product expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Jaguar Land Rover and Chery are reviving the Freelander brand as a joint venture to target the UAE market, representing a strategic product expansion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jaguar Land Rover",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "Chery",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-129",
       "headline": "Singaporeans’ $864m Salesforce Tower deal a boost for Sydney market",
       "headline_en": null,
@@ -1914,55 +1969,6 @@
           "name": "Korea Zinc",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-023",
-      "headline": "Auto: Nach Handelsblatt-Bericht: Trump bestätigt Bau von Audi-Werk in den USA",
-      "headline_en": "Auto: After Handelsblatt report: Trump confirms construction of Audi plant in the USA",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/auto-nach-handelsblatt-bericht-trump-bestaetigt-bau-von-audi-werk-in-den-usa/100264447.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T01:11:16Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Donald Trump confirmed Audi's plan to build a new manufacturing plant in the US, representing a significant capital investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Donald Trump confirmed Audi's plan to build a new manufacturing plant in the US, representing a significant capital investment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Audi",
-          "ticker": null,
-          "listing_country": "DE"
         }
       ],
       "size_bucket": "large",
@@ -241538,9 +241544,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1066,
-    "news_picked_today": 234,
-    "news_dropped_today": 832
+    "news_seen_today": 1097,
+    "news_picked_today": 240,
+    "news_dropped_today": 857
   },
   "book_momentum": {
     "live_count": 8,
