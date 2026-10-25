@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-25T23:29:03Z",
+  "generated_at": "2026-10-25T23:38:44Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261025-528",
+      "headline": "WC8: TABBA TABBA DFS CLEARS PATHWAY FOR LARGE-SCALE DEVELOPMENT [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WC8?key=2924-03152983-6A1351295",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-25T23:30:01Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Company announced a Definitive Feasibility Study clearing the path for large-scale development of the Tabba Tabba project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced a Definitive Feasibility Study clearing the path for large-scale development of the Tabba Tabba project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WC8",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261025-500",
       "headline": "BUS: Bubalus to Acquire Skyline Copper-Gold Project, Tasmania [price-sensitive]",
@@ -1925,55 +1974,6 @@
           "name": "Bahri",
           "ticker": null,
           "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-188",
-      "headline": "Godrej Properties pre-sales may rise 22% to ₹41,500 crore in FY27, surpassing guidance on strong demand",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/godrej-properties-pre-sales-may-rise-22-to-41500-crore-in-fy27-surpassing-guidance-on-strong-demand/article71622884.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T09:01:46Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Godrej Properties is projected to exceed its FY27 pre-sales guidance by 22% to ₹41,500 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Godrej Properties is projected to exceed its FY27 pre-sales guidance by 22% to ₹41,500 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Godrej Properties",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -241766,9 +241766,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 102207,
-    "news_picked_today": 1018,
-    "news_dropped_today": 2867
+    "news_seen_today": 102236,
+    "news_picked_today": 1026,
+    "news_dropped_today": 2888
   },
   "book_momentum": {
     "live_count": 8,
