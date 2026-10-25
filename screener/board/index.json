@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-25T03:53:19Z",
+  "generated_at": "2026-10-25T04:03:41Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261025-068",
+      "headline": "Netweb Tech Q2 profit surges manifold to ₹137 cr",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/netweb-tech-q2-profit-surges-manifold-to-137-cr/article71622507.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T03:56:32Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Netweb Technologies reported a manifold surge in Q2 profit to ₹137 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Netweb Technologies reported a manifold surge in Q2 profit to ₹137 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Netweb Technologies",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261025-040",
       "headline": "PAG Infrastructure gets a good Reid on $3b-plus Akaysha Energy",
@@ -1113,6 +1162,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-067",
+      "headline": "Consensus Price Target for Hexagon AB Lowered 17.10% to $10.83",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/consensus-price-target-hexagon-ab-lowered-1710-1083",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T03:22:16Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Analyst consensus price target for Hexagon AB was lowered by 17.10%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 74,
+      "triage_reason": "Analyst consensus price target for Hexagon AB was lowered by 17.10%.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hexagon AB",
+          "ticker": null,
+          "listing_country": "SE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-019",
       "headline": "‘Just get rid of her’: Ellison fails to knock out dismissal lawsuit",
       "headline_en": null,
@@ -1154,6 +1252,55 @@
           "name": "Mineral Resources",
           "ticker": null,
           "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-070",
+      "headline": "Budget-friendly restaurant chain Saizeriya succumbs to rising costs",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/10/25/companies/saizeriya-price-hike/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T03:56:00Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Saizeriya reports negative impact from rising costs, indicating margin pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Saizeriya reports negative impact from rising costs, indicating margin pressure.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saizeriya",
+          "ticker": null,
+          "listing_country": "JP"
         }
       ],
       "size_bucket": "mid",
@@ -1243,6 +1390,49 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-069",
+      "headline": "OMCs back interim LPG distributors' commission hike; ministry approval awaited: AIHPGDA",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/energy/oil-gas/omcs-back-interim-lpg-distributors-commission-hike-ministry-approval-awaited-aihpgda/articleshow/135182687.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T03:49:55Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Oil Marketing Companies support a commission hike for LPG distributors, pending government approval.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Oil Marketing Companies support a commission hike for LPG distributors, pending government approval.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1708,184 +1898,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-056",
-      "headline": "FDA Raids: Can We Still Trust India’s Favourite Food Brands?",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/lifestyle/fda-raids-can-we-still-trust-indias-favourite-food-brands",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T02:45:00Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "FDA raids on food brands in India create regulatory and reputational risk for the consumer goods sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 56,
-      "triage_reason": "FDA raids on food brands in India create regulatory and reputational risk for the consumer goods sector.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-049",
-      "headline": "Bhopal Court Dismisses BDA's Eviction Plea Against National Herald, AJL Gets Relief In Decades-Old MP Nagar Land Dispute",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/bhopal/bhopal-court-dismisses-bdas-eviction-plea-against-national-herald-ajl-gets-relief-in-decades-old-mp-nagar-land-dispute",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T02:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Legal relief for Associated Journals Limited in a long-standing land dispute.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 56,
-      "triage_reason": "Legal relief for Associated Journals Limited in a long-standing land dispute.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Associated Journals Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-063",
-      "headline": "Siang Dam: What is behind protest in Arunachal Pradesh against the 11,200 MW hydroelectric project? All you need to know",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/india/siang-dam-what-is-behind-protest-in-arunachal-pradesh-against-the-11-200-mw-hydroelectric-project-all-you-need-to-know-11792898495181.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T03:38:17Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Protests against an 11,200 MW hydroelectric project in Arunachal Pradesh create operational and regulatory risk for the development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "Protests against an 11,200 MW hydroelectric project in Arunachal Pradesh create operational and regulatory risk for the development.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-046",
-      "headline": "World's 1st hydrogen engine for large ships cuts C02 emissions by 95%",
-      "headline_en": null,
-      "url": "https://english.kyodonews.net/articles/-/89365",
-      "source_name": "Kyodo News (Japan Wire)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T02:11:00Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "The development of the world's first hydrogen engine for large ships represents a significant technological advancement in maritime decarbonization.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "The development of the world's first hydrogen engine for large ships represents a significant technological advancement in maritime decarbonization.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -200074,78 +200086,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3828821b5170",
-      "idea_version": "IDEAV-cb8ba3fd1059d701",
-      "idea_version_started_at": "2026-10-24T00:28:47Z",
-      "ticker": "OFSS",
-      "company": "Oracle Financial Services Software",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 29% increase in net profit and 7% revenue growth for Q2, signaling strong demand for its banking software solutions.",
-      "why_now": "The earnings results were released on 2026-10-23.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0eafa1ab61d6"
-      ],
-      "primary_source_event_id": "EVT-0eafa1ab61d6",
-      "source_headlines": [
-        "Oracle Financial Services Software Q2 net profit rises 29% to ₹702 crore, revenue up 7%"
-      ],
-      "source_headline": "Oracle Financial Services Software Q2 net profit rises 29% to ₹702 crore, revenue up 7%",
-      "source_url": "https://www.cnbctv18.com/business/companies/oracle-financial-services-software-q2-net-profit-rises-29pc-to-rs702-crore-revenue-up-7pc-20018361.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-23T15:57:53Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T00:28:47Z",
-      "updated_at": "2026-10-24T00:28:47Z",
-      "decay_at": "2026-10-25T03:57:53Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-92e83afd6cf7",
       "idea_version": "IDEAV-c0550f7f8baa8373",
       "idea_version_started_at": "2026-10-24T00:28:47Z",
@@ -200291,78 +200231,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-bb5c4c4db82f",
-      "idea_version": "IDEAV-d44106710eb07365",
-      "idea_version_started_at": "2026-10-24T00:28:47Z",
-      "ticker": "SHREECEM",
-      "company": "Shree Cement",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Profit fell 15% year-over-year due to elevated fuel costs, which are compressing operating margins.",
-      "why_now": "The earnings results were released on 2026-10-23.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-91f357f1a5ce"
-      ],
-      "primary_source_event_id": "EVT-91f357f1a5ce",
-      "source_headlines": [
-        "Shree Cement profit falls 15% YoY to Rs 263 crore on higher fuel costs"
-      ],
-      "source_headline": "Shree Cement profit falls 15% YoY to Rs 263 crore on higher fuel costs",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/shree-cement-profit-falls-15-yoy-to-rs-263-crore-on-higher-fuel-costs/articleshow/135150160.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-23T16:03:04Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T00:28:47Z",
-      "updated_at": "2026-10-24T00:28:47Z",
-      "decay_at": "2026-10-25T04:03:04Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-e0e4d2fdf192",
       "idea_version": "IDEAV-814e9d4e77a84337",
       "idea_version_started_at": "2026-10-23T21:01:21Z",
@@ -200429,79 +200297,6 @@
       "surfaced_at": "2026-10-23T21:01:21Z",
       "updated_at": "2026-10-23T21:01:21Z",
       "decay_at": "2026-10-25T06:06:33Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-4f148c222ff7",
-      "idea_version": "IDEAV-aaecc0073d363567",
-      "idea_version_started_at": "2026-10-23T20:01:12Z",
-      "ticker": "VOLV-B",
-      "company": "Volvo Cars",
-      "exchange": "STO",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported a $373M Q3 loss and a rapid, unexpected slump in China sales, necessitating a 2,500-job workforce reduction.",
-      "why_now": "The earnings miss and restructuring announcement occurred on October 23, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-fe4ccbc3e7aa",
-        "EVT-dc75eb016288"
-      ],
-      "primary_source_event_id": "EVT-fe4ccbc3e7aa",
-      "source_headlines": [
-        "Volvo Cars plunges 24% as CEO says China sales slump came 'faster than we thought'",
-        "Volvo Cars cuts 2,500 jobs after posting $373M loss in Q3"
-      ],
-      "source_headline": "Volvo Cars plunges 24% as CEO says China sales slump came 'faster than we thought'",
-      "source_url": "https://www.cnbc.com/2026/10/23/volvo-cars-q3-earnings-job-cuts.html",
-      "source_name": "CNBC",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-23T15:57:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T20:01:12Z",
-      "updated_at": "2026-10-23T20:01:12Z",
-      "decay_at": "2026-10-25T03:57:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -202209,6 +202004,223 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-3828821b5170",
+      "idea_version": "IDEAV-cb8ba3fd1059d701",
+      "idea_version_started_at": "2026-10-24T00:28:47Z",
+      "ticker": "OFSS",
+      "company": "Oracle Financial Services Software",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 29% increase in net profit and 7% revenue growth for Q2, signaling strong demand for its banking software solutions.",
+      "why_now": "The earnings results were released on 2026-10-23.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0eafa1ab61d6"
+      ],
+      "primary_source_event_id": "EVT-0eafa1ab61d6",
+      "source_headlines": [
+        "Oracle Financial Services Software Q2 net profit rises 29% to ₹702 crore, revenue up 7%"
+      ],
+      "source_headline": "Oracle Financial Services Software Q2 net profit rises 29% to ₹702 crore, revenue up 7%",
+      "source_url": "https://www.cnbctv18.com/business/companies/oracle-financial-services-software-q2-net-profit-rises-29pc-to-rs702-crore-revenue-up-7pc-20018361.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-23T15:57:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T00:28:47Z",
+      "updated_at": "2026-10-24T00:28:47Z",
+      "decay_at": "2026-10-25T03:57:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-bb5c4c4db82f",
+      "idea_version": "IDEAV-d44106710eb07365",
+      "idea_version_started_at": "2026-10-24T00:28:47Z",
+      "ticker": "SHREECEM",
+      "company": "Shree Cement",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Profit fell 15% year-over-year due to elevated fuel costs, which are compressing operating margins.",
+      "why_now": "The earnings results were released on 2026-10-23.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-91f357f1a5ce"
+      ],
+      "primary_source_event_id": "EVT-91f357f1a5ce",
+      "source_headlines": [
+        "Shree Cement profit falls 15% YoY to Rs 263 crore on higher fuel costs"
+      ],
+      "source_headline": "Shree Cement profit falls 15% YoY to Rs 263 crore on higher fuel costs",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/shree-cement-profit-falls-15-yoy-to-rs-263-crore-on-higher-fuel-costs/articleshow/135150160.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-23T16:03:04Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T00:28:47Z",
+      "updated_at": "2026-10-24T00:28:47Z",
+      "decay_at": "2026-10-25T04:03:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-4f148c222ff7",
+      "idea_version": "IDEAV-aaecc0073d363567",
+      "idea_version_started_at": "2026-10-23T20:01:12Z",
+      "ticker": "VOLV-B",
+      "company": "Volvo Cars",
+      "exchange": "STO",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a $373M Q3 loss and a rapid, unexpected slump in China sales, necessitating a 2,500-job workforce reduction.",
+      "why_now": "The earnings miss and restructuring announcement occurred on October 23, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fe4ccbc3e7aa",
+        "EVT-dc75eb016288"
+      ],
+      "primary_source_event_id": "EVT-fe4ccbc3e7aa",
+      "source_headlines": [
+        "Volvo Cars plunges 24% as CEO says China sales slump came 'faster than we thought'",
+        "Volvo Cars cuts 2,500 jobs after posting $373M loss in Q3"
+      ],
+      "source_headline": "Volvo Cars plunges 24% as CEO says China sales slump came 'faster than we thought'",
+      "source_url": "https://www.cnbc.com/2026/10/23/volvo-cars-q3-earnings-job-cuts.html",
+      "source_name": "CNBC",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-23T15:57:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T20:01:12Z",
+      "updated_at": "2026-10-23T20:01:12Z",
+      "decay_at": "2026-10-25T03:57:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-aba1e604fd86",
       "idea_version": "IDEAV-7a1f0bfcc76955f4",
       "idea_version_started_at": "2026-10-23T18:41:34Z",
@@ -203664,19 +203676,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 539,
+    "total_count": 542,
     "shown_count": 500,
-    "hidden_count": 39,
+    "hidden_count": 42,
     "side_counts": {
       "long": {
-        "total_count": 272,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 23
       },
       "short": {
-        "total_count": 268,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 20
       }
     },
     "retention": {
@@ -203695,6 +203707,232 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-bb5c4c4db82f",
+        "idea_version": "IDEAV-d44106710eb07365",
+        "idea_version_started_at": "2026-10-24T00:28:47Z",
+        "ticker": "SHREECEM",
+        "company": "Shree Cement",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Profit fell 15% year-over-year due to elevated fuel costs, which are compressing operating margins.",
+        "why_now": "The earnings results were released on 2026-10-23.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-91f357f1a5ce"
+        ],
+        "primary_source_event_id": "EVT-91f357f1a5ce",
+        "source_headlines": [
+          "Shree Cement profit falls 15% YoY to Rs 263 crore on higher fuel costs"
+        ],
+        "source_headline": "Shree Cement profit falls 15% YoY to Rs 263 crore on higher fuel costs",
+        "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/shree-cement-profit-falls-15-yoy-to-rs-263-crore-on-higher-fuel-costs/articleshow/135150160.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-23T16:03:04Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-24T00:28:47Z",
+        "updated_at": "2026-10-24T00:28:47Z",
+        "decay_at": "2026-10-25T04:03:04Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-25T04:03:04Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-3828821b5170",
+        "idea_version": "IDEAV-cb8ba3fd1059d701",
+        "idea_version_started_at": "2026-10-24T00:28:47Z",
+        "ticker": "OFSS",
+        "company": "Oracle Financial Services Software",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported a 29% increase in net profit and 7% revenue growth for Q2, signaling strong demand for its banking software solutions.",
+        "why_now": "The earnings results were released on 2026-10-23.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0eafa1ab61d6"
+        ],
+        "primary_source_event_id": "EVT-0eafa1ab61d6",
+        "source_headlines": [
+          "Oracle Financial Services Software Q2 net profit rises 29% to ₹702 crore, revenue up 7%"
+        ],
+        "source_headline": "Oracle Financial Services Software Q2 net profit rises 29% to ₹702 crore, revenue up 7%",
+        "source_url": "https://www.cnbctv18.com/business/companies/oracle-financial-services-software-q2-net-profit-rises-29pc-to-rs702-crore-revenue-up-7pc-20018361.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-23T15:57:53Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-24T00:28:47Z",
+        "updated_at": "2026-10-24T00:28:47Z",
+        "decay_at": "2026-10-25T03:57:53Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-25T03:57:53Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-4f148c222ff7",
+        "idea_version": "IDEAV-aaecc0073d363567",
+        "idea_version_started_at": "2026-10-23T20:01:12Z",
+        "ticker": "VOLV-B",
+        "company": "Volvo Cars",
+        "exchange": "STO",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company reported a $373M Q3 loss and a rapid, unexpected slump in China sales, necessitating a 2,500-job workforce reduction.",
+        "why_now": "The earnings miss and restructuring announcement occurred on October 23, 2026.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-fe4ccbc3e7aa",
+          "EVT-dc75eb016288"
+        ],
+        "primary_source_event_id": "EVT-fe4ccbc3e7aa",
+        "source_headlines": [
+          "Volvo Cars plunges 24% as CEO says China sales slump came 'faster than we thought'",
+          "Volvo Cars cuts 2,500 jobs after posting $373M loss in Q3"
+        ],
+        "source_headline": "Volvo Cars plunges 24% as CEO says China sales slump came 'faster than we thought'",
+        "source_url": "https://www.cnbc.com/2026/10/23/volvo-cars-q3-earnings-job-cuts.html",
+        "source_name": "CNBC",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-23T15:57:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-23T20:01:12Z",
+        "updated_at": "2026-10-23T20:01:12Z",
+        "decay_at": "2026-10-25T03:57:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-25T03:57:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b85a0a4334ae",
         "idea_version": "IDEAV-1e8de2d2906e05bc",
@@ -231096,81 +231334,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-17e9f88b4b0e",
-        "idea_version": "IDEAV-f2aad2fb68e15335",
-        "idea_version_started_at": "2026-10-10T03:24:22Z",
-        "ticker": "7267",
-        "company": "Honda Motor",
-        "exchange": "TSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Honda will sell Thai-built Mitsubishi pickups under its own brand in Southeast Asia, expanding its product offering and potentially gaining market share at Mitsubishi's expense.",
-        "why_now": "This commercial strategy shift was announced on October 10, 2026, indicating a live competitive development in the Southeast Asian auto market.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 14,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "pair_trade",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-936ee565ce96"
-        ],
-        "primary_source_event_id": "EVT-936ee565ce96",
-        "source_headlines": [
-          "Honda to sell Thai-built Mitsubishi pickup under own brand in Southeast Asia"
-        ],
-        "source_headline": "Honda to sell Thai-built Mitsubishi pickup under own brand in Southeast Asia",
-        "source_url": "https://asia.nikkei.com/business/automobiles/honda-to-sell-thai-built-mitsubishi-pickup-under-own-brand-in-southeast-asia",
-        "source_name": "Nikkei Asia",
-        "materiality_max": 82,
-        "newest_source_at": "2026-10-10T01:21:11Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-10T03:24:22Z",
-        "updated_at": "2026-10-10T03:24:22Z",
-        "decay_at": "2026-10-11T13:21:11Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-13T05:16:49Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-675f9fa696a1",
         "idea_version": "IDEAV-1ca0e0c57f9c130d",
         "idea_version_started_at": "2026-10-10T03:24:22Z",
@@ -240783,160 +240946,12 @@
         "archived_at": "2026-10-01T01:46:30Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-ed1c1d3cd77d",
-        "idea_version": "IDEAV-3d6b37d0eaa1fdb9",
-        "idea_version_started_at": "2026-09-27T22:52:34Z",
-        "ticker": "KAR",
-        "company": "Karoon Energy",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "An electrical fault at the SPS-92 well has forced a downward revision of 2026 production and financial guidance.",
-        "why_now": "The company issued a price-sensitive guidance update on September 27, 2026, following the operational failure.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5b4e86aa57ca"
-        ],
-        "primary_source_event_id": "EVT-5b4e86aa57ca",
-        "source_headlines": [
-          "KAR: SPS-92 electrical fault, 2026 guidance update [price-sensitive]"
-        ],
-        "source_headline": "KAR: SPS-92 electrical fault, 2026 guidance update [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KAR?key=2924-03140404-3A702611",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-27T22:36:34Z",
-        "prior_coverage": {
-          "has_run": true,
-          "latest_run": "analyses/KAR_2026-08-30",
-          "latest_decision": null,
-          "data_pool_present": true
-        },
-        "surfaced_at": "2026-09-27T22:52:34Z",
-        "updated_at": "2026-09-27T22:52:34Z",
-        "decay_at": "2026-09-29T10:36:34Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-30T23:02:25Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-0bf3d617a214",
-        "idea_version": "IDEAV-c1fc68129104d6db",
-        "idea_version_started_at": "2026-09-27T22:32:28Z",
-        "ticker": "FWD",
-        "company": "FWD Group",
-        "exchange": null,
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The sudden resignation of a Chief Financial Officer, especially when labeled as critical by the exchange, introduces significant uncertainty regarding financial reporting integrity and strategic continuity.",
-        "why_now": "The resignation was filed on 2026-09-27, creating immediate uncertainty ahead of the next trading session.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f8f800577320"
-        ],
-        "primary_source_event_id": "EVT-f8f800577320",
-        "source_headlines": [
-          "FWD: Resignation of Chief Financial Officer"
-        ],
-        "source_headline": "FWD: Resignation of Chief Financial Officer",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FWD?key=2924-03140374-6A1345937",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 94,
-        "newest_source_at": "2026-09-27T22:25:44Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-27T22:32:28Z",
-        "updated_at": "2026-09-27T22:32:28Z",
-        "decay_at": "2026-09-29T10:25:44Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-30T23:02:25Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1875,
-    "live_count": 41,
+    "live_count": 38,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
