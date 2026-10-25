@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T21:20:53Z",
+  "generated_at": "2026-10-25T21:25:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-198",
@@ -239,6 +239,56 @@
           "name": "SoftBank Group",
           "ticker": null,
           "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-312",
+      "headline": "Musk says SpaceX raised $40 billion in debt for GPUs",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/media-telecom/musk-says-spacex-raised-40-billion-debt-gpus-2026-10-25/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T20:05:40Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Elon Musk stated that SpaceX raised $40 billion in debt to fund GPU procurement for AI infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Elon Musk stated that SpaceX raised $40 billion in debt to fund GPU procurement for AI infrastructure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -1928,55 +1978,6 @@
           "name": "CHIHO ENV",
           "ticker": "00976",
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-286",
-      "headline": "Musk diz que SpaceX captou US$40 bi em dívida para comprar GPUs",
-      "headline_en": "Musk says SpaceX raised $40 billion in debt to buy GPUs",
-      "url": "https://www.reuters.com/pt/tecnologia/KF7Z33VNCBKJ7K735RTY5QL4AI-2026-10-25/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T20:19:19Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "SpaceX reportedly raised $40 billion in debt to fund GPU purchases, a significant capital expenditure for AI infrastructure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "SpaceX reportedly raised $40 billion in debt to fund GPU purchases, a significant capital expenditure for AI infrastructure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -200585,77 +200586,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-bd4010f665c6",
-      "idea_version": "IDEAV-7323e9ff0f7a0a13",
-      "idea_version_started_at": "2026-10-24T18:03:05Z",
-      "ticker": "JKCEMENT",
-      "company": "JK Cement Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has informed the exchange about capacity addition, signaling investment in future production and potential revenue growth.",
-      "why_now": "The announcement regarding capacity addition was made on October 24, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8cb550377ae7"
-      ],
-      "primary_source_event_id": "EVT-8cb550377ae7",
-      "source_headlines": [
-        "JK Cement Limited: JK Cement Limited has informed the Exchange about Capacity addition"
-      ],
-      "source_headline": "JK Cement Limited: JK Cement Limited has informed the Exchange about Capacity addition",
-      "source_url": "https://nsearchives.nseindia.com/corporate/JKCEMENT_24102026145535_FinalOutcome24102026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-24T09:25:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T10:55:46Z",
-      "updated_at": "2026-10-24T18:03:05Z",
-      "decay_at": "2026-10-25T21:25:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f02802e85bac",
       "idea_version": "IDEAV-2094aa3b233c23a3",
       "idea_version_started_at": "2026-10-24T18:03:05Z",
@@ -203151,6 +203081,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-bd4010f665c6",
+      "idea_version": "IDEAV-7323e9ff0f7a0a13",
+      "idea_version_started_at": "2026-10-24T18:03:05Z",
+      "ticker": "JKCEMENT",
+      "company": "JK Cement Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has informed the exchange about capacity addition, signaling investment in future production and potential revenue growth.",
+      "why_now": "The announcement regarding capacity addition was made on October 24, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8cb550377ae7"
+      ],
+      "primary_source_event_id": "EVT-8cb550377ae7",
+      "source_headlines": [
+        "JK Cement Limited: JK Cement Limited has informed the Exchange about Capacity addition"
+      ],
+      "source_headline": "JK Cement Limited: JK Cement Limited has informed the Exchange about Capacity addition",
+      "source_url": "https://nsearchives.nseindia.com/corporate/JKCEMENT_24102026145535_FinalOutcome24102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-24T09:25:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T10:55:46Z",
+      "updated_at": "2026-10-24T18:03:05Z",
+      "decay_at": "2026-10-25T21:25:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-71b9d8d7d868",
       "idea_version": "IDEAV-b359861aeac48342",
       "idea_version_started_at": "2026-10-24T09:25:22Z",
@@ -205040,14 +205041,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 545,
+    "total_count": 546,
     "shown_count": 500,
-    "hidden_count": 45,
+    "hidden_count": 46,
     "side_counts": {
       "long": {
-        "total_count": 273,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 24
       },
       "short": {
         "total_count": 273,
@@ -205071,6 +205072,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-bd4010f665c6",
+        "idea_version": "IDEAV-7323e9ff0f7a0a13",
+        "idea_version_started_at": "2026-10-24T18:03:05Z",
+        "ticker": "JKCEMENT",
+        "company": "JK Cement Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company has informed the exchange about capacity addition, signaling investment in future production and potential revenue growth.",
+        "why_now": "The announcement regarding capacity addition was made on October 24, 2026.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8cb550377ae7"
+        ],
+        "primary_source_event_id": "EVT-8cb550377ae7",
+        "source_headlines": [
+          "JK Cement Limited: JK Cement Limited has informed the Exchange about Capacity addition"
+        ],
+        "source_headline": "JK Cement Limited: JK Cement Limited has informed the Exchange about Capacity addition",
+        "source_url": "https://nsearchives.nseindia.com/corporate/JKCEMENT_24102026145535_FinalOutcome24102026.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-24T09:25:44Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-24T10:55:46Z",
+        "updated_at": "2026-10-24T18:03:05Z",
+        "decay_at": "2026-10-25T21:25:44Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-25T21:25:44Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-6f55bf31e25a",
         "idea_version": "IDEAV-b4140cfc1806fcab",
@@ -232770,80 +232845,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-1a9e59915c16",
-        "idea_version": "IDEAV-3ebc623c9db33d1a",
-        "idea_version_started_at": "2026-10-10T13:14:35Z",
-        "ticker": "VIVIANA",
-        "company": "Viviana Power Tech Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company secured a significant turnkey contract worth Rs 466.7 crore, which provides a clear boost to its order book and future revenue visibility.",
-        "why_now": "The contract was officially disclosed in an exchange filing on October 10, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1238fd222825"
-        ],
-        "primary_source_event_id": "EVT-1238fd222825",
-        "source_headlines": [
-          "Viviana Power Tech Limited: Viviana Power Tech Limited has informed the Exchange about receiving a new turnkey contract aggregating to Rs. 466,73,61,738.00 (Rupees Four Hundred Sixty-Six Crore Seventy-Three Lakh Sixty-One Thousand Seven Hundred Thirty-Eight Only), inclusive of taxes, from existing client M/s. Madhya Gujarat Vij Company Limited (MGVCL)."
-        ],
-        "source_headline": "Viviana Power Tech Limited: Viviana Power Tech Limited has informed the Exchange about receiving a new turnkey contract aggregating to Rs. 466,73,61,738.00 (Rupees Four Hundred Sixty-Six Crore Seventy-Three Lakh Sixty-One Thousand Seven Hundred Thirty-Eight Only), inclusive of taxes, from existing client M/s. Madhya Gujarat Vij Company Limited (MGVCL).",
-        "source_url": "https://nsearchives.nseindia.com/corporate/VIVIANA_10102026133007_VIVIANA__Intimation_of_Receiving_Order_MGVCL_10102026.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-10T08:00:22Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-10T13:14:35Z",
-        "updated_at": "2026-10-10T13:14:35Z",
-        "decay_at": "2026-10-11T20:00:22Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-13T09:12:43Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-671ed28cb051",
         "idea_version": "IDEAV-6e2ad3b85f33e576",
         "idea_version_started_at": "2026-10-10T08:29:45Z",
@@ -242316,7 +242317,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1902,
-    "live_count": 53,
+    "live_count": 52,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -242335,9 +242336,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 98460,
-    "news_picked_today": 638,
-    "news_dropped_today": 2045
+    "news_seen_today": 100122,
+    "news_picked_today": 664,
+    "news_dropped_today": 2139
   },
   "book_momentum": {
     "live_count": 8,
