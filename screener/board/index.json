@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T13:13:41Z",
+  "generated_at": "2026-10-25T13:19:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-198",
@@ -204852,78 +204852,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-ae8e36d86cde",
-      "idea_version": "IDEAV-d2714929c5274672",
-      "idea_version_started_at": "2026-10-22T23:50:30Z",
-      "ticker": "8285",
-      "company": "Sling Group",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The announcement of a possible mandatory unconditional cash offer and the resumption of trading typically provides a floor for the stock price near the offer level.",
-      "why_now": "Trading is set to resume following the joint announcement of the sale and purchase agreements on October 22, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5c15334cecba"
-      ],
-      "primary_source_event_id": "EVT-5c15334cecba",
-      "source_headlines": [
-        "SLING GROUP (08285): JOINT ANNOUNCEMENT (1) SALE AND PURCHASE AGREEMENTS; (2) POSSIBLE MANDATORY UNCONDITIONAL CASH OFFER BY SANFULL SECURITIES LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND/OR PARTIES ACTING IN CONCERT WITH IT); (3) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER; AND (4) RESUMPTION OF TRADING"
-      ],
-      "source_headline": "SLING GROUP (08285): JOINT ANNOUNCEMENT (1) SALE AND PURCHASE AGREEMENTS; (2) POSSIBLE MANDATORY UNCONDITIONAL CASH OFFER BY SANFULL SECURITIES LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND/OR PARTIES ACTING IN CONCERT WITH IT); (3) APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER; AND (4) RESUMPTION OF TRADING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1022/2026102201418.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-22T13:17:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-22T23:50:30Z",
-      "updated_at": "2026-10-22T23:50:30Z",
-      "decay_at": "2026-10-24T01:17:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-b25d37e5a84d",
       "idea_version": "IDEAV-e612966bfecfd150",
       "idea_version_started_at": "2026-10-24T05:01:36Z",
@@ -205083,14 +205011,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 541,
+    "total_count": 540,
     "shown_count": 500,
-    "hidden_count": 41,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
-        "total_count": 272,
+        "total_count": 271,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 21
       },
       "short": {
         "total_count": 270,
@@ -205100,12 +205028,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1301,
+      "evicted_count": 1302,
       "oldest_retained_at": "2026-09-28T12:50:59Z",
       "side_counts": {
         "long": {
-          "evicted_count": 868,
-          "oldest_retained_at": "2026-10-10T06:13:05Z"
+          "evicted_count": 869,
+          "oldest_retained_at": "2026-10-10T08:54:00Z"
         },
         "short": {
           "evicted_count": 433,
@@ -208238,8 +208166,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-24T01:17:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-25T13:18:52Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -242377,7 +242305,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2172,
+    "news_seen_today": 2182,
     "news_picked_today": 467,
     "news_dropped_today": 1515
   },
