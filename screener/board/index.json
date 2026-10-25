@@ -1,6 +1,102 @@
 {
-  "generated_at": "2026-10-24T23:58:37Z",
+  "generated_at": "2026-10-25T00:09:17Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261025-002",
+      "headline": "Víctimas de abusos aprueban acuerdo de 800 millones de dólares con Arquidiócesis de Nueva York",
+      "headline_en": "Abuse victims approve $800 million settlement with Archdiocese of New York",
+      "url": "https://www.reuters.com/latam/mundo/6YFO4UUXDVNSDAOY33ENO5KOU4-2026-10-24/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-24T23:58:59Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Victims approved an $800 million settlement with the Archdiocese of New York.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Victims approved an $800 million settlement with the Archdiocese of New York.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Archdiocese of New York",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-001",
+      "headline": "SpaceX’s $1 Trillion Revenue Ambition: Can Elon Musk Deliver?",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/10/24/spacexs-1-trillion-revenue-ambition-can-elon-musk-deliver/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T00:00:02Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "The headline discusses SpaceX's revenue ambition, but it is an opinion piece and not a confirmed event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "The headline discusses SpaceX's revenue ambition, but it is an opinion piece and not a confirmed event.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261024-633",
       "headline": "Reliance Industries Limited: Initial Public Offer of Jio Platforms Limited",
@@ -198394,78 +198490,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-9330e3eb3a1d",
-      "idea_version": "IDEAV-10ac6f82b998300e",
-      "idea_version_started_at": "2026-10-24T07:02:21Z",
-      "ticker": "EVK",
-      "company": "Evonik Industries AG",
-      "exchange": "ETR",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A revised takeover offer exceeding eleven billion euros provides a concrete valuation floor and potential for a deal premium.",
-      "why_now": "The news of the increased bid broke on October 23, 2026, creating a live M&A catalyst.",
-      "conviction": 68,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2766b571dabd"
-      ],
-      "primary_source_event_id": "EVT-2766b571dabd",
-      "source_headlines": [
-        "Evonik: Chemical group increases takeover offer for Evonik to more than eleven billion euros"
-      ],
-      "source_headline": "Evonik: Chemiekonzern erhöht Übernahmeangebot für Evonik auf mehr als elf Milliarden Euro",
-      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/evonik-basf-erhoeht-uebernahmeangebot-auf-mehr-als-elf-milliarden-euro/100264522.html",
-      "source_name": "Handelsblatt",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-23T11:59:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T07:02:21Z",
-      "updated_at": "2026-10-24T07:02:21Z",
-      "decay_at": "2026-10-24T23:59:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3828821b5170",
       "idea_version": "IDEAV-cb8ba3fd1059d701",
       "idea_version_started_at": "2026-10-24T00:28:47Z",
@@ -200245,6 +200269,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-9330e3eb3a1d",
+      "idea_version": "IDEAV-10ac6f82b998300e",
+      "idea_version_started_at": "2026-10-24T07:02:21Z",
+      "ticker": "EVK",
+      "company": "Evonik Industries AG",
+      "exchange": "ETR",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A revised takeover offer exceeding eleven billion euros provides a concrete valuation floor and potential for a deal premium.",
+      "why_now": "The news of the increased bid broke on October 23, 2026, creating a live M&A catalyst.",
+      "conviction": 68,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2766b571dabd"
+      ],
+      "primary_source_event_id": "EVT-2766b571dabd",
+      "source_headlines": [
+        "Evonik: Chemical group increases takeover offer for Evonik to more than eleven billion euros"
+      ],
+      "source_headline": "Evonik: Chemiekonzern erhöht Übernahmeangebot für Evonik auf mehr als elf Milliarden Euro",
+      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/evonik-basf-erhoeht-uebernahmeangebot-auf-mehr-als-elf-milliarden-euro/100264522.html",
+      "source_name": "Handelsblatt",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-23T11:59:07Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T07:02:21Z",
+      "updated_at": "2026-10-24T07:02:21Z",
+      "decay_at": "2026-10-24T23:59:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-2e56dda7a636",
       "idea_version": "IDEAV-7c70b2ebfcd1305b",
       "idea_version_started_at": "2026-10-23T16:30:30Z",
@@ -201700,14 +201796,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 536,
+    "total_count": 537,
     "shown_count": 500,
-    "hidden_count": 36,
+    "hidden_count": 37,
     "side_counts": {
       "long": {
-        "total_count": 272,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 23
       },
       "short": {
         "total_count": 265,
@@ -201731,6 +201827,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-9330e3eb3a1d",
+        "idea_version": "IDEAV-10ac6f82b998300e",
+        "idea_version_started_at": "2026-10-24T07:02:21Z",
+        "ticker": "EVK",
+        "company": "Evonik Industries AG",
+        "exchange": "ETR",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "A revised takeover offer exceeding eleven billion euros provides a concrete valuation floor and potential for a deal premium.",
+        "why_now": "The news of the increased bid broke on October 23, 2026, creating a live M&A catalyst.",
+        "conviction": 68,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2766b571dabd"
+        ],
+        "primary_source_event_id": "EVT-2766b571dabd",
+        "source_headlines": [
+          "Evonik: Chemical group increases takeover offer for Evonik to more than eleven billion euros"
+        ],
+        "source_headline": "Evonik: Chemiekonzern erhöht Übernahmeangebot für Evonik auf mehr als elf Milliarden Euro",
+        "source_url": "https://www.handelsblatt.com/unternehmen/industrie/evonik-basf-erhoeht-uebernahmeangebot-auf-mehr-als-elf-milliarden-euro/100264522.html",
+        "source_name": "Handelsblatt",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-23T11:59:07Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-24T07:02:21Z",
+        "updated_at": "2026-10-24T07:02:21Z",
+        "decay_at": "2026-10-24T23:59:07Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-24T23:59:07Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d8399ff9bdbd",
         "idea_version": "IDEAV-41c93ec26466212f",
@@ -228766,81 +228937,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-736a98e7fc49",
-        "idea_version": "IDEAV-849e89dae03c45f4",
-        "idea_version_started_at": "2026-10-10T03:24:22Z",
-        "ticker": "5406",
-        "company": "Kobe Steel",
-        "exchange": "TSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Kobe Steel plans to pursue M&A in India to increase its compressor production capacity, which could expand its market share and revenue in a growing region.",
-        "why_now": "The company executive's statement on October 10, 2026, indicates an active strategic initiative to grow through acquisitions in India.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-465c25baadb8"
-        ],
-        "primary_source_event_id": "EVT-465c25baadb8",
-        "source_headlines": [
-          "Japan's Kobe Steel eyes India M&A to lift compressor production: executive"
-        ],
-        "source_headline": "Japan's Kobe Steel eyes India M&A to lift compressor production: executive",
-        "source_url": "https://asia.nikkei.com/business/companies/japan-s-kobe-steel-eyes-india-m-a-to-lift-compressor-production-executive",
-        "source_name": "Nikkei Asia",
-        "materiality_max": 91,
-        "newest_source_at": "2026-10-10T01:21:11Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-10T03:24:22Z",
-        "updated_at": "2026-10-10T03:24:22Z",
-        "decay_at": "2026-10-11T13:21:11Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-13T05:16:49Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-675f9fa696a1",
         "idea_version": "IDEAV-1ca0e0c57f9c130d",
         "idea_version_started_at": "2026-10-10T03:24:22Z",
@@ -238979,7 +239075,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1870,
-    "live_count": 43,
+    "live_count": 42,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -238989,7 +239085,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4007,
+    "inbox_unconsumed": 4009,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -238998,9 +239094,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 51604,
-    "news_picked_today": 1430,
-    "news_dropped_today": 5970
+    "news_seen_today": 31,
+    "news_picked_today": 2,
+    "news_dropped_today": 29
   },
   "book_momentum": {
     "live_count": 8,
