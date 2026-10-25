@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T07:14:26Z",
+  "generated_at": "2026-10-25T07:28:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-109",
@@ -781,6 +781,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-153",
+      "headline": "‎SVCP shareholders approve 69.7% capital cut, trading halt for 2 business days",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1946825",
+      "source_name": "Argaam — Company Disclosures (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T11:06:00Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "SVCP shareholders approved a 69.7% capital reduction, a major restructuring event impacting equity structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "SVCP shareholders approved a 69.7% capital reduction, a major restructuring event impacting equity structure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SVCP",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-141",
       "headline": "‎SVCP shareholders approve 69.7% capital cut",
       "headline_en": null,
@@ -1469,6 +1518,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-151",
+      "headline": "‎SENAAT wins final dismissal of SAR 413.8M claim against subsidiary",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1946831",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T10:15:00Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "SENAAT successfully dismissed a SAR 413.8M legal claim against its subsidiary, removing a significant financial liability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "SENAAT successfully dismissed a SAR 413.8M legal claim against its subsidiary, removing a significant financial liability.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SENAAT",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-041",
       "headline": "Korea Zinc Audit Committee to Review Alleged Diversion of Corporate Funds for Yun B. Choi’s Private Benefit",
       "headline_en": null,
@@ -1854,104 +1952,6 @@
       "companies": [
         {
           "name": "Reserve Bank of India",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-099",
-      "headline": "KEC International shares in focus on Monday Oct 28 after ₹2872 cr PGCIL order win; YTD orders mark crosses ₹13.5k cr",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/kec-international-shares-in-focus-on-monday-oct-28-after-rs-2872-cr-pgcil-order-win-ytd-orders-mark-crosses-rs-13-5k-cr-11792904618194.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T05:47:30Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "KEC International won a significant order worth ₹2872 crore from PGCIL.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "KEC International won a significant order worth ₹2872 crore from PGCIL.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KEC International",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-095",
-      "headline": "NICDC launches Bihar Integrated Manufacturing City Gaya Limited, signs 12 MoUs worth ₹4,200 crore",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/economy/nicdc-launches-bihar-integrated-manufacturing-city-gaya-limited-signs-12-mous-worth-4200-crore/article71622528.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T05:26:14Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "NICDC announced the launch of a manufacturing city with signed MoUs worth ₹4,200 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "NICDC announced the launch of a manufacturing city with signed MoUs worth ₹4,200 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "National Industrial Corridor Development Corporation",
           "ticker": null,
           "listing_country": null
         }
@@ -198210,76 +198210,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-85129948d8af",
-      "idea_version": "IDEAV-1c8fc5496137debd",
-      "idea_version_started_at": "2026-10-24T00:28:47Z",
-      "ticker": "NVS",
-      "company": "Novartis",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Clinical data for a key multiple sclerosis drug candidate failed to meet expectations, threatening the long-term revenue pipeline for this therapeutic area.",
-      "why_now": "The data was presented on 2026-10-23.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-96452a7bbf7d"
-      ],
-      "primary_source_event_id": "EVT-96452a7bbf7d",
-      "source_headlines": [
-        "Novartis presents worse-than-expected data on multiple sclerosis drug"
-      ],
-      "source_headline": "Novartis presenta datos sobre fármaco para esclerosis múltiple peores de lo esperado",
-      "source_url": "https://www.reuters.com/latam/negocio/O63PQIQOIJLR5GRG5KMZMRLYPE-2026-10-23/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-23T19:16:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T00:28:47Z",
-      "updated_at": "2026-10-24T00:28:47Z",
-      "decay_at": "2026-10-25T07:16:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-e916594f6443",
       "idea_version": "IDEAV-89914ab883350773",
       "idea_version_started_at": "2026-10-25T06:39:18Z",
@@ -201358,6 +201288,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-85129948d8af",
+      "idea_version": "IDEAV-1c8fc5496137debd",
+      "idea_version_started_at": "2026-10-24T00:28:47Z",
+      "ticker": "NVS",
+      "company": "Novartis",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Clinical data for a key multiple sclerosis drug candidate failed to meet expectations, threatening the long-term revenue pipeline for this therapeutic area.",
+      "why_now": "The data was presented on 2026-10-23.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-96452a7bbf7d"
+      ],
+      "primary_source_event_id": "EVT-96452a7bbf7d",
+      "source_headlines": [
+        "Novartis presents worse-than-expected data on multiple sclerosis drug"
+      ],
+      "source_headline": "Novartis presenta datos sobre fármaco para esclerosis múltiple peores de lo esperado",
+      "source_url": "https://www.reuters.com/latam/negocio/O63PQIQOIJLR5GRG5KMZMRLYPE-2026-10-23/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-23T19:16:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T00:28:47Z",
+      "updated_at": "2026-10-24T00:28:47Z",
+      "decay_at": "2026-10-25T07:16:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-ea91630295b2",
       "idea_version": "IDEAV-cc87b7f54f3b1f90",
       "idea_version_started_at": "2026-10-23T15:10:57Z",
@@ -204018,9 +204018,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 541,
+    "total_count": 542,
     "shown_count": 500,
-    "hidden_count": 41,
+    "hidden_count": 42,
     "side_counts": {
       "long": {
         "total_count": 272,
@@ -204028,9 +204028,9 @@
         "hidden_count": 22
       },
       "short": {
-        "total_count": 270,
+        "total_count": 271,
         "shown_count": 250,
-        "hidden_count": 20
+        "hidden_count": 21
       }
     },
     "retention": {
@@ -204049,6 +204049,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-85129948d8af",
+        "idea_version": "IDEAV-1c8fc5496137debd",
+        "idea_version_started_at": "2026-10-24T00:28:47Z",
+        "ticker": "NVS",
+        "company": "Novartis",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Clinical data for a key multiple sclerosis drug candidate failed to meet expectations, threatening the long-term revenue pipeline for this therapeutic area.",
+        "why_now": "The data was presented on 2026-10-23.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-96452a7bbf7d"
+        ],
+        "primary_source_event_id": "EVT-96452a7bbf7d",
+        "source_headlines": [
+          "Novartis presents worse-than-expected data on multiple sclerosis drug"
+        ],
+        "source_headline": "Novartis presenta datos sobre fármaco para esclerosis múltiple peores de lo esperado",
+        "source_url": "https://www.reuters.com/latam/negocio/O63PQIQOIJLR5GRG5KMZMRLYPE-2026-10-23/",
+        "source_name": "Reuters — Latest, next page (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-23T19:16:50Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-24T00:28:47Z",
+        "updated_at": "2026-10-24T00:28:47Z",
+        "decay_at": "2026-10-25T07:16:50Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-25T07:16:50Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-92e83afd6cf7",
         "idea_version": "IDEAV-c0550f7f8baa8373",
@@ -241217,85 +241290,12 @@
         "archived_at": "2026-10-01T05:01:37Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-0448efa62005",
-        "idea_version": "IDEAV-9e9db2598360c1ed",
-        "idea_version_started_at": "2026-09-28T03:32:24Z",
-        "ticker": "AAPL",
-        "company": "Apple",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Apple was reportedly ordered by a San Diego jury to pay Taction Technology more than $5.7 billion in a patent case, which will be a significant financial hit.",
-        "why_now": "The jury's reported award was announced on September 28, 2026, creating an immediate negative catalyst.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 66,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-503578612fbf"
-        ],
-        "primary_source_event_id": "EVT-503578612fbf",
-        "source_headlines": [
-          "San Diego Jury Reportedly Awards Taction Technology More Than $5.7 Bln In Apple Patent Case"
-        ],
-        "source_headline": "San Diego Jury Reportedly Awards Taction Technology More Than $5.7 Bln In Apple Patent Case",
-        "source_url": "https://www.nasdaq.com/articles/san-diego-jury-reportedly-awards-taction-technology-more-57-bln-apple-patent-case",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-28T02:36:47Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-26T15:19:48Z",
-        "updated_at": "2026-09-28T03:32:24Z",
-        "decay_at": "2026-09-29T14:36:47Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-01T05:01:37Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1884,
-    "live_count": 43,
+    "live_count": 42,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -241314,9 +241314,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 841,
-    "news_picked_today": 180,
-    "news_dropped_today": 661
+    "news_seen_today": 883,
+    "news_picked_today": 194,
+    "news_dropped_today": 689
   },
   "book_momentum": {
     "live_count": 8,
