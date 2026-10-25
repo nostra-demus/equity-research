@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T00:48:29Z",
+  "generated_at": "2026-10-25T01:08:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-007",
@@ -100,6 +100,153 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-012",
+      "headline": "Instacart Parent Maplebear Agrees to $5 Million Joint Settlement. A Retiree’s Back-Pay Check Could Complicate Social Security",
+      "headline_en": null,
+      "url": "https://247wallst.com/personal-finance/social-security/2026/10/24/instacart-parent-maplebear-agrees-to-5-million-joint-settlement-a-retirees-back-pay-check-could-complicate-social-security/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T01:00:07Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Maplebear (Instacart) agreed to a $5 million settlement regarding labor/pay issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Maplebear (Instacart) agreed to a $5 million settlement regarding labor/pay issues.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Maplebear",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-014",
+      "headline": "Trump Defends Tariffs at Rally as He Says Audi to Build US Plant",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-25/trump-defends-tariffs-at-rally-as-he-says-audi-to-build-us-plant",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T00:35:58Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "A potential new manufacturing plant in the US by Audi would represent a significant capital investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "A potential new manufacturing plant in the US by Audi would represent a significant capital investment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Audi",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-011",
+      "headline": "Musk says he was behind Starlink's slowdown in Ukraine",
+      "headline_en": null,
+      "url": "https://thehill.com/policy/international/6170415-musk-starlink-ukraine-slowdown/",
+      "source_name": "The Hill — Homenews",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T00:44:31Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Elon Musk confirmed personal involvement in restricting Starlink access in Ukraine, raising significant governance and geopolitical risk concerns for SpaceX.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Elon Musk confirmed personal involvement in restricting Starlink access in Ukraine, raising significant governance and geopolitical risk concerns for SpaceX.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-008",
       "headline": "Israel restricts entry of Palestinian labourers to West Bank areas",
       "headline_en": null,
@@ -180,6 +327,55 @@
       ],
       "issuer_linkage": "sector",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-013",
+      "headline": "Ord Minnett’s head of private wealth rows out",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/ord-minnett-s-head-of-private-wealth-rows-out-20261025-p618d1?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T01:00:27Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "The head of private wealth at Ord Minnett has departed the firm.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "The head of private wealth at Ord Minnett has departed the firm.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ord Minnett",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -276,6 +472,92 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-016",
+      "headline": "Yemen's Houthis renew warning against using Riyadh airport",
+      "headline_en": null,
+      "url": "https://www.al-monitor.com/originals/2026/10/yemens-houthis-renew-warning-against-using-riyadh-airport",
+      "source_name": "Al-Monitor",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T00:46:40Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Renewed threats against a major international airport constitute a geopolitical escalation and a potential supply/travel shock.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Renewed threats against a major international airport constitute a geopolitical escalation and a potential supply/travel shock.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-015",
+      "headline": "PM Modi-Xi talks in December? Fresh India-China border face-off tests thaw",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/india/pm-modi-xi-talks-in-december-fresh-india-china-border-face-off-tests-thaw-4194176",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T00:38:10Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "A fresh border face-off between India and China represents a geopolitical escalation that increases regional risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "A fresh border face-off between India and China represents a geopolitical escalation that increases regional risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-003",
       "headline": "Bulgaria votes for president in wake of deadly Black Sea drone strikes",
       "headline_en": null,
@@ -356,6 +638,55 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-009",
+      "headline": "Zhejiang Wenda Pharma Announces Positive Results from Phase II Trial of Oral BET Inhibitor NHWD-870 HCl at the 2026 ESMO Annual Meeting",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/zhejiang-wenda-pharma-announces-positive-results-from-phase-ii-trial-of-oral-bet-inhibitor-nhwd-870-hcl-at-the-2026-esmo-annual-meeting-302918672.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-25T01:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Zhejiang Wenda Pharma reported positive Phase II clinical trial results for its oral BET inhibitor NHWD-870 HCl.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 45,
+      "triage_reason": "Zhejiang Wenda Pharma reported positive Phase II clinical trial results for its oral BET inhibitor NHWD-870 HCl.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zhejiang Wenda Pharma",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -196607,76 +196938,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-58d3e0cadc2a",
-      "idea_version": "IDEAV-ffc58afc5ca4789f",
-      "idea_version_started_at": "2026-10-24T08:09:01Z",
-      "ticker": "INFY",
-      "company": "Infosys",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company lowered its FY27 revenue growth outlook, signaling a significant deceleration in demand for its IT services.",
-      "why_now": "The guidance cut was announced on 2026-10-23, making it a fresh catalyst for a repricing of the stock.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7034de84f938"
-      ],
-      "primary_source_event_id": "EVT-7034de84f938",
-      "source_headlines": [
-        "Infosys ADR slumps 8% after company lowers FY27 revenue growth outlook"
-      ],
-      "source_headline": "Infosys ADR slumps 8% after company lowers FY27 revenue growth outlook",
-      "source_url": "https://www.cnbctv18.com/market/infosys-adr-slumps-8-after-company-lowers-fy27-revenue-growth-outlook-20018240.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-23T12:53:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T15:10:57Z",
-      "updated_at": "2026-10-24T08:09:01Z",
-      "decay_at": "2026-10-25T00:53:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-85129948d8af",
       "idea_version": "IDEAV-1c8fc5496137debd",
       "idea_version_started_at": "2026-10-24T00:28:47Z",
@@ -199404,6 +199665,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-58d3e0cadc2a",
+      "idea_version": "IDEAV-ffc58afc5ca4789f",
+      "idea_version_started_at": "2026-10-24T08:09:01Z",
+      "ticker": "INFY",
+      "company": "Infosys",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company lowered its FY27 revenue growth outlook, signaling a significant deceleration in demand for its IT services.",
+      "why_now": "The guidance cut was announced on 2026-10-23, making it a fresh catalyst for a repricing of the stock.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7034de84f938"
+      ],
+      "primary_source_event_id": "EVT-7034de84f938",
+      "source_headlines": [
+        "Infosys ADR slumps 8% after company lowers FY27 revenue growth outlook"
+      ],
+      "source_headline": "Infosys ADR slumps 8% after company lowers FY27 revenue growth outlook",
+      "source_url": "https://www.cnbctv18.com/market/infosys-adr-slumps-8-after-company-lowers-fy27-revenue-growth-outlook-20018240.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-23T12:53:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T15:10:57Z",
+      "updated_at": "2026-10-24T08:09:01Z",
+      "decay_at": "2026-10-25T00:53:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-ea91630295b2",
       "idea_version": "IDEAV-cc87b7f54f3b1f90",
       "idea_version_started_at": "2026-10-23T15:10:57Z",
@@ -201917,9 +202248,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 537,
+    "total_count": 538,
     "shown_count": 500,
-    "hidden_count": 37,
+    "hidden_count": 38,
     "side_counts": {
       "long": {
         "total_count": 272,
@@ -201927,9 +202258,9 @@
         "hidden_count": 22
       },
       "short": {
-        "total_count": 266,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 17
       }
     },
     "retention": {
@@ -201948,6 +202279,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-58d3e0cadc2a",
+        "idea_version": "IDEAV-ffc58afc5ca4789f",
+        "idea_version_started_at": "2026-10-24T08:09:01Z",
+        "ticker": "INFY",
+        "company": "Infosys",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company lowered its FY27 revenue growth outlook, signaling a significant deceleration in demand for its IT services.",
+        "why_now": "The guidance cut was announced on 2026-10-23, making it a fresh catalyst for a repricing of the stock.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7034de84f938"
+        ],
+        "primary_source_event_id": "EVT-7034de84f938",
+        "source_headlines": [
+          "Infosys ADR slumps 8% after company lowers FY27 revenue growth outlook"
+        ],
+        "source_headline": "Infosys ADR slumps 8% after company lowers FY27 revenue growth outlook",
+        "source_url": "https://www.cnbctv18.com/market/infosys-adr-slumps-8-after-company-lowers-fy27-revenue-growth-outlook-20018240.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-23T12:53:37Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-23T15:10:57Z",
+        "updated_at": "2026-10-24T08:09:01Z",
+        "decay_at": "2026-10-25T00:53:37Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-25T00:53:37Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-be88d1aa5221",
         "idea_version": "IDEAV-159d6a7273dc37c9",
@@ -239116,85 +239520,12 @@
         "archived_at": "2026-09-30T13:55:34Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-47d6ca173e9c",
-        "idea_version": "IDEAV-1b82fdb84cf4c871",
-        "idea_version_started_at": "2026-09-27T12:04:57Z",
-        "ticker": "CCL",
-        "company": "Carnival Corporation",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Carnival's profitability is likely to be negatively impacted by surging key costs, leading Bank of America to cut its price target.",
-        "why_now": "Bank of America's target cut on September 27, 2026, highlights immediate concerns about cost pressures impacting future earnings.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 60,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 14,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d28eb974a89b"
-        ],
-        "primary_source_event_id": "EVT-d28eb974a89b",
-        "source_headlines": [
-          "Bank of America cuts Carnival stock target as key cost surges"
-        ],
-        "source_headline": "Bank of America cuts Carnival stock target as key cost surges",
-        "source_url": "https://www.thestreet.com/investing/bank-of-america-cuts-carnival-stock-target-as-key-cost-surges",
-        "source_name": "TheStreet",
-        "materiality_max": 90,
-        "newest_source_at": "2026-09-27T11:37:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-27T12:04:57Z",
-        "updated_at": "2026-09-27T12:04:57Z",
-        "decay_at": "2026-09-28T23:37:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-30T13:55:34Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1870,
-    "live_count": 40,
+    "live_count": 39,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -239204,7 +239535,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4015,
+    "inbox_unconsumed": 4022,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -239213,9 +239544,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 90,
-    "news_picked_today": 8,
-    "news_dropped_today": 82
+    "news_seen_today": 125,
+    "news_picked_today": 16,
+    "news_dropped_today": 109
   },
   "book_momentum": {
     "live_count": 8,
