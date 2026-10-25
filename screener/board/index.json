@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T01:58:54Z",
+  "generated_at": "2026-10-25T02:08:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-031",
@@ -444,6 +444,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-035",
+      "headline": "Trump defends tariffs at rally as he says Audi to build U.S. plant",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/10/25/economy/trump-tariffs-audi-factory-election/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T01:02:00Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Donald Trump stated that Audi plans to build a manufacturing plant in the U.S., which would be a significant capital expenditure event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Donald Trump stated that Audi plans to build a manufacturing plant in the U.S., which would be a significant capital expenditure event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Audi",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-034",
+      "headline": "Hyundai Motor, Kia's combined China sales fall below 10,000 units in Sept.",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261025001900320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T02:02:45Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Hyundai and Kia reported combined China sales falling below 10,000 units in September, indicating a significant loss of market share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Hyundai and Kia reported combined China sales falling below 10,000 units in September, indicating a significant loss of market share.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyundai Motor",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "Kia",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-011",
       "headline": "Musk says he was behind Starlink's slowdown in Ukraine",
       "headline_en": null,
@@ -621,6 +724,49 @@
         "regulatory"
       ],
       "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-032",
+      "headline": "CPI could seal Melbourne Cup day interest rate rise",
+      "headline_en": null,
+      "url": "https://www.afr.com/politics/federal/australian-news-live-october-25-2026-20261025-p618bt?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T02:03:43Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "The potential for an interest rate rise in Australia based on CPI data is a significant macroeconomic event affecting the broader market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "The potential for an interest rate rise in Australia based on CPI data is a significant macroeconomic event affecting the broader market.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -1048,6 +1194,49 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-033",
+      "headline": "Houthis deny targeting Mecca, Medina amid reports of missile debris",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/middle-east/houthis-deny-targeting-mecca-medina-amid-reports-of-missile-debris-4194382",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T01:43:27Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Reports of missile debris near holy sites in Saudi Arabia represent a significant geopolitical escalation in the Middle East.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Reports of missile debris near holy sites in Saudi Arabia represent a significant geopolitical escalation in the Middle East.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -240171,7 +240360,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4037,
+    "inbox_unconsumed": 4041,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -240180,9 +240369,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 212,
-    "news_picked_today": 31,
-    "news_dropped_today": 181
+    "news_seen_today": 233,
+    "news_picked_today": 35,
+    "news_dropped_today": 198
   },
   "book_momentum": {
     "live_count": 8,
