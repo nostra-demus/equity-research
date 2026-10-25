@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-25T09:58:24Z",
+  "generated_at": "2026-10-25T10:14:19Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261025-191",
+      "headline": "Arvind Limited: Arvind Limited has informed the Exchange regarding a press release dated October 25, 2026, titled \"Prime Minister Shri Narendra Modi Inaugurates Arvind Limited's Greenfield GarmentManufacturing Facility in Varanasi, Uttar Pradesh\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ARVIND1_25102026153057_Arvind_Media_Release.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-25T10:01:10Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Arvind Limited inaugurated a new greenfield garment manufacturing facility in Varanasi, representing a significant capacity expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Arvind Limited inaugurated a new greenfield garment manufacturing facility in Varanasi, representing a significant capacity expansion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Arvind Limited",
+          "ticker": "500101",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261025-109",
       "headline": "Shrenik Limited: Shrenik Limited has informed the Exchange about Prior Intimation of the 3rd (Third) Meeting of the Committee of Creditors (CoC) of Shrenik Limited (In CIRP).",
@@ -1085,6 +1134,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-195",
+      "headline": "MICROINTELLIGEN (03275): UPDATE ON THE GLOBAL OFFERING (1) POSTPONEMENT OF THE GLOBAL OFFERING AND THE LISTING (2) REFUND OF APPLICATION MONIES (3) NO ISSUE OF SHARE CERTIFICATES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1025/2026102500001.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-25T10:04:00Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Microintelligen has postponed its global offering and listing, indicating a failure to proceed with the planned capital raise.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Microintelligen has postponed its global offering and listing, indicating a failure to proceed with the planned capital raise.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Microintelligen",
+          "ticker": "03275",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-136",
       "headline": "GM Just Announced a $20 Billion Buyback. Tesla Trades at 350 Times Earnings. Here's Which Auto Stock I'd Buy Today.",
       "headline_en": null,
@@ -1871,104 +1969,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-051",
-      "headline": "'Tariffs Bring In Jobs': Trump Defends Protectionist Policy With Massive $4.2B Audi Deal",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/world/tariffs-bring-in-jobs-trump-defends-protectionist-policy-with-massive-4-2b-audi-deal-12231846#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T02:10:40Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "The announcement of a $4.2 billion deal involving Audi is a significant capital and commercial event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "The announcement of a $4.2 billion deal involving Audi is a significant capital and commercial event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Audi",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-089",
-      "headline": "CVS Lane extends private credit fund freeze, citing property slump",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/financial-services/cvs-lane-extends-private-credit-fund-freeze-citing-property-slump-20261025-p618ex?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T05:18:44Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "CVS Lane has frozen its private credit fund due to a property market slump, indicating liquidity issues.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "CVS Lane has frozen its private credit fund due to a property market slump, indicating liquidity issues.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CVS Lane",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -241682,9 +241682,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1305,
-    "news_picked_today": 301,
-    "news_dropped_today": 1004
+    "news_seen_today": 1348,
+    "news_picked_today": 311,
+    "news_dropped_today": 1037
   },
   "book_momentum": {
     "live_count": 8,
