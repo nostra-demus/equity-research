@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T04:58:55Z",
+  "generated_at": "2026-10-25T05:03:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-082",
@@ -1548,6 +1548,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-084",
+      "headline": "Krishna Defence and Allied Industries Limited: board meeting 29-Oct-2026 — Financial Results/Dividend",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/KRISHNA_25102026102701_bm29102026Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-25T04:57:32Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "The company scheduled a board meeting to discuss financial results and potential dividends.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "The company scheduled a board meeting to discuss financial results and potential dividends.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Krishna Defence and Allied Industries Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-019",
       "headline": "‘Just get rid of her’: Ellison fails to knock out dismissal lawsuit",
       "headline_en": null,
@@ -1592,6 +1642,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-087",
+      "headline": "Musk says he was behind Starlink speed restriction after service in Ukraine is restored",
+      "headline_en": null,
+      "url": "https://mainichi.jp/english/articles/20261025/p2g/00m/0in/008000c",
+      "source_name": "The Mainichi",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T05:00:09Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Elon Musk confirmed his involvement in Starlink speed restrictions in Ukraine, highlighting operational and geopolitical risks for the service.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Elon Musk confirmed his involvement in Starlink speed restrictions in Ukraine, highlighting operational and geopolitical risks for the service.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1775,137 +1874,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261025-077",
-      "headline": "Musk says he was behind Starlink speed restriction after service in Ukraine restored",
+      "inbox_id": "INB-20261025-086",
+      "headline": "NextDC faces broader community backlash over Melbourne growth plans",
       "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/musk-says-he-was-behind-starlink-speed-restriction-after-service-in-ukraine-restored/article71622522.ece",
-      "source_name": "The Hindu BusinessLine",
+      "url": "https://www.afr.com/companies/infrastructure/nextdc-faces-broader-community-backlash-over-melbourne-growth-plans-20261025-p6182r?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
       "input_nature": "news_headline",
-      "found_at": "2026-10-25T04:13:57Z",
+      "found_at": "2026-10-25T05:00:00Z",
       "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Elon Musk confirmed his direct involvement in operational decisions regarding Starlink service in Ukraine.",
+      "prelim_note": "NextDC is facing community opposition regarding its expansion plans in Melbourne, which could delay or increase costs for capital projects.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 65,
-      "triage_reason": "Elon Musk confirmed his direct involvement in operational decisions regarding Starlink service in Ukraine.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-079",
-      "headline": "Mumbai Court Rules Builders Cannot Sell Common Terraces, Rejects Exclusive Ownership Claim Over 2,360-Sq-Ft Worli Terrace",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/mumbai/mumbai-court-rules-builders-cannot-sell-common-terraces-rejects-exclusive-ownership-claim-over-2360-sq-ft-worli-terrace",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T03:34:43Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "A court ruling limiting the sale of common areas impacts the revenue model and inventory valuation for real estate developers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "A court ruling limiting the sale of common areas impacts the revenue model and inventory valuation for real estate developers.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-038",
-      "headline": "Sars cracks down on Vat refund fraud",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/moneyweb-opinion/soapbox/sars-cracks-down-on-vat-refund-fraud/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T02:00:16Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "The South African Revenue Service is intensifying enforcement against VAT fraud, which may impact tax compliance and fiscal collections.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "The South African Revenue Service is intensifying enforcement against VAT fraud, which may impact tax compliance and fiscal collections.",
+      "triage_reason": "NextDC is facing community opposition regarding its expansion plans in Melbourne, which could delay or increase costs for capital projects.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 50,
       "rank_factors": {
         "materiality": 50,
         "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "policy",
+        "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
+        "event_id": "operations",
+        "size_bucket": "large"
       },
       "event_types": [
-        "regulatory",
-        "litigation_enforcement"
+        "operations"
       ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NextDC",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -241047,9 +241059,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 522,
-    "news_picked_today": 94,
-    "news_dropped_today": 428
+    "news_seen_today": 535,
+    "news_picked_today": 98,
+    "news_dropped_today": 437
   },
   "book_momentum": {
     "live_count": 8,
