@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T11:38:32Z",
+  "generated_at": "2026-10-25T11:48:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-198",
@@ -1385,6 +1385,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-215",
+      "headline": "CHIHO ENV (00976): ANNUAL RESULTS ANNOUNCEMENT FOR THE YEAR ENDED 31 DECEMBER 2025",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1025/2026102500215.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-25T11:37:00Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "The company announced its annual results for the year ended December 31, 2025.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "The company announced its annual results for the year ended December 31, 2025.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CHIHO ENV",
+          "ticker": "00976",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-100",
       "headline": "'Maybe Tomorrow': Trump Threatens Iran With Fresh Strikes Amid Oil Rallying To $116",
       "headline_en": null,
@@ -1877,55 +1926,6 @@
       "launched_signal_id": null,
       "triage_score": 94,
       "triage_reason": "Audi is reportedly planning a new SUV plant in Georgia, representing a significant capital investment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Audi",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-014",
-      "headline": "Trump Defends Tariffs at Rally as He Says Audi to Build US Plant",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-25/trump-defends-tariffs-at-rally-as-he-says-audi-to-build-us-plant",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T00:35:58Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "A potential new manufacturing plant in the US by Audi would represent a significant capital investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "A potential new manufacturing plant in the US by Audi would represent a significant capital investment.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -242241,9 +242241,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1627,
-    "news_picked_today": 384,
-    "news_dropped_today": 1243
+    "news_seen_today": 1662,
+    "news_picked_today": 392,
+    "news_dropped_today": 1270
   },
   "book_momentum": {
     "live_count": 8,
