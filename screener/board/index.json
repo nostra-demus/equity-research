@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T00:23:29Z",
+  "generated_at": "2026-10-25T00:33:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-002",
@@ -45,6 +45,49 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-006",
+      "headline": "MeitY directs industry bodies to strengthen certifications, security audits",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/technology/meity-directs-industry-bodies-to-strengthen-certifications-security-audits-4194160",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T00:28:19Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "The Indian Ministry of Electronics and IT (MeitY) is mandating stricter security audits and certifications for industry bodies, increasing operational compliance costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "The Indian Ministry of Electronics and IT (MeitY) is mandating stricter security audits and certifications for industry bodies, increasing operational compliance costs.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -166,6 +209,49 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-005",
+      "headline": "Iran war live: Trump hints at possible Sunday Iran attack or deal reached",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/liveblog/2026/10/25/iran-war-live-trump-hints-at-possible-sunday-iran-attack-or-deal-reached?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-10-25T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Geopolitical escalation involving potential military conflict between the US and Iran poses a significant risk to global markets and energy prices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Geopolitical escalation involving potential military conflict between the US and Iran poses a significant risk to global markets and energy prices.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "macro",
@@ -199082,78 +199168,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c2d69b9dc5d8",
-      "idea_version": "IDEAV-e9ff7c86aa5ca5a6",
-      "idea_version_started_at": "2026-10-23T15:52:59Z",
-      "ticker": "TORNTPHARM",
-      "company": "Torrent Pharmaceuticals",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Net profit declined despite revenue growth, indicating significant margin compression and a miss against market expectations.",
-      "why_now": "The Q2 results were reported today, October 23, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-89e1cacc3ac0"
-      ],
-      "primary_source_event_id": "EVT-89e1cacc3ac0",
-      "source_headlines": [
-        "Torrent Pharma Q2 Results: Net profit declines despite 51% revenue growth; misses estimates"
-      ],
-      "source_headline": "Torrent Pharma Q2 Results: Net profit declines despite 51% revenue growth; misses estimates",
-      "source_url": "https://www.cnbctv18.com/market/stocks/torrent-pharma-share-price-q2-results-net-profit-declines-despite-51-revenue-growth-misses-estimates-20018208.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-23T12:24:55Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T15:52:59Z",
-      "updated_at": "2026-10-23T15:52:59Z",
-      "decay_at": "2026-10-25T00:24:55Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-e8c55fdf66d6",
       "idea_version": "IDEAV-637d4ad89d614eef",
       "idea_version_started_at": "2026-10-23T06:49:05Z",
@@ -200492,6 +200506,78 @@
       "surfaced_at": "2026-10-23T16:30:30Z",
       "updated_at": "2026-10-23T16:30:30Z",
       "decay_at": "2026-10-24T20:57:28Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-c2d69b9dc5d8",
+      "idea_version": "IDEAV-e9ff7c86aa5ca5a6",
+      "idea_version_started_at": "2026-10-23T15:52:59Z",
+      "ticker": "TORNTPHARM",
+      "company": "Torrent Pharmaceuticals",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Net profit declined despite revenue growth, indicating significant margin compression and a miss against market expectations.",
+      "why_now": "The Q2 results were reported today, October 23, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-89e1cacc3ac0"
+      ],
+      "primary_source_event_id": "EVT-89e1cacc3ac0",
+      "source_headlines": [
+        "Torrent Pharma Q2 Results: Net profit declines despite 51% revenue growth; misses estimates"
+      ],
+      "source_headline": "Torrent Pharma Q2 Results: Net profit declines despite 51% revenue growth; misses estimates",
+      "source_url": "https://www.cnbctv18.com/market/stocks/torrent-pharma-share-price-q2-results-net-profit-declines-despite-51-revenue-growth-misses-estimates-20018208.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-23T12:24:55Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T15:52:59Z",
+      "updated_at": "2026-10-23T15:52:59Z",
+      "decay_at": "2026-10-25T00:24:55Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -201882,9 +201968,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 537,
+    "total_count": 538,
     "shown_count": 500,
-    "hidden_count": 37,
+    "hidden_count": 38,
     "side_counts": {
       "long": {
         "total_count": 273,
@@ -201892,9 +201978,9 @@
         "hidden_count": 23
       },
       "short": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       }
     },
     "retention": {
@@ -201913,6 +201999,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c2d69b9dc5d8",
+        "idea_version": "IDEAV-e9ff7c86aa5ca5a6",
+        "idea_version_started_at": "2026-10-23T15:52:59Z",
+        "ticker": "TORNTPHARM",
+        "company": "Torrent Pharmaceuticals",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Net profit declined despite revenue growth, indicating significant margin compression and a miss against market expectations.",
+        "why_now": "The Q2 results were reported today, October 23, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-89e1cacc3ac0"
+        ],
+        "primary_source_event_id": "EVT-89e1cacc3ac0",
+        "source_headlines": [
+          "Torrent Pharma Q2 Results: Net profit declines despite 51% revenue growth; misses estimates"
+        ],
+        "source_headline": "Torrent Pharma Q2 Results: Net profit declines despite 51% revenue growth; misses estimates",
+        "source_url": "https://www.cnbctv18.com/market/stocks/torrent-pharma-share-price-q2-results-net-profit-declines-despite-51-revenue-growth-misses-estimates-20018208.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-23T12:24:55Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-23T15:52:59Z",
+        "updated_at": "2026-10-23T15:52:59Z",
+        "decay_at": "2026-10-25T00:24:55Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-25T00:24:55Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-9330e3eb3a1d",
         "idea_version": "IDEAV-10ac6f82b998300e",
@@ -239081,87 +239242,12 @@
         "archived_at": "2026-09-30T09:32:54Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-6c58cb4974e1",
-        "idea_version": "IDEAV-79e979236eccb460",
-        "idea_version_started_at": "2026-09-27T08:58:59Z",
-        "ticker": "8240",
-        "company": "ACIG",
-        "exchange": "TADAWUL",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The Saudi Central Bank has suspended ACIG from issuing new comprehensive motor insurance policies, which will directly reduce the company's top-line growth and market share in its core segment.",
-        "why_now": "The regulatory suspension was announced on 2026-09-27 and is effective immediately, creating an immediate revenue headwind.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "policy_conditional",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-097a321c2eb6"
-        ],
-        "primary_source_event_id": "EVT-097a321c2eb6",
-        "source_headlines": [
-          "‎ACIG receives decision to suspend new comprehensive motor policy issuance; renewals continue"
-        ],
-        "source_headline": "‎ACIG receives decision to suspend new comprehensive motor policy issuance; renewals continue",
-        "source_url": "https://www.argaam.com/en/article/articledetail/id/1939204",
-        "source_name": "Argaam — Main News (English)",
-        "materiality_max": 84,
-        "newest_source_at": "2026-09-27T09:03:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-27T08:58:59Z",
-        "updated_at": "2026-09-27T08:58:59Z",
-        "decay_at": "2026-09-28T20:58:59Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-30T09:10:32Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1870,
-    "live_count": 42,
+    "live_count": 41,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -239171,7 +239257,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4011,
+    "inbox_unconsumed": 4013,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -239180,9 +239266,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 53,
-    "news_picked_today": 4,
-    "news_dropped_today": 49
+    "news_seen_today": 67,
+    "news_picked_today": 6,
+    "news_dropped_today": 61
   },
   "book_momentum": {
     "live_count": 8,
