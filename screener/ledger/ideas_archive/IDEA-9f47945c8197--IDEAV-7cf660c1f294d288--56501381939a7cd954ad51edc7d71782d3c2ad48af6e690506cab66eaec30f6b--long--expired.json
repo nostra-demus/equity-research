@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-10-25T21:59:09Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-9f47945c8197",
+    "idea_version": "IDEAV-7cf660c1f294d288",
+    "idea_version_started_at": "2026-10-24T02:27:44Z",
+    "ticker": "LMT",
+    "company": "Lockheed Martin",
+    "exchange": "NYSE",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "The 10-year contract for 850 F-35 jets provides significant long-term revenue visibility and cash flow stability for the company.",
+    "why_now": "The agreement was finalized on 2026-10-22, securing a massive backlog that underpins future earnings.",
+    "conviction": 80,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 63,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 21,
+      "specificity": 15,
+      "timing": 6,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-c3126388b002"
+    ],
+    "primary_source_event_id": "EVT-c3126388b002",
+    "source_headlines": [
+      "Pentagon, Lockheed agree to 10-year deal for 850 F-35 jets"
+    ],
+    "source_headline": "Pentagon, Lockheed agree to 10-year deal for 850 F-35 jets",
+    "source_url": "https://www.defensenews.com/news/pentagon-congress/2026/10/22/pentagon-lockheed-agree-to-10-year-deal-for-850-f-35-jets/",
+    "source_name": "Defense News",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-22T17:15:33Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-10-22T23:50:30Z",
+    "updated_at": "2026-10-24T02:27:44Z",
+    "decay_at": "2026-10-24T05:15:33Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T21:58:37Z",
+  "generated_at": "2026-10-25T21:59:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-442",
@@ -198941,6 +198941,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-485c669a88ce",
+      "idea_version": "IDEAV-053b0e5261e9a2bd",
+      "idea_version_started_at": "2026-10-25T21:58:59Z",
+      "ticker": "AXP",
+      "company": "American Express",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A global reduction of 3,500 jobs indicates significant cost-cutting measures necessitated by slowing revenue growth or margin pressure.",
+      "why_now": "The layoff announcement occurred on October 24, 2026, and the market is still assessing the underlying weakness in the business model.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 61,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-60c1ee1b345c"
+      ],
+      "primary_source_event_id": "EVT-60c1ee1b345c",
+      "source_headlines": [
+        "American Express Is Cutting 3,500 Jobs Globally--Here's Why"
+      ],
+      "source_headline": "American Express Is Cutting 3,500 Jobs Globally--Here's Why",
+      "source_url": "https://www.ndtvprofit.com/world/american-express-is-cutting-3-500-jobs-globally-heres-why-12230066#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-24T12:19:07Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-25T21:58:59Z",
+      "updated_at": "2026-10-25T21:58:59Z",
+      "decay_at": "2026-10-26T00:19:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-4e8059fc08a2",
       "idea_version": "IDEAV-ad3e10c6de61bda5",
       "idea_version_started_at": "2026-10-25T04:38:42Z",
@@ -199145,6 +199215,148 @@
       "surfaced_at": "2026-10-25T02:38:24Z",
       "updated_at": "2026-10-25T02:38:24Z",
       "decay_at": "2026-10-26T13:50:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-4afa0d340387",
+      "idea_version": "IDEAV-d6fe7ac3be1ce538",
+      "idea_version_started_at": "2026-10-25T21:58:59Z",
+      "ticker": "06808",
+      "company": "Sun Art Retail",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, signaling deteriorating margins and revenue performance in a competitive retail environment.",
+      "why_now": "The profit warning was filed on October 25, 2026, and the market has yet to fully digest the earnings impact.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6530a5ebb0ae"
+      ],
+      "primary_source_event_id": "EVT-6530a5ebb0ae",
+      "source_headlines": [
+        "SUNART RETAIL (06808): PROFIT WARNING"
+      ],
+      "source_headline": "SUNART RETAIL (06808): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1025/2026102500031.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-25T10:20:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-25T10:33:48Z",
+      "updated_at": "2026-10-25T21:58:59Z",
+      "decay_at": "2026-10-26T22:20:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-6253abd0a020",
+      "idea_version": "IDEAV-cc944c7327b2b819",
+      "idea_version_started_at": "2026-10-25T21:58:59Z",
+      "ticker": "08158",
+      "company": "CRMI",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The resignation of an auditor is a high-severity red flag often preceding accounting irregularities or governance failures.",
+      "why_now": "The resignation was announced on October 25, 2026, creating immediate downside risk.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c2d7718d4c78"
+      ],
+      "primary_source_event_id": "EVT-c2d7718d4c78",
+      "source_headlines": [
+        "CRMI (08158): RESIGNATION OF AUDITOR"
+      ],
+      "source_headline": "CRMI (08158): RESIGNATION OF AUDITOR",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1025/2026102500029.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-25T10:15:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-25T10:33:48Z",
+      "updated_at": "2026-10-25T21:58:59Z",
+      "decay_at": "2026-10-26T22:15:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -199358,148 +199570,6 @@
       },
       "surfaced_at": "2026-10-25T11:09:28Z",
       "updated_at": "2026-10-25T11:09:28Z",
-      "decay_at": "2026-10-26T22:15:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-4afa0d340387",
-      "idea_version": "IDEAV-8b97f1669d5be9a7",
-      "idea_version_started_at": "2026-10-25T10:33:48Z",
-      "ticker": "06808",
-      "company": "Sun Art Retail",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating significant deterioration in earnings performance and margin pressure.",
-      "why_now": "The filing was released on October 25, 2026, and the market has not yet fully digested the extent of the earnings shortfall.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6530a5ebb0ae"
-      ],
-      "primary_source_event_id": "EVT-6530a5ebb0ae",
-      "source_headlines": [
-        "SUNART RETAIL (06808): PROFIT WARNING"
-      ],
-      "source_headline": "SUNART RETAIL (06808): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1025/2026102500031.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-25T10:20:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-25T10:33:48Z",
-      "updated_at": "2026-10-25T10:33:48Z",
-      "decay_at": "2026-10-26T22:20:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-6253abd0a020",
-      "idea_version": "IDEAV-baf142c3d3e6cc97",
-      "idea_version_started_at": "2026-10-25T10:33:48Z",
-      "ticker": "08158",
-      "company": "CRMI",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The resignation of an auditor is a high-severity red flag that often precedes accounting irregularities or governance failures.",
-      "why_now": "The resignation was disclosed in an official filing on October 25, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c2d7718d4c78"
-      ],
-      "primary_source_event_id": "EVT-c2d7718d4c78",
-      "source_headlines": [
-        "CRMI (08158): RESIGNATION OF AUDITOR"
-      ],
-      "source_headline": "CRMI (08158): RESIGNATION OF AUDITOR",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1025/2026102500029.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-25T10:15:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-25T10:33:48Z",
-      "updated_at": "2026-10-25T10:33:48Z",
       "decay_at": "2026-10-26T22:15:00Z",
       "status": "live",
       "promoted_signal_id": null,
@@ -201676,79 +201746,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e8c55fdf66d6",
-      "idea_version": "IDEAV-637d4ad89d614eef",
-      "idea_version_started_at": "2026-10-23T06:49:05Z",
-      "ticker": "AAL",
-      "company": "American Airlines",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Rising fuel costs are eroding margins and forcing the company to forecast a full-year loss and reduce capacity growth.",
-      "why_now": "The guidance downgrade was issued on 2026-10-22.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 77,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 10,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-290831eda20b",
-        "EVT-292bbf4a6100",
-        "EVT-45c25f00cca7"
-      ],
-      "primary_source_event_id": "EVT-290831eda20b",
-      "source_headlines": [
-        "American Airlines Sees Another Quarterly Loss as Fuel Costs Rise",
-        "American Airlines forecasts bigger loss in 2026 on fuel spike, plans to slow growth next year",
-        "American Airlines Sinks 4% as Fuel Costs Push Outlook to Full-Year Loss; Delta and United Airlines Drop 3%"
-      ],
-      "source_headline": "American Airlines Sees Another Quarterly Loss as Fuel Costs Rise",
-      "source_url": "https://www.wsj.com/business/earnings/american-airlines-forecasts-another-quarterly-loss-on-surging-fuel-costs-68307f23?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-22T15:24:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T06:49:05Z",
-      "updated_at": "2026-10-23T06:49:05Z",
-      "decay_at": "2026-10-24T03:24:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-b85a0a4334ae",
       "idea_version": "IDEAV-1e8de2d2906e05bc",
       "idea_version_started_at": "2026-10-23T16:30:30Z",
@@ -201883,77 +201880,6 @@
       "surfaced_at": "2026-10-23T18:41:34Z",
       "updated_at": "2026-10-23T18:41:34Z",
       "decay_at": "2026-10-25T01:33:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-a9e3b13426c6",
-      "idea_version": "IDEAV-76ed845b6ab19a4f",
-      "idea_version_started_at": "2026-10-23T04:15:56Z",
-      "ticker": "MRNA",
-      "company": "Moderna",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Leaked clinical data for the company's melanoma vaccine candidate indicates underperformance, threatening the core pipeline valuation.",
-      "why_now": "The data leak occurred on October 22, 2026, and the market is currently reacting to the negative read-through for future revenue.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 74,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4db612a072f3",
-        "EVT-047f6e387f8f"
-      ],
-      "primary_source_event_id": "EVT-4db612a072f3",
-      "source_headlines": [
-        "Moderna Stock Plunges 25% After Possible Cancer Vaccine Data Leak",
-        "Moderna Stock Plunges 18% As Leaked Melanoma Vaccine Data Underperforms"
-      ],
-      "source_headline": "Moderna Stock Plunges 25% After Possible Cancer Vaccine Data Leak",
-      "source_url": "https://www.forbes.com/sites/maryroeloffs/2026/10/22/moderna-stock-plunges-25-after-possible-cancer-vaccine-data-leak/",
-      "source_name": "Forbes",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-22T20:55:58Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T04:15:56Z",
-      "updated_at": "2026-10-23T04:15:56Z",
-      "decay_at": "2026-10-24T08:55:58Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -202164,76 +202090,6 @@
       "surfaced_at": "2026-10-23T15:10:57Z",
       "updated_at": "2026-10-23T15:10:57Z",
       "decay_at": "2026-10-24T23:24:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-728bca4e5df0",
-      "idea_version": "IDEAV-b2abd1984cc77bb7",
-      "idea_version_started_at": "2026-10-23T06:49:05Z",
-      "ticker": "LRCX",
-      "company": "Lam Research",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Supply chain constraints are actively capping revenue growth and forcing a downward revision to the company's outlook.",
-      "why_now": "The guidance change was reported on 2026-10-22, triggering an immediate market reaction.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-200b1eefdf75"
-      ],
-      "primary_source_event_id": "EVT-200b1eefdf75",
-      "source_headlines": [
-        "Lam Research Sinks 9% as Supply Constraints Cap Outlook; Applied Materials Drops 6%, ASML Holding Falls 4%"
-      ],
-      "source_headline": "Lam Research Sinks 9% as Supply Constraints Cap Outlook; Applied Materials Drops 6%, ASML Holding Falls 4%",
-      "source_url": "https://247wallst.com/investing/2026/10/22/lam-research-sinks-9-as-supply-constraints-cap-outlook-applied-materials-drops-6-asml-holding-falls-4/",
-      "source_name": "24/7 Wall St.",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-22T14:44:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T06:49:05Z",
-      "updated_at": "2026-10-23T06:49:05Z",
-      "decay_at": "2026-10-24T02:44:50Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -202520,76 +202376,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-b55a54640cc9",
-      "idea_version": "IDEAV-b476c758b99a0218",
-      "idea_version_started_at": "2026-10-23T04:15:56Z",
-      "ticker": "NAVI",
-      "company": "Navient",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Widening credit default swaps indicate heightened market concern regarding the company's solvency and potential exclusion of debtholders in restructuring scenarios.",
-      "why_now": "CDS spreads widened significantly on October 22, 2026, reflecting a sharp increase in perceived default risk.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-eee1d3560c00"
-      ],
-      "primary_source_event_id": "EVT-eee1d3560c00",
-      "source_headlines": [
-        "Navient CDS Widen by Most in Eight Years as Debtholders Left Out"
-      ],
-      "source_headline": "Navient CDS Widen by Most in Eight Years as Debtholders Left Out",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-10-22/navient-cds-widen-by-most-in-eight-years-as-debtholders-left-out",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-22T17:49:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T04:15:56Z",
-      "updated_at": "2026-10-23T04:15:56Z",
-      "decay_at": "2026-10-24T05:49:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-be88d1aa5221",
       "idea_version": "IDEAV-159d6a7273dc37c9",
       "idea_version_started_at": "2026-10-24T04:06:30Z",
@@ -202654,148 +202440,6 @@
       "surfaced_at": "2026-10-24T04:06:30Z",
       "updated_at": "2026-10-24T04:06:30Z",
       "decay_at": "2026-10-25T00:37:23Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-9f47945c8197",
-      "idea_version": "IDEAV-7cf660c1f294d288",
-      "idea_version_started_at": "2026-10-24T02:27:44Z",
-      "ticker": "LMT",
-      "company": "Lockheed Martin",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The 10-year contract for 850 F-35 jets provides significant long-term revenue visibility and cash flow stability for the company.",
-      "why_now": "The agreement was finalized on 2026-10-22, securing a massive backlog that underpins future earnings.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 63,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c3126388b002"
-      ],
-      "primary_source_event_id": "EVT-c3126388b002",
-      "source_headlines": [
-        "Pentagon, Lockheed agree to 10-year deal for 850 F-35 jets"
-      ],
-      "source_headline": "Pentagon, Lockheed agree to 10-year deal for 850 F-35 jets",
-      "source_url": "https://www.defensenews.com/news/pentagon-congress/2026/10/22/pentagon-lockheed-agree-to-10-year-deal-for-850-f-35-jets/",
-      "source_name": "Defense News",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-22T17:15:33Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-22T23:50:30Z",
-      "updated_at": "2026-10-24T02:27:44Z",
-      "decay_at": "2026-10-24T05:15:33Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-301c9958417a",
-      "idea_version": "IDEAV-af10e51d87cc5a7f",
-      "idea_version_started_at": "2026-10-24T03:46:54Z",
-      "ticker": "META",
-      "company": "Meta Platforms",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Aggressive capital expenditure on AI infrastructure has pushed free cash flow into negative territory, signaling a potential multi-quarter margin compression.",
-      "why_now": "The earnings report released on 2026-10-22 highlighted this shift in capital allocation, which is currently being repriced by investors.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8550489cb6de",
-        "EVT-06e66a945494"
-      ],
-      "primary_source_event_id": "EVT-8550489cb6de",
-      "source_headlines": [
-        "Meta stock sinks 6% as AI spend pushes free cash flow negative",
-        "Meta stock sinks nearly 7% as AI spend pushes free cash flow negative"
-      ],
-      "source_headline": "Meta stock sinks 6% as AI spend pushes free cash flow negative",
-      "source_url": "https://www.cnbc.com/2026/10/22/meta-stock-q3-earnings-free-cash-flow.html",
-      "source_name": "CNBC",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-22T20:03:03Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/META_2026-08-31",
-        "latest_decision": null,
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-10-19T04:16:06Z",
-      "updated_at": "2026-10-24T03:46:54Z",
-      "decay_at": "2026-10-24T08:03:03Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -202938,77 +202582,6 @@
       "surfaced_at": "2026-10-22T07:03:06Z",
       "updated_at": "2026-10-23T15:10:57Z",
       "decay_at": "2026-10-24T23:12:33Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-52e98452feee",
-      "idea_version": "IDEAV-1e83ff2c535a0500",
-      "idea_version_started_at": "2026-10-23T05:56:42Z",
-      "ticker": "NEM",
-      "company": "Newmont",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is benefiting from higher gold prices, which directly expands its operating margins and free cash flow generation.",
-      "why_now": "The earnings beat reported on 2026-10-22 confirms the positive impact of current commodity price trends on the company's bottom line.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "commodity_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-54f83965c797"
-      ],
-      "primary_source_event_id": "EVT-54f83965c797",
-      "source_headlines": [
-        "Newmont beats quarterly profit estimates as company benefits from higher gold prices"
-      ],
-      "source_headline": "Newmont beats quarterly profit estimates as company benefits from higher gold prices",
-      "source_url": "https://www.theglobeandmail.com/business/article-newmont-gold-profit-earnings-mining/",
-      "source_name": "The Globe and Mail",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-22T20:42:28Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T05:56:42Z",
-      "updated_at": "2026-10-23T05:56:42Z",
-      "decay_at": "2026-10-24T08:42:28Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -204814,79 +204387,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-5dcc3d54eb17",
-      "idea_version": "IDEAV-891fcfddb1c570c7",
-      "idea_version_started_at": "2026-10-23T04:15:56Z",
-      "ticker": "NLCINDIA",
-      "company": "NLC India",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company signed a memorandum of understanding for a massive 3200 MW thermal power project, providing long-term revenue visibility and government-backed capital deployment.",
-      "why_now": "The official press release regarding the MoU was issued on October 22, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0bd35df8ba9a",
-        "EVT-f5c9288ce1b5"
-      ],
-      "primary_source_event_id": "EVT-0bd35df8ba9a",
-      "source_headlines": [
-        "NLC India Limited: NLC India Limited has informed the Exchange regarding a press release dated October 22, 2026, titled \"NLCIL Signs MoU with IPICOL for Establishment of a 3200 MW (4x800 MW)Ultra Super Critical coal-based thermal power plant and Exploration of CoalGasification-Based Fertilizer Production and Beach Sand Mineral ProcessingFacility in Odisha\".",
-        "NLC India plans ₹35,000-crore Odisha power plant, explores coal gasification and mineral processing"
-      ],
-      "source_headline": "NLC India Limited: NLC India Limited has informed the Exchange regarding a press release dated October 22, 2026, titled \"NLCIL Signs MoU with IPICOL for Establishment of a 3200 MW (4x800 MW)Ultra Super Critical coal-based thermal power plant and Exploration of CoalGasification-Based Fertilizer Production and Beach Sand Mineral ProcessingFacility in Odisha\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/NLCINDIA_22102026200744_SE_MoU_with_IPICOL_Press_Release.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-22T17:47:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T04:15:56Z",
-      "updated_at": "2026-10-23T04:15:56Z",
-      "decay_at": "2026-10-24T05:47:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-b25d37e5a84d",
       "idea_version": "IDEAV-e612966bfecfd150",
       "idea_version_started_at": "2026-10-24T05:01:36Z",
@@ -205046,33 +204546,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 546,
+    "total_count": 538,
     "shown_count": 500,
-    "hidden_count": 46,
+    "hidden_count": 38,
     "side_counts": {
       "long": {
-        "total_count": 274,
+        "total_count": 271,
         "shown_count": 250,
-        "hidden_count": 24
+        "hidden_count": 21
       },
       "short": {
-        "total_count": 273,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 18
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1303,
-      "oldest_retained_at": "2026-09-28T12:50:59Z",
+      "evicted_count": 1311,
+      "oldest_retained_at": "2026-09-28T15:24:37Z",
       "side_counts": {
         "long": {
-          "evicted_count": 870,
-          "oldest_retained_at": "2026-10-10T10:09:28Z"
+          "evicted_count": 873,
+          "oldest_retained_at": "2026-10-10T13:27:47Z"
         },
         "short": {
-          "evicted_count": 433,
-          "oldest_retained_at": "2026-09-28T12:50:59Z"
+          "evicted_count": 438,
+          "oldest_retained_at": "2026-09-28T15:24:37Z"
         }
       }
     },
@@ -208054,8 +207554,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-24T08:55:58Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-25T21:59:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -208128,8 +207628,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-24T08:42:28Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-25T21:59:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -208203,8 +207703,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-24T08:03:03Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-25T21:59:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -208276,8 +207776,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-24T05:49:07Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-25T21:59:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -208352,8 +207852,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-24T05:47:47Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-25T21:59:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -208425,8 +207925,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-24T05:15:33Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-25T21:59:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -208501,8 +208001,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-24T03:24:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-25T21:59:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -208574,8 +208074,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-24T02:44:50Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-25T21:59:09Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -242321,8 +241821,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1902,
-    "live_count": 52,
+    "surfaced_total": 1903,
+    "live_count": 53,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
