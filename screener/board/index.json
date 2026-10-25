@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T08:44:36Z",
+  "generated_at": "2026-10-25T08:48:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-109",
@@ -149,6 +149,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-175",
+      "headline": "Audi to invest $4.2 billion in first US factory, plans to build 2 lakh SUVs annually",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/us-news/audi-to-invest-4-2-billion-in-first-us-factory-plans-to-build-2-lakh-suvs-annually-11792917236098.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T08:43:31Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Audi announced a $4.2 billion investment to build its first US manufacturing facility with an annual capacity of 200,000 SUVs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Audi announced a $4.2 billion investment to build its first US manufacturing facility with an annual capacity of 200,000 SUVs.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Audi",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1922,56 +1971,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-037",
-      "headline": "고려아연 감사위, 최윤범 이사 '자금 유용·이해상충' 의혹 공식 검토 착수",
-      "headline_en": "Korea Zinc audit committee launches formal review into allegations of fund misappropriation and conflict of interest against Director Choi Yun-beom",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279581",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T02:09:38Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Korea Zinc's audit committee has launched a formal review into allegations of fund misappropriation and conflict of interest against Chairman Choi Yun-beom.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Korea Zinc's audit committee has launched a formal review into allegations of fund misappropriation and conflict of interest against Chairman Choi Yun-beom.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Korea Zinc",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -198787,76 +198786,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b785702282d7",
-      "idea_version": "IDEAV-43228b340ac81080",
-      "idea_version_started_at": "2026-10-24T03:46:54Z",
-      "ticker": "BE",
-      "company": "Bloom Energy",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Despite record revenue, the company's inability to generate positive cash flow raises concerns about capital intensity and the sustainability of its current growth model.",
-      "why_now": "The Q3 earnings release on 2026-10-23 explicitly highlighted these cash flow concerns, triggering a negative market reaction.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d5298adf9bfc"
-      ],
-      "primary_source_event_id": "EVT-d5298adf9bfc",
-      "source_headlines": [
-        "Stock Market Today, Oct. 23: Bloom Energy Falls on Cash Flow Concerns Despite Record Q3 Revenue"
-      ],
-      "source_headline": "Stock Market Today, Oct. 23: Bloom Energy Falls on Cash Flow Concerns Despite Record Q3 Revenue",
-      "source_url": "https://www.fool.com/coverage/stock-market-today/2026/10/23/stock-market-today-oct-23-bloom-energy-falls-on-cash-flow-concerns-despite-record-q3-revenue/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-23T20:46:38Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T03:46:54Z",
-      "updated_at": "2026-10-24T03:46:54Z",
-      "decay_at": "2026-10-25T08:46:38Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-4e8059fc08a2",
       "idea_version": "IDEAV-ad3e10c6de61bda5",
       "idea_version_started_at": "2026-10-25T04:38:42Z",
@@ -201869,6 +201798,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-b785702282d7",
+      "idea_version": "IDEAV-43228b340ac81080",
+      "idea_version_started_at": "2026-10-24T03:46:54Z",
+      "ticker": "BE",
+      "company": "Bloom Energy",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Despite record revenue, the company's inability to generate positive cash flow raises concerns about capital intensity and the sustainability of its current growth model.",
+      "why_now": "The Q3 earnings release on 2026-10-23 explicitly highlighted these cash flow concerns, triggering a negative market reaction.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d5298adf9bfc"
+      ],
+      "primary_source_event_id": "EVT-d5298adf9bfc",
+      "source_headlines": [
+        "Stock Market Today, Oct. 23: Bloom Energy Falls on Cash Flow Concerns Despite Record Q3 Revenue"
+      ],
+      "source_headline": "Stock Market Today, Oct. 23: Bloom Energy Falls on Cash Flow Concerns Despite Record Q3 Revenue",
+      "source_url": "https://www.fool.com/coverage/stock-market-today/2026/10/23/stock-market-today-oct-23-bloom-energy-falls-on-cash-flow-concerns-despite-record-q3-revenue/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-23T20:46:38Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T03:46:54Z",
+      "updated_at": "2026-10-24T03:46:54Z",
+      "decay_at": "2026-10-25T08:46:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-f126ee99823a",
       "idea_version": "IDEAV-7752dd50942d2c66",
       "idea_version_started_at": "2026-10-23T11:11:07Z",
@@ -204248,9 +204247,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 541,
+    "total_count": 542,
     "shown_count": 500,
-    "hidden_count": 41,
+    "hidden_count": 42,
     "side_counts": {
       "long": {
         "total_count": 272,
@@ -204258,9 +204257,9 @@
         "hidden_count": 22
       },
       "short": {
-        "total_count": 270,
+        "total_count": 271,
         "shown_count": 250,
-        "hidden_count": 20
+        "hidden_count": 21
       }
     },
     "retention": {
@@ -204279,6 +204278,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b785702282d7",
+        "idea_version": "IDEAV-43228b340ac81080",
+        "idea_version_started_at": "2026-10-24T03:46:54Z",
+        "ticker": "BE",
+        "company": "Bloom Energy",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Despite record revenue, the company's inability to generate positive cash flow raises concerns about capital intensity and the sustainability of its current growth model.",
+        "why_now": "The Q3 earnings release on 2026-10-23 explicitly highlighted these cash flow concerns, triggering a negative market reaction.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d5298adf9bfc"
+        ],
+        "primary_source_event_id": "EVT-d5298adf9bfc",
+        "source_headlines": [
+          "Stock Market Today, Oct. 23: Bloom Energy Falls on Cash Flow Concerns Despite Record Q3 Revenue"
+        ],
+        "source_headline": "Stock Market Today, Oct. 23: Bloom Energy Falls on Cash Flow Concerns Despite Record Q3 Revenue",
+        "source_url": "https://www.fool.com/coverage/stock-market-today/2026/10/23/stock-market-today-oct-23-bloom-energy-falls-on-cash-flow-concerns-despite-record-q3-revenue/?source=iedfolrf0000001",
+        "source_name": "The Motley Fool",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-23T20:46:38Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-24T03:46:54Z",
+        "updated_at": "2026-10-24T03:46:54Z",
+        "decay_at": "2026-10-25T08:46:38Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-25T08:46:38Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-85129948d8af",
         "idea_version": "IDEAV-1c8fc5496137debd",
@@ -241445,87 +241517,12 @@
         "archived_at": "2026-10-01T06:46:53Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-bee4cf1b394c",
-        "idea_version": "IDEAV-e2599f94bff2162c",
-        "idea_version_started_at": "2026-09-28T04:46:17Z",
-        "ticker": "NST",
-        "company": "Northern Star Resources",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The rejection of a multi-billion dollar takeover offer often leads to a short-term price drop as the 'takeover premium' built into the stock price evaporates.",
-        "why_now": "The rejection was reported on September 28, 2026, following the earlier bid speculation.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2dd7568cf8f0"
-        ],
-        "primary_source_event_id": "EVT-2dd7568cf8f0",
-        "source_headlines": [
-          "Northern Star: Gold producer rejects multi-billion takeover offer"
-        ],
-        "source_headline": "Northern Star: Goldproduzent weist milliardenschweres Übernahmeangebot zurück",
-        "source_url": "https://www.handelsblatt.com/finanzen/maerkte/devisen-rohstoffe/northern-star-goldproduzent-weist-milliardenschweres-uebernahmeangebot-zurueck/100257818.html",
-        "source_name": "Handelsblatt",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-28T04:04:53Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-28T04:46:17Z",
-        "updated_at": "2026-09-28T04:46:17Z",
-        "decay_at": "2026-09-29T16:04:53Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-01T05:01:37Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1888,
-    "live_count": 46,
+    "live_count": 45,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -241544,9 +241541,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1097,
-    "news_picked_today": 240,
-    "news_dropped_today": 857
+    "news_seen_today": 1104,
+    "news_picked_today": 243,
+    "news_dropped_today": 861
   },
   "book_momentum": {
     "live_count": 8,
