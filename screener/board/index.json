@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-10-25T22:24:20Z",
+  "generated_at": "2026-10-25T22:33:53Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261025-457",
+      "headline": "DJW: 1Q27 Dividend determined and Guidance for 2Q27 dividend [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DJW?key=2924-03152866-3A704913",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-25T22:26:01Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "DJW announced a dividend and provided forward guidance for the next quarter.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DJW announced a dividend and provided forward guidance for the next quarter.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DJW",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261025-442",
       "headline": "APE: Eagers to acquire remaining 20% interest in BYD Retail JV",
@@ -296,6 +346,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-466",
+      "headline": "Musk says SpaceX raised US$40 billion in debt for GPUs",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/musk-says-spacex-raised-us40-billion-debt-gpus",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T22:27:29Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "SpaceX raised a significant amount of debt ($40 billion) for capital expenditure purposes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SpaceX raised a significant amount of debt ($40 billion) for capital expenditure purposes.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-441",
       "headline": "Musk Says SpaceX Closed $40 Billion Debt Deal, Blasts Neoclouds",
       "headline_en": null,
@@ -435,56 +534,6 @@
           "name": "SoftBank Group",
           "ticker": null,
           "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-312",
-      "headline": "Musk says SpaceX raised $40 billion in debt for GPUs",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/media-telecom/musk-says-spacex-raised-40-billion-debt-gpus-2026-10-25/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T20:05:40Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Elon Musk stated that SpaceX raised $40 billion in debt to fund GPU procurement for AI infrastructure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Elon Musk stated that SpaceX raised $40 billion in debt to fund GPU procurement for AI infrastructure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -1934,55 +1983,6 @@
           "name": "Etihad Airways",
           "ticker": null,
           "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-093",
-      "headline": "우리금융 3분기 순익 1조492억원…사상 첫 2분기 연속 '1조 클럽'",
-      "headline_en": "Woori Financial Group's 3rd quarter net profit of 1.0492 trillion KRW... first time in history to join the '1 trillion club' for two consecutive quarters",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279594",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T04:50:39Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Woori Financial Group reported a record-breaking quarterly net profit of 1.0492 trillion KRW, marking its second consecutive quarter exceeding 1 trillion KRW.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Woori Financial Group reported a record-breaking quarterly net profit of 1.0492 trillion KRW, marking its second consecutive quarter exceeding 1 trillion KRW.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Woori Financial Group",
-          "ticker": null,
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -241841,9 +241841,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 101721,
-    "news_picked_today": 909,
-    "news_dropped_today": 2693
+    "news_seen_today": 101796,
+    "news_picked_today": 933,
+    "news_dropped_today": 2718
   },
   "book_momentum": {
     "live_count": 8,
