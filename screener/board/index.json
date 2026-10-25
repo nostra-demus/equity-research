@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-25T05:13:50Z",
+  "generated_at": "2026-10-25T05:23:32Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261025-093",
+      "headline": "우리금융 3분기 순익 1조492억원…사상 첫 2분기 연속 '1조 클럽'",
+      "headline_en": "Woori Financial Group's 3rd quarter net profit of 1.0492 trillion KRW... first time in history to join the '1 trillion club' for two consecutive quarters",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279594",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T04:50:39Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Woori Financial Group reported a record-breaking quarterly net profit of 1.0492 trillion KRW, marking its second consecutive quarter exceeding 1 trillion KRW.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Woori Financial Group reported a record-breaking quarterly net profit of 1.0492 trillion KRW, marking its second consecutive quarter exceeding 1 trillion KRW.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Woori Financial Group",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261025-082",
       "headline": "Trump hails tariffs for new US$4.2 billion Audi plant in Georgia",
@@ -628,6 +677,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-089",
+      "headline": "CVS Lane extends private credit fund freeze, citing property slump",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/financial-services/cvs-lane-extends-private-credit-fund-freeze-citing-property-slump-20261025-p618ex?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T05:18:44Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "CVS Lane has frozen its private credit fund due to a property market slump, indicating liquidity issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "CVS Lane has frozen its private credit fund due to a property market slump, indicating liquidity issues.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CVS Lane",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1647,6 +1745,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-091",
+      "headline": "Mercuria challenging the ‘Dow Jones of shipping’ in court after Hormuz losses",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/eedb7159-65df-45de-91f9-fde8de99e61c?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T05:00:10Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Mercuria is involved in a legal challenge regarding shipping losses in the Strait of Hormuz.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Mercuria is involved in a legal challenge regarding shipping losses in the Strait of Hormuz.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mercuria",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-087",
       "headline": "Musk says he was behind Starlink speed restriction after service in Ukraine is restored",
       "headline_en": null,
@@ -1783,141 +1930,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-058",
-      "headline": "British PM Burnham open to adopting EU free movement, Sunday Times reports",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/uk/british-pm-burnham-open-adopting-eu-free-movement-sunday-times-reports-2026-10-25/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T03:13:10Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Potential policy shifts regarding EU free movement by the UK government could have significant long-term economic and labor market implications.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Potential policy shifts regarding EU free movement by the UK government could have significant long-term economic and labor market implications.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-054",
-      "headline": "Sebi plans curbs on terminal misuse, graded compliance for market intermediaries",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/sebi-plans-curbs-on-terminal-misuse-graded-compliance-norms-for-stock-market-intermediaries/articleshow/135181895.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T02:39:57Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Sebi is planning new regulatory curbs on market intermediaries to prevent terminal misuse, which may increase compliance costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Sebi is planning new regulatory curbs on market intermediaries to prevent terminal misuse, which may increase compliance costs.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-086",
-      "headline": "NextDC faces broader community backlash over Melbourne growth plans",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/infrastructure/nextdc-faces-broader-community-backlash-over-melbourne-growth-plans-20261025-p6182r?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T05:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "NextDC is facing community opposition regarding its expansion plans in Melbourne, which could delay or increase costs for capital projects.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "NextDC is facing community opposition regarding its expansion plans in Melbourne, which could delay or increase costs for capital projects.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NextDC",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -241059,9 +241071,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 556,
-    "news_picked_today": 103,
-    "news_dropped_today": 453
+    "news_seen_today": 592,
+    "news_picked_today": 110,
+    "news_dropped_today": 482
   },
   "book_momentum": {
     "live_count": 8,
