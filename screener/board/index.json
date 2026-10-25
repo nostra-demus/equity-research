@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T15:40:48Z",
+  "generated_at": "2026-10-25T15:46:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-198",
@@ -1730,6 +1730,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-267",
+      "headline": "How is the US-Israeli war on Iran causing havoc in Europe?",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/10/25/how-is-the-us-israeli-war-on-iran-causing-havoc-in-europe?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-10-25T14:47:55Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "The ongoing conflict involving Iran and the US is causing significant economic and geopolitical havoc in Europe.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "The ongoing conflict involving Iran and the US is causing significant economic and geopolitical havoc in Europe.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-100",
       "headline": "'Maybe Tomorrow': Trump Threatens Iran With Fresh Strikes Amid Oil Rallying To $116",
       "headline_en": null,
@@ -1909,55 +1952,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-153",
-      "headline": "‎SVCP shareholders approve 69.7% capital cut, trading halt for 2 business days",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1946825",
-      "source_name": "Argaam — Company Disclosures (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T11:06:00Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "SVCP shareholders approved a 69.7% capital reduction, a major restructuring event impacting equity structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "SVCP shareholders approved a 69.7% capital reduction, a major restructuring event impacting equity structure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SVCP",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -242311,9 +242305,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9630,
-    "news_picked_today": 534,
-    "news_dropped_today": 1741
+    "news_seen_today": 10554,
+    "news_picked_today": 571,
+    "news_dropped_today": 1800
   },
   "book_momentum": {
     "live_count": 8,
