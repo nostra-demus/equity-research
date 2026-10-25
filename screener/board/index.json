@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T03:38:21Z",
+  "generated_at": "2026-10-25T03:48:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-040",
@@ -1709,6 +1709,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-063",
+      "headline": "Siang Dam: What is behind protest in Arunachal Pradesh against the 11,200 MW hydroelectric project? All you need to know",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/india/siang-dam-what-is-behind-protest-in-arunachal-pradesh-against-the-11-200-mw-hydroelectric-project-all-you-need-to-know-11792898495181.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T03:38:17Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Protests against an 11,200 MW hydroelectric project in Arunachal Pradesh create operational and regulatory risk for the development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "Protests against an 11,200 MW hydroelectric project in Arunachal Pradesh create operational and regulatory risk for the development.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": -26,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-046",
       "headline": "World's 1st hydrogen engine for large ships cuts C02 emissions by 95%",
       "headline_en": null,
@@ -1832,55 +1875,6 @@
       ],
       "issuer_linkage": "sector",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-029",
-      "headline": "Tving tops new streaming app installations in Sept.",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261025001700320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T01:35:21Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Tving led new streaming app installations in South Korea for September, indicating market share growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Tving led new streaming app installations in South Korea for September, indicating market share growth.",
-      "region": "KR",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tving",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
