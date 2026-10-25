@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T00:09:28Z",
+  "generated_at": "2026-10-25T00:18:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-002",
@@ -92,6 +92,49 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-003",
+      "headline": "Bulgaria votes for president in wake of deadly Black Sea drone strikes",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/bulgaria-votes-president-wake-deadly-black-sea-drone-strikes-2026-10-25/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T00:03:16Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Deadly drone strikes in the Black Sea represent a significant geopolitical escalation in the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Deadly drone strikes in the Black Sea represent a significant geopolitical escalation in the region.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -239085,7 +239128,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4009,
+    "inbox_unconsumed": 4010,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -239094,9 +239137,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 31,
-    "news_picked_today": 2,
-    "news_dropped_today": 29
+    "news_seen_today": 43,
+    "news_picked_today": 3,
+    "news_dropped_today": 40
   },
   "book_momentum": {
     "live_count": 8,
