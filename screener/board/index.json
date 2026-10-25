@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T08:48:25Z",
+  "generated_at": "2026-10-25T08:59:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-109",
@@ -1281,6 +1281,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-187",
+      "headline": "Sabic returns to profit in third quarter as revenue rises despite regional conflict",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/business/energy/2026/10/25/sabic-returns-to-profit-in-third-quarter-as-revenue-rises-despite-regional-conflict/",
+      "source_name": "The National — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T08:53:08Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Sabic reported a return to profit in the third quarter with rising revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Sabic reported a return to profit in the third quarter with rising revenue.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Basic Industries Corporation",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-135",
       "headline": "Israel to close West Bank crossings on election day as crackdown escalates",
       "headline_en": null,
@@ -1922,55 +1971,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-097",
-      "headline": "YES Bank AT-1 Bond Payment Decision Still Pending, Lender Reviews Supreme Court Judgment And Coupon Options",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/yes-bank-at-1-bond-payment-decision-still-pending-lender-reviews-supreme-court-judgment-and-coupon-options",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T05:05:42Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "YES Bank is facing uncertainty regarding the payment of AT-1 bonds, creating potential credit and liquidity risk for the lender.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "YES Bank is facing uncertainty regarding the payment of AT-1 bonds, creating potential credit and liquidity risk for the lender.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "YES Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -241541,9 +241541,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1104,
-    "news_picked_today": 243,
-    "news_dropped_today": 861
+    "news_seen_today": 1136,
+    "news_picked_today": 256,
+    "news_dropped_today": 880
   },
   "book_momentum": {
     "live_count": 8,
