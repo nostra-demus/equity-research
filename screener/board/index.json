@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T04:10:06Z",
+  "generated_at": "2026-10-25T04:13:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-068",
@@ -1634,6 +1634,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-074",
+      "headline": "Sebi to revamp short-selling, securities lending rules",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/sebi-to-revamp-short-selling-securities-lending-rules/articleshow/135182788.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T03:58:23Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "The Indian market regulator is planning to revise rules for short-selling and securities lending, which could impact market liquidity and trading strategies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "The Indian market regulator is planning to revise rules for short-selling and securities lending, which could impact market liquidity and trading strategies.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-060",
       "headline": "SEBI to come up with rules to prevent broker terminal misuse, says chairman Pandey",
       "headline_en": null,
@@ -1862,49 +1905,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-044",
-      "headline": "Election présidentielle en Bulgarie dans un contexte d'attaques en mer Noire",
-      "headline_en": "Bulgarian presidential election in the context of Black Sea attacks",
-      "url": "https://www.reuters.com/fr/affaires/election-prsidentielle-en-bulgarie-dans-un-contexte-dattaques-en-mer-noire-2026-10-25/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T02:15:24Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Bulgaria faces political instability amid ongoing Black Sea security concerns, impacting regional risk sentiment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "Bulgaria faces political instability amid ongoing Black Sea security concerns, impacting regional risk sentiment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -240973,9 +240973,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 445,
-    "news_picked_today": 77,
-    "news_dropped_today": 368
+    "news_seen_today": 449,
+    "news_picked_today": 79,
+    "news_dropped_today": 370
   },
   "book_momentum": {
     "live_count": 8,
