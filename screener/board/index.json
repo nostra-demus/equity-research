@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T01:13:50Z",
+  "generated_at": "2026-10-25T01:33:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-007",
@@ -247,6 +247,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-021",
+      "headline": "Ukraine says Starshield back to normal after week-long disruption, Elon Musk accuses Kyiv of violating Starlink’s terms",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/world/ukraine-says-starshield-back-to-normal-after-week-long-disruption-elon-musk-accuses-kyiv-of-violating-starlink-s-terms-11792890450707.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T01:22:18Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Disruptions to Starshield/Starlink services in Ukraine and public disputes between Elon Musk and Kyiv highlight operational and geopolitical risks for SpaceX.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Disruptions to Starshield/Starlink services in Ukraine and public disputes between Elon Musk and Kyiv highlight operational and geopolitical risks for SpaceX.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-023",
+      "headline": "Auto: Nach Handelsblatt-Bericht: Trump bestätigt Bau von Audi-Werk in den USA",
+      "headline_en": "Auto: After Handelsblatt report: Trump confirms construction of Audi plant in the USA",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/auto-nach-handelsblatt-bericht-trump-bestaetigt-bau-von-audi-werk-in-den-usa/100264447.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T01:11:16Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Donald Trump confirmed Audi's plan to build a new manufacturing plant in the US, representing a significant capital investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Donald Trump confirmed Audi's plan to build a new manufacturing plant in the US, representing a significant capital investment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Audi",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-011",
       "headline": "Musk says he was behind Starlink's slowdown in Ukraine",
       "headline_en": null,
@@ -382,6 +481,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-020",
+      "headline": "Samsung Electronics, SK hynix set to report Q3 earnings this week",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261025001200320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T01:09:39Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Major semiconductor manufacturers Samsung and SK Hynix are scheduled to report Q3 earnings, which will provide critical data on the global memory chip cycle.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "Major semiconductor manufacturers Samsung and SK Hynix are scheduled to report Q3 earnings, which will provide critical data on the global memory chip cycle.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Samsung Electronics",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "SK Hynix",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-018",
       "headline": "Serbia votes as students seek to unseat Vucic in snap election",
       "headline_en": null,
@@ -420,6 +573,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-019",
+      "headline": "‘Just get rid of her’: Ellison fails to knock out dismissal lawsuit",
+      "headline_en": null,
+      "url": "https://www.afr.com/work-and-careers/workplace/just-get-rid-of-her-ellison-fails-to-knock-out-dismissal-lawsuit-20261025-p618cb?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T01:24:16Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Mineral Resources CEO Chris Ellison faces ongoing legal challenges regarding a dismissal lawsuit, posing potential management credibility risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Mineral Resources CEO Chris Ellison faces ongoing legal challenges regarding a dismissal lawsuit, posing potential management credibility risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mineral Resources",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -468,6 +670,98 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-022",
+      "headline": "SoftBank-backed drone maker wants every farmer to ‘have their own robot’",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/9fe60016-1520-4bfd-bcfc-f30caa0b1600?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T01:00:09Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "SoftBank-backed drone maker is scaling agricultural automation, representing a niche growth sector development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "SoftBank-backed drone maker is scaling agricultural automation, representing a niche growth sector development.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SoftBank",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-025",
+      "headline": "Bhopal Master Plan 2047 Faces Fourth Delay As Farmers Launch Protests Over Catchment Zones, BJP Government May Put Plan On Hold Again",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/bhopal/bhopal-master-plan-2047-faces-fourth-delay-as-farmers-launch-protests-over-catchment-zones-bjp-government-may-put-plan-on-hold-again",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T00:30:00Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "The delay of the Bhopal Master Plan 2047 due to protests creates regulatory uncertainty for regional development and infrastructure projects.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "The delay of the Bhopal Master Plan 2047 due to protests creates regulatory uncertainty for regional development and infrastructure projects.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -558,6 +852,49 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-024",
+      "headline": "US-Iran showdown: 7 warning signs Washington fears a wider conflict",
+      "headline_en": null,
+      "url": "https://gulfnews.com/world/mena/us-iran-showdown-7-warning-signs-washington-fears-a-wider-conflict-2-1.500722602",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T01:07:00Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Geopolitical escalation risk between the US and Iran poses a threat to regional stability and global energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Geopolitical escalation risk between the US and Iran poses a threat to regional stability and global energy markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -239627,7 +239964,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4024,
+    "inbox_unconsumed": 4031,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -239636,9 +239973,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 132,
-    "news_picked_today": 18,
-    "news_dropped_today": 114
+    "news_seen_today": 168,
+    "news_picked_today": 25,
+    "news_dropped_today": 143
   },
   "book_momentum": {
     "live_count": 8,
