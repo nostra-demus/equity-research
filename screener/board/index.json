@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T06:03:24Z",
+  "generated_at": "2026-10-25T06:04:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-093",
@@ -200403,6 +200403,79 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-5d7e7121c615",
+      "idea_version": "IDEAV-741d7a5410fa2ff8",
+      "idea_version_started_at": "2026-10-25T06:04:01Z",
+      "ticker": "YESBANK",
+      "company": "YES Bank",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Ongoing uncertainty regarding the payment of AT-1 bond coupons following a Supreme Court judgment creates a potential liability overhang and capital structure risk.",
+      "why_now": "The bank is currently reviewing the judgment and coupon options, meaning a decision on a significant cash outflow is imminent.",
+      "conviction": 40,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8490376789a7"
+      ],
+      "primary_source_event_id": "EVT-8490376789a7",
+      "source_headlines": [
+        "YES Bank AT-1 Bond Payment Decision Still Pending, Lender Reviews Supreme Court Judgment And Coupon Options"
+      ],
+      "source_headline": "YES Bank AT-1 Bond Payment Decision Still Pending, Lender Reviews Supreme Court Judgment And Coupon Options",
+      "source_url": "https://www.freepressjournal.in/business/yes-bank-at-1-bond-payment-decision-still-pending-lender-reviews-supreme-court-judgment-and-coupon-options",
+      "source_name": "Free Press Journal",
+      "materiality_max": 89,
+      "newest_source_at": "2026-10-25T05:05:42Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-25T06:04:01Z",
+      "updated_at": "2026-10-25T06:04:01Z",
+      "decay_at": "2026-10-26T17:05:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-7f907737bff2",
       "idea_version": "IDEAV-1312054ea4c2d026",
       "idea_version_started_at": "2026-10-25T02:18:41Z",
@@ -200469,6 +200542,79 @@
       "surfaced_at": "2026-10-25T02:18:41Z",
       "updated_at": "2026-10-25T02:18:41Z",
       "decay_at": "2026-10-26T14:09:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-70ae92af30c5",
+      "idea_version": "IDEAV-b7a3dd56f74eccd4",
+      "idea_version_started_at": "2026-10-25T06:04:01Z",
+      "ticker": "JKTYRE",
+      "company": "JK Tyre & Industries",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A massive ₹6,110 crore capital expenditure plan targeting high-margin premium and EV segments aims to structurally improve the company's margin profile.",
+      "why_now": "The announcement of this specific, large-scale investment strategy serves as a medium-term re-rating catalyst for the stock.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-44c5812880e7"
+      ],
+      "primary_source_event_id": "EVT-44c5812880e7",
+      "source_headlines": [
+        "JK Tyre bets ₹6,110 crore on premium, smart and EV tyres to revive margins"
+      ],
+      "source_headline": "JK Tyre bets ₹6,110 crore on premium, smart and EV tyres to revive margins",
+      "source_url": "https://www.thehindubusinessline.com/companies/jk-tyre-bets-6110-crore-on-premium-smart-and-ev-tyres-to-revive-margins/article71619769.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 88,
+      "newest_source_at": "2026-10-25T05:48:11Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-25T06:04:01Z",
+      "updated_at": "2026-10-25T06:04:01Z",
+      "decay_at": "2026-10-26T17:48:11Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -200613,6 +200759,78 @@
       "surfaced_at": "2026-10-25T02:18:41Z",
       "updated_at": "2026-10-25T02:18:41Z",
       "decay_at": "2026-10-26T13:09:39Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-3d8b801f82e2",
+      "idea_version": "IDEAV-fe24e38fa70b2227",
+      "idea_version_started_at": "2026-10-25T06:04:01Z",
+      "ticker": "PNB",
+      "company": "Punjab National Bank",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Management has committed to an aggressive efficiency target, aiming to reduce the cost-to-income ratio below 50% this fiscal year and to 45% by FY29.",
+      "why_now": "The MD's specific guidance on cost-to-income targets provides a measurable benchmark for upcoming quarterly earnings performance.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 14,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-85408a37b20d"
+      ],
+      "primary_source_event_id": "EVT-85408a37b20d",
+      "source_headlines": [
+        "PNB aims to bring cost-to-income ratio below 50% this fiscal, 45% by FY29: MD Chandra"
+      ],
+      "source_headline": "PNB aims to bring cost-to-income ratio below 50% this fiscal, 45% by FY29: MD Chandra",
+      "source_url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/pnb-aims-to-bring-cost-to-income-ratio-below-50-this-fiscal-45-by-fy29-md-chandra/articleshow/135184373.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 75,
+      "newest_source_at": "2026-10-25T05:41:56Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-25T06:04:01Z",
+      "updated_at": "2026-10-25T06:04:01Z",
+      "decay_at": "2026-10-26T17:41:56Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -240977,8 +241195,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1879,
-    "live_count": 40,
+    "surfaced_total": 1882,
+    "live_count": 43,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
