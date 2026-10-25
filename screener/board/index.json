@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T09:04:04Z",
+  "generated_at": "2026-10-25T09:13:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-109",
@@ -146,6 +146,55 @@
           "name": "Bahri",
           "ticker": null,
           "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-188",
+      "headline": "Godrej Properties pre-sales may rise 22% to ₹41,500 crore in FY27, surpassing guidance on strong demand",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/godrej-properties-pre-sales-may-rise-22-to-41500-crore-in-fy27-surpassing-guidance-on-strong-demand/article71622884.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T09:01:46Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Godrej Properties is projected to exceed its FY27 pre-sales guidance by 22% to ₹41,500 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Godrej Properties is projected to exceed its FY27 pre-sales guidance by 22% to ₹41,500 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Godrej Properties",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1918,56 +1967,6 @@
           "name": "SENAAT",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-041",
-      "headline": "Korea Zinc Audit Committee to Review Alleged Diversion of Corporate Funds for Yun B. Choi’s Private Benefit",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279582",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T05:50:43Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Korea Zinc's audit committee is investigating allegations of fund diversion and conflict of interest involving the Chairman.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Korea Zinc's audit committee is investigating allegations of fund diversion and conflict of interest involving the Chairman.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Korea Zinc",
-          "ticker": null,
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -241683,9 +241682,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1155,
-    "news_picked_today": 263,
-    "news_dropped_today": 892
+    "news_seen_today": 1190,
+    "news_picked_today": 276,
+    "news_dropped_today": 914
   },
   "book_momentum": {
     "live_count": 8,
