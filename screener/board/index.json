@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T11:59:37Z",
+  "generated_at": "2026-10-25T12:08:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-198",
@@ -1913,50 +1913,51 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261025-199",
-      "headline": "Chinese Manufacturer Dongshan Raises $1.3 Billion in HK Listing",
+      "inbox_id": "INB-20261025-220",
+      "headline": "Eldorado Gold’s 2027 Outlook: Two New Mines Turning On at Once, With 40% Production Growth Guided",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-25/chinese-manufacturer-dongshan-raises-1-3-billion-in-hk-listing",
-      "source_name": "Bloomberg",
+      "url": "https://www.fool.com/coverage/moneyball/2026/10/25/eldorado-gold-s-2027-outlook-two-new-mines-turning-on-at-once-with-40-production-growth-guided/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
       "input_nature": "news_headline",
-      "found_at": "2026-10-25T10:30:39Z",
+      "found_at": "2026-10-25T11:53:09Z",
       "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Dongshan raised $1.3 billion in an IPO, representing a significant capital inflow.",
+      "prelim_note": "Company guided for 40% production growth driven by the activation of two new mines.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 94,
-      "triage_reason": "Dongshan raised $1.3 billion in an IPO, representing a significant capital inflow.",
-      "region": "CN",
+      "triage_reason": "Company guided for 40% production growth driven by the activation of two new mines.",
+      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
         "materiality": 75,
         "source_tier": 0,
         "scope": 6,
-        "event": 0,
-        "size": 2,
+        "event": 7,
+        "size": 1,
         "recency": 5,
         "materiality_label_floor": 0,
-        "quantified": 6,
+        "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
       },
       "event_types": [
-        "capital_actions"
+        "capex",
+        "guidance_change"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Dongshan",
+          "name": "Eldorado Gold",
           "ticker": null,
-          "listing_country": "CN"
+          "listing_country": null
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -242242,9 +242243,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1691,
-    "news_picked_today": 401,
-    "news_dropped_today": 1290
+    "news_seen_today": 1711,
+    "news_picked_today": 406,
+    "news_dropped_today": 1305
   },
   "book_momentum": {
     "live_count": 8,
