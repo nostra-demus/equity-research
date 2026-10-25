@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T05:39:34Z",
+  "generated_at": "2026-10-25T05:43:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-093",
@@ -826,6 +826,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-097",
+      "headline": "YES Bank AT-1 Bond Payment Decision Still Pending, Lender Reviews Supreme Court Judgment And Coupon Options",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/yes-bank-at-1-bond-payment-decision-still-pending-lender-reviews-supreme-court-judgment-and-coupon-options",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T05:05:42Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "YES Bank is facing uncertainty regarding the payment of AT-1 bonds, creating potential credit and liquidity risk for the lender.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "YES Bank is facing uncertainty regarding the payment of AT-1 bonds, creating potential credit and liquidity risk for the lender.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "YES Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1881,55 +1930,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-087",
-      "headline": "Musk says he was behind Starlink speed restriction after service in Ukraine is restored",
-      "headline_en": null,
-      "url": "https://mainichi.jp/english/articles/20261025/p2g/00m/0in/008000c",
-      "source_name": "The Mainichi",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T05:00:09Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Elon Musk confirmed his involvement in Starlink speed restrictions in Ukraine, highlighting operational and geopolitical risks for the service.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Elon Musk confirmed his involvement in Starlink speed restrictions in Ukraine, highlighting operational and geopolitical risks for the service.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -240998,9 +240998,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 614,
-    "news_picked_today": 114,
-    "news_dropped_today": 500
+    "news_seen_today": 622,
+    "news_picked_today": 117,
+    "news_dropped_today": 505
   },
   "book_momentum": {
     "live_count": 8,
