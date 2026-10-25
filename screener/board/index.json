@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T17:49:13Z",
+  "generated_at": "2026-10-25T19:02:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-198",
@@ -193,6 +193,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-271",
+      "headline": "Bon Secours Nears $6B Takeover of Surgery Partners: FT",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-25/bon-secours-nears-6b-takeover-of-surgery-partners-ft",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T18:24:56Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Bon Secours is nearing a $6 billion takeover of Surgery Partners.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bon Secours is nearing a $6 billion takeover of Surgery Partners.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bon Secours",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Surgery Partners",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1908,55 +1962,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-195",
-      "headline": "MICROINTELLIGEN (03275): UPDATE ON THE GLOBAL OFFERING (1) POSTPONEMENT OF THE GLOBAL OFFERING AND THE LISTING (2) REFUND OF APPLICATION MONIES (3) NO ISSUE OF SHARE CERTIFICATES",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1025/2026102500001.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-25T10:04:00Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Microintelligen has postponed its global offering and listing, indicating a failure to proceed with the planned capital raise.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Microintelligen has postponed its global offering and listing, indicating a failure to proceed with the planned capital raise.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Microintelligen",
-          "ticker": "03275",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -242312,9 +242317,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 32993,
-    "news_picked_today": 604,
-    "news_dropped_today": 1887
+    "news_seen_today": 51469,
+    "news_picked_today": 613,
+    "news_dropped_today": 1926
   },
   "book_momentum": {
     "live_count": 8,
