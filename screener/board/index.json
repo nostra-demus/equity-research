@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T11:09:04Z",
+  "generated_at": "2026-10-25T11:09:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-198",
@@ -199051,6 +199051,148 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-4a437db750bd",
+      "idea_version": "IDEAV-1606cc91e1dc29b8",
+      "idea_version_started_at": "2026-10-25T11:09:28Z",
+      "ticker": "6808",
+      "company": "Sun Art Retail Group Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Sun Art Retail issued an official profit warning filing on the HKEX indicating severe earnings deterioration and margin compression for its retail operations.",
+      "why_now": "The negative regulatory profit warning disclosure was filed on October 25, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6530a5ebb0ae"
+      ],
+      "primary_source_event_id": "EVT-6530a5ebb0ae",
+      "source_headlines": [
+        "SUNART RETAIL (06808): PROFIT WARNING"
+      ],
+      "source_headline": "SUNART RETAIL (06808): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1025/2026102500031.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-25T10:20:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-25T11:09:28Z",
+      "updated_at": "2026-10-25T11:09:28Z",
+      "decay_at": "2026-10-26T22:20:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-9756fee74510",
+      "idea_version": "IDEAV-f78cbcd94fec6e18",
+      "idea_version_started_at": "2026-10-25T11:09:28Z",
+      "ticker": "8158",
+      "company": "China Regenerative Medicine International Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The unexpected resignation of the company's auditor raises major governance red flags and heightens accounting risk.",
+      "why_now": "The auditor resignation was formally disclosed in an exchange filing on October 25, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c2d7718d4c78"
+      ],
+      "primary_source_event_id": "EVT-c2d7718d4c78",
+      "source_headlines": [
+        "CRMI (08158): RESIGNATION OF AUDITOR"
+      ],
+      "source_headline": "CRMI (08158): RESIGNATION OF AUDITOR",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1025/2026102500029.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-25T10:15:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-25T11:09:28Z",
+      "updated_at": "2026-10-25T11:09:28Z",
+      "decay_at": "2026-10-26T22:15:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-4afa0d340387",
       "idea_version": "IDEAV-8b97f1669d5be9a7",
       "idea_version_started_at": "2026-10-25T10:33:48Z",
@@ -200991,6 +201133,80 @@
       "surfaced_at": "2026-10-23T12:15:36Z",
       "updated_at": "2026-10-24T07:26:27Z",
       "decay_at": "2026-10-25T14:55:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-9ad83da2d4c9",
+      "idea_version": "IDEAV-07f8737aee9390cc",
+      "idea_version_started_at": "2026-10-25T11:09:28Z",
+      "ticker": "2370",
+      "company": "Saudi Vitrified Clay Pipes Co.",
+      "exchange": "TADAWUL",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Shareholders approved a massive 69.7% capital reduction to absorb accumulated losses, triggering an immediate two-day trading halt.",
+      "why_now": "The capital cut approval and trading halt disclosure were announced on October 25, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-aeec1acb8f91",
+        "EVT-8a04d6a2d0e9"
+      ],
+      "primary_source_event_id": "EVT-8a04d6a2d0e9",
+      "source_headlines": [
+        "‎SVCP shareholders approve 69.7% capital cut, trading halt for 2 business days",
+        "‎SVCP shareholders approve 69.7% capital cut"
+      ],
+      "source_headline": "‎SVCP shareholders approve 69.7% capital cut, trading halt for 2 business days",
+      "source_url": "https://www.argaam.com/en/article/articledetail/id/1946825",
+      "source_name": "Argaam — Company Disclosures (English)",
+      "materiality_max": 97,
+      "newest_source_at": "2026-10-25T11:06:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-25T11:09:28Z",
+      "updated_at": "2026-10-25T11:09:28Z",
+      "decay_at": "2026-10-26T23:06:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -241934,8 +242150,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1895,
-    "live_count": 52,
+    "surfaced_total": 1898,
+    "live_count": 55,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
