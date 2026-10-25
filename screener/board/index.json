@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T07:39:01Z",
+  "generated_at": "2026-10-25T07:48:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-109",
@@ -149,6 +149,65 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-163",
+      "headline": "Apollo, GIC join the bidder pool at Rio’s $7b infrastructure auction",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/apollo-gic-join-the-bidder-pool-at-rio-s-7b-infrastructure-auction-20261025-p618eq?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T07:39:20Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Apollo and GIC are participating in a $7 billion infrastructure auction for Rio Tinto assets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Apollo and GIC are participating in a $7 billion infrastructure auction for Rio Tinto assets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rio Tinto",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "Apollo Global Management",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "GIC",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1907,56 +1966,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-047",
-      "headline": "Pressed by Chinese EVs in Southeast Asia, Mitsubishi Motors makes risky pivot",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/automobiles/pressed-by-chinese-evs-in-southeast-asia-mitsubishi-motors-makes-risky-pivot",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T02:50:52Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Mitsubishi Motors is forced into a strategic pivot due to competitive pressure from Chinese EV manufacturers in Southeast Asia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Mitsubishi Motors is forced into a strategic pivot due to competitive pressure from Chinese EV manufacturers in Southeast Asia.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "strategic_review",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mitsubishi Motors",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -241314,9 +241323,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 905,
-    "news_picked_today": 202,
-    "news_dropped_today": 703
+    "news_seen_today": 925,
+    "news_picked_today": 204,
+    "news_dropped_today": 721
   },
   "book_momentum": {
     "live_count": 8,
