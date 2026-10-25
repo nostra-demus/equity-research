@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T05:23:32Z",
+  "generated_at": "2026-10-25T05:23:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-093",
@@ -197973,6 +197973,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-fe25590a4b61",
+      "idea_version": "IDEAV-cfa88a9b5596f65d",
+      "idea_version_started_at": "2026-10-25T05:23:46Z",
+      "ticker": "WF",
+      "company": "Woori Financial Group",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company achieved record-breaking quarterly net profit exceeding 1 trillion KRW for two consecutive quarters, signaling strong underlying operational momentum.",
+      "why_now": "The Q3 earnings results were released on October 25, 2026, confirming the sustained financial performance.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f45653af21f7"
+      ],
+      "primary_source_event_id": "EVT-f45653af21f7",
+      "source_headlines": [
+        "Woori Financial Group's 3rd quarter net profit of 1.0492 trillion KRW... first time in history to join the '1 trillion club' for two consecutive quarters"
+      ],
+      "source_headline": "우리금융 3분기 순익 1조492억원…사상 첫 2분기 연속 '1조 클럽'",
+      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279594",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-25T04:50:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-25T05:23:46Z",
+      "updated_at": "2026-10-25T05:23:46Z",
+      "decay_at": "2026-10-26T16:50:39Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-3dcf768f4a41",
       "idea_version": "IDEAV-bd9c581a6712ce45",
       "idea_version_started_at": "2026-10-24T19:18:35Z",
@@ -203544,79 +203614,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-e74617dc9ec3",
-      "idea_version": "IDEAV-0d16b75e16bad2f9",
-      "idea_version_started_at": "2026-10-22T09:01:10Z",
-      "ticker": "M&MFIN",
-      "company": "M&M Financial Services",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported disappointing Q2 results that triggered a 10% share price decline, reflecting underlying asset quality or margin concerns.",
-      "why_now": "The negative market reaction followed the Q2 earnings release on 2026-10-22.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d8d652238e1f"
-      ],
-      "primary_source_event_id": "EVT-d8d652238e1f",
-      "source_headlines": [
-        "M&M Financial Services shares crash 10% after Q2 results. What are Nomura and other analysts saying?"
-      ],
-      "source_headline": "M&M Financial Services shares crash 10% after Q2 results. What are Nomura and other analysts saying?",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/mm-financial-services-shares-crash-10-after-q2-results-what-are-nomura-and-other-analysts-saying/articleshow/135107851.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-22T05:04:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-22T09:01:10Z",
-      "updated_at": "2026-10-22T09:01:10Z",
-      "decay_at": "2026-10-23T17:04:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-b25d37e5a84d",
       "idea_version": "IDEAV-e612966bfecfd150",
       "idea_version_started_at": "2026-10-24T05:01:36Z",
@@ -203776,9 +203773,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 542,
+    "total_count": 541,
     "shown_count": 500,
-    "hidden_count": 42,
+    "hidden_count": 41,
     "side_counts": {
       "long": {
         "total_count": 273,
@@ -203786,23 +203783,23 @@
         "hidden_count": 23
       },
       "short": {
-        "total_count": 270,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 20
+        "hidden_count": 19
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1296,
-      "oldest_retained_at": "2026-09-28T03:10:13Z",
+      "evicted_count": 1297,
+      "oldest_retained_at": "2026-09-28T04:13:00Z",
       "side_counts": {
         "long": {
           "evicted_count": 866,
           "oldest_retained_at": "2026-10-10T04:00:00Z"
         },
         "short": {
-          "evicted_count": 430,
-          "oldest_retained_at": "2026-09-28T03:10:13Z"
+          "evicted_count": 431,
+          "oldest_retained_at": "2026-09-28T04:13:00Z"
         }
       }
     },
@@ -207004,8 +207001,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-23T17:04:01Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-25T05:23:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -241051,8 +241048,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1878,
-    "live_count": 39,
+    "surfaced_total": 1879,
+    "live_count": 40,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
