@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T04:08:44Z",
+  "generated_at": "2026-10-25T04:10:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-068",
@@ -198577,6 +198577,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-b483d5aa9fc1",
+      "idea_version": "IDEAV-5dd1c72d81beae0e",
+      "idea_version_started_at": "2026-10-25T04:09:49Z",
+      "ticker": "MMTOF",
+      "company": "Mitsubishi Motors",
+      "exchange": "OTC Markets",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is forced into a high-risk strategic pivot to combat market share erosion from Chinese EV manufacturers in Southeast Asia, threatening margins and long-term viability.",
+      "why_now": "The pivot is being reported as a reactive, risky measure to ongoing competitive pressure as of October 25, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 14,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7d746fbc00c1"
+      ],
+      "primary_source_event_id": "EVT-7d746fbc00c1",
+      "source_headlines": [
+        "Pressed by Chinese EVs in Southeast Asia, Mitsubishi Motors makes risky pivot"
+      ],
+      "source_headline": "Pressed by Chinese EVs in Southeast Asia, Mitsubishi Motors makes risky pivot",
+      "source_url": "https://asia.nikkei.com/business/automobiles/pressed-by-chinese-evs-in-southeast-asia-mitsubishi-motors-makes-risky-pivot",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 88,
+      "newest_source_at": "2026-10-25T02:50:52Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-25T04:09:49Z",
+      "updated_at": "2026-10-25T04:09:49Z",
+      "decay_at": "2026-10-26T14:50:52Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-ef22250a1f99",
       "idea_version": "IDEAV-275ba366872be793",
       "idea_version_started_at": "2026-10-25T02:38:24Z",
@@ -203377,79 +203447,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-e5a33fd56bcc",
-      "idea_version": "IDEAV-acbf90ced813c5c0",
-      "idea_version_started_at": "2026-10-22T09:01:10Z",
-      "ticker": "PCJEWELLER",
-      "company": "PC Jeweller",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 58% YoY increase in net profit and achieved debt-free status, significantly improving its balance sheet health.",
-      "why_now": "The earnings release and debt-free announcement occurred on 2026-10-22.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1e63aa3118fb",
-        "EVT-49c6ee43a8ef"
-      ],
-      "primary_source_event_id": "EVT-1e63aa3118fb",
-      "source_headlines": [
-        "India's PC Jeweller jumps on rise in quarterly profit and debt-free status",
-        "PC Jeweller shares soar 9% after Q2 net profit rises 58% YoY; plans 100 new stores in 18 months"
-      ],
-      "source_headline": "India's PC Jeweller jumps on rise in quarterly profit and debt-free status",
-      "source_url": "https://www.reuters.com/world/india/indias-pc-jeweller-jumps-rise-quarterly-profit-debt-free-status-2026-10-22/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-22T04:03:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-22T09:01:10Z",
-      "updated_at": "2026-10-22T09:01:10Z",
-      "decay_at": "2026-10-23T16:03:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-e74617dc9ec3",
       "idea_version": "IDEAV-0d16b75e16bad2f9",
       "idea_version_started_at": "2026-10-22T09:01:10Z",
@@ -203682,14 +203679,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 542,
+    "total_count": 541,
     "shown_count": 500,
-    "hidden_count": 42,
+    "hidden_count": 41,
     "side_counts": {
       "long": {
-        "total_count": 273,
+        "total_count": 272,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 22
       },
       "short": {
         "total_count": 270,
@@ -203699,12 +203696,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1294,
+      "evicted_count": 1295,
       "oldest_retained_at": "2026-09-28T02:25:57Z",
       "side_counts": {
         "long": {
-          "evicted_count": 865,
-          "oldest_retained_at": "2026-10-09T21:46:00Z"
+          "evicted_count": 866,
+          "oldest_retained_at": "2026-10-10T04:00:00Z"
         },
         "short": {
           "evicted_count": 429,
@@ -206913,8 +206910,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-23T16:03:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-25T04:09:53Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -240956,8 +240953,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1875,
-    "live_count": 38,
+    "surfaced_total": 1876,
+    "live_count": 39,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
