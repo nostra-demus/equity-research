@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T22:38:54Z",
+  "generated_at": "2026-10-25T22:53:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-467",
@@ -198309,15 +198309,15 @@
     },
     {
       "idea_id": "IDEA-7185bf48deb4",
-      "idea_version": "IDEAV-cd47c6cf60622b25",
-      "idea_version_started_at": "2026-10-25T12:38:57Z",
+      "idea_version": "IDEAV-4390a010d9015aaa",
+      "idea_version_started_at": "2026-10-25T22:53:36Z",
       "ticker": "EGO",
       "company": "Eldorado Gold",
       "exchange": "NYSE",
       "direction": "long",
       "pair_with": null,
-      "reason": "The company guided for 40% production growth in 2027 driven by the commissioning of two new mines, which will significantly increase cash flow.",
-      "why_now": "The 2027 outlook and production growth guidance were published on 2026-10-25.",
+      "reason": "The company is guiding for 40% production growth driven by the commissioning of two new mines, which will significantly expand revenue and cash flow capacity.",
+      "why_now": "The outlook was released on 2026-10-25, providing a clear catalyst for re-rating based on the production ramp-up.",
       "conviction": 75,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 65,
@@ -198370,7 +198370,7 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-10-25T12:38:57Z",
-      "updated_at": "2026-10-25T12:38:57Z",
+      "updated_at": "2026-10-25T22:53:36Z",
       "decay_at": "2026-10-27T00:13:09Z",
       "status": "live",
       "promoted_signal_id": null,
@@ -198659,76 +198659,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-9e0d39f688eb",
-      "idea_version": "IDEAV-057499c62138cb58",
-      "idea_version_started_at": "2026-10-24T23:13:43Z",
-      "ticker": "TECK",
-      "company": "Teck Resources",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A strike at the Highland Valley Copper mine halts production, directly impacting copper output and near-term revenue generation.",
-      "why_now": "The strike began on 2026-10-24.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7e383581d94f"
-      ],
-      "primary_source_event_id": "EVT-7e383581d94f",
-      "source_headlines": [
-        "Teck says strike begins at Highland Valley Copper mine in British Columbia"
-      ],
-      "source_headline": "Teck says strike begins at Highland Valley Copper mine in British Columbia",
-      "source_url": "https://www.reuters.com/business/world-at-work/teck-says-strike-begins-highland-valley-copper-mine-british-columbia-2026-10-24/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-24T20:21:48Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T20:38:50Z",
-      "updated_at": "2026-10-24T23:13:43Z",
-      "decay_at": "2026-10-26T08:21:48Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-dba8408df9af",
       "idea_version": "IDEAV-f875eb09a57c9a2f",
       "idea_version_started_at": "2026-10-24T19:18:35Z",
@@ -198934,6 +198864,76 @@
       "surfaced_at": "2026-10-25T09:03:43Z",
       "updated_at": "2026-10-25T09:03:43Z",
       "decay_at": "2026-10-26T20:53:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-9e0d39f688eb",
+      "idea_version": "IDEAV-fd95d772c8f163b1",
+      "idea_version_started_at": "2026-10-25T22:53:36Z",
+      "ticker": "TECK",
+      "company": "Teck Resources",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A labor strike at the Highland Valley Copper mine halts production at a key asset, directly impacting copper output and quarterly revenue.",
+      "why_now": "The strike began on 2026-10-24 and is an active operational disruption.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 61,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7e383581d94f"
+      ],
+      "primary_source_event_id": "EVT-7e383581d94f",
+      "source_headlines": [
+        "Teck says strike begins at Highland Valley Copper mine in British Columbia"
+      ],
+      "source_headline": "Teck says strike begins at Highland Valley Copper mine in British Columbia",
+      "source_url": "https://www.reuters.com/business/world-at-work/teck-says-strike-begins-highland-valley-copper-mine-british-columbia-2026-10-24/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-24T20:21:48Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T20:38:50Z",
+      "updated_at": "2026-10-25T22:53:36Z",
+      "decay_at": "2026-10-26T08:21:48Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -199214,6 +199214,151 @@
       "surfaced_at": "2026-10-25T02:38:24Z",
       "updated_at": "2026-10-25T02:38:24Z",
       "decay_at": "2026-10-26T13:50:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-3f31d30063da",
+      "idea_version": "IDEAV-4db676f1dc6de6f5",
+      "idea_version_started_at": "2026-10-25T22:53:36Z",
+      "ticker": "GODREJPROP",
+      "company": "Godrej Properties",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A 62% plunge in quarterly profit indicates significant margin compression or project delays, signaling potential further downside for the stock.",
+      "why_now": "The Q2 earnings report was released on 2026-10-24, and the stock has already begun a downward trend.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8b2539fdc13a"
+      ],
+      "primary_source_event_id": "EVT-8b2539fdc13a",
+      "source_headlines": [
+        "Godrej Properties Q2 profit plunges 62% to ₹154 crore, real estate stock down 6.5% in 1 week - What next for investors"
+      ],
+      "source_headline": "Godrej Properties Q2 profit plunges 62% to ₹154 crore, real estate stock down 6.5% in 1 week - What next for investors",
+      "source_url": "https://www.livemint.com/market/stock-market-news/godrej-properties-q2-profit-falls-62-to-rs-154-crore-real-estate-stock-down-6-5-in-1-week-what-s-next-for-investors-11792839670974.html",
+      "source_name": "Mint",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-24T11:07:13Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T05:01:36Z",
+      "updated_at": "2026-10-25T22:53:36Z",
+      "decay_at": "2026-10-25T23:07:13Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-e32181ac5b3e",
+      "idea_version": "IDEAV-e317f1429798e3a9",
+      "idea_version_started_at": "2026-10-25T22:53:36Z",
+      "ticker": "AUBANK",
+      "company": "AU Small Finance Bank",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Profit growth exceeding 50% combined with improving asset quality metrics suggests strong underlying credit performance and operational efficiency.",
+      "why_now": "The Q2 results were reported on 2026-10-24, confirming the positive trend in the bank's balance sheet.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b9b35e8f75d6"
+      ],
+      "primary_source_event_id": "EVT-b9b35e8f75d6",
+      "source_headlines": [
+        "AU SMALL FINANCE BANK Q2: Profit Grows Over 50%, Asset Quality Improves"
+      ],
+      "source_headline": "AU SMALL FINANCE BANK Q2: Profit Grows Over 50%, Asset Quality Improves",
+      "source_url": "https://www.ndtvprofit.com/markets/au-small-finance-bank-q2-profit-grows-over-50-asset-quality-improves-12229738#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-24T10:57:40Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T10:55:46Z",
+      "updated_at": "2026-10-25T22:53:36Z",
+      "decay_at": "2026-10-25T22:57:40Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -200074,151 +200219,6 @@
       "surfaced_at": "2026-10-24T12:08:57Z",
       "updated_at": "2026-10-24T23:38:50Z",
       "decay_at": "2026-10-26T01:24:25Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-e32181ac5b3e",
-      "idea_version": "IDEAV-1295181834761a1a",
-      "idea_version_started_at": "2026-10-24T23:38:50Z",
-      "ticker": "AUBANK",
-      "company": "AU Small Finance Bank",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The bank reported a 50% profit increase alongside improved asset quality, signaling strong operational efficiency and credit health.",
-      "why_now": "The Q2 earnings report was released on 2026-10-24, providing immediate validation of the bank's growth trajectory.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b9b35e8f75d6"
-      ],
-      "primary_source_event_id": "EVT-b9b35e8f75d6",
-      "source_headlines": [
-        "AU SMALL FINANCE BANK Q2: Profit Grows Over 50%, Asset Quality Improves"
-      ],
-      "source_headline": "AU SMALL FINANCE BANK Q2: Profit Grows Over 50%, Asset Quality Improves",
-      "source_url": "https://www.ndtvprofit.com/markets/au-small-finance-bank-q2-profit-grows-over-50-asset-quality-improves-12229738#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-24T10:57:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T10:55:46Z",
-      "updated_at": "2026-10-24T23:38:50Z",
-      "decay_at": "2026-10-25T22:57:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-3f31d30063da",
-      "idea_version": "IDEAV-e0cb16c2caa67eb6",
-      "idea_version_started_at": "2026-10-24T23:13:43Z",
-      "ticker": "GODREJPROP",
-      "company": "Godrej Properties",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A 62% plunge in Q2 profit highlights significant operational headwinds and margin compression in the current real estate cycle.",
-      "why_now": "The earnings report was released on 2026-10-24.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8b2539fdc13a"
-      ],
-      "primary_source_event_id": "EVT-8b2539fdc13a",
-      "source_headlines": [
-        "Godrej Properties Q2 profit plunges 62% to ₹154 crore, real estate stock down 6.5% in 1 week - What next for investors"
-      ],
-      "source_headline": "Godrej Properties Q2 profit plunges 62% to ₹154 crore, real estate stock down 6.5% in 1 week - What next for investors",
-      "source_url": "https://www.livemint.com/market/stock-market-news/godrej-properties-q2-profit-falls-62-to-rs-154-crore-real-estate-stock-down-6-5-in-1-week-what-s-next-for-investors-11792839670974.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-24T11:07:13Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T05:01:36Z",
-      "updated_at": "2026-10-24T23:13:43Z",
-      "decay_at": "2026-10-25T23:07:13Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -202089,76 +202089,6 @@
       "surfaced_at": "2026-10-23T15:10:57Z",
       "updated_at": "2026-10-23T15:10:57Z",
       "decay_at": "2026-10-24T23:24:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-af5637c58aec",
-      "idea_version": "IDEAV-035c9d5387d56ed9",
-      "idea_version_started_at": "2026-10-23T05:56:42Z",
-      "ticker": "DECK",
-      "company": "Deckers Outdoor",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company lowered its sales outlook due to a shift in consumer demand toward discounted footwear, signaling margin pressure and weakening brand pricing power.",
-      "why_now": "The guidance cut was announced on 2026-10-22, creating an immediate negative catalyst for the stock.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-68ad7da57380"
-      ],
-      "primary_source_event_id": "EVT-68ad7da57380",
-      "source_headlines": [
-        "Deckers Cuts Sales Outlook as Shoppers Seek Out Discounted Shoes"
-      ],
-      "source_headline": "Deckers Cuts Sales Outlook as Shoppers Seek Out Discounted Shoes",
-      "source_url": "https://www.wsj.com/business/earnings/deckers-cuts-sales-outlook-amid-slower-hoka-ugg-growth-84f46d5c?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-22T22:04:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T05:56:42Z",
-      "updated_at": "2026-10-23T05:56:42Z",
-      "decay_at": "2026-10-24T10:04:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -204545,9 +204475,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 537,
     "shown_count": 500,
-    "hidden_count": 38,
+    "hidden_count": 37,
     "side_counts": {
       "long": {
         "total_count": 271,
@@ -204555,23 +204485,23 @@
         "hidden_count": 21
       },
       "short": {
-        "total_count": 268,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 17
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1311,
-      "oldest_retained_at": "2026-09-28T15:24:37Z",
+      "evicted_count": 1312,
+      "oldest_retained_at": "2026-09-28T16:27:44Z",
       "side_counts": {
         "long": {
           "evicted_count": 873,
           "oldest_retained_at": "2026-10-10T13:27:47Z"
         },
         "short": {
-          "evicted_count": 438,
-          "oldest_retained_at": "2026-09-28T15:24:37Z"
+          "evicted_count": 439,
+          "oldest_retained_at": "2026-09-28T16:27:44Z"
         }
       }
     },
@@ -207479,8 +207409,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-24T10:04:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-25T22:53:49Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -241840,7 +241770,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 101834,
+    "news_seen_today": 102011,
     "news_picked_today": 946,
     "news_dropped_today": 2743
   },
