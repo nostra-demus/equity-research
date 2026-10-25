@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T02:38:43Z",
+  "generated_at": "2026-10-25T02:43:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-040",
@@ -1199,6 +1199,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-046",
+      "headline": "World's 1st hydrogen engine for large ships cuts C02 emissions by 95%",
+      "headline_en": null,
+      "url": "https://english.kyodonews.net/articles/-/89365",
+      "source_name": "Kyodo News (Japan Wire)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T02:11:00Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "The development of the world's first hydrogen engine for large ships represents a significant technological advancement in maritime decarbonization.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "The development of the world's first hydrogen engine for large ships represents a significant technological advancement in maritime decarbonization.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": -26,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-025",
       "headline": "Bhopal Master Plan 2047 Faces Fourth Delay As Farmers Launch Protests Over Catchment Zones, BJP Government May Put Plan On Hold Again",
       "headline_en": null,
@@ -1811,49 +1854,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-027",
-      "headline": "China’s US$3.5 trillion stock rout deepens as profits sink, major stimulus stays elusive",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/capital-markets-currencies/chinas-us3-5-trillion-stock-rout-deepens-profits-sink-major-stimulus-stays-elusive",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T01:41:33Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "China's equity market has seen a US$3.5 trillion decline due to falling corporate profits and lack of effective stimulus.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 42,
-      "triage_reason": "China's equity market has seen a US$3.5 trillion decline due to falling corporate profits and lack of effective stimulus.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -240994,9 +240994,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 288,
-    "news_picked_today": 45,
-    "news_dropped_today": 243
+    "news_seen_today": 292,
+    "news_picked_today": 46,
+    "news_dropped_today": 246
   },
   "book_momentum": {
     "live_count": 8,
