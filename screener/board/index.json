@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T12:35:33Z",
+  "generated_at": "2026-10-25T12:38:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-198",
@@ -193,6 +193,105 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-221",
+      "headline": "Netflix lays off 6% of workforce amidst slowing growth",
+      "headline_en": null,
+      "url": "https://www.npr.org/2026/10/25/nx-s1-6009274/netflix-lays-off-6-of-workforce-amidst-slowing-growth",
+      "source_name": "NPR — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T12:25:29Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Netflix is laying off 6% of its workforce, signaling operational challenges and slowing growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Netflix is laying off 6% of its workforce, signaling operational challenges and slowing growth.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Netflix",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-225",
+      "headline": "Eldorado Gold’s 2027 Outlook: Two New Mines Turning On at Once, With 40% Production Growth Guided",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/eldorado-golds-2027-outlook-two-new-mines-turning-once-40-production-growth-guided",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T12:13:09Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Eldorado Gold announced a 2027 outlook featuring two new mines and 40% production growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Eldorado Gold announced a 2027 outlook featuring two new mines and 40% production growth.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eldorado Gold",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1859,105 +1958,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-012",
-      "headline": "Instacart Parent Maplebear Agrees to $5 Million Joint Settlement. A Retiree’s Back-Pay Check Could Complicate Social Security",
-      "headline_en": null,
-      "url": "https://247wallst.com/personal-finance/social-security/2026/10/24/instacart-parent-maplebear-agrees-to-5-million-joint-settlement-a-retirees-back-pay-check-could-complicate-social-security/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T01:00:07Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Maplebear (Instacart) agreed to a $5 million settlement regarding labor/pay issues.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Maplebear (Instacart) agreed to a $5 million settlement regarding labor/pay issues.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Maplebear",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-220",
-      "headline": "Eldorado Gold’s 2027 Outlook: Two New Mines Turning On at Once, With 40% Production Growth Guided",
-      "headline_en": null,
-      "url": "https://www.fool.com/coverage/moneyball/2026/10/25/eldorado-gold-s-2027-outlook-two-new-mines-turning-on-at-once-with-40-production-growth-guided/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T11:53:09Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Company guided for 40% production growth driven by the activation of two new mines.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Company guided for 40% production growth driven by the activation of two new mines.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Eldorado Gold",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -242243,9 +242243,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1860,
-    "news_picked_today": 422,
-    "news_dropped_today": 1352
+    "news_seen_today": 1894,
+    "news_picked_today": 432,
+    "news_dropped_today": 1376
   },
   "book_momentum": {
     "live_count": 8,
