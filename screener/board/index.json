@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T11:48:37Z",
+  "generated_at": "2026-10-25T11:59:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-198",
@@ -1765,6 +1765,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-216",
+      "headline": "MICROPORT (00853): RESIGNATION OF DIRECTOR; AND APPOINTMENT OF EXECUTIVE DIRECTOR, CHIEF EXECUTIVE OFFICER AND AUTHORISED REPRESENTATIVE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1025/2026102500221.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-25T11:50:00Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "MicroPort announced a director resignation alongside the appointment of a new CEO and Executive Director.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "MicroPort announced a director resignation alongside the appointment of a new CEO and Executive Director.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "executive_exit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "executive_exit",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MicroPort Scientific Corporation",
+          "ticker": "00853",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-189",
       "headline": "Godrej Properties eyes record Rs 41,500 crore sales bookings, expects to beat FY27 guidance",
       "headline_en": null,
@@ -1904,55 +1954,6 @@
           "name": "Dongshan",
           "ticker": null,
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-028",
-      "headline": "Trump to announce Audi SUV plant in Georgia amid tariff push",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/world/us/trump-to-announce-audi-suv-plant-in-georgia-amid-tariff-push-4194380",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T01:37:04Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Audi is reportedly planning a new SUV plant in Georgia, representing a significant capital investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Audi is reportedly planning a new SUV plant in Georgia, representing a significant capital investment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Audi",
-          "ticker": null,
-          "listing_country": "DE"
         }
       ],
       "size_bucket": "large",
@@ -242241,9 +242242,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1662,
-    "news_picked_today": 392,
-    "news_dropped_today": 1270
+    "news_seen_today": 1691,
+    "news_picked_today": 401,
+    "news_dropped_today": 1290
   },
   "book_momentum": {
     "live_count": 8,
