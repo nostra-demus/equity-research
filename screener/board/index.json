@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T06:18:59Z",
+  "generated_at": "2026-10-25T06:28:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-109",
@@ -1616,6 +1616,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-123",
+      "headline": "Flydubai says Boeing 737-10 remains an option after US certification",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/business/flydubai-says-boeing-737-10-remains-an-option-after-us-certification",
+      "source_name": "Khaleej Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T06:16:33Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Flydubai confirms the Boeing 737-10 remains an option, supporting the manufacturer's order book.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Flydubai confirms the Boeing 737-10 remains an option, supporting the manufacturer's order book.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Boeing",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-116",
       "headline": "Etihad Airways extends flight cancellations to Saudi amid Houthi attacks",
       "headline_en": null,
@@ -1655,6 +1704,55 @@
       "companies": [
         {
           "name": "Etihad Airways",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-120",
+      "headline": "‎Sumou plans to buy 1M treasury shares",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1946801",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T09:19:00Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Sumou announced a plan to repurchase 1 million treasury shares, which typically signals management confidence.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Sumou announced a plan to repurchase 1 million treasury shares, which typically signals management confidence.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sumou",
           "ticker": null,
           "listing_country": null
         }
@@ -1838,98 +1936,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-072",
-      "headline": "USFDA concludes inspection at Lupin's Goa facility with one observation",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/usfda-concludes-inspection-at-lupins-goa-facility-with-one-observation/article71622511.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T04:03:23Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "USFDA concluded inspection at Lupin's Goa facility with one observation — regulatory outcome affecting a pharmaceutical company's operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "USFDA concluded inspection at Lupin's Goa facility with one observation — regulatory outcome affecting a pharmaceutical company's operations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lupin",
-          "ticker": "LUPIN",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-032",
-      "headline": "CPI could seal Melbourne Cup day interest rate rise",
-      "headline_en": null,
-      "url": "https://www.afr.com/politics/federal/australian-news-live-october-25-2026-20261025-p618bt?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T02:03:43Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "The potential for an interest rate rise in Australia based on CPI data is a significant macroeconomic event affecting the broader market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "The potential for an interest rate rise in Australia based on CPI data is a significant macroeconomic event affecting the broader market.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -200259,79 +200265,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-92e83afd6cf7",
-      "idea_version": "IDEAV-c0550f7f8baa8373",
-      "idea_version_started_at": "2026-10-24T00:28:47Z",
-      "ticker": "DRREDDY",
-      "company": "Dr. Reddy's Laboratories",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported a significant 36% decline in Q2 net profit, missing expectations and indicating margin pressure.",
-      "why_now": "The earnings report was released on 2026-10-23.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-39870cfb5b17",
-        "EVT-42a04f4309cd"
-      ],
-      "primary_source_event_id": "EVT-39870cfb5b17",
-      "source_headlines": [
-        "Torrent Pharma Profit Falls 9.6 Per Cent, Dr Reddy’s Slumps 36 Pc In Q2 FY27",
-        "Dr Reddy’s Q2 FY27 net down 36% at ₹925 cr"
-      ],
-      "source_headline": "Torrent Pharma Profit Falls 9.6 Per Cent, Dr Reddy’s Slumps 36 Pc In Q2 FY27",
-      "source_url": "https://www.freepressjournal.in/business/torrent-pharma-profit-falls-96-per-cent-dr-reddys-slumps-36-pc-in-q2-fy27",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-23T18:27:04Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T15:52:59Z",
-      "updated_at": "2026-10-24T00:28:47Z",
-      "decay_at": "2026-10-25T06:27:04Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5d7e7121c615",
       "idea_version": "IDEAV-741d7a5410fa2ff8",
       "idea_version_started_at": "2026-10-25T06:04:01Z",
@@ -202396,6 +202329,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-92e83afd6cf7",
+      "idea_version": "IDEAV-c0550f7f8baa8373",
+      "idea_version_started_at": "2026-10-24T00:28:47Z",
+      "ticker": "DRREDDY",
+      "company": "Dr. Reddy's Laboratories",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a significant 36% decline in Q2 net profit, missing expectations and indicating margin pressure.",
+      "why_now": "The earnings report was released on 2026-10-23.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-39870cfb5b17",
+        "EVT-42a04f4309cd"
+      ],
+      "primary_source_event_id": "EVT-39870cfb5b17",
+      "source_headlines": [
+        "Torrent Pharma Profit Falls 9.6 Per Cent, Dr Reddy’s Slumps 36 Pc In Q2 FY27",
+        "Dr Reddy’s Q2 FY27 net down 36% at ₹925 cr"
+      ],
+      "source_headline": "Torrent Pharma Profit Falls 9.6 Per Cent, Dr Reddy’s Slumps 36 Pc In Q2 FY27",
+      "source_url": "https://www.freepressjournal.in/business/torrent-pharma-profit-falls-96-per-cent-dr-reddys-slumps-36-pc-in-q2-fy27",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-23T18:27:04Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T15:52:59Z",
+      "updated_at": "2026-10-24T00:28:47Z",
+      "decay_at": "2026-10-25T06:27:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-af4308e96a78",
       "idea_version": "IDEAV-a824af70ecdc0ee6",
       "idea_version_started_at": "2026-10-24T00:28:47Z",
@@ -203921,9 +203927,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 541,
+    "total_count": 542,
     "shown_count": 500,
-    "hidden_count": 41,
+    "hidden_count": 42,
     "side_counts": {
       "long": {
         "total_count": 273,
@@ -203931,9 +203937,9 @@
         "hidden_count": 23
       },
       "short": {
-        "total_count": 269,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 19
+        "hidden_count": 20
       }
     },
     "retention": {
@@ -203952,6 +203958,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-92e83afd6cf7",
+        "idea_version": "IDEAV-c0550f7f8baa8373",
+        "idea_version_started_at": "2026-10-24T00:28:47Z",
+        "ticker": "DRREDDY",
+        "company": "Dr. Reddy's Laboratories",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company reported a significant 36% decline in Q2 net profit, missing expectations and indicating margin pressure.",
+        "why_now": "The earnings report was released on 2026-10-23.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-39870cfb5b17",
+          "EVT-42a04f4309cd"
+        ],
+        "primary_source_event_id": "EVT-39870cfb5b17",
+        "source_headlines": [
+          "Torrent Pharma Profit Falls 9.6 Per Cent, Dr Reddy’s Slumps 36 Pc In Q2 FY27",
+          "Dr Reddy’s Q2 FY27 net down 36% at ₹925 cr"
+        ],
+        "source_headline": "Torrent Pharma Profit Falls 9.6 Per Cent, Dr Reddy’s Slumps 36 Pc In Q2 FY27",
+        "source_url": "https://www.freepressjournal.in/business/torrent-pharma-profit-falls-96-per-cent-dr-reddys-slumps-36-pc-in-q2-fy27",
+        "source_name": "Free Press Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-23T18:27:04Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-23T15:52:59Z",
+        "updated_at": "2026-10-24T00:28:47Z",
+        "decay_at": "2026-10-25T06:27:04Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-25T06:27:04Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-e0e4d2fdf192",
         "idea_version": "IDEAV-814e9d4e77a84337",
@@ -241117,87 +241199,12 @@
         "archived_at": "2026-10-01T05:01:37Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-353ee6d92397",
-        "idea_version": "IDEAV-af94d9c89c45f066",
-        "idea_version_started_at": "2026-09-28T03:32:24Z",
-        "ticker": "PNJ",
-        "company": "Phu Nhuan Jewelry",
-        "exchange": "HOSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Phu Nhuan Jewelry (PNJ) is forecasting a loss following a diamond scandal, which will negatively impact its financial performance.",
-        "why_now": "The company's forecast for a loss was reported on September 28, 2026, providing a fresh catalyst for a potential price decline.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f4302708f46d"
-        ],
-        "primary_source_event_id": "EVT-f4302708f46d",
-        "source_headlines": [
-          "Vietnam Jeweler PNJ Forecasts Loss After Diamond Scandal"
-        ],
-        "source_headline": "Vietnam Jeweler PNJ Forecasts Loss After Diamond Scandal",
-        "source_url": "https://www.bloomberg.com/news/articles/2026-09-28/vietnam-jewelry-giant-pnj-forecasts-loss-after-diamond-scandal",
-        "source_name": "Bloomberg",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-28T01:47:23Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-28T03:32:24Z",
-        "updated_at": "2026-09-28T03:32:24Z",
-        "decay_at": "2026-09-29T13:47:23Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-01T05:01:37Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1882,
-    "live_count": 42,
+    "live_count": 41,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -241216,9 +241223,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 715,
-    "news_picked_today": 147,
-    "news_dropped_today": 568
+    "news_seen_today": 734,
+    "news_picked_today": 152,
+    "news_dropped_today": 582
   },
   "book_momentum": {
     "live_count": 8,
