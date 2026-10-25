@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T04:38:27Z",
+  "generated_at": "2026-10-25T04:39:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-068",
@@ -197882,33 +197882,32 @@
   "ideas": [
     {
       "idea_id": "IDEA-d20df5cd7aab",
-      "idea_version": "IDEAV-81e5a89b5f461c1f",
-      "idea_version_started_at": "2026-10-24T20:13:45Z",
+      "idea_version": "IDEAV-93e031c97a49d1e4",
+      "idea_version_started_at": "2026-10-25T04:38:42Z",
       "ticker": "VWAGY",
       "company": "Volkswagen AG",
       "exchange": "OTC Markets",
       "direction": "long",
       "pair_with": null,
-      "reason": "The company is committing to a new manufacturing facility in the United States, which mitigates potential future tariff risks and aligns with domestic political incentives.",
-      "why_now": "The announcement was made on 2026-10-24, providing an immediate catalyst for sentiment regarding the company's US market strategy.",
+      "reason": "Audi, a subsidiary of Volkswagen AG, will construct a new SUV plant in Georgia, a significant capital expenditure and expansion driven by US policy.",
+      "why_now": "President Trump confirmed the construction of the Audi plant in the USA on October 25, 2026, with a reported deal value of $4.2 billion.",
       "conviction": 65,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
+      "trade_score": 75,
       "trade_score_basis": "event_driven_v3",
       "trade_score_breakdown": {
         "evidence": 14,
-        "impact": 21,
+        "impact": 19,
         "specificity": 15,
         "timing": 10,
         "expression": 7,
-        "corroboration": 0,
+        "corroboration": 10,
         "learning_adjustment": 0
       },
       "trade_readiness": "needs_data",
       "missing_checks": [
         "live liquidity",
         "dated catalyst",
-        "independent confirmation",
         "live price, liquidity, and consensus"
       ],
       "learning": {
@@ -197921,21 +197920,25 @@
         "evidenceIds": []
       },
       "priced_in": "room",
-      "thesis_type": "company_specific",
+      "thesis_type": "policy_conditional",
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-cbfd2bf1ff2d"
+        "EVT-a32e3477172e",
+        "EVT-3b8f3b16a168",
+        "EVT-6ffe0d674e16"
       ],
-      "primary_source_event_id": "EVT-cbfd2bf1ff2d",
+      "primary_source_event_id": "EVT-a32e3477172e",
       "source_headlines": [
-        "Volkswagen Plans New Audi Plant in Georgia, Handing Trump a Win"
+        "Trump to announce Audi SUV plant in Georgia amid tariff push",
+        "Auto: After Handelsblatt report: Trump confirms construction of Audi plant in the USA",
+        "'Tariffs Bring In Jobs': Trump Defends Protectionist Policy With Massive $4.2B Audi Deal"
       ],
-      "source_headline": "Volkswagen Plans New Audi Plant in Georgia, Handing Trump a Win",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-10-24/volkswagen-plans-new-audi-plant-in-georgia-handing-trump-a-win",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-24T19:52:40Z",
+      "source_headline": "Trump to announce Audi SUV plant in Georgia amid tariff push",
+      "source_url": "https://www.deccanherald.com/world/us/trump-to-announce-audi-suv-plant-in-georgia-amid-tariff-push-4194380",
+      "source_name": "Deccan Herald",
+      "materiality_max": 94,
+      "newest_source_at": "2026-10-25T02:10:40Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
@@ -197943,8 +197946,8 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-10-24T20:13:45Z",
-      "updated_at": "2026-10-24T20:13:45Z",
-      "decay_at": "2026-10-26T07:52:40Z",
+      "updated_at": "2026-10-25T04:38:42Z",
+      "decay_at": "2026-10-26T14:10:40Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -198506,6 +198509,76 @@
       "surfaced_at": "2026-10-24T03:46:54Z",
       "updated_at": "2026-10-24T03:46:54Z",
       "decay_at": "2026-10-25T08:46:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-4e8059fc08a2",
+      "idea_version": "IDEAV-ad3e10c6de61bda5",
+      "idea_version_started_at": "2026-10-25T04:38:42Z",
+      "ticker": "7211.T",
+      "company": "Mitsubishi Motors",
+      "exchange": "Tokyo Stock Exchange",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Mitsubishi Motors is making a risky strategic pivot due to intense competitive pressure from Chinese electric vehicles in Southeast Asia.",
+      "why_now": "The competitive pressure from Chinese EVs in Southeast Asia is forcing a strategic review as of October 25, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 14,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "sector_cycle",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7d746fbc00c1"
+      ],
+      "primary_source_event_id": "EVT-7d746fbc00c1",
+      "source_headlines": [
+        "Pressed by Chinese EVs in Southeast Asia, Mitsubishi Motors makes risky pivot"
+      ],
+      "source_headline": "Pressed by Chinese EVs in Southeast Asia, Mitsubishi Motors makes risky pivot",
+      "source_url": "https://asia.nikkei.com/business/automobiles/pressed-by-chinese-evs-in-southeast-asia-mitsubishi-motors-makes-risky-pivot",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 88,
+      "newest_source_at": "2026-10-25T02:50:52Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-25T04:38:42Z",
+      "updated_at": "2026-10-25T04:38:42Z",
+      "decay_at": "2026-10-26T14:50:52Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -240960,8 +241033,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1876,
-    "live_count": 37,
+    "surfaced_total": 1877,
+    "live_count": 38,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
