@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T04:13:17Z",
+  "generated_at": "2026-10-25T04:23:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261025-068",
@@ -1260,6 +1260,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-075",
+      "headline": "Bharat Heavy Electricals Limited: Bharat Heavy Electricals Limited has informed the Exchange about change in Management",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BHEL_25102026094545_srmgt25102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-25T04:16:04Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "The company announced a change in management, which is a standard corporate disclosure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "The company announced a change in management, which is a standard corporate disclosure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bharat Heavy Electricals Limited",
+          "ticker": "500103",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-067",
       "headline": "Consensus Price Target for Hexagon AB Lowered 17.10% to $10.83",
       "headline_en": null,
@@ -1407,6 +1456,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261025-076",
+      "headline": "OMCs back interim LPG distributors' commission hike; ministry approval awaited: AIHPGDA",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/omcs-back-interim-lpg-distributors-commission-hike-ministry-approval-awaited-aihpgda/article71622532.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T04:15:54Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "Oil marketing companies are seeking a commission hike, which could impact margins if approved.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "Oil marketing companies are seeking a commission hike, which could impact margins if approved.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261025-058",
       "headline": "British PM Burnham open to adopting EU free movement, Sunday Times reports",
       "headline_en": null,
@@ -1493,20 +1585,69 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261025-069",
-      "headline": "OMCs back interim LPG distributors' commission hike; ministry approval awaited: AIHPGDA",
+      "inbox_id": "INB-20261025-077",
+      "headline": "Musk says he was behind Starlink speed restriction after service in Ukraine restored",
       "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/energy/oil-gas/omcs-back-interim-lpg-distributors-commission-hike-ministry-approval-awaited-aihpgda/articleshow/135182687.cms",
-      "source_name": "The Economic Times",
+      "url": "https://www.thehindubusinessline.com/info-tech/musk-says-he-was-behind-starlink-speed-restriction-after-service-in-ukraine-restored/article71622522.ece",
+      "source_name": "The Hindu BusinessLine",
       "input_nature": "news_headline",
-      "found_at": "2026-10-25T03:49:55Z",
+      "found_at": "2026-10-25T04:13:57Z",
       "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Oil Marketing Companies support a commission hike for LPG distributors, pending government approval.",
+      "prelim_note": "Elon Musk confirmed his direct involvement in operational decisions regarding Starlink service in Ukraine.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "Elon Musk confirmed his direct involvement in operational decisions regarding Starlink service in Ukraine.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261025-079",
+      "headline": "Mumbai Court Rules Builders Cannot Sell Common Terraces, Rejects Exclusive Ownership Claim Over 2,360-Sq-Ft Worli Terrace",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/mumbai/mumbai-court-rules-builders-cannot-sell-common-terraces-rejects-exclusive-ownership-claim-over-2360-sq-ft-worli-terrace",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T03:34:43Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "A court ruling limiting the sale of common areas impacts the revenue model and inventory valuation for real estate developers.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 63,
-      "triage_reason": "Oil Marketing Companies support a commission hike for LPG distributors, pending government approval.",
+      "triage_reason": "A court ruling limiting the sale of common areas impacts the revenue model and inventory valuation for real estate developers.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 50,
@@ -1514,23 +1655,23 @@
         "materiality": 50,
         "source_tier": 0,
         "scope": 2,
-        "event": 4,
-        "size": 2,
+        "event": 6,
+        "size": 0,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
         "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "regulatory"
+        "litigation_enforcement"
       ],
       "issuer_linkage": "sector",
       "companies": [],
-      "size_bucket": "large",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1764,147 +1905,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-013",
-      "headline": "Ord Minnett’s head of private wealth rows out",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/ord-minnett-s-head-of-private-wealth-rows-out-20261025-p618d1?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T01:00:27Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "The head of private wealth at Ord Minnett has departed the firm.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "The head of private wealth at Ord Minnett has departed the firm.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "executive_exit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ord Minnett",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-022",
-      "headline": "SoftBank-backed drone maker wants every farmer to ‘have their own robot’",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/9fe60016-1520-4bfd-bcfc-f30caa0b1600?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T01:00:09Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "SoftBank-backed drone maker is scaling agricultural automation, representing a niche growth sector development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "SoftBank-backed drone maker is scaling agricultural automation, representing a niche growth sector development.",
-      "region": "GLOBAL",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SoftBank",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-065",
-      "headline": "MP’s Satna Cooperative Society Manager Booked In Two EOW Cases Over ₹92 Lakh Assets, 122 Fake Farmers Found In Fertiliser Records",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/bhopal/mps-satna-cooperative-society-manager-booked-in-two-eow-cases-over-92-lakh-assets-122-fake-farmers-found-in-fertiliser-records",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T03:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "A cooperative society manager was booked for corruption involving 9.2 million INR in assets and fraudulent records.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "A cooperative society manager was booked for corruption involving 9.2 million INR in assets and fraudulent records.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -200235,78 +200235,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-af4308e96a78",
-      "idea_version": "IDEAV-a824af70ecdc0ee6",
-      "idea_version_started_at": "2026-10-24T00:28:47Z",
-      "ticker": "JSWSTEEL",
-      "company": "JSW Steel",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Net profit tripled in Q2 driven by higher production volumes and improved price realization per ton.",
-      "why_now": "The earnings results were released on 2026-10-23.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-53d823fa7245"
-      ],
-      "primary_source_event_id": "EVT-53d823fa7245",
-      "source_headlines": [
-        "JSW Steel Q2 net up three-fold on higher volumes, better realisation"
-      ],
-      "source_headline": "JSW Steel Q2 net up three-fold on higher volumes, better realisation",
-      "source_url": "https://www.thehindubusinessline.com/companies/jsw-steel-q2-net-up-three-fold-on-higher-volumes-better-realisation/article71616006.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-23T16:16:03Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T13:11:36Z",
-      "updated_at": "2026-10-24T00:28:47Z",
-      "decay_at": "2026-10-25T04:16:03Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-e0e4d2fdf192",
       "idea_version": "IDEAV-814e9d4e77a84337",
       "idea_version_started_at": "2026-10-23T21:01:21Z",
@@ -202152,6 +202080,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-af4308e96a78",
+      "idea_version": "IDEAV-a824af70ecdc0ee6",
+      "idea_version_started_at": "2026-10-24T00:28:47Z",
+      "ticker": "JSWSTEEL",
+      "company": "JSW Steel",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Net profit tripled in Q2 driven by higher production volumes and improved price realization per ton.",
+      "why_now": "The earnings results were released on 2026-10-23.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-53d823fa7245"
+      ],
+      "primary_source_event_id": "EVT-53d823fa7245",
+      "source_headlines": [
+        "JSW Steel Q2 net up three-fold on higher volumes, better realisation"
+      ],
+      "source_headline": "JSW Steel Q2 net up three-fold on higher volumes, better realisation",
+      "source_url": "https://www.thehindubusinessline.com/companies/jsw-steel-q2-net-up-three-fold-on-higher-volumes-better-realisation/article71616006.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-23T16:16:03Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T13:11:36Z",
+      "updated_at": "2026-10-24T00:28:47Z",
+      "decay_at": "2026-10-25T04:16:03Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-bb5c4c4db82f",
       "idea_version": "IDEAV-d44106710eb07365",
       "idea_version_started_at": "2026-10-24T00:28:47Z",
@@ -203679,14 +203679,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 541,
+    "total_count": 542,
     "shown_count": 500,
-    "hidden_count": 41,
+    "hidden_count": 42,
     "side_counts": {
       "long": {
-        "total_count": 272,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 23
       },
       "short": {
         "total_count": 270,
@@ -203710,6 +203710,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-af4308e96a78",
+        "idea_version": "IDEAV-a824af70ecdc0ee6",
+        "idea_version_started_at": "2026-10-24T00:28:47Z",
+        "ticker": "JSWSTEEL",
+        "company": "JSW Steel",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Net profit tripled in Q2 driven by higher production volumes and improved price realization per ton.",
+        "why_now": "The earnings results were released on 2026-10-23.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-53d823fa7245"
+        ],
+        "primary_source_event_id": "EVT-53d823fa7245",
+        "source_headlines": [
+          "JSW Steel Q2 net up three-fold on higher volumes, better realisation"
+        ],
+        "source_headline": "JSW Steel Q2 net up three-fold on higher volumes, better realisation",
+        "source_url": "https://www.thehindubusinessline.com/companies/jsw-steel-q2-net-up-three-fold-on-higher-volumes-better-realisation/article71616006.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-23T16:16:03Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-23T13:11:36Z",
+        "updated_at": "2026-10-24T00:28:47Z",
+        "decay_at": "2026-10-25T04:16:03Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-25T04:16:03Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-bb5c4c4db82f",
         "idea_version": "IDEAV-d44106710eb07365",
@@ -231264,79 +231339,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-9a15ea504d7b",
-        "idea_version": "IDEAV-5902d95c838a1182",
-        "idea_version_started_at": "2026-10-10T03:44:38Z",
-        "ticker": "HMC",
-        "company": "Honda Motor",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Honda is expanding its Southeast Asian product portfolio by rebranding Mitsubishi-built pickups, which lowers R&D and manufacturing overhead for this segment.",
-        "why_now": "The strategic partnership was announced on 2026-10-10.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 60,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 14,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-936ee565ce96"
-        ],
-        "primary_source_event_id": "EVT-936ee565ce96",
-        "source_headlines": [
-          "Honda to sell Thai-built Mitsubishi pickup under own brand in Southeast Asia"
-        ],
-        "source_headline": "Honda to sell Thai-built Mitsubishi pickup under own brand in Southeast Asia",
-        "source_url": "https://asia.nikkei.com/business/automobiles/honda-to-sell-thai-built-mitsubishi-pickup-under-own-brand-in-southeast-asia",
-        "source_name": "Nikkei Asia",
-        "materiality_max": 82,
-        "newest_source_at": "2026-10-10T01:21:11Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-10T03:44:38Z",
-        "updated_at": "2026-10-10T03:44:38Z",
-        "decay_at": "2026-10-11T13:21:11Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-13T05:16:49Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-675f9fa696a1",
         "idea_version": "IDEAV-1ca0e0c57f9c130d",
         "idea_version_started_at": "2026-10-10T03:24:22Z",
@@ -240954,7 +240956,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1876,
-    "live_count": 39,
+    "live_count": 38,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
