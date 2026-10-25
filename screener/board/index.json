@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-25T22:33:53Z",
+  "generated_at": "2026-10-25T22:38:54Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261025-467",
+      "headline": "MGX: Koolan Island Progresses Towards Divestment Completion",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MGX?key=2924-03152892-6A1351264",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-25T22:32:21Z",
+      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
+      "prelim_note": "MGX is progressing towards the completion of a divestment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "MGX is progressing towards the completion of a divestment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MGX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261025-457",
       "headline": "DJW: 1Q27 Dividend determined and Guidance for 2Q27 dividend [price-sensitive]",
@@ -1936,56 +1985,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261025-133",
-      "headline": "Etihad Airways extends flight cancellations to Saudi Arabia amid Houthi attacks",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/business/etihad-airways-extends-flight-cancellations-to-saudi-amid-hothi-attacks",
-      "source_name": "Khaleej Times — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T06:08:57Z",
-      "sweep_file": "screener/inbox/2026-10-25_sweep.json",
-      "prelim_note": "Etihad Airways extends flight cancellations to Saudi Arabia amid Houthi attacks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Etihad Airways extends flight cancellations to Saudi Arabia amid Houthi attacks.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations",
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Etihad Airways",
-          "ticker": null,
-          "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -241841,9 +241840,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 101796,
-    "news_picked_today": 933,
-    "news_dropped_today": 2718
+    "news_seen_today": 101834,
+    "news_picked_today": 946,
+    "news_dropped_today": 2743
   },
   "book_momentum": {
     "live_count": 8,
