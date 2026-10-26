@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T02:48:37Z",
+  "generated_at": "2026-10-26T02:53:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-058",
@@ -193,6 +193,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-169",
+      "headline": "Elon Musk announces $40 billion SpaceX debt raise to fund massive AI chip purchases",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/corporate/story/elon-musk-announces-40-billion-spacex-debt-raise-to-fund-massive-ai-chip-purchases-563528-2026-10-26?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T02:38:32Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "SpaceX is raising $40 billion in debt to fund significant capital expenditure on AI chips.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SpaceX is raising $40 billion in debt to fund significant capital expenditure on AI chips.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1699,6 +1749,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-172",
+      "headline": "Gold rush pushes ABC Bullion revenue to $38b, delivering bumper profit",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/manufacturing/abc-bullion-owner-pallion-more-than-doubles-annual-revenue-to-38b-20261026-p618l4?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T01:33:12Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "ABC Bullion reported $38 billion in revenue, reflecting strong demand in the gold market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "ABC Bullion reported $38 billion in revenue, reflecting strong demand in the gold market.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ABC Bullion",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-019",
       "headline": "Trump says Canada tariff deal coming 'soon' at Michigan border rally",
       "headline_en": null,
@@ -1886,104 +1985,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-145",
-      "headline": "After threatening AI export bans, China allows DeepSeek to keep selling",
-      "headline_en": null,
-      "url": "https://www.theregister.com/ai-and-ml/2026/10/26/after-threatening-ai-export-bans-china-allows-deepseek-to-keep-selling/5305267",
-      "source_name": "The Register",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T00:39:57Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "China's decision to allow DeepSeek to continue selling AI products removes a significant regulatory and operational risk for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "China's decision to allow DeepSeek to continue selling AI products removes a significant regulatory and operational risk for the company.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DeepSeek",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-168",
-      "headline": "SK Hynix to announce steps to boost shareholder returns on Wednesday",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/sk-hynix-announce-steps-boost-shareholder-returns-wednesday-2026-10-26/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T02:42:58Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "SK Hynix is expected to announce measures to increase shareholder returns, which typically signals confidence in cash flow and capital allocation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "SK Hynix is expected to announce measures to increase shareholder returns, which typically signals confidence in cash flow and capital allocation.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK Hynix",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -244614,9 +244615,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1108,
-    "news_picked_today": 184,
-    "news_dropped_today": 544
+    "news_seen_today": 1115,
+    "news_picked_today": 188,
+    "news_dropped_today": 547
   },
   "book_momentum": {
     "live_count": 8,
