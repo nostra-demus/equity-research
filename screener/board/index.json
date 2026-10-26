@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T03:23:42Z",
+  "generated_at": "2026-10-26T03:24:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-058",
@@ -200017,27 +200017,27 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-35e446beedc4",
-      "idea_version": "IDEAV-18b6d69f0505b62d",
-      "idea_version_started_at": "2026-10-26T02:34:32Z",
-      "ticker": "006400.KS",
-      "company": "Samsung SDI",
-      "exchange": "Korea",
+      "idea_id": "IDEA-43576d5bf0b5",
+      "idea_version": "IDEAV-5ec1527dde5b57f6",
+      "idea_version_started_at": "2026-10-26T03:24:01Z",
+      "ticker": "HON",
+      "company": "Honeywell International",
+      "exchange": "NASDAQ",
       "direction": "long",
       "pair_with": null,
-      "reason": "The company secured a 1.5GWh energy storage system (ESS) supply contract with a U.S. firm, providing a direct revenue boost in the high-growth battery storage market.",
-      "why_now": "The contract was announced on 2026-10-26, providing immediate visibility into order book expansion.",
-      "conviction": 75,
+      "reason": "The execution of a long-term agreement with Unimech Aerospace secures a stable, multi-year revenue stream for Honeywell's aerospace division, enhancing long-term margin visibility.",
+      "why_now": "The agreement was formally filed with the exchange on 2026-10-26.",
+      "conviction": 60,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 72,
       "trade_score_basis": "event_driven_v3",
       "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
+        "evidence": 25,
+        "impact": 15,
         "specificity": 15,
         "timing": 10,
         "expression": 7,
-        "corroboration": 7,
+        "corroboration": 0,
         "learning_adjustment": 0
       },
       "trade_readiness": "needs_data",
@@ -200060,28 +200060,26 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-d898038ed12b",
-        "EVT-f2721abdd92c"
+        "EVT-737f735de597"
       ],
-      "primary_source_event_id": "EVT-f2721abdd92c",
+      "primary_source_event_id": "EVT-737f735de597",
       "source_headlines": [
-        "Samsung SDI signs 1.5GWh ESS supply contract with US-based AOP",
-        "Samsung SDI's unit to supply ESS solutions to U.S. firm"
+        "Unimech Aerospace and Manufacturing Limited: Unimech Aerospace and Manufacturing Limited has informed the Exchange about execution of Long-Term Agreement with Honeywell Aerospace US LLC"
       ],
-      "source_headline": "삼성SDI, 美 AOP와 1.5GWh 규모 ESS 공급 계약 체결",
-      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279609",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "materiality_max": 98,
-      "newest_source_at": "2026-10-26T00:52:07Z",
+      "source_headline": "Unimech Aerospace and Manufacturing Limited: Unimech Aerospace and Manufacturing Limited has informed the Exchange about execution of Long-Term Agreement with Honeywell Aerospace US LLC",
+      "source_url": "https://nsearchives.nseindia.com/corporate/UNIMECH_26102026071241_Unimech_Exchange_Disclosure_-_Honeywell_LTA_Clean__1_.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 87,
+      "newest_source_at": "2026-10-26T01:43:11Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-10-26T02:34:32Z",
-      "updated_at": "2026-10-26T02:34:32Z",
-      "decay_at": "2026-10-27T12:52:07Z",
+      "surfaced_at": "2026-10-26T03:24:01Z",
+      "updated_at": "2026-10-26T03:24:01Z",
+      "decay_at": "2026-10-27T13:43:11Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -200643,6 +200641,76 @@
       "surfaced_at": "2026-10-24T23:13:43Z",
       "updated_at": "2026-10-24T23:13:43Z",
       "decay_at": "2026-10-26T03:46:49Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-35e446beedc4",
+      "idea_version": "IDEAV-a86ce9060031a2e8",
+      "idea_version_started_at": "2026-10-26T03:24:01Z",
+      "ticker": "006400.KS",
+      "company": "Samsung SDI",
+      "exchange": "Korea",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a 1.5GWh Energy Storage System (ESS) supply contract, which provides a direct, incremental boost to its revenue and order backlog in the growing US renewable infrastructure market.",
+      "why_now": "The contract was announced on 2026-10-26, making it a fresh catalyst for revenue growth.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f2721abdd92c"
+      ],
+      "primary_source_event_id": "EVT-f2721abdd92c",
+      "source_headlines": [
+        "Samsung SDI signs 1.5GWh ESS supply contract with US-based AOP"
+      ],
+      "source_headline": "삼성SDI, 美 AOP와 1.5GWh 규모 ESS 공급 계약 체결",
+      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279609",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "materiality_max": 98,
+      "newest_source_at": "2026-10-26T00:52:07Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-26T02:34:32Z",
+      "updated_at": "2026-10-26T03:24:01Z",
+      "decay_at": "2026-10-27T12:52:07Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -204291,76 +204359,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-f126ee99823a",
-      "idea_version": "IDEAV-7752dd50942d2c66",
-      "idea_version_started_at": "2026-10-23T11:11:07Z",
-      "ticker": "BWMX",
-      "company": "Betterware de México",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported positive Q3 2026 results and raised its full-year revenue guidance, indicating better-than-expected operational performance.",
-      "why_now": "The guidance hike was announced on October 23, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-312715264950"
-      ],
-      "primary_source_event_id": "EVT-312715264950",
-      "source_headlines": [
-        "Betterware de México, S.A.P.I. de C.V. Reports Q3 2026 Results and Raises Full-Year Revenue Guidance"
-      ],
-      "source_headline": "Betterware de México, S.A.P.I. de C.V. Reports Q3 2026 Results and Raises Full-Year Revenue Guidance",
-      "source_url": "https://www.nasdaq.com/articles/betterware-de-mexico-sapi-de-cv-reports-q3-2026-results-and-raises-full-year-revenue",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-23T03:08:29Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T11:11:07Z",
-      "updated_at": "2026-10-23T11:11:07Z",
-      "decay_at": "2026-10-24T15:08:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-be88d1aa5221",
       "idea_version": "IDEAV-159d6a7273dc37c9",
       "idea_version_started_at": "2026-10-24T04:06:30Z",
@@ -207325,14 +207323,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 551,
+    "total_count": 550,
     "shown_count": 500,
-    "hidden_count": 51,
+    "hidden_count": 50,
     "side_counts": {
       "long": {
-        "total_count": 280,
+        "total_count": 279,
         "shown_count": 250,
-        "hidden_count": 30
+        "hidden_count": 29
       },
       "short": {
         "total_count": 272,
@@ -207342,12 +207340,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1312,
+      "evicted_count": 1313,
       "oldest_retained_at": "2026-09-28T16:27:44Z",
       "side_counts": {
         "long": {
-          "evicted_count": 873,
-          "oldest_retained_at": "2026-10-10T13:27:47Z"
+          "evicted_count": 874,
+          "oldest_retained_at": "2026-10-10T13:42:58Z"
         },
         "short": {
           "evicted_count": 439,
@@ -211233,8 +211231,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-24T15:08:29Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-26T03:24:08Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244604,8 +244602,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1915,
-    "live_count": 51,
+    "surfaced_total": 1916,
+    "live_count": 52,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,

@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-35e446beedc4",
-  "idea_version": "IDEAV-18b6d69f0505b62d",
-  "idea_version_started_at": "2026-10-26T02:34:32Z",
+  "idea_version": "IDEAV-a86ce9060031a2e8",
+  "idea_version_started_at": "2026-10-26T03:24:01Z",
   "ticker": "006400.KS",
   "company": "Samsung SDI",
   "exchange": "Korea",
@@ -11,11 +11,11 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "long",
   "pair_with": null,
-  "reason": "The company secured a 1.5GWh energy storage system (ESS) supply contract with a U.S. firm, providing a direct revenue boost in the high-growth battery storage market.",
-  "why_now": "The contract was announced on 2026-10-26, providing immediate visibility into order book expansion.",
-  "conviction": 75,
+  "reason": "The company secured a 1.5GWh Energy Storage System (ESS) supply contract, which provides a direct, incremental boost to its revenue and order backlog in the growing US renewable infrastructure market.",
+  "why_now": "The contract was announced on 2026-10-26, making it a fresh catalyst for revenue growth.",
+  "conviction": 65,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 72,
+  "trade_score": 65,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
@@ -23,13 +23,14 @@
     "specificity": 15,
     "timing": 10,
     "expression": 7,
-    "corroboration": 7,
+    "corroboration": 0,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -46,13 +47,11 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-d898038ed12b",
     "EVT-f2721abdd92c"
   ],
   "primary_source_event_id": "EVT-f2721abdd92c",
   "source_headlines": [
-    "Samsung SDI signs 1.5GWh ESS supply contract with US-based AOP",
-    "Samsung SDI's unit to supply ESS solutions to U.S. firm"
+    "Samsung SDI signs 1.5GWh ESS supply contract with US-based AOP"
   ],
   "source_headline": "삼성SDI, 美 AOP와 1.5GWh 규모 ESS 공급 계약 체결",
   "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279609",
@@ -66,7 +65,7 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-10-26T02:34:32Z",
-  "updated_at": "2026-10-26T02:34:32Z",
+  "updated_at": "2026-10-26T03:24:01Z",
   "decay_at": "2026-10-27T12:52:07Z",
   "status": "live",
   "promoted_signal_id": null
