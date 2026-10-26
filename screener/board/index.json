@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-26T12:09:36Z",
+  "generated_at": "2026-10-26T12:13:54Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261026-462",
+      "headline": "Brigade Hotel Ventures Limited: Brigade Hotel Ventures Limited has informed the Exchange regarding a press release dated October 26, 2026, titled \"Brigade Hotel Ventures Ltd. Total Revenue Grows 10% in Q2FY27: Profit After Tax (PAT) more than double\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BRIGADE2_26102026172019_CoveringLetterPressreleaseQ2FY27.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T11:50:34Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "The company reported 10% revenue growth and more than doubled its profit after tax for Q2FY27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company reported 10% revenue growth and more than doubled its profit after tax for Q2FY27.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brigade Hotel Ventures Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261026-421",
       "headline": "GET NICE (00064): JOINT ANNOUNCEMENT - (1) PROPOSED PRIVATISATION OF GET NICE HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS; (2) PROPOSED WITHDRAWAL OF LISTING; AND PROPOSED SPECIAL DIVIDEND RESULTS OF THE COURT MEETING AND THE EGM AND CLOSURE OF REGISTER OF MEMBERS",
@@ -1938,56 +1987,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-298",
-      "headline": "AU Small Finance Bank shares fall 8% after flagging margin pressure post Q2 results",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/au-small-finance-bank-share-price-falls-after-flagging-margin-pressure-post-q2-results-20019190.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T05:30:55Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "AU Small Finance Bank shares fell 8% following Q2 results that highlighted margin pressure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "AU Small Finance Bank shares fell 8% following Q2 results that highlighted margin pressure.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AU Small Finance Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -244550,9 +244549,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 836633,
-    "news_picked_today": 844,
-    "news_dropped_today": 7923
+    "news_seen_today": 849169,
+    "news_picked_today": 850,
+    "news_dropped_today": 7941
   },
   "book_momentum": {
     "live_count": 8,
