@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-10-26T19:02:32Z",
+  "generated_at": "2026-10-26T20:14:34Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261026-687",
+      "headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated October 27, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited (formerly TML Commercial Vehicles Limited) ( the Company ) Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V. \".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TMLCOMMERCIAL_27102026012641_NSEBSELETTER.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T19:57:04Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Tata Motors Limited's indirect wholly owned subsidiary has made a voluntary totalitarian tender offer for all common shares of Iveco Group N.V.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Motors Limited's indirect wholly owned subsidiary has made a voluntary totalitarian tender offer for all common shares of Iveco Group N.V.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Iveco Group N.V.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261026-537",
       "headline": "CHINA TRAVEL HK (00308): (1) PROPOSED SPIN-OFF AND SEPARATE LISTING OF HKM CULTURE AND TOURISM ON THE STOCK EXCHANGE BY WAY OF INTRODUCTION; (2) CONDITIONAL DECLARATION OF DISTRIBUTION IN SPECIE; (3) BOOK CLOSURE DATE AND RECORD DATE; (4) EXPECTED TIMETABLE OF LISTING OF HKM CULTURE AND TOURISM; (5) EXPECTED ISSUE OF THE LISTING DOCUMENT; (6) CREDIT OF SHARES; (7) ODD LOT TRADING ARRANGEMENTS; (8) IMPORTANT INFORMATION ABOUT HKM CULTURE AND TOURISM UNDER USM RE",
@@ -1914,60 +1968,6 @@
           "name": "Surgery Partners",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-580",
-      "headline": "Q2 Results Highlights: Paytm parent One 97 Communications swings to ₹226 crore profit; Aegis Logistics profit rises 45%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/q2-results-live-updates-infosys-tata-consumer-kotak-au-sfb-paytm-rec-sona-blw-idfc-iob-bank-of-mah-aegis-abrel-torrent-sona-kfin-share-price-liveblog-20018894.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T15:54:53Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Duplicate of item 11 regarding Paytm and Aegis Logistics Q2 results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Duplicate of item 11 regarding Paytm and Aegis Logistics Q2 results.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paytm",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Aegis Logistics",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -200341,76 +200341,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3ca8f8fe21a8",
-      "idea_version": "IDEAV-b96ae19b779ab41c",
-      "idea_version_started_at": "2026-10-25T08:08:42Z",
-      "ticker": "RIO",
-      "company": "Rio Tinto",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The entry of Apollo and GIC into the bidding pool for Rio Tinto's $7 billion infrastructure assets increases the likelihood of a competitive auction and a premium valuation for the divestment.",
-      "why_now": "The auction process is currently active as of October 25, 2026, with new high-profile bidders joining the pool.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8d2dcc3b1d8b"
-      ],
-      "primary_source_event_id": "EVT-8d2dcc3b1d8b",
-      "source_headlines": [
-        "Apollo, GIC join the bidder pool at Rio’s $7b infrastructure auction"
-      ],
-      "source_headline": "Apollo, GIC join the bidder pool at Rio’s $7b infrastructure auction",
-      "source_url": "https://www.afr.com/street-talk/apollo-gic-join-the-bidder-pool-at-rio-s-7b-infrastructure-auction-20261025-p618eq?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-25T07:39:20Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-25T08:08:42Z",
-      "updated_at": "2026-10-25T08:08:42Z",
-      "decay_at": "2026-10-26T19:39:20Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7185bf48deb4",
       "idea_version": "IDEAV-4390a010d9015aaa",
       "idea_version_started_at": "2026-10-25T22:53:36Z",
@@ -200545,77 +200475,6 @@
       "surfaced_at": "2026-10-25T12:38:57Z",
       "updated_at": "2026-10-25T12:38:57Z",
       "decay_at": "2026-10-27T00:25:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-b233a671a3eb",
-      "idea_version": "IDEAV-ac61edd1d89ff2cf",
-      "idea_version_started_at": "2026-10-25T08:08:42Z",
-      "ticker": "BYDDF",
-      "company": "BYD",
-      "exchange": "OTC Markets",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Establishing local manufacturing in Europe allows BYD to bypass punitive import tariffs on Chinese-made electric vehicles, protecting its margins and market share in a key growth region.",
-      "why_now": "The announcement on October 25, 2026, serves as a direct strategic response to the immediate implementation of trade barriers.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "policy_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-aa3dc7afff92"
-      ],
-      "primary_source_event_id": "EVT-aa3dc7afff92",
-      "source_headlines": [
-        "BYD to build new factories in Europe to combat strict trade barriers targeting Chinese EVs"
-      ],
-      "source_headline": "BYD to build new factories in Europe to combat strict trade barriers targeting Chinese EVs",
-      "source_url": "https://www.scmp.com/business/china-evs/article/3372001/byd-build-new-factories-europe-combat-strict-trade-barriers-targeting-chinese-evs",
-      "source_name": "South China Morning Post",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-25T08:00:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-25T08:08:42Z",
-      "updated_at": "2026-10-25T08:08:42Z",
-      "decay_at": "2026-10-26T20:00:09Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -203067,151 +202926,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-661a368ec8c5",
-      "idea_version": "IDEAV-5fa30e01e95af5b6",
-      "idea_version_started_at": "2026-10-25T08:28:56Z",
-      "ticker": "9984",
-      "company": "SoftBank Group Corp.",
-      "exchange": "TSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A massive $50 billion tech commitment in Malaysia presents significant execution risk, capital deployment strain, and cash flow drag across its investment holdings.",
-      "why_now": "Announced by Malaysia's Prime Minister on October 25, 2026.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-08da970f1c0d"
-      ],
-      "primary_source_event_id": "EVT-08da970f1c0d",
-      "source_headlines": [
-        "SoftBank’s Son Plans $50 Billion Malaysia Tech Outlay, PM Says"
-      ],
-      "source_headline": "SoftBank’s Son Plans $50 Billion Malaysia Tech Outlay, PM Says",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-10-25/softbank-s-son-plans-50-billion-malaysia-tech-outlay-pm-says",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-25T07:42:28Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-25T08:28:56Z",
-      "updated_at": "2026-10-25T08:28:56Z",
-      "decay_at": "2026-10-26T19:42:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-87ad6cfca6a2",
-      "idea_version": "IDEAV-4b0bb3ac8d90a572",
-      "idea_version_started_at": "2026-10-25T08:28:56Z",
-      "ticker": "VOW3",
-      "company": "Volkswagen AG",
-      "exchange": "XETR",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Audi's direct $4.2 billion capital expenditure commitment to construct its first US auto assembly plant helps mitigate severe tariff exposure under US trade policy and protects North American operating margins.",
-      "why_now": "Confirmed on October 25, 2026, following statements regarding the $4.2 billion investment deal.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "policy_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3f19ac4c0826",
-        "EVT-49b1d6c13683"
-      ],
-      "primary_source_event_id": "EVT-3f19ac4c0826",
-      "source_headlines": [
-        "Carmakers: Trump confirms Handelsblatt report: Audi is building a new plant in the USA",
-        "Trump says Audi to invest $4.2b in its first US auto plant"
-      ],
-      "source_headline": "Autobauer: Trump bestätigt Handelsblatt-Bericht: Audi baut neues Werk in den USA",
-      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/autobauer-trump-bestaetigt-handelsblatt-bericht-audi-baut-werk-in-den-usa/100264447.html",
-      "source_name": "Handelsblatt",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-25T07:17:29Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T21:53:48Z",
-      "updated_at": "2026-10-25T08:28:56Z",
-      "decay_at": "2026-10-26T19:17:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-4beb9e83c333",
       "idea_version": "IDEAV-6d040e909cb10384",
       "idea_version_started_at": "2026-10-26T05:19:35Z",
@@ -204287,6 +204001,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-3ca8f8fe21a8",
+      "idea_version": "IDEAV-b96ae19b779ab41c",
+      "idea_version_started_at": "2026-10-25T08:08:42Z",
+      "ticker": "RIO",
+      "company": "Rio Tinto",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The entry of Apollo and GIC into the bidding pool for Rio Tinto's $7 billion infrastructure assets increases the likelihood of a competitive auction and a premium valuation for the divestment.",
+      "why_now": "The auction process is currently active as of October 25, 2026, with new high-profile bidders joining the pool.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8d2dcc3b1d8b"
+      ],
+      "primary_source_event_id": "EVT-8d2dcc3b1d8b",
+      "source_headlines": [
+        "Apollo, GIC join the bidder pool at Rio’s $7b infrastructure auction"
+      ],
+      "source_headline": "Apollo, GIC join the bidder pool at Rio’s $7b infrastructure auction",
+      "source_url": "https://www.afr.com/street-talk/apollo-gic-join-the-bidder-pool-at-rio-s-7b-infrastructure-auction-20261025-p618eq?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-25T07:39:20Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-25T08:08:42Z",
+      "updated_at": "2026-10-25T08:08:42Z",
+      "decay_at": "2026-10-26T19:39:20Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-85129948d8af",
       "idea_version": "IDEAV-1c8fc5496137debd",
       "idea_version_started_at": "2026-10-24T00:28:47Z",
@@ -204351,6 +204135,77 @@
       "surfaced_at": "2026-10-24T00:28:47Z",
       "updated_at": "2026-10-24T00:28:47Z",
       "decay_at": "2026-10-25T07:16:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-b233a671a3eb",
+      "idea_version": "IDEAV-ac61edd1d89ff2cf",
+      "idea_version_started_at": "2026-10-25T08:08:42Z",
+      "ticker": "BYDDF",
+      "company": "BYD",
+      "exchange": "OTC Markets",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Establishing local manufacturing in Europe allows BYD to bypass punitive import tariffs on Chinese-made electric vehicles, protecting its margins and market share in a key growth region.",
+      "why_now": "The announcement on October 25, 2026, serves as a direct strategic response to the immediate implementation of trade barriers.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "policy_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-aa3dc7afff92"
+      ],
+      "primary_source_event_id": "EVT-aa3dc7afff92",
+      "source_headlines": [
+        "BYD to build new factories in Europe to combat strict trade barriers targeting Chinese EVs"
+      ],
+      "source_headline": "BYD to build new factories in Europe to combat strict trade barriers targeting Chinese EVs",
+      "source_url": "https://www.scmp.com/business/china-evs/article/3372001/byd-build-new-factories-europe-combat-strict-trade-barriers-targeting-chinese-evs",
+      "source_name": "South China Morning Post",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-25T08:00:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-25T08:08:42Z",
+      "updated_at": "2026-10-25T08:08:42Z",
+      "decay_at": "2026-10-26T20:00:09Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -205269,6 +205124,151 @@
       "surfaced_at": "2026-10-24T10:55:46Z",
       "updated_at": "2026-10-25T22:53:36Z",
       "decay_at": "2026-10-25T22:57:40Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-661a368ec8c5",
+      "idea_version": "IDEAV-5fa30e01e95af5b6",
+      "idea_version_started_at": "2026-10-25T08:28:56Z",
+      "ticker": "9984",
+      "company": "SoftBank Group Corp.",
+      "exchange": "TSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A massive $50 billion tech commitment in Malaysia presents significant execution risk, capital deployment strain, and cash flow drag across its investment holdings.",
+      "why_now": "Announced by Malaysia's Prime Minister on October 25, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-08da970f1c0d"
+      ],
+      "primary_source_event_id": "EVT-08da970f1c0d",
+      "source_headlines": [
+        "SoftBank’s Son Plans $50 Billion Malaysia Tech Outlay, PM Says"
+      ],
+      "source_headline": "SoftBank’s Son Plans $50 Billion Malaysia Tech Outlay, PM Says",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-25/softbank-s-son-plans-50-billion-malaysia-tech-outlay-pm-says",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-25T07:42:28Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-25T08:28:56Z",
+      "updated_at": "2026-10-25T08:28:56Z",
+      "decay_at": "2026-10-26T19:42:28Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-87ad6cfca6a2",
+      "idea_version": "IDEAV-4b0bb3ac8d90a572",
+      "idea_version_started_at": "2026-10-25T08:28:56Z",
+      "ticker": "VOW3",
+      "company": "Volkswagen AG",
+      "exchange": "XETR",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Audi's direct $4.2 billion capital expenditure commitment to construct its first US auto assembly plant helps mitigate severe tariff exposure under US trade policy and protects North American operating margins.",
+      "why_now": "Confirmed on October 25, 2026, following statements regarding the $4.2 billion investment deal.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "policy_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3f19ac4c0826",
+        "EVT-49b1d6c13683"
+      ],
+      "primary_source_event_id": "EVT-3f19ac4c0826",
+      "source_headlines": [
+        "Carmakers: Trump confirms Handelsblatt report: Audi is building a new plant in the USA",
+        "Trump says Audi to invest $4.2b in its first US auto plant"
+      ],
+      "source_headline": "Autobauer: Trump bestätigt Handelsblatt-Bericht: Audi baut neues Werk in den USA",
+      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/autobauer-trump-bestaetigt-handelsblatt-bericht-audi-baut-werk-in-den-usa/100264447.html",
+      "source_name": "Handelsblatt",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-25T07:17:29Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T21:53:48Z",
+      "updated_at": "2026-10-25T08:28:56Z",
+      "decay_at": "2026-10-26T19:17:29Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -207164,19 +207164,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 544,
+    "total_count": 548,
     "shown_count": 500,
-    "hidden_count": 44,
+    "hidden_count": 48,
     "side_counts": {
       "long": {
-        "total_count": 273,
+        "total_count": 276,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 26
       },
       "short": {
-        "total_count": 271,
+        "total_count": 272,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 22
       }
     },
     "retention": {
@@ -207195,6 +207195,304 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b233a671a3eb",
+        "idea_version": "IDEAV-ac61edd1d89ff2cf",
+        "idea_version_started_at": "2026-10-25T08:08:42Z",
+        "ticker": "BYDDF",
+        "company": "BYD",
+        "exchange": "OTC Markets",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Establishing local manufacturing in Europe allows BYD to bypass punitive import tariffs on Chinese-made electric vehicles, protecting its margins and market share in a key growth region.",
+        "why_now": "The announcement on October 25, 2026, serves as a direct strategic response to the immediate implementation of trade barriers.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "policy_conditional",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-aa3dc7afff92"
+        ],
+        "primary_source_event_id": "EVT-aa3dc7afff92",
+        "source_headlines": [
+          "BYD to build new factories in Europe to combat strict trade barriers targeting Chinese EVs"
+        ],
+        "source_headline": "BYD to build new factories in Europe to combat strict trade barriers targeting Chinese EVs",
+        "source_url": "https://www.scmp.com/business/china-evs/article/3372001/byd-build-new-factories-europe-combat-strict-trade-barriers-targeting-chinese-evs",
+        "source_name": "South China Morning Post",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-25T08:00:09Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-25T08:08:42Z",
+        "updated_at": "2026-10-25T08:08:42Z",
+        "decay_at": "2026-10-26T20:00:09Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-26T20:00:09Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-661a368ec8c5",
+        "idea_version": "IDEAV-5fa30e01e95af5b6",
+        "idea_version_started_at": "2026-10-25T08:28:56Z",
+        "ticker": "9984",
+        "company": "SoftBank Group Corp.",
+        "exchange": "TSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A massive $50 billion tech commitment in Malaysia presents significant execution risk, capital deployment strain, and cash flow drag across its investment holdings.",
+        "why_now": "Announced by Malaysia's Prime Minister on October 25, 2026.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-08da970f1c0d"
+        ],
+        "primary_source_event_id": "EVT-08da970f1c0d",
+        "source_headlines": [
+          "SoftBank’s Son Plans $50 Billion Malaysia Tech Outlay, PM Says"
+        ],
+        "source_headline": "SoftBank’s Son Plans $50 Billion Malaysia Tech Outlay, PM Says",
+        "source_url": "https://www.bloomberg.com/news/articles/2026-10-25/softbank-s-son-plans-50-billion-malaysia-tech-outlay-pm-says",
+        "source_name": "Bloomberg",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-25T07:42:28Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-25T08:28:56Z",
+        "updated_at": "2026-10-25T08:28:56Z",
+        "decay_at": "2026-10-26T19:42:28Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-26T19:42:28Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-3ca8f8fe21a8",
+        "idea_version": "IDEAV-b96ae19b779ab41c",
+        "idea_version_started_at": "2026-10-25T08:08:42Z",
+        "ticker": "RIO",
+        "company": "Rio Tinto",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The entry of Apollo and GIC into the bidding pool for Rio Tinto's $7 billion infrastructure assets increases the likelihood of a competitive auction and a premium valuation for the divestment.",
+        "why_now": "The auction process is currently active as of October 25, 2026, with new high-profile bidders joining the pool.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8d2dcc3b1d8b"
+        ],
+        "primary_source_event_id": "EVT-8d2dcc3b1d8b",
+        "source_headlines": [
+          "Apollo, GIC join the bidder pool at Rio’s $7b infrastructure auction"
+        ],
+        "source_headline": "Apollo, GIC join the bidder pool at Rio’s $7b infrastructure auction",
+        "source_url": "https://www.afr.com/street-talk/apollo-gic-join-the-bidder-pool-at-rio-s-7b-infrastructure-auction-20261025-p618eq?ref=rss&utm_medium=rss&utm_source=rss_feed",
+        "source_name": "Australian Financial Review",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-25T07:39:20Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-25T08:08:42Z",
+        "updated_at": "2026-10-25T08:08:42Z",
+        "decay_at": "2026-10-26T19:39:20Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-26T19:39:20Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-87ad6cfca6a2",
+        "idea_version": "IDEAV-4b0bb3ac8d90a572",
+        "idea_version_started_at": "2026-10-25T08:28:56Z",
+        "ticker": "VOW3",
+        "company": "Volkswagen AG",
+        "exchange": "XETR",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Audi's direct $4.2 billion capital expenditure commitment to construct its first US auto assembly plant helps mitigate severe tariff exposure under US trade policy and protects North American operating margins.",
+        "why_now": "Confirmed on October 25, 2026, following statements regarding the $4.2 billion investment deal.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "policy_conditional",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3f19ac4c0826",
+          "EVT-49b1d6c13683"
+        ],
+        "primary_source_event_id": "EVT-3f19ac4c0826",
+        "source_headlines": [
+          "Carmakers: Trump confirms Handelsblatt report: Audi is building a new plant in the USA",
+          "Trump says Audi to invest $4.2b in its first US auto plant"
+        ],
+        "source_headline": "Autobauer: Trump bestätigt Handelsblatt-Bericht: Audi baut neues Werk in den USA",
+        "source_url": "https://www.handelsblatt.com/unternehmen/industrie/autobauer-trump-bestaetigt-handelsblatt-bericht-audi-baut-werk-in-den-usa/100264447.html",
+        "source_name": "Handelsblatt",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-25T07:17:29Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-24T21:53:48Z",
+        "updated_at": "2026-10-25T08:28:56Z",
+        "decay_at": "2026-10-26T19:17:29Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-26T19:17:29Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-e916594f6443",
         "idea_version": "IDEAV-89914ab883350773",
@@ -235109,227 +235407,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-058bf2ed3c4b",
-        "idea_version": "IDEAV-69c8b8da119e9913",
-        "idea_version_started_at": "2026-10-11T22:58:39Z",
-        "ticker": "FAU",
-        "company": "Frontier Energy",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The acquisition of the Ida Valley Project expands the company's asset base into a highly prospective region, potentially increasing its long-term resource valuation.",
-        "why_now": "The acquisition was formally announced via an ASX filing on 2026-10-11.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d80716f7b5b8"
-        ],
-        "primary_source_event_id": "EVT-d80716f7b5b8",
-        "source_headlines": [
-          "FAU: FAU to Acquire Highly Prospective Ida Valley Project [price-sensitive]"
-        ],
-        "source_headline": "FAU: FAU to Acquire Highly Prospective Ida Valley Project [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FAU?key=2924-03147006-6A1348663",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-11T22:38:07Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-11T22:58:39Z",
-        "updated_at": "2026-10-11T22:58:39Z",
-        "decay_at": "2026-10-13T10:38:07Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-14T22:44:52Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-7ec0f1c395e9",
-        "idea_version": "IDEAV-b8589836ee24aba4",
-        "idea_version_started_at": "2026-10-12T02:28:00Z",
-        "ticker": "09887",
-        "company": "Leads Biolabs",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "FDA Fast Track designation accelerates the regulatory pathway for LBL-024, potentially shortening the time to commercialization for a key pipeline asset in biliary tract cancer.",
-        "why_now": "The designation was officially announced via HKEX filing on 2026-10-11.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-541311d21991"
-        ],
-        "primary_source_event_id": "EVT-541311d21991",
-        "source_headlines": [
-          "LEADS BIOLABS-B (09887): VOLUNTARY ANNOUNCEMENT LBL-024 (OPAMTISTOMIG, PD-L1/4-1BB BISPECIFIC ANTIBODY) GRANTED FAST TRACK DESIGNATION BY THE U.S. FDA FOR FIRST-LINE TREATMENT OF ADVANCED BILIARY TRACT CANCER"
-        ],
-        "source_headline": "LEADS BIOLABS-B (09887): VOLUNTARY ANNOUNCEMENT LBL-024 (OPAMTISTOMIG, PD-L1/4-1BB BISPECIFIC ANTIBODY) GRANTED FAST TRACK DESIGNATION BY THE U.S. FDA FOR FIRST-LINE TREATMENT OF ADVANCED BILIARY TRACT CANCER",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101200001.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 93,
-        "newest_source_at": "2026-10-11T22:04:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-12T02:28:00Z",
-        "updated_at": "2026-10-12T02:28:00Z",
-        "decay_at": "2026-10-13T10:04:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-14T22:44:52Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-521e020bb493",
-        "idea_version": "IDEAV-2047f3026f26d5aa",
-        "idea_version_started_at": "2026-10-11T22:04:00Z",
-        "ticker": "AMZN",
-        "company": "Amazon.com, Inc.",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Amazon's potential $7 billion acquisition of AI startup Decart enhances its proprietary AI model and technology capabilities for AWS, driving future enterprise cloud revenue and platform stickiness.",
-        "why_now": "Reported on October 11, 2026, as live talks reported by the Wall Street Journal, providing an immediate M&A catalyst for the stock.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 67,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-16c15c9d25aa"
-        ],
-        "primary_source_event_id": "EVT-16c15c9d25aa",
-        "source_headlines": [
-          "Amazon is in talks to buy US$7 billion AI startup Decart, WSJ reports"
-        ],
-        "source_headline": "Amazon is in talks to buy US$7 billion AI startup Decart, WSJ reports",
-        "source_url": "https://www.businesstimes.com.sg/companies-markets/amazon-talks-buy-us7-billion-ai-startup-decart-wsj-reports",
-        "source_name": "The Business Times (Singapore)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-11T21:51:58Z",
-        "prior_coverage": {
-          "has_run": true,
-          "latest_run": "analyses/AMZN_2026-07-20",
-          "latest_decision": null,
-          "data_pool_present": true
-        },
-        "surfaced_at": "2026-10-11T20:32:52Z",
-        "updated_at": "2026-10-11T22:04:00Z",
-        "decay_at": "2026-10-13T09:51:58Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-14T22:44:52Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-a87e2e15a1c1",
         "idea_version": "IDEAV-5fd55a3088253688",
         "idea_version_started_at": "2026-10-11T09:12:22Z",
@@ -244363,84 +244440,12 @@
         "archived_at": "2026-10-02T23:55:03Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-485c669a88ce",
-        "idea_version": "IDEAV-7ffbef24b3e2be08",
-        "idea_version_started_at": "2026-09-30T03:15:36Z",
-        "ticker": "AXP",
-        "company": "American Express",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The OCC's public dissent regarding the company's resolution plan signals heightened regulatory scrutiny and potential capital constraints, which could force costly operational adjustments.",
-        "why_now": "The Comptroller issued a formal statement on 2026-09-29 explicitly criticizing the firm's resolution planning, marking a rare and significant public regulatory rebuke.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 71,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 14,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "policy_conditional",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-294ce2975015"
-        ],
-        "primary_source_event_id": "EVT-294ce2975015",
-        "source_headlines": [
-          "Comptroller Issues Statement Explaining Vote Against Resolution Plan Feedback for American Express, Reasserts Need for Reforms to Resolution Planning"
-        ],
-        "source_headline": "Comptroller Issues Statement Explaining Vote Against Resolution Plan Feedback for American Express, Reasserts Need for Reforms to Resolution Planning",
-        "source_url": "https://www.occ.gov/news-issuances/news-releases/2026/nr-occ-2026-82.html",
-        "source_name": "Office of the Comptroller of the Currency — News Releases",
-        "materiality_max": 93,
-        "newest_source_at": "2026-09-29T20:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-30T03:15:36Z",
-        "updated_at": "2026-09-30T03:15:36Z",
-        "decay_at": "2026-10-01T08:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-02T20:03:43Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1938,
-    "live_count": 57,
+    "live_count": 53,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -244459,9 +244464,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3013403,
-    "news_picked_today": 1223,
-    "news_dropped_today": 9848
+    "news_seen_today": 3513197,
+    "news_picked_today": 1236,
+    "news_dropped_today": 9883
   },
   "book_momentum": {
     "live_count": 8,
