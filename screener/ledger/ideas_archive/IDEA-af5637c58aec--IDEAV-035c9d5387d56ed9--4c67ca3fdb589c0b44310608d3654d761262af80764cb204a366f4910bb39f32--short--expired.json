@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-10-25T22:53:49Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-af5637c58aec",
+    "idea_version": "IDEAV-035c9d5387d56ed9",
+    "idea_version_started_at": "2026-10-23T05:56:42Z",
+    "ticker": "DECK",
+    "company": "Deckers Outdoor",
+    "exchange": "NYSE",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "short",
+    "pair_with": null,
+    "reason": "The company lowered its sales outlook due to a shift in consumer demand toward discounted footwear, signaling margin pressure and weakening brand pricing power.",
+    "why_now": "The guidance cut was announced on 2026-10-22, creating an immediate negative catalyst for the stock.",
+    "conviction": 75,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 66,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 20,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-68ad7da57380"
+    ],
+    "primary_source_event_id": "EVT-68ad7da57380",
+    "source_headlines": [
+      "Deckers Cuts Sales Outlook as Shoppers Seek Out Discounted Shoes"
+    ],
+    "source_headline": "Deckers Cuts Sales Outlook as Shoppers Seek Out Discounted Shoes",
+    "source_url": "https://www.wsj.com/business/earnings/deckers-cuts-sales-outlook-amid-slower-hoka-ugg-growth-84f46d5c?mod=pls_whats_news_us_business_f",
+    "source_name": "The Wall Street Journal",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-22T22:04:00Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-10-23T05:56:42Z",
+    "updated_at": "2026-10-23T05:56:42Z",
+    "decay_at": "2026-10-24T10:04:00Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
