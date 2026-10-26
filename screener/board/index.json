@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-26T10:57:14Z",
+  "generated_at": "2026-10-26T11:00:14Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261026-411",
+      "headline": "POLYFAIR HLDGS (08532): WINDING UP BY THE COURT; APPOINTMENT OF PROVISIONAL LIQUIDATOR; AND SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1026/2026102600781.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T10:52:00Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Polyfair Holdings is being wound up by the court and trading is suspended.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Polyfair Holdings is being wound up by the court and trading is suspended.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "POLYFAIR HLDGS",
+          "ticker": "08532",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261026-395",
       "headline": "CISI FIN (06058): DISCLOSEABLE TRANSACTION IN RELATION TO ACQUISITIONS OF PERPETUAL SECURITIES",
@@ -927,6 +976,55 @@
           "name": "Shimao Group",
           "ticker": "00813",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-416",
+      "headline": "Supreme Industries cuts FY27 volume growth guidance to 10% amid uncertainty",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/supreme-industries-q2-results-cuts-fy27-volume-growth-guidance-to-10-amid-uncertainty-20019473.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T10:50:07Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Supreme Industries cut its FY27 volume growth guidance to 10%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Supreme Industries cut its FY27 volume growth guidance to 10%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Supreme Industries",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -1875,104 +1973,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-213",
-      "headline": "Musk says SpaceX raised $40 billion in debt deal, predicts neocloud shakeout",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/musk-says-spacex-raised-40-billion-in-debt-deal-predicts-neocloud-shakeout/article71625482.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T03:51:54Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "SpaceX raised $40 billion in a debt financing deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SpaceX raised $40 billion in a debt financing deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-321",
-      "headline": "India's Infosys falls after revenue growth view cut flags AI, competitive pressures",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/india/indias-infosys-falls-after-cutting-revenue-growth-guidance-fiscal-2027-2026-10-26/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T03:50:07Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Infosys cut its revenue growth outlook due to competitive pressures and AI-related headwinds.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Infosys cut its revenue growth outlook due to competitive pressures and AI-related headwinds.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Infosys",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -244827,9 +244827,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 582142,
-    "news_picked_today": 738,
-    "news_dropped_today": 7405
+    "news_seen_today": 592162,
+    "news_picked_today": 747,
+    "news_dropped_today": 7420
   },
   "book_momentum": {
     "live_count": 8,
