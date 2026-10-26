@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T11:26:14Z",
+  "generated_at": "2026-10-26T11:28:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-421",
@@ -1033,6 +1033,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-423",
+      "headline": "Verizon Raises 2026 Forecast After Big Jump in Phone Customers",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-26/verizon-raises-2026-forecast-after-big-jump-in-phone-customers",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T11:01:31Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Verizon raised its 2026 forecast following a significant increase in phone customers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Verizon raised its 2026 forecast following a significant increase in phone customers.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Verizon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-416",
       "headline": "Supreme Industries cuts FY27 volume growth guidance to 10% amid uncertainty",
       "headline_en": null,
@@ -1924,55 +1973,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-233",
-      "headline": "Infosys shares fall 4% after IT major lowers FY27 guidance. What are Goldman Sachs, Nomura, others saying?",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/infosys-shares-fall-4-after-it-major-lowers-fy27-guidance-what-are-goldman-sachs-nomura-others-saying/articleshow/135202432.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T04:07:28Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Infosys lowered its FY27 guidance, causing a 4% share price decline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Infosys lowered its FY27 guidance, causing a 4% share price decline.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Infosys",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -244827,9 +244827,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 680902,
-    "news_picked_today": 780,
-    "news_dropped_today": 7579
+    "news_seen_today": 686497,
+    "news_picked_today": 782,
+    "news_dropped_today": 7601
   },
   "book_momentum": {
     "live_count": 8,
