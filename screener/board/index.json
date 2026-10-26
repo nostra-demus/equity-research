@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T02:34:58Z",
+  "generated_at": "2026-10-26T02:41:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-058",
@@ -1596,6 +1596,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-159",
+      "headline": "Keystone says website breach exposed hardware wallet buyers’ addresses",
+      "headline_en": null,
+      "url": "https://cointelegraph.com/news/keystone-says-website-breach-exposed-hardware-wallet-buyers-addresses?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T02:24:04Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "A website breach at Keystone exposed sensitive customer data, creating significant reputational and legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "A website breach at Keystone exposed sensitive customer data, creating significant reputational and legal risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Keystone",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-070",
       "headline": "Anthropic’s Claude accessed Georgia state vote count information behind paywall: Axios report",
       "headline_en": null,
@@ -1899,49 +1948,6 @@
       "launched_signal_id": null,
       "triage_score": 82,
       "triage_reason": "Brazil's Lula won the presidential election, but Bolsonaro reportedly refuses to concede, indicating political instability.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-131",
-      "headline": "Brazil runoff live updates: Flávio Bolsonaro calls for election results to be ‘annulled’ after historic loss to Lula",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/world/live/2026/oct/25/brazil-election-runoff-live-updates-flavio-bolsonaro-lula",
-      "source_name": "The Guardian — World news",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T01:59:13Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "The headline reports a call to annul election results in Brazil after a historic loss, indicating political instability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "The headline reports a call to annul election results in Brazil after a historic loss, indicating political instability.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -244596,9 +244602,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 905,
-    "news_picked_today": 161,
-    "news_dropped_today": 467
+    "news_seen_today": 1034,
+    "news_picked_today": 174,
+    "news_dropped_today": 502
   },
   "book_momentum": {
     "live_count": 8,
