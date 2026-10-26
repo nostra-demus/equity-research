@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T02:53:39Z",
+  "generated_at": "2026-10-26T03:03:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-058",
@@ -1248,6 +1248,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-178",
+      "headline": "솔루스첨단소재, 유럽 전지박 특허 소송 승소",
+      "headline_en": "Solus Advanced Materials wins patent lawsuit for battery foil in Europe",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279633",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T02:25:02Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Solus Advanced Materials won a patent lawsuit regarding battery foil in Europe, reducing legal risk and protecting market position.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Solus Advanced Materials won a patent lawsuit regarding battery foil in Europe, reducing legal risk and protecting market position.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Solus Advanced Materials",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-141",
       "headline": "Gaw Capital-Led Group Seeks to Refinance $1.8 Billion Loan",
       "headline_en": null,
@@ -1651,6 +1700,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-177",
+      "headline": "ASX swings to gains; BlueScope rallies; Tuas crashes 30pc",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/asx-to-fall-on-oil-spike-key-central-bank-rate-decisions-this-week-20261026-p618ht?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T02:59:39Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Tuas shares crashed 30% following market updates, representing a significant move in valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Tuas shares crashed 30% following market updates, representing a significant move in valuation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BlueScope Steel",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "Tuas",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-163",
       "headline": "Bharat Coking Coal shares in focus after positive Q2 results; Stock back near IPO price",
       "headline_en": null,
@@ -1886,105 +1989,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-070",
-      "headline": "Anthropic’s Claude accessed Georgia state vote count information behind paywall: Axios report",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/anthropics-claude-accessed-georgia-state-vote-count-information-behind-paywall-axios-report",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T00:32:51Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Anthropic's AI model Claude accessed restricted Georgia state vote count information, raising potential regulatory and security concerns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Anthropic's AI model Claude accessed restricted Georgia state vote count information, raising potential regulatory and security concerns.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-096",
-      "headline": "한진, 캐나다 토론토 대규모 풀필먼트센터 가동",
-      "headline_en": "Hanjin launches large-scale fulfillment center in Toronto, Canada",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279606",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T00:45:01Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Hanjin has launched a large-scale fulfillment center in Toronto, expanding its logistics capacity in North America.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Hanjin has launched a large-scale fulfillment center in Toronto, expanding its logistics capacity in North America.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hanjin",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -244615,9 +244619,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1115,
-    "news_picked_today": 188,
-    "news_dropped_today": 547
+    "news_seen_today": 1152,
+    "news_picked_today": 194,
+    "news_dropped_today": 578
   },
   "book_momentum": {
     "live_count": 8,
