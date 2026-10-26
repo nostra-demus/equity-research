@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T13:24:49Z",
+  "generated_at": "2026-10-26T13:28:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-515",
@@ -1131,6 +1131,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-516",
+      "headline": "Ovintiv Inc. Enters Agreement to Acquire Logan Energy Corp. for C$1.40 Per Share in Cash",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/ovintiv-inc-enters-agreement-acquire-logan-energy-corp-c-140-share-cash",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T12:42:36Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Ovintiv Inc. is acquiring Logan Energy Corp. for C$1.40 per share in cash.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ovintiv Inc. is acquiring Logan Energy Corp. for C$1.40 per share in cash.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ovintiv Inc.",
+          "ticker": "OVV",
+          "listing_country": "US"
+        },
+        {
+          "name": "Logan Energy Corp.",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-511",
       "headline": "Ovintiv to buy Logan Energy for $890-million",
       "headline_en": null,
@@ -1932,55 +1986,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-349",
-      "headline": "Australia's Ingenia hits 9-month high on AVID's $1.5 billion buyout bid",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/australias-ingenia-hits-9-month-high-avids-15-billion-buyout-bid-2026-10-26/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T07:49:47Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Ingenia Communities received a $1.5 billion buyout bid from AVID.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ingenia Communities received a $1.5 billion buyout bid from AVID.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ingenia Communities",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -244762,9 +244767,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1143252,
-    "news_picked_today": 943,
-    "news_dropped_today": 8352
+    "news_seen_today": 1160069,
+    "news_picked_today": 947,
+    "news_dropped_today": 8372
   },
   "book_momentum": {
     "live_count": 8,
