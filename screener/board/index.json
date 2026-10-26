@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T20:58:41Z",
+  "generated_at": "2026-10-26T21:04:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-688",
@@ -1628,6 +1628,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-728",
+      "headline": "DoorDash in talks to buy Instacart in deal valued around $17-billion, source says",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-doordash-talks-to-buy-instacart-october-26/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T20:38:53Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "DoorDash is in talks to acquire Instacart in a deal valued at approximately $17 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DoorDash is in talks to acquire Instacart in a deal valued at approximately $17 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DoorDash",
+          "ticker": "DASH",
+          "listing_country": "US"
+        },
+        {
+          "name": "Instacart",
+          "ticker": "CART",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-731",
+      "headline": "Stock Market Today, Oct. 26: Surgery Partners Skyrockets 48% on $5.7 Billion HealthSpan Acquisition",
+      "headline_en": null,
+      "url": "https://www.fool.com/coverage/stock-market-today/2026/10/26/stock-market-today-oct-26-surgery-partners-skyrockets-48-on-usd5-7-billion-healthspan-acquisition/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T20:37:18Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Surgery Partners announced a $5.7 billion acquisition of HealthSpan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Surgery Partners announced a $5.7 billion acquisition of HealthSpan.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Surgery Partners",
+          "ticker": "SGRY",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-698",
       "headline": "DoorDash Is in Advanced Talks to Acquire Instacart, WSJ Says",
       "headline_en": null,
@@ -1868,109 +1971,6 @@
       "companies": [
         {
           "name": "Surgery Partners",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-626",
-      "headline": "Bon Secours Affiliate to Acquire Surgery Partners in $5.7 Billion Take-Private Deal",
-      "headline_en": null,
-      "url": "https://www.wsj.com/pro/private-equity/bon-secours-affiliate-to-acquire-surgery-partners-in-5-7-billion-take-private-deal-10321162?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T16:40:00Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Surgery Partners is being acquired in a $5.7 billion take-private deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Surgery Partners is being acquired in a $5.7 billion take-private deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Surgery Partners",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-621",
-      "headline": "EQT Bets on Record U.S. Gas Demand With $50 Billion Range Takeover",
-      "headline_en": null,
-      "url": "https://oilprice.com/Latest-Energy-News/World-News/EQT-Bets-on-Record-US-Gas-Demand-With-50-Billion-Range-Takeover.html",
-      "source_name": "OilPrice.com",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T16:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "EQT is acquiring Range Resources in a $50 billion deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "EQT is acquiring Range Resources in a $50 billion deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EQT",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Range Resources",
           "ticker": null,
           "listing_country": "US"
         }
@@ -202717,150 +202717,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-faf4a80af724",
-      "idea_version": "IDEAV-90ada29b73f1e48f",
-      "idea_version_started_at": "2026-10-25T09:24:02Z",
-      "ticker": "GODREJPROP",
-      "company": "Godrej Properties",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is projected to exceed its FY27 pre-sales guidance by 22%, reaching ₹41,500 crore due to sustained demand in the residential real estate market.",
-      "why_now": "The report was published today, October 25, 2026, highlighting a significant upward revision to forward-looking sales expectations.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6233de9f5d43"
-      ],
-      "primary_source_event_id": "EVT-6233de9f5d43",
-      "source_headlines": [
-        "Godrej Properties pre-sales may rise 22% to ₹41,500 crore in FY27, surpassing guidance on strong demand"
-      ],
-      "source_headline": "Godrej Properties pre-sales may rise 22% to ₹41,500 crore in FY27, surpassing guidance on strong demand",
-      "source_url": "https://www.thehindubusinessline.com/companies/godrej-properties-pre-sales-may-rise-22-to-41500-crore-in-fy27-surpassing-guidance-on-strong-demand/article71622884.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-25T09:01:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-25T09:24:02Z",
-      "updated_at": "2026-10-25T09:24:02Z",
-      "decay_at": "2026-10-26T21:01:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-2a475f45f61a",
-      "idea_version": "IDEAV-37c18faf88a2ae09",
-      "idea_version_started_at": "2026-10-25T09:03:43Z",
-      "ticker": "BAHRI",
-      "company": "Bahri",
-      "exchange": "TADAWUL",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The SAR 1.7 billion contract to build three Very Large Crude Carriers (VLCCs) significantly expands the company's fleet capacity and long-term revenue potential in the energy shipping sector.",
-      "why_now": "The contract was officially announced on 2026-10-25, providing an immediate catalyst for fleet growth expectations.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4901e1e27dd9"
-      ],
-      "primary_source_event_id": "EVT-4901e1e27dd9",
-      "source_headlines": [
-        "‎Bahri signs SAR 1.7B contract to build 3 VLCCs"
-      ],
-      "source_headline": "‎Bahri signs SAR 1.7B contract to build 3 VLCCs",
-      "source_url": "https://www.argaam.com/en/article/articledetail/id/1946796",
-      "source_name": "Argaam — Main News (English)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-25T09:06:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-25T09:03:43Z",
-      "updated_at": "2026-10-25T09:03:43Z",
-      "decay_at": "2026-10-26T21:03:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-4beb9e83c333",
       "idea_version": "IDEAV-6d040e909cb10384",
       "idea_version_started_at": "2026-10-26T05:19:35Z",
@@ -205135,6 +204991,150 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-faf4a80af724",
+      "idea_version": "IDEAV-90ada29b73f1e48f",
+      "idea_version_started_at": "2026-10-25T09:24:02Z",
+      "ticker": "GODREJPROP",
+      "company": "Godrej Properties",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is projected to exceed its FY27 pre-sales guidance by 22%, reaching ₹41,500 crore due to sustained demand in the residential real estate market.",
+      "why_now": "The report was published today, October 25, 2026, highlighting a significant upward revision to forward-looking sales expectations.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6233de9f5d43"
+      ],
+      "primary_source_event_id": "EVT-6233de9f5d43",
+      "source_headlines": [
+        "Godrej Properties pre-sales may rise 22% to ₹41,500 crore in FY27, surpassing guidance on strong demand"
+      ],
+      "source_headline": "Godrej Properties pre-sales may rise 22% to ₹41,500 crore in FY27, surpassing guidance on strong demand",
+      "source_url": "https://www.thehindubusinessline.com/companies/godrej-properties-pre-sales-may-rise-22-to-41500-crore-in-fy27-surpassing-guidance-on-strong-demand/article71622884.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-25T09:01:46Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-25T09:24:02Z",
+      "updated_at": "2026-10-25T09:24:02Z",
+      "decay_at": "2026-10-26T21:01:46Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-2a475f45f61a",
+      "idea_version": "IDEAV-37c18faf88a2ae09",
+      "idea_version_started_at": "2026-10-25T09:03:43Z",
+      "ticker": "BAHRI",
+      "company": "Bahri",
+      "exchange": "TADAWUL",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The SAR 1.7 billion contract to build three Very Large Crude Carriers (VLCCs) significantly expands the company's fleet capacity and long-term revenue potential in the energy shipping sector.",
+      "why_now": "The contract was officially announced on 2026-10-25, providing an immediate catalyst for fleet growth expectations.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4901e1e27dd9"
+      ],
+      "primary_source_event_id": "EVT-4901e1e27dd9",
+      "source_headlines": [
+        "‎Bahri signs SAR 1.7B contract to build 3 VLCCs"
+      ],
+      "source_headline": "‎Bahri signs SAR 1.7B contract to build 3 VLCCs",
+      "source_url": "https://www.argaam.com/en/article/articledetail/id/1946796",
+      "source_name": "Argaam — Main News (English)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-25T09:06:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-25T09:03:43Z",
+      "updated_at": "2026-10-25T09:03:43Z",
+      "decay_at": "2026-10-26T21:03:43Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-661a368ec8c5",
       "idea_version": "IDEAV-5fa30e01e95af5b6",
       "idea_version_started_at": "2026-10-25T08:28:56Z",
@@ -207169,14 +207169,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 549,
+    "total_count": 551,
     "shown_count": 500,
-    "hidden_count": 49,
+    "hidden_count": 51,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 279,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 29
       },
       "short": {
         "total_count": 272,
@@ -207200,6 +207200,156 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-2a475f45f61a",
+        "idea_version": "IDEAV-37c18faf88a2ae09",
+        "idea_version_started_at": "2026-10-25T09:03:43Z",
+        "ticker": "BAHRI",
+        "company": "Bahri",
+        "exchange": "TADAWUL",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The SAR 1.7 billion contract to build three Very Large Crude Carriers (VLCCs) significantly expands the company's fleet capacity and long-term revenue potential in the energy shipping sector.",
+        "why_now": "The contract was officially announced on 2026-10-25, providing an immediate catalyst for fleet growth expectations.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4901e1e27dd9"
+        ],
+        "primary_source_event_id": "EVT-4901e1e27dd9",
+        "source_headlines": [
+          "‎Bahri signs SAR 1.7B contract to build 3 VLCCs"
+        ],
+        "source_headline": "‎Bahri signs SAR 1.7B contract to build 3 VLCCs",
+        "source_url": "https://www.argaam.com/en/article/articledetail/id/1946796",
+        "source_name": "Argaam — Main News (English)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-25T09:06:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-25T09:03:43Z",
+        "updated_at": "2026-10-25T09:03:43Z",
+        "decay_at": "2026-10-26T21:03:43Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-26T21:03:43Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-faf4a80af724",
+        "idea_version": "IDEAV-90ada29b73f1e48f",
+        "idea_version_started_at": "2026-10-25T09:24:02Z",
+        "ticker": "GODREJPROP",
+        "company": "Godrej Properties",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is projected to exceed its FY27 pre-sales guidance by 22%, reaching ₹41,500 crore due to sustained demand in the residential real estate market.",
+        "why_now": "The report was published today, October 25, 2026, highlighting a significant upward revision to forward-looking sales expectations.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6233de9f5d43"
+        ],
+        "primary_source_event_id": "EVT-6233de9f5d43",
+        "source_headlines": [
+          "Godrej Properties pre-sales may rise 22% to ₹41,500 crore in FY27, surpassing guidance on strong demand"
+        ],
+        "source_headline": "Godrej Properties pre-sales may rise 22% to ₹41,500 crore in FY27, surpassing guidance on strong demand",
+        "source_url": "https://www.thehindubusinessline.com/companies/godrej-properties-pre-sales-may-rise-22-to-41500-crore-in-fy27-surpassing-guidance-on-strong-demand/article71622884.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-25T09:01:46Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-25T09:24:02Z",
+        "updated_at": "2026-10-25T09:24:02Z",
+        "decay_at": "2026-10-26T21:01:46Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-26T21:01:46Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-dd03ee33d73c",
         "idea_version": "IDEAV-f6c3ab8f229f23f2",
@@ -235264,154 +235414,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-cdb005f3f065",
-        "idea_version": "IDEAV-ef1e576ed5998826",
-        "idea_version_started_at": "2026-10-12T00:19:13Z",
-        "ticker": "3393",
-        "company": "Wasion Holdings",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Wasion Americas' AMI meters have officially passed ANSI certification, removing a critical technical barrier for the company to sell its smart metering products into the North American utility market.",
-        "why_now": "The certification was announced via a voluntary filing on October 12, 2026, marking the immediate start of commercial eligibility in the US market.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 11,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a624f35ca9f3"
-        ],
-        "primary_source_event_id": "EVT-a624f35ca9f3",
-        "source_headlines": [
-          "WASION HOLDINGS (03393): VOLUNTARY ANNOUNCEMENT - WASION AMERICAS' AMI METERS OFFICIALLY PASSED ANSI CERTIFICATION"
-        ],
-        "source_headline": "WASION HOLDINGS (03393): VOLUNTARY ANNOUNCEMENT - WASION AMERICAS' AMI METERS OFFICIALLY PASSED ANSI CERTIFICATION",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101200049.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 65,
-        "newest_source_at": "2026-10-12T00:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-12T00:19:13Z",
-        "updated_at": "2026-10-12T00:19:13Z",
-        "decay_at": "2026-10-13T12:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-15T00:16:57Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-019ac893e775",
-        "idea_version": "IDEAV-7446327f0b906a6b",
-        "idea_version_started_at": "2026-10-12T00:19:13Z",
-        "ticker": "3DP",
-        "company": "Pointerra Limited",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company has initiated a formal share buy-back program, which typically provides a floor for the share price and increases earnings per share by reducing the total share count.",
-        "why_now": "The notification of the buy-back was filed on October 11, 2026, signaling immediate execution potential.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 11,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ab297f30bfb3"
-        ],
-        "primary_source_event_id": "EVT-ab297f30bfb3",
-        "source_headlines": [
-          "3DP: Notification of buy-back - 3DP"
-        ],
-        "source_headline": "3DP: Notification of buy-back - 3DP",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.3DP?key=2924-03147080-6A1348698",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 63,
-        "newest_source_at": "2026-10-11T23:56:48Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-12T00:19:13Z",
-        "updated_at": "2026-10-12T00:19:13Z",
-        "decay_at": "2026-10-13T11:56:48Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-15T00:16:57Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-a87e2e15a1c1",
         "idea_version": "IDEAV-5fd55a3088253688",
         "idea_version_started_at": "2026-10-11T09:12:22Z",
@@ -244450,7 +244452,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1938,
-    "live_count": 52,
+    "live_count": 50,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -244469,9 +244471,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3887506,
-    "news_picked_today": 1302,
-    "news_dropped_today": 10033
+    "news_seen_today": 3950213,
+    "news_picked_today": 1324,
+    "news_dropped_today": 10059
   },
   "book_momentum": {
     "live_count": 8,
