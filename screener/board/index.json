@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T02:08:41Z",
+  "generated_at": "2026-10-26T02:23:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-058",
@@ -644,6 +644,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-137",
+      "headline": "Elon Musk says SpaceX closed $40 billion debt deal for AI chips as firm ‘investment grade, has Starlink, launch revenue’",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/elon-musk-says-spacex-closed-40-billion-debt-deal-for-ai-chips-as-firm-investment-grade-has-starlink-launch-revenue-11792979546399.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T02:12:02Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Elon Musk stated that SpaceX closed a $40 billion debt deal for AI chips.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Elon Musk stated that SpaceX closed a $40 billion debt deal for AI chips.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-128",
       "headline": "A gas field, a buyer and 3,500km of pipelines: UAE's Caspian energy bet",
       "headline_en": null,
@@ -1095,6 +1144,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-141",
+      "headline": "Gaw Capital-Led Group Seeks to Refinance $1.8 Billion Loan",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-26/gaw-capital-led-group-seeks-to-refinance-1-8-billion-loan",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T01:53:20Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Gaw Capital is seeking to refinance a significant $1.8 billion loan, indicating a major capital structure event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Gaw Capital is seeking to refinance a significant $1.8 billion loan, indicating a major capital structure event.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gaw Capital",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1597,6 +1695,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-145",
+      "headline": "After threatening AI export bans, China allows DeepSeek to keep selling",
+      "headline_en": null,
+      "url": "https://www.theregister.com/ai-and-ml/2026/10/26/after-threatening-ai-export-bans-china-allows-deepseek-to-keep-selling/5305267",
+      "source_name": "The Register",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T00:39:57Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "China's decision to allow DeepSeek to continue selling AI products removes a significant regulatory and operational risk for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "China's decision to allow DeepSeek to continue selling AI products removes a significant regulatory and operational risk for the company.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DeepSeek",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-129",
       "headline": "Hanwha Emerges as Key Partner in U.S. Shipbuilding Revival, Challenging China's Dominance",
       "headline_en": null,
@@ -1695,6 +1842,92 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-135",
+      "headline": "Brazil's Lula wins historic presidential election; Bolsonaro reportedly refuses to concede",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/26/brazil-lula-win-presidential-election-runoff-vote.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T02:18:09Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Brazil's Lula won the presidential election, but Bolsonaro reportedly refuses to concede, indicating political instability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Brazil's Lula won the presidential election, but Bolsonaro reportedly refuses to concede, indicating political instability.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-131",
+      "headline": "Brazil runoff live updates: Flávio Bolsonaro calls for election results to be ‘annulled’ after historic loss to Lula",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/world/live/2026/oct/25/brazil-election-runoff-live-updates-flavio-bolsonaro-lula",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T01:59:13Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "The headline reports a call to annul election results in Brazil after a historic loss, indicating political instability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "The headline reports a call to annul election results in Brazil after a historic loss, indicating political instability.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-106",
       "headline": "Brazil Markets Brace for Rout on Lula’s Improbable Election Win",
       "headline_en": null,
@@ -1732,233 +1965,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-081",
-      "headline": "Lula re-elected Brazil’s president in knife-edge election",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/7585a18f-88d9-4fcd-882d-ed938c7c9c41?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T00:56:03Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "The reelection of Brazil's president is a major political event with implications for national economic policy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "The reelection of Brazil's president is a major political event with implications for national economic policy.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-085",
-      "headline": "ETF de ações brasileiras em Tóquio desaba quase 13% após Lula vencer eleição",
-      "headline_en": "Brazilian stock ETF in Tokyo collapses nearly 13% after Lula wins election",
-      "url": "https://www.reuters.com/pt/negocio/FAVZT7LHIRMPDJMMHXYIETMJUY-2026-10-26/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T00:48:50Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Brazilian equity ETF in Tokyo drops nearly 13% following the election result, indicating a sharp market reaction to political risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Brazilian equity ETF in Tokyo drops nearly 13% following the election result, indicating a sharp market reaction to political risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-054",
-      "headline": "Brazil's Lula wins presidential election in runoff vote",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/26/brazil-lula-win-presidential-election-runoff-vote.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T00:28:10Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "The election of a new president in Brazil is a major political event that impacts national policy and market sentiment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "The election of a new president in Brazil is a major political event that impacts national policy and market sentiment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-002",
-      "headline": "SANDS CHINA LTD SANDS N2808 SANDS N2703A SANDS N2903A SANDS N3108A SANDS N2808B SANDS N3006 SANDS N3006A SANDS N2703 SANDS N2903 SANDS N3108 (01928 05142 05413 05414 05415 05733 40247 40585 40852 40853 40854): Inside Information - Results of our Controlling Shareholder, Las Vegas Sands Corp., Form 10-Q Quarterly Report for the Fiscal Third Quarter Ended September 30, 2026",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1026/2026102600027.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-25T23:50:00Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Sands China reports the Q3 2026 financial results of its parent company, Las Vegas Sands Corp.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Sands China reports the Q3 2026 financial results of its parent company, Las Vegas Sands Corp.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sands China",
-          "ticker": "01928",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-109",
-      "headline": "China's YMTC Targets 20% NAND Share, Intensifying Global Memory Rivalry",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279617",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T04:55:37Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "YMTC's aggressive NAND market share target increases competitive pressure on global memory chip manufacturers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "YMTC's aggressive NAND market share target increases competitive pressure on global memory chip manufacturers.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "YMTC",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -200053,76 +200059,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3dcf768f4a41",
-      "idea_version": "IDEAV-bd9c581a6712ce45",
-      "idea_version_started_at": "2026-10-24T19:18:35Z",
-      "ticker": "CART",
-      "company": "Maplebear (Instacart)",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Instacart is exploring a potential sale with strategic interest from major industry peers Uber and DoorDash, which should provide a M&A deal premium.",
-      "why_now": "Strategic sale exploration reported on October 24, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ffc27e49eb4c"
-      ],
-      "primary_source_event_id": "EVT-ffc27e49eb4c",
-      "source_headlines": [
-        "Instacart Is Exploring a Sale, and Uber and DoorDash Are Circling"
-      ],
-      "source_headline": "Instacart Is Exploring a Sale, and Uber and DoorDash Are Circling",
-      "source_url": "https://247wallst.com/investing/2026/10/24/instacart-is-exploring-a-sale-and-uber-and-doordash-are-circling/",
-      "source_name": "24/7 Wall St.",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-24T14:22:38Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T05:52:11Z",
-      "updated_at": "2026-10-24T19:18:35Z",
-      "decay_at": "2026-10-26T02:22:38Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-fbb98074a072",
       "idea_version": "IDEAV-04e4d02e414e29c6",
       "idea_version_started_at": "2026-10-25T07:14:09Z",
@@ -203911,6 +203847,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-3dcf768f4a41",
+      "idea_version": "IDEAV-bd9c581a6712ce45",
+      "idea_version_started_at": "2026-10-24T19:18:35Z",
+      "ticker": "CART",
+      "company": "Maplebear (Instacart)",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Instacart is exploring a potential sale with strategic interest from major industry peers Uber and DoorDash, which should provide a M&A deal premium.",
+      "why_now": "Strategic sale exploration reported on October 24, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ffc27e49eb4c"
+      ],
+      "primary_source_event_id": "EVT-ffc27e49eb4c",
+      "source_headlines": [
+        "Instacart Is Exploring a Sale, and Uber and DoorDash Are Circling"
+      ],
+      "source_headline": "Instacart Is Exploring a Sale, and Uber and DoorDash Are Circling",
+      "source_url": "https://247wallst.com/investing/2026/10/24/instacart-is-exploring-a-sale-and-uber-and-doordash-are-circling/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-24T14:22:38Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T05:52:11Z",
+      "updated_at": "2026-10-24T19:18:35Z",
+      "decay_at": "2026-10-26T02:22:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-58d3e0cadc2a",
       "idea_version": "IDEAV-ffc58afc5ca4789f",
       "idea_version_started_at": "2026-10-24T08:09:01Z",
@@ -207220,14 +207226,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 547,
+    "total_count": 548,
     "shown_count": 500,
-    "hidden_count": 47,
+    "hidden_count": 48,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 28
       },
       "short": {
         "total_count": 271,
@@ -207251,6 +207257,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3dcf768f4a41",
+        "idea_version": "IDEAV-bd9c581a6712ce45",
+        "idea_version_started_at": "2026-10-24T19:18:35Z",
+        "ticker": "CART",
+        "company": "Maplebear (Instacart)",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Instacart is exploring a potential sale with strategic interest from major industry peers Uber and DoorDash, which should provide a M&A deal premium.",
+        "why_now": "Strategic sale exploration reported on October 24, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ffc27e49eb4c"
+        ],
+        "primary_source_event_id": "EVT-ffc27e49eb4c",
+        "source_headlines": [
+          "Instacart Is Exploring a Sale, and Uber and DoorDash Are Circling"
+        ],
+        "source_headline": "Instacart Is Exploring a Sale, and Uber and DoorDash Are Circling",
+        "source_url": "https://247wallst.com/investing/2026/10/24/instacart-is-exploring-a-sale-and-uber-and-doordash-are-circling/",
+        "source_name": "24/7 Wall St.",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-24T14:22:38Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-24T05:52:11Z",
+        "updated_at": "2026-10-24T19:18:35Z",
+        "decay_at": "2026-10-26T02:22:38Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-26T02:22:38Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-2086a06fc886",
         "idea_version": "IDEAV-9815baaab800b669",
@@ -235025,80 +235104,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-f8f9911930b9",
-        "idea_version": "IDEAV-113ef69d59eaec54",
-        "idea_version_started_at": "2026-10-11T18:48:07Z",
-        "ticker": "OSWALPUMPS",
-        "company": "Oswal Pumps Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is significantly expanding its vertical integration by establishing a 1.2 GW TOPCon solar cell manufacturing facility, moving deeper into the solar value chain.",
-        "why_now": "The expansion was officially announced in a press release dated October 10, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d40fb8ed4938"
-        ],
-        "primary_source_event_id": "EVT-d40fb8ed4938",
-        "source_headlines": [
-          "Oswal Pumps Limited: Oswal Pumps Limited has informed the Exchange regarding a press release dated October 10, 2026, titled \"Oswal Pumps to set up 1.2 GW TOPCon solar cell manufacturing facility; deepens backward integration across the solar value chain\"."
-        ],
-        "source_headline": "Oswal Pumps Limited: Oswal Pumps Limited has informed the Exchange regarding a press release dated October 10, 2026, titled \"Oswal Pumps to set up 1.2 GW TOPCon solar cell manufacturing facility; deepens backward integration across the solar value chain\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/OSWALPUMPS_10102026180647_SE_LetterPressReleaseOPL10102026.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 96,
-        "newest_source_at": "2026-10-10T12:37:29Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-11T13:19:32Z",
-        "updated_at": "2026-10-11T18:48:07Z",
-        "decay_at": "2026-10-12T00:37:29Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-13T14:11:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-d3b122ba4a39",
         "idea_version": "IDEAV-6c39125a326bc0fd",
         "idea_version_started_at": "2026-10-11T15:32:54Z",
@@ -244500,7 +244505,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1914,
-    "live_count": 54,
+    "live_count": 53,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -244519,9 +244524,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 788,
-    "news_picked_today": 140,
-    "news_dropped_today": 408
+    "news_seen_today": 844,
+    "news_picked_today": 156,
+    "news_dropped_today": 448
   },
   "book_momentum": {
     "live_count": 8,
