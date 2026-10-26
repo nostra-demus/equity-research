@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-26T07:05:44Z",
+  "generated_at": "2026-10-26T08:27:18Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261026-338",
+      "headline": "Zicom Electronic Security Systems Limited: Zicom Electronic Security Systems Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ZICOM_26102026132300_Intimation_24102026_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T07:53:14Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "The company has entered the Corporate Insolvency Resolution Process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company has entered the Corporate Insolvency Resolution Process.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zicom Electronic Security Systems Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261026-262",
       "headline": "EVN: CNB: Results of Scheme Meeting",
@@ -1907,55 +1956,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-210",
-      "headline": "EUR: Court Approval of Schemes [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EUR?key=2924-03153100-6A1351356",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-26T03:50:02Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "EUR received court approval for its scheme of arrangement, a key step in M&A or restructuring.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "EUR received court approval for its scheme of arrangement, a key step in M&A or restructuring.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EUR",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -200820,76 +200820,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-9e0d39f688eb",
-      "idea_version": "IDEAV-fd95d772c8f163b1",
-      "idea_version_started_at": "2026-10-25T22:53:36Z",
-      "ticker": "TECK",
-      "company": "Teck Resources",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A labor strike at the Highland Valley Copper mine halts production at a key asset, directly impacting copper output and quarterly revenue.",
-      "why_now": "The strike began on 2026-10-24 and is an active operational disruption.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 61,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7e383581d94f"
-      ],
-      "primary_source_event_id": "EVT-7e383581d94f",
-      "source_headlines": [
-        "Teck says strike begins at Highland Valley Copper mine in British Columbia"
-      ],
-      "source_headline": "Teck says strike begins at Highland Valley Copper mine in British Columbia",
-      "source_url": "https://www.reuters.com/business/world-at-work/teck-says-strike-begins-highland-valley-copper-mine-british-columbia-2026-10-24/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-24T20:21:48Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T20:38:50Z",
-      "updated_at": "2026-10-25T22:53:36Z",
-      "decay_at": "2026-10-26T08:21:48Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-4e8059fc08a2",
       "idea_version": "IDEAV-ad3e10c6de61bda5",
       "idea_version_started_at": "2026-10-25T04:38:42Z",
@@ -204678,6 +204608,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-9e0d39f688eb",
+      "idea_version": "IDEAV-fd95d772c8f163b1",
+      "idea_version_started_at": "2026-10-25T22:53:36Z",
+      "ticker": "TECK",
+      "company": "Teck Resources",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A labor strike at the Highland Valley Copper mine halts production at a key asset, directly impacting copper output and quarterly revenue.",
+      "why_now": "The strike began on 2026-10-24 and is an active operational disruption.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 61,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7e383581d94f"
+      ],
+      "primary_source_event_id": "EVT-7e383581d94f",
+      "source_headlines": [
+        "Teck says strike begins at Highland Valley Copper mine in British Columbia"
+      ],
+      "source_headline": "Teck says strike begins at Highland Valley Copper mine in British Columbia",
+      "source_url": "https://www.reuters.com/business/world-at-work/teck-says-strike-begins-highland-valley-copper-mine-british-columbia-2026-10-24/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-24T20:21:48Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T20:38:50Z",
+      "updated_at": "2026-10-25T22:53:36Z",
+      "decay_at": "2026-10-26T08:21:48Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-485c669a88ce",
       "idea_version": "IDEAV-053b0e5261e9a2bd",
       "idea_version_started_at": "2026-10-25T21:58:59Z",
@@ -207574,9 +207574,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 550,
+    "total_count": 551,
     "shown_count": 500,
-    "hidden_count": 50,
+    "hidden_count": 51,
     "side_counts": {
       "long": {
         "total_count": 279,
@@ -207584,9 +207584,9 @@
         "hidden_count": 29
       },
       "short": {
-        "total_count": 272,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 23
       }
     },
     "retention": {
@@ -207605,6 +207605,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-9e0d39f688eb",
+        "idea_version": "IDEAV-fd95d772c8f163b1",
+        "idea_version_started_at": "2026-10-25T22:53:36Z",
+        "ticker": "TECK",
+        "company": "Teck Resources",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A labor strike at the Highland Valley Copper mine halts production at a key asset, directly impacting copper output and quarterly revenue.",
+        "why_now": "The strike began on 2026-10-24 and is an active operational disruption.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 61,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7e383581d94f"
+        ],
+        "primary_source_event_id": "EVT-7e383581d94f",
+        "source_headlines": [
+          "Teck says strike begins at Highland Valley Copper mine in British Columbia"
+        ],
+        "source_headline": "Teck says strike begins at Highland Valley Copper mine in British Columbia",
+        "source_url": "https://www.reuters.com/business/world-at-work/teck-says-strike-begins-highland-valley-copper-mine-british-columbia-2026-10-24/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-24T20:21:48Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-24T20:38:50Z",
+        "updated_at": "2026-10-25T22:53:36Z",
+        "decay_at": "2026-10-26T08:21:48Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-26T08:21:48Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-520be705f9e6",
         "idea_version": "IDEAV-5ae27562a516c644",
@@ -244778,85 +244851,12 @@
         "archived_at": "2026-10-02T11:22:12Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-000581c2d4b0",
-        "idea_version": "IDEAV-c3234b6d80f23e22",
-        "idea_version_started_at": "2026-09-29T10:02:00Z",
-        "ticker": "ZIM",
-        "company": "ZIM Integrated Shipping Services",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The proposed $4 billion takeover by Hapag-Lloyd is being blocked by Israeli regulators due to concerns over foreign ownership stakes, removing the acquisition premium from the stock price.",
-        "why_now": "The regulatory intervention was reported on September 29, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 66,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-acf117012996"
-        ],
-        "primary_source_event_id": "EVT-acf117012996",
-        "source_headlines": [
-          "Israel Cites Saudi, Qatari Stakes in Hapag to Halt $4 Billion ZIM Takeover"
-        ],
-        "source_headline": "Israel Cites Saudi, Qatari Stakes in Hapag to Halt $4 Billion ZIM Takeover",
-        "source_url": "https://www.bloomberg.com/news/articles/2026-09-29/israel-cites-saudi-qatari-stakes-in-hapag-to-halt-4-billion-zim-takeover",
-        "source_name": "Bloomberg",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-29T09:18:14Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-29T10:02:00Z",
-        "updated_at": "2026-09-29T10:02:00Z",
-        "decay_at": "2026-09-30T21:18:14Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-02T09:44:43Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1922,
-    "live_count": 56,
+    "live_count": 55,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -244875,9 +244875,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 42295,
-    "news_picked_today": 484,
-    "news_dropped_today": 6219
+    "news_seen_today": 189709,
+    "news_picked_today": 500,
+    "news_dropped_today": 6251
   },
   "book_momentum": {
     "live_count": 8,
