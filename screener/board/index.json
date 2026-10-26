@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T03:39:15Z",
+  "generated_at": "2026-10-26T03:49:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-058",
@@ -193,6 +193,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-202",
+      "headline": "Infosys share price falls nearly 4% after Q2 results, guidance cut; Check latest price targets",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/infosys-share-price-q2-result-reaction-adr-fall-guidance-cut-margins-buy-sell-target-outlook-20018869.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T03:43:08Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Infosys shares fell nearly 4% following a Q2 earnings report that included a guidance cut.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Infosys shares fell nearly 4% following a Q2 earnings report that included a guidance cut.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Infosys",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -979,6 +1029,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-205",
+      "headline": "BTN: Trading Halt [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BTN?key=2924-03153097-3A704955",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T03:39:37Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "BTN has entered a trading halt pending a price-sensitive announcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "BTN has entered a trading halt pending a price-sensitive announcement.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "strategic_review",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BTN",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1881,114 +1980,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-101",
-      "headline": "Unimech Aerospace and Manufacturing Limited: Unimech Aerospace and Manufacturing Limited has informed the Exchange about execution of Long-Term Agreement with Honeywell Aerospace US LLC",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/UNIMECH_26102026071241_Unimech_Exchange_Disclosure_-_Honeywell_LTA_Clean__1_.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-26T01:43:11Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Execution of a long-term agreement with a major aerospace partner.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Execution of a long-term agreement with a major aerospace partner.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Unimech Aerospace and Manufacturing Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Honeywell Aerospace",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-083",
-      "headline": "Samsung, SK hynix Poised for Record Q3 Profits, Riding AI Memory Boom",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279605",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T04:03:15Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Samsung and SK Hynix are expected to report record Q3 profits due to the AI memory boom.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Samsung and SK Hynix are expected to report record Q3 profits due to the AI memory boom.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "SK Hynix",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -200572,76 +200563,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0157f621dab9",
-      "idea_version": "IDEAV-8b3d415a029aec76",
-      "idea_version_started_at": "2026-10-24T23:13:43Z",
-      "ticker": "VLVLY",
-      "company": "Volvo",
-      "exchange": "OTC Markets",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The announcement of an additional 2,500 job cuts following previous layoffs signals persistent structural cost issues and weak demand.",
-      "why_now": "The restructuring news was reported on 2026-10-24.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b0b68f30e984"
-      ],
-      "primary_source_event_id": "EVT-b0b68f30e984",
-      "source_headlines": [
-        "Volvo Plans 2,500 More Job Cuts After 3,000 Layoffs, Targets $500 Million Savings"
-      ],
-      "source_headline": "Volvo Plans 2,500 More Job Cuts After 3,000 Layoffs, Targets $500 Million Savings",
-      "source_url": "https://www.ndtvprofit.com/business/volvo-plans-2-500-more-job-cuts-after-3-000-layoffs-targets-500-million-savings-12230852#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-24T15:46:49Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T23:13:43Z",
-      "updated_at": "2026-10-24T23:13:43Z",
-      "decay_at": "2026-10-26T03:46:49Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-35e446beedc4",
       "idea_version": "IDEAV-a86ce9060031a2e8",
       "idea_version_started_at": "2026-10-26T03:24:01Z",
@@ -204073,6 +203994,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-0157f621dab9",
+      "idea_version": "IDEAV-8b3d415a029aec76",
+      "idea_version_started_at": "2026-10-24T23:13:43Z",
+      "ticker": "VLVLY",
+      "company": "Volvo",
+      "exchange": "OTC Markets",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The announcement of an additional 2,500 job cuts following previous layoffs signals persistent structural cost issues and weak demand.",
+      "why_now": "The restructuring news was reported on 2026-10-24.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b0b68f30e984"
+      ],
+      "primary_source_event_id": "EVT-b0b68f30e984",
+      "source_headlines": [
+        "Volvo Plans 2,500 More Job Cuts After 3,000 Layoffs, Targets $500 Million Savings"
+      ],
+      "source_headline": "Volvo Plans 2,500 More Job Cuts After 3,000 Layoffs, Targets $500 Million Savings",
+      "source_url": "https://www.ndtvprofit.com/business/volvo-plans-2-500-more-job-cuts-after-3-000-layoffs-targets-500-million-savings-12230852#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-24T15:46:49Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T23:13:43Z",
+      "updated_at": "2026-10-24T23:13:43Z",
+      "decay_at": "2026-10-26T03:46:49Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-dba8408df9af",
       "idea_version": "IDEAV-f875eb09a57c9a2f",
       "idea_version_started_at": "2026-10-24T19:18:35Z",
@@ -207318,9 +207309,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 550,
+    "total_count": 551,
     "shown_count": 500,
-    "hidden_count": 50,
+    "hidden_count": 51,
     "side_counts": {
       "long": {
         "total_count": 279,
@@ -207328,9 +207319,9 @@
         "hidden_count": 29
       },
       "short": {
-        "total_count": 272,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 23
       }
     },
     "retention": {
@@ -207349,6 +207340,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0157f621dab9",
+        "idea_version": "IDEAV-8b3d415a029aec76",
+        "idea_version_started_at": "2026-10-24T23:13:43Z",
+        "ticker": "VLVLY",
+        "company": "Volvo",
+        "exchange": "OTC Markets",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The announcement of an additional 2,500 job cuts following previous layoffs signals persistent structural cost issues and weak demand.",
+        "why_now": "The restructuring news was reported on 2026-10-24.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b0b68f30e984"
+        ],
+        "primary_source_event_id": "EVT-b0b68f30e984",
+        "source_headlines": [
+          "Volvo Plans 2,500 More Job Cuts After 3,000 Layoffs, Targets $500 Million Savings"
+        ],
+        "source_headline": "Volvo Plans 2,500 More Job Cuts After 3,000 Layoffs, Targets $500 Million Savings",
+        "source_url": "https://www.ndtvprofit.com/business/volvo-plans-2-500-more-job-cuts-after-3-000-layoffs-targets-500-million-savings-12230852#publisher=newsstand",
+        "source_name": "NDTV Profit",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-24T15:46:49Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-24T23:13:43Z",
+        "updated_at": "2026-10-24T23:13:43Z",
+        "decay_at": "2026-10-26T03:46:49Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-26T03:46:49Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-f476d8205eab",
         "idea_version": "IDEAV-740571600c791e1f",
@@ -244520,85 +244584,12 @@
         "archived_at": "2026-10-02T11:22:12Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-000581c2d4b0",
-        "idea_version": "IDEAV-c3234b6d80f23e22",
-        "idea_version_started_at": "2026-09-29T10:02:00Z",
-        "ticker": "ZIM",
-        "company": "ZIM Integrated Shipping Services",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The proposed $4 billion takeover by Hapag-Lloyd is being blocked by Israeli regulators due to concerns over foreign ownership stakes, removing the acquisition premium from the stock price.",
-        "why_now": "The regulatory intervention was reported on September 29, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 66,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-acf117012996"
-        ],
-        "primary_source_event_id": "EVT-acf117012996",
-        "source_headlines": [
-          "Israel Cites Saudi, Qatari Stakes in Hapag to Halt $4 Billion ZIM Takeover"
-        ],
-        "source_headline": "Israel Cites Saudi, Qatari Stakes in Hapag to Halt $4 Billion ZIM Takeover",
-        "source_url": "https://www.bloomberg.com/news/articles/2026-09-29/israel-cites-saudi-qatari-stakes-in-hapag-to-halt-4-billion-zim-takeover",
-        "source_name": "Bloomberg",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-29T09:18:14Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-29T10:02:00Z",
-        "updated_at": "2026-09-29T10:02:00Z",
-        "decay_at": "2026-09-30T21:18:14Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-02T09:44:43Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1916,
-    "live_count": 52,
+    "live_count": 51,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -244617,9 +244608,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1305,
-    "news_picked_today": 240,
-    "news_dropped_today": 685
+    "news_seen_today": 1343,
+    "news_picked_today": 252,
+    "news_dropped_today": 711
   },
   "book_momentum": {
     "live_count": 8,
