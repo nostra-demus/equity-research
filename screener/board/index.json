@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T13:53:51Z",
+  "generated_at": "2026-10-26T13:59:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-523",
@@ -200008,6 +200008,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-406ba717f9ef",
+      "idea_version": "IDEAV-25276e7ead781014",
+      "idea_version_started_at": "2026-10-26T13:58:56Z",
+      "ticker": "EQT",
+      "company": "EQT Corporation",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "EQT is acquiring Range Resources in an all-stock transaction, which typically leads to short-term downward pressure on the acquirer's shares due to dilution and integration risks.",
+      "why_now": "The acquisition was announced on October 26, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 74,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fc03d932cd46",
+        "EVT-43f3ac559d18"
+      ],
+      "primary_source_event_id": "EVT-fc03d932cd46",
+      "source_headlines": [
+        "EQT to acquire Range Resources, creating U.S. gas giant",
+        "EQT Corporation to Acquire Range Resources Corporation in All-Stock Transaction with Pro Forma Enterprise Value of more than $50 billion"
+      ],
+      "source_headline": "EQT to acquire Range Resources, creating U.S. gas giant",
+      "source_url": "https://www.theglobeandmail.com/business/industry-news/article-eqt-to-acquire-range-resources-creating-us-gas-giant/",
+      "source_name": "The Globe and Mail",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-26T11:32:34Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-26T13:58:56Z",
+      "updated_at": "2026-10-26T13:58:56Z",
+      "decay_at": "2026-10-27T23:32:34Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-43576d5bf0b5",
       "idea_version": "IDEAV-5ec1527dde5b57f6",
       "idea_version_started_at": "2026-10-26T03:24:01Z",
@@ -200281,6 +200352,76 @@
       "surfaced_at": "2026-10-25T07:14:09Z",
       "updated_at": "2026-10-25T07:14:09Z",
       "decay_at": "2026-10-26T18:25:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-0c63b840ab2f",
+      "idea_version": "IDEAV-cc11d3f273a2ff05",
+      "idea_version_started_at": "2026-10-26T13:58:56Z",
+      "ticker": "VZ",
+      "company": "Verizon",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Verizon raised its 2026 guidance following a significant increase in net phone customer additions, signaling improved competitive positioning and revenue growth.",
+      "why_now": "The guidance update was released on October 26, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f6b5206e9877"
+      ],
+      "primary_source_event_id": "EVT-f6b5206e9877",
+      "source_headlines": [
+        "Verizon Raises 2026 Forecast After Big Jump in Phone Customers"
+      ],
+      "source_headline": "Verizon Raises 2026 Forecast After Big Jump in Phone Customers",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-26/verizon-raises-2026-forecast-after-big-jump-in-phone-customers",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-26T11:01:31Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-26T13:58:56Z",
+      "updated_at": "2026-10-26T13:58:56Z",
+      "decay_at": "2026-10-27T23:01:31Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -200982,6 +201123,223 @@
       "surfaced_at": "2026-10-25T04:09:49Z",
       "updated_at": "2026-10-25T04:09:49Z",
       "decay_at": "2026-10-26T14:50:52Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-12bc112e4547",
+      "idea_version": "IDEAV-b21eff0807614f38",
+      "idea_version_started_at": "2026-10-26T13:58:56Z",
+      "ticker": "SONACOMS",
+      "company": "Sona BLW Precision Forgings",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 30% surge in net profit driven by a 129% jump in battery electric vehicle (BEV) revenue, indicating strong secular growth in its core EV segment.",
+      "why_now": "The Q2 results were released on October 26, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d7b21f21205b"
+      ],
+      "primary_source_event_id": "EVT-d7b21f21205b",
+      "source_headlines": [
+        "Sona BLW Q2 Results: Net profit surges 30% on higher revenue; BEV revenue jumps 129%"
+      ],
+      "source_headline": "Sona BLW Q2 Results: Net profit surges 30% on higher revenue; BEV revenue jumps 129%",
+      "source_url": "https://www.cnbctv18.com/market/stocks/sona-blw-precision-forgings-share-price-q2-results-net-profit-surges-30-on-higher-revenue-bev-revenue-jumps-129-20019576.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-26T11:56:32Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-26T13:58:56Z",
+      "updated_at": "2026-10-26T13:58:56Z",
+      "decay_at": "2026-10-27T23:56:32Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-a78031ede4db",
+      "idea_version": "IDEAV-fd483dbf156c1f17",
+      "idea_version_started_at": "2026-10-26T13:58:56Z",
+      "ticker": "HLF",
+      "company": "High Liner Foods",
+      "exchange": "TSX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company agreed to be acquired for C$27 per share in cash, providing a clear arbitrage opportunity if the current trading price is below the offer price.",
+      "why_now": "The acquisition agreement was announced on October 26, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f01e0c5bca39"
+      ],
+      "primary_source_event_id": "EVT-f01e0c5bca39",
+      "source_headlines": [
+        "High Liner Foods Agrees To Be Acquired By Umios For C$27/Share In Cash"
+      ],
+      "source_headline": "High Liner Foods Agrees To Be Acquired By Umios For C$27/Share In Cash",
+      "source_url": "https://www.nasdaq.com/articles/high-liner-foods-agrees-be-acquired-umios-c-27-share-cash",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-26T11:58:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-26T13:58:56Z",
+      "updated_at": "2026-10-26T13:58:56Z",
+      "decay_at": "2026-10-27T23:58:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-f37da333a82f",
+      "idea_version": "IDEAV-5fbb982d0893e35d",
+      "idea_version_started_at": "2026-10-26T13:58:56Z",
+      "ticker": "RECLTD",
+      "company": "REC Ltd",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "REC reported a 21% decline in net profit for Q2, reflecting potential margin compression or asset quality headwinds.",
+      "why_now": "The Q2 results were released on October 26, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-245868c36a28"
+      ],
+      "primary_source_event_id": "EVT-245868c36a28",
+      "source_headlines": [
+        "REC Q2 results: Net profit falls 21% to ₹3,478 crore, declares interim dividend"
+      ],
+      "source_headline": "REC Q2 results: Net profit falls 21% to ₹3,478 crore, declares interim dividend",
+      "source_url": "https://www.cnbctv18.com/market/rec-share-price-q2-results-net-profit-revenue-declares-interim-dividend-20019558.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-26T12:04:58Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-26T13:58:56Z",
+      "updated_at": "2026-10-26T13:58:56Z",
+      "decay_at": "2026-10-28T00:04:58Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -204449,146 +204807,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b85a0a4334ae",
-      "idea_version": "IDEAV-1e8de2d2906e05bc",
-      "idea_version_started_at": "2026-10-23T16:30:30Z",
-      "ticker": "PERF",
-      "company": "Perfect Corp.",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is facing a delisting notification from the exchange, which typically precedes severe liquidity or governance issues.",
-      "why_now": "The SEC filing for the delisting notification was processed on October 23, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 76,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3da582a1ce27"
-      ],
-      "primary_source_event_id": "EVT-3da582a1ce27",
-      "source_headlines": [
-        "25-NSE - Perfect Corp. (0001899830) (Subject)"
-      ],
-      "source_headline": "25-NSE - Perfect Corp. (0001899830) (Subject)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1899830/000087666126000856/0000876661-26-000856-index.htm",
-      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-23T13:57:15Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T16:30:30Z",
-      "updated_at": "2026-10-23T16:30:30Z",
-      "decay_at": "2026-10-25T01:57:15Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-fc93f470f6d7",
-      "idea_version": "IDEAV-db4336a31f698ae9",
-      "idea_version_started_at": "2026-10-23T18:41:34Z",
-      "ticker": "LKQ",
-      "company": "LKQ Corporation",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company announced a CEO transition, a third-quarter earnings shortfall, and the withdrawal of its 2026 financial guidance, signaling significant operational instability.",
-      "why_now": "The news was released on October 23, 2026, and the market has not yet fully digested the implications of the withdrawn guidance.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 74,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bcd74c016a3b",
-        "EVT-fe2e15493aa0"
-      ],
-      "primary_source_event_id": "EVT-bcd74c016a3b",
-      "source_headlines": [
-        "LKQ Ousts CEO, Warns of Third-Quarter Shortfall",
-        "LKQ Corporation Appoints Salvatore A. Abbate as CEO, Announces Preliminary Third Quarter 2026 Results and Withdraws 2026 Guidance"
-      ],
-      "source_headline": "LKQ Ousts CEO, Warns of Third-Quarter Shortfall",
-      "source_url": "https://www.wsj.com/business/c-suite/lkq-ousts-ceo-warns-of-third-quarter-shortfall-95426635?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-23T13:33:57Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T18:41:34Z",
-      "updated_at": "2026-10-23T18:41:34Z",
-      "decay_at": "2026-10-25T01:33:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-3dcf768f4a41",
       "idea_version": "IDEAV-bd9c581a6712ce45",
       "idea_version_started_at": "2026-10-24T19:18:35Z",
@@ -205074,76 +205292,6 @@
       "surfaced_at": "2026-10-24T03:46:54Z",
       "updated_at": "2026-10-24T03:46:54Z",
       "decay_at": "2026-10-25T08:46:38Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-be88d1aa5221",
-      "idea_version": "IDEAV-159d6a7273dc37c9",
-      "idea_version_started_at": "2026-10-24T04:06:30Z",
-      "ticker": "AMR",
-      "company": "Alpha Metallurgical Resources",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported a preliminary Q3 loss, indicating weakness in metallurgical coal pricing or operational efficiency.",
-      "why_now": "The preliminary loss announcement occurred on 2026-10-23.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 64,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c736d7bd08cb"
-      ],
-      "primary_source_event_id": "EVT-c736d7bd08cb",
-      "source_headlines": [
-        "Alpha Metallurgical Resources Reports Preliminary Q3 Loss"
-      ],
-      "source_headline": "Alpha Metallurgical Resources Reports Preliminary Q3 Loss",
-      "source_url": "https://www.nasdaq.com/articles/alpha-metallurgical-resources-reports-preliminary-q3-loss",
-      "source_name": "Nasdaq",
-      "materiality_max": 99,
-      "newest_source_at": "2026-10-23T12:37:23Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T04:06:30Z",
-      "updated_at": "2026-10-24T04:06:30Z",
-      "decay_at": "2026-10-25T00:37:23Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -207237,150 +207385,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-aba1e604fd86",
-      "idea_version": "IDEAV-7a1f0bfcc76955f4",
-      "idea_version_started_at": "2026-10-23T18:41:34Z",
-      "ticker": "SHRIRAMFIN",
-      "company": "Shriram Finance",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 59% increase in Q2 net profit to ₹3,684 crore and declared an interim dividend, reflecting strong underlying credit demand and operational efficiency.",
-      "why_now": "The earnings were released on October 23, 2026, providing a fresh catalyst for a re-rating of the stock.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3eb3cbd220c4"
-      ],
-      "primary_source_event_id": "EVT-3eb3cbd220c4",
-      "source_headlines": [
-        "Shriram Finance Q2 Net Profit Rises 59 Per Cent To ₹3,684 Crore; Board Approves ₹6.50 Interim Dividend"
-      ],
-      "source_headline": "Shriram Finance Q2 Net Profit Rises 59 Per Cent To ₹3,684 Crore; Board Approves ₹6.50 Interim Dividend",
-      "source_url": "https://www.freepressjournal.in/business/shriram-finance-q2-net-profit-rises-59-per-cent-to-3684-crore-board-approves-650-interim-dividend",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-23T13:41:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T18:41:34Z",
-      "updated_at": "2026-10-23T18:41:34Z",
-      "decay_at": "2026-10-25T01:41:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-c2d69b9dc5d8",
-      "idea_version": "IDEAV-e9ff7c86aa5ca5a6",
-      "idea_version_started_at": "2026-10-23T15:52:59Z",
-      "ticker": "TORNTPHARM",
-      "company": "Torrent Pharmaceuticals",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Net profit declined despite revenue growth, indicating significant margin compression and a miss against market expectations.",
-      "why_now": "The Q2 results were reported today, October 23, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-89e1cacc3ac0"
-      ],
-      "primary_source_event_id": "EVT-89e1cacc3ac0",
-      "source_headlines": [
-        "Torrent Pharma Q2 Results: Net profit declines despite 51% revenue growth; misses estimates"
-      ],
-      "source_headline": "Torrent Pharma Q2 Results: Net profit declines despite 51% revenue growth; misses estimates",
-      "source_url": "https://www.cnbctv18.com/market/stocks/torrent-pharma-share-price-q2-results-net-profit-declines-despite-51-revenue-growth-misses-estimates-20018208.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-23T12:24:55Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T15:52:59Z",
-      "updated_at": "2026-10-23T15:52:59Z",
-      "decay_at": "2026-10-25T00:24:55Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-9bb847420743",
       "idea_version": "IDEAV-46aec5100f3dac7b",
       "idea_version_started_at": "2026-10-25T02:18:41Z",
@@ -207463,33 +207467,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 542,
+    "total_count": 537,
     "shown_count": 500,
-    "hidden_count": 42,
+    "hidden_count": 37,
     "side_counts": {
       "long": {
-        "total_count": 270,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 20
+        "hidden_count": 19
       },
       "short": {
-        "total_count": 272,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 18
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1326,
-      "oldest_retained_at": "2026-09-28T20:58:59Z",
+      "evicted_count": 1331,
+      "oldest_retained_at": "2026-09-29T09:30:19Z",
       "side_counts": {
         "long": {
-          "evicted_count": 885,
+          "evicted_count": 886,
           "oldest_retained_at": "2026-10-11T13:21:11Z"
         },
         "short": {
-          "evicted_count": 442,
-          "oldest_retained_at": "2026-09-28T20:58:59Z"
+          "evicted_count": 446,
+          "oldest_retained_at": "2026-09-29T09:30:19Z"
         }
       }
     },
@@ -210323,8 +210327,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-25T01:57:15Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-26T13:59:13Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -210398,8 +210402,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-25T01:41:47Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-26T13:59:13Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -210472,8 +210476,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-25T01:33:57Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-26T13:59:13Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -210545,8 +210549,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-25T00:37:23Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-26T13:59:13Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -210620,8 +210624,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-25T00:24:55Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-26T13:59:13Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244744,8 +244748,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1932,
-    "live_count": 63,
+    "surfaced_total": 1937,
+    "live_count": 68,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -244764,7 +244768,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1303628,
+    "news_seen_today": 1329400,
     "news_picked_today": 980,
     "news_dropped_today": 8579
   },
