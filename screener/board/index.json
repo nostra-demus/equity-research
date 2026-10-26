@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T08:43:07Z",
+  "generated_at": "2026-10-26T08:45:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-342",
@@ -635,6 +635,60 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-363",
+      "headline": "Challenger rejects Daiichi Life’s $4.4 billion takeover offer",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/10/26/companies/challenger-rejects-daiichi-life-takeover-offer/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T07:26:00Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Challenger rejected a $4.4 billion takeover offer from Daiichi Life.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Challenger rejected a $4.4 billion takeover offer from Daiichi Life.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Challenger",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "Daiichi Life",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1914,55 +1968,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-322",
-      "headline": "Jio Platforms IPO draws record ₹7 lakh crore in bids, subscribed 22.2 times",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/jio-platforms-ipo-draws-record-7-lakh-crore-in-bids-subscribed-222-times/article71625744.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T05:47:30Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Jio Platforms IPO received record bids of 7 lakh crore, indicating strong market demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Jio Platforms IPO received record bids of 7 lakh crore, indicating strong market demand.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jio Platforms",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -244882,9 +244887,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 220229,
-    "news_picked_today": 543,
-    "news_dropped_today": 6328
+    "news_seen_today": 227807,
+    "news_picked_today": 558,
+    "news_dropped_today": 6337
   },
   "book_momentum": {
     "live_count": 8,
