@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-26T09:41:51Z",
+  "generated_at": "2026-10-26T09:46:11Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261026-383",
+      "headline": "DHARAN INFRA-EPC LIMITED: DHARAN INFRA-EPC LIMITED has informed the Exchange about Corporate Insolvency Resolution Process 1st Committee of Creditors Meeting to be held on 30th October, 2026",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/KBCGLOBAL_26102026150359_Intimation_1st_CoC.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T09:35:02Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "The company has entered a corporate insolvency resolution process, indicating severe financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company has entered a corporate insolvency resolution process, indicating severe financial distress.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dharan Infra-EPC Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-386",
+      "headline": "SUNAC (01918): (1)SHARE TRANSACTION AND CONNECTED TRANSACTION IN RELATION TO ACQUISITION OF 100% EQUITY INTEREST IN ERJIN MANAGEMENT INVOLVING THE ISSUE OF CONSIDERATION SHARES UNDER SPECIFIC MANDATE;AND (2)NOTICE OF EGM",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1026/2026102600558.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T09:30:00Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "The company is acquiring 100% of Erjin Management, involving the issuance of consideration shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is acquiring 100% of Erjin Management, involving the issuance of consideration shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sunac",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261026-374",
       "headline": "Ather Energy Limited: Ather Energy Limited has informed the Exchange that the Board at the meeting held today has considered and approved proposals for the enhancement of manufacturing capacity at the Companys factories located at Hosur, Tamil Nadu and Chhatrapati Sambhajinagar, Maharashtra (Factory 3.0- under construction).",
@@ -1865,104 +1963,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-127",
-      "headline": "Audi Will Invest $4 Billion To Build A Factory In Georgia",
-      "headline_en": null,
-      "url": "https://www.carscoops.com/2296419/audi-confirms-usa-factory-georgia/",
-      "source_name": "Carscoops",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T01:55:10Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Audi announced a $4 billion investment to build a new factory in Georgia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Audi announced a $4 billion investment to build a new factory in Georgia.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Audi",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-123",
-      "headline": "Musk says SpaceX landed a $40 billion debt deal — and forecasts doom for some AI rivals",
-      "headline_en": null,
-      "url": "https://www.marketwatch.com/story/musk-says-spacex-landed-a-40-billion-debt-deal-and-forecasts-doom-for-some-ai-rivals-a0a4991e?mod=mw_rss_topstories",
-      "source_name": "MarketWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T01:50:00Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "SpaceX secured a $40 billion debt deal, a significant capital structure event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SpaceX secured a $40 billion debt deal, a significant capital structure event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -244889,9 +244889,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 362840,
-    "news_picked_today": 643,
-    "news_dropped_today": 6780
+    "news_seen_today": 375350,
+    "news_picked_today": 657,
+    "news_dropped_today": 6790
   },
   "book_momentum": {
     "live_count": 8,
