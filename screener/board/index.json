@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T04:39:30Z",
+  "generated_at": "2026-10-26T04:43:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-237",
@@ -1180,6 +1180,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-250",
+      "headline": "Bolsonaro calls for Brazil election result to be annulled",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/26/bolsonaro-calls-for-brazil-election-result-to-be-annulled?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-10-26T04:36:46Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "A call to annul an election result can lead to significant political and economic instability in Brazil.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "A call to annul an election result can lead to significant political and economic instability in Brazil.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-093",
       "headline": "SEC fines South Carolina $500k for fan stormng field after Tennessee upset",
       "headline_en": null,
@@ -1420,6 +1463,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-260",
+      "headline": "EAAA India Alternatives’ Rs 1,200 crore IPO kicks off; all you need to know",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/ipos/fpos/eaaa-india-alternatives-ipo-opens-today-check-gmp-anchor-investment-and-other-key-details/articleshow/135201979.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T03:30:50Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "EAAA India Alternatives' Rs 1,200 crore IPO has kicked off.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "EAAA India Alternatives' Rs 1,200 crore IPO has kicked off.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EAAA India Alternatives",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1819,148 +1911,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261026-192",
-      "headline": "Australia's Perfection Fresh to seek $8.4 million penalty over price fixing, regulator says",
+      "inbox_id": "INB-20261026-255",
+      "headline": "Elon Musk Says Debt Markets Have Shut Out AI 'Neoclouds' As SpaceX Locks In $40 Billion For Chips",
       "headline_en": null,
-      "url": "https://www.reuters.com/legal/litigation/australias-perfection-fresh-seek-84-million-penalty-over-price-fixing-regulator-2026-10-26/",
-      "source_name": "Reuters — Latest (news sitemap)",
+      "url": "https://www.freepressjournal.in/tech/elon-musk-says-debt-markets-have-shut-out-ai-neoclouds-as-spacex-locks-in-40-billion-for-chips",
+      "source_name": "Free Press Journal",
       "input_nature": "news_headline",
-      "found_at": "2026-10-26T03:12:44Z",
+      "found_at": "2026-10-26T04:26:03Z",
       "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Perfection Fresh is seeking an $8.4 million penalty following regulatory action regarding price fixing.",
+      "prelim_note": "SpaceX has secured $40 billion for AI chip development.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 92,
-      "triage_reason": "Perfection Fresh is seeking an $8.4 million penalty following regulatory action regarding price fixing.",
-      "region": "OTHER",
+      "triage_reason": "SpaceX has secured $40 billion for AI chip development.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 65,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 65,
+        "materiality": 75,
         "source_tier": 0,
         "scope": 6,
         "event": 6,
-        "size": -1,
+        "size": 0,
         "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
+        "materiality_label_floor": 0,
+        "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
+        "event_id": "capex",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "litigation_enforcement"
+        "capex"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Perfection Fresh",
+          "name": "SpaceX",
           "ticker": null,
           "listing_country": null
         }
       ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-003",
-      "headline": "AKESO (09926): VOLUNTARY ANNOUNCEMENT - HARMONI-GI1 RESULTS PUBLISHED AT 2026 ESMO mOS 14.9m vs 12.1m, HR 0.75 (P=0.0031) FOR IVONESCIMAB PLUS CHEMO VS DURVALUMAB PLUS CHEMO IN 1L ADVANCED BTC",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1026/2026102600019.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-25T23:38:00Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Akeso reports positive clinical trial results for Ivonescimab in advanced BTC, showing improved median overall survival.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Akeso reports positive clinical trial results for Ivonescimab in advanced BTC, showing improved median overall survival.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Akeso",
-          "ticker": "09926",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-231",
-      "headline": "ALPHAMAB-B (09966): VOLUNTARY ANNOUNCEMENT - LATEST RESEARCH RESULTS OF TWO PHASE III CLINICAL STUDIES OF ANBENITAMAB (KN026) WERE PRESENTED AT THE 2026 ESMO CONGRESS AS LBA ORAL PRESENTATIONS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1026/2026102600205.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-26T04:10:00Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Positive clinical trial results for Anbenitamab presented at ESMO Congress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Positive clinical trial results for Anbenitamab presented at ESMO Congress.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alphamab Oncology",
-          "ticker": "09966",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -244666,9 +244660,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3198,
-    "news_picked_today": 335,
-    "news_dropped_today": 1140
+    "news_seen_today": 3239,
+    "news_picked_today": 347,
+    "news_dropped_today": 1169
   },
   "book_momentum": {
     "live_count": 8,
