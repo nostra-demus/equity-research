@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T04:33:09Z",
+  "generated_at": "2026-10-26T04:38:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-237",
@@ -1770,6 +1770,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-248",
+      "headline": "CG Power Shares May Rally 40% After Q2 Results; Motilal Oswal Raises Target Price On Strong Order Inflows",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/cg-power-shares-may-rally-40-percent-after-q2-results-motilal-oswal-raises-target-price-heres-why-12235631#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T04:12:34Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "CG Power received a target price increase from Motilal Oswal following strong Q2 order inflows.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "CG Power received a target price increase from Motilal Oswal following strong Q2 order inflows.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CG Power",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-192",
       "headline": "Australia's Perfection Fresh to seek $8.4 million penalty over price fixing, regulator says",
       "headline_en": null,
@@ -1912,60 +1961,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-194",
-      "headline": "WOR: Worley and SAMSUNG E&A partner on major projects in the USA",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WOR?key=2924-03153089-2A1706106",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-26T03:19:42Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Worley entered a partnership with Samsung E&A for major projects in the USA, indicating potential revenue growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Worley entered a partnership with Samsung E&A for major projects in the USA, indicating potential revenue growth.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Worley",
-          "ticker": "WOR",
-          "listing_country": null
-        },
-        {
-          "name": "Samsung E&A",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -244597,9 +244592,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3145,
-    "news_picked_today": 318,
-    "news_dropped_today": 1104
+    "news_seen_today": 3198,
+    "news_picked_today": 335,
+    "news_dropped_today": 1140
   },
   "book_momentum": {
     "live_count": 8,
