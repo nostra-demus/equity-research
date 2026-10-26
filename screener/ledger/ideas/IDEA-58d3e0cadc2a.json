@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-58d3e0cadc2a",
-  "idea_version": "IDEAV-15988977446689e4",
-  "idea_version_started_at": "2026-10-26T09:24:06Z",
+  "idea_version": "IDEAV-ff7aad1ce92f8e0d",
+  "idea_version_started_at": "2026-10-26T11:54:04Z",
   "ticker": "INFY",
   "company": "Infosys",
   "exchange": "NYSE",
@@ -11,26 +11,26 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "Infosys lowered its FY27 guidance, indicating a weaker revenue outlook and potential margin pressure.",
-  "why_now": "The guidance cut was announced with the Q2 results, making the impact immediate.",
-  "conviction": 60,
+  "reason": "The company cut its revenue growth guidance to 1-2%, signaling a significant slowdown in demand for its IT services.",
+  "why_now": "The guidance cut was announced in the Q2 results released on 2026-10-26.",
+  "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 73,
+  "trade_score": 67,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 20,
+    "impact": 21,
     "specificity": 15,
     "timing": 10,
     "expression": 7,
-    "corroboration": 7,
+    "corroboration": 0,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
-    "price and market expectations",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -42,24 +42,22 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "unknown",
+  "priced_in": "room",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-28ead8e08b76",
-    "EVT-510801324984"
+    "EVT-81eb89b7f123"
   ],
-  "primary_source_event_id": "EVT-28ead8e08b76",
+  "primary_source_event_id": "EVT-81eb89b7f123",
   "source_headlines": [
-    "Infosys shares fall 4% after IT major lowers FY27 guidance. What are Goldman Sachs, Nomura, others saying?",
-    "Infosys share price falls nearly 4% after Q2 results, guidance cut; Check latest price targets"
+    "Infosys Shares Fall 4% After Q2 Results, Revenue Growth Guidance Cut To 1-2%"
   ],
-  "source_headline": "Infosys shares fall 4% after IT major lowers FY27 guidance. What are Goldman Sachs, Nomura, others saying?",
-  "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/infosys-shares-fall-4-after-it-major-lowers-fy27-guidance-what-are-goldman-sachs-nomura-others-saying/articleshow/135202432.cms",
-  "source_name": "The Economic Times",
+  "source_headline": "Infosys Shares Fall 4% After Q2 Results, Revenue Growth Guidance Cut To 1-2%",
+  "source_url": "https://www.freepressjournal.in/business/infosys-shares-fall-4-after-q2-results-revenue-growth-guidance-cut-to-1-2",
+  "source_name": "Free Press Journal",
   "materiality_max": 100,
-  "newest_source_at": "2026-10-26T04:07:28Z",
+  "newest_source_at": "2026-10-26T05:41:54Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -67,8 +65,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-10-23T15:10:57Z",
-  "updated_at": "2026-10-26T09:24:06Z",
-  "decay_at": "2026-10-27T16:07:28Z",
+  "updated_at": "2026-10-26T11:54:04Z",
+  "decay_at": "2026-10-27T17:41:54Z",
   "status": "live",
   "promoted_signal_id": null
 }
