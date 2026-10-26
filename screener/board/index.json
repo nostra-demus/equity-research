@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-26T21:49:17Z",
+  "generated_at": "2026-10-26T22:23:40Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261026-790",
+      "headline": "AOV: Trading Update and Revised FY27 Outlook [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AOV?key=2924-03153406-3A705001",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T21:24:15Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "AOV issued a revised FY27 outlook, which is a material change to financial expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AOV issued a revised FY27 outlook, which is a material change to financial expectations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AOV",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261026-688",
       "headline": "SKO: Serko Guidance Update [price-sensitive]",
@@ -1628,6 +1677,159 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-766",
+      "headline": "Facebook owner Meta launches £70bn fundraising drive to help bankroll its push into AI",
+      "headline_en": null,
+      "url": "https://www.thisismoney.co.uk/money/markets/article-16240381/Facebook-owner-Meta-launches-70bn-fundraising-drive-help-bankroll-push-AI.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T22:00:49Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Meta is launching a £70 billion fundraising drive, a massive capital event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta is launching a £70 billion fundraising drive, a massive capital event.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-759",
+      "headline": "Whirlpool Q3 Swings To Loss; Cuts FY Earnings Outlook",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/whirlpool-q3-swings-loss-cuts-fy-earnings-outlook",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T21:46:04Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Whirlpool swung to a loss in Q3 and cut its FY earnings outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Whirlpool swung to a loss in Q3 and cut its FY earnings outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Whirlpool",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-754",
+      "headline": "RadNet, Inc. Enters Merger Agreement to Acquire OnRad, Inc. for $350,000,000 in Cash and 5,000,000 Shares",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/radnet-inc-enters-merger-agreement-acquire-onrad-inc-350000000-cash-and-5000000-shares",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T21:31:47Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "RadNet agreed to acquire OnRad for $350 million in cash and 5 million shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "RadNet agreed to acquire OnRad for $350 million in cash and 5 million shares.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RadNet",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "OnRad",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-741",
       "headline": "DoorDash Circles Deal to Buy Instacart",
       "headline_en": null,
@@ -1771,212 +1973,6 @@
       "companies": [
         {
           "name": "Sun Communities",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-745",
-      "headline": "Jazz Pharmaceuticals plc Estimates $755 Million Q3 Financial Impact from Actio Biosciences Acquisition",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/jazz-pharmaceuticals-plc-estimates-755-million-q3-financial-impact-actio-biosciences",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T20:51:56Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Jazz Pharmaceuticals estimates a $755 million financial impact related to the Actio Biosciences acquisition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Jazz Pharmaceuticals estimates a $755 million financial impact related to the Actio Biosciences acquisition.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jazz Pharmaceuticals",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-728",
-      "headline": "DoorDash in talks to buy Instacart in deal valued around $17-billion, source says",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-doordash-talks-to-buy-instacart-october-26/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T20:38:53Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "DoorDash is in talks to acquire Instacart in a deal valued at approximately $17 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "DoorDash is in talks to acquire Instacart in a deal valued at approximately $17 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DoorDash",
-          "ticker": "DASH",
-          "listing_country": "US"
-        },
-        {
-          "name": "Instacart",
-          "ticker": "CART",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-698",
-      "headline": "DoorDash Is in Advanced Talks to Acquire Instacart, WSJ Says",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-26/doordash-is-in-advanced-talks-to-acquire-instacart-wsj-says",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T19:46:30Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "DoorDash is in advanced talks to acquire Instacart.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "DoorDash is in advanced talks to acquire Instacart.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DoorDash",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Instacart",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-714",
-      "headline": "Campbell’s Just Cut Its Dividend. What Income Investors Should Do Now",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/10/26/campbells-just-cut-its-dividend-what-income-investors-should-do-now/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T19:45:14Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Campbell Soup Company cut its dividend, a significant event for income-focused investors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Campbell Soup Company cut its dividend, a significant event for income-focused investors.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "dividend_cut",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "dividend_cut"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Campbell Soup Company",
           "ticker": null,
           "listing_country": "US"
         }
@@ -202514,148 +202510,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-4afa0d340387",
-      "idea_version": "IDEAV-d6fe7ac3be1ce538",
-      "idea_version_started_at": "2026-10-25T21:58:59Z",
-      "ticker": "06808",
-      "company": "Sun Art Retail",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, signaling deteriorating margins and revenue performance in a competitive retail environment.",
-      "why_now": "The profit warning was filed on October 25, 2026, and the market has yet to fully digest the earnings impact.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6530a5ebb0ae"
-      ],
-      "primary_source_event_id": "EVT-6530a5ebb0ae",
-      "source_headlines": [
-        "SUNART RETAIL (06808): PROFIT WARNING"
-      ],
-      "source_headline": "SUNART RETAIL (06808): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1025/2026102500031.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-25T10:20:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-25T10:33:48Z",
-      "updated_at": "2026-10-25T21:58:59Z",
-      "decay_at": "2026-10-26T22:20:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-6253abd0a020",
-      "idea_version": "IDEAV-cc944c7327b2b819",
-      "idea_version_started_at": "2026-10-25T21:58:59Z",
-      "ticker": "08158",
-      "company": "CRMI",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The resignation of an auditor is a high-severity red flag often preceding accounting irregularities or governance failures.",
-      "why_now": "The resignation was announced on October 25, 2026, creating immediate downside risk.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c2d7718d4c78"
-      ],
-      "primary_source_event_id": "EVT-c2d7718d4c78",
-      "source_headlines": [
-        "CRMI (08158): RESIGNATION OF AUDITOR"
-      ],
-      "source_headline": "CRMI (08158): RESIGNATION OF AUDITOR",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1025/2026102500029.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-25T10:15:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-25T10:33:48Z",
-      "updated_at": "2026-10-25T21:58:59Z",
-      "decay_at": "2026-10-26T22:15:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-035d450b2a01",
       "idea_version": "IDEAV-3eee045818ea4e17",
       "idea_version_started_at": "2026-10-25T13:48:58Z",
@@ -202722,291 +202576,6 @@
       "surfaced_at": "2026-10-25T13:48:58Z",
       "updated_at": "2026-10-25T13:48:58Z",
       "decay_at": "2026-10-27T01:36:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-4a437db750bd",
-      "idea_version": "IDEAV-1606cc91e1dc29b8",
-      "idea_version_started_at": "2026-10-25T11:09:28Z",
-      "ticker": "6808",
-      "company": "Sun Art Retail Group Limited",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Sun Art Retail issued an official profit warning filing on the HKEX indicating severe earnings deterioration and margin compression for its retail operations.",
-      "why_now": "The negative regulatory profit warning disclosure was filed on October 25, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6530a5ebb0ae"
-      ],
-      "primary_source_event_id": "EVT-6530a5ebb0ae",
-      "source_headlines": [
-        "SUNART RETAIL (06808): PROFIT WARNING"
-      ],
-      "source_headline": "SUNART RETAIL (06808): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1025/2026102500031.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-25T10:20:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-25T11:09:28Z",
-      "updated_at": "2026-10-25T11:09:28Z",
-      "decay_at": "2026-10-26T22:20:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-9756fee74510",
-      "idea_version": "IDEAV-f78cbcd94fec6e18",
-      "idea_version_started_at": "2026-10-25T11:09:28Z",
-      "ticker": "8158",
-      "company": "China Regenerative Medicine International Limited",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The unexpected resignation of the company's auditor raises major governance red flags and heightens accounting risk.",
-      "why_now": "The auditor resignation was formally disclosed in an exchange filing on October 25, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c2d7718d4c78"
-      ],
-      "primary_source_event_id": "EVT-c2d7718d4c78",
-      "source_headlines": [
-        "CRMI (08158): RESIGNATION OF AUDITOR"
-      ],
-      "source_headline": "CRMI (08158): RESIGNATION OF AUDITOR",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1025/2026102500029.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-25T10:15:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-25T11:09:28Z",
-      "updated_at": "2026-10-25T11:09:28Z",
-      "decay_at": "2026-10-26T22:15:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-56e79dbdec37",
-      "idea_version": "IDEAV-1b2579b612b4569d",
-      "idea_version_started_at": "2026-10-25T10:14:45Z",
-      "ticker": "ARVIND",
-      "company": "Arvind Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The inauguration of a new greenfield garment manufacturing facility in Varanasi increases production capacity and aligns with government-backed industrial expansion, likely improving long-term margins.",
-      "why_now": "The official exchange filing confirming the facility inauguration occurred on October 25, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2a2c6053a4e5"
-      ],
-      "primary_source_event_id": "EVT-2a2c6053a4e5",
-      "source_headlines": [
-        "Arvind Limited: Arvind Limited has informed the Exchange regarding a press release dated October 25, 2026, titled \"Prime Minister Shri Narendra Modi Inaugurates Arvind Limited's Greenfield GarmentManufacturing Facility in Varanasi, Uttar Pradesh\"."
-      ],
-      "source_headline": "Arvind Limited: Arvind Limited has informed the Exchange regarding a press release dated October 25, 2026, titled \"Prime Minister Shri Narendra Modi Inaugurates Arvind Limited's Greenfield GarmentManufacturing Facility in Varanasi, Uttar Pradesh\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/ARVIND1_25102026153057_Arvind_Media_Release.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-25T10:01:10Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-25T10:14:45Z",
-      "updated_at": "2026-10-25T10:14:45Z",
-      "decay_at": "2026-10-26T22:01:10Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-f0845acf4f9c",
-      "idea_version": "IDEAV-841868eb2f2e1674",
-      "idea_version_started_at": "2026-10-25T10:14:45Z",
-      "ticker": "6010",
-      "company": "NADEC",
-      "exchange": "TADAWUL",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of a dairy cattle herd for SAR 370 million directly expands the company's core production capacity, supporting future revenue growth in the dairy segment.",
-      "why_now": "The MoU was signed and announced on October 25, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f88383cf2523"
-      ],
-      "primary_source_event_id": "EVT-f88383cf2523",
-      "source_headlines": [
-        "‎NADEC signs MoU with NADA for SAR 370M deal to acquire dairy cattle herd"
-      ],
-      "source_headline": "‎NADEC signs MoU with NADA for SAR 370M deal to acquire dairy cattle herd",
-      "source_url": "https://www.argaam.com/en/article/articledetail/id/1946818",
-      "source_name": "Argaam — Main News (English)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-25T09:59:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-25T10:14:45Z",
-      "updated_at": "2026-10-25T10:14:45Z",
-      "decay_at": "2026-10-26T21:59:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -205077,6 +204646,433 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-4afa0d340387",
+      "idea_version": "IDEAV-d6fe7ac3be1ce538",
+      "idea_version_started_at": "2026-10-25T21:58:59Z",
+      "ticker": "06808",
+      "company": "Sun Art Retail",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, signaling deteriorating margins and revenue performance in a competitive retail environment.",
+      "why_now": "The profit warning was filed on October 25, 2026, and the market has yet to fully digest the earnings impact.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6530a5ebb0ae"
+      ],
+      "primary_source_event_id": "EVT-6530a5ebb0ae",
+      "source_headlines": [
+        "SUNART RETAIL (06808): PROFIT WARNING"
+      ],
+      "source_headline": "SUNART RETAIL (06808): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1025/2026102500031.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-25T10:20:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-25T10:33:48Z",
+      "updated_at": "2026-10-25T21:58:59Z",
+      "decay_at": "2026-10-26T22:20:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-6253abd0a020",
+      "idea_version": "IDEAV-cc944c7327b2b819",
+      "idea_version_started_at": "2026-10-25T21:58:59Z",
+      "ticker": "08158",
+      "company": "CRMI",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The resignation of an auditor is a high-severity red flag often preceding accounting irregularities or governance failures.",
+      "why_now": "The resignation was announced on October 25, 2026, creating immediate downside risk.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c2d7718d4c78"
+      ],
+      "primary_source_event_id": "EVT-c2d7718d4c78",
+      "source_headlines": [
+        "CRMI (08158): RESIGNATION OF AUDITOR"
+      ],
+      "source_headline": "CRMI (08158): RESIGNATION OF AUDITOR",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1025/2026102500029.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-25T10:15:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-25T10:33:48Z",
+      "updated_at": "2026-10-25T21:58:59Z",
+      "decay_at": "2026-10-26T22:15:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-4a437db750bd",
+      "idea_version": "IDEAV-1606cc91e1dc29b8",
+      "idea_version_started_at": "2026-10-25T11:09:28Z",
+      "ticker": "6808",
+      "company": "Sun Art Retail Group Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Sun Art Retail issued an official profit warning filing on the HKEX indicating severe earnings deterioration and margin compression for its retail operations.",
+      "why_now": "The negative regulatory profit warning disclosure was filed on October 25, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6530a5ebb0ae"
+      ],
+      "primary_source_event_id": "EVT-6530a5ebb0ae",
+      "source_headlines": [
+        "SUNART RETAIL (06808): PROFIT WARNING"
+      ],
+      "source_headline": "SUNART RETAIL (06808): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1025/2026102500031.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-25T10:20:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-25T11:09:28Z",
+      "updated_at": "2026-10-25T11:09:28Z",
+      "decay_at": "2026-10-26T22:20:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-9756fee74510",
+      "idea_version": "IDEAV-f78cbcd94fec6e18",
+      "idea_version_started_at": "2026-10-25T11:09:28Z",
+      "ticker": "8158",
+      "company": "China Regenerative Medicine International Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The unexpected resignation of the company's auditor raises major governance red flags and heightens accounting risk.",
+      "why_now": "The auditor resignation was formally disclosed in an exchange filing on October 25, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c2d7718d4c78"
+      ],
+      "primary_source_event_id": "EVT-c2d7718d4c78",
+      "source_headlines": [
+        "CRMI (08158): RESIGNATION OF AUDITOR"
+      ],
+      "source_headline": "CRMI (08158): RESIGNATION OF AUDITOR",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1025/2026102500029.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-25T10:15:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-25T11:09:28Z",
+      "updated_at": "2026-10-25T11:09:28Z",
+      "decay_at": "2026-10-26T22:15:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-56e79dbdec37",
+      "idea_version": "IDEAV-1b2579b612b4569d",
+      "idea_version_started_at": "2026-10-25T10:14:45Z",
+      "ticker": "ARVIND",
+      "company": "Arvind Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The inauguration of a new greenfield garment manufacturing facility in Varanasi increases production capacity and aligns with government-backed industrial expansion, likely improving long-term margins.",
+      "why_now": "The official exchange filing confirming the facility inauguration occurred on October 25, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2a2c6053a4e5"
+      ],
+      "primary_source_event_id": "EVT-2a2c6053a4e5",
+      "source_headlines": [
+        "Arvind Limited: Arvind Limited has informed the Exchange regarding a press release dated October 25, 2026, titled \"Prime Minister Shri Narendra Modi Inaugurates Arvind Limited's Greenfield GarmentManufacturing Facility in Varanasi, Uttar Pradesh\"."
+      ],
+      "source_headline": "Arvind Limited: Arvind Limited has informed the Exchange regarding a press release dated October 25, 2026, titled \"Prime Minister Shri Narendra Modi Inaugurates Arvind Limited's Greenfield GarmentManufacturing Facility in Varanasi, Uttar Pradesh\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/ARVIND1_25102026153057_Arvind_Media_Release.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-25T10:01:10Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-25T10:14:45Z",
+      "updated_at": "2026-10-25T10:14:45Z",
+      "decay_at": "2026-10-26T22:01:10Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-f0845acf4f9c",
+      "idea_version": "IDEAV-841868eb2f2e1674",
+      "idea_version_started_at": "2026-10-25T10:14:45Z",
+      "ticker": "6010",
+      "company": "NADEC",
+      "exchange": "TADAWUL",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of a dairy cattle herd for SAR 370 million directly expands the company's core production capacity, supporting future revenue growth in the dairy segment.",
+      "why_now": "The MoU was signed and announced on October 25, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f88383cf2523"
+      ],
+      "primary_source_event_id": "EVT-f88383cf2523",
+      "source_headlines": [
+        "‎NADEC signs MoU with NADA for SAR 370M deal to acquire dairy cattle herd"
+      ],
+      "source_headline": "‎NADEC signs MoU with NADA for SAR 370M deal to acquire dairy cattle herd",
+      "source_url": "https://www.argaam.com/en/article/articledetail/id/1946818",
+      "source_name": "Argaam — Main News (English)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-25T09:59:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-25T10:14:45Z",
+      "updated_at": "2026-10-25T10:14:45Z",
+      "decay_at": "2026-10-26T21:59:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-faf4a80af724",
       "idea_version": "IDEAV-90ada29b73f1e48f",
       "idea_version_started_at": "2026-10-25T09:24:02Z",
@@ -207110,19 +207106,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 546,
+    "total_count": 552,
     "shown_count": 500,
-    "hidden_count": 46,
+    "hidden_count": 52,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 279,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 29
       },
       "short": {
-        "total_count": 269,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 19
+        "hidden_count": 23
       }
     },
     "retention": {
@@ -207141,6 +207137,451 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-4a437db750bd",
+        "idea_version": "IDEAV-1606cc91e1dc29b8",
+        "idea_version_started_at": "2026-10-25T11:09:28Z",
+        "ticker": "6808",
+        "company": "Sun Art Retail Group Limited",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Sun Art Retail issued an official profit warning filing on the HKEX indicating severe earnings deterioration and margin compression for its retail operations.",
+        "why_now": "The negative regulatory profit warning disclosure was filed on October 25, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6530a5ebb0ae"
+        ],
+        "primary_source_event_id": "EVT-6530a5ebb0ae",
+        "source_headlines": [
+          "SUNART RETAIL (06808): PROFIT WARNING"
+        ],
+        "source_headline": "SUNART RETAIL (06808): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1025/2026102500031.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-25T10:20:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-25T11:09:28Z",
+        "updated_at": "2026-10-25T11:09:28Z",
+        "decay_at": "2026-10-26T22:20:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-26T22:20:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-4afa0d340387",
+        "idea_version": "IDEAV-d6fe7ac3be1ce538",
+        "idea_version_started_at": "2026-10-25T21:58:59Z",
+        "ticker": "06808",
+        "company": "Sun Art Retail",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning, signaling deteriorating margins and revenue performance in a competitive retail environment.",
+        "why_now": "The profit warning was filed on October 25, 2026, and the market has yet to fully digest the earnings impact.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6530a5ebb0ae"
+        ],
+        "primary_source_event_id": "EVT-6530a5ebb0ae",
+        "source_headlines": [
+          "SUNART RETAIL (06808): PROFIT WARNING"
+        ],
+        "source_headline": "SUNART RETAIL (06808): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1025/2026102500031.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-25T10:20:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-25T10:33:48Z",
+        "updated_at": "2026-10-25T21:58:59Z",
+        "decay_at": "2026-10-26T22:20:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-26T22:20:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-6253abd0a020",
+        "idea_version": "IDEAV-cc944c7327b2b819",
+        "idea_version_started_at": "2026-10-25T21:58:59Z",
+        "ticker": "08158",
+        "company": "CRMI",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The resignation of an auditor is a high-severity red flag often preceding accounting irregularities or governance failures.",
+        "why_now": "The resignation was announced on October 25, 2026, creating immediate downside risk.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "governance_turnaround",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c2d7718d4c78"
+        ],
+        "primary_source_event_id": "EVT-c2d7718d4c78",
+        "source_headlines": [
+          "CRMI (08158): RESIGNATION OF AUDITOR"
+        ],
+        "source_headline": "CRMI (08158): RESIGNATION OF AUDITOR",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1025/2026102500029.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-25T10:15:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-25T10:33:48Z",
+        "updated_at": "2026-10-25T21:58:59Z",
+        "decay_at": "2026-10-26T22:15:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-26T22:15:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-9756fee74510",
+        "idea_version": "IDEAV-f78cbcd94fec6e18",
+        "idea_version_started_at": "2026-10-25T11:09:28Z",
+        "ticker": "8158",
+        "company": "China Regenerative Medicine International Limited",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The unexpected resignation of the company's auditor raises major governance red flags and heightens accounting risk.",
+        "why_now": "The auditor resignation was formally disclosed in an exchange filing on October 25, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "governance_turnaround",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c2d7718d4c78"
+        ],
+        "primary_source_event_id": "EVT-c2d7718d4c78",
+        "source_headlines": [
+          "CRMI (08158): RESIGNATION OF AUDITOR"
+        ],
+        "source_headline": "CRMI (08158): RESIGNATION OF AUDITOR",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1025/2026102500029.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-25T10:15:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-25T11:09:28Z",
+        "updated_at": "2026-10-25T11:09:28Z",
+        "decay_at": "2026-10-26T22:15:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-26T22:15:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-56e79dbdec37",
+        "idea_version": "IDEAV-1b2579b612b4569d",
+        "idea_version_started_at": "2026-10-25T10:14:45Z",
+        "ticker": "ARVIND",
+        "company": "Arvind Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The inauguration of a new greenfield garment manufacturing facility in Varanasi increases production capacity and aligns with government-backed industrial expansion, likely improving long-term margins.",
+        "why_now": "The official exchange filing confirming the facility inauguration occurred on October 25, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2a2c6053a4e5"
+        ],
+        "primary_source_event_id": "EVT-2a2c6053a4e5",
+        "source_headlines": [
+          "Arvind Limited: Arvind Limited has informed the Exchange regarding a press release dated October 25, 2026, titled \"Prime Minister Shri Narendra Modi Inaugurates Arvind Limited's Greenfield GarmentManufacturing Facility in Varanasi, Uttar Pradesh\"."
+        ],
+        "source_headline": "Arvind Limited: Arvind Limited has informed the Exchange regarding a press release dated October 25, 2026, titled \"Prime Minister Shri Narendra Modi Inaugurates Arvind Limited's Greenfield GarmentManufacturing Facility in Varanasi, Uttar Pradesh\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/ARVIND1_25102026153057_Arvind_Media_Release.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-25T10:01:10Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-25T10:14:45Z",
+        "updated_at": "2026-10-25T10:14:45Z",
+        "decay_at": "2026-10-26T22:01:10Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-26T22:01:10Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-f0845acf4f9c",
+        "idea_version": "IDEAV-841868eb2f2e1674",
+        "idea_version_started_at": "2026-10-25T10:14:45Z",
+        "ticker": "6010",
+        "company": "NADEC",
+        "exchange": "TADAWUL",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of a dairy cattle herd for SAR 370 million directly expands the company's core production capacity, supporting future revenue growth in the dairy segment.",
+        "why_now": "The MoU was signed and announced on October 25, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f88383cf2523"
+        ],
+        "primary_source_event_id": "EVT-f88383cf2523",
+        "source_headlines": [
+          "‎NADEC signs MoU with NADA for SAR 370M deal to acquire dairy cattle herd"
+        ],
+        "source_headline": "‎NADEC signs MoU with NADA for SAR 370M deal to acquire dairy cattle herd",
+        "source_url": "https://www.argaam.com/en/article/articledetail/id/1946818",
+        "source_name": "Argaam — Main News (English)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-25T09:59:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-25T10:14:45Z",
+        "updated_at": "2026-10-25T10:14:45Z",
+        "decay_at": "2026-10-26T21:59:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-26T21:59:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-2a475f45f61a",
         "idea_version": "IDEAV-37c18faf88a2ae09",
@@ -235208,154 +235649,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-bf201e0e2cff",
-        "idea_version": "IDEAV-06acb1ee5c5993d4",
-        "idea_version_started_at": "2026-10-12T00:57:38Z",
-        "ticker": "03393.HK",
-        "company": "Wasion Holdings",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company's AMI meters have passed ANSI certification, which is a mandatory requirement for entering the North American utility market and significantly expands its addressable revenue base.",
-        "why_now": "The certification was officially announced on 2026-10-12, opening the door for immediate commercial deployment in the US.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 11,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a624f35ca9f3"
-        ],
-        "primary_source_event_id": "EVT-a624f35ca9f3",
-        "source_headlines": [
-          "WASION HOLDINGS (03393): VOLUNTARY ANNOUNCEMENT - WASION AMERICAS' AMI METERS OFFICIALLY PASSED ANSI CERTIFICATION"
-        ],
-        "source_headline": "WASION HOLDINGS (03393): VOLUNTARY ANNOUNCEMENT - WASION AMERICAS' AMI METERS OFFICIALLY PASSED ANSI CERTIFICATION",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101200049.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 65,
-        "newest_source_at": "2026-10-12T00:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-12T00:57:38Z",
-        "updated_at": "2026-10-12T00:57:38Z",
-        "decay_at": "2026-10-13T12:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-15T00:16:57Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-cdb005f3f065",
-        "idea_version": "IDEAV-ef1e576ed5998826",
-        "idea_version_started_at": "2026-10-12T00:19:13Z",
-        "ticker": "3393",
-        "company": "Wasion Holdings",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Wasion Americas' AMI meters have officially passed ANSI certification, removing a critical technical barrier for the company to sell its smart metering products into the North American utility market.",
-        "why_now": "The certification was announced via a voluntary filing on October 12, 2026, marking the immediate start of commercial eligibility in the US market.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 11,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a624f35ca9f3"
-        ],
-        "primary_source_event_id": "EVT-a624f35ca9f3",
-        "source_headlines": [
-          "WASION HOLDINGS (03393): VOLUNTARY ANNOUNCEMENT - WASION AMERICAS' AMI METERS OFFICIALLY PASSED ANSI CERTIFICATION"
-        ],
-        "source_headline": "WASION HOLDINGS (03393): VOLUNTARY ANNOUNCEMENT - WASION AMERICAS' AMI METERS OFFICIALLY PASSED ANSI CERTIFICATION",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101200049.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 65,
-        "newest_source_at": "2026-10-12T00:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-12T00:19:13Z",
-        "updated_at": "2026-10-12T00:19:13Z",
-        "decay_at": "2026-10-13T12:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-15T00:16:57Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-a87e2e15a1c1",
         "idea_version": "IDEAV-5fd55a3088253688",
         "idea_version_started_at": "2026-10-11T09:12:22Z",
@@ -244088,313 +244381,12 @@
         "archived_at": "2026-10-03T15:05:02Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-2c8697fc45c7",
-        "idea_version": "IDEAV-7777b0b37ce565a4",
-        "idea_version_started_at": "2026-09-30T16:19:46Z",
-        "ticker": "LESL",
-        "company": "Leslie's, Inc.",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company has filed for bankruptcy to restructure its debt, which typically results in significant equity dilution or total loss for common shareholders.",
-        "why_now": "The bankruptcy filing was reported on 2026-09-30.",
-        "conviction": 90,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 60,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 22,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-aa2648ee54e1"
-        ],
-        "primary_source_event_id": "EVT-aa2648ee54e1",
-        "source_headlines": [
-          "Pool Supplier Leslie’s Files for Bankruptcy to Cut 90% of Debt"
-        ],
-        "source_headline": "Pool Supplier Leslie’s Files for Bankruptcy to Cut 90% of Debt",
-        "source_url": "https://www.bloomberg.com/news/articles/2026-09-30/pool-supplier-leslie-s-files-for-bankruptcy-to-cut-90-of-debt",
-        "source_name": "Bloomberg",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-30T13:53:38Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-30T16:19:46Z",
-        "updated_at": "2026-09-30T16:19:46Z",
-        "decay_at": "2026-10-02T01:53:38Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-03T14:22:11Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-a8364208c07a",
-        "idea_version": "IDEAV-ab886b11ae43d6d9",
-        "idea_version_started_at": "2026-09-30T10:14:44Z",
-        "ticker": "01996",
-        "company": "Rsun Property Services",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The auditor's disclaimer of opinion indicates a fundamental inability to verify the company's financial position, signaling extreme risk of insolvency or severe accounting irregularities.",
-        "why_now": "The filing was released on 2026-09-30, confirming the auditor's refusal to provide an opinion on the 2025 annual report.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1855b17513c4"
-        ],
-        "primary_source_event_id": "EVT-1855b17513c4",
-        "source_headlines": [
-          "RSUN PPT (01996): UPDATE IN RELATION TO DISCLAIMER OF OPINION IN THE ANNUAL REPORT FOR THE YEAR ENDED 31 DECEMBER 2025"
-        ],
-        "source_headline": "RSUN PPT (01996): UPDATE IN RELATION TO DISCLAIMER OF OPINION IN THE ANNUAL REPORT FOR THE YEAR ENDED 31 DECEMBER 2025",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093001306.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-30T09:15:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-30T10:14:44Z",
-        "updated_at": "2026-09-30T10:14:44Z",
-        "decay_at": "2026-10-01T21:15:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-03T09:26:52Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-669e750ceb07",
-        "idea_version": "IDEAV-318316218afa88ad",
-        "idea_version_started_at": "2026-09-30T05:39:46Z",
-        "ticker": "PBF",
-        "company": "PB Fintech",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A 53% price target cut by a major brokerage suggests a fundamental reassessment of the company's growth trajectory and margin sustainability.",
-        "why_now": "The analyst downgrade was reported on 2026-09-30.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-710bc8d29a52"
-        ],
-        "primary_source_event_id": "EVT-710bc8d29a52",
-        "source_headlines": [
-          "Bernstein cuts PB Fintech share price target by 53%. More pressure after Rs 37,000 m-cap rout?"
-        ],
-        "source_headline": "Bernstein cuts PB Fintech share price target by 53%. More pressure after Rs 37,000 m-cap rout?",
-        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/bernstein-cuts-pb-fintech-share-price-target-by-53-more-pressure-after-rs-37000-m-cap-rout/articleshow/134579716.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 96,
-        "newest_source_at": "2026-09-30T03:32:41Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-30T05:39:46Z",
-        "updated_at": "2026-09-30T05:39:46Z",
-        "decay_at": "2026-10-01T15:32:41Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-03T03:34:33Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-02a86175523b",
-        "idea_version": "IDEAV-f25ea1d334d8503f",
-        "idea_version_started_at": "2026-09-30T02:00:49Z",
-        "ticker": "PAR",
-        "company": "Paradigm Biopharmaceuticals",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company has entered voluntary administration, indicating a total loss of equity value for shareholders as the business undergoes insolvency proceedings.",
-        "why_now": "The filing was made on 2026-09-29.",
-        "conviction": 95,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 23,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a782c4b362ce",
-          "EVT-dbf75ec53a86"
-        ],
-        "primary_source_event_id": "EVT-a782c4b362ce",
-        "source_headlines": [
-          "PAR: Board Initiates Voluntary Administration [price-sensitive]",
-          "PAR: Appointment of Voluntary Administrators [price-sensitive]"
-        ],
-        "source_headline": "PAR: Board Initiates Voluntary Administration [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PAR?key=2924-03141899-3A702881",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-29T23:51:34Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-30T02:00:49Z",
-        "updated_at": "2026-09-30T02:00:49Z",
-        "decay_at": "2026-10-01T11:51:34Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-02T23:55:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1941,
-    "live_count": 54,
+    "live_count": 48,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -244413,9 +244405,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4303968,
-    "news_picked_today": 1352,
-    "news_dropped_today": 10151
+    "news_seen_today": 4631090,
+    "news_picked_today": 1459,
+    "news_dropped_today": 10308
   },
   "book_momentum": {
     "live_count": 8,
