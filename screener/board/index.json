@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T09:54:18Z",
+  "generated_at": "2026-10-26T09:57:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-383",
@@ -95,6 +95,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-388",
+      "headline": "Ather Energy Limited: Ather Energy Limited has informed the Exchange regarding a press release dated October 26, 2026, titled \"Ather Energy s total income up 62% YoY, EBITDA margin improves 1,450 bps YoY to 4.9% confirms plans to further enhance production capacity at Hosur and AURIC facilities\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ATHERENERGY_26102026145610_Touploadpressreleasesigned.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T09:27:19Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Ather Energy reported a 62% YoY increase in total income and a 1,450 bps improvement in EBITDA margin to 4.9%, alongside plans to expand production capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ather Energy reported a 62% YoY increase in total income and a 1,450 bps improvement in EBITDA margin to 4.9%, alongside plans to expand production capacity.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ather Energy Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1913,55 +1963,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-185",
-      "headline": "Real estate investor Avid steps in with $3.2b offer for Ingenia",
-      "headline_en": null,
-      "url": "https://www.afr.com/property/commercial/real-estate-investor-avid-steps-in-with-3-2b-offer-for-ingenia-20261026-p618jz?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T03:10:20Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Avid has made a $3.2 billion acquisition offer for Ingenia, representing a significant M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Avid has made a $3.2 billion acquisition offer for Ingenia, representing a significant M&A event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ingenia",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -244816,9 +244817,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 397309,
-    "news_picked_today": 666,
-    "news_dropped_today": 6829
+    "news_seen_today": 406055,
+    "news_picked_today": 670,
+    "news_dropped_today": 6849
   },
   "book_momentum": {
     "live_count": 8,
