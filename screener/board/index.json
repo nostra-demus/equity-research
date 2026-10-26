@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T09:47:51Z",
+  "generated_at": "2026-10-26T09:52:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-383",
@@ -926,6 +926,55 @@
           "name": "Ingenia Communities",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-387",
+      "headline": "Indian Overseas Bank Q2 Results: Net Profit Jumps 56% To Rs 1,912 Crore, NII Up 26% YoY; Asset Quality Improves",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/indian-overseas-bank-q2-results-net-profit-jumps-56-to-rs-1-912-crore-nii-up-26-yoy-asset-quality-improves-12236522#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T07:41:19Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Indian Overseas Bank reported a 56% jump in net profit to Rs 1,912 crore with a 26% increase in NII.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Indian Overseas Bank reported a 56% jump in net profit to Rs 1,912 crore with a 26% increase in NII.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Indian Overseas Bank",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -1913,56 +1962,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-169",
-      "headline": "Elon Musk announces $40 billion SpaceX debt raise to fund massive AI chip purchases",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/corporate/story/elon-musk-announces-40-billion-spacex-debt-raise-to-fund-massive-ai-chip-purchases-563528-2026-10-26?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T02:38:32Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "SpaceX is raising $40 billion in debt to fund significant capital expenditure on AI chips.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SpaceX is raising $40 billion in debt to fund significant capital expenditure on AI chips.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -244817,9 +244816,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 379716,
-    "news_picked_today": 657,
-    "news_dropped_today": 6790
+    "news_seen_today": 388515,
+    "news_picked_today": 661,
+    "news_dropped_today": 6810
   },
   "book_momentum": {
     "live_count": 8,
