@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-26T09:14:04Z",
+  "generated_at": "2026-10-26T09:17:11Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261026-373",
+      "headline": "YUES INTL HLDG (01529): MAJOR TRANSACTION AND CONNECTED TRANSACTION DISPOSAL OF THE REMAINING APPROXIMATELY 70.87% EQUITY INTEREST IN A SUBSIDIARY AND NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1026/2026102600272.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T08:32:00Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Yues International Holdings announced a major transaction involving the disposal of a 70.87% equity interest in a subsidiary.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Yues International Holdings announced a major transaction involving the disposal of a 70.87% equity interest in a subsidiary.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yues International Holdings",
+          "ticker": "01529",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261026-342",
       "headline": "YUE YUEN IND (00551): INSIDE INFORMATION PROFIT WARNING",
@@ -1911,55 +1960,6 @@
           "name": "Ingenia",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-063",
-      "headline": "SpaceX closes $40 billion debt deal for AI chips, Elon Musk says",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/26/spacex-closes-40-billion-debt-deal-for-ai-chips-elon-musk-.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T00:37:51Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "SpaceX has secured a 40 billion debt deal to fund AI chip procurement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SpaceX has secured a 40 billion debt deal to fund AI chip procurement.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -244882,9 +244882,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 306020,
-    "news_picked_today": 609,
-    "news_dropped_today": 6550
+    "news_seen_today": 310144,
+    "news_picked_today": 614,
+    "news_dropped_today": 6569
   },
   "book_momentum": {
     "live_count": 8,
