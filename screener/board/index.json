@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T00:05:25Z",
+  "generated_at": "2026-10-26T00:14:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-010",
@@ -141,6 +141,208 @@
           "name": "Akeso",
           "ticker": "09926",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-021",
+      "headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Highlights SAFFRON Global Phase III Data Presented at ESMO Congress 2026 and Simultaneously Published in The New England Journal of Medicine",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1026/2026102600045.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "HUTCHMED reported positive Phase III clinical trial data for its SAFFRON drug, published in the New England Journal of Medicine.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "HUTCHMED reported positive Phase III clinical trial data for its SAFFRON drug, published in the New England Journal of Medicine.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HUTCHMED",
+          "ticker": "00013",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-031",
+      "headline": "Keppel’s RigCo, Seatrium to complete four offshore rigs in deal worth over S$500 million",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/keppels-rigco-seatrium-complete-four-offshore-rigs-deal-worth-over-s500-million",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T00:07:09Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Keppel’s RigCo, Seatrium to complete four offshore rigs in deal worth over S$500 million, indicating significant capital expenditure and operational activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Keppel’s RigCo, Seatrium to complete four offshore rigs in deal worth over S$500 million, indicating significant capital expenditure and operational activity.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Keppel",
+          "ticker": null,
+          "listing_country": "SG"
+        },
+        {
+          "name": "Seatrium",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-022",
+      "headline": "ASCLETIS-B (01672): VOLUNTARY ANNOUNCEMENT - ASCLETIS ANNOUNCES FDA IND SUBMISSION OF ASC39, AN ORAL SMALL MOLECULE SELECTIVE AMYLIN RECEPTOR AGONIST FOR THE TREATMENT OF OBESITY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1026/2026102600043.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Ascletis submitted an FDA IND application for its obesity drug candidate ASC39.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Ascletis submitted an FDA IND application for its obesity drug candidate ASC39.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ascletis Pharma",
+          "ticker": "01672",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-020",
+      "headline": "SK Hynix Plans $12 Billion Dividend From Kioxia Gains: Report",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-25/sk-hynix-plans-12-billion-dividend-from-kioxia-gains-report",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T23:52:02Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "SK Hynix plans a $12 billion dividend payout following gains from its Kioxia investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "SK Hynix plans a $12 billion dividend payout following gains from its Kioxia investment.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK Hynix",
+          "ticker": null,
+          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -292,6 +494,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-034",
+      "headline": "Libya summons US envoy to protest at Trump remarks",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/us/libya-summons-us-envoy-protest-trump-remarks-2026-10-26/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T00:00:09Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Libya summons US envoy to protest at Trump remarks, indicating a diplomatic incident with potential geopolitical and economic ramifications.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Libya summons US envoy to protest at Trump remarks, indicating a diplomatic incident with potential geopolitical and economic ramifications.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-014",
       "headline": "The Pentagon's Rare Earth Deadline Is Almost Here. Is Anyone Ready?",
       "headline_en": null,
@@ -385,6 +631,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-024",
+      "headline": "MRT: Quarterly Cash Flow Report 30 September 2026 [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MRT?key=2924-03152997-6A1351301",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T00:05:31Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "MRT released its quarterly cash flow report, which is marked as price-sensitive.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "MRT released its quarterly cash flow report, which is marked as price-sensitive.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MRT",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-007",
       "headline": "GENFLEET-B (02595): VOLUNTARY ANNOUNCEMENT Initial Clinical Readout of GFH276 (an Oral Molecular-glue Pan RAS Inhibitor) Presented as Late-breaking Abstract (LBA) at 2026 ESMO Annual Meeting, Demonstrating Promising Clinical Potential and Favorable Safety in Pretreated RAS-mutant Solid Tumors",
       "headline_en": null,
@@ -429,6 +724,148 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-025",
+      "headline": "IGO: Becoming a substantial holder",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IGO?key=2924-03152996-6A1351300",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T00:02:46Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "IGO reported a change in substantial shareholding.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 71,
+      "triage_reason": "IGO reported a change in substantial shareholding.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IGO",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-023",
+      "headline": "SBP GROUP (01177): VOLUNTARY ANNOUNCEMENT - DATA FROM TWO CLINICAL STUDIES OF TQB2102 \"HER2 BIPARATOPIC ADC\" PRESENTED AT 2026 ESMO",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1026/2026102600039.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Sino Biopharmaceutical presented positive clinical data for its HER2 ADC drug candidate at the ESMO 2026 congress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 71,
+      "triage_reason": "Sino Biopharmaceutical presented positive clinical data for its HER2 ADC drug candidate at the ESMO 2026 congress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sino Biopharmaceutical",
+          "ticker": "01177",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-028",
+      "headline": "‘Door to EU is open’ new Serbian government told after Vučić concedes election – Europe live as it happened",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/world/live/2026/oct/25/europe-serbia-elections-aleksander-vucic-student-list-protests-bulgaria-latest-news-updates",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T23:40:57Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "New Serbian government told 'Door to EU is open' after Vučić concedes election, indicating potential shifts in geopolitical and economic relations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 71,
+      "triage_reason": "New Serbian government told 'Door to EU is open' after Vučić concedes election, indicating potential shifts in geopolitical and economic relations.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector",
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -722,6 +1159,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-030",
+      "headline": "After Hungary, Serbia takes its turn to show the power of the people",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/dde6aa59-d48d-429a-9a29-db2dc5ae418c?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T23:54:05Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "After Hungary, Serbia takes its turn to show the power of the people, indicating potential political and economic shifts in the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "After Hungary, Serbia takes its turn to show the power of the people, indicating potential political and economic shifts in the region.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector",
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-015",
       "headline": "Goldman Sachs steps up Asia hiring as wealthy clients eye US assets for diversification",
       "headline_en": null,
@@ -766,6 +1247,236 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-032",
+      "headline": "Wahlen in Brasilien: Kopf-an-Kopf-Rennen bei Präsidentenwahl in Brasilien",
+      "headline_en": "Neck-and-neck race in presidential election in Brazil",
+      "url": "https://www.handelsblatt.com/politik/international/wahlen-in-brasilien-kopf-an-kopf-rennen-bei-praesidentenwahl-in-brasilien/100264825.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T00:06:28Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Kopf-an-Kopf-Rennen bei Präsidentenwahl in Brasilien (Neck-and-neck race in presidential election in Brazil), indicating political uncertainty with potential economic implications.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Kopf-an-Kopf-Rennen bei Präsidentenwahl in Brasilien (Neck-and-neck race in presidential election in Brazil), indicating political uncertainty with potential economic implications.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-027",
+      "headline": "OpenWorld Confirms Dual Listing on Figure OPEN on Track for Q4 2026 Following Stockholder Approval of Blockchain Common Stock | OPNW Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/OPNW/open-world-confirms-dual-listing-on-figure-open-on-track-for-q4-2026-0t15dudl1mqx.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-26T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "OpenWorld confirms dual listing on Figure OPEN on track for Q4 2026 following stockholder approval of blockchain common stock.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "OpenWorld confirms dual listing on Figure OPEN on track for Q4 2026 following stockholder approval of blockchain common stock.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenWorld",
+          "ticker": "OPNW",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-033",
+      "headline": "Karnataka drought: Fresh estimates peg crop losses at 80%, says Parameshwara",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/india/karnataka/karnataka-drought-fresh-estimates-peg-crop-losses-at-80-says-parameshwara-4195075",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T23:57:57Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Karnataka drought: Fresh estimates peg crop losses at 80%, indicating significant agricultural sector impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Karnataka drought: Fresh estimates peg crop losses at 80%, indicating significant agricultural sector impact.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": -26,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector",
+        "operations"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-029",
+      "headline": "Thousands of American restaurants closing over rising costs, declining sales",
+      "headline_en": null,
+      "url": "https://www.cbsnews.com/video/thousands-american-restaurants-closing-rising-costs-declining-sales/",
+      "source_name": "CBS MoneyWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-25T23:53:41Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Thousands of American restaurants closing over rising costs, declining sales, indicating significant sector-wide distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Thousands of American restaurants closing over rising costs, declining sales, indicating significant sector-wide distress.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": -26,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector",
+        "operations"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-026",
+      "headline": "HUTCHMED Highlights SAFFRON Global Phase III Data Presented at ESMO Congress 2026 and Simultaneously Published in The New England Journal of Medicine",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/10/26/3387782/0/en/hutchmed-highlights-saffron-global-phase-iii-data-presented-at-esmo-congress-2026-and-simultaneously-published-in-the-new-england-journal-of-medicine.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-26T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "HUTCHMED reported positive Phase III clinical trial data for its SAFFRON drug, published in the New England Journal of Medicine.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "HUTCHMED reported positive Phase III clinical trial data for its SAFFRON drug, published in the New England Journal of Medicine.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HUTCHMED",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -242728,7 +243439,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4066,
+    "inbox_unconsumed": 4081,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
