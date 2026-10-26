@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T11:58:30Z",
+  "generated_at": "2026-10-26T12:00:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-421",
@@ -1244,6 +1244,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-455",
+      "headline": "Bank of Maharashtra Q2 Results: Net Profit Jumps Neary 42% to Rs 2,310 Crore, NII Rises 22%",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/bank-of-maharashtra-q2-results-net-profit-jumps-neary-42-to-rs-2-310-crore-nii-rises-22-12237508#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T11:11:16Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Bank of Maharashtra reported a 42% jump in net profit to Rs 2,310 crore and a 22% rise in NII.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bank of Maharashtra reported a 42% jump in net profit to Rs 2,310 crore and a 22% rise in NII.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of Maharashtra",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-423",
       "headline": "Verizon Raises 2026 Forecast After Big Jump in Phone Customers",
       "headline_en": null,
@@ -1939,55 +1988,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-288",
-      "headline": "UAE’s Alpha Dhabi to invest $1b in Alpha Wave III after SpaceX, OpenAI, Anthropic exposure",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/business/uaes-alpha-dhabi-to-invest-1b-in-alpha-wave-iii-after-spacex-openai-anthropic-exposure",
-      "source_name": "Khaleej Times — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T05:03:37Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Alpha Dhabi announced a $1 billion investment in Alpha Wave III.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Alpha Dhabi announced a $1 billion investment in Alpha Wave III.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alpha Dhabi",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -244550,9 +244550,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 788647,
-    "news_picked_today": 828,
-    "news_dropped_today": 7843
+    "news_seen_today": 800441,
+    "news_picked_today": 833,
+    "news_dropped_today": 7862
   },
   "book_momentum": {
     "live_count": 8,
