@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-26T09:27:13Z",
+  "generated_at": "2026-10-26T09:31:11Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261026-374",
+      "headline": "Ather Energy Limited: Ather Energy Limited has informed the Exchange that the Board at the meeting held today has considered and approved proposals for the enhancement of manufacturing capacity at the Companys factories located at Hosur, Tamil Nadu and Chhatrapati Sambhajinagar, Maharashtra (Factory 3.0- under construction).",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ATHERENERGY_26102026143153_CapacityAdditionsigned.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T09:07:37Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Ather Energy approved an enhancement of manufacturing capacity at its factories in Hosur and Chhatrapati Sambhajinagar.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ather Energy approved an enhancement of manufacturing capacity at its factories in Hosur and Chhatrapati Sambhajinagar.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ather Energy Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261026-373",
       "headline": "YUES INTL HLDG (01529): MAJOR TRANSACTION AND CONNECTED TRANSACTION DISPOSAL OF THE REMAINING APPROXIMATELY 70.87% EQUITY INTEREST IN A SUBSIDIARY AND NOTICE OF EXTRAORDINARY GENERAL MEETING",
@@ -1914,55 +1963,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-074",
-      "headline": "Ingenia Removes Warburg Pincus From Data Room Following Rival $1.55B Offer",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/deals/ingenia-removes-warburg-pincus-from-data-room-following-rival-1-55b-offer-47c8f800?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T00:41:00Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Ingenia received a competing $1.55 billion acquisition offer, signaling a potential bidding war.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ingenia received a competing $1.55 billion acquisition offer, signaling a potential bidding war.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ingenia",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -244889,9 +244889,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 326534,
-    "news_picked_today": 624,
-    "news_dropped_today": 6655
+    "news_seen_today": 342650,
+    "news_picked_today": 630,
+    "news_dropped_today": 6697
   },
   "book_momentum": {
     "live_count": 8,
