@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T16:39:52Z",
+  "generated_at": "2026-10-26T16:54:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-537",
@@ -1329,6 +1329,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-617",
+      "headline": "Bon Secours Mercy Health to acquire majority stake in Surgery Partners in $5.7B deal",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/providers/bon-secours-mercy-health-acquire-majority-stake-surgery-partners",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T16:41:08Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Bon Secours Mercy Health to acquire a majority stake in Surgery Partners for $5.7B.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bon Secours Mercy Health to acquire a majority stake in Surgery Partners for $5.7B.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Surgery Partners",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-595",
       "headline": "Microsoft Will Offer Buyouts to 60,000 Employees",
       "headline_en": null,
@@ -1943,60 +1992,6 @@
         },
         {
           "name": "Logan Energy Corp.",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-511",
-      "headline": "Ovintiv to buy Logan Energy for $890-million",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-ovintiv-to-buy-logan-energy-for-890-million/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T12:31:12Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Ovintiv to acquire Logan Energy for $890 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ovintiv to acquire Logan Energy for $890 million.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ovintiv",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Logan Energy",
           "ticker": null,
           "listing_country": "CA"
         }
@@ -200162,76 +200157,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-fe25590a4b61",
-      "idea_version": "IDEAV-cfa88a9b5596f65d",
-      "idea_version_started_at": "2026-10-25T05:23:46Z",
-      "ticker": "WF",
-      "company": "Woori Financial Group",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company achieved record-breaking quarterly net profit exceeding 1 trillion KRW for two consecutive quarters, signaling strong underlying operational momentum.",
-      "why_now": "The Q3 earnings results were released on October 25, 2026, confirming the sustained financial performance.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f45653af21f7"
-      ],
-      "primary_source_event_id": "EVT-f45653af21f7",
-      "source_headlines": [
-        "Woori Financial Group's 3rd quarter net profit of 1.0492 trillion KRW... first time in history to join the '1 trillion club' for two consecutive quarters"
-      ],
-      "source_headline": "우리금융 3분기 순익 1조492억원…사상 첫 2분기 연속 '1조 클럽'",
-      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279594",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-25T04:50:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-25T05:23:46Z",
-      "updated_at": "2026-10-25T05:23:46Z",
-      "decay_at": "2026-10-26T16:50:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-fbb98074a072",
       "idea_version": "IDEAV-04e4d02e414e29c6",
       "idea_version_started_at": "2026-10-25T07:14:09Z",
@@ -204468,6 +204393,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-fe25590a4b61",
+      "idea_version": "IDEAV-cfa88a9b5596f65d",
+      "idea_version_started_at": "2026-10-25T05:23:46Z",
+      "ticker": "WF",
+      "company": "Woori Financial Group",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company achieved record-breaking quarterly net profit exceeding 1 trillion KRW for two consecutive quarters, signaling strong underlying operational momentum.",
+      "why_now": "The Q3 earnings results were released on October 25, 2026, confirming the sustained financial performance.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f45653af21f7"
+      ],
+      "primary_source_event_id": "EVT-f45653af21f7",
+      "source_headlines": [
+        "Woori Financial Group's 3rd quarter net profit of 1.0492 trillion KRW... first time in history to join the '1 trillion club' for two consecutive quarters"
+      ],
+      "source_headline": "우리금융 3분기 순익 1조492억원…사상 첫 2분기 연속 '1조 클럽'",
+      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279594",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-25T04:50:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-25T05:23:46Z",
+      "updated_at": "2026-10-25T05:23:46Z",
+      "decay_at": "2026-10-26T16:50:39Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-3dcf768f4a41",
       "idea_version": "IDEAV-bd9c581a6712ce45",
       "idea_version_started_at": "2026-10-24T19:18:35Z",
@@ -207484,14 +207479,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 543,
+    "total_count": 544,
     "shown_count": 500,
-    "hidden_count": 43,
+    "hidden_count": 44,
     "side_counts": {
       "long": {
-        "total_count": 270,
+        "total_count": 271,
         "shown_count": 250,
-        "hidden_count": 20
+        "hidden_count": 21
       },
       "short": {
         "total_count": 273,
@@ -207515,6 +207510,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-fe25590a4b61",
+        "idea_version": "IDEAV-cfa88a9b5596f65d",
+        "idea_version_started_at": "2026-10-25T05:23:46Z",
+        "ticker": "WF",
+        "company": "Woori Financial Group",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company achieved record-breaking quarterly net profit exceeding 1 trillion KRW for two consecutive quarters, signaling strong underlying operational momentum.",
+        "why_now": "The Q3 earnings results were released on October 25, 2026, confirming the sustained financial performance.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f45653af21f7"
+        ],
+        "primary_source_event_id": "EVT-f45653af21f7",
+        "source_headlines": [
+          "Woori Financial Group's 3rd quarter net profit of 1.0492 trillion KRW... first time in history to join the '1 trillion club' for two consecutive quarters"
+        ],
+        "source_headline": "우리금융 3분기 순익 1조492억원…사상 첫 2분기 연속 '1조 클럽'",
+        "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279594",
+        "source_name": "Business Korea — All Articles (CDN)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-25T04:50:39Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-25T05:23:46Z",
+        "updated_at": "2026-10-25T05:23:46Z",
+        "decay_at": "2026-10-26T16:50:39Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-26T16:50:39Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a88645ad4c07",
         "idea_version": "IDEAV-d15c0f12515b1928",
@@ -235658,87 +235726,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-fa713f07e3b3",
-        "idea_version": "IDEAV-545a6900b8f1ea12",
-        "idea_version_started_at": "2026-10-11T15:32:54Z",
-        "ticker": "BAE",
-        "company": "BAE Systems",
-        "exchange": "LSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is a major defense contractor that could benefit from increased geopolitical tensions and potential demand for its products following missile strikes in Saudi Arabia.",
-        "why_now": "Missile strikes on Riyadh airport and surrounding areas occurred on October 10, 2026, raising regional security concerns.",
-        "conviction": 40,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 23,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 10,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "macro_conditional",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f4e6340ec246",
-          "EVT-2b83f336105e",
-          "EVT-fb85cc879929",
-          "EVT-314c093c3d5d"
-        ],
-        "primary_source_event_id": "EVT-f4e6340ec246",
-        "source_headlines": [
-          "Riyadh airport suspends operations after missile strike injures dozens",
-          "Riyadh airport attacked again as missile strike wounds passengers, flights diverted",
-          "Saudi airport attacked again: Missile strike reported, many wounded; passengers evacuated, flights diverted",
-          "Saudi Arabia Suspends Riyadh Airport Operations After Attack"
-        ],
-        "source_headline": "Riyadh airport suspends operations after missile strike injures dozens",
-        "source_url": "https://www.ft.com/content/391ddf3f-b233-41fd-819b-fcdbfb0ed010?syn-25a6b1a6=1",
-        "source_name": "Financial Times — Middle East",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-10T18:28:09Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-11T15:32:54Z",
-        "updated_at": "2026-10-11T15:32:54Z",
-        "decay_at": "2026-10-12T06:28:09Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-13T21:10:17Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-cb3cb2efdc5e",
         "idea_version": "IDEAV-692ac25308ae16a1",
         "idea_version_started_at": "2026-10-11T19:54:08Z",
@@ -244772,7 +244759,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1937,
-    "live_count": 62,
+    "live_count": 61,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -244791,9 +244778,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2239357,
-    "news_picked_today": 1107,
-    "news_dropped_today": 8836
+    "news_seen_today": 2302566,
+    "news_picked_today": 1114,
+    "news_dropped_today": 8853
   },
   "book_momentum": {
     "live_count": 8,
