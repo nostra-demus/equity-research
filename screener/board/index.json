@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T16:54:17Z",
+  "generated_at": "2026-10-26T17:00:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-537",
@@ -1329,6 +1329,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-625",
+      "headline": "Microsoft offers voluntary buyouts to 60,000 employees as AI leads to efficiency push",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/26/microsoft-msft-voluntary-buyouts.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T16:50:29Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Microsoft is offering voluntary buyouts to 60,000 employees.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Microsoft is offering voluntary buyouts to 60,000 employees.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Microsoft",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-631",
+      "headline": "Microsoft to offer buyouts to 60,000 workers in latest cost cut",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/microsoft-to-offer-buyouts-to-60000-workers-in-latest-cost-cut",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T16:44:34Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Microsoft is offering voluntary buyouts to 60,000 employees.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Microsoft is offering voluntary buyouts to 60,000 employees.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Microsoft",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-617",
       "headline": "Bon Secours Mercy Health to acquire majority stake in Surgery Partners in $5.7B deal",
       "headline_en": null,
@@ -1378,20 +1476,123 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261026-595",
-      "headline": "Microsoft Will Offer Buyouts to 60,000 Employees",
+      "inbox_id": "INB-20261026-626",
+      "headline": "Bon Secours Affiliate to Acquire Surgery Partners in $5.7 Billion Take-Private Deal",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-10-26/microsoft-offers-buyouts-to-60-000-employees-video",
-      "source_name": "Bloomberg",
+      "url": "https://www.wsj.com/pro/private-equity/bon-secours-affiliate-to-acquire-surgery-partners-in-5-7-billion-take-private-deal-10321162?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
       "input_nature": "news_headline",
-      "found_at": "2026-10-26T16:09:49Z",
+      "found_at": "2026-10-26T16:40:00Z",
       "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Microsoft offers buyouts to 60,000 employees.",
+      "prelim_note": "Surgery Partners is being acquired in a $5.7 billion take-private deal.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Microsoft offers buyouts to 60,000 employees.",
+      "triage_reason": "Surgery Partners is being acquired in a $5.7 billion take-private deal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Surgery Partners",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-621",
+      "headline": "EQT Bets on Record U.S. Gas Demand With $50 Billion Range Takeover",
+      "headline_en": null,
+      "url": "https://oilprice.com/Latest-Energy-News/World-News/EQT-Bets-on-Record-US-Gas-Demand-With-50-Billion-Range-Takeover.html",
+      "source_name": "OilPrice.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T16:30:00Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "EQT is acquiring Range Resources in a $50 billion deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EQT is acquiring Range Resources in a $50 billion deal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EQT",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Range Resources",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-622",
+      "headline": "Microsoft offering buyouts to around 60,000 employees, Business Insider reports",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-microsoft-offering-buyouts-around-60000-employees/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T16:19:17Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Microsoft is offering voluntary buyouts to 60,000 employees.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Microsoft is offering voluntary buyouts to 60,000 employees.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -1788,212 +1989,6 @@
           "name": "Range Resources",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-525",
-      "headline": "Surgery Partners to Be Acquired by Bon Secours for $5.7 Billion",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-26/surgery-partners-to-be-acquired-by-bon-secours-for-5-7-billion",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T13:14:58Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Surgery Partners is being acquired by Bon Secours for $5.7 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Surgery Partners is being acquired by Bon Secours for $5.7 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Surgery Partners",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-536",
-      "headline": "Parameter Technologies To Be Acquired By Acuity For $675 Mln",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/parameter-technologies-be-acquired-acuity-675-mln",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T12:55:42Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Acuity is acquiring Parameter Technologies for $675 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Acuity is acquiring Parameter Technologies for $675 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Acuity",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Parameter Technologies",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-524",
-      "headline": "Getty Images Holdings, Inc. Files for Chapter 11 Bankruptcy and Enters into $143.0 million DIP Credit Agreement",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/getty-images-holdings-inc-files-chapter-11-bankruptcy-and-enters-1430-million-dip-credit",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T12:53:32Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Getty Images Holdings, Inc. has filed for Chapter 11 bankruptcy and secured $143 million in DIP financing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Getty Images Holdings, Inc. has filed for Chapter 11 bankruptcy and secured $143 million in DIP financing.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Getty Images Holdings, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-516",
-      "headline": "Ovintiv Inc. Enters Agreement to Acquire Logan Energy Corp. for C$1.40 Per Share in Cash",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/ovintiv-inc-enters-agreement-acquire-logan-energy-corp-c-140-share-cash",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T12:42:36Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Ovintiv Inc. is acquiring Logan Energy Corp. for C$1.40 per share in cash.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ovintiv Inc. is acquiring Logan Energy Corp. for C$1.40 per share in cash.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ovintiv Inc.",
-          "ticker": "OVV",
-          "listing_country": "US"
-        },
-        {
-          "name": "Logan Energy Corp.",
-          "ticker": null,
-          "listing_country": "CA"
         }
       ],
       "size_bucket": "large",
@@ -244778,9 +244773,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2302566,
-    "news_picked_today": 1114,
-    "news_dropped_today": 8853
+    "news_seen_today": 2355491,
+    "news_picked_today": 1128,
+    "news_dropped_today": 8935
   },
   "book_momentum": {
     "live_count": 8,
