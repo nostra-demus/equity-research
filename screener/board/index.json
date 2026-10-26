@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T03:03:58Z",
+  "generated_at": "2026-10-26T03:14:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-058",
@@ -190,6 +190,55 @@
           "name": "Shimao Group",
           "ticker": "00813",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-185",
+      "headline": "Real estate investor Avid steps in with $3.2b offer for Ingenia",
+      "headline_en": null,
+      "url": "https://www.afr.com/property/commercial/real-estate-investor-avid-steps-in-with-3-2b-offer-for-ingenia-20261026-p618jz?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T03:10:20Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Avid has made a $3.2 billion acquisition offer for Ingenia, representing a significant M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Avid has made a $3.2 billion acquisition offer for Ingenia, representing a significant M&A event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ingenia",
+          "ticker": null,
+          "listing_country": "AU"
         }
       ],
       "size_bucket": "mid",
@@ -735,6 +784,55 @@
           "name": "Samsung SDI",
           "ticker": null,
           "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-189",
+      "headline": "Adnoc’s Dh60 billion push can boost UAE manufacturing",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/opinion/editorial/2026/10/26/adnocs-dh60-billion-push-can-boost-uae-manufacturing/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T03:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Adnoc is committing Dh60 billion to capital expenditure, which will significantly impact UAE manufacturing capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Adnoc is committing Dh60 billion to capital expenditure, which will significantly impact UAE manufacturing capacity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adnoc",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -1896,99 +1994,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-019",
-      "headline": "Trump says Canada tariff deal coming 'soon' at Michigan border rally",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/us/trump-says-canada-tariff-deal-coming-soon-michigan-border-rally-2026-10-25/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-25T23:51:30Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Trump's statement regarding upcoming tariffs on Canada signals potential trade friction and cross-border economic impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Trump's statement regarding upcoming tariffs on Canada signals potential trade friction and cross-border economic impact.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-159",
-      "headline": "Keystone says website breach exposed hardware wallet buyers’ addresses",
-      "headline_en": null,
-      "url": "https://cointelegraph.com/news/keystone-says-website-breach-exposed-hardware-wallet-buyers-addresses?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source_name": "Cointelegraph",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T02:24:04Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "A website breach at Keystone exposed sensitive customer data, creating significant reputational and legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "A website breach at Keystone exposed sensitive customer data, creating significant reputational and legal risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Keystone",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -200644,77 +200649,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-f476d8205eab",
-      "idea_version": "IDEAV-740571600c791e1f",
-      "idea_version_started_at": "2026-10-24T18:03:05Z",
-      "ticker": "GSK",
-      "company": "GSK plc",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "GSK faces significant legal charges of $2.2 billion and R&D setbacks, which are likely to negatively impact its earnings and profitability.",
-      "why_now": "The potential impact of legal charges and R&D setbacks is being assessed ahead of an October 28 event.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-02a04c82926f"
-      ],
-      "primary_source_event_id": "EVT-02a04c82926f",
-      "source_headlines": [
-        "Can Specialty Meds Offset GSK’s $2.2B Legal Charges and Sizzling R&D Setbacks on Oct. 28?"
-      ],
-      "source_headline": "Can Specialty Meds Offset GSK’s $2.2B Legal Charges and Sizzling R&D Setbacks on Oct. 28?",
-      "source_url": "https://247wallst.com/investing/2026/10/24/can-specialty-meds-offset-gsks-2-2b-legal-charges-and-sizzling-rd-setbacks-on-oct-28/",
-      "source_name": "24/7 Wall St.",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-24T15:08:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T16:48:28Z",
-      "updated_at": "2026-10-24T18:03:05Z",
-      "decay_at": "2026-10-26T03:08:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-dd03ee33d73c",
       "idea_version": "IDEAV-f6c3ab8f229f23f2",
       "idea_version_started_at": "2026-10-25T09:03:43Z",
@@ -202353,79 +202287,6 @@
       "surfaced_at": "2026-10-24T14:18:27Z",
       "updated_at": "2026-10-24T23:13:43Z",
       "decay_at": "2026-10-26T04:01:25Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-f0e6ba50c3cf",
-      "idea_version": "IDEAV-a5fa3cc49d783431",
-      "idea_version_started_at": "2026-10-24T23:13:43Z",
-      "ticker": "KOTAKBANK",
-      "company": "Kotak Mahindra Bank",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Consolidated net profit grew 26% to ₹5,645 crore in Q2, demonstrating strong core banking performance.",
-      "why_now": "The results were published on 2026-10-24.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-80405be6a3cb"
-      ],
-      "primary_source_event_id": "EVT-80405be6a3cb",
-      "source_headlines": [
-        "Kotak Mahindra Bank Q2 results: Consolidated net profit jumps 26% to Rs 5,645 crore"
-      ],
-      "source_headline": "Kotak Mahindra Bank Q2 results: Consolidated net profit jumps 26% to Rs 5,645 crore",
-      "source_url": "https://timesofindia.indiatimes.com/business/india-business/kotak-mahindra-bank-q2-results-consolidated-net-profit-jumps-26-to-rs-5645-crore-margins-narrow/articleshow/135172680.cms",
-      "source_name": "The Times of India (Business)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-24T15:05:10Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T09:25:22Z",
-      "updated_at": "2026-10-24T23:13:43Z",
-      "decay_at": "2026-10-26T03:05:10Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -204219,6 +204080,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-f476d8205eab",
+      "idea_version": "IDEAV-740571600c791e1f",
+      "idea_version_started_at": "2026-10-24T18:03:05Z",
+      "ticker": "GSK",
+      "company": "GSK plc",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "GSK faces significant legal charges of $2.2 billion and R&D setbacks, which are likely to negatively impact its earnings and profitability.",
+      "why_now": "The potential impact of legal charges and R&D setbacks is being assessed ahead of an October 28 event.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-02a04c82926f"
+      ],
+      "primary_source_event_id": "EVT-02a04c82926f",
+      "source_headlines": [
+        "Can Specialty Meds Offset GSK’s $2.2B Legal Charges and Sizzling R&D Setbacks on Oct. 28?"
+      ],
+      "source_headline": "Can Specialty Meds Offset GSK’s $2.2B Legal Charges and Sizzling R&D Setbacks on Oct. 28?",
+      "source_url": "https://247wallst.com/investing/2026/10/24/can-specialty-meds-offset-gsks-2-2b-legal-charges-and-sizzling-rd-setbacks-on-oct-28/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-24T15:08:12Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T16:48:28Z",
+      "updated_at": "2026-10-24T18:03:05Z",
+      "decay_at": "2026-10-26T03:08:12Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-6f55bf31e25a",
       "idea_version": "IDEAV-b4140cfc1806fcab",
       "idea_version_started_at": "2026-10-24T09:25:22Z",
@@ -204922,6 +204854,79 @@
       "surfaced_at": "2026-10-24T10:55:46Z",
       "updated_at": "2026-10-25T22:53:36Z",
       "decay_at": "2026-10-25T22:57:40Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-f0e6ba50c3cf",
+      "idea_version": "IDEAV-a5fa3cc49d783431",
+      "idea_version_started_at": "2026-10-24T23:13:43Z",
+      "ticker": "KOTAKBANK",
+      "company": "Kotak Mahindra Bank",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Consolidated net profit grew 26% to ₹5,645 crore in Q2, demonstrating strong core banking performance.",
+      "why_now": "The results were published on 2026-10-24.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-80405be6a3cb"
+      ],
+      "primary_source_event_id": "EVT-80405be6a3cb",
+      "source_headlines": [
+        "Kotak Mahindra Bank Q2 results: Consolidated net profit jumps 26% to Rs 5,645 crore"
+      ],
+      "source_headline": "Kotak Mahindra Bank Q2 results: Consolidated net profit jumps 26% to Rs 5,645 crore",
+      "source_url": "https://timesofindia.indiatimes.com/business/india-business/kotak-mahindra-bank-q2-results-consolidated-net-profit-jumps-26-to-rs-5645-crore-margins-narrow/articleshow/135172680.cms",
+      "source_name": "The Times of India (Business)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-24T15:05:10Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T09:25:22Z",
+      "updated_at": "2026-10-24T23:13:43Z",
+      "decay_at": "2026-10-26T03:05:10Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -207320,19 +207325,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 549,
+    "total_count": 551,
     "shown_count": 500,
-    "hidden_count": 49,
+    "hidden_count": 51,
     "side_counts": {
       "long": {
-        "total_count": 279,
+        "total_count": 280,
         "shown_count": 250,
-        "hidden_count": 29
+        "hidden_count": 30
       },
       "short": {
-        "total_count": 271,
+        "total_count": 272,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 22
       }
     },
     "retention": {
@@ -207351,6 +207356,156 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-f476d8205eab",
+        "idea_version": "IDEAV-740571600c791e1f",
+        "idea_version_started_at": "2026-10-24T18:03:05Z",
+        "ticker": "GSK",
+        "company": "GSK plc",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "GSK faces significant legal charges of $2.2 billion and R&D setbacks, which are likely to negatively impact its earnings and profitability.",
+        "why_now": "The potential impact of legal charges and R&D setbacks is being assessed ahead of an October 28 event.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-02a04c82926f"
+        ],
+        "primary_source_event_id": "EVT-02a04c82926f",
+        "source_headlines": [
+          "Can Specialty Meds Offset GSK’s $2.2B Legal Charges and Sizzling R&D Setbacks on Oct. 28?"
+        ],
+        "source_headline": "Can Specialty Meds Offset GSK’s $2.2B Legal Charges and Sizzling R&D Setbacks on Oct. 28?",
+        "source_url": "https://247wallst.com/investing/2026/10/24/can-specialty-meds-offset-gsks-2-2b-legal-charges-and-sizzling-rd-setbacks-on-oct-28/",
+        "source_name": "24/7 Wall St.",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-24T15:08:12Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-24T16:48:28Z",
+        "updated_at": "2026-10-24T18:03:05Z",
+        "decay_at": "2026-10-26T03:08:12Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-26T03:08:12Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-f0e6ba50c3cf",
+        "idea_version": "IDEAV-a5fa3cc49d783431",
+        "idea_version_started_at": "2026-10-24T23:13:43Z",
+        "ticker": "KOTAKBANK",
+        "company": "Kotak Mahindra Bank",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Consolidated net profit grew 26% to ₹5,645 crore in Q2, demonstrating strong core banking performance.",
+        "why_now": "The results were published on 2026-10-24.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-80405be6a3cb"
+        ],
+        "primary_source_event_id": "EVT-80405be6a3cb",
+        "source_headlines": [
+          "Kotak Mahindra Bank Q2 results: Consolidated net profit jumps 26% to Rs 5,645 crore"
+        ],
+        "source_headline": "Kotak Mahindra Bank Q2 results: Consolidated net profit jumps 26% to Rs 5,645 crore",
+        "source_url": "https://timesofindia.indiatimes.com/business/india-business/kotak-mahindra-bank-q2-results-consolidated-net-profit-jumps-26-to-rs-5645-crore-margins-narrow/articleshow/135172680.cms",
+        "source_name": "The Times of India (Business)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-24T15:05:10Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-24T09:25:22Z",
+        "updated_at": "2026-10-24T23:13:43Z",
+        "decay_at": "2026-10-26T03:05:10Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-26T03:05:10Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7e1e5e2cfee0",
         "idea_version": "IDEAV-15ea8b787ccb32a5",
@@ -235052,80 +235207,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-2cfdd94cac09",
-        "idea_version": "IDEAV-b7adfc4b80285fd2",
-        "idea_version_started_at": "2026-10-11T13:37:45Z",
-        "ticker": "SIGNATURE",
-        "company": "Signatureglobal (India) Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Signature Global reported pre-sales of INR 18.3 billion for Q2FY27 while cash collections surged 51% quarter-over-quarter to INR 10.1 billion, demonstrating accelerating project execution and cash flow generation.",
-        "why_now": "The operating updates were reported via exchange filing on October 10, 2026, giving a fresh post-quarter data point ahead of full Q2FY27 financial earnings.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1f2f15489953"
-        ],
-        "primary_source_event_id": "EVT-1f2f15489953",
-        "source_headlines": [
-          "Signatureglobal (India) Limited: Signatureglobal (India) Limited has informed the Exchange regarding a press release dated October 10, 2026, titled \"Signature Global Reports Pre-Sales of INR 18.3 Billion in Q2FY27; Collections Jump 51% QoQ to INR 10.1 Billion\"."
-        ],
-        "source_headline": "Signatureglobal (India) Limited: Signatureglobal (India) Limited has informed the Exchange regarding a press release dated October 10, 2026, titled \"Signature Global Reports Pre-Sales of INR 18.3 Billion in Q2FY27; Collections Jump 51% QoQ to INR 10.1 Billion\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/SGLOBAL_10102026185842_PressRelease.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 95,
-        "newest_source_at": "2026-10-10T13:29:18Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-10T16:24:46Z",
-        "updated_at": "2026-10-11T13:37:45Z",
-        "decay_at": "2026-10-12T01:29:18Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-13T14:11:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-0448efa62005",
         "idea_version": "IDEAV-44acb4356f9aad36",
         "idea_version_started_at": "2026-10-11T02:32:41Z",
@@ -244519,88 +244600,12 @@
         "archived_at": "2026-10-02T09:44:43Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-ecd44507baf4",
-        "idea_version": "IDEAV-db22a8845cd3834f",
-        "idea_version_started_at": "2026-09-29T10:02:00Z",
-        "ticker": "LISN",
-        "company": "Lindt & Sprüngli",
-        "exchange": "SIX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company is lowering sales forecasts for the second time in 2026 due to weakening consumer demand for chocolate, which will compress margins and revenue growth.",
-        "why_now": "The guidance revision was announced on September 29, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 7,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-fbc7e068c201",
-          "EVT-97f16f384a67"
-        ],
-        "primary_source_event_id": "EVT-fbc7e068c201",
-        "source_headlines": [
-          "Lindt Plans Price Cuts After Second 2026 Guidance Revision",
-          "Lindt cuts sales forecast as heatwaves dampen demand for chocolate"
-        ],
-        "source_headline": "Lindt Plans Price Cuts After Second 2026 Guidance Revision",
-        "source_url": "https://www.bloomberg.com/news/articles/2026-09-29/lindt-cuts-sales-growth-guidance-for-second-time-on-weak-demand",
-        "source_name": "Bloomberg",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-29T09:04:25Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-29T10:02:00Z",
-        "updated_at": "2026-09-29T10:02:00Z",
-        "decay_at": "2026-09-30T21:04:25Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-02T09:44:43Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1915,
-    "live_count": 53,
+    "live_count": 51,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -244619,9 +244624,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1152,
-    "news_picked_today": 194,
-    "news_dropped_today": 578
+    "news_seen_today": 1194,
+    "news_picked_today": 206,
+    "news_dropped_today": 608
   },
   "book_momentum": {
     "live_count": 8,
