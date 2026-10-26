@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T02:24:03Z",
+  "generated_at": "2026-10-26T02:34:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-058",
@@ -1744,6 +1744,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-146",
+      "headline": "Taylor reveals programs targeted for cuts to save budget $31b",
+      "headline_en": null,
+      "url": "https://www.afr.com/politics/federal/french-protest-groups-demand-more-rallies-20261026-p618gi?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T02:22:50Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "The Australian government is targeting $31 billion in budget cuts, which could significantly impact various sectors and overall economic demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "The Australian government is targeting $31 billion in budget cuts, which could significantly impact various sectors and overall economic demand.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-129",
       "headline": "Hanwha Emerges as Key Partner in U.S. Shipbuilding Revival, Challenging China's Dominance",
       "headline_en": null,
@@ -1899,49 +1942,6 @@
       "launched_signal_id": null,
       "triage_score": 82,
       "triage_reason": "The headline reports a call to annul election results in Brazil after a historic loss, indicating political instability.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-106",
-      "headline": "Brazil Markets Brace for Rout on Lula’s Improbable Election Win",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-26/brazil-markets-brace-for-rout-on-lula-s-improbable-election-win",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T01:21:55Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Market anticipation of a rout following a major political shift in Brazil indicates significant volatility risk for the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Market anticipation of a rout following a major political shift in Brazil indicates significant volatility risk for the region.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -202409,78 +202409,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-7e1e5e2cfee0",
-      "idea_version": "IDEAV-15ea8b787ccb32a5",
-      "idea_version_started_at": "2026-10-24T16:48:28Z",
-      "ticker": "ATD",
-      "company": "Alimentation Couche-Tard",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is proposing an up to $8 billion acquisition of Cumberland Farms to expand its retail convenience and fuel network footprint across the United States.",
-      "why_now": "The acquisition offer reported by The Times on October 24, 2026, serves as a fresh catalyst that could trigger immediate market repricing and regulatory scrutiny.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0bbd2b6817d0"
-      ],
-      "primary_source_event_id": "EVT-0bbd2b6817d0",
-      "source_headlines": [
-        "Couche-Tard proposes up to $8 billion offer for Cumberland Farms, The Times reports"
-      ],
-      "source_headline": "Couche-Tard proposes up to $8 billion offer for Cumberland Farms, The Times reports",
-      "source_url": "https://www.reuters.com/legal/transactional/couche-tard-proposes-up-8-billion-offer-cumberland-farms-times-reports-2026-10-24/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-24T14:27:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T16:48:28Z",
-      "updated_at": "2026-10-24T16:48:28Z",
-      "decay_at": "2026-10-26T02:27:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f5d5e30d8e51",
       "idea_version": "IDEAV-65d58fa1d2e7279f",
       "idea_version_started_at": "2026-10-24T16:12:59Z",
@@ -205338,6 +205266,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-7e1e5e2cfee0",
+      "idea_version": "IDEAV-15ea8b787ccb32a5",
+      "idea_version_started_at": "2026-10-24T16:48:28Z",
+      "ticker": "ATD",
+      "company": "Alimentation Couche-Tard",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is proposing an up to $8 billion acquisition of Cumberland Farms to expand its retail convenience and fuel network footprint across the United States.",
+      "why_now": "The acquisition offer reported by The Times on October 24, 2026, serves as a fresh catalyst that could trigger immediate market repricing and regulatory scrutiny.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0bbd2b6817d0"
+      ],
+      "primary_source_event_id": "EVT-0bbd2b6817d0",
+      "source_headlines": [
+        "Couche-Tard proposes up to $8 billion offer for Cumberland Farms, The Times reports"
+      ],
+      "source_headline": "Couche-Tard proposes up to $8 billion offer for Cumberland Farms, The Times reports",
+      "source_url": "https://www.reuters.com/legal/transactional/couche-tard-proposes-up-8-billion-offer-cumberland-farms-times-reports-2026-10-24/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-24T14:27:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T16:48:28Z",
+      "updated_at": "2026-10-24T16:48:28Z",
+      "decay_at": "2026-10-26T02:27:50Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-f1d0fe9b9bc5",
       "idea_version": "IDEAV-4b12f7f83355d3a3",
       "idea_version_started_at": "2026-10-24T14:43:06Z",
@@ -207226,14 +207226,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 548,
+    "total_count": 549,
     "shown_count": 500,
-    "hidden_count": 48,
+    "hidden_count": 49,
     "side_counts": {
       "long": {
-        "total_count": 278,
+        "total_count": 279,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 29
       },
       "short": {
         "total_count": 271,
@@ -207257,6 +207257,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-7e1e5e2cfee0",
+        "idea_version": "IDEAV-15ea8b787ccb32a5",
+        "idea_version_started_at": "2026-10-24T16:48:28Z",
+        "ticker": "ATD",
+        "company": "Alimentation Couche-Tard",
+        "exchange": "TSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is proposing an up to $8 billion acquisition of Cumberland Farms to expand its retail convenience and fuel network footprint across the United States.",
+        "why_now": "The acquisition offer reported by The Times on October 24, 2026, serves as a fresh catalyst that could trigger immediate market repricing and regulatory scrutiny.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0bbd2b6817d0"
+        ],
+        "primary_source_event_id": "EVT-0bbd2b6817d0",
+        "source_headlines": [
+          "Couche-Tard proposes up to $8 billion offer for Cumberland Farms, The Times reports"
+        ],
+        "source_headline": "Couche-Tard proposes up to $8 billion offer for Cumberland Farms, The Times reports",
+        "source_url": "https://www.reuters.com/legal/transactional/couche-tard-proposes-up-8-billion-offer-cumberland-farms-times-reports-2026-10-24/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-24T14:27:50Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-24T16:48:28Z",
+        "updated_at": "2026-10-24T16:48:28Z",
+        "decay_at": "2026-10-26T02:27:50Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-26T02:27:50Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3dcf768f4a41",
         "idea_version": "IDEAV-bd9c581a6712ce45",
@@ -235030,80 +235105,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-bf715810980d",
-        "idea_version": "IDEAV-b69300e15583f72b",
-        "idea_version_started_at": "2026-10-10T16:24:46Z",
-        "ticker": "OSWALPUMP",
-        "company": "Oswal Pumps Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is expanding into solar cell manufacturing with a 1.2 GW facility, which represents a significant shift toward vertical integration and long-term margin improvement.",
-        "why_now": "The company issued a formal press release regarding this strategic capex investment on October 10, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d40fb8ed4938"
-        ],
-        "primary_source_event_id": "EVT-d40fb8ed4938",
-        "source_headlines": [
-          "Oswal Pumps Limited: Oswal Pumps Limited has informed the Exchange regarding a press release dated October 10, 2026, titled \"Oswal Pumps to set up 1.2 GW TOPCon solar cell manufacturing facility; deepens backward integration across the solar value chain\"."
-        ],
-        "source_headline": "Oswal Pumps Limited: Oswal Pumps Limited has informed the Exchange regarding a press release dated October 10, 2026, titled \"Oswal Pumps to set up 1.2 GW TOPCon solar cell manufacturing facility; deepens backward integration across the solar value chain\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/OSWALPUMPS_10102026180647_SE_LetterPressReleaseOPL10102026.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 96,
-        "newest_source_at": "2026-10-10T12:37:29Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-10T16:24:46Z",
-        "updated_at": "2026-10-10T16:24:46Z",
-        "decay_at": "2026-10-12T00:37:29Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-13T14:11:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-d3b122ba4a39",
         "idea_version": "IDEAV-6c39125a326bc0fd",
         "idea_version_started_at": "2026-10-11T15:32:54Z",
@@ -244505,7 +244506,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1914,
-    "live_count": 53,
+    "live_count": 52,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -244524,9 +244525,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 844,
-    "news_picked_today": 156,
-    "news_dropped_today": 448
+    "news_seen_today": 905,
+    "news_picked_today": 161,
+    "news_dropped_today": 467
   },
   "book_momentum": {
     "live_count": 8,
