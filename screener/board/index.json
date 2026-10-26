@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-26T12:41:42Z",
+  "generated_at": "2026-10-26T13:01:46Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261026-515",
+      "headline": "DCM Shriram Limited: DCM Shriram Limited has informed the Exchange regarding Outcome of Board Meeting held on October 26, 2026 regarding the approval of Capital Expenditure as per Outcome attached",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DCMSHRIRAM_26102026174332_FinalOutcome26Oct2026SIGNED.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T12:14:38Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Company announced approval of a capital expenditure project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced approval of a capital expenditure project.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DCM Shriram Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261026-462",
       "headline": "Brigade Hotel Ventures Limited: Brigade Hotel Ventures Limited has informed the Exchange regarding a press release dated October 26, 2026, titled \"Brigade Hotel Ventures Ltd. Total Revenue Grows 10% in Q2FY27: Profit After Tax (PAT) more than double\".",
@@ -1082,6 +1131,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-511",
+      "headline": "Ovintiv to buy Logan Energy for $890-million",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-ovintiv-to-buy-logan-energy-for-890-million/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T12:31:12Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Ovintiv to acquire Logan Energy for $890 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ovintiv to acquire Logan Energy for $890 million.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ovintiv",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Logan Energy",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-494",
       "headline": "Brigade Hotel Ventures Q2 Results: Net profit doubles as ARR rises 11% and RevPAR up 10%",
       "headline_en": null,
@@ -1428,60 +1531,6 @@
           "name": "Ovintiv",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-441",
-      "headline": "Ovintiv to Buy Canada’s Logan Energy in Montney Expansion",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-26/ovintiv-to-buy-canada-s-logan-energy-in-montney-expansion",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T11:14:03Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Ovintiv is acquiring Logan Energy to expand its presence in the Montney region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ovintiv is acquiring Logan Energy to expand its presence in the Montney region.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ovintiv",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Logan Energy",
-          "ticker": null,
-          "listing_country": "CA"
         }
       ],
       "size_bucket": "large",
@@ -1929,55 +1978,6 @@
           "name": "Ingenia Communities",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-387",
-      "headline": "Indian Overseas Bank Q2 Results: Net Profit Jumps 56% To Rs 1,912 Crore, NII Up 26% YoY; Asset Quality Improves",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/indian-overseas-bank-q2-results-net-profit-jumps-56-to-rs-1-912-crore-nii-up-26-yoy-asset-quality-improves-12236522#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T07:41:19Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Indian Overseas Bank reported a 56% jump in net profit to Rs 1,912 crore with a 26% increase in NII.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Indian Overseas Bank reported a 56% jump in net profit to Rs 1,912 crore with a 26% increase in NII.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Indian Overseas Bank",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -244760,9 +244760,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 944767,
-    "news_picked_today": 898,
-    "news_dropped_today": 8085
+    "news_seen_today": 1043847,
+    "news_picked_today": 925,
+    "news_dropped_today": 8250
   },
   "book_momentum": {
     "live_count": 8,
