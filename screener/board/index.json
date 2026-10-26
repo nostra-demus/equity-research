@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T05:47:20Z",
+  "generated_at": "2026-10-26T05:55:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-262",
@@ -1573,6 +1573,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-322",
+      "headline": "Jio Platforms IPO draws record ₹7 lakh crore in bids, subscribed 22.2 times",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/markets/jio-platforms-ipo-draws-record-7-lakh-crore-in-bids-subscribed-222-times/article71625744.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T05:47:30Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Jio Platforms IPO received record bids of 7 lakh crore, indicating strong market demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Jio Platforms IPO received record bids of 7 lakh crore, indicating strong market demand.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jio Platforms",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-117",
       "headline": "Samsung SDI Wins 1.5 GWh U.S. ESS Deal",
       "headline_en": null,
@@ -1903,55 +1952,6 @@
           "name": "DFI Retail Group",
           "ticker": null,
           "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-206",
-      "headline": "Shriram Finance shares fall nearly 5% after multiple price target cuts after Q2 results; No 'sell' rating",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/shriram-finance-share-price-target-cut-by-multiple-analysts-q2-results-no-sell-aum-guidance-fy27-el-nino-west-asia-buy-sell-20018992.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T03:45:57Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Shriram Finance shares fell nearly 5% following multiple price target cuts after Q2 results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Shriram Finance shares fell nearly 5% following multiple price target cuts after Q2 results.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shriram Finance",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -244730,9 +244730,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5290,
-    "news_picked_today": 445,
-    "news_dropped_today": 2175
+    "news_seen_today": 5317,
+    "news_picked_today": 450,
+    "news_dropped_today": 2197
   },
   "book_momentum": {
     "live_count": 8,
