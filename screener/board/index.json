@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T12:33:49Z",
+  "generated_at": "2026-10-26T12:41:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-462",
@@ -1082,6 +1082,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-494",
+      "headline": "Brigade Hotel Ventures Q2 Results: Net profit doubles as ARR rises 11% and RevPAR up 10%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/brigade-hotel-ventures-share-price-q2-results-net-profit-doubles-as-arr-rises-11-and-revpar-up-10-20019613.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T12:29:12Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Company reported a doubling of net profit alongside double-digit growth in key operational metrics.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company reported a doubling of net profit alongside double-digit growth in key operational metrics.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brigade Hotel Ventures",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-477",
       "headline": "REC Q2 results: Net profit falls 21% to ₹3,478 crore, declares interim dividend",
       "headline_en": null,
@@ -1932,60 +1981,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-363",
-      "headline": "Challenger rejects Daiichi Life’s $4.4 billion takeover offer",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/10/26/companies/challenger-rejects-daiichi-life-takeover-offer/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T07:26:00Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Challenger rejected a $4.4 billion takeover offer from Daiichi Life.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Challenger rejected a $4.4 billion takeover offer from Daiichi Life.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Challenger",
-          "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "Daiichi Life",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -244765,9 +244760,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 902659,
-    "news_picked_today": 884,
-    "news_dropped_today": 8051
+    "news_seen_today": 944767,
+    "news_picked_today": 898,
+    "news_dropped_today": 8085
   },
   "book_momentum": {
     "live_count": 8,
