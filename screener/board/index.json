@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T03:58:52Z",
+  "generated_at": "2026-10-26T03:59:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-058",
@@ -200212,6 +200212,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-a85bb583dca8",
+      "idea_version": "IDEAV-49b3a59fac5c38a8",
+      "idea_version_started_at": "2026-10-26T03:59:06Z",
+      "ticker": "9984.T",
+      "company": "SoftBank Group",
+      "exchange": "Tokyo Stock Exchange",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is committing $50 billion to technology investments in Malaysia, signaling a major expansion of its capital deployment strategy into emerging Southeast Asian tech markets.",
+      "why_now": "The investment plan was confirmed by the Malaysian Prime Minister on 2026-10-26.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-41081c30ce2b"
+      ],
+      "primary_source_event_id": "EVT-41081c30ce2b",
+      "source_headlines": [
+        "SoftBank’s Son plans $50 billion Malaysia tech outlay, PM Anwar Ibrahim says"
+      ],
+      "source_headline": "SoftBank’s Son plans $50 billion Malaysia tech outlay, PM Anwar Ibrahim says",
+      "source_url": "https://www.japantimes.co.jp/business/2026/10/26/softbank-malaysia-data-center-investments/",
+      "source_name": "The Japan Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-26T01:34:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-26T03:59:06Z",
+      "updated_at": "2026-10-26T03:59:06Z",
+      "decay_at": "2026-10-27T13:34:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-3ca8f8fe21a8",
       "idea_version": "IDEAV-b96ae19b779ab41c",
       "idea_version_started_at": "2026-10-25T08:08:42Z",
@@ -207079,77 +207149,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-3fba593662de",
-      "idea_version": "IDEAV-b5e84db9716b6699",
-      "idea_version_started_at": "2026-10-23T11:11:07Z",
-      "ticker": "WELSPUNCORP",
-      "company": "Welspun Corp Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a major order valued at approximately Rs. 5,500 crore to supply coated line pipes for a natural gas pipeline project in the USA, providing significant revenue visibility.",
-      "why_now": "The contract award was officially filed with the exchange on October 23, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b77a71fefdaf"
-      ],
-      "primary_source_event_id": "EVT-b77a71fefdaf",
-      "source_headlines": [
-        "Welspun Corp Limited: Welspun Corp Limited has informed the Exchange about Bagging/Receiving of orders/contracts - Welspun Corp Awarded a Very Large and Prestigious Order, Valued at approx ( approx. Rs.5,500 crore) to Supply Coated Line Pipes for a Natural Gas Pipeline Project in USA"
-      ],
-      "source_headline": "Welspun Corp Limited: Welspun Corp Limited has informed the Exchange about Bagging/Receiving of orders/contracts - Welspun Corp Awarded a Very Large and Prestigious Order, Valued at approx ( approx. Rs.5,500 crore) to Supply Coated Line Pipes for a Natural Gas Pipeline Project in USA",
-      "source_url": "https://nsearchives.nseindia.com/corporate/WELCORP_23102026090904_SEOrder.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-23T03:39:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T11:11:07Z",
-      "updated_at": "2026-10-23T11:11:07Z",
-      "decay_at": "2026-10-24T15:39:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-b25d37e5a84d",
       "idea_version": "IDEAV-e612966bfecfd150",
       "idea_version_started_at": "2026-10-24T05:01:36Z",
@@ -207309,14 +207308,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 551,
+    "total_count": 550,
     "shown_count": 500,
-    "hidden_count": 51,
+    "hidden_count": 50,
     "side_counts": {
       "long": {
-        "total_count": 279,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 29
+        "hidden_count": 28
       },
       "short": {
         "total_count": 273,
@@ -207326,12 +207325,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1313,
+      "evicted_count": 1314,
       "oldest_retained_at": "2026-09-28T16:27:44Z",
       "side_counts": {
         "long": {
-          "evicted_count": 874,
-          "oldest_retained_at": "2026-10-10T13:42:58Z"
+          "evicted_count": 875,
+          "oldest_retained_at": "2026-10-10T15:23:33Z"
         },
         "short": {
           "evicted_count": 439,
@@ -211217,8 +211216,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-24T15:39:17Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-26T03:59:11Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -244588,8 +244587,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1916,
-    "live_count": 51,
+    "surfaced_total": 1917,
+    "live_count": 52,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
