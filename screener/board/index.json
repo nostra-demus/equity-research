@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-10-26T08:39:01Z",
+  "generated_at": "2026-10-26T08:43:07Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261026-342",
+      "headline": "YUE YUEN IND (00551): INSIDE INFORMATION PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1026/2026102600264.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T08:31:00Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Yue Yuen issued a profit warning for the period.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Yue Yuen issued a profit warning for the period.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yue Yuen Industrial",
+          "ticker": "00551",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261026-338",
       "headline": "Zicom Electronic Security Systems Limited: Zicom Electronic Security Systems Limited has informed the Exchange about Corporate Insolvency Resolution Process",
@@ -484,6 +534,104 @@
           "name": "Shimao Group",
           "ticker": "00813",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-350",
+      "headline": "Supreme Industries Q2 Results: Stock falls 4% after full year volume growth guidance cut",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/supreme-industries-q2-results-volume-growth-guidance-plastic-pipes-headwinds-segments-growth-outlook-share-price-20019345.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T08:28:45Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Supreme Industries cut its full-year volume growth guidance, causing a 4% stock decline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Supreme Industries cut its full-year volume growth guidance, causing a 4% stock decline.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Supreme Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-349",
+      "headline": "Australia's Ingenia hits 9-month high on AVID's $1.5 billion buyout bid",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/australias-ingenia-hits-9-month-high-avids-15-billion-buyout-bid-2026-10-26/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T07:49:47Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Ingenia Communities received a $1.5 billion buyout bid from AVID.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ingenia Communities received a $1.5 billion buyout bid from AVID.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ingenia Communities",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "mid",
@@ -1815,147 +1963,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-117",
-      "headline": "Samsung SDI Wins 1.5 GWh U.S. ESS Deal",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279618",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T04:57:31Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Samsung SDI secured a 1.5 GWh U.S. energy storage system (ESS) deal, a significant commercial win.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Samsung SDI secured a 1.5 GWh U.S. energy storage system (ESS) deal, a significant commercial win.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung SDI",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-250",
-      "headline": "Bolsonaro calls for Brazil election result to be annulled",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/26/bolsonaro-calls-for-brazil-election-result-to-be-annulled?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-10-26T04:36:46Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "A call to annul an election result can lead to significant political and economic instability in Brazil.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "A call to annul an election result can lead to significant political and economic instability in Brazil.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-093",
-      "headline": "SEC fines South Carolina $500k for fan stormng field after Tennessee upset",
-      "headline_en": null,
-      "url": "https://www.reuters.com/sports/sec-fines-south-carolina-500k-fan-stormng-field-after-tennessee-upset--flm-2026-10-26/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T01:04:20Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "The SEC fined South Carolina $500,000 for a field storming incident.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "The SEC fined South Carolina $500,000 for a field storming incident.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "South Carolina",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -244875,9 +244882,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 212603,
-    "news_picked_today": 530,
-    "news_dropped_today": 6317
+    "news_seen_today": 220229,
+    "news_picked_today": 543,
+    "news_dropped_today": 6328
   },
   "book_momentum": {
     "live_count": 8,
