@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T12:06:30Z",
+  "generated_at": "2026-10-26T12:09:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-421",
@@ -1033,6 +1033,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-456",
+      "headline": "Sona BLW Q2 Results: Net profit surges 30% on higher revenue; BEV revenue jumps 129%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/sona-blw-precision-forgings-share-price-q2-results-net-profit-surges-30-on-higher-revenue-bev-revenue-jumps-129-20019576.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T11:56:32Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Sona BLW reported a 30% surge in net profit and a 129% jump in BEV revenue for Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sona BLW reported a 30% surge in net profit and a 129% jump in BEV revenue for Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sona BLW Precision Forgings",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-454",
       "headline": "EQT Corporation to Acquire Range Resources Corporation in All-Stock Transaction with Pro Forma Enterprise Value of more than $50 billion",
       "headline_en": null,
@@ -1939,55 +1988,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-296",
-      "headline": "Bharat Coking Coal shares rally 5% after Q2 profit turnaround; revenue jumps 39% YoY",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/bharat-coking-coal-shares-rally-5-after-q2-profit-turnaround-revenue-jumps-39-yoy/articleshow/135203231.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T05:08:13Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Bharat Coking Coal reported a Q2 profit turnaround and a 39% YoY revenue jump.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bharat Coking Coal reported a Q2 profit turnaround and a 39% YoY revenue jump.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bharat Coking Coal",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -244550,9 +244550,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 818597,
-    "news_picked_today": 841,
-    "news_dropped_today": 7902
+    "news_seen_today": 836633,
+    "news_picked_today": 844,
+    "news_dropped_today": 7923
   },
   "book_momentum": {
     "live_count": 8,
