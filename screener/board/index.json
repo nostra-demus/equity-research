@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T11:28:48Z",
+  "generated_at": "2026-10-26T11:33:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-421",
@@ -1180,6 +1180,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-429",
+      "headline": "EQT to buy Range Resources in $50bn North America gas deal",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/b4526650-49b6-4f88-ab95-4bde1cf4ad9c?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T10:36:05Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "EQT announced a $50 billion acquisition of Range Resources.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EQT announced a $50 billion acquisition of Range Resources.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EQT",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Range Resources",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-407",
       "headline": "Apple cuts 400+ jobs, directors sacked as new CEO John Ternus swings the axe: report",
       "headline_en": null,
@@ -1924,55 +1978,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-245",
-      "headline": "India's Shriram Finance hits 11-month low as growth outlook cut, credit costs weigh",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/india/indias-shriram-finance-hits-11-month-low-growth-outlook-cut-credit-costs-weigh-2026-10-26/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T04:15:01Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Shriram Finance cut its growth outlook and faces rising credit costs, leading to an 11-month stock low.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shriram Finance cut its growth outlook and faces rising credit costs, leading to an 11-month stock low.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shriram Finance",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -244827,9 +244832,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 686497,
-    "news_picked_today": 782,
-    "news_dropped_today": 7601
+    "news_seen_today": 708757,
+    "news_picked_today": 788,
+    "news_dropped_today": 7619
   },
   "book_momentum": {
     "live_count": 8,
