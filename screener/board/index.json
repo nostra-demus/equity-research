@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T00:45:15Z",
+  "generated_at": "2026-10-26T00:48:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-058",
@@ -1863,50 +1863,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261026-001",
-      "headline": "CARSGEN-B (02171): VOLUNTARY ANNOUNCEMENT - RESEARCH RESULTS OF SATRI-CEL AT THE ESMO CONGRESS 2026",
+      "inbox_id": "INB-20261026-072",
+      "headline": "Arbor Realty Trust, Inc. - Preferred Stock Price Target Decreased by 48.98% to $17.27",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1026/2026102600037.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-26T00:00:00Z",
+      "url": "https://www.nasdaq.com/articles/arbor-realty-trust-inc-preferred-stock-price-target-decreased-4898-1727",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T00:08:07Z",
       "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Clinical trial results for SATRI-CEL presented at ESMO congress provide data on drug efficacy.",
+      "prelim_note": "Arbor Realty Trust preferred stock price target was cut by 48.98% to $17.27.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Clinical trial results for SATRI-CEL presented at ESMO congress provide data on drug efficacy.",
-      "region": "CN",
+      "triage_score": 69,
+      "triage_reason": "Arbor Realty Trust preferred stock price target was cut by 48.98% to $17.27.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 50,
       "rank_factors": {
         "materiality": 50,
-        "source_tier": 8,
+        "source_tier": 0,
         "scope": 6,
-        "event": 0,
-        "size": -1,
+        "event": 7,
+        "size": 1,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
+        "source_tier_id": "news",
+        "event_id": "credit_rating_downgrade",
+        "size_bucket": "mid"
       },
       "event_types": [
-        "product"
+        "credit_rating_downgrade"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "CarsGen Therapeutics",
-          "ticker": "02171",
-          "listing_country": "CN"
+          "name": "Arbor Realty Trust",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "small",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -244179,9 +244179,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 211,
-    "news_picked_today": 71,
-    "news_dropped_today": 140
+    "news_seen_today": 232,
+    "news_picked_today": 72,
+    "news_dropped_today": 160
   },
   "book_momentum": {
     "live_count": 8,
