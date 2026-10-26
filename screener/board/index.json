@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T09:07:16Z",
+  "generated_at": "2026-10-26T09:11:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-342",
@@ -537,6 +537,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-368",
+      "headline": "Man Group Shares Up On Meiji Yasuda's $1.25 Bln Investment, 5% Stake Acquisition Plan",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/man-group-shares-meiji-yasudas-125-bln-investment-5-stake-acquisition-plan",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T08:39:18Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Meiji Yasuda is acquiring a 5% stake in Man Group via a $1.25 billion investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meiji Yasuda is acquiring a 5% stake in Man Group via a $1.25 billion investment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Man Group",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1914,60 +1963,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-045",
-      "headline": "Ingenia Soars on Fresh $1.6 Billion Takeover Bid From AVID",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-26/ingenia-soars-on-fresh-1-6-billion-takeover-bid-from-avid",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T00:14:27Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Ingenia Communities received a $1.6 billion takeover bid from AVID Property Group.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ingenia Communities received a $1.6 billion takeover bid from AVID Property Group.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ingenia Communities",
-          "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "AVID Property Group",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -244887,9 +244882,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 285693,
-    "news_picked_today": 598,
-    "news_dropped_today": 6513
+    "news_seen_today": 293765,
+    "news_picked_today": 605,
+    "news_dropped_today": 6530
   },
   "book_momentum": {
     "live_count": 8,
