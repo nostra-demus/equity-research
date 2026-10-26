@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T11:54:34Z",
+  "generated_at": "2026-10-26T11:58:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-421",
@@ -1033,6 +1033,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-454",
+      "headline": "EQT Corporation to Acquire Range Resources Corporation in All-Stock Transaction with Pro Forma Enterprise Value of more than $50 billion",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/eqt-corporation-acquire-range-resources-corporation-all-stock-transaction-pro-forma",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T11:32:34Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Major M&A deal with a pro forma enterprise value of over $50 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Major M&A deal with a pro forma enterprise value of over $50 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EQT Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Range Resources Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-440",
       "headline": "EQT to acquire Range Resources, creating U.S. gas giant",
       "headline_en": null,
@@ -1077,6 +1131,55 @@
         },
         {
           "name": "Range Resources",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-453",
+      "headline": "Ovintiv To Acquire Logan Energy For $890 Mln",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/ovintiv-acquire-logan-energy-890-mln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T11:20:58Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Acquisition of Logan Energy for $890 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Acquisition of Logan Energy for $890 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ovintiv",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1387,60 +1490,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-398",
-      "headline": "EQT to Buy Range Resources in An All-Stock Transaction",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-26/eqt-to-buy-range-resources-in-an-all-stock-transaction",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T10:14:08Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "EQT announced an all-stock acquisition of Range Resources.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "EQT announced an all-stock acquisition of Range Resources.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EQT",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Range Resources",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1936,55 +1985,6 @@
           "name": "Alpha Dhabi",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-282",
-      "headline": "Kone tries to limit asset sales as it seeks Brussels’ approval for €29bn megadeal",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/133c0f88-419e-4c6a-ada2-a911ffd90754?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T05:00:12Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Kone is attempting to secure regulatory approval for a €29bn acquisition, a deal of significant scale.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Kone is attempting to secure regulatory approval for a €29bn acquisition, a deal of significant scale.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kone",
-          "ticker": null,
-          "listing_country": "FI"
         }
       ],
       "size_bucket": "large",
@@ -244550,9 +244550,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 776781,
-    "news_picked_today": 809,
-    "news_dropped_today": 7838
+    "news_seen_today": 788647,
+    "news_picked_today": 828,
+    "news_dropped_today": 7843
   },
   "book_momentum": {
     "live_count": 8,
