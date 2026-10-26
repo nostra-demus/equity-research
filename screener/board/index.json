@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T09:34:17Z",
+  "generated_at": "2026-10-26T09:41:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-374",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-382",
+      "headline": "GLORY SUN LAND (00299): (1) DECISION OF THE LISTING COMMITTEE ON THE CANCELLATION OF LISTING; (2) RIGHT OF REVIEW AND REVIEW REQUEST OF THE DECISION; AND (3) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1026/2026102600332.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T08:41:00Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "The Listing Committee decided to cancel the listing of Glory Sun Land, which remains suspended.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Listing Committee decided to cancel the listing of Glory Sun Land, which remains suspended.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Glory Sun Land",
+          "ticker": "00299",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1911,55 +1960,6 @@
           "name": "SpaceX",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-161",
-      "headline": "SoftBank’s Son plans $50 billion Malaysia tech outlay, PM Anwar Ibrahim says",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/10/26/softbank-malaysia-data-center-investments/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T01:34:00Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "SoftBank Group announced a $50 billion investment plan for technology infrastructure in Malaysia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SoftBank Group announced a $50 billion investment plan for technology infrastructure in Malaysia.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SoftBank Group",
-          "ticker": null,
-          "listing_country": "JP"
         }
       ],
       "size_bucket": "mega",
@@ -244889,9 +244889,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 354623,
-    "news_picked_today": 631,
-    "news_dropped_today": 6720
+    "news_seen_today": 362840,
+    "news_picked_today": 643,
+    "news_dropped_today": 6780
   },
   "book_momentum": {
     "live_count": 8,
