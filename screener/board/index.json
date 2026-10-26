@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T05:27:49Z",
+  "generated_at": "2026-10-26T05:34:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-262",
@@ -386,6 +386,55 @@
           "name": "Shimao Group",
           "ticker": "00813",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-296",
+      "headline": "Bharat Coking Coal shares rally 5% after Q2 profit turnaround; revenue jumps 39% YoY",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/bharat-coking-coal-shares-rally-5-after-q2-profit-turnaround-revenue-jumps-39-yoy/articleshow/135203231.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T05:08:13Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Bharat Coking Coal reported a Q2 profit turnaround and a 39% YoY revenue jump.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bharat Coking Coal reported a Q2 profit turnaround and a 39% YoY revenue jump.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bharat Coking Coal",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -1904,56 +1953,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-199",
-      "headline": "Infosys Q2 Review: Motilal Oswal Sees 13% Upside Despite Guidance Cut; Check Revised Target Price",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/infosys-q2-results-review-motilal-oswal-sees-13-percent-upside-despite-guidance-cut-check-revised-target-price-12235451#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T02:36:04Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Analyst maintains positive outlook despite a guidance cut, reflecting mixed sentiment on Q2 results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Analyst maintains positive outlook despite a guidance cut, reflecting mixed sentiment on Q2 results.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Infosys",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -244729,9 +244728,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4864,
-    "news_picked_today": 398,
-    "news_dropped_today": 2032
+    "news_seen_today": 5159,
+    "news_picked_today": 416,
+    "news_dropped_today": 2073
   },
   "book_momentum": {
     "live_count": 8,
