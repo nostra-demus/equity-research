@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T13:38:51Z",
+  "generated_at": "2026-10-26T13:53:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-523",
@@ -1229,6 +1229,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-536",
+      "headline": "Parameter Technologies To Be Acquired By Acuity For $675 Mln",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/parameter-technologies-be-acquired-acuity-675-mln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T12:55:42Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Acuity is acquiring Parameter Technologies for $675 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Acuity is acquiring Parameter Technologies for $675 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Acuity",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Parameter Technologies",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-524",
       "headline": "Getty Images Holdings, Inc. Files for Chapter 11 Bankruptcy and Enters into $143.0 million DIP Credit Agreement",
       "headline_en": null,
@@ -1926,55 +1980,6 @@
       "companies": [
         {
           "name": "Supreme Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-404",
-      "headline": "Bank of Maharashtra Q2 Results: Net profit jumps 41% as NII rises 22%; asset quality improves",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/bank-of-maharashtra-share-price-q2-results-net-profit-jumps-41-as-nii-rises-22-asset-quality-improves-20019484.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T10:37:05Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Bank of Maharashtra reported a 41% jump in net profit and 22% rise in NII.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bank of Maharashtra reported a 41% jump in net profit and 22% rise in NII.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bank of Maharashtra",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -200983,76 +200988,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ef22250a1f99",
-      "idea_version": "IDEAV-275ba366872be793",
-      "idea_version_started_at": "2026-10-25T02:38:24Z",
-      "ticker": "RKLB",
-      "company": "Rocket Lab",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Repeated delays to the Neutron launch schedule negatively impact the company's ability to capture market share in the medium-lift launch segment and defer expected revenue growth.",
-      "why_now": "The latest postponement was reported on 2026-10-25, signaling ongoing operational execution challenges.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 14,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2c7d9763cf90"
-      ],
-      "primary_source_event_id": "EVT-2c7d9763cf90",
-      "source_headlines": [
-        "Rocket Lab Just Postponed Its Neutron Launch. Again."
-      ],
-      "source_headline": "Rocket Lab Just Postponed Its Neutron Launch. Again.",
-      "source_url": "https://www.nasdaq.com/articles/rocket-lab-just-postponed-its-neutron-launch-again",
-      "source_name": "Nasdaq",
-      "materiality_max": 85,
-      "newest_source_at": "2026-10-25T01:50:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-25T02:38:24Z",
-      "updated_at": "2026-10-25T02:38:24Z",
-      "decay_at": "2026-10-26T13:50:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-442ca74b220b",
       "idea_version": "IDEAV-88297dc1b68a1eb5",
       "idea_version_started_at": "2026-10-26T12:14:09Z",
@@ -205426,6 +205361,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-ef22250a1f99",
+      "idea_version": "IDEAV-275ba366872be793",
+      "idea_version_started_at": "2026-10-25T02:38:24Z",
+      "ticker": "RKLB",
+      "company": "Rocket Lab",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Repeated delays to the Neutron launch schedule negatively impact the company's ability to capture market share in the medium-lift launch segment and defer expected revenue growth.",
+      "why_now": "The latest postponement was reported on 2026-10-25, signaling ongoing operational execution challenges.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 14,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2c7d9763cf90"
+      ],
+      "primary_source_event_id": "EVT-2c7d9763cf90",
+      "source_headlines": [
+        "Rocket Lab Just Postponed Its Neutron Launch. Again."
+      ],
+      "source_headline": "Rocket Lab Just Postponed Its Neutron Launch. Again.",
+      "source_url": "https://www.nasdaq.com/articles/rocket-lab-just-postponed-its-neutron-launch-again",
+      "source_name": "Nasdaq",
+      "materiality_max": 85,
+      "newest_source_at": "2026-10-25T01:50:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-25T02:38:24Z",
+      "updated_at": "2026-10-25T02:38:24Z",
+      "decay_at": "2026-10-26T13:50:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-d61317a6133a",
       "idea_version": "IDEAV-3ef99735865d1304",
       "idea_version_started_at": "2026-10-26T00:05:04Z",
@@ -207458,9 +207463,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 541,
+    "total_count": 542,
     "shown_count": 500,
-    "hidden_count": 41,
+    "hidden_count": 42,
     "side_counts": {
       "long": {
         "total_count": 270,
@@ -207468,9 +207473,9 @@
         "hidden_count": 20
       },
       "short": {
-        "total_count": 271,
+        "total_count": 272,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 22
       }
     },
     "retention": {
@@ -207489,6 +207494,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ef22250a1f99",
+        "idea_version": "IDEAV-275ba366872be793",
+        "idea_version_started_at": "2026-10-25T02:38:24Z",
+        "ticker": "RKLB",
+        "company": "Rocket Lab",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Repeated delays to the Neutron launch schedule negatively impact the company's ability to capture market share in the medium-lift launch segment and defer expected revenue growth.",
+        "why_now": "The latest postponement was reported on 2026-10-25, signaling ongoing operational execution challenges.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 14,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2c7d9763cf90"
+        ],
+        "primary_source_event_id": "EVT-2c7d9763cf90",
+        "source_headlines": [
+          "Rocket Lab Just Postponed Its Neutron Launch. Again."
+        ],
+        "source_headline": "Rocket Lab Just Postponed Its Neutron Launch. Again.",
+        "source_url": "https://www.nasdaq.com/articles/rocket-lab-just-postponed-its-neutron-launch-again",
+        "source_name": "Nasdaq",
+        "materiality_max": 85,
+        "newest_source_at": "2026-10-25T01:50:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-25T02:38:24Z",
+        "updated_at": "2026-10-25T02:38:24Z",
+        "decay_at": "2026-10-26T13:50:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-26T13:50:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-9bb847420743",
         "idea_version": "IDEAV-46aec5100f3dac7b",
@@ -244662,87 +244740,12 @@
         "archived_at": "2026-10-02T12:11:18Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-8b7f0f584806",
-        "idea_version": "IDEAV-fcd045ca247e6840",
-        "idea_version_started_at": "2026-09-29T11:56:52Z",
-        "ticker": "LHA",
-        "company": "Lufthansa",
-        "exchange": null,
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Higher-than-expected aviation fuel costs will directly compress operating margins and reduce net profitability for the current fiscal period.",
-        "why_now": "The CEO provided this negative guidance update on 2026-09-29.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-04c04a87aad4"
-        ],
-        "primary_source_event_id": "EVT-04c04a87aad4",
-        "source_headlines": [
-          "Lufthansa CEO says aviation fuel costs will exceed the 1.5 billion euro forecast"
-        ],
-        "source_headline": "CEO da Lufthansa afirma que custo com combustível de aviação superará previsão de 1,5 bi de euros",
-        "source_url": "https://www.reuters.com/pt/negocio/TUGA7POU3VLSNA6XZ3HXRN4E4Q-2026-09-29/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-29T11:36:09Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-29T11:56:52Z",
-        "updated_at": "2026-09-29T11:56:52Z",
-        "decay_at": "2026-09-30T23:36:09Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-02T12:11:18Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1932,
-    "live_count": 64,
+    "live_count": 63,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -244761,9 +244764,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1219090,
-    "news_picked_today": 970,
-    "news_dropped_today": 8445
+    "news_seen_today": 1303628,
+    "news_picked_today": 980,
+    "news_dropped_today": 8579
   },
   "book_momentum": {
     "live_count": 8,
