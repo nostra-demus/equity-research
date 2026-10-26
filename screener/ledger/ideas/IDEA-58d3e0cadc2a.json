@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-58d3e0cadc2a",
-  "idea_version": "IDEAV-ffc58afc5ca4789f",
-  "idea_version_started_at": "2026-10-24T08:09:01Z",
+  "idea_version": "IDEAV-c284063b9cdeea15",
+  "idea_version_started_at": "2026-10-26T04:39:09Z",
   "ticker": "INFY",
   "company": "Infosys",
   "exchange": "NYSE",
@@ -11,11 +11,11 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "The company lowered its FY27 revenue growth outlook, signaling a significant deceleration in demand for its IT services.",
-  "why_now": "The guidance cut was announced on 2026-10-23, making it a fresh catalyst for a repricing of the stock.",
+  "reason": "The company cut its revenue growth guidance for fiscal 2027, signaling weakening demand in its core IT services business.",
+  "why_now": "The guidance cut was announced in the Q2 results released today, October 26, 2026.",
   "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 66,
+  "trade_score": 73,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
@@ -23,14 +23,13 @@
     "specificity": 15,
     "timing": 10,
     "expression": 7,
-    "corroboration": 0,
+    "corroboration": 7,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -47,17 +46,19 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-7034de84f938"
+    "EVT-510801324984",
+    "EVT-a3a02fc56f7d"
   ],
-  "primary_source_event_id": "EVT-7034de84f938",
+  "primary_source_event_id": "EVT-510801324984",
   "source_headlines": [
-    "Infosys ADR slumps 8% after company lowers FY27 revenue growth outlook"
+    "Infosys share price falls nearly 4% after Q2 results, guidance cut; Check latest price targets",
+    "India's Infosys falls after cutting revenue growth guidance for fiscal 2027"
   ],
-  "source_headline": "Infosys ADR slumps 8% after company lowers FY27 revenue growth outlook",
-  "source_url": "https://www.cnbctv18.com/market/infosys-adr-slumps-8-after-company-lowers-fy27-revenue-growth-outlook-20018240.htm",
+  "source_headline": "Infosys share price falls nearly 4% after Q2 results, guidance cut; Check latest price targets",
+  "source_url": "https://www.cnbctv18.com/market/infosys-share-price-q2-result-reaction-adr-fall-guidance-cut-margins-buy-sell-target-outlook-20018869.htm",
   "source_name": "CNBC-TV18",
   "materiality_max": 100,
-  "newest_source_at": "2026-10-23T12:53:37Z",
+  "newest_source_at": "2026-10-26T03:50:07Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -65,8 +66,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-10-23T15:10:57Z",
-  "updated_at": "2026-10-24T08:09:01Z",
-  "decay_at": "2026-10-25T00:53:37Z",
+  "updated_at": "2026-10-26T04:39:09Z",
+  "decay_at": "2026-10-27T15:50:07Z",
   "status": "live",
   "promoted_signal_id": null
 }
