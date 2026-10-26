@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T17:15:12Z",
+  "generated_at": "2026-10-26T17:25:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-537",
@@ -97,6 +97,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-644",
+      "headline": "Shrenik Limited: Disclosure of Updated List of Creditors and Reconstitution of the Committee of Creditors of Shrenik Limited (In CIRP)",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SHRENIK_26102026195135_Shrenik_Ltd_CoC_Reconstitution_Disclosure-F.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T14:23:27Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Shrenik Limited is undergoing Corporate Insolvency Resolution Process (CIRP), indicating severe financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shrenik Limited is undergoing Corporate Insolvency Resolution Process (CIRP), indicating severe financial distress.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shrenik Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1938,60 +1987,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-615",
-      "headline": "EQT, Range Merger Forms $50 Billion Marcellus Gas Powerhouse",
-      "headline_en": null,
-      "url": "https://www.forbes.com/sites/davidblackmon/2026/10/26/eqt-range-merger-forms-50-billion-marcellus-gas-powerhouse/",
-      "source_name": "Forbes",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T13:35:29Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "EQT and Range Resources are merging to form a $50 billion gas powerhouse, a major industry consolidation event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "EQT and Range Resources are merging to form a $50 billion gas powerhouse, a major industry consolidation event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EQT Corp",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Range Resources",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -244774,9 +244769,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2418870,
-    "news_picked_today": 1135,
-    "news_dropped_today": 9048
+    "news_seen_today": 2450691,
+    "news_picked_today": 1149,
+    "news_dropped_today": 9346
   },
   "book_momentum": {
     "live_count": 8,
