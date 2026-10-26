@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T02:03:35Z",
+  "generated_at": "2026-10-26T02:08:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261026-058",
@@ -193,6 +193,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261026-130",
+      "headline": "Musk says SpaceX raised $40 billion in debt deal, predicts neocloud shakeout",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/musk-says-spacex-raised-40-billion-in-debt-deal-predicts-neocloud-shakeout-20018962.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T02:02:50Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "SpaceX reportedly raised $40 billion in a debt deal, a massive capital event for a private company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SpaceX reportedly raised $40 billion in a debt deal, a massive capital event for a private company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1548,6 +1597,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261026-129",
+      "headline": "Hanwha Emerges as Key Partner in U.S. Shipbuilding Revival, Challenging China's Dominance",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279624",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-26T01:57:09Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Hanwha is positioning itself as a strategic partner in the US shipbuilding sector, potentially capturing market share from Chinese competitors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Hanwha is positioning itself as a strategic partner in the US shipbuilding sector, potentially capturing market share from Chinese competitors.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hanwha Ocean",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261026-056",
       "headline": "Samsung SDI's unit to supply ESS solutions to U.S. firm",
       "headline_en": null,
@@ -1861,98 +1959,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-126",
-      "headline": "EAAA India Alternatives IPO: ₹1,200-crore issue opens for subscription today",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/eaaa-india-alternatives-ipo-subscription-opens-today-gmp-price-band-issue-details-20018952.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T02:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "EAAA India Alternatives IPO opens for subscription with a target of ₹1,200 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "EAAA India Alternatives IPO opens for subscription with a target of ₹1,200 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EAAA India Alternatives",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-113",
-      "headline": "Singapore’s toxic haze probe expands to 10 palm oil, forestry firms",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/asia/southeast-asia/article/3372103/singapores-toxic-haze-probe-expands-10-palm-oil-forestry-firms",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T01:45:49Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Singapore is investigating 10 palm oil and forestry firms for their role in regional haze, creating significant regulatory and operational risk for the sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Singapore is investigating 10 palm oil and forestry firms for their role in regional haze, creating significant regulatory and operational risk for the sector.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -202396,79 +202402,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2086a06fc886",
-      "idea_version": "IDEAV-9815baaab800b669",
-      "idea_version_started_at": "2026-10-24T19:18:35Z",
-      "ticker": "LUMAXTECH",
-      "company": "Lumax Auto Technologies",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Lumax Auto Technologies reported a 58% jump in Q2 profit and announced a ₹150 crore investment in a new Manesar electronics plant targeting ₹500 crore in additional revenue.",
-      "why_now": "Q2 results and capex update released on October 24, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e4b19b30bb6e",
-        "EVT-fade7b6b43b0"
-      ],
-      "primary_source_event_id": "EVT-e4b19b30bb6e",
-      "source_headlines": [
-        "Lumax profit jumps 58%, bets ₹150 crore on electronics plant to generate ₹500 crore revenue",
-        "Lumax Auto Q2 results: Profit jumps 58%; new Manesar plant targets ₹500 crore turnover"
-      ],
-      "source_headline": "Lumax profit jumps 58%, bets ₹150 crore on electronics plant to generate ₹500 crore revenue",
-      "source_url": "https://www.thehindubusinessline.com/companies/lumax-profit-jumps-58-bets-150-crore-on-electronics-plant-to-generate-500-crore-revenue/article71619969.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-24T14:08:30Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T11:28:14Z",
-      "updated_at": "2026-10-24T19:18:35Z",
-      "decay_at": "2026-10-26T02:08:30Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-520be705f9e6",
       "idea_version": "IDEAV-5ae27562a516c644",
       "idea_version_started_at": "2026-10-24T18:03:05Z",
@@ -202678,78 +202611,6 @@
       "surfaced_at": "2026-10-24T16:12:59Z",
       "updated_at": "2026-10-24T16:12:59Z",
       "decay_at": "2026-10-26T04:04:31Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-f1d0fe9b9bc5",
-      "idea_version": "IDEAV-4b12f7f83355d3a3",
-      "idea_version_started_at": "2026-10-24T14:43:06Z",
-      "ticker": "LUMAXIND",
-      "company": "Lumax Industries",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A 58% profit jump combined with a strategic ₹150 crore investment in electronics manufacturing is expected to drive a 3.3x revenue multiplier on the new capital expenditure.",
-      "why_now": "The announcement was made on October 24, 2026, providing a clear growth catalyst for the upcoming fiscal quarters.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e4b19b30bb6e"
-      ],
-      "primary_source_event_id": "EVT-e4b19b30bb6e",
-      "source_headlines": [
-        "Lumax profit jumps 58%, bets ₹150 crore on electronics plant to generate ₹500 crore revenue"
-      ],
-      "source_headline": "Lumax profit jumps 58%, bets ₹150 crore on electronics plant to generate ₹500 crore revenue",
-      "source_url": "https://www.thehindubusinessline.com/companies/lumax-profit-jumps-58-bets-150-crore-on-electronics-plant-to-generate-500-crore-revenue/article71619969.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-24T14:08:30Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T14:43:06Z",
-      "updated_at": "2026-10-24T14:43:06Z",
-      "decay_at": "2026-10-26T02:08:30Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -205039,6 +204900,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-2086a06fc886",
+      "idea_version": "IDEAV-9815baaab800b669",
+      "idea_version_started_at": "2026-10-24T19:18:35Z",
+      "ticker": "LUMAXTECH",
+      "company": "Lumax Auto Technologies",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Lumax Auto Technologies reported a 58% jump in Q2 profit and announced a ₹150 crore investment in a new Manesar electronics plant targeting ₹500 crore in additional revenue.",
+      "why_now": "Q2 results and capex update released on October 24, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e4b19b30bb6e",
+        "EVT-fade7b6b43b0"
+      ],
+      "primary_source_event_id": "EVT-e4b19b30bb6e",
+      "source_headlines": [
+        "Lumax profit jumps 58%, bets ₹150 crore on electronics plant to generate ₹500 crore revenue",
+        "Lumax Auto Q2 results: Profit jumps 58%; new Manesar plant targets ₹500 crore turnover"
+      ],
+      "source_headline": "Lumax profit jumps 58%, bets ₹150 crore on electronics plant to generate ₹500 crore revenue",
+      "source_url": "https://www.thehindubusinessline.com/companies/lumax-profit-jumps-58-bets-150-crore-on-electronics-plant-to-generate-500-crore-revenue/article71619969.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-24T14:08:30Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T11:28:14Z",
+      "updated_at": "2026-10-24T19:18:35Z",
+      "decay_at": "2026-10-26T02:08:30Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-bf80b73e939d",
       "idea_version": "IDEAV-64b328fe4fa2db84",
       "idea_version_started_at": "2026-10-24T19:18:35Z",
@@ -205392,6 +205326,78 @@
       "surfaced_at": "2026-10-24T14:18:27Z",
       "updated_at": "2026-10-24T18:03:05Z",
       "decay_at": "2026-10-26T01:49:27Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-f1d0fe9b9bc5",
+      "idea_version": "IDEAV-4b12f7f83355d3a3",
+      "idea_version_started_at": "2026-10-24T14:43:06Z",
+      "ticker": "LUMAXIND",
+      "company": "Lumax Industries",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A 58% profit jump combined with a strategic ₹150 crore investment in electronics manufacturing is expected to drive a 3.3x revenue multiplier on the new capital expenditure.",
+      "why_now": "The announcement was made on October 24, 2026, providing a clear growth catalyst for the upcoming fiscal quarters.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e4b19b30bb6e"
+      ],
+      "primary_source_event_id": "EVT-e4b19b30bb6e",
+      "source_headlines": [
+        "Lumax profit jumps 58%, bets ₹150 crore on electronics plant to generate ₹500 crore revenue"
+      ],
+      "source_headline": "Lumax profit jumps 58%, bets ₹150 crore on electronics plant to generate ₹500 crore revenue",
+      "source_url": "https://www.thehindubusinessline.com/companies/lumax-profit-jumps-58-bets-150-crore-on-electronics-plant-to-generate-500-crore-revenue/article71619969.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-24T14:08:30Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T14:43:06Z",
+      "updated_at": "2026-10-24T14:43:06Z",
+      "decay_at": "2026-10-26T02:08:30Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -207214,14 +207220,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 545,
+    "total_count": 547,
     "shown_count": 500,
-    "hidden_count": 45,
+    "hidden_count": 47,
     "side_counts": {
       "long": {
-        "total_count": 275,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 25
+        "hidden_count": 27
       },
       "short": {
         "total_count": 271,
@@ -207245,6 +207251,157 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-2086a06fc886",
+        "idea_version": "IDEAV-9815baaab800b669",
+        "idea_version_started_at": "2026-10-24T19:18:35Z",
+        "ticker": "LUMAXTECH",
+        "company": "Lumax Auto Technologies",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Lumax Auto Technologies reported a 58% jump in Q2 profit and announced a ₹150 crore investment in a new Manesar electronics plant targeting ₹500 crore in additional revenue.",
+        "why_now": "Q2 results and capex update released on October 24, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e4b19b30bb6e",
+          "EVT-fade7b6b43b0"
+        ],
+        "primary_source_event_id": "EVT-e4b19b30bb6e",
+        "source_headlines": [
+          "Lumax profit jumps 58%, bets ₹150 crore on electronics plant to generate ₹500 crore revenue",
+          "Lumax Auto Q2 results: Profit jumps 58%; new Manesar plant targets ₹500 crore turnover"
+        ],
+        "source_headline": "Lumax profit jumps 58%, bets ₹150 crore on electronics plant to generate ₹500 crore revenue",
+        "source_url": "https://www.thehindubusinessline.com/companies/lumax-profit-jumps-58-bets-150-crore-on-electronics-plant-to-generate-500-crore-revenue/article71619969.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-24T14:08:30Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-24T11:28:14Z",
+        "updated_at": "2026-10-24T19:18:35Z",
+        "decay_at": "2026-10-26T02:08:30Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-26T02:08:30Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-f1d0fe9b9bc5",
+        "idea_version": "IDEAV-4b12f7f83355d3a3",
+        "idea_version_started_at": "2026-10-24T14:43:06Z",
+        "ticker": "LUMAXIND",
+        "company": "Lumax Industries",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "A 58% profit jump combined with a strategic ₹150 crore investment in electronics manufacturing is expected to drive a 3.3x revenue multiplier on the new capital expenditure.",
+        "why_now": "The announcement was made on October 24, 2026, providing a clear growth catalyst for the upcoming fiscal quarters.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e4b19b30bb6e"
+        ],
+        "primary_source_event_id": "EVT-e4b19b30bb6e",
+        "source_headlines": [
+          "Lumax profit jumps 58%, bets ₹150 crore on electronics plant to generate ₹500 crore revenue"
+        ],
+        "source_headline": "Lumax profit jumps 58%, bets ₹150 crore on electronics plant to generate ₹500 crore revenue",
+        "source_url": "https://www.thehindubusinessline.com/companies/lumax-profit-jumps-58-bets-150-crore-on-electronics-plant-to-generate-500-crore-revenue/article71619969.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-24T14:08:30Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-24T14:43:06Z",
+        "updated_at": "2026-10-24T14:43:06Z",
+        "decay_at": "2026-10-26T02:08:30Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-26T02:08:30Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-f02802e85bac",
         "idea_version": "IDEAV-2094aa3b233c23a3",
@@ -235016,156 +235173,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-826face9b860",
-        "idea_version": "IDEAV-c870a6c360df27f6",
-        "idea_version_started_at": "2026-10-11T15:32:54Z",
-        "ticker": "PREM",
-        "company": "Premier Energies",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company secured significant new orders worth ₹4,000 crore in Q2, which should boost future revenue and profitability.",
-        "why_now": "The order wins for Q2 were announced on October 10, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-33aa9310762a"
-        ],
-        "primary_source_event_id": "EVT-33aa9310762a",
-        "source_headlines": [
-          "Premier Energies secures orders worth ₹4,000 crore in Q2"
-        ],
-        "source_headline": "Premier Energies secures orders worth ₹4,000 crore in Q2",
-        "source_url": "https://www.thehindubusinessline.com/companies/premier-energies-secures-orders-worth-4000-crore-in-q2/article71567830.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 98,
-        "newest_source_at": "2026-10-10T11:18:24Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-11T15:32:54Z",
-        "updated_at": "2026-10-11T15:32:54Z",
-        "decay_at": "2026-10-11T23:18:24Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-13T14:11:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-83598d432045",
-        "idea_version": "IDEAV-9048d2887f7c6712",
-        "idea_version_started_at": "2026-10-11T02:32:41Z",
-        "ticker": "PREMIERENE",
-        "company": "Premier Energies",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company secured ₹4,000 crore in new orders during Q2, providing significant revenue visibility and supporting margin expansion.",
-        "why_now": "The order win was reported on October 10, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-33aa9310762a"
-        ],
-        "primary_source_event_id": "EVT-33aa9310762a",
-        "source_headlines": [
-          "Premier Energies secures orders worth ₹4,000 crore in Q2"
-        ],
-        "source_headline": "Premier Energies secures orders worth ₹4,000 crore in Q2",
-        "source_url": "https://www.thehindubusinessline.com/companies/premier-energies-secures-orders-worth-4000-crore-in-q2/article71567830.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 98,
-        "newest_source_at": "2026-10-10T11:18:24Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-11T02:32:41Z",
-        "updated_at": "2026-10-11T02:32:41Z",
-        "decay_at": "2026-10-11T23:18:24Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-13T14:11:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-68d5641bf7be",
         "idea_version": "IDEAV-93ee884caa2676cb",
         "idea_version_started_at": "2026-10-11T15:32:54Z",
@@ -244493,7 +244500,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1914,
-    "live_count": 56,
+    "live_count": 54,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -244512,9 +244519,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 762,
-    "news_picked_today": 135,
-    "news_dropped_today": 387
+    "news_seen_today": 788,
+    "news_picked_today": 140,
+    "news_dropped_today": 408
   },
   "book_momentum": {
     "live_count": 8,
