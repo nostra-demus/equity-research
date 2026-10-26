@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-26T11:24:14Z",
+  "generated_at": "2026-10-26T11:26:14Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261026-421",
+      "headline": "GET NICE (00064): JOINT ANNOUNCEMENT - (1) PROPOSED PRIVATISATION OF GET NICE HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS; (2) PROPOSED WITHDRAWAL OF LISTING; AND PROPOSED SPECIAL DIVIDEND RESULTS OF THE COURT MEETING AND THE EGM AND CLOSURE OF REGISTER OF MEMBERS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1026/2026102600927.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T11:12:00Z",
+      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
+      "prelim_note": "Get Nice Holdings announced a proposed privatization and withdrawal of listing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Get Nice Holdings announced a proposed privatization and withdrawal of listing.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GET NICE HOLDINGS LIMITED",
+          "ticker": "00064",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261026-411",
       "headline": "POLYFAIR HLDGS (08532): WINDING UP BY THE COURT; APPOINTMENT OF PROVISIONAL LIQUIDATOR; AND SUSPENSION OF TRADING",
@@ -1924,55 +1973,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261026-220",
-      "headline": "Sterlite Technologies targets ₹20,000 crore revenue by FY29, raises margin guidance to 30%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/sterlite-tech-q2-results-targets-20000-crore-revenue-by-fy29-raises-margin-guidance-20019043.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-26T04:05:14Z",
-      "sweep_file": "screener/inbox/2026-10-26_sweep.json",
-      "prelim_note": "Sterlite Technologies announced a revenue target of ₹20,000 crore by FY29 and raised margin guidance to 30%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sterlite Technologies announced a revenue target of ₹20,000 crore by FY29 and raised margin guidance to 30%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sterlite Technologies",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -244827,9 +244827,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 675454,
-    "news_picked_today": 768,
-    "news_dropped_today": 7567
+    "news_seen_today": 680902,
+    "news_picked_today": 780,
+    "news_dropped_today": 7579
   },
   "book_momentum": {
     "live_count": 8,
