@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T21:32:17Z",
+  "generated_at": "2026-10-27T21:44:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-553",
@@ -1634,6 +1634,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-659",
+      "headline": "Stock Market Today, Oct. 27: Meta Raises Largest-Ever Equity Offering to Nearly $98 Billion to Fund AI Infrastructure Bet",
+      "headline_en": null,
+      "url": "https://www.fool.com/coverage/stock-market-today/2026/10/27/stock-market-today-oct-27-meta-raises-largest-ever-equity-offering-to-nearly-usd98-billion-to-fund-ai-infrastructure-bet/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T21:16:42Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Meta is raising a massive $98 billion in equity to fund AI infrastructure, significantly diluting shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta is raising a massive $98 billion in equity to fund AI infrastructure, significantly diluting shareholders.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-660",
+      "headline": "Stock Market Today, Oct. 27: JetBlue Surges 19% on Stronger Q4 Revenue Guidance and Margin Improvement",
+      "headline_en": null,
+      "url": "https://www.fool.com/coverage/stock-market-today/2026/10/27/stock-market-today-oct-27-jetblue-surges-19-on-stronger-q4-revenue-guidance-and-margin-improvement/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T21:11:15Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "JetBlue raised Q4 revenue guidance and reported margin improvements, leading to a 19% stock surge.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "JetBlue raised Q4 revenue guidance and reported margin improvements, leading to a 19% stock surge.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JetBlue",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-642",
       "headline": "Stock Market Today, Oct. 27: SoFi Soars 13% After Beating Estimates and Raising Guidance",
       "headline_en": null,
@@ -1862,104 +1961,6 @@
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Motors",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-632",
-      "headline": "Meta Boosts Equity Offering to $98 Billion, Raising Its AI Bet",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-10-27/bloomberg-tech-10-27-2026-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T18:24:15Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Meta is significantly increasing its capital expenditure on AI infrastructure to $98 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Meta is significantly increasing its capital expenditure on AI infrastructure to $98 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-615",
-      "headline": "Tata Motors’ Iveco takeover offer turns unconditional as shareholding reaches 89%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/tata-motors-share-price-iveco-takeover-offer-turns-unconditional-as-shareholding-reaches-89-20020790.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T18:19:28Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Tata Motors' takeover offer for Iveco has turned unconditional with 89% shareholding, representing a major M&A completion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tata Motors' takeover offer for Iveco has turned unconditional with 89% shareholding, representing a major M&A completion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
@@ -246742,9 +246743,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3365846,
-    "news_picked_today": 1496,
-    "news_dropped_today": 25048
+    "news_seen_today": 3376644,
+    "news_picked_today": 1517,
+    "news_dropped_today": 25291
   },
   "book_momentum": {
     "live_count": 8,
