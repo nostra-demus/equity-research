@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T02:59:45Z",
+  "generated_at": "2026-10-27T03:02:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-119",
@@ -394,6 +394,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-142",
+      "headline": "HDFC Bank Limited: HDFC Bank Limited has informed the Exchange regarding disclosure under Regulation 30 and other applicable regulations of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 - Change in Managing Director and Chief Executive Officer of the Bank",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/HDFCBANK_27102026080232_SEIntimation_appt_of_AB.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T02:32:54Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Change in Managing Director and Chief Executive Officer of HDFC Bank Limited disclosed via Regulation 30 filing; headline lacks detail on who is departing and arriving, but the change itself affects management continuity, investor confidence, and strategic direction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Change in Managing Director and Chief Executive Officer of HDFC Bank Limited disclosed via Regulation 30 filing; headline lacks detail on who is departing and arriving, but the change itself affects management continuity, investor confidence, and strategic direction.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 73,
+      "rank_factors": {
+        "materiality": 73,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "executive_exit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "executive_exit",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HDFC Bank Limited",
+          "ticker": "500180",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1905,56 +1955,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-102",
-      "headline": "Turaco Gold hunts for $105m to bankroll M&A bet",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/turaco-gold-hunts-for-105m-to-bankroll-m-and-a-bet-20261027-p618xa?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T01:34:25Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Turaco Gold seeks $105m capital to fund mergers and acquisitions, signaling growth strategy shift but deal targets and values undefined.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Turaco Gold seeks $105m capital to fund mergers and acquisitions, signaling growth strategy shift but deal targets and values undefined.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Turaco Gold",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247003,9 +247003,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 473317,
-    "news_picked_today": 180,
-    "news_dropped_today": 3108
+    "news_seen_today": 492199,
+    "news_picked_today": 184,
+    "news_dropped_today": 3152
   },
   "book_momentum": {
     "live_count": 8,
