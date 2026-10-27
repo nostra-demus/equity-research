@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T03:54:03Z",
+  "generated_at": "2026-10-27T03:57:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-171",
@@ -345,6 +345,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-178",
+      "headline": "Dalmia Bharat shares fall 6% on HSBC downgrade, multiple target cuts after Q2 results",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/dalmia-bharat-share-price-downgraded-target-cut-q2-results-details-here-20019924.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T03:42:40Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Dalmia Bharat shares fell 6% following a downgrade and target price cuts from HSBC after Q2 results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dalmia Bharat shares fell 6% following a downgrade and target price cuts from HSBC after Q2 results.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "credit_rating_downgrade",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "credit_rating_downgrade"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dalmia Bharat",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1919,56 +1968,6 @@
           "name": "Texas Instruments Inc",
           "ticker": "TXN",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-107",
-      "headline": "CBA faces $3b Anthropic dilemma ahead of blockbuster listing",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/financial-services/cba-faces-3b-anthropic-dilemma-ahead-of-blockbuster-listing-20261027-p618wk?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T01:54:32Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Commonwealth Bank of Australia faces a reported $3 billion decision regarding Anthropic ahead of Anthropic's imminent blockbuster IPO, implying material capital-allocation, liquidity, or regulatory exposure for the mega-cap bank.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Commonwealth Bank of Australia faces a reported $3 billion decision regarding Anthropic ahead of Anthropic's imminent blockbuster IPO, implying material capital-allocation, liquidity, or regulatory exposure for the mega-cap bank.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 8,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Commonwealth Bank of Australia",
-          "ticker": "CBA",
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "mega",
@@ -247091,9 +247090,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 657452,
-    "news_picked_today": 239,
-    "news_dropped_today": 3961
+    "news_seen_today": 683867,
+    "news_picked_today": 241,
+    "news_dropped_today": 3983
   },
   "book_momentum": {
     "live_count": 8,
