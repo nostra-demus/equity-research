@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-27T09:59:39Z",
+  "generated_at": "2026-10-27T10:03:23Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261027-296",
+      "headline": "CHINA CHUNLAI (01969): COMPLETION ANNOUNCEMENT - MAJOR TRANSACTION - COMPLETION OF THE ACQUISITION OF THE ENTIRE ISSUED SHARE CAPITAL OF ACCOUNTANCY & BUSINESS COLLEGE (IRELAND) LIMITED (TRADING AS DUBLIN BUSINESS SCHOOL)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700566.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T09:28:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "China Chunlai Education has completed the acquisition of Dublin Business School.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "China Chunlai Education has completed the acquisition of Dublin Business School.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Chunlai Education Group Co., Ltd.",
+          "ticker": "01969",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261027-252",
       "headline": "Morepen Laboratories Limited: Morepen Laboratories Limited has informed the Exchange regarding a press release dated October 27, 2026, titled \"Morepen hits record Q2 revenue of Rs. 755 Cr; EBITDA surges 273% to Rs. 132 Cr; CDMO momentum drives Morepen into a new earnings scale; H1 EBITDA reaches Rs. 220 Cr\".",
@@ -1936,55 +1985,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-258",
-      "headline": "Acutaas Chemicals Q2 Results: Multibagger stock jumps 12% after increasing FY27 revenue, margin guidance",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/acutaas-chemicals-q2-results-fy27-revenue-margin-guidance-increased-order-visibility-share-price-multibagger-20020221.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T07:42:50Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Acutaas Chemicals increased its FY27 revenue and margin guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Acutaas Chemicals increased its FY27 revenue and margin guidance.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Acutaas Chemicals",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247391,9 +247391,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1407226,
-    "news_picked_today": 528,
-    "news_dropped_today": 14040
+    "news_seen_today": 1415402,
+    "news_picked_today": 538,
+    "news_dropped_today": 14054
   },
   "book_momentum": {
     "live_count": 8,
