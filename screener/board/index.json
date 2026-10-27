@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T07:49:27Z",
+  "generated_at": "2026-10-27T08:02:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-243",
@@ -1884,6 +1884,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-246",
+      "headline": "SKY GOLD AND DIAMONDS LIMITED: We wish to inform you that the Board of Directors of the Company ( Board ) in its meeting held today, i.e. Tuesday, 27th October 2026 has inter alia considered and approved the following:01. Raising of funds not exceeding Rs. 1,800 crores by way of issuance of equity shares ( QIP )02. Unaudited Standalone and Consolidated Financial Results for the quarter and half-year ended 30th September 2026 and the Limited Review Report thereon issued by the Statutory Auditor.0",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SKYGOLD_27102026130654_Outcome27102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T07:38:28Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Board approves ₹1,800 crore QIP (equity issuance) plus Q2/H1 FY27 unaudited results; named capital raise materially impacts capital structure and shareholder dilution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Board approves ₹1,800 crore QIP (equity issuance) plus Q2/H1 FY27 unaudited results; named capital raise materially impacts capital structure and shareholder dilution.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 2,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SKY GOLD AND DIAMONDS LIMITED",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-236",
       "headline": "Orkla India Limited: Orkla India Limited has informed the Exchange regarding Resignation of Mr Atle Vidar Nagel Johansen as Chairman of the company w.e.f. October 26, 2026.",
       "headline_en": null,
@@ -1923,55 +1973,6 @@
       "companies": [
         {
           "name": "Orkla India Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-210",
-      "headline": "Onesource Specialty Pharma Limited: Onesource Specialty Pharma Limited has informed the Exchange regarding a press release dated October 27, 2026, titled \"OneSource Announces Strong Q2FY27 ResultsRevenue up 37% YoY and EBITDA up 53% YoY\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/ONESOURCECDMO_27102026104146_OS_PR_IR.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-27T05:12:31Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Q2 FY27 results show 37% YoY revenue growth and 53% YoY EBITDA growth, representing material operating performance that can shift analyst expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Q2 FY27 results show 37% YoY revenue growth and 53% YoY EBITDA growth, representing material operating performance that can shift analyst expectations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Onesource Specialty Pharma Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -247312,9 +247313,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1070936,
-    "news_picked_today": 394,
-    "news_dropped_today": 11438
+    "news_seen_today": 1097897,
+    "news_picked_today": 404,
+    "news_dropped_today": 11836
   },
   "book_momentum": {
     "live_count": 8,
