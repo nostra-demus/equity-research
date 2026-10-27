@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T00:47:02Z",
+  "generated_at": "2026-10-27T01:04:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-034",
@@ -679,6 +679,55 @@
         {
           "name": "Texas Instruments Inc",
           "ticker": "TXN",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-063",
+      "headline": "Microsoft offers buyouts to 60,000 employees as AI spending mounts",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/technology/artificial-intelligence/microsoft-offers-buyouts-to-60-000-employees-as-ai-spending-mounts",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T00:56:29Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Microsoft announces voluntary buyouts to 60,000 employees in response to rising AI spending, signaling cost discipline but without quantified impact on earnings or savings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Microsoft announces voluntary buyouts to 60,000 employees in response to rising AI spending, signaling cost discipline but without quantified impact on earnings or savings.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Microsoft",
+          "ticker": "MSFT",
           "listing_country": "US"
         }
       ],
@@ -1652,6 +1701,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-067",
+      "headline": "SCHEDULE 13G - Canada Goose Holdings Inc. (0001690511) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1690511/000149315226048434/0001493152-26-048434-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-26T12:58:40Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "A Schedule 13G filing indicates a significant stake has been acquired by an investor, which could signal future activism or a change in control.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "A Schedule 13G filing indicates a significant stake has been acquired by an investor, which could signal future activism or a change in control.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Canada Goose Holdings Inc.",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-065",
+      "headline": "FDV: Change of interests of substantial holder - Cove view",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FDV?key=2924-03153663-3A705062",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T00:41:31Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "A change in substantial holder interest is a routine regulatory disclosure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "A change in substantial holder interest is a routine regulatory disclosure.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FDV",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-046",
       "headline": "Aequs Limited: The Nomination and Remuneration Committee ('NRC') of the Board of Directors of Aequs Limited ('Company') at its meeting held on October 26, 2026 has approved the grant of 2,00,000 (Two Lakh) Employee Stock Options ( Stock Options ) under the Aequs Employee Stock Option Plan 2025",
       "headline_en": null,
@@ -1745,184 +1892,49 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261027-054",
-      "headline": "BAIWANG CO (06657): ISSUE OF NEW H SHARES TO A SPECIFIC INVESTOR UNDER GENERAL MANDATE",
+      "inbox_id": "INB-20261027-068",
+      "headline": "Manipal Payment and Identity Solutions Limited: board meeting 03-Nov-2026 — Board Meeting Intimation",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700013.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
+      "url": "https://nsearchives.nseindia.com/corporate/xbrl/PRIOR_INTIMATION_26431_WebXMLFile_20261026_182855526.xml",
+      "source_name": "BSE / NSE Exchange Filing",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-10-26T22:35:00Z",
+      "found_at": "2026-10-26T12:58:57Z",
       "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Share issuance to a specific investor under general mandate disclosed without price or size, making it impossible to assess impact on capital structure or dilution.",
+      "prelim_note": "A board meeting intimation is a routine corporate event and does not provide specific information about potential decisions.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Share issuance to a specific investor under general mandate disclosed without price or size, making it impossible to assess impact on capital structure or dilution.",
-      "region": "CN",
+      "triage_score": 64,
+      "triage_reason": "A board meeting intimation is a routine corporate event and does not provide specific information about potential decisions.",
+      "region": "IN",
       "relevance": "relevant_non_material",
       "materiality_pre_score": 45,
       "rank_factors": {
         "materiality": 45,
         "source_tier": 8,
         "scope": 6,
-        "event": 0,
+        "event": 4,
         "size": 0,
-        "recency": 4,
+        "recency": 1,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": null,
+        "event_id": "management",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "capital_actions"
+        "management"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "BAIWANG CO",
-          "ticker": "06657",
-          "listing_country": "HK"
+          "name": "Manipal Payment and Identity Solutions Limited",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-032",
-      "headline": "FDA 510(k) clearance — Shenzhen Mindray Bio-Medical Electronics Co., Ltd.: Diagnostic Ultrasound System (Nuewa A20W); Diagnostic Ultrasound System (Nuewa A20); Diagnostic Ultrasound System (Nuewa A20 Exp); Diagnostic Ultrasound System (Nuewa A20 Elite); D",
-      "headline_en": null,
-      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261585",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-16T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Mindray received FDA 510(k) clearance for diagnostic ultrasound systems (Nuewa A20 models), enabling US sales, but 510(k) approvals for established product classes from existing manufacturers are routine regulatory events—no evidence of breakthrough significance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Mindray received FDA 510(k) clearance for diagnostic ultrasound systems (Nuewa A20 models), enabling US sales, but 510(k) approvals for established product classes from existing manufacturers are routine regulatory events—no evidence of breakthrough significance.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 42,
-      "rank_factors": {
-        "materiality": 42,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shenzhen Mindray Bio-Medical Electronics Co., Ltd.",
-          "ticker": "688505",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-011",
-      "headline": "Graded Surveillance Measure (GSM) - List of securities moving into their respective GSM Stages",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261026-37/20261026-37.pdf",
-      "source_name": "BSE India — Notices (RSS)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-26T13:54:26Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Routine exchange surveillance measure update for various securities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "Routine exchange surveillance measure update for various securities.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-012",
-      "headline": "CHANGES IN PRICE BAND",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261026-36/20261026-36.pdf",
-      "source_name": "BSE India — Notices (RSS)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-26T13:53:55Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Routine exchange update regarding price band changes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "Routine exchange update regarding price band changes.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -246761,9 +246773,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 101101,
-    "news_picked_today": 62,
-    "news_dropped_today": 1066
+    "news_seen_today": 198627,
+    "news_picked_today": 69,
+    "news_dropped_today": 1467
   },
   "book_momentum": {
     "live_count": 8,
