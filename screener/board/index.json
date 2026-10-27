@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T18:49:41Z",
+  "generated_at": "2026-10-27T18:58:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-553",
@@ -1634,6 +1634,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-618",
+      "headline": "Tata Motors’ €3.43 bn Iveco bid sees 87.8% acceptance, paves way for biggest buyout since JLR: What exchange filing says",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/tata-motors-3-43-bn-iveco-bid-sees-87-8-acceptance-paves-way-for-biggest-buyout-since-jlr-what-exchange-filing-says-11793124606335.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T18:30:36Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Tata Motors' bid for Iveco reached 87.8% acceptance, signaling a major €3.43 billion buyout.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Motors' bid for Iveco reached 87.8% acceptance, signaling a major €3.43 billion buyout.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-615",
       "headline": "Tata Motors’ Iveco takeover offer turns unconditional as shareholding reaches 89%",
       "headline_en": null,
@@ -1675,6 +1724,56 @@
           "name": "Tata Motors",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-617",
+      "headline": "Eni S.p.A. Reports 3Q 2026 Proforma Adjusted EBIT of €6 bln and Announces €0.46 Per Share Extraordinary Dividend",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/eni-spa-reports-3q-2026-proforma-adjusted-ebit-eu6-bln-and-announces-eu046-share",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T18:18:52Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Eni reported adjusted EBIT of €6 billion and announced an extraordinary dividend of €0.46 per share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Eni reported adjusted EBIT of €6 billion and announced an extraordinary dividend of €0.46 per share.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eni S.p.A.",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -1874,105 +1973,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-579",
-      "headline": "CTS Corporation Reports Third Quarter 2026 Sales of $149.6 million and Raises Full-Year Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/cts-corporation-reports-third-quarter-2026-sales-1496-million-and-raises-full-year",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T15:39:40Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "CTS Corporation reported Q3 2026 sales of $149.6 million and raised full-year guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CTS Corporation reported Q3 2026 sales of $149.6 million and raised full-year guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CTS Corporation",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-562",
-      "headline": "Novartis takes $1.9bn writedown on key drug after blockbuster Avidity acquisition",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/f7651365-f19c-40fd-87de-fcdb8a8a7104?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T15:15:31Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Novartis took a $1.9bn writedown on a key drug, impacting earnings and asset valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Novartis took a $1.9bn writedown on a key drug, impacting earnings and asset valuation.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Novartis",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -246733,9 +246733,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3076932,
-    "news_picked_today": 1219,
-    "news_dropped_today": 21965
+    "news_seen_today": 3088279,
+    "news_picked_today": 1234,
+    "news_dropped_today": 22214
   },
   "book_momentum": {
     "live_count": 8,
