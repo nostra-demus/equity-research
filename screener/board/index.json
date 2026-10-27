@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T03:31:20Z",
+  "generated_at": "2026-10-27T03:49:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-171",
@@ -1240,6 +1240,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-172",
+      "headline": "ZTE up 7% after AI pivot, computing surge drive fivefold increase in third quarter profit",
+      "headline_en": null,
+      "url": "https://www.scmp.com/tech/big-tech/article/3372231/zte-7-after-ai-pivot-computing-surge-drive-fivefold-increase-third-quarter-profit",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T03:17:11Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "ZTE reports fivefold increase in Q3 profit driven by AI pivot and computing surge, materially moving earnings expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "ZTE reports fivefold increase in Q3 profit driven by AI pivot and computing surge, materially moving earnings expectations.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ZTE",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-100",
       "headline": "Japan's Subaru to go EV-only in Europe by 2028",
       "headline_en": null,
@@ -1923,56 +1972,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-138",
-      "headline": "US Air Force bans BYD vehicles from Okinawa base over security concerns",
-      "headline_en": null,
-      "url": "https://mainichi.jp/english/articles/20261027/p2g/00m/0na/010000c",
-      "source_name": "The Mainichi",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T02:30:10Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "The US Air Force has banned BYD vehicles from its Okinawa base due to security concerns, creating a negative operational and reputational impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "The US Air Force has banned BYD vehicles from its Okinawa base due to security concerns, creating a negative operational and reputational impact.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BYD",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247092,9 +247091,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 576583,
-    "news_picked_today": 227,
-    "news_dropped_today": 3541
+    "news_seen_today": 639800,
+    "news_picked_today": 231,
+    "news_dropped_today": 3921
   },
   "book_momentum": {
     "live_count": 8,
