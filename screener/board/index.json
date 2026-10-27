@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T10:57:33Z",
+  "generated_at": "2026-10-27T11:07:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-314",
@@ -43,6 +43,55 @@
           "name": "SCE CM",
           "ticker": "00606",
           "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-347",
+      "headline": "Karamtara Engineering Limited: Karamtara Engineering Limited has informed the Exchange regarding a press release dated October 27, 2026, titled \"Karamtara Engineering Limited has informed the exchange regarding a press release \"Company Secures new orders of Rs. 1199 Cr. across Transmission and Renewable Energy Segments\"\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/9833315135_27102026160314_Intimation_of_Press_Release.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T10:33:36Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Karamtara Engineering secured new orders worth Rs. 1199 Cr.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Karamtara Engineering secured new orders worth Rs. 1199 Cr.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Karamtara Engineering Limited",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
@@ -1942,56 +1991,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-199",
-      "headline": "HSBC Announces $1 Billion Buyback After Profit Growth Misses",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-27/hsbc-1-billion-buyback-third-quarter-earnings-profit-growth-misses-estimates",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T04:08:04Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "HSBC announced a $1 billion share buyback alongside a profit growth miss.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "HSBC announced a $1 billion share buyback alongside a profit growth miss.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HSBC",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247399,9 +247398,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1520687,
-    "news_picked_today": 654,
-    "news_dropped_today": 15042
+    "news_seen_today": 1545427,
+    "news_picked_today": 665,
+    "news_dropped_today": 15151
   },
   "book_momentum": {
     "live_count": 8,
