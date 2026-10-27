@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-10-27T03:29:23Z",
+  "generated_at": "2026-10-27T03:31:20Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261027-171",
+      "headline": "VA Tech Wabag Limited: Bagging of Order/Contract - WABAG secures order from RIL to deliver Mega Desalination Plant and Remineralisation Plant at Jamnagar",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/VATECH_27102026082542_SI_RIL_27102026v2.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T02:56:07Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "VA Tech Wabag secured a major order from Reliance Industries (RIL) to deliver a mega desalination and remineralisation plant.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "VA Tech Wabag secured a major order from Reliance Industries (RIL) to deliver a mega desalination and remineralisation plant.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "VA Tech Wabag",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Reliance Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261027-119",
       "headline": "EUR: Schemes become Effective [price-sensitive]",
@@ -1529,6 +1583,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-167",
+      "headline": "Dalmia Bharat shares downgraded, price targets cut after Q2 results; Details here",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/dalmia-bharat-share-price-downgraded-target-cut-q2-results-details-here-20019924.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T03:12:48Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Dalmia Bharat received a downgrade and price target cuts following its Q2 results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Dalmia Bharat received a downgrade and price target cuts following its Q2 results.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "credit_rating_downgrade",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "credit_rating_downgrade"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dalmia Bharat",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-153",
       "headline": "GMO tells account holders to prepare for the worst as hackers threaten exposure",
       "headline_en": null,
@@ -1867,104 +1970,6 @@
           "name": "BYD",
           "ticker": null,
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-098",
-      "headline": "Cyberattack on Japan internet provider GMO threatens customer computers",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/spotlight/cybersecurity/cyberattack-on-japan-internet-provider-gmo-threatens-customer-computers",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T02:01:27Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Confirmed cyberattack on GMO Internet threatens customer computers, risking service disruption, data loss, customer churn, and regulatory action.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Confirmed cyberattack on GMO Internet threatens customer computers, risking service disruption, data loss, customer churn, and regulatory action.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GMO Internet Inc.",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-105",
-      "headline": "Microsoft to offer buyouts to 60,000 workers in latest cost cut",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/microsoft-to-offer-buyouts-to-60-000-workers-in-latest-cost-cut-11793066021811.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T01:55:19Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Microsoft offering voluntary buyouts to 60,000 workers affects operating cost structure and severance cash flows, a material restructuring announcement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Microsoft offering voluntary buyouts to 60,000 workers affects operating cost structure and severance cash flows, a material restructuring announcement.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 2,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Microsoft Corporation",
-          "ticker": "MSFT",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -247087,9 +247092,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 567428,
-    "news_picked_today": 221,
-    "news_dropped_today": 3499
+    "news_seen_today": 576583,
+    "news_picked_today": 227,
+    "news_dropped_today": 3541
   },
   "book_momentum": {
     "live_count": 8,
