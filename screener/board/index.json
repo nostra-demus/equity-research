@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T08:02:09Z",
+  "generated_at": "2026-10-27T08:18:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-243",
@@ -1639,6 +1639,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-251",
+      "headline": "RDN: Quarterly Activities/Appendix 5B Cash Flow Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RDN?key=2924-03153891-6A1351727",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T07:20:22Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "ASX price-sensitive quarterly activities and cash-flow report explicitly flagged by the exchange as material, signalling operational or cash-position developments material to trading.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "ASX price-sensitive quarterly activities and cash-flow report explicitly flagged by the exchange as material, signalling operational or cash-position developments material to trading.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RDN",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-244",
       "headline": "Listing of Equity Shares of Jio Platforms Limited",
       "headline_en": null,
@@ -1924,55 +1974,6 @@
       "companies": [
         {
           "name": "SKY GOLD AND DIAMONDS LIMITED",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-236",
-      "headline": "Orkla India Limited: Orkla India Limited has informed the Exchange regarding Resignation of Mr Atle Vidar Nagel Johansen as Chairman of the company w.e.f. October 26, 2026.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/ORKLA2025_27102026115316_SIGNEDSEIntimationAtle.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-27T06:24:07Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Chairman Atle Vidar Nagel Johansen resigned from Orkla India Limited.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Chairman Atle Vidar Nagel Johansen resigned from Orkla India Limited.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "executive_exit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Orkla India Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -247313,9 +247314,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1097897,
-    "news_picked_today": 404,
-    "news_dropped_today": 11836
+    "news_seen_today": 1157721,
+    "news_picked_today": 410,
+    "news_dropped_today": 12070
   },
   "book_momentum": {
     "live_count": 8,
