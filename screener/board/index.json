@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T17:33:16Z",
+  "generated_at": "2026-10-27T17:42:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-553",
@@ -1584,6 +1584,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-598",
+      "headline": "etisalat delivers record 9M 2026 results as consolidated net profit surges 46 percent to $4.68 billion",
+      "headline_en": null,
+      "url": "https://economymiddleeast.com/news/etisalat-delivers-record-9m-2026-results-as-consolidated-net-profit-surges-46-percent-to-4-68-billion/?utm_source=rss&utm_medium=rss&utm_campaign=etisalat-delivers-record-9m-2026-results-as-consolidated-net-profit-surges-46-percent-to-4-68-billion",
+      "source_name": "Economy Middle East",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T16:23:28Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Etisalat reported a significant 46% surge in net profit to $4.68 billion for 9M 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Etisalat reported a significant 46% surge in net profit to $4.68 billion for 9M 2026.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "etisalat",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-578",
       "headline": "AAR Corp. Details Pending $4.0B Acquisition of Controlling Interest in MRO Holdings",
       "headline_en": null,
@@ -1929,56 +1978,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-545",
-      "headline": "Poundland faces insolvency as thousands of jobs under threat",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/uk/home-news/poundland-potential-collapse-insolvency-news-b3074161.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T13:33:05Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Poundland faces potential insolvency and significant job losses.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Poundland faces potential insolvency and significant job losses.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Poundland",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -246595,9 +246594,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2884531,
-    "news_picked_today": 1154,
-    "news_dropped_today": 20326
+    "news_seen_today": 2909167,
+    "news_picked_today": 1173,
+    "news_dropped_today": 20427
   },
   "book_momentum": {
     "live_count": 8,
