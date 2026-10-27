@@ -1,6 +1,153 @@
 {
-  "generated_at": "2026-10-27T12:31:28Z",
+  "generated_at": "2026-10-27T12:39:03Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261027-440",
+      "headline": "Bullseye Financial Ltd enters administration",
+      "headline_en": null,
+      "url": "https://www.fca.org.uk/news/news-stories/bullseye-financial-ltd-enters-administration",
+      "source_name": "UK Financial Conduct Authority (FCA) — News",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-27T12:22:02Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Bullseye Financial Ltd has entered administration.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bullseye Financial Ltd has entered administration.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bullseye Financial",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-443",
+      "headline": "Premier Limited: Premier Limited has informed the Exchange about Post-Facto Intimation of the Twenty-First Meeting of Committee of Creditors ( CoC ) of Premier Limited, the Corporate Debtor was scheduled on Thursday, December 11th, 2025 at 11:00 A.M., rescheduled and duly held on Friday, December 12th, 2025 at 12:00 P.M.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PREMIER_27102026174422_Premier_-_Outcome_of_21st_CoC_Meeting__1_.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T12:15:56Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "The company is undergoing a Committee of Creditors process, indicating severe financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is undergoing a Committee of Creditors process, indicating severe financial distress.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Premier Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-437",
+      "headline": "Maral Overseas Limited: Maral Overseas Limited has informed the Exchange about In-principle approval of capital expenditure plan of up to Rs. 180 crore. The proposed capex plan is intended for upgradation, modernisation and capacity enhancement at the Company s Sarovar Plant, encompassing the Spinning, Fabric Printing and Engineering Divisions, including conversion of existing unit into mélange unit. The implementation of the capex plan is envisaged till the year 2030, subject to detailed projec",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MARALOVER_27102026172655_Stxintimationresultsandoutcomeofboardmeeting.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T11:57:15Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Maral Overseas announced a capital expenditure plan of ₹180 crore for plant modernization and capacity enhancement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Maral Overseas announced a capital expenditure plan of ₹180 crore for plant modernization and capacity enhancement.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Maral Overseas",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261027-411",
       "headline": "Maral Overseas Limited: Maral Overseas Limited has informed the Exchange regarding Outcome of Board Meeting held on October 27, 2026.in continuation to disclosure made on 7th May 2026 and 30th July 2026 regarding acquisition of 26% equity stake in Asawata Energy Private Limited for an amount of Rs. 2.60 lakh, for setting up 15 MW Solar Power Plant at Sarovar Plant of the Company, under Group Captive Model of the Madhya Pradesh Electricity Regulatory Commission (Verification of Captive Generating",
@@ -242,6 +389,55 @@
           "name": "GP Petroleums Limited",
           "ticker": "532543",
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-454",
+      "headline": "CHINA SCE GROUP (01966): JOINT ANNOUNCEMENT VERY SUBSTANTIAL DISPOSAL IN RELATION TO DISPOSAL OF ENTIRE ISSUED SHARE CAPITAL OF SUBSIDIARIES HOLDING COMMERCIAL PROPERTIES TO SCE CM GROUP",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700868.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T10:42:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "China SCE Group announced a very substantial disposal of commercial property subsidiaries to SCE CM Group.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "China SCE Group announced a very substantial disposal of commercial property subsidiaries to SCE CM Group.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China SCE Group",
+          "ticker": "01966",
+          "listing_country": "CN"
         }
       ],
       "size_bucket": "small",
@@ -1089,6 +1285,153 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-448",
+      "headline": "Tata Capital Q2 Results: Net profit jumps 51% as loan book crosses ₹3 trillion; AUM grows 26%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/tata-capital-share-price-q2-results-net-profit-jumps-51-as-loan-book-crosses-rs-3-trillion-aum-grows-26-20020513.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T12:03:47Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Tata Capital reported a 51% jump in net profit and AUM growth of 26%, with a loan book exceeding 3 trillion rupees.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Capital reported a 51% jump in net profit and AUM growth of 26%, with a loan book exceeding 3 trillion rupees.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Capital",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-446",
+      "headline": "Raymond Q2 Results: Net profit jumps 130% YoY to Rs 32 crore, revenue rises 24%",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/raymond-q2-results-net-profit-jumps-130-yoy-to-rs-32-crore-revenue-rises-24/articleshow/135233071.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T11:49:50Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Raymond reported a 130% YoY jump in net profit to Rs 32 crore and a 24% revenue increase.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Raymond reported a 130% YoY jump in net profit to Rs 32 crore and a 24% revenue increase.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Raymond",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-435",
+      "headline": "Tata Capital Q2 Results: Net Profit Jumps 64% To ₹1,832 Crore As Revenue Rises 21%",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/tata-capital-q2-results-net-profit-jumps-64-to-1832-crore-as-revenue-rises-21",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T11:45:27Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Tata Capital reported a 64% increase in net profit to ₹1,832 crore and a 21% rise in revenue for Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Capital reported a 64% increase in net profit to ₹1,832 crore and a 21% rise in revenue for Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Capital",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-425",
       "headline": "Novartis AG Reports Q3 2026 Financial Results and Raises Full-Year Core Operating Income Guidance",
       "headline_en": null,
@@ -1633,356 +1976,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-393",
-      "headline": "Maruti Suzuki Q2 Results: Profit Falls 27%, Margin Contracts Sharply",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/maruti-suzuki-q2-results-profit-falls-27-margin-contracts-sharply-12242516#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T10:15:35Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Maruti Suzuki reported a 27% decline in Q2 profit alongside a sharp contraction in margins.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Maruti Suzuki reported a 27% decline in Q2 profit alongside a sharp contraction in margins.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Maruti Suzuki",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-331",
-      "headline": "Maruti Suzuki Q2 Results: Profit falls 26% YoY to Rs 2,466 crore, but revenue rises 26%",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/maruti-suzuki-q2-results-profit-falls-26-yoy-to-rs-2466-crore-but-revenue-rises-26/articleshow/135230515.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T10:13:00Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Maruti Suzuki reported a 26% profit decline to Rs 2,466 crore despite a 26% revenue increase.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Maruti Suzuki reported a 26% profit decline to Rs 2,466 crore despite a 26% revenue increase.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Maruti Suzuki",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-394",
-      "headline": "HSBC Softens Revenue Blow With $1B Stock Buyback: Stock Tumbles Over 6%",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/hsbc-softens-revenue-blow-with-1b-stock-buyback-stock-tumbles-over-6-12242481#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T10:10:47Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "HSBC reported revenue headwinds and a $1 billion stock buyback, with shares falling over 6%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "HSBC reported revenue headwinds and a $1 billion stock buyback, with shares falling over 6%.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HSBC",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-308",
-      "headline": "Mazagon Dock Q2 results: Shares slump 10% after revenue declines; Higher provisions drags profit",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/mazagon-dock-shipbuilders-q2-results-revenue-fall-provisions-impact-on-profit-share-price-fall-20020370.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T09:53:33Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Mazagon Dock reported a 54% decline in profit and revenue contraction, leading to a 10% share price drop.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Mazagon Dock reported a 54% decline in profit and revenue contraction, leading to a 10% share price drop.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mazagon Dock Shipbuilders",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-311",
-      "headline": "Mazagon Dock Q2 Results: Profit Falls 54%, Margins Contract Sharply To 8.1%",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/mazagon-dock-q2-results-profit-falls-54-announces-interim-dividend-check-record-date-12242241#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T09:36:26Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Mazagon Dock reported a 54% profit decline and significant margin contraction to 8.1%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Mazagon Dock reported a 54% profit decline and significant margin contraction to 8.1%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mazagon Dock Shipbuilders",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-298",
-      "headline": "Ares Private-Credit Fund to Buy Competitor From Apollo",
-      "headline_en": null,
-      "url": "https://www.wsj.com/finance/investing/ares-private-credit-fund-to-buy-competitor-from-apollo-daecb67c?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T09:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Ares Management is acquiring a private-credit fund from Apollo Global Management.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ares Management is acquiring a private-credit fund from Apollo Global Management.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ares Management",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Apollo Global Management",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-285",
-      "headline": "Radico Khaitan Q2 profit jumps 65%; Full-year premium volume growth guidance raised to 30%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/radico-khaitan-q2-profit-jumps-65-pc-full-year-premium-volume-growth-guidance-raised-20020312.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T09:08:56Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Radico Khaitan's Q2 profit jumped 65% and its full-year premium volume growth guidance was raised to 30%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Radico Khaitan's Q2 profit jumped 65% and its full-year premium volume growth guidance was raised to 30%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Radico Khaitan",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -205711,78 +205704,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-19c8572b0c99",
-      "idea_version": "IDEAV-ff27778e9ddf4622",
-      "idea_version_started_at": "2026-10-26T01:55:29Z",
-      "ticker": "BSL",
-      "company": "BlueScope Steel",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "BlueScope Steel benefits from increased US profit margins driven by the implementation of protective tariffs on imported steel.",
-      "why_now": "The company is currently realizing the financial impact of the tariff environment as reported in recent earnings updates.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3084701615e5"
-      ],
-      "primary_source_event_id": "EVT-3084701615e5",
-      "source_headlines": [
-        "BlueScope Steel rides Trump tariff train to bumper US profits"
-      ],
-      "source_headline": "BlueScope Steel rides Trump tariff train to bumper US profits",
-      "source_url": "https://www.afr.com/companies/manufacturing/bluescope-steel-rides-trump-tariff-train-to-bumper-us-profits-20261026-p618jk?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 88,
-      "newest_source_at": "2026-10-26T00:37:36Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T01:55:29Z",
-      "updated_at": "2026-10-26T01:55:29Z",
-      "decay_at": "2026-10-27T12:37:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d20df5cd7aab",
       "idea_version": "IDEAV-93e031c97a49d1e4",
       "idea_version_started_at": "2026-10-25T04:38:42Z",
@@ -209429,6 +209350,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-19c8572b0c99",
+      "idea_version": "IDEAV-ff27778e9ddf4622",
+      "idea_version_started_at": "2026-10-26T01:55:29Z",
+      "ticker": "BSL",
+      "company": "BlueScope Steel",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "BlueScope Steel benefits from increased US profit margins driven by the implementation of protective tariffs on imported steel.",
+      "why_now": "The company is currently realizing the financial impact of the tariff environment as reported in recent earnings updates.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3084701615e5"
+      ],
+      "primary_source_event_id": "EVT-3084701615e5",
+      "source_headlines": [
+        "BlueScope Steel rides Trump tariff train to bumper US profits"
+      ],
+      "source_headline": "BlueScope Steel rides Trump tariff train to bumper US profits",
+      "source_url": "https://www.afr.com/companies/manufacturing/bluescope-steel-rides-trump-tariff-train-to-bumper-us-profits-20261026-p618jk?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 88,
+      "newest_source_at": "2026-10-26T00:37:36Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-26T01:55:29Z",
+      "updated_at": "2026-10-26T01:55:29Z",
+      "decay_at": "2026-10-27T12:37:36Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-1b994a384f0c",
       "idea_version": "IDEAV-16a9adb22aa66e25",
       "idea_version_started_at": "2026-10-26T01:09:27Z",
@@ -209944,14 +209937,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 558,
+    "total_count": 559,
     "shown_count": 500,
-    "hidden_count": 58,
+    "hidden_count": 59,
     "side_counts": {
       "long": {
-        "total_count": 285,
+        "total_count": 286,
         "shown_count": 250,
-        "hidden_count": 35
+        "hidden_count": 36
       },
       "short": {
         "total_count": 273,
@@ -209975,6 +209968,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-19c8572b0c99",
+        "idea_version": "IDEAV-ff27778e9ddf4622",
+        "idea_version_started_at": "2026-10-26T01:55:29Z",
+        "ticker": "BSL",
+        "company": "BlueScope Steel",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "BlueScope Steel benefits from increased US profit margins driven by the implementation of protective tariffs on imported steel.",
+        "why_now": "The company is currently realizing the financial impact of the tariff environment as reported in recent earnings updates.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3084701615e5"
+        ],
+        "primary_source_event_id": "EVT-3084701615e5",
+        "source_headlines": [
+          "BlueScope Steel rides Trump tariff train to bumper US profits"
+        ],
+        "source_headline": "BlueScope Steel rides Trump tariff train to bumper US profits",
+        "source_url": "https://www.afr.com/companies/manufacturing/bluescope-steel-rides-trump-tariff-train-to-bumper-us-profits-20261026-p618jk?ref=rss&utm_medium=rss&utm_source=rss_feed",
+        "source_name": "Australian Financial Review",
+        "materiality_max": 88,
+        "newest_source_at": "2026-10-26T00:37:36Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-26T01:55:29Z",
+        "updated_at": "2026-10-26T01:55:29Z",
+        "decay_at": "2026-10-27T12:37:36Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-27T12:37:36Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ba24132911c9",
         "idea_version": "IDEAV-3e2e73ac1214c697",
@@ -238489,79 +238557,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-4b467da5d4b8",
-        "idea_version": "IDEAV-0769238bbac11fe4",
-        "idea_version_started_at": "2026-10-12T02:43:21Z",
-        "ticker": "TSM",
-        "company": "Taiwan Semiconductor Manufacturing Company",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "TSMC is capturing significant margin expansion from the sustained surge in demand for AI-specific high-performance computing chips.",
-        "why_now": "The company is expected to report its sixth consecutive quarter of record profits, with the earnings release imminent.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9d597305f0de"
-        ],
-        "primary_source_event_id": "EVT-9d597305f0de",
-        "source_headlines": [
-          "TSMC expected to report sixth straight quarter of record profit thanks to AI boom"
-        ],
-        "source_headline": "TSMC expected to report sixth straight quarter of record profit thanks to AI boom",
-        "source_url": "https://www.livemint.com/companies/tsmc-expected-to-report-sixth-straight-quarter-of-record-profit-thanks-to-ai-boom-11791771103421.html",
-        "source_name": "Mint",
-        "materiality_max": 93,
-        "newest_source_at": "2026-10-12T02:11:43Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-12T02:43:21Z",
-        "updated_at": "2026-10-12T02:43:21Z",
-        "decay_at": "2026-10-13T14:11:43Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-15T02:47:27Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-6b3b74b3573e",
         "idea_version": "IDEAV-2c83a373078e1ddc",
         "idea_version_started_at": "2026-10-12T01:12:56Z",
@@ -247228,7 +247223,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1962,
-    "live_count": 54,
+    "live_count": 53,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -247247,9 +247242,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1836785,
-    "news_picked_today": 856,
-    "news_dropped_today": 15824
+    "news_seen_today": 1848207,
+    "news_picked_today": 877,
+    "news_dropped_today": 15947
   },
   "book_momentum": {
     "live_count": 8,
