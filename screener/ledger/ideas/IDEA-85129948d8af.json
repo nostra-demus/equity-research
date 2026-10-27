@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-85129948d8af",
+  "idea_version": "IDEAV-63cd6e976e3b57ff",
+  "idea_version_started_at": "2026-10-27T16:21:10Z",
+  "ticker": "NVS",
+  "company": "Novartis",
+  "exchange": "NYSE",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "A $1.9 billion writedown on a key drug asset indicates poor capital allocation and potential future earnings pressure following the Avidity acquisition.",
+  "why_now": "The writedown was reported on October 27, 2026.",
+  "conviction": 65,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 60,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 19,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "priced-in risk",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "priced",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-49958d316f65"
+  ],
+  "primary_source_event_id": "EVT-49958d316f65",
+  "source_headlines": [
+    "Novartis takes $1.9bn writedown on key drug after blockbuster Avidity acquisition"
+  ],
+  "source_headline": "Novartis takes $1.9bn writedown on key drug after blockbuster Avidity acquisition",
+  "source_url": "https://www.ft.com/content/f7651365-f19c-40fd-87de-fcdb8a8a7104?syn-25a6b1a6=1",
+  "source_name": "Financial Times",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-27T15:15:31Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-27T16:21:10Z",
+  "updated_at": "2026-10-27T16:21:10Z",
+  "decay_at": "2026-10-29T03:15:31Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
