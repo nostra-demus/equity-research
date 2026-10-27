@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-27T00:34:58Z",
+  "generated_at": "2026-10-27T00:44:13Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261027-034",
+      "headline": "JIANGSU EXPRESS (00177): PROGRESS ANNOUNCEMENT - DISCLOSEABLE AND CONNECTED TRANSACTION - CASH ACQUISITION OF 100% EQUITY INTERESTS IN SUXICHANG SOUTH EXPRESSWAY COMPANY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700044.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T23:48:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Jiangsu Expressway is acquiring 100% equity in Suxichang South Expressway Company, representing a significant expansion of its infrastructure assets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jiangsu Expressway is acquiring 100% equity in Suxichang South Expressway Company, representing a significant expansion of its infrastructure assets.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jiangsu Expressway",
+          "ticker": "00177",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261027-021",
       "headline": "25-NSE - Weave Communications, Inc. (0001609151) (Subject)",
@@ -149,6 +198,251 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-050",
+      "headline": "SANDS CHINA LTD SANDS N2808 SANDS N2703A SANDS N2903A SANDS N3108A SANDS N2808B SANDS N3006 SANDS N3006A SANDS N2703 SANDS N2903 SANDS N3108 (01928 05142 05413 05414 05415 05733 40247 40585 40852 40853 40854): Inside Information - Proposed Issue of Senior Notes",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700040.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T23:36:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Proposed senior notes issuance disclosed as Inside Information; amount and pricing terms pending announcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Proposed senior notes issuance disclosed as Inside Information; amount and pricing terms pending announcement.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 8,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sands China Ltd",
+          "ticker": "01928",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-049",
+      "headline": "BFL: BSP Third Quarter Trading Update 2026 [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BFL?key=2924-03153637-2A1706334",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T23:50:16Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Third quarter trading update marked as price-sensitive by the issuer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Third quarter trading update marked as price-sensitive by the issuer.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BSP Financial Group",
+          "ticker": "BFL",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-048",
+      "headline": "PRB: Quarterly Activities/Appendix 5B Cash Flow Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PRB?key=2924-03153640-6A1351621",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T23:54:56Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Quarterly cash flow report marked as price-sensitive by the issuer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Quarterly cash flow report marked as price-sensitive by the issuer.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Province Resources",
+          "ticker": "PRB",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-045",
+      "headline": "SBP GROUP (01177): VOLUNTARY ANNOUNCEMENT - TQ-A3334 \"TLR7 AGONIST\" AND TQA3605 \"CORE PROTEIN ALLOSTERIC MODULATOR\" GRANTED BREAKTHROUGH THERAPY DESIGNATION BY CDE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700048.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T23:54:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "TQ-A3334 (TLR7 agonist) and TQ-A3605 (core protein allosteric modulator) granted Breakthrough Therapy Designation by China's CDE; accelerates development timelines and reduces regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "TQ-A3334 (TLR7 agonist) and TQ-A3605 (core protein allosteric modulator) granted Breakthrough Therapy Designation by China's CDE; accelerates development timelines and reduces regulatory risk.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SBP GROUP",
+          "ticker": "01177",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-055",
+      "headline": "BJ ENERGY INTL (00686): VERY SUBSTANTIAL DISPOSAL IN RELATION TO THE PROPOSED ISSUANCE OF THE ABN AND DISPOSAL OF EQUITY INTERESTS IN AND CREDITOR'S RIGHTS AGAINST SUBSIDIARIES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700009.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T22:33:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Very substantial disposal of subsidiaries' equity interests and creditor's rights plus proposed ABN issuance indicates significant capital restructuring; very substantial is a regulatory-threshold classification (typically ≥25% of asset test) but direction of impact unclear witho",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Very substantial disposal of subsidiaries' equity interests and creditor's rights plus proposed ABN issuance indicates significant capital restructuring; very substantial is a regulatory-threshold classification (typically ≥25% of asset test) but direction of impact unclear witho",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BJ ENERGY INTL",
+          "ticker": "00686",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-014",
       "headline": "25-NSE - ETF Opportunities Trust (0001771146) (Subject)",
       "headline_en": null,
@@ -193,6 +487,104 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-042",
+      "headline": "INSILICO (03696): VOLUNTARY ANNOUNCEMENT INSILICO MEDICINE REPORTS PRELIMINARY POSITIVE FIRST-IN-HUMAN CLINICAL TRIAL DATA FOR ISM6331 DESIGNED USING GENERATIVE AI IN MESOTHELIOMA AND OTHER SOLID TUMORS AT ESMO 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700060.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T00:15:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Preliminary positive Phase 1 first-in-human trial data for ISM6331 (mesothelioma/solid tumors) announced at ESMO 2026; for a biotech, early clinical results affect regulatory risk and analyst expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Preliminary positive Phase 1 first-in-human trial data for ISM6331 (mesothelioma/solid tumors) announced at ESMO 2026; for a biotech, early clinical results affect regulatory risk and analyst expectations.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 8,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Insilico Medicine",
+          "ticker": "03696",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-043",
+      "headline": "424B5 - TEXAS INSTRUMENTS INC (0000097476) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/97476/000119312526431173/0001193125-26-431173-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B5 (Shelf Offering Final Prospectus)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-26T13:03:21Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Texas Instruments filed SEC 424B5 final prospectus executing shelf offering; confirmed capital action affecting share count and structure, but instrument type (equity vs. debt) and net direction unknown from headline alone.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Texas Instruments filed SEC 424B5 final prospectus executing shelf offering; confirmed capital action affecting share count and structure, but instrument type (equity vs. debt) and net direction unknown from headline alone.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Texas Instruments Inc",
+          "ticker": "TXN",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -279,6 +671,104 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-056",
+      "headline": "FDA 510(k) clearance — Hass Corp.: Amber Arte",
+      "headline_en": null,
+      "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262523",
+      "source_name": "U.S. Food & Drug Administration (Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-16T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "FDA 510(k) clearance allows Hass Corp to market its Amber Arte product in the US, representing a new revenue opportunity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "FDA 510(k) clearance allows Hass Corp to market its Amber Arte product in the US, representing a new revenue opportunity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hass Corp.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-036",
+      "headline": "CHINAGOLDINTL (02099): China Gold International Resources Reports Operations at the Jiama Mine Unaffected by the Earthquake and Reaffirms Annual Production Guidance",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700042.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T23:38:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "China Gold International confirmed that its Jiama mine operations remain unaffected by a recent earthquake, mitigating potential supply risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "China Gold International confirmed that its Jiama mine operations remain unaffected by a recent earthquake, mitigating potential supply risk.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Gold International Resources",
+          "ticker": "02099",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -574,6 +1064,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-053",
+      "headline": "OTPBANK N3612 OTPBANK N3109 OTPBANK N2908-R (40506 40739 85157): OTP Bank Nyrt. announces the listing of its EMTN Programme on the Singapore Exchange",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700025.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T23:17:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "EMTN programme listed on Singapore Exchange; expands bank's debt-capital-market access channels.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "EMTN programme listed on Singapore Exchange; expands bank's debt-capital-market access channels.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 42,
+      "rank_factors": {
+        "materiality": 42,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OTP Bank Nyrt.",
+          "ticker": "OTPBANK",
+          "listing_country": "HU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-028",
       "headline": "424B5 - SOUTHWEST AIRLINES CO (0000092380) (Filer)",
       "headline_en": null,
@@ -667,6 +1206,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-039",
+      "headline": "Times Car Operators to Face Damages Lawsuit over Data Breach",
+      "headline_en": null,
+      "url": "https://www.nippon.com/en/news/yjj2026102600861/",
+      "source_name": "nippon.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T00:10:56Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Times Car operators face a lawsuit regarding a data breach.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Times Car operators face a lawsuit regarding a data breach.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Times Car",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -819,6 +1407,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-046",
+      "headline": "Aequs Limited: The Nomination and Remuneration Committee ('NRC') of the Board of Directors of Aequs Limited ('Company') at its meeting held on October 26, 2026 has approved the grant of 2,00,000 (Two Lakh) Employee Stock Options ( Stock Options ) under the Aequs Employee Stock Option Plan 2025",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/AEQUSLIMITED_26102026183222_Intimation_ESOP_Grant.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T13:02:45Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Aequs Limited approved grant of 200,000 employee stock options under ESOP plan on 26 Oct 2026; routine equity-dilution governance announcement with no disclosed vesting, strike, or beneficiary scope.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "Aequs Limited approved grant of 200,000 employee stock options under ESOP plan on 26 Oct 2026; routine equity-dilution governance announcement with no disclosed vesting, strike, or beneficiary scope.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 48,
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aequs Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-024",
       "headline": "TRAI submits its Recommendations to DoT On The Reference made On The Spectrum Charging For 3G Services- Moves from spectrum charges linked with revenue to Flat Rate linked to market based price",
       "headline_en": null,
@@ -857,6 +1494,55 @@
       ],
       "issuer_linkage": "sector",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-054",
+      "headline": "BAIWANG CO (06657): ISSUE OF NEW H SHARES TO A SPECIFIC INVESTOR UNDER GENERAL MANDATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700013.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T22:35:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Share issuance to a specific investor under general mandate disclosed without price or size, making it impossible to assess impact on capital structure or dilution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Share issuance to a specific investor under general mandate disclosed without price or size, making it impossible to assess impact on capital structure or dilution.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BAIWANG CO",
+          "ticker": "06657",
+          "listing_country": "HK"
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1096,6 +1782,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-047",
+      "headline": "TTM: Investor Presentation - IMARC",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TTM?key=2924-03153645-6A1351623",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T00:03:21Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Routine investor presentation for IMARC conference.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Routine investor presentation for IMARC conference.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Titan Minerals",
+          "ticker": "TTM",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-015",
       "headline": "Enhanced Surveillance Measure (ESM)",
       "headline_en": null,
@@ -1176,386 +1911,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-017",
-      "headline": "Applicability of Short Term Additional Surveillance Measure (ST-ASM)",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261026-32/20261026-32.pdf",
-      "source_name": "BSE India — Notices (RSS)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-26T13:40:31Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Routine exchange surveillance notice for market integrity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 56,
-      "triage_reason": "Routine exchange surveillance notice for market integrity.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-018",
-      "headline": "Measure in respect of companies with high Promoter as well as nonPromoter ‘Encumbrance’ as per Reg. 28(3) of SEBI (SAST) Regulation 2011.",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261026-31/20261026-31.pdf",
-      "source_name": "BSE India — Notices (RSS)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-26T13:40:14Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Routine regulatory notice regarding promoter share encumbrance disclosure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 56,
-      "triage_reason": "Routine regulatory notice regarding promoter share encumbrance disclosure.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-033",
-      "headline": "Bajel Projects Limited: Bajel Projects Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/BAJEL_26102026183438_IntimationunderReg30OrderTataPowerDharavifinal.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-26T13:04:48Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Bajel Projects announced receipt of orders/contracts—a revenue-moving event for a construction company—but headline provides no quantification of value or scope, leaving materiality indeterminate without the actual filing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 56,
-      "triage_reason": "Bajel Projects announced receipt of orders/contracts—a revenue-moving event for a construction company—but headline provides no quantification of value or scope, leaving materiality indeterminate without the actual filing.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 39,
-      "rank_factors": {
-        "materiality": 39,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bajel Projects Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-019",
-      "headline": "424B2 - ROYAL BANK OF CANADA (0001000275) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1000275/000095010326016139/0000950103-26-016139-index.htm",
-      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-26T13:39:31Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "424B2 prospectus filed by Royal Bank of Canada; no offering size, security type, or disclosed capital-structure impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "424B2 prospectus filed by Royal Bank of Canada; no offering size, security type, or disclosed capital-structure impact.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Royal Bank of Canada",
-          "ticker": "RY",
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-020",
-      "headline": "FWP - JPMorgan Chase Financial Co. LLC (0001665650) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1665650/000121390026112317/0001213900-26-112317-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-26T13:37:14Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "FWP (Free Writing Prospectus) for JPMorgan Chase Financial financing subsidiary; no offering size, security type, or disclosed capital-structure impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 48,
-      "triage_reason": "FWP (Free Writing Prospectus) for JPMorgan Chase Financial financing subsidiary; no offering size, security type, or disclosed capital-structure impact.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JPMorgan Chase & Co.",
-          "ticker": "JPM",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-030",
-      "headline": "Ravinder Heights Limited: Ravinder Heights Limited has informed the Exchange regarding Appointment of Mr. Vineet Kumar Shrivastava as Independent Director of the company w.e.f. October 26, 2026.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/RVHL_26102026183928_Regulation_30_Change_in_Management_Signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-26T13:10:29Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Independent director appointment effective 26 October 2026 is a routine governance filing with no evident operational, strategic, or credibility change.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 48,
-      "triage_reason": "Independent director appointment effective 26 October 2026 is a routine governance filing with no evident operational, strategic, or credibility change.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 28,
-      "rank_factors": {
-        "materiality": 28,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ravinder Heights Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-026",
-      "headline": "424B2 - JPMORGAN CHASE & CO (0000019617) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/19617/000121390026112309/0001213900-26-112309-index.htm",
-      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-26T13:14:56Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "JPMorgan Chase files 424B2 prospectus for debt or equity shelf takedown; routine and recurring capital action for a mega-cap bank.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 46,
-      "triage_reason": "JPMorgan Chase files 424B2 prospectus for debt or equity shelf takedown; routine and recurring capital action for a mega-cap bank.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 28,
-      "rank_factors": {
-        "materiality": 28,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JPMorgan Chase & Co",
-          "ticker": "JPM",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-013",
-      "headline": "Rights Entitlements of SHIVAM AUTOTECH LIMITED",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261026-35/20261026-35.pdf",
-      "source_name": "BSE India — Notices (RSS)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-26T13:49:01Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Rights-entitlements notice for Shivam Autotech Limited; capital structure action could materially affect dilution, but headline provides no ratio, amount, pricing, or terms.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 43,
-      "triage_reason": "Rights-entitlements notice for Shivam Autotech Limited; capital structure action could materially affect dilution, but headline provides no ratio, amount, pricing, or terms.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 27,
-      "rank_factors": {
-        "materiality": 27,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shivam Autotech Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -246385,7 +246740,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4120,
+    "inbox_unconsumed": 4127,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -246394,9 +246749,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 78937,
-    "news_picked_today": 33,
-    "news_dropped_today": 855
+    "news_seen_today": 90127,
+    "news_picked_today": 56,
+    "news_dropped_today": 1048
   },
   "book_momentum": {
     "live_count": 8,
