@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T01:59:58Z",
+  "generated_at": "2026-10-27T02:09:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-034",
@@ -350,6 +350,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-089",
+      "headline": "ATR: Donald Project debt conditionally approved [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ATR?key=2924-03153701-2A1706357",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T01:45:41Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Conditional debt approval for Donald Project announced and marked price-sensitive by ASX, indicating financing capacity for project capex.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Conditional debt approval for Donald Project announced and marked price-sensitive by ASX, indicating financing capacity for project capex.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ATR",
+          "ticker": "ATR",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-049",
       "headline": "BFL: BSP Third Quarter Trading Update 2026 [price-sensitive]",
       "headline_en": null,
@@ -546,6 +595,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-100",
+      "headline": "Japan's Subaru to go EV-only in Europe by 2028",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/automobiles/japan-s-subaru-to-go-ev-only-in-europe-by-2028",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T02:01:27Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Subaru commits to EV-only sales in Europe by 2028, a major geographic strategy shift implying significant capital redeployment and stranded-asset risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Subaru commits to EV-only sales in Europe by 2028, a major geographic strategy shift implying significant capital redeployment and stranded-asset risk.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 74,
+      "rank_factors": {
+        "materiality": 74,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Subaru Corporation",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-045",
       "headline": "SBP GROUP (01177): VOLUNTARY ANNOUNCEMENT - TQ-A3334 \"TLR7 AGONIST\" AND TQA3605 \"CORE PROTEIN ALLOSTERIC MODULATOR\" GRANTED BREAKTHROUGH THERAPY DESIGNATION BY CDE",
       "headline_en": null,
@@ -590,6 +688,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-104",
+      "headline": "EV DYNAMICS (00476): QUARTERLY UPDATE ON IMPLEMENTATION OF ACTION PLAN TO RESOLVE DISCLAIMER OF OPINION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1026/2026102601049.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T12:03:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "EV Dynamics (00476) reports quarterly update on action plan to resolve auditor disclaimer of opinion, a critical accounting red flag that blocks rating per doctrine §13.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "EV Dynamics (00476) reports quarterly update on action plan to resolve auditor disclaimer of opinion, a critical accounting red flag that blocks rating per doctrine §13.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EV Dynamics",
+          "ticker": "00476",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -742,6 +889,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-094",
+      "headline": "SoftBank vehicle sells 3.58 crore Ola Electric rights entitlements amid ₹1,000-crore issue",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/money-and-banking/softbank-vehicle-sells-358-crore-ola-electric-rights-entitlements-amid-1000-crore-issue/article71628154.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T01:30:11Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "SoftBank is selling 3.58 crore rights entitlements in Ola Electric's 1,000-crore issue, indicating a significant reduction in exposure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "SoftBank is selling 3.58 crore rights entitlements in Ola Electric's 1,000-crore issue, indicating a significant reduction in exposure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ola Electric",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-043",
       "headline": "424B5 - TEXAS INSTRUMENTS INC (0000097476) (Filer)",
       "headline_en": null,
@@ -889,6 +1085,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-098",
+      "headline": "Cyberattack on Japan internet provider GMO threatens customer computers",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/spotlight/cybersecurity/cyberattack-on-japan-internet-provider-gmo-threatens-customer-computers",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T02:01:27Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Confirmed cyberattack on GMO Internet threatens customer computers, risking service disruption, data loss, customer churn, and regulatory action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Confirmed cyberattack on GMO Internet threatens customer computers, risking service disruption, data loss, customer churn, and regulatory action.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GMO Internet Inc.",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-096",
+      "headline": "Noel objects to Tata Sons board minutes, RoC filing over N Chandrasekaran's reappointment",
+      "headline_en": null,
+      "url": "https://www.hindustantimes.com/business/noel-objects-to-tata-sons-board-minutes-roc-filing-over-n-chandrasekarans-reappointment-101793058296253.html",
+      "source_name": "Hindustan Times (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T01:14:12Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "RoC filing of objection to Tata Sons chairman N. Chandrasekaran's reappointment raises governance risk and management-succession uncertainty at India's largest conglomerate.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "RoC filing of objection to Tata Sons chairman N. Chandrasekaran's reappointment raises governance risk and management-succession uncertainty at India's largest conglomerate.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 52,
+      "rank_factors": {
+        "materiality": 52,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 18,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-063",
       "headline": "Microsoft offers buyouts to 60,000 employees as AI spending mounts",
       "headline_en": null,
@@ -1019,6 +1313,56 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-102",
+      "headline": "Turaco Gold hunts for $105m to bankroll M&A bet",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/turaco-gold-hunts-for-105m-to-bankroll-m-and-a-bet-20261027-p618xa?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T01:34:25Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Turaco Gold seeks $105m capital to fund mergers and acquisitions, signaling growth strategy shift but deal targets and values undefined.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Turaco Gold seeks $105m capital to fund mergers and acquisitions, signaling growth strategy shift but deal targets and values undefined.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Turaco Gold",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1608,350 +1952,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-005",
-      "headline": "SCHEDULE 13D - SenesTech, Inc. (0001680378) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1680378/000216182226000002/0002161822-26-000002-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-26T18:27:45Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "A Schedule 13D filing was submitted regarding SenesTech, Inc., indicating a significant ownership stake.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "A Schedule 13D filing was submitted regarding SenesTech, Inc., indicating a significant ownership stake.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SenesTech, Inc.",
-          "ticker": "SNES",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-080",
-      "headline": "Expect rates to increase by 50bps in Dec: SBI chief",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/expect-rates-to-increase-by-50bps-in-dec-sbi-chief/articleshow/135222156.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T00:24:01Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "SBI's chief executive forecasts a 50 basis-point RBI rate increase in December, which would materially affect bank net interest margins, borrowing costs, and equity valuations if confirmed, but remains an expectation, not a decided policy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "SBI's chief executive forecasts a 50 basis-point RBI rate increase in December, which would materially affect bank net interest margins, borrowing costs, and equity valuations if confirmed, but remains an expectation, not a decided policy.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 53,
-      "rank_factors": {
-        "materiality": 53,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "macro_sector",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "State Bank of India",
-          "ticker": "SBIN",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-053",
-      "headline": "OTPBANK N3612 OTPBANK N3109 OTPBANK N2908-R (40506 40739 85157): OTP Bank Nyrt. announces the listing of its EMTN Programme on the Singapore Exchange",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700025.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-26T23:17:00Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "EMTN programme listed on Singapore Exchange; expands bank's debt-capital-market access channels.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "EMTN programme listed on Singapore Exchange; expands bank's debt-capital-market access channels.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 42,
-      "rank_factors": {
-        "materiality": 42,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OTP Bank Nyrt.",
-          "ticker": "OTPBANK",
-          "listing_country": "HU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-057",
-      "headline": "AOV: 2026 AGM Results & New Auditor Appointment",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AOV?key=2924-03153661-3A705061",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-27T00:33:11Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Routine auditor appointment and AGM results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Routine auditor appointment and AGM results.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AOV",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-028",
-      "headline": "424B5 - SOUTHWEST AIRLINES CO (0000092380) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/92380/000119312526431199/0001193125-26-431199-index.htm",
-      "source_name": "SEC EDGAR — Latest 424B5 (Shelf Offering Final Prospectus)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-26T13:13:07Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Southwest Airlines filed a shelf offering prospectus, indicating potential future capital raising activities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Southwest Airlines filed a shelf offering prospectus, indicating potential future capital raising activities.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Southwest Airlines Co",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-010",
-      "headline": "Bharti Airtel Limited: board meeting 05-Nov-2026 — Board Meeting Intimation",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/xbrl/PRIOR_INTIMATION_2002_WebXMLFile_20261026_192612109.xml",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-26T13:56:14Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Routine board meeting intimation for Bharti Airtel.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Routine board meeting intimation for Bharti Airtel.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bharti Airtel Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-079",
-      "headline": "424B5 - PROCTER & GAMBLE Co (0000080424) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/80424/000162828026067163/0001628280-26-067163-index.htm",
-      "source_name": "SEC EDGAR — Latest 424B5 (Shelf Offering Final Prospectus)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-26T12:37:00Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Procter & Gamble 424B5 shelf takedown filed; capital action by mega-cap, but no size, terms, or market-access context disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Procter & Gamble 424B5 shelf takedown filed; capital action by mega-cap, but no size, terms, or market-access context disclosed.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Procter & Gamble Co",
-          "ticker": "PG",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -246859,9 +246859,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 355070,
-    "news_picked_today": 106,
-    "news_dropped_today": 2174
+    "news_seen_today": 365317,
+    "news_picked_today": 127,
+    "news_dropped_today": 2321
   },
   "book_momentum": {
     "live_count": 8,
