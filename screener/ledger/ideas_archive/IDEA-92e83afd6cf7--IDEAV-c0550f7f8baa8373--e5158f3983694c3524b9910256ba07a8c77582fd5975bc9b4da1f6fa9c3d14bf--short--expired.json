@@ -1,23 +1,23 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-01T05:01:37Z",
+  "archived_at": "2026-10-26T21:49:01Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-353ee6d92397",
-    "idea_version": "IDEAV-af94d9c89c45f066",
-    "idea_version_started_at": "2026-09-28T03:32:24Z",
-    "ticker": "PNJ",
-    "company": "Phu Nhuan Jewelry",
-    "exchange": "HOSE",
+    "idea_id": "IDEA-92e83afd6cf7",
+    "idea_version": "IDEAV-c0550f7f8baa8373",
+    "idea_version_started_at": "2026-10-24T00:28:47Z",
+    "ticker": "DRREDDY",
+    "company": "Dr. Reddy's Laboratories",
+    "exchange": "NSE",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "Phu Nhuan Jewelry (PNJ) is forecasting a loss following a diamond scandal, which will negatively impact its financial performance.",
-    "why_now": "The company's forecast for a loss was reported on September 28, 2026, providing a fresh catalyst for a potential price decline.",
-    "conviction": 65,
+    "reason": "The company reported a significant 36% decline in Q2 net profit, missing expectations and indicating margin pressure.",
+    "why_now": "The earnings report was released on 2026-10-23.",
+    "conviction": 75,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
@@ -27,7 +27,7 @@
       "specificity": 7,
       "timing": 10,
       "expression": 0,
-      "corroboration": 0,
+      "corroboration": 7,
       "learning_adjustment": 0
     },
     "trade_readiness": "watch_only",
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -53,26 +52,28 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-f4302708f46d"
+      "EVT-39870cfb5b17",
+      "EVT-42a04f4309cd"
     ],
-    "primary_source_event_id": "EVT-f4302708f46d",
+    "primary_source_event_id": "EVT-39870cfb5b17",
     "source_headlines": [
-      "Vietnam Jeweler PNJ Forecasts Loss After Diamond Scandal"
+      "Torrent Pharma Profit Falls 9.6 Per Cent, Dr Reddy’s Slumps 36 Pc In Q2 FY27",
+      "Dr Reddy’s Q2 FY27 net down 36% at ₹925 cr"
     ],
-    "source_headline": "Vietnam Jeweler PNJ Forecasts Loss After Diamond Scandal",
-    "source_url": "https://www.bloomberg.com/news/articles/2026-09-28/vietnam-jewelry-giant-pnj-forecasts-loss-after-diamond-scandal",
-    "source_name": "Bloomberg",
+    "source_headline": "Torrent Pharma Profit Falls 9.6 Per Cent, Dr Reddy’s Slumps 36 Pc In Q2 FY27",
+    "source_url": "https://www.freepressjournal.in/business/torrent-pharma-profit-falls-96-per-cent-dr-reddys-slumps-36-pc-in-q2-fy27",
+    "source_name": "Free Press Journal",
     "materiality_max": 100,
-    "newest_source_at": "2026-09-28T01:47:23Z",
+    "newest_source_at": "2026-10-23T18:27:04Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-28T03:32:24Z",
-    "updated_at": "2026-09-28T03:32:24Z",
-    "decay_at": "2026-09-29T13:47:23Z",
+    "surfaced_at": "2026-10-23T15:52:59Z",
+    "updated_at": "2026-10-24T00:28:47Z",
+    "decay_at": "2026-10-25T06:27:04Z",
     "status": "live",
     "promoted_signal_id": null
   }
