@@ -5943,8 +5943,8 @@ app.get('/api/valuation-levers', async (req, reply) => {
 const ValuationOverrideBody = z.object({
   runRoot: z.string().min(1).max(300),
   reason: z.string().max(4000).optional(),
-  overrides: z.record(z.any()).optional(),
-  levels: z.record(z.number()).optional(),
+  overrides: z.record(z.string(), z.any()).optional(),
+  levels: z.record(z.string(), z.number()).optional(),
 }).strip()
 app.post('/api/valuation-levers/override', { config: { rateLimit: { max: 200, timeWindow: '1 minute' } } }, async (req, reply) => {
   const parsed = ValuationOverrideBody.safeParse(req.body ?? {})
@@ -7710,7 +7710,7 @@ const FeedbackBody = z.object({
   company_name: z.string().max(200).optional(),
   company_ticker: z.string().max(20).optional(),
   sector_theme: z.string().max(200).optional(),
-  score_breakdown: z.record(z.any()).nullable().optional(),
+  score_breakdown: z.record(z.string(), z.any()).nullable().optional(),
 }).strip()
 app.post('/api/screener/feedback', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async (req, reply) => {
   const parsed = FeedbackBody.safeParse(req.body)

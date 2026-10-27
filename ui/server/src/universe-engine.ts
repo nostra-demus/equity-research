@@ -93,7 +93,7 @@ async function atomic(file: string, value: unknown) {
 }
 const stateSchema = z.object({ version: z.literal(VERSION), enabled: z.boolean(), model: z.string().nullable(), run_id: z.string().uuid().nullable(),
   updated_at: z.string().datetime().nullable(), next_at: z.number().finite().nonnegative(), error: z.string().nullable(),
-  active: z.object({ tasks: z.array(z.object({ key: z.string().regex(/^[0-9a-f]{64}$/), ticker: z.string(), company: z.string(), event: z.object({ source_event_id: z.string() }).passthrough() }).passthrough()).max(BATCH_SIZE), receipt_id: z.string().uuid() }).nullable(), records: z.record(z.object({ ticker: z.string(), company: z.string(), event_id: z.string(),
+  active: z.object({ tasks: z.array(z.object({ key: z.string().regex(/^[0-9a-f]{64}$/), ticker: z.string(), company: z.string(), event: z.object({ source_event_id: z.string() }).passthrough() }).passthrough()).max(BATCH_SIZE), receipt_id: z.string().uuid() }).nullable(), records: z.record(z.string(), z.object({ ticker: z.string(), company: z.string(), event_id: z.string(),
     analysis: z.any().nullable().refine((v) => v === null || isModelSavedAnalysis(v)), error: z.string().nullable(), at: z.string().datetime() })) })
 
 export function createUniverseEngine(stateDir: string, deps: {
