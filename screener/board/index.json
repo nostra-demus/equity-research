@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T23:04:24Z",
+  "generated_at": "2026-10-27T23:10:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-670",
@@ -1683,6 +1683,106 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-697",
+      "headline": "The Ensign Group, Inc. Reports Third Quarter 2026 Results and Raises 2026 Annual Earnings Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/ensign-group-inc-reports-third-quarter-2026-results-and-raises-2026-annual-earnings",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T22:14:21Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "The company reported Q3 2026 results and raised its annual earnings guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company reported Q3 2026 results and raised its annual earnings guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Ensign Group, Inc.",
+          "ticker": "ENSG",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-708",
+      "headline": "Stock Market Today, Oct. 27: Meta Raises Largest-Ever Equity Offering to Nearly $98 Billion to Fund AI Infrastructure Bet",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/stock-market-today-oct-27-meta-raises-largest-ever-equity-offering-nearly-98-billion-fund",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T21:36:42Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Meta announces a $98 billion equity offering specifically to fund AI infrastructure capex, materially affecting capital structure, shareholder dilution, and strategic capital deployment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta announces a $98 billion equity offering specifically to fund AI infrastructure capex, materially affecting capital structure, shareholder dilution, and strategic capital deployment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": "META",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-685",
       "headline": "Stock Market Today, Oct. 27: Boeing Plummets 11% on Lower Production Rates and Missed Delivery Targets",
       "headline_en": null,
@@ -1880,109 +1980,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-696",
-      "headline": "Grupo Aval Acciones y Valores S.A. Announces Dismissal of Charges and Conclusion of Corficolombiana’s Agreement with the U.S. Department of Justice on October 26, 2026",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/grupo-aval-acciones-y-valores-sa-announces-dismissal-charges-and-conclusion",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T21:04:09Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Grupo Aval and Corficolombiana reached a resolution with the US DOJ, dismissing charges.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Grupo Aval and Corficolombiana reached a resolution with the US DOJ, dismissing charges.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Grupo Aval Acciones y Valores S.A.",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Corficolombiana",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-689",
-      "headline": "Nabors Industries Reports Q3 Loss",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/nabors-industries-reports-q3-loss",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T21:01:01Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Nabors Industries reported a Q3 loss, indicating negative financial performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nabors Industries reported a Q3 loss, indicating negative financial performance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nabors Industries",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -202686,78 +202683,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-1eedaee326ce",
-      "idea_version": "IDEAV-805ff45cb433dc4c",
-      "idea_version_started_at": "2026-10-27T04:39:49Z",
-      "ticker": "HBT",
-      "company": "HBT Financial",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "HBT Financial is acquiring Tri-County Financial Group, which will expand its regional banking presence and deposit base.",
-      "why_now": "The filing of the 425 communication on 2026-10-26 confirms the ongoing progress of the merger integration.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b2d3621f1710",
-        "EVT-b4986e77821c"
-      ],
-      "primary_source_event_id": "EVT-b2d3621f1710",
-      "source_headlines": [
-        "425 - Tri-County Financial Group, Inc. (0001725262) (Subject)",
-        "425 - HBT Financial, Inc. (0000775215) (Filed by)"
-      ],
-      "source_headline": "425 - Tri-County Financial Group, Inc. (0001725262) (Subject)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1725262/000077521526000087/0000775215-26-000087-index.htm",
-      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T11:04:53Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-27T04:39:49Z",
-      "updated_at": "2026-10-27T04:39:49Z",
-      "decay_at": "2026-10-27T23:04:53Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-8239e24e9708",
       "idea_version": "IDEAV-e9b499f4916f6f14",
       "idea_version_started_at": "2026-10-26T17:25:34Z",
@@ -203250,80 +203175,6 @@
       "surfaced_at": "2026-10-27T08:26:43Z",
       "updated_at": "2026-10-27T08:26:43Z",
       "decay_at": "2026-10-28T14:56:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-3e040c992904",
-      "idea_version": "IDEAV-f8ebbfdf52ac7ab7",
-      "idea_version_started_at": "2026-10-27T04:19:35Z",
-      "ticker": "HBTF",
-      "company": "HBT Financial, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "HBT Financial is acquiring Tri-County Financial Group, which will consolidate regional banking operations and improve HBTF's scale in its core markets.",
-      "why_now": "The companies filed the required 425 M&A communication on October 26, 2026, signaling the deal is moving toward finalization.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "pair_trade",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b2d3621f1710",
-        "EVT-b4986e77821c"
-      ],
-      "primary_source_event_id": "EVT-b2d3621f1710",
-      "source_headlines": [
-        "425 - Tri-County Financial Group, Inc. (0001725262) (Subject)",
-        "425 - HBT Financial, Inc. (0000775215) (Filed by)"
-      ],
-      "source_headline": "425 - Tri-County Financial Group, Inc. (0001725262) (Subject)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1725262/000077521526000087/0000775215-26-000087-index.htm",
-      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T11:04:53Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-27T04:19:35Z",
-      "updated_at": "2026-10-27T04:19:35Z",
-      "decay_at": "2026-10-27T23:04:53Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -205677,6 +205528,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-1eedaee326ce",
+      "idea_version": "IDEAV-805ff45cb433dc4c",
+      "idea_version_started_at": "2026-10-27T04:39:49Z",
+      "ticker": "HBT",
+      "company": "HBT Financial",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "HBT Financial is acquiring Tri-County Financial Group, which will expand its regional banking presence and deposit base.",
+      "why_now": "The filing of the 425 communication on 2026-10-26 confirms the ongoing progress of the merger integration.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b2d3621f1710",
+        "EVT-b4986e77821c"
+      ],
+      "primary_source_event_id": "EVT-b2d3621f1710",
+      "source_headlines": [
+        "425 - Tri-County Financial Group, Inc. (0001725262) (Subject)",
+        "425 - HBT Financial, Inc. (0000775215) (Filed by)"
+      ],
+      "source_headline": "425 - Tri-County Financial Group, Inc. (0001725262) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1725262/000077521526000087/0000775215-26-000087-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-26T11:04:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-27T04:39:49Z",
+      "updated_at": "2026-10-27T04:39:49Z",
+      "decay_at": "2026-10-27T23:04:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-4e8059fc08a2",
       "idea_version": "IDEAV-ad3e10c6de61bda5",
       "idea_version_started_at": "2026-10-25T04:38:42Z",
@@ -205881,6 +205804,80 @@
       "surfaced_at": "2026-10-25T02:38:24Z",
       "updated_at": "2026-10-25T02:38:24Z",
       "decay_at": "2026-10-26T13:50:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-3e040c992904",
+      "idea_version": "IDEAV-f8ebbfdf52ac7ab7",
+      "idea_version_started_at": "2026-10-27T04:19:35Z",
+      "ticker": "HBTF",
+      "company": "HBT Financial, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "HBT Financial is acquiring Tri-County Financial Group, which will consolidate regional banking operations and improve HBTF's scale in its core markets.",
+      "why_now": "The companies filed the required 425 M&A communication on October 26, 2026, signaling the deal is moving toward finalization.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "pair_trade",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b2d3621f1710",
+        "EVT-b4986e77821c"
+      ],
+      "primary_source_event_id": "EVT-b2d3621f1710",
+      "source_headlines": [
+        "425 - Tri-County Financial Group, Inc. (0001725262) (Subject)",
+        "425 - HBT Financial, Inc. (0000775215) (Filed by)"
+      ],
+      "source_headline": "425 - Tri-County Financial Group, Inc. (0001725262) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1725262/000077521526000087/0000775215-26-000087-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-26T11:04:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-27T04:19:35Z",
+      "updated_at": "2026-10-27T04:19:35Z",
+      "decay_at": "2026-10-27T23:04:53Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -209430,14 +209427,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 566,
+    "total_count": 568,
     "shown_count": 500,
-    "hidden_count": 66,
+    "hidden_count": 68,
     "side_counts": {
       "long": {
-        "total_count": 290,
+        "total_count": 292,
         "shown_count": 250,
-        "hidden_count": 40
+        "hidden_count": 42
       },
       "short": {
         "total_count": 276,
@@ -209461,6 +209458,158 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-1eedaee326ce",
+        "idea_version": "IDEAV-805ff45cb433dc4c",
+        "idea_version_started_at": "2026-10-27T04:39:49Z",
+        "ticker": "HBT",
+        "company": "HBT Financial",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "HBT Financial is acquiring Tri-County Financial Group, which will expand its regional banking presence and deposit base.",
+        "why_now": "The filing of the 425 communication on 2026-10-26 confirms the ongoing progress of the merger integration.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b2d3621f1710",
+          "EVT-b4986e77821c"
+        ],
+        "primary_source_event_id": "EVT-b2d3621f1710",
+        "source_headlines": [
+          "425 - Tri-County Financial Group, Inc. (0001725262) (Subject)",
+          "425 - HBT Financial, Inc. (0000775215) (Filed by)"
+        ],
+        "source_headline": "425 - Tri-County Financial Group, Inc. (0001725262) (Subject)",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1725262/000077521526000087/0000775215-26-000087-index.htm",
+        "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-26T11:04:53Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-27T04:39:49Z",
+        "updated_at": "2026-10-27T04:39:49Z",
+        "decay_at": "2026-10-27T23:04:53Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-27T23:04:53Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-3e040c992904",
+        "idea_version": "IDEAV-f8ebbfdf52ac7ab7",
+        "idea_version_started_at": "2026-10-27T04:19:35Z",
+        "ticker": "HBTF",
+        "company": "HBT Financial, Inc.",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "HBT Financial is acquiring Tri-County Financial Group, which will consolidate regional banking operations and improve HBTF's scale in its core markets.",
+        "why_now": "The companies filed the required 425 M&A communication on October 26, 2026, signaling the deal is moving toward finalization.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "pair_trade",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b2d3621f1710",
+          "EVT-b4986e77821c"
+        ],
+        "primary_source_event_id": "EVT-b2d3621f1710",
+        "source_headlines": [
+          "425 - Tri-County Financial Group, Inc. (0001725262) (Subject)",
+          "425 - HBT Financial, Inc. (0000775215) (Filed by)"
+        ],
+        "source_headline": "425 - Tri-County Financial Group, Inc. (0001725262) (Subject)",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1725262/000077521526000087/0000775215-26-000087-index.htm",
+        "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-26T11:04:53Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-27T04:19:35Z",
+        "updated_at": "2026-10-27T04:19:35Z",
+        "decay_at": "2026-10-27T23:04:53Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-27T23:04:53Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0c63b840ab2f",
         "idea_version": "IDEAV-cc11d3f273a2ff05",
@@ -237830,81 +237979,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-e386e059df23",
-        "idea_version": "IDEAV-7632a8179baa12be",
-        "idea_version_started_at": "2026-10-12T15:24:05Z",
-        "ticker": "01389",
-        "company": "Major Holdings Limited",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is subject to a mandatory unconditional cash offer, indicating a takeover event.",
-        "why_now": "The announcement of the completion of the sale and purchase agreement and the mandatory offer is effective immediately.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-6330378d03fd"
-        ],
-        "primary_source_event_id": "EVT-6330378d03fd",
-        "source_headlines": [
-          "MAJOR HLDGS (01389): JOINT ANNOUNCEMENT (1) THE SALE AND PURCHASE OF THE SHARES IN MAJOR HOLDINGS LIMITED; (2) COMPLETION OF THE SALE AND PURCHASE AGREEMENT; (3) MANDATORY UNCONDITIONAL CASH OFFER BY KINGSTON SECURITIES LIMITED FOR AND ON BEHALF OF MAX PREMIER LIMITED TO ACQUIRE ALL THE ISSUED SHARES OF MAJOR HOLDINGS LIMITED (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY MAX PREMIER LIMITED AND PARTIES ACTING IN CONCERT WITH IT); AND (4) RESUMPTION OF TRADIN"
-        ],
-        "source_headline": "MAJOR HLDGS (01389): JOINT ANNOUNCEMENT (1) THE SALE AND PURCHASE OF THE SHARES IN MAJOR HOLDINGS LIMITED; (2) COMPLETION OF THE SALE AND PURCHASE AGREEMENT; (3) MANDATORY UNCONDITIONAL CASH OFFER BY KINGSTON SECURITIES LIMITED FOR AND ON BEHALF OF MAX PREMIER LIMITED TO ACQUIRE ALL THE ISSUED SHARES OF MAJOR HOLDINGS LIMITED (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY MAX PREMIER LIMITED AND PARTIES ACTING IN CONCERT WITH IT); AND (4) RESUMPTION OF TRADIN",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101201299.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-12T14:43:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-12T15:24:05Z",
-        "updated_at": "2026-10-12T15:24:05Z",
-        "decay_at": "2026-10-14T02:43:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-15T15:19:23Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-bf5d0b948a8f",
         "idea_version": "IDEAV-6f1a9c38300d3144",
         "idea_version_started_at": "2026-10-12T15:24:05Z",
@@ -238050,78 +238124,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-10-15T15:19:23Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-5c23343bcf9d",
-        "idea_version": "IDEAV-1646fdf367040156",
-        "idea_version_started_at": "2026-10-12T15:24:05Z",
-        "ticker": "GD",
-        "company": "General Dynamics",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The Department of War certified production capacity for a guided-missile destroyer at Bath Iron Works, a subsidiary of General Dynamics, suggesting increased future revenue from defense contracts.",
-        "why_now": "The certification of production capacity is a new development.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 76,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1e8f57b5b992"
-        ],
-        "primary_source_event_id": "EVT-1e8f57b5b992",
-        "source_headlines": [
-          "Department of War Certifies Production Capacity for Second Guided-Missile Destroyer at Maine's Bath Iron Works"
-        ],
-        "source_headline": "Department of War Certifies Production Capacity for Second Guided-Missile Destroyer at Maine's Bath Iron Works",
-        "source_url": "https://www.war.gov/News/Releases/Release/Article/4623902/department-of-war-certifies-production-capacity-for-second-guided-missile-destr/",
-        "source_name": "U.S. Department of War (formerly DoD) — News Releases",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-12T13:30:07Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-12T15:24:05Z",
-        "updated_at": "2026-10-12T15:24:05Z",
-        "decay_at": "2026-10-14T01:30:07Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-15T13:35:03Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
       },
@@ -246723,7 +246725,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1969,
-    "live_count": 39,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -246742,9 +246744,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3496724,
-    "news_picked_today": 1710,
-    "news_dropped_today": 26754
+    "news_seen_today": 3506355,
+    "news_picked_today": 1734,
+    "news_dropped_today": 26826
   },
   "book_momentum": {
     "live_count": 8,
