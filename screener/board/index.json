@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-10-27T13:37:10Z",
+  "generated_at": "2026-10-27T13:43:51Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261027-485",
+      "headline": "ZHONG JI LS (00767): MAJOR AND CONNECTED TRANSACTION IN RELATION TO ACQUISITION OF 25% ISSUED SHARE CAPITAL OF ASIAN INTEGRATED CELL LABORATORY LIMITED INVOLVING ISSUE OF CONVERTIBLE NOTES UNDER SPECIFIC MANDATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102701219.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T13:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Acquisition of 25% stake in Asian Integrated Cell Laboratory Limited funded by convertible notes issuance, a confirmed M&A and capital-structure event with governance implications (connected transaction).",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Acquisition of 25% stake in Asian Integrated Cell Laboratory Limited funded by convertible notes issuance, a confirmed M&A and capital-structure event with governance implications (connected transaction).",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ZHONG JI LS",
+          "ticker": "00767",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261027-440",
       "headline": "Bullseye Financial Ltd enters administration",
@@ -1333,6 +1383,208 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-514",
+      "headline": "Ferring to acquire ovary-in-a-dish startup Gameto for up to $1.38B",
+      "headline_en": null,
+      "url": "https://endpoints.news/ferring-to-acquire-ovary-in-a-dish-startup-gameto-for-up-to-1-38b/",
+      "source_name": "Endpoints News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T13:16:29Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Ferring to acquire Gameto for up to $1.38 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ferring to acquire Gameto for up to $1.38 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ferring",
+          "ticker": null,
+          "listing_country": "CH"
+        },
+        {
+          "name": "Gameto",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-508",
+      "headline": "Vertiv Holdings Co Completes Acquisition of Utility Innovation Holdings, Inc. for $1.45 billion",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/vertiv-holdings-co-completes-acquisition-utility-innovation-holdings-inc-145-billion",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T12:53:11Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Vertiv completed a $1.45 billion acquisition of Utility Innovation Holdings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vertiv completed a $1.45 billion acquisition of Utility Innovation Holdings.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vertiv Holdings Co",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-523",
+      "headline": "Royal Caribbean Cruises Ltd. Reports Third Quarter 2026 Results and Raises Full Year Adjusted EPS Guidance to $17.85 to $17.95",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/royal-caribbean-cruises-ltd-reports-third-quarter-2026-results-and-raises-full-year",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T12:33:14Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Royal Caribbean raised its full-year adjusted EPS guidance to $17.85-$17.95 following Q3 results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Royal Caribbean raised its full-year adjusted EPS guidance to $17.85-$17.95 following Q3 results.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Royal Caribbean Cruises Ltd.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-526",
+      "headline": "Tata Capital Q2 Results: Profit jumps 51% to Rs 1,660 crore; NII up 23%",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/tata-capital-q2-results-profit-jumps-51-to-rs-1660-crore-nii-up-23/articleshow/135234003.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T12:20:40Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Tata Capital reported a 51% profit jump to Rs 1,660 crore and a 23% increase in NII.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Capital reported a 51% profit jump to Rs 1,660 crore and a 23% increase in NII.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Capital",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-473",
       "headline": "Poundland could be broken up and face insolvency as bids assessed",
       "headline_en": null,
@@ -1378,6 +1630,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-529",
+      "headline": "Poundland could be broken up and face insolvency as bids assessed",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/poundland-poundstretcher-irish-wilko-press-association-b3074138.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T12:15:45Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Poundland faces potential insolvency and a possible breakup as bids are assessed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Poundland faces potential insolvency and a possible breakup as bids are assessed.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Poundland",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1680,302 +1982,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-435",
-      "headline": "Tata Capital Q2 Results: Net Profit Jumps 64% To ₹1,832 Crore As Revenue Rises 21%",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/tata-capital-q2-results-net-profit-jumps-64-to-1832-crore-as-revenue-rises-21",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T11:45:27Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Tata Capital reported a 64% increase in net profit to ₹1,832 crore and a 21% rise in revenue for Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tata Capital reported a 64% increase in net profit to ₹1,832 crore and a 21% rise in revenue for Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Capital",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-425",
-      "headline": "Novartis AG Reports Q3 2026 Financial Results and Raises Full-Year Core Operating Income Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/novartis-ag-reports-q3-2026-financial-results-and-raises-full-year-core-operating-income",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T11:43:15Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Novartis reported Q3 2026 results and raised its full-year core operating income guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Novartis reported Q3 2026 results and raised its full-year core operating income guidance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Novartis",
-          "ticker": null,
-          "listing_country": "CH"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-423",
-      "headline": "Coca-Cola Raises Full-Year Outlook After Q3 Profit And Revenue Increase- Update",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/coca-cola-raises-full-year-outlook-after-q3-profit-and-revenue-increase-update",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T11:23:02Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Coca-Cola reported increased Q3 profit and revenue and raised its full-year outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Coca-Cola reported increased Q3 profit and revenue and raised its full-year outlook.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coca-Cola",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-406",
-      "headline": "Coca-Cola Raises Guidance, Buoyed by Soda Sales Abroad",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-27/coca-cola-raises-full-year-guidance-buoyed-by-soda-sales",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T11:03:17Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Coca-Cola raised its financial guidance due to strong international sales.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Coca-Cola raised its financial guidance due to strong international sales.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coca-Cola",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-386",
-      "headline": "Bajaj Auto Q2 Results, Net Profit Jumps 35% To ₹3,354 Crore As Revenue Beats Street Estimates",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/bajaj-auto-q2-results-net-profit-jumps-35-to-3354-crore-as-revenue-beats-street-estimates",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T10:52:12Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Bajaj Auto reported a 35% jump in net profit to ₹3,354 crore, beating market expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bajaj Auto reported a 35% jump in net profit to ₹3,354 crore, beating market expectations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bajaj Auto",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-383",
-      "headline": "Quebec’s La Caisse to Buy BCE Towers Stake for $1.7 Billion",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-27/quebec-s-la-caisse-to-buy-bce-towers-stake-for-1-7-billion",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T10:47:35Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "La Caisse is acquiring a stake in BCE towers for $1.7 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "La Caisse is acquiring a stake in BCE towers for $1.7 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BCE Inc",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -201977,75 +201983,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-43576d5bf0b5",
-      "idea_version": "IDEAV-5ec1527dde5b57f6",
-      "idea_version_started_at": "2026-10-26T03:24:01Z",
-      "ticker": "HON",
-      "company": "Honeywell International",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The execution of a long-term agreement with Unimech Aerospace secures a stable, multi-year revenue stream for Honeywell's aerospace division, enhancing long-term margin visibility.",
-      "why_now": "The agreement was formally filed with the exchange on 2026-10-26.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 72,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-737f735de597"
-      ],
-      "primary_source_event_id": "EVT-737f735de597",
-      "source_headlines": [
-        "Unimech Aerospace and Manufacturing Limited: Unimech Aerospace and Manufacturing Limited has informed the Exchange about execution of Long-Term Agreement with Honeywell Aerospace US LLC"
-      ],
-      "source_headline": "Unimech Aerospace and Manufacturing Limited: Unimech Aerospace and Manufacturing Limited has informed the Exchange about execution of Long-Term Agreement with Honeywell Aerospace US LLC",
-      "source_url": "https://nsearchives.nseindia.com/corporate/UNIMECH_26102026071241_Unimech_Exchange_Disclosure_-_Honeywell_LTA_Clean__1_.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 87,
-      "newest_source_at": "2026-10-26T01:43:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T03:24:01Z",
-      "updated_at": "2026-10-26T03:24:01Z",
-      "decay_at": "2026-10-27T13:43:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-77b0931ae560",
       "idea_version": "IDEAV-9d944fb084806f51",
       "idea_version_started_at": "2026-10-27T01:59:31Z",
@@ -205631,6 +205568,75 @@
       "surfaced_at": "2026-10-24T20:13:45Z",
       "updated_at": "2026-10-25T04:38:42Z",
       "decay_at": "2026-10-26T14:10:40Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-43576d5bf0b5",
+      "idea_version": "IDEAV-5ec1527dde5b57f6",
+      "idea_version_started_at": "2026-10-26T03:24:01Z",
+      "ticker": "HON",
+      "company": "Honeywell International",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The execution of a long-term agreement with Unimech Aerospace secures a stable, multi-year revenue stream for Honeywell's aerospace division, enhancing long-term margin visibility.",
+      "why_now": "The agreement was formally filed with the exchange on 2026-10-26.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 72,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-737f735de597"
+      ],
+      "primary_source_event_id": "EVT-737f735de597",
+      "source_headlines": [
+        "Unimech Aerospace and Manufacturing Limited: Unimech Aerospace and Manufacturing Limited has informed the Exchange about execution of Long-Term Agreement with Honeywell Aerospace US LLC"
+      ],
+      "source_headline": "Unimech Aerospace and Manufacturing Limited: Unimech Aerospace and Manufacturing Limited has informed the Exchange about execution of Long-Term Agreement with Honeywell Aerospace US LLC",
+      "source_url": "https://nsearchives.nseindia.com/corporate/UNIMECH_26102026071241_Unimech_Exchange_Disclosure_-_Honeywell_LTA_Clean__1_.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 87,
+      "newest_source_at": "2026-10-26T01:43:11Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-26T03:24:01Z",
+      "updated_at": "2026-10-26T03:24:01Z",
+      "decay_at": "2026-10-27T13:43:11Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -209937,14 +209943,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 561,
+    "total_count": 562,
     "shown_count": 500,
-    "hidden_count": 61,
+    "hidden_count": 62,
     "side_counts": {
       "long": {
-        "total_count": 288,
+        "total_count": 289,
         "shown_count": 250,
-        "hidden_count": 38
+        "hidden_count": 39
       },
       "short": {
         "total_count": 273,
@@ -209968,6 +209974,78 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-43576d5bf0b5",
+        "idea_version": "IDEAV-5ec1527dde5b57f6",
+        "idea_version_started_at": "2026-10-26T03:24:01Z",
+        "ticker": "HON",
+        "company": "Honeywell International",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The execution of a long-term agreement with Unimech Aerospace secures a stable, multi-year revenue stream for Honeywell's aerospace division, enhancing long-term margin visibility.",
+        "why_now": "The agreement was formally filed with the exchange on 2026-10-26.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 72,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 15,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-737f735de597"
+        ],
+        "primary_source_event_id": "EVT-737f735de597",
+        "source_headlines": [
+          "Unimech Aerospace and Manufacturing Limited: Unimech Aerospace and Manufacturing Limited has informed the Exchange about execution of Long-Term Agreement with Honeywell Aerospace US LLC"
+        ],
+        "source_headline": "Unimech Aerospace and Manufacturing Limited: Unimech Aerospace and Manufacturing Limited has informed the Exchange about execution of Long-Term Agreement with Honeywell Aerospace US LLC",
+        "source_url": "https://nsearchives.nseindia.com/corporate/UNIMECH_26102026071241_Unimech_Exchange_Disclosure_-_Honeywell_LTA_Clean__1_.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 87,
+        "newest_source_at": "2026-10-26T01:43:11Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-26T03:24:01Z",
+        "updated_at": "2026-10-26T03:24:01Z",
+        "decay_at": "2026-10-27T13:43:11Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-27T13:43:11Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a85bb583dca8",
         "idea_version": "IDEAV-49b3a59fac5c38a8",
@@ -238404,80 +238482,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-c258353b6529",
-        "idea_version": "IDEAV-da6d3a939aa6717b",
-        "idea_version_started_at": "2026-10-12T05:17:24Z",
-        "ticker": "01473",
-        "company": "Pangaea Connect",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company issued a positive profit alert, indicating a significant improvement in earnings performance for the period.",
-        "why_now": "The filing was released on October 12, 2026, making the information fresh for market participants.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e53634d558a1"
-        ],
-        "primary_source_event_id": "EVT-e53634d558a1",
-        "source_headlines": [
-          "PANGAEA CONNECT (01473): POSITIVE PROFIT ALERT AND BUSINESS UPDATE"
-        ],
-        "source_headline": "PANGAEA CONNECT (01473): POSITIVE PROFIT ALERT AND BUSINESS UPDATE",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101200169.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-12T04:06:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-12T05:17:24Z",
-        "updated_at": "2026-10-12T05:17:24Z",
-        "decay_at": "2026-10-13T16:06:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-15T04:46:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-1aeb23b16c7e",
         "idea_version": "IDEAV-cb2c73fb1a174ba3",
         "idea_version_started_at": "2026-10-12T03:38:04Z",
@@ -247219,7 +247223,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1962,
-    "live_count": 51,
+    "live_count": 50,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
