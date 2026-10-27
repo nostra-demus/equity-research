@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-27T21:44:17Z",
+  "generated_at": "2026-10-27T21:52:09Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261027-670",
+      "headline": "SC 14D9 - CEMENTOS PACASMAYO SAA (0001221029) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1221029/000114036126040885/0001140361-26-040885-index.htm",
+      "source_name": "SEC EDGAR — Latest SC 14D9 (Target's Tender-Offer Response)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-27T20:05:26Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Cementos Pacasmayo filed a response to a tender offer, indicating active M&A activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cementos Pacasmayo filed a response to a tender offer, indicating active M&A activity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cementos Pacasmayo SAA",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261027-553",
       "headline": "SKY GOLD AND DIAMONDS LIMITED: Please see attached Copy of Press Release titled \"Sky Gold and Diamonds Limited announces Q2 and H1 FY27 Financial Results; Revenue at Rs. 4,403.45 Crore, PAT up 111.9%.\"",
@@ -1930,55 +1979,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-618",
-      "headline": "Tata Motors’ €3.43 bn Iveco bid sees 87.8% acceptance, paves way for biggest buyout since JLR: What exchange filing says",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/tata-motors-3-43-bn-iveco-bid-sees-87-8-acceptance-paves-way-for-biggest-buyout-since-jlr-what-exchange-filing-says-11793124606335.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T18:30:36Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Tata Motors' bid for Iveco reached 87.8% acceptance, signaling a major €3.43 billion buyout.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tata Motors' bid for Iveco reached 87.8% acceptance, signaling a major €3.43 billion buyout.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Motors",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -246743,9 +246743,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3376644,
-    "news_picked_today": 1517,
-    "news_dropped_today": 25291
+    "news_seen_today": 3387422,
+    "news_picked_today": 1527,
+    "news_dropped_today": 25569
   },
   "book_momentum": {
     "live_count": 8,
