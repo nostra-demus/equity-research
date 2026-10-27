@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T12:01:25Z",
+  "generated_at": "2026-10-27T12:04:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-407",
@@ -97,6 +97,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-408",
+      "headline": "GP Petroleums Limited: GP Petroleums Limited has informed the Exchange regarding a press release dated October 27, 2026, titled \"GP Petroleums Q2 FY27 PAT rises 179% YoY to ₹15.3 crore, Revenue from Operations for Q2 jumps 124% YoY to ₹340.8 crore\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/GULFPETRO_27102026165544_PressReleaseQ22026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T11:26:35Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "GP Petroleums reported Q2 FY27 PAT of ₹15.3 crore (up 179% YoY) and revenue of ₹340.8 crore (up 124% YoY).",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GP Petroleums reported Q2 FY27 PAT of ₹15.3 crore (up 179% YoY) and revenue of ₹340.8 crore (up 124% YoY).",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GP Petroleums Limited",
+          "ticker": "532543",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1934,55 +1983,6 @@
           "name": "Iveco",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-266",
-      "headline": "Cipla Q2 Results: Profit falls 35% YoY to Rs 878 crore; revenue slips 2%",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/cipla-q2-results-profit-falls-35-yoy-to-rs-878-crore-revenue-slips-2/articleshow/135228386.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T08:11:08Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Cipla reported a 35% profit decline to Rs 878 crore and a 2% revenue drop.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Cipla reported a 35% profit decline to Rs 878 crore and a 2% revenue drop.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cipla",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -247251,9 +247251,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1707055,
-    "news_picked_today": 809,
-    "news_dropped_today": 15559
+    "news_seen_today": 1716845,
+    "news_picked_today": 813,
+    "news_dropped_today": 15603
   },
   "book_momentum": {
     "live_count": 8,
