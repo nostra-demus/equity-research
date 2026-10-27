@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-27T11:43:11Z",
+  "generated_at": "2026-10-27T11:47:34Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261027-399",
+      "headline": "ESTUN (02715): UPDATE ANNOUNCEMENT - CONNECTED TRANSACTION IN RELATION TO THE ACQUISITION OF 19.4574% EQUITY INTEREST IN ESTUN INTELLIGENT (JIANGSU)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700995.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T11:33:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Acquisition of 19.4574% equity interest in a subsidiary is a material transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Acquisition of 19.4574% equity interest in a subsidiary is a material transaction.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ESTUN",
+          "ticker": "02715",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261027-314",
       "headline": "SCE CM (00606): JOINT ANNOUNCEMENT VERY SUBSTANTIAL ACQUISITION AND CONNECTED TRANSACTION IN RELATION TO ACQUISITION OF ENTIRE ISSUED SHARE CAPITAL OF COMPANIES HOLDING COMMERCIAL PROPERTIES FROM CHINA SCE GROUP",
@@ -1933,56 +1982,6 @@
           "name": "Reckitt",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-240",
-      "headline": "Novartis Raises Guidance Despite Trial Setbacks Hitting Profit",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/novartis-raises-guidance-despite-trial-setbacks-hitting-profit-f642c87f?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T06:36:00Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Novartis raised its guidance despite profit impacts from trial setbacks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Novartis raised its guidance despite profit impacts from trial setbacks.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Novartis",
-          "ticker": null,
-          "listing_country": "CH"
         }
       ],
       "size_bucket": "mega",
@@ -247250,9 +247249,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1623517,
-    "news_picked_today": 762,
-    "news_dropped_today": 15438
+    "news_seen_today": 1651135,
+    "news_picked_today": 778,
+    "news_dropped_today": 15446
   },
   "book_momentum": {
     "live_count": 8,
