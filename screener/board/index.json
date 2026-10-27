@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T10:03:23Z",
+  "generated_at": "2026-10-27T10:06:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-296",
@@ -590,6 +590,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-298",
+      "headline": "Ares Private-Credit Fund to Buy Competitor From Apollo",
+      "headline_en": null,
+      "url": "https://www.wsj.com/finance/investing/ares-private-credit-fund-to-buy-competitor-from-apollo-daecb67c?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T09:30:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Ares Management is acquiring a private-credit fund from Apollo Global Management.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ares Management is acquiring a private-credit fund from Apollo Global Management.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ares Management",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Apollo Global Management",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1933,55 +1987,6 @@
           "name": "India Power Corporation Limited",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-003",
-      "headline": "Department of War's Office of Strategic Capital Signs $150 Million Conditional Loan Commitment with Stoke Space Technologies, Inc.",
-      "headline_en": null,
-      "url": "https://www.war.gov/News/Releases/Release/Article/4633729/department-of-wars-office-of-strategic-capital-signs-150-million-conditional-lo/",
-      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-26T18:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Stoke Space Technologies secured a $150 million conditional loan commitment from the Department of Defense's Office of Strategic Capital.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Stoke Space Technologies secured a $150 million conditional loan commitment from the Department of Defense's Office of Strategic Capital.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Stoke Space Technologies, Inc.",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -247391,9 +247396,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1415402,
-    "news_picked_today": 538,
-    "news_dropped_today": 14054
+    "news_seen_today": 1423554,
+    "news_picked_today": 548,
+    "news_dropped_today": 14068
   },
   "book_momentum": {
     "live_count": 8,
