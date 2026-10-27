@@ -1,28 +1,28 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-30T23:02:25Z",
+  "archived_at": "2026-10-26T17:25:46Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-ed1c1d3cd77d",
-    "idea_version": "IDEAV-3d6b37d0eaa1fdb9",
-    "idea_version_started_at": "2026-09-27T22:52:34Z",
-    "ticker": "KAR",
-    "company": "Karoon Energy",
-    "exchange": "ASX",
+    "idea_id": "IDEA-bb5c4c4db82f",
+    "idea_version": "IDEAV-d44106710eb07365",
+    "idea_version_started_at": "2026-10-24T00:28:47Z",
+    "ticker": "SHREECEM",
+    "company": "Shree Cement",
+    "exchange": "NSE",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "An electrical fault at the SPS-92 well has forced a downward revision of 2026 production and financial guidance.",
-    "why_now": "The company issued a price-sensitive guidance update on September 27, 2026, following the operational failure.",
-    "conviction": 75,
+    "reason": "Profit fell 15% year-over-year due to elevated fuel costs, which are compressing operating margins.",
+    "why_now": "The earnings results were released on 2026-10-23.",
+    "conviction": 60,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
+      "evidence": 14,
       "impact": 19,
       "specificity": 7,
       "timing": 10,
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -52,26 +53,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-5b4e86aa57ca"
+      "EVT-91f357f1a5ce"
     ],
-    "primary_source_event_id": "EVT-5b4e86aa57ca",
+    "primary_source_event_id": "EVT-91f357f1a5ce",
     "source_headlines": [
-      "KAR: SPS-92 electrical fault, 2026 guidance update [price-sensitive]"
+      "Shree Cement profit falls 15% YoY to Rs 263 crore on higher fuel costs"
     ],
-    "source_headline": "KAR: SPS-92 electrical fault, 2026 guidance update [price-sensitive]",
-    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KAR?key=2924-03140404-3A702611",
-    "source_name": "ASX (Australia Exchange Filing)",
+    "source_headline": "Shree Cement profit falls 15% YoY to Rs 263 crore on higher fuel costs",
+    "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/shree-cement-profit-falls-15-yoy-to-rs-263-crore-on-higher-fuel-costs/articleshow/135150160.cms",
+    "source_name": "The Economic Times",
     "materiality_max": 100,
-    "newest_source_at": "2026-09-27T22:36:34Z",
+    "newest_source_at": "2026-10-23T16:03:04Z",
     "prior_coverage": {
-      "has_run": true,
-      "latest_run": "analyses/KAR_2026-08-30",
+      "has_run": false,
+      "latest_run": null,
       "latest_decision": null,
-      "data_pool_present": true
+      "data_pool_present": false
     },
-    "surfaced_at": "2026-09-27T22:52:34Z",
-    "updated_at": "2026-09-27T22:52:34Z",
-    "decay_at": "2026-09-29T10:36:34Z",
+    "surfaced_at": "2026-10-24T00:28:47Z",
+    "updated_at": "2026-10-24T00:28:47Z",
+    "decay_at": "2026-10-25T04:03:04Z",
     "status": "live",
     "promoted_signal_id": null
   }

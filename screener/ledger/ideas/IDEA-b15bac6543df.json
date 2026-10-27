@@ -1,24 +1,24 @@
 {
-  "idea_id": "IDEA-bb5c4c4db82f",
-  "idea_version": "IDEAV-d44106710eb07365",
-  "idea_version_started_at": "2026-10-24T00:28:47Z",
-  "ticker": "SHREECEM",
-  "company": "Shree Cement",
-  "exchange": "NSE",
+  "idea_id": "IDEA-b15bac6543df",
+  "idea_version": "IDEAV-d4d3743d27218a0f",
+  "idea_version_started_at": "2026-10-26T22:42:48Z",
+  "ticker": "AOV",
+  "company": "AOV",
+  "exchange": "ASX",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "Profit fell 15% year-over-year due to elevated fuel costs, which are compressing operating margins.",
-  "why_now": "The earnings results were released on 2026-10-23.",
-  "conviction": 60,
+  "reason": "The company released a trading update revising its FY27 outlook downward, suggesting weaker-than-anticipated demand or margin pressure.",
+  "why_now": "The revised outlook was filed on October 26, 2026.",
+  "conviction": 65,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
-    "evidence": 14,
+    "evidence": 25,
     "impact": 19,
     "specificity": 7,
     "timing": 10,
@@ -32,7 +32,7 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
+    "priced-in risk",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -44,31 +44,31 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "room",
+  "priced_in": "priced",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-91f357f1a5ce"
+    "EVT-4b831033f4be"
   ],
-  "primary_source_event_id": "EVT-91f357f1a5ce",
+  "primary_source_event_id": "EVT-4b831033f4be",
   "source_headlines": [
-    "Shree Cement profit falls 15% YoY to Rs 263 crore on higher fuel costs"
+    "AOV: Trading Update and Revised FY27 Outlook [price-sensitive]"
   ],
-  "source_headline": "Shree Cement profit falls 15% YoY to Rs 263 crore on higher fuel costs",
-  "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/shree-cement-profit-falls-15-yoy-to-rs-263-crore-on-higher-fuel-costs/articleshow/135150160.cms",
-  "source_name": "The Economic Times",
+  "source_headline": "AOV: Trading Update and Revised FY27 Outlook [price-sensitive]",
+  "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AOV?key=2924-03153406-3A705001",
+  "source_name": "ASX (Australia Exchange Filing)",
   "materiality_max": 100,
-  "newest_source_at": "2026-10-23T16:03:04Z",
+  "newest_source_at": "2026-10-26T21:24:15Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-10-24T00:28:47Z",
-  "updated_at": "2026-10-24T00:28:47Z",
-  "decay_at": "2026-10-25T04:03:04Z",
+  "surfaced_at": "2026-10-26T22:42:48Z",
+  "updated_at": "2026-10-26T22:42:48Z",
+  "decay_at": "2026-10-28T09:24:15Z",
   "status": "live",
   "promoted_signal_id": null
 }
