@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T21:52:17Z",
+  "generated_at": "2026-10-27T22:07:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-670",
@@ -1732,6 +1732,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-673",
+      "headline": "UMB Financial Corporation Announces Agreement to Acquire El Dorado Savings Bank in Transaction Valued at Approximately $506 million",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/umb-financial-corporation-announces-agreement-acquire-el-dorado-savings-bank-transaction",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T21:12:41Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "UMB Financial announced an agreement to acquire El Dorado Savings Bank for approximately $506 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "UMB Financial announced an agreement to acquire El Dorado Savings Bank for approximately $506 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UMB Financial",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "El Dorado Savings Bank",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-660",
       "headline": "Stock Market Today, Oct. 27: JetBlue Surges 19% on Stronger Q4 Revenue Guidance and Margin Improvement",
       "headline_en": null,
@@ -1930,55 +1984,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-621",
-      "headline": "Pop Mart's revenue halves in Q3 as Labubu craze cools",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/consumer/pop-mart-s-revenue-halves-in-q3-as-labubu-craze-cools",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T18:58:56Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Pop Mart reported a 50% decline in Q3 revenue due to cooling demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Pop Mart reported a 50% decline in Q3 revenue due to cooling demand.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pop Mart",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -246743,9 +246748,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3387422,
-    "news_picked_today": 1527,
-    "news_dropped_today": 25569
+    "news_seen_today": 3408402,
+    "news_picked_today": 1543,
+    "news_dropped_today": 25817
   },
   "book_momentum": {
     "live_count": 8,
