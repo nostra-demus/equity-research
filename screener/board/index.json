@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-27T02:24:59Z",
+  "generated_at": "2026-10-27T02:28:59Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261027-119",
+      "headline": "EUR: Schemes become Effective [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EUR?key=2924-03153704-6A1351651",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T02:02:51Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Scheme of arrangement has become effective, signaling completion of a corporate transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Scheme of arrangement has become effective, signaling completion of a corporate transaction.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Euro Manganese",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261027-034",
       "headline": "JIANGSU EXPRESS (00177): PROGRESS ANNOUNCEMENT - DISCLOSEABLE AND CONNECTED TRANSACTION - CASH ACQUISITION OF 100% EQUITY INTERESTS IN SUXICHANG SOUTH EXPRESSWAY COMPANY",
@@ -1816,6 +1865,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-118",
+      "headline": "IMC: Immuron Updates At-The-Market Funding Facility",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IMC?key=2924-03153707-3A705068",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T02:06:11Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Update on an existing at-the-market funding facility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Update on an existing at-the-market funding facility.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Immuron",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-025",
       "headline": "TRAI releases Recommendations on Allocation and Pricing for 2.3-2.4 GHz, 2.5-2.69 GHz & 3.3-3.6 GHz bands",
       "headline_en": null,
@@ -1855,104 +1953,6 @@
       ],
       "issuer_linkage": "sector",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-108",
-      "headline": "Cleveland-Cliffs says it is in compliance with commitments to Ottawa, seeks meeting with Joly",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-cleveland-cliffs-says-it-is-in-compliance-with-investment-canada-act/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T01:39:07Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Cleveland-Cliffs states it is in compliance with Canadian government commitments and seeks a meeting with a federal minister, indicating an active regulatory or political issue affecting the company's Canadian operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "Cleveland-Cliffs states it is in compliance with Canadian government commitments and seeks a meeting with a federal minister, indicating an active regulatory or political issue affecting the company's Canadian operations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cleveland-Cliffs Inc.",
-          "ticker": "CLF",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-085",
-      "headline": "ALB: Change in substantial holding",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ALB?key=2924-03153696-6A1351647",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-27T01:34:11Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Substantial holding change disclosed without direction, magnitude, acquirer identity, or new holding percentage; filing likely contains material details but headline is too sparse to confirm from the announcement alone.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "Substantial holding change disclosed without direction, magnitude, acquirer identity, or new holding percentage; filing likely contains material details but headline is too sparse to confirm from the announcement alone.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ALB",
-          "ticker": "ALB",
-          "listing_country": "AU"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -247003,9 +247003,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 405243,
-    "news_picked_today": 146,
-    "news_dropped_today": 2566
+    "news_seen_today": 415124,
+    "news_picked_today": 151,
+    "news_dropped_today": 2633
   },
   "book_momentum": {
     "live_count": 8,
