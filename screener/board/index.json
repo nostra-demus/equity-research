@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-10-27T12:04:44Z",
+  "generated_at": "2026-10-27T12:10:39Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261027-411",
+      "headline": "Maral Overseas Limited: Maral Overseas Limited has informed the Exchange regarding Outcome of Board Meeting held on October 27, 2026.in continuation to disclosure made on 7th May 2026 and 30th July 2026 regarding acquisition of 26% equity stake in Asawata Energy Private Limited for an amount of Rs. 2.60 lakh, for setting up 15 MW Solar Power Plant at Sarovar Plant of the Company, under Group Captive Model of the Madhya Pradesh Electricity Regulatory Commission (Verification of Captive Generating",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MARALOVER_27102026172345_Stxintimationresultsandoutcomeofboardmeeting.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T11:54:46Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Maral Overseas Limited confirmed the acquisition of a 26% stake in Asawata Energy for Rs. 2.60 lakh to set up a 15 MW solar plant.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Maral Overseas Limited confirmed the acquisition of a 26% stake in Asawata Energy for Rs. 2.60 lakh to set up a 15 MW solar plant.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Maral Overseas Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261027-407",
       "headline": "Maral Overseas Limited: Maral Overseas Limited has submitted to the Exchange, the financial results for the period ended September 30, 2026 along with in principle approval of capex plan and update on acquisition in Asawata Energy Private Limited",
@@ -940,6 +990,106 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-425",
+      "headline": "Novartis AG Reports Q3 2026 Financial Results and Raises Full-Year Core Operating Income Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/novartis-ag-reports-q3-2026-financial-results-and-raises-full-year-core-operating-income",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T11:43:15Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Novartis reported Q3 2026 results and raised its full-year core operating income guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Novartis reported Q3 2026 results and raised its full-year core operating income guidance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Novartis",
+          "ticker": null,
+          "listing_country": "CH"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-423",
+      "headline": "Coca-Cola Raises Full-Year Outlook After Q3 Profit And Revenue Increase- Update",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/coca-cola-raises-full-year-outlook-after-q3-profit-and-revenue-increase-update",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T11:23:02Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Coca-Cola reported increased Q3 profit and revenue and raised its full-year outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Coca-Cola reported increased Q3 profit and revenue and raised its full-year outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Coca-Cola",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-406",
       "headline": "Coca-Cola Raises Guidance, Buoyed by Soda Sales Abroad",
       "headline_en": null,
@@ -1830,159 +1980,6 @@
           "name": "Reckitt",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-265",
-      "headline": "HSBC shares slump on revenue miss, lender announces share buyback of up to $1 billion",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/27/hsbc-third-quarter-profit-.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T08:28:01Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "HSBC reported a revenue miss and announced a $1 billion share buyback.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "HSBC reported a revenue miss and announced a $1 billion share buyback.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HSBC",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-272",
-      "headline": "Japan's Umios to Acquire Major Canadian Seafood Processor",
-      "headline_en": null,
-      "url": "https://www.nippon.com/en/news/yjj2026102700581/",
-      "source_name": "nippon.com",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T08:20:05Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Umios to acquire a major Canadian seafood processor.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Umios to acquire a major Canadian seafood processor.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Umios",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-264",
-      "headline": "Tata Motors Clears Key Hurdle in Iveco Takeover as Shareholders Back Buyout",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/deals/tata-motors-clears-key-hurdle-in-iveco-takeover-as-shareholders-back-buyout-807f59ac?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T08:12:00Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Tata Motors cleared a key hurdle in the Iveco takeover as shareholders backed the buyout.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tata Motors cleared a key hurdle in the Iveco takeover as shareholders backed the buyout.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Motors",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Iveco",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -247251,9 +247248,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1716845,
-    "news_picked_today": 813,
-    "news_dropped_today": 15603
+    "news_seen_today": 1736257,
+    "news_picked_today": 835,
+    "news_dropped_today": 15653
   },
   "book_momentum": {
     "live_count": 8,
