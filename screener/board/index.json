@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T02:40:59Z",
+  "generated_at": "2026-10-27T02:47:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-119",
@@ -541,6 +541,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-130",
+      "headline": "SEACON (02409): (I) MAJOR TRANSACTION EXERCISE OF EARLY PURCHASE OPTIONS; AND (II) MAJOR TRANSACTION FINANCE LEASE ARRANGEMENTS IN RELATION TO THREE VESSELS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1026/2026102600999.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T11:40:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "SEACON exercises early purchase options and arranges finance leases for three vessels — a named major capex/capital commitment from an official HK exchange filing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "SEACON exercises early purchase options and arranges finance leases for three vessels — a named major capex/capital commitment from an official HK exchange filing.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SEACON",
+          "ticker": "02409",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1904,55 +1953,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-036",
-      "headline": "CHINAGOLDINTL (02099): China Gold International Resources Reports Operations at the Jiama Mine Unaffected by the Earthquake and Reaffirms Annual Production Guidance",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700042.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-26T23:38:00Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "China Gold International confirmed that its Jiama mine operations remain unaffected by a recent earthquake, mitigating potential supply risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "China Gold International confirmed that its Jiama mine operations remain unaffected by a recent earthquake, mitigating potential supply risk.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "China Gold International Resources",
-          "ticker": "02099",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247002,9 +247002,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 434788,
-    "news_picked_today": 160,
-    "news_dropped_today": 2768
+    "news_seen_today": 444524,
+    "news_picked_today": 167,
+    "news_dropped_today": 2905
   },
   "book_momentum": {
     "live_count": 8,
