@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T12:44:38Z",
+  "generated_at": "2026-10-27T13:18:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-440",
@@ -539,6 +539,104 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-481",
+      "headline": "425 - ARES CAPITAL CORP (0001287750) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1287750/000110465926118961/0001104659-26-118961-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-27T10:14:18Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Ares Capital Corp filed a business combination communication regarding its ongoing M&A activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ares Capital Corp filed a business combination communication regarding its ongoing M&A activity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ares Capital Corp",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-482",
+      "headline": "425 - MidCap Financial Investment Corp (0001278752) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1278752/000110465926118961/0001104659-26-118961-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-27T10:14:18Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "MidCap Financial Investment Corp is the subject of an M&A business combination communication.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "MidCap Financial Investment Corp is the subject of an M&A business combination communication.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MidCap Financial Investment Corp",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1878,106 +1976,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-354",
-      "headline": "Reckitt Shares Drop After Lysol Shortage Prompts Guidance Trim",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/reckitt-cuts-outlook-after-lysol-issues-stunt-north-america-sales-62ae527d?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T10:43:00Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Reckitt shares dropped following a guidance trim due to a Lysol shortage.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Reckitt shares dropped following a guidance trim due to a Lysol shortage.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reckitt",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-346",
-      "headline": "ACC Ltd Q2 FY27 Net Profit Down To ₹93 Crore, Commissions 3.4 MTPA Cement Capacity; Ambuja Merger Proceeds To NCLT",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/acc-ltd-q2-fy27-net-profit-down-to-93-crore-commissions-34-mtpa-cement-capacity-ambuja-merger-proceeds-to-nclt",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T10:36:55Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "ACC reported Q2 profit of ₹93 crore, commissioned 3.4 MTPA capacity, and progressed on the Ambuja merger.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ACC reported Q2 profit of ₹93 crore, commissioned 3.4 MTPA capacity, and progressed on the Ambuja merger.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capex",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ACC",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -202467,76 +202465,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-35e446beedc4",
-      "idea_version": "IDEAV-a86ce9060031a2e8",
-      "idea_version_started_at": "2026-10-26T03:24:01Z",
-      "ticker": "006400.KS",
-      "company": "Samsung SDI",
-      "exchange": "Korea",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a 1.5GWh Energy Storage System (ESS) supply contract, which provides a direct, incremental boost to its revenue and order backlog in the growing US renewable infrastructure market.",
-      "why_now": "The contract was announced on 2026-10-26, making it a fresh catalyst for revenue growth.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f2721abdd92c"
-      ],
-      "primary_source_event_id": "EVT-f2721abdd92c",
-      "source_headlines": [
-        "Samsung SDI signs 1.5GWh ESS supply contract with US-based AOP"
-      ],
-      "source_headline": "삼성SDI, 美 AOP와 1.5GWh 규모 ESS 공급 계약 체결",
-      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279609",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "materiality_max": 98,
-      "newest_source_at": "2026-10-26T00:52:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T02:34:32Z",
-      "updated_at": "2026-10-26T03:24:01Z",
-      "decay_at": "2026-10-27T12:52:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-58d3e0cadc2a",
       "idea_version": "IDEAV-3b0ca6c61b0b4714",
       "idea_version_started_at": "2026-10-27T08:26:43Z",
@@ -206411,6 +206339,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-35e446beedc4",
+      "idea_version": "IDEAV-a86ce9060031a2e8",
+      "idea_version_started_at": "2026-10-26T03:24:01Z",
+      "ticker": "006400.KS",
+      "company": "Samsung SDI",
+      "exchange": "Korea",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a 1.5GWh Energy Storage System (ESS) supply contract, which provides a direct, incremental boost to its revenue and order backlog in the growing US renewable infrastructure market.",
+      "why_now": "The contract was announced on 2026-10-26, making it a fresh catalyst for revenue growth.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f2721abdd92c"
+      ],
+      "primary_source_event_id": "EVT-f2721abdd92c",
+      "source_headlines": [
+        "Samsung SDI signs 1.5GWh ESS supply contract with US-based AOP"
+      ],
+      "source_headline": "삼성SDI, 美 AOP와 1.5GWh 규모 ESS 공급 계약 체결",
+      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279609",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "materiality_max": 98,
+      "newest_source_at": "2026-10-26T00:52:07Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-26T02:34:32Z",
+      "updated_at": "2026-10-26T03:24:01Z",
+      "decay_at": "2026-10-27T12:52:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-dd03ee33d73c",
       "idea_version": "IDEAV-f6c3ab8f229f23f2",
       "idea_version_started_at": "2026-10-25T09:03:43Z",
@@ -209939,14 +209937,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 559,
+    "total_count": 560,
     "shown_count": 500,
-    "hidden_count": 59,
+    "hidden_count": 60,
     "side_counts": {
       "long": {
-        "total_count": 286,
+        "total_count": 287,
         "shown_count": 250,
-        "hidden_count": 36
+        "hidden_count": 37
       },
       "short": {
         "total_count": 273,
@@ -209970,6 +209968,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-35e446beedc4",
+        "idea_version": "IDEAV-a86ce9060031a2e8",
+        "idea_version_started_at": "2026-10-26T03:24:01Z",
+        "ticker": "006400.KS",
+        "company": "Samsung SDI",
+        "exchange": "Korea",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company secured a 1.5GWh Energy Storage System (ESS) supply contract, which provides a direct, incremental boost to its revenue and order backlog in the growing US renewable infrastructure market.",
+        "why_now": "The contract was announced on 2026-10-26, making it a fresh catalyst for revenue growth.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f2721abdd92c"
+        ],
+        "primary_source_event_id": "EVT-f2721abdd92c",
+        "source_headlines": [
+          "Samsung SDI signs 1.5GWh ESS supply contract with US-based AOP"
+        ],
+        "source_headline": "삼성SDI, 美 AOP와 1.5GWh 규모 ESS 공급 계약 체결",
+        "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279609",
+        "source_name": "Business Korea — All Articles (CDN)",
+        "materiality_max": 98,
+        "newest_source_at": "2026-10-26T00:52:07Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-26T02:34:32Z",
+        "updated_at": "2026-10-26T03:24:01Z",
+        "decay_at": "2026-10-27T12:52:07Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-27T12:52:07Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-19c8572b0c99",
         "idea_version": "IDEAV-ff27778e9ddf4622",
@@ -238409,81 +238480,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-94db52611a9e",
-        "idea_version": "IDEAV-ee6f275c36994ec6",
-        "idea_version_started_at": "2026-10-12T03:58:15Z",
-        "ticker": "POONAWALLA",
-        "company": "Poonawalla Fincorp",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported a 407% increase in Q2 net profit to Rs 375 crore, indicating significant margin expansion and operational efficiency.",
-        "why_now": "The earnings report was released on 2026-10-12, providing a fresh catalyst for price discovery.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-90e48deedcbb"
-        ],
-        "primary_source_event_id": "EVT-90e48deedcbb",
-        "source_headlines": [
-          "Poonawalla Fincorp shares in focus after Q2 net profit soars 407% to Rs 375 crore"
-        ],
-        "source_headline": "Poonawalla Fincorp shares in focus after Q2 net profit soars 407% to Rs 375 crore",
-        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/poonawalla-fincorp-shares-in-focus-after-q2-net-profit-soars-407-to-rs-375-crore/articleshow/134881686.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-12T03:32:03Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-09T15:15:20Z",
-        "updated_at": "2026-10-12T03:58:15Z",
-        "decay_at": "2026-10-13T15:32:03Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-15T04:46:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-1aeb23b16c7e",
         "idea_version": "IDEAV-cb2c73fb1a174ba3",
         "idea_version_started_at": "2026-10-12T03:38:04Z",
@@ -247225,7 +247221,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1962,
-    "live_count": 53,
+    "live_count": 52,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -247244,9 +247240,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1881993,
-    "news_picked_today": 897,
-    "news_dropped_today": 15975
+    "news_seen_today": 1971037,
+    "news_picked_today": 914,
+    "news_dropped_today": 17038
   },
   "book_momentum": {
     "live_count": 8,
