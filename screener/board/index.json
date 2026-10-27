@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T18:23:22Z",
+  "generated_at": "2026-10-27T18:30:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-553",
@@ -202329,6 +202329,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-f1d1a4c60f5d",
+      "idea_version": "IDEAV-599b8300b03b9855",
+      "idea_version_started_at": "2026-10-27T18:30:15Z",
+      "ticker": "CTS",
+      "company": "CTS Corporation",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported Q3 sales of $149.6 million and increased its full-year guidance, signaling operational momentum and better-than-expected demand.",
+      "why_now": "The guidance hike was announced on 2026-10-27, providing an immediate catalyst for earnings estimate revisions.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a045f1d9fab5"
+      ],
+      "primary_source_event_id": "EVT-a045f1d9fab5",
+      "source_headlines": [
+        "CTS Corporation Reports Third Quarter 2026 Sales of $149.6 million and Raises Full-Year Guidance"
+      ],
+      "source_headline": "CTS Corporation Reports Third Quarter 2026 Sales of $149.6 million and Raises Full-Year Guidance",
+      "source_url": "https://www.nasdaq.com/articles/cts-corporation-reports-third-quarter-2026-sales-1496-million-and-raises-full-year",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-27T15:39:40Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-27T18:30:15Z",
+      "updated_at": "2026-10-27T18:30:15Z",
+      "decay_at": "2026-10-29T03:39:40Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-279d8796f645",
       "idea_version": "IDEAV-387c468a148a49a9",
       "idea_version_started_at": "2026-10-27T16:00:02Z",
@@ -202463,6 +202533,77 @@
       "surfaced_at": "2026-10-26T13:58:56Z",
       "updated_at": "2026-10-26T13:58:56Z",
       "decay_at": "2026-10-27T23:01:31Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-14600c52489c",
+      "idea_version": "IDEAV-57292833b014c260",
+      "idea_version_started_at": "2026-10-27T18:30:15Z",
+      "ticker": "ENLV",
+      "company": "Enlivex Therapeutics Ltd.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The receipt of a Nasdaq delisting notice combined with a 1-for-16 reverse stock split indicates severe liquidity distress and potential ongoing dilution for shareholders.",
+      "why_now": "The delisting notice and reverse split were announced on 2026-10-27, marking a critical inflection point for the company's capital structure.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c0f80a3216c9"
+      ],
+      "primary_source_event_id": "EVT-c0f80a3216c9",
+      "source_headlines": [
+        "Enlivex Therapeutics Ltd. Receives Nasdaq Delisting Notice and Announces 1-for-16 Reverse Split"
+      ],
+      "source_headline": "Enlivex Therapeutics Ltd. Receives Nasdaq Delisting Notice and Announces 1-for-16 Reverse Split",
+      "source_url": "https://www.nasdaq.com/articles/enlivex-therapeutics-ltd-receives-nasdaq-delisting-notice-and-announces-1-16-reverse-split",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-27T15:10:59Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-27T18:30:15Z",
+      "updated_at": "2026-10-27T18:30:15Z",
+      "decay_at": "2026-10-29T03:10:59Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -246578,8 +246719,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1967,
-    "live_count": 45,
+    "surfaced_total": 1969,
+    "live_count": 47,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -246598,9 +246739,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3042037,
+    "news_seen_today": 3053686,
     "news_picked_today": 1191,
-    "news_dropped_today": 21537
+    "news_dropped_today": 21681
   },
   "book_momentum": {
     "live_count": 8,
