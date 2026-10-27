@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T02:47:59Z",
+  "generated_at": "2026-10-27T02:50:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-119",
@@ -784,6 +784,55 @@
           "name": "Province Resources",
           "ticker": "PRB",
           "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-132",
+      "headline": "TA YANG GROUP (01991): INSIDE INFORMATION FURTHER ADJOURNMENT OF THE WINDING-UP PETITION HEARING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1026/2026102600957.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T11:26:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "The company faces a continued legal threat regarding a winding-up petition, indicating ongoing financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "The company faces a continued legal threat regarding a winding-up petition, indicating ongoing financial distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TA YANG GROUP",
+          "ticker": "01991",
+          "listing_country": "CN"
         }
       ],
       "size_bucket": "small",
@@ -1905,55 +1954,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-059",
-      "headline": "Morgan Stanley Upgrades Lockheed Martin to Overweight from Equal-Weight",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/morgan-stanley-upgrades-lockheed-martin-overweight-equal-weight",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T00:15:38Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Analyst upgrade to Overweight from Equal-Weight for Lockheed Martin.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Analyst upgrade to Overweight from Equal-Weight for Lockheed Martin.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lockheed Martin",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247003,9 +247003,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 454116,
-    "news_picked_today": 168,
-    "news_dropped_today": 2928
+    "news_seen_today": 463684,
+    "news_picked_today": 170,
+    "news_dropped_today": 2950
   },
   "book_momentum": {
     "live_count": 8,
