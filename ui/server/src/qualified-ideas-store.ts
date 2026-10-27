@@ -152,7 +152,7 @@ const candidateIdeaAdmissionSchema = z.object({
   assessment: ideaAssessmentRuntimeSchema, assessment_sha256: sha,
   candidate: qualifiedIdeaCandidateRuntimeSchema, candidate_sha256: sha,
   decision_authority: decisionAuthoritySchema, decision_authority_sha256: sha,
-  market_evidence_sha256: sha, market_evidence: z.record(z.any()), projection_manifest_sha256: sha,
+  market_evidence_sha256: sha, market_evidence: z.record(z.string(), z.any()), projection_manifest_sha256: sha,
   integrity_evidence: integrityEvidenceSchema,
   integrity_evidence_sha256: sha, gaps: z.array(z.string().min(1)), admission_sha256: sha,
 }).strict()
