@@ -1,24 +1,24 @@
 {
-  "idea_id": "IDEA-3060680a62c4",
-  "idea_version": "IDEAV-4edc1b0fe26afd63",
-  "idea_version_started_at": "2026-10-24T18:03:05Z",
-  "ticker": "KEC",
-  "company": "KEC International Limited",
-  "exchange": "NSE",
+  "idea_id": "IDEA-827555d74388",
+  "idea_version": "IDEAV-e4124793bcdeb224",
+  "idea_version_started_at": "2026-10-27T04:19:35Z",
+  "ticker": "9449",
+  "company": "GMO Internet Inc.",
+  "exchange": "TSE",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
-  "direction": "long",
+  "direction": "short",
   "pair_with": null,
-  "reason": "KEC International has secured substantial new orders worth Rs. 2,872 crores from PGCIL, directly boosting its revenue and order book.",
-  "why_now": "The substantial orders were announced on October 24, 2026.",
-  "conviction": 75,
+  "reason": "A confirmed cyberattack and the threat of customer data disclosure pose significant operational, legal, and reputational risks to the company.",
+  "why_now": "The hacker set a deadline for data disclosure at noon on October 27, 2026, creating immediate downside pressure.",
+  "conviction": 65,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
-    "evidence": 25,
+    "evidence": 14,
     "impact": 20,
     "specificity": 7,
     "timing": 10,
@@ -32,6 +32,7 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -48,26 +49,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-fc8f6ff1a50a"
+    "EVT-1ba328973c52"
   ],
-  "primary_source_event_id": "EVT-fc8f6ff1a50a",
+  "primary_source_event_id": "EVT-1ba328973c52",
   "source_headlines": [
-    "KEC International Limited: KEC wins Substantial Orders of Rs. 2,872 crores from PGCIL"
+    "Cyberattack-hit GMO says hacker threatens to disclose customer info at noon"
   ],
-  "source_headline": "KEC International Limited: KEC wins Substantial Orders of Rs. 2,872 crores from PGCIL",
-  "source_url": "https://nsearchives.nseindia.com/corporate/KEC_24102026093524_PressRelease.pdf",
-  "source_name": "BSE / NSE Exchange Filing",
+  "source_headline": "Cyberattack-hit GMO says hacker threatens to disclose customer info at noon",
+  "source_url": "https://mainichi.jp/english/articles/20261027/p2g/00m/0bu/020000c",
+  "source_name": "The Mainichi",
   "materiality_max": 100,
-  "newest_source_at": "2026-10-24T04:05:46Z",
+  "newest_source_at": "2026-10-27T02:05:11Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-10-24T05:27:38Z",
-  "updated_at": "2026-10-24T18:03:05Z",
-  "decay_at": "2026-10-25T16:05:46Z",
+  "surfaced_at": "2026-10-27T04:19:35Z",
+  "updated_at": "2026-10-27T04:19:35Z",
+  "decay_at": "2026-10-28T14:05:11Z",
   "status": "live",
   "promoted_signal_id": null
 }
