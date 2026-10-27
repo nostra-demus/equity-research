@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-27T00:12:58Z",
+  "generated_at": "2026-10-27T00:19:58Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261027-021",
+      "headline": "25-NSE - Weave Communications, Inc. (0001609151) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1609151/000087666126000860/0000876661-26-000860-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-26T13:28:41Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Weave Communications is being delisted from the NYSE, which is a significant negative event for the company's capital structure and liquidity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Weave Communications is being delisted from the NYSE, which is a significant negative event for the company's capital structure and liquidity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Weave Communications, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-023",
+      "headline": "25-NSE - NATHANS FAMOUS, INC. (0000069733) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/69733/000135445726001021/0001354457-26-001021-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-26T13:18:24Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "SEC Form 25-NSE delisting notification for Nathans Famous Inc — forced delisting from Nasdaq is a survival event signalling exchange-listing standard failure or financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SEC Form 25-NSE delisting notification for Nathans Famous Inc — forced delisting from Nasdaq is a survival event signalling exchange-listing standard failure or financial distress.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nathans Famous, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261027-003",
       "headline": "Department of War's Office of Strategic Capital Signs $150 Million Conditional Loan Commitment with Stoke Space Technologies, Inc.",
@@ -94,6 +192,137 @@
           "listing_country": "US"
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-022",
+      "headline": "TRAI provides its recommendations on Unified Licensing to the Government",
+      "headline_en": null,
+      "url": "http://trai.gov.in/notifications/press-release/trai-provides-its-recommendations-unified-licensing-government",
+      "source_name": "Telecom Regulatory Authority of India (TRAI)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-26T13:20:35Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "TRAI recommendations on Unified Licensing could lead to significant regulatory changes for the Indian telecommunications sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "TRAI recommendations on Unified Licensing could lead to significant regulatory changes for the Indian telecommunications sector.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-027",
+      "headline": "TRAI releases recommendations on Spectrum Management and Licensing Framework",
+      "headline_en": null,
+      "url": "http://trai.gov.in/notifications/press-release/trai-releases-recommendations-spectrum-management-and-licensing",
+      "source_name": "Telecom Regulatory Authority of India (TRAI)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-26T13:13:15Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "TRAI recommendations on spectrum management and licensing framework impact the operational and regulatory environment for the Indian telecom sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "TRAI recommendations on spectrum management and licensing framework impact the operational and regulatory environment for the Indian telecom sector.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-025",
+      "headline": "TRAI releases Recommendations on Allocation and Pricing for 2.3-2.4 GHz, 2.5-2.69 GHz & 3.3-3.6 GHz bands",
+      "headline_en": null,
+      "url": "http://trai.gov.in/notifications/press-release/trai-releases-recommendations-allocation-and-pricing-23-24-ghz-25-269",
+      "source_name": "Telecom Regulatory Authority of India (TRAI)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-26T13:14:46Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "TRAI recommends allocation and pricing for 2.3–3.6 GHz spectrum bands (critical for 5G/4G capex); affects all Indian telecom operators but is non-binding recommendation, not final regulation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 78,
+      "triage_reason": "TRAI recommends allocation and pricing for 2.3–3.6 GHz spectrum bands (critical for 5G/4G capex); affects all Indian telecom operators but is non-binding recommendation, not final regulation.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "capex",
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -296,6 +525,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-028",
+      "headline": "424B5 - SOUTHWEST AIRLINES CO (0000092380) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/92380/000119312526431199/0001193125-26-431199-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B5 (Shelf Offering Final Prospectus)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-26T13:13:07Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Southwest Airlines filed a shelf offering prospectus, indicating potential future capital raising activities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Southwest Airlines filed a shelf offering prospectus, indicating potential future capital raising activities.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Southwest Airlines Co",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-010",
       "headline": "Bharti Airtel Limited: board meeting 05-Nov-2026 — Board Meeting Intimation",
       "headline_en": null,
@@ -492,6 +770,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-024",
+      "headline": "TRAI submits its Recommendations to DoT On The Reference made On The Spectrum Charging For 3G Services- Moves from spectrum charges linked with revenue to Flat Rate linked to market based price",
+      "headline_en": null,
+      "url": "http://trai.gov.in/notifications/press-release/trai-submits-its-recommendations-dot-reference-made-spectrum-charging",
+      "source_name": "Telecom Regulatory Authority of India (TRAI)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-26T13:14:58Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "TRAI recommends shift from revenue-linked to flat-rate spectrum charges for 3G; affects all Indian telecom operators but is non-binding and covers declining technology.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "TRAI recommends shift from revenue-linked to flat-rate spectrum charges for 3G; affects all Indian telecom operators but is non-binding and covers declining technology.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 48,
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-011",
       "headline": "Graded Surveillance Measure (GSM) - List of securities moving into their respective GSM Stages",
       "headline_en": null,
@@ -572,6 +894,55 @@
       ],
       "issuer_linkage": "sector",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-029",
+      "headline": "Public issue of Wiscon Industries Limited - Allocation to Anchor Investor",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261026-28/20261026-28.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T13:13:13Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Wiscon Industries Limited announced anchor investor allocation for its public issue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Wiscon Industries Limited announced anchor investor allocation for its public issue.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wiscon Industries Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -794,6 +1165,202 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-019",
+      "headline": "424B2 - ROYAL BANK OF CANADA (0001000275) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1000275/000095010326016139/0000950103-26-016139-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-26T13:39:31Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "424B2 prospectus filed by Royal Bank of Canada; no offering size, security type, or disclosed capital-structure impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "424B2 prospectus filed by Royal Bank of Canada; no offering size, security type, or disclosed capital-structure impact.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 35,
+      "rank_factors": {
+        "materiality": 35,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Royal Bank of Canada",
+          "ticker": "RY",
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-020",
+      "headline": "FWP - JPMorgan Chase Financial Co. LLC (0001665650) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1665650/000121390026112317/0001213900-26-112317-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-26T13:37:14Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "FWP (Free Writing Prospectus) for JPMorgan Chase Financial financing subsidiary; no offering size, security type, or disclosed capital-structure impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 48,
+      "triage_reason": "FWP (Free Writing Prospectus) for JPMorgan Chase Financial financing subsidiary; no offering size, security type, or disclosed capital-structure impact.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JPMorgan Chase & Co.",
+          "ticker": "JPM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-030",
+      "headline": "Ravinder Heights Limited: Ravinder Heights Limited has informed the Exchange regarding Appointment of Mr. Vineet Kumar Shrivastava as Independent Director of the company w.e.f. October 26, 2026.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/RVHL_26102026183928_Regulation_30_Change_in_Management_Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-26T13:10:29Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Independent director appointment effective 26 October 2026 is a routine governance filing with no evident operational, strategic, or credibility change.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 48,
+      "triage_reason": "Independent director appointment effective 26 October 2026 is a routine governance filing with no evident operational, strategic, or credibility change.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 28,
+      "rank_factors": {
+        "materiality": 28,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ravinder Heights Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-026",
+      "headline": "424B2 - JPMORGAN CHASE & CO (0000019617) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/19617/000121390026112309/0001213900-26-112309-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-26T13:14:56Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "JPMorgan Chase files 424B2 prospectus for debt or equity shelf takedown; routine and recurring capital action for a mega-cap bank.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "JPMorgan Chase files 424B2 prospectus for debt or equity shelf takedown; routine and recurring capital action for a mega-cap bank.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 28,
+      "rank_factors": {
+        "materiality": 28,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JPMorgan Chase & Co",
+          "ticker": "JPM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -201263,76 +201830,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-7185bf48deb4",
-      "idea_version": "IDEAV-4390a010d9015aaa",
-      "idea_version_started_at": "2026-10-25T22:53:36Z",
-      "ticker": "EGO",
-      "company": "Eldorado Gold",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is guiding for 40% production growth driven by the commissioning of two new mines, which will significantly expand revenue and cash flow capacity.",
-      "why_now": "The outlook was released on 2026-10-25, providing a clear catalyst for re-rating based on the production ramp-up.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7c064df3731f"
-      ],
-      "primary_source_event_id": "EVT-7c064df3731f",
-      "source_headlines": [
-        "Eldorado Gold’s 2027 Outlook: Two New Mines Turning On at Once, With 40% Production Growth Guided"
-      ],
-      "source_headline": "Eldorado Gold’s 2027 Outlook: Two New Mines Turning On at Once, With 40% Production Growth Guided",
-      "source_url": "https://www.nasdaq.com/articles/eldorado-golds-2027-outlook-two-new-mines-turning-once-40-production-growth-guided",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-25T12:13:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-25T12:38:57Z",
-      "updated_at": "2026-10-25T22:53:36Z",
-      "decay_at": "2026-10-27T00:13:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b0586fbde26d",
       "idea_version": "IDEAV-136afe44a600f92f",
       "idea_version_started_at": "2026-10-25T12:38:57Z",
@@ -204778,6 +205275,76 @@
       "surfaced_at": "2026-10-25T08:08:42Z",
       "updated_at": "2026-10-25T08:08:42Z",
       "decay_at": "2026-10-26T19:39:20Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-7185bf48deb4",
+      "idea_version": "IDEAV-4390a010d9015aaa",
+      "idea_version_started_at": "2026-10-25T22:53:36Z",
+      "ticker": "EGO",
+      "company": "Eldorado Gold",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is guiding for 40% production growth driven by the commissioning of two new mines, which will significantly expand revenue and cash flow capacity.",
+      "why_now": "The outlook was released on 2026-10-25, providing a clear catalyst for re-rating based on the production ramp-up.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7c064df3731f"
+      ],
+      "primary_source_event_id": "EVT-7c064df3731f",
+      "source_headlines": [
+        "Eldorado Gold’s 2027 Outlook: Two New Mines Turning On at Once, With 40% Production Growth Guided"
+      ],
+      "source_headline": "Eldorado Gold’s 2027 Outlook: Two New Mines Turning On at Once, With 40% Production Growth Guided",
+      "source_url": "https://www.nasdaq.com/articles/eldorado-golds-2027-outlook-two-new-mines-turning-once-40-production-growth-guided",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-25T12:13:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-25T12:38:57Z",
+      "updated_at": "2026-10-25T22:53:36Z",
+      "decay_at": "2026-10-27T00:13:09Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -208378,14 +208945,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 554,
+    "total_count": 555,
     "shown_count": 500,
-    "hidden_count": 54,
+    "hidden_count": 55,
     "side_counts": {
       "long": {
-        "total_count": 280,
+        "total_count": 281,
         "shown_count": 250,
-        "hidden_count": 30
+        "hidden_count": 31
       },
       "short": {
         "total_count": 274,
@@ -208409,6 +208976,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-7185bf48deb4",
+        "idea_version": "IDEAV-4390a010d9015aaa",
+        "idea_version_started_at": "2026-10-25T22:53:36Z",
+        "ticker": "EGO",
+        "company": "Eldorado Gold",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is guiding for 40% production growth driven by the commissioning of two new mines, which will significantly expand revenue and cash flow capacity.",
+        "why_now": "The outlook was released on 2026-10-25, providing a clear catalyst for re-rating based on the production ramp-up.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7c064df3731f"
+        ],
+        "primary_source_event_id": "EVT-7c064df3731f",
+        "source_headlines": [
+          "Eldorado Gold’s 2027 Outlook: Two New Mines Turning On at Once, With 40% Production Growth Guided"
+        ],
+        "source_headline": "Eldorado Gold’s 2027 Outlook: Two New Mines Turning On at Once, With 40% Production Growth Guided",
+        "source_url": "https://www.nasdaq.com/articles/eldorado-golds-2027-outlook-two-new-mines-turning-once-40-production-growth-guided",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-25T12:13:09Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-25T12:38:57Z",
+        "updated_at": "2026-10-25T22:53:36Z",
+        "decay_at": "2026-10-27T00:13:09Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-27T00:13:09Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-49b527bec356",
         "idea_version": "IDEAV-e98dbe1c1539ef60",
@@ -236924,80 +237564,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-3398917e64c9",
-        "idea_version": "IDEAV-16940b2c88df9007",
-        "idea_version_started_at": "2026-10-12T00:19:13Z",
-        "ticker": "6628",
-        "company": "Transcenta Holding",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The granting of China invention patents for Osemitamab (TST001) and its companion diagnostic antibody secures the company's intellectual property moat for its lead oncology candidate.",
-        "why_now": "The business update regarding the patent grants was released on October 12, 2026.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 11,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-dacbad6a4067"
-        ],
-        "primary_source_event_id": "EVT-dacbad6a4067",
-        "source_headlines": [
-          "TRANSCENTA-B (06628): VOLUNTARY ANNOUNCEMENT-BUSINESS UPDATE ON THE GRANT OF CHINA INVENTION PATENTS RELATED TO OSEMITAMAB (TST001) AND ITS COMPANION DIAGNOSTIC ANTIBODY"
-        ],
-        "source_headline": "TRANSCENTA-B (06628): VOLUNTARY ANNOUNCEMENT-BUSINESS UPDATE ON THE GRANT OF CHINA INVENTION PATENTS RELATED TO OSEMITAMAB (TST001) AND ITS COMPANION DIAGNOSTIC ANTIBODY",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1012/2026101200051.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 63,
-        "newest_source_at": "2026-10-12T00:03:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-12T00:19:13Z",
-        "updated_at": "2026-10-12T00:19:13Z",
-        "decay_at": "2026-10-13T12:03:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-15T00:16:57Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-a87e2e15a1c1",
         "idea_version": "IDEAV-5fd55a3088253688",
         "idea_version_started_at": "2026-10-11T09:12:22Z",
@@ -245662,7 +246228,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1947,
-    "live_count": 52,
+    "live_count": 51,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -245672,7 +246238,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4105,
+    "inbox_unconsumed": 4117,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -245681,9 +246247,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11839,
-    "news_picked_today": 18,
-    "news_dropped_today": 510
+    "news_seen_today": 23150,
+    "news_picked_today": 30,
+    "news_dropped_today": 666
   },
   "book_momentum": {
     "live_count": 8,
