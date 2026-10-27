@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T03:02:15Z",
+  "generated_at": "2026-10-27T03:19:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-119",
@@ -547,6 +547,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-146",
+      "headline": "Meta Platform seeks to raise $95 billion through stock offering in largest ever funding round for AI expansion",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/meta-platform-seeks-to-raise-95-billion-through-stock-offering-in-largest-ever-funding-round-for-ai-expansion-11793066342072.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T02:35:38Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Meta Platforms is planning a $95 billion stock offering, which would be a massive dilution event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Meta Platforms is planning a $95 billion stock offering, which would be a massive dilution event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta Platforms",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-050",
       "headline": "SANDS CHINA LTD SANDS N2808 SANDS N2703A SANDS N2903A SANDS N3108A SANDS N2808B SANDS N3006 SANDS N3006A SANDS N2703 SANDS N2903 SANDS N3108 (01928 05142 05413 05414 05415 05733 40247 40585 40852 40853 40854): Inside Information - Proposed Issue of Senior Notes",
       "headline_en": null,
@@ -788,6 +837,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-152",
+      "headline": "Autobauer: Bis zu 330.000 Euro Abfindung – Mercedes baut auch Personal in Teilen der Produktion ab",
+      "headline_en": "Automaker: Up to €330,000 severance — Mercedes also cuts workforce in parts of production",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/autobauer-mercedes-bietet-bis-zu-330.000-euro-abfindung-in-der-produktion/100263206.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T03:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Mercedes-Benz announces workforce reductions in production areas with severance of up to €330,000 per employee, directly impacting labor costs and operating structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Mercedes-Benz announces workforce reductions in production areas with severance of up to €330,000 per employee, directly impacting labor costs and operating structure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mercedes-Benz Group AG",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1278,6 +1376,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-153",
+      "headline": "GMO tells account holders to prepare for the worst as hackers threaten exposure",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/news/2026/10/27/japan/gmo-computer-shutdown/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T02:41:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "GMO Internet warns customers of a threatened data breach and exposure by hackers, creating regulatory-fine risk, customer-churn exposure, and operational liability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "GMO Internet warns customers of a threatened data breach and exposure by hackers, creating regulatory-fine risk, customer-churn exposure, and operational liability.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 2,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "cybersecurity",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GMO Internet Group",
+          "ticker": "9433",
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1820,141 +1968,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-022",
-      "headline": "TRAI provides its recommendations on Unified Licensing to the Government",
-      "headline_en": null,
-      "url": "http://trai.gov.in/notifications/press-release/trai-provides-its-recommendations-unified-licensing-government",
-      "source_name": "Telecom Regulatory Authority of India (TRAI)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-26T13:20:35Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "TRAI recommendations on Unified Licensing could lead to significant regulatory changes for the Indian telecommunications sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "TRAI recommendations on Unified Licensing could lead to significant regulatory changes for the Indian telecommunications sector.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-027",
-      "headline": "TRAI releases recommendations on Spectrum Management and Licensing Framework",
-      "headline_en": null,
-      "url": "http://trai.gov.in/notifications/press-release/trai-releases-recommendations-spectrum-management-and-licensing",
-      "source_name": "Telecom Regulatory Authority of India (TRAI)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-26T13:13:15Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "TRAI recommendations on spectrum management and licensing framework impact the operational and regulatory environment for the Indian telecom sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "TRAI recommendations on spectrum management and licensing framework impact the operational and regulatory environment for the Indian telecom sector.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-127",
-      "headline": "EF2: Donald Project Achieves Major Government Financing Milestone",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EF2?key=2924-03153714-6A1351655",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-27T02:24:46Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Donald Project achieved major government financing milestone; confirms capital deployment for named project and reduces execution risk, but dollar amount not disclosed in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Donald Project achieved major government financing milestone; confirms capital deployment for named project and reduces execution risk, but dollar amount not disclosed in headline.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EF2",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -204821,79 +204834,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0e26a0f66836",
-      "idea_version": "IDEAV-e5a80daf29ca00af",
-      "idea_version_started_at": "2026-10-26T00:05:04Z",
-      "ticker": "HBOS",
-      "company": "Hugo Boss",
-      "exchange": "XETRA",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Frasers Group has acquired a majority stake in the company, which typically triggers a premium valuation or strategic restructuring.",
-      "why_now": "The acquisition was reported on October 25, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9c6958323139"
-      ],
-      "primary_source_event_id": "EVT-9c6958323139",
-      "source_headlines": [
-        "Takeover: Sports retailer Frasers acquires majority stake in Hugo Boss"
-      ],
-      "source_headline": "Übernahme: Sportartikel-Händler Frasers übernimmt Mehrheit bei Hugo Boss",
-      "source_url": "https://www.handelsblatt.com/unternehmen/handel-konsumgueter/uebernahme-sportartikel-haendler-frasers-uebernimmt-mehrheit-bei-hugo-boss/100264800.html",
-      "source_name": "Handelsblatt",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-25T15:03:21Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T00:05:04Z",
-      "updated_at": "2026-10-26T00:05:04Z",
-      "decay_at": "2026-10-27T03:03:21Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-4beb9e83c333",
       "idea_version": "IDEAV-6d040e909cb10384",
       "idea_version_started_at": "2026-10-26T05:19:35Z",
@@ -206872,6 +206812,79 @@
       "surfaced_at": "2026-10-25T02:38:24Z",
       "updated_at": "2026-10-25T02:38:24Z",
       "decay_at": "2026-10-26T13:50:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-0e26a0f66836",
+      "idea_version": "IDEAV-e5a80daf29ca00af",
+      "idea_version_started_at": "2026-10-26T00:05:04Z",
+      "ticker": "HBOS",
+      "company": "Hugo Boss",
+      "exchange": "XETRA",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Frasers Group has acquired a majority stake in the company, which typically triggers a premium valuation or strategic restructuring.",
+      "why_now": "The acquisition was reported on October 25, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9c6958323139"
+      ],
+      "primary_source_event_id": "EVT-9c6958323139",
+      "source_headlines": [
+        "Takeover: Sports retailer Frasers acquires majority stake in Hugo Boss"
+      ],
+      "source_headline": "Übernahme: Sportartikel-Händler Frasers übernimmt Mehrheit bei Hugo Boss",
+      "source_url": "https://www.handelsblatt.com/unternehmen/handel-konsumgueter/uebernahme-sportartikel-haendler-frasers-uebernimmt-mehrheit-bei-hugo-boss/100264800.html",
+      "source_name": "Handelsblatt",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-25T15:03:21Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-26T00:05:04Z",
+      "updated_at": "2026-10-26T00:05:04Z",
+      "decay_at": "2026-10-27T03:03:21Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -209700,14 +209713,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 556,
+    "total_count": 557,
     "shown_count": 500,
-    "hidden_count": 56,
+    "hidden_count": 57,
     "side_counts": {
       "long": {
-        "total_count": 282,
+        "total_count": 283,
         "shown_count": 250,
-        "hidden_count": 32
+        "hidden_count": 33
       },
       "short": {
         "total_count": 274,
@@ -209731,6 +209744,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0e26a0f66836",
+        "idea_version": "IDEAV-e5a80daf29ca00af",
+        "idea_version_started_at": "2026-10-26T00:05:04Z",
+        "ticker": "HBOS",
+        "company": "Hugo Boss",
+        "exchange": "XETRA",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Frasers Group has acquired a majority stake in the company, which typically triggers a premium valuation or strategic restructuring.",
+        "why_now": "The acquisition was reported on October 25, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9c6958323139"
+        ],
+        "primary_source_event_id": "EVT-9c6958323139",
+        "source_headlines": [
+          "Takeover: Sports retailer Frasers acquires majority stake in Hugo Boss"
+        ],
+        "source_headline": "Übernahme: Sportartikel-Händler Frasers übernimmt Mehrheit bei Hugo Boss",
+        "source_url": "https://www.handelsblatt.com/unternehmen/handel-konsumgueter/uebernahme-sportartikel-haendler-frasers-uebernimmt-mehrheit-bei-hugo-boss/100264800.html",
+        "source_name": "Handelsblatt",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-25T15:03:21Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-26T00:05:04Z",
+        "updated_at": "2026-10-26T00:05:04Z",
+        "decay_at": "2026-10-27T03:03:21Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-27T03:03:21Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-035d450b2a01",
         "idea_version": "IDEAV-3eee045818ea4e17",
@@ -238168,82 +238257,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-bd6d23f312b2",
-        "idea_version": "IDEAV-0b9ef1fec3bd67e9",
-        "idea_version_started_at": "2026-10-12T01:12:56Z",
-        "ticker": "NTPC",
-        "company": "NTPC Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "NTPC is in talks with South Africa's Eskom for a green energy pact, which could open new markets and revenue streams for the company.",
-        "why_now": "The discussions are happening now, representing a current business development opportunity.",
-        "conviction": 40,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 42,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 11,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5fa1bfa2af08"
-        ],
-        "primary_source_event_id": "EVT-5fa1bfa2af08",
-        "source_headlines": [
-          "NTPC in talks with South Africa’s Eskom for a green energy pact"
-        ],
-        "source_headline": "NTPC in talks with South Africa’s Eskom for a green energy pact",
-        "source_url": "https://www.livemint.com/industry/energy/ntpc-eskom-renewable-energy-joint-venture-in-south-africa-11791543333845.html",
-        "source_name": "Mint",
-        "materiality_max": 58,
-        "newest_source_at": "2026-10-12T00:30:34Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-12T01:12:56Z",
-        "updated_at": "2026-10-12T01:12:56Z",
-        "decay_at": "2026-10-13T12:30:34Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-15T01:06:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-a7b0cf284225",
         "idea_version": "IDEAV-3604cee836b790b2",
         "idea_version_started_at": "2026-10-12T00:57:38Z",
@@ -246984,7 +246997,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1951,
-    "live_count": 53,
+    "live_count": 52,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -247003,9 +247016,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 492199,
-    "news_picked_today": 184,
-    "news_dropped_today": 3152
+    "news_seen_today": 558081,
+    "news_picked_today": 200,
+    "news_dropped_today": 3328
   },
   "book_momentum": {
     "live_count": 8,
