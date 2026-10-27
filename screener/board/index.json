@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-27T08:27:13Z",
+  "generated_at": "2026-10-27T08:32:17Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261027-252",
+      "headline": "Morepen Laboratories Limited: Morepen Laboratories Limited has informed the Exchange regarding a press release dated October 27, 2026, titled \"Morepen hits record Q2 revenue of Rs. 755 Cr; EBITDA surges 273% to Rs. 132 Cr; CDMO momentum drives Morepen into a new earnings scale; H1 EBITDA reaches Rs. 220 Cr\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MOREPENLAB_27102026134742_SEIntimationPR271026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T08:17:49Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Morepen Laboratories reported record Q2 revenue of Rs. 755 Cr and a 273% surge in EBITDA to Rs. 132 Cr.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Morepen Laboratories reported record Q2 revenue of Rs. 755 Cr and a 273% surge in EBITDA to Rs. 132 Cr.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Morepen Laboratories Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261027-243",
       "headline": "Mahindra Lifespace Developers Limited: Mahindra Lifespace Developers Limited has informed the Exchange regarding a press release dated October 27, 2026, titled \"Mahindra Lifespaces to develop 10.05 acre land parcel in North Bengaluru with INR 1250 crore GDV\".",
@@ -492,6 +541,159 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-264",
+      "headline": "Tata Motors Clears Key Hurdle in Iveco Takeover as Shareholders Back Buyout",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/tata-motors-clears-key-hurdle-in-iveco-takeover-as-shareholders-back-buyout-807f59ac?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T08:12:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Tata Motors cleared a key hurdle in the Iveco takeover as shareholders backed the buyout.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Motors cleared a key hurdle in the Iveco takeover as shareholders backed the buyout.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Iveco",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-256",
+      "headline": "Sky Gold Q2 results: Stock jumps 5% after profit nearly doubles; Board approves ₹1,800 crore fund raise",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/sky-gold-q2-results-profit-nearly-doubles-revenue-growth-margins-1800-crore-fund-raise-qip-share-price-20020242.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T08:08:10Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Sky Gold reported nearly doubled profit and approved a Rs. 1,800 crore fund raise.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sky Gold reported nearly doubled profit and approved a Rs. 1,800 crore fund raise.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sky Gold",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-255",
+      "headline": "Reckitt Cuts Outlook After Lysol Issues Stunt North America Sales",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/earnings/reckitt-cuts-outlook-after-lysol-issues-stunt-north-america-sales-62ae527d?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T07:40:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Reckitt cut its outlook due to Lysol sales issues in North America.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reckitt cut its outlook due to Lysol sales issues in North America.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reckitt",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1393,6 +1595,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-258",
+      "headline": "Acutaas Chemicals Q2 Results: Multibagger stock jumps 12% after increasing FY27 revenue, margin guidance",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/acutaas-chemicals-q2-results-fy27-revenue-margin-guidance-increased-order-visibility-share-price-multibagger-20020221.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T07:42:50Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Acutaas Chemicals increased its FY27 revenue and margin guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Acutaas Chemicals increased its FY27 revenue and margin guidance.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Acutaas Chemicals",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-241",
       "headline": "L&T wins orders worth up to ₹10,000 crore for Dhaka Metro project ahead of Q2 results",
       "headline_en": null,
@@ -1733,252 +1984,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-089",
-      "headline": "ATR: Donald Project debt conditionally approved [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ATR?key=2924-03153701-2A1706357",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-27T01:45:41Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Conditional debt approval for Donald Project announced and marked price-sensitive by ASX, indicating financing capacity for project capex.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Conditional debt approval for Donald Project announced and marked price-sensitive by ASX, indicating financing capacity for project capex.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ATR",
-          "ticker": "ATR",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-049",
-      "headline": "BFL: BSP Third Quarter Trading Update 2026 [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BFL?key=2924-03153637-2A1706334",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-26T23:50:16Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Third quarter trading update marked as price-sensitive by the issuer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Third quarter trading update marked as price-sensitive by the issuer.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BSP Financial Group",
-          "ticker": "BFL",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-130",
-      "headline": "SEACON (02409): (I) MAJOR TRANSACTION EXERCISE OF EARLY PURCHASE OPTIONS; AND (II) MAJOR TRANSACTION FINANCE LEASE ARRANGEMENTS IN RELATION TO THREE VESSELS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1026/2026102600999.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-26T11:40:00Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "SEACON exercises early purchase options and arranges finance leases for three vessels — a named major capex/capital commitment from an official HK exchange filing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "SEACON exercises early purchase options and arranges finance leases for three vessels — a named major capex/capital commitment from an official HK exchange filing.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SEACON",
-          "ticker": "02409",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-152",
-      "headline": "Autobauer: Bis zu 330.000 Euro Abfindung – Mercedes baut auch Personal in Teilen der Produktion ab",
-      "headline_en": "Automaker: Up to €330,000 severance — Mercedes also cuts workforce in parts of production",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/autobauer-mercedes-bietet-bis-zu-330.000-euro-abfindung-in-der-produktion/100263206.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T03:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Mercedes-Benz announces workforce reductions in production areas with severance of up to €330,000 per employee, directly impacting labor costs and operating structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Mercedes-Benz announces workforce reductions in production areas with severance of up to €330,000 per employee, directly impacting labor costs and operating structure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mercedes-Benz Group AG",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-246",
-      "headline": "SKY GOLD AND DIAMONDS LIMITED: We wish to inform you that the Board of Directors of the Company ( Board ) in its meeting held today, i.e. Tuesday, 27th October 2026 has inter alia considered and approved the following:01. Raising of funds not exceeding Rs. 1,800 crores by way of issuance of equity shares ( QIP )02. Unaudited Standalone and Consolidated Financial Results for the quarter and half-year ended 30th September 2026 and the Limited Review Report thereon issued by the Statutory Auditor.0",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/SKYGOLD_27102026130654_Outcome27102026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-27T07:38:28Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Board approves ₹1,800 crore QIP (equity issuance) plus Q2/H1 FY27 unaudited results; named capital raise materially impacts capital structure and shareholder dilution.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Board approves ₹1,800 crore QIP (equity issuance) plus Q2/H1 FY27 unaudited results; named capital raise materially impacts capital structure and shareholder dilution.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 2,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SKY GOLD AND DIAMONDS LIMITED",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247386,9 +247391,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1175303,
-    "news_picked_today": 417,
-    "news_dropped_today": 12087
+    "news_seen_today": 1184127,
+    "news_picked_today": 434,
+    "news_dropped_today": 12118
   },
   "book_momentum": {
     "live_count": 8,
