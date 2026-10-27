@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T04:29:22Z",
+  "generated_at": "2026-10-27T04:39:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-171",
@@ -345,6 +345,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-187",
+      "headline": "VVDN Technologies said to consider up to $300 million IPO",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/markets/vvdn-technologies-said-to-consider-up-to-300-million-ipo/article71629638.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T03:49:57Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "VVDN Technologies is reportedly considering an IPO of up to $300 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "VVDN Technologies is reportedly considering an IPO of up to $300 million.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "VVDN Technologies",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-195",
+      "headline": "China Property Woes Bring Strains to Huafa’s $62 Billion of Debt",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-27/china-property-woes-crisis-zhuhai-huafa-62-billion-debt-zhuhai-tower-guangdong",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T03:45:37Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Huafa has $62 billion of debt, and China's property woes are bringing strains, indicating potential distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Huafa has $62 billion of debt, and China's property woes are bringing strains, indicating potential distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Huafa",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1872,105 +1970,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-153",
-      "headline": "GMO tells account holders to prepare for the worst as hackers threaten exposure",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/news/2026/10/27/japan/gmo-computer-shutdown/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T02:41:00Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "GMO Internet warns customers of a threatened data breach and exposure by hackers, creating regulatory-fine risk, customer-churn exposure, and operational liability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "GMO Internet warns customers of a threatened data breach and exposure by hackers, creating regulatory-fine risk, customer-churn exposure, and operational liability.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 2,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "cybersecurity",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GMO Internet Group",
-          "ticker": "9433",
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-094",
-      "headline": "SoftBank vehicle sells 3.58 crore Ola Electric rights entitlements amid ₹1,000-crore issue",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/softbank-vehicle-sells-358-crore-ola-electric-rights-entitlements-amid-1000-crore-issue/article71628154.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T01:30:11Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "SoftBank is selling 3.58 crore rights entitlements in Ola Electric's 1,000-crore issue, indicating a significant reduction in exposure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "SoftBank is selling 3.58 crore rights entitlements in Ola Electric's 1,000-crore issue, indicating a significant reduction in exposure.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ola Electric",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247092,9 +247091,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 753899,
-    "news_picked_today": 252,
-    "news_dropped_today": 4980
+    "news_seen_today": 762169,
+    "news_picked_today": 270,
+    "news_dropped_today": 5178
   },
   "book_momentum": {
     "live_count": 8,
