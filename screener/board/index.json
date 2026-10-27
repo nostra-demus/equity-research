@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-27T14:07:55Z",
+  "generated_at": "2026-10-27T14:18:13Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261027-530",
+      "headline": "S-4/A - Inflection Point Acquisition Corp. VI (0002102041) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2102041/000121390026112739/0001213900-26-112739-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-27T13:29:35Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Inflection Point Acquisition Corp. VI filed an S-4/A, indicating progress on a merger or exchange offer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Inflection Point Acquisition Corp. VI filed an S-4/A, indicating progress on a merger or exchange offer.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Inflection Point Acquisition Corp. VI",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261027-485",
       "headline": "ZHONG JI LS (00767): MAJOR AND CONNECTED TRANSACTION IN RELATION TO ACQUISITION OF 25% ISSUED SHARE CAPITAL OF ASIAN INTEGRATED CELL LABORATORY LIMITED INVOLVING ISSUE OF CONVERTIBLE NOTES UNDER SPECIFIC MANDATE",
@@ -1933,55 +1982,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-446",
-      "headline": "Raymond Q2 Results: Net profit jumps 130% YoY to Rs 32 crore, revenue rises 24%",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/raymond-q2-results-net-profit-jumps-130-yoy-to-rs-32-crore-revenue-rises-24/articleshow/135233071.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T11:49:50Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Raymond reported a 130% YoY jump in net profit to Rs 32 crore and a 24% revenue increase.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Raymond reported a 130% YoY jump in net profit to Rs 32 crore and a 24% revenue increase.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Raymond",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247242,9 +247242,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2143573,
-    "news_picked_today": 980,
-    "news_dropped_today": 17740
+    "news_seen_today": 2156113,
+    "news_picked_today": 1010,
+    "news_dropped_today": 17806
   },
   "book_momentum": {
     "live_count": 8,
