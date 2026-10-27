@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T12:10:39Z",
+  "generated_at": "2026-10-27T12:24:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-411",
@@ -98,6 +98,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-426",
+      "headline": "Choice International Limited: Choice International Limited has informed the Exchange regarding a press release dated October 27, 2026, titled \"Press release on investment by NH Investment & Securities Co., Ltd. amounting to Rs. 900 Crore in our material subsidiary, Choice Equity Broking Private Limited.\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/CHOICE_27102026171703_Intimation_CCPS_Allotment_-_Press_release_Signed_upload.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T11:47:49Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Choice Equity Broking Private Limited received a Rs. 900 Crore investment from NH Investment & Securities Co., Ltd.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Choice Equity Broking Private Limited received a Rs. 900 Crore investment from NH Investment & Securities Co., Ltd.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Choice International Limited",
+          "ticker": "531353",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1934,55 +1983,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-287",
-      "headline": "Reckitt cuts sales outlook as Lysol and China businesses hit",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/8b75b446-501f-4165-b956-5ecd20c5efb4?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T08:33:59Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Reckitt cut its sales outlook due to performance in its Lysol and China businesses.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Reckitt cut its sales outlook due to performance in its Lysol and China businesses.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reckitt",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -205137,77 +205137,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ba24132911c9",
-      "idea_version": "IDEAV-3e2e73ac1214c697",
-      "idea_version_started_at": "2026-10-26T01:09:27Z",
-      "ticker": "CZR",
-      "company": "CZR Resources",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The failure to satisfy shareholder approval conditions for the takeover offer removes the acquisition premium from the stock price.",
-      "why_now": "The filing confirming the condition was not satisfied was released on 2026-10-26.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ad102a401b33"
-      ],
-      "primary_source_event_id": "EVT-ad102a401b33",
-      "source_headlines": [
-        "CZR: Takeover Offer-Shareholder Approval Condition Not Satisfied [price-sensitive]"
-      ],
-      "source_headline": "CZR: Takeover Offer-Shareholder Approval Condition Not Satisfied [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CZR?key=2924-03153002-6A1351299",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T00:20:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T01:09:27Z",
-      "updated_at": "2026-10-26T01:09:27Z",
-      "decay_at": "2026-10-27T12:20:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-4beb9e83c333",
       "idea_version": "IDEAV-6d040e909cb10384",
       "idea_version_started_at": "2026-10-26T05:19:35Z",
@@ -206973,6 +206902,77 @@
       "surfaced_at": "2026-10-25T02:38:24Z",
       "updated_at": "2026-10-25T02:38:24Z",
       "decay_at": "2026-10-26T13:50:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-ba24132911c9",
+      "idea_version": "IDEAV-3e2e73ac1214c697",
+      "idea_version_started_at": "2026-10-26T01:09:27Z",
+      "ticker": "CZR",
+      "company": "CZR Resources",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The failure to satisfy shareholder approval conditions for the takeover offer removes the acquisition premium from the stock price.",
+      "why_now": "The filing confirming the condition was not satisfied was released on 2026-10-26.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ad102a401b33"
+      ],
+      "primary_source_event_id": "EVT-ad102a401b33",
+      "source_headlines": [
+        "CZR: Takeover Offer-Shareholder Approval Condition Not Satisfied [price-sensitive]"
+      ],
+      "source_headline": "CZR: Takeover Offer-Shareholder Approval Condition Not Satisfied [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CZR?key=2924-03153002-6A1351299",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-26T00:20:11Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-26T01:09:27Z",
+      "updated_at": "2026-10-26T01:09:27Z",
+      "decay_at": "2026-10-27T12:20:11Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -209944,9 +209944,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 557,
+    "total_count": 558,
     "shown_count": 500,
-    "hidden_count": 57,
+    "hidden_count": 58,
     "side_counts": {
       "long": {
         "total_count": 285,
@@ -209954,9 +209954,9 @@
         "hidden_count": 35
       },
       "short": {
-        "total_count": 272,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 23
       }
     },
     "retention": {
@@ -209975,6 +209975,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ba24132911c9",
+        "idea_version": "IDEAV-3e2e73ac1214c697",
+        "idea_version_started_at": "2026-10-26T01:09:27Z",
+        "ticker": "CZR",
+        "company": "CZR Resources",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The failure to satisfy shareholder approval conditions for the takeover offer removes the acquisition premium from the stock price.",
+        "why_now": "The filing confirming the condition was not satisfied was released on 2026-10-26.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ad102a401b33"
+        ],
+        "primary_source_event_id": "EVT-ad102a401b33",
+        "source_headlines": [
+          "CZR: Takeover Offer-Shareholder Approval Condition Not Satisfied [price-sensitive]"
+        ],
+        "source_headline": "CZR: Takeover Offer-Shareholder Approval Condition Not Satisfied [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CZR?key=2924-03153002-6A1351299",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-26T00:20:11Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-26T01:09:27Z",
+        "updated_at": "2026-10-26T01:09:27Z",
+        "decay_at": "2026-10-27T12:20:11Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-27T12:20:11Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-52c1133413b1",
         "idea_version": "IDEAV-9209882c9efe76bb",
@@ -247149,87 +247223,12 @@
         "archived_at": "2026-10-04T09:45:18Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-fc426f81932d",
-        "idea_version": "IDEAV-929164ede4691ce2",
-        "idea_version_started_at": "2026-10-01T05:01:30Z",
-        "ticker": "6594",
-        "company": "Nidec",
-        "exchange": "TSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The auditor's refusal to provide an opinion on earnings creates significant uncertainty regarding the company's financial health and potential accounting irregularities.",
-        "why_now": "The news broke on 2026-10-01 and represents an immediate, critical governance and financial reporting risk.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "governance_turnaround",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-25a8014ab713"
-        ],
-        "primary_source_event_id": "EVT-25a8014ab713",
-        "source_headlines": [
-          "Nidec Shares Plunge After Auditor Withholds Opinion on Earnings"
-        ],
-        "source_headline": "Nidec Shares Plunge After Auditor Withholds Opinion on Earnings",
-        "source_url": "https://www.bloomberg.com/news/articles/2026-10-01/nidec-shares-plunge-after-auditor-withholds-opinion-on-earnings",
-        "source_name": "Bloomberg",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-01T00:25:33Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-28T05:43:18Z",
-        "updated_at": "2026-10-01T05:01:30Z",
-        "decay_at": "2026-10-02T12:25:33Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-04T00:39:36Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1962,
-    "live_count": 55,
+    "live_count": 54,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -247248,9 +247247,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1736257,
-    "news_picked_today": 835,
-    "news_dropped_today": 15653
+    "news_seen_today": 1814581,
+    "news_picked_today": 837,
+    "news_dropped_today": 15795
   },
   "book_momentum": {
     "live_count": 8,
