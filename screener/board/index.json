@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T22:21:25Z",
+  "generated_at": "2026-10-27T22:30:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-670",
@@ -1683,6 +1683,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-685",
+      "headline": "Stock Market Today, Oct. 27: Boeing Plummets 11% on Lower Production Rates and Missed Delivery Targets",
+      "headline_en": null,
+      "url": "https://www.fool.com/coverage/stock-market-today/2026/10/27/stock-market-today-oct-27-boeing-plummets-11-on-lower-production-rates-and-missed-delivery-targets/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T21:30:09Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Boeing shares fell 11% due to production rate cuts and missed delivery targets, signaling significant operational issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Boeing shares fell 11% due to production rate cuts and missed delivery targets, signaling significant operational issues.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boeing",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-659",
       "headline": "Stock Market Today, Oct. 27: Meta Raises Largest-Ever Equity Offering to Nearly $98 Billion to Fund AI Infrastructure Bet",
       "headline_en": null,
@@ -1836,48 +1885,52 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261027-642",
-      "headline": "Stock Market Today, Oct. 27: SoFi Soars 13% After Beating Estimates and Raising Guidance",
+      "inbox_id": "INB-20261027-696",
+      "headline": "Grupo Aval Acciones y Valores S.A. Announces Dismissal of Charges and Conclusion of Corficolombiana’s Agreement with the U.S. Department of Justice on October 26, 2026",
       "headline_en": null,
-      "url": "https://www.fool.com/coverage/stock-market-today/2026/10/27/stock-market-today-oct-27-sofi-soars-13-after-beating-estimates-and-raising-guidance/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
+      "url": "https://www.nasdaq.com/articles/grupo-aval-acciones-y-valores-sa-announces-dismissal-charges-and-conclusion",
+      "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-10-27T20:48:21Z",
+      "found_at": "2026-10-27T21:04:09Z",
       "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "SoFi beat earnings estimates and raised its guidance, resulting in a 13% stock price increase.",
+      "prelim_note": "Grupo Aval and Corficolombiana reached a resolution with the US DOJ, dismissing charges.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "SoFi beat earnings estimates and raised its guidance, resulting in a 13% stock price increase.",
-      "region": "US",
+      "triage_reason": "Grupo Aval and Corficolombiana reached a resolution with the US DOJ, dismissing charges.",
+      "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 85,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 85,
+        "materiality": 75,
         "source_tier": 0,
-        "scope": 6,
-        "event": 7,
+        "scope": 5,
+        "event": 6,
         "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "guidance_change",
+        "event_id": "litigation_enforcement",
         "size_bucket": "mid"
       },
       "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
+        "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "SoFi",
+          "name": "Grupo Aval Acciones y Valores S.A.",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": null
+        },
+        {
+          "name": "Corficolombiana",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "mid",
@@ -1886,37 +1939,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261027-627",
-      "headline": "‎e& makes AED 11.24B profit in Q3 2026",
+      "inbox_id": "INB-20261027-689",
+      "headline": "Nabors Industries Reports Q3 Loss",
       "headline_en": null,
-      "url": "https://www.argaam.com/en/financial-reports/company-report/5442/2026/72?preview=true",
-      "source_name": "Argaam — UAE Main News (English)",
+      "url": "https://www.nasdaq.com/articles/nabors-industries-reports-q3-loss",
+      "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-10-27T20:23:00Z",
+      "found_at": "2026-10-27T21:01:01Z",
       "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "e& reported a profit of AED 11.24 billion for Q3 2026.",
+      "prelim_note": "Nabors Industries reported a Q3 loss, indicating negative financial performance.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "e& reported a profit of AED 11.24 billion for Q3 2026.",
-      "region": "OTHER",
+      "triage_reason": "Nabors Industries reported a Q3 loss, indicating negative financial performance.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 80,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 80,
+        "materiality": 75,
         "source_tier": 0,
         "scope": 6,
         "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
+        "size_bucket": "mid"
       },
       "event_types": [
         "earnings_revenue_margin"
@@ -1924,66 +1977,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "e&",
-          "ticker": null,
-          "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-645",
-      "headline": "Amazon wins FCC approval for $11.5 billion Globalstar acquisition to challenge Starlink",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/science/amazon-wins-fcc-approval-for-115-billion-globalstar-acquisition-to-challenge-starlink/article71633251.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T20:05:05Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Amazon received regulatory approval for an $11.5 billion acquisition of Globalstar.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Amazon received regulatory approval for an $11.5 billion acquisition of Globalstar.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Globalstar",
+          "name": "Nabors Industries",
           "ticker": null,
           "listing_country": "US"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -246748,9 +246747,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3428614,
-    "news_picked_today": 1568,
-    "news_dropped_today": 26104
+    "news_seen_today": 3438528,
+    "news_picked_today": 1609,
+    "news_dropped_today": 26231
   },
   "book_momentum": {
     "live_count": 8,
