@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T11:36:24Z",
+  "generated_at": "2026-10-27T11:43:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-314",
@@ -791,6 +791,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-386",
+      "headline": "Bajaj Auto Q2 Results, Net Profit Jumps 35% To ₹3,354 Crore As Revenue Beats Street Estimates",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/bajaj-auto-q2-results-net-profit-jumps-35-to-3354-crore-as-revenue-beats-street-estimates",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T10:52:12Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Bajaj Auto reported a 35% jump in net profit to ₹3,354 crore, beating market expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bajaj Auto reported a 35% jump in net profit to ₹3,354 crore, beating market expectations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bajaj Auto",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-383",
+      "headline": "Quebec’s La Caisse to Buy BCE Towers Stake for $1.7 Billion",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-27/quebec-s-la-caisse-to-buy-bce-towers-stake-for-1-7-billion",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T10:47:35Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "La Caisse is acquiring a stake in BCE towers for $1.7 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "La Caisse is acquiring a stake in BCE towers for $1.7 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BCE Inc",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-354",
       "headline": "Reckitt Shares Drop After Lysol Shortage Prompts Guidance Trim",
       "headline_en": null,
@@ -1093,6 +1191,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-393",
+      "headline": "Maruti Suzuki Q2 Results: Profit Falls 27%, Margin Contracts Sharply",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/maruti-suzuki-q2-results-profit-falls-27-margin-contracts-sharply-12242516#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T10:15:35Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Maruti Suzuki reported a 27% decline in Q2 profit alongside a sharp contraction in margins.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Maruti Suzuki reported a 27% decline in Q2 profit alongside a sharp contraction in margins.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Maruti Suzuki",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-331",
       "headline": "Maruti Suzuki Q2 Results: Profit falls 26% YoY to Rs 2,466 crore, but revenue rises 26%",
       "headline_en": null,
@@ -1142,21 +1289,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261027-332",
-      "headline": "Bajaj Auto Q2 Results: Profit jumps 35% YoY to Rs 3,354 crore; revenue up 34%",
+      "inbox_id": "INB-20261027-394",
+      "headline": "HSBC Softens Revenue Blow With $1B Stock Buyback: Stock Tumbles Over 6%",
       "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/bajaj-auto-q2-results-profit-jumps-35-yoy-to-rs-3354-crore-revenue-up-34/articleshow/135230311.cms",
-      "source_name": "The Economic Times",
+      "url": "https://www.ndtvprofit.com/business/hsbc-softens-revenue-blow-with-1b-stock-buyback-stock-tumbles-over-6-12242481#publisher=newsstand",
+      "source_name": "NDTV Profit",
       "input_nature": "news_headline",
-      "found_at": "2026-10-27T10:03:12Z",
+      "found_at": "2026-10-27T10:10:47Z",
       "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Bajaj Auto reported a 35% profit jump to Rs 3,354 crore with 34% revenue growth.",
+      "prelim_note": "HSBC reported revenue headwinds and a $1 billion stock buyback, with shares falling over 6%.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Bajaj Auto reported a 35% profit jump to Rs 3,354 crore with 34% revenue growth.",
-      "region": "IN",
+      "triage_reason": "HSBC reported revenue headwinds and a $1 billion stock buyback, with shares falling over 6%.",
+      "region": "GB",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
@@ -1165,27 +1312,28 @@
         "scope": 6,
         "event": 5,
         "size": 2,
-        "recency": 5,
+        "recency": 4,
         "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
+        "size_bucket": "mega"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "earnings_revenue_margin",
+        "capital_actions"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Bajaj Auto",
+          "name": "HSBC",
           "ticker": null,
-          "listing_country": "IN"
+          "listing_country": "GB"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1835,154 +1983,6 @@
           "name": "Novartis",
           "ticker": null,
           "listing_country": "CH"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-239",
-      "headline": "HSBC Profit Growth Misses, Plans $1 Billion Buyback",
-      "headline_en": null,
-      "url": "https://www.wsj.com/finance/banking/hsbc-quarterly-profit-climbs-plans-1-billion-buyback-1551a999?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T06:21:00Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "HSBC missed profit growth expectations but announced a $1 billion share buyback.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "HSBC missed profit growth expectations but announced a $1 billion share buyback.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HSBC",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-238",
-      "headline": "Truelink Capital To Acquire Johnson Controls' Global Intrusion Products Business",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/truelink-capital-acquire-johnson-controls-global-intrusion-products-business",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T06:05:40Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Truelink Capital is acquiring Johnson Controls' Global Intrusion Products business.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Truelink Capital is acquiring Johnson Controls' Global Intrusion Products business.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Johnson Controls",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-235",
-      "headline": "(LEAD) FTC to slap 20 bln-won fine on Samsung Electronics for misleading gaming ads",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261027003351320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T05:58:10Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Samsung Electronics faces a 20 billion won fine from the FTC for misleading advertising.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Samsung Electronics faces a 20 billion won fine from the FTC for misleading advertising.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung Electronics",
-          "ticker": null,
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "mega",
@@ -205714,77 +205714,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-586f6f9b0df8",
-      "idea_version": "IDEAV-567857f204fc9c2f",
-      "idea_version_started_at": "2026-10-26T00:44:51Z",
-      "ticker": "09926",
-      "company": "Akeso",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Positive Phase 3 clinical data for Ivonescimab in advanced biliary tract cancer demonstrates superior efficacy (mOS 14.9m vs 12.1m) compared to the current standard of care, supporting potential market share gains.",
-      "why_now": "Results were presented at the 2026 ESMO meeting on 2026-10-25, providing fresh clinical validation.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4cd8dfbfe92c"
-      ],
-      "primary_source_event_id": "EVT-4cd8dfbfe92c",
-      "source_headlines": [
-        "AKESO (09926): VOLUNTARY ANNOUNCEMENT - HARMONI-GI1 RESULTS PUBLISHED AT 2026 ESMO mOS 14.9m vs 12.1m, HR 0.75 (P=0.0031) FOR IVONESCIMAB PLUS CHEMO VS DURVALUMAB PLUS CHEMO IN 1L ADVANCED BTC"
-      ],
-      "source_headline": "AKESO (09926): VOLUNTARY ANNOUNCEMENT - HARMONI-GI1 RESULTS PUBLISHED AT 2026 ESMO mOS 14.9m vs 12.1m, HR 0.75 (P=0.0031) FOR IVONESCIMAB PLUS CHEMO VS DURVALUMAB PLUS CHEMO IN 1L ADVANCED BTC",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1026/2026102600019.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 91,
-      "newest_source_at": "2026-10-25T23:38:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T00:44:51Z",
-      "updated_at": "2026-10-26T00:44:51Z",
-      "decay_at": "2026-10-27T11:38:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-52c1133413b1",
       "idea_version": "IDEAV-9209882c9efe76bb",
       "idea_version_started_at": "2026-10-26T01:09:27Z",
@@ -209359,6 +209288,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-586f6f9b0df8",
+      "idea_version": "IDEAV-567857f204fc9c2f",
+      "idea_version_started_at": "2026-10-26T00:44:51Z",
+      "ticker": "09926",
+      "company": "Akeso",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Positive Phase 3 clinical data for Ivonescimab in advanced biliary tract cancer demonstrates superior efficacy (mOS 14.9m vs 12.1m) compared to the current standard of care, supporting potential market share gains.",
+      "why_now": "Results were presented at the 2026 ESMO meeting on 2026-10-25, providing fresh clinical validation.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4cd8dfbfe92c"
+      ],
+      "primary_source_event_id": "EVT-4cd8dfbfe92c",
+      "source_headlines": [
+        "AKESO (09926): VOLUNTARY ANNOUNCEMENT - HARMONI-GI1 RESULTS PUBLISHED AT 2026 ESMO mOS 14.9m vs 12.1m, HR 0.75 (P=0.0031) FOR IVONESCIMAB PLUS CHEMO VS DURVALUMAB PLUS CHEMO IN 1L ADVANCED BTC"
+      ],
+      "source_headline": "AKESO (09926): VOLUNTARY ANNOUNCEMENT - HARMONI-GI1 RESULTS PUBLISHED AT 2026 ESMO mOS 14.9m vs 12.1m, HR 0.75 (P=0.0031) FOR IVONESCIMAB PLUS CHEMO VS DURVALUMAB PLUS CHEMO IN 1L ADVANCED BTC",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1026/2026102600019.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 91,
+      "newest_source_at": "2026-10-25T23:38:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-26T00:44:51Z",
+      "updated_at": "2026-10-26T00:44:51Z",
+      "decay_at": "2026-10-27T11:38:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-5d7e7121c615",
       "idea_version": "IDEAV-741d7a5410fa2ff8",
       "idea_version_started_at": "2026-10-25T06:04:01Z",
@@ -209947,14 +209947,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 554,
+    "total_count": 555,
     "shown_count": 500,
-    "hidden_count": 54,
+    "hidden_count": 55,
     "side_counts": {
       "long": {
-        "total_count": 282,
+        "total_count": 283,
         "shown_count": 250,
-        "hidden_count": 32
+        "hidden_count": 33
       },
       "short": {
         "total_count": 272,
@@ -209978,6 +209978,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-586f6f9b0df8",
+        "idea_version": "IDEAV-567857f204fc9c2f",
+        "idea_version_started_at": "2026-10-26T00:44:51Z",
+        "ticker": "09926",
+        "company": "Akeso",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Positive Phase 3 clinical data for Ivonescimab in advanced biliary tract cancer demonstrates superior efficacy (mOS 14.9m vs 12.1m) compared to the current standard of care, supporting potential market share gains.",
+        "why_now": "Results were presented at the 2026 ESMO meeting on 2026-10-25, providing fresh clinical validation.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4cd8dfbfe92c"
+        ],
+        "primary_source_event_id": "EVT-4cd8dfbfe92c",
+        "source_headlines": [
+          "AKESO (09926): VOLUNTARY ANNOUNCEMENT - HARMONI-GI1 RESULTS PUBLISHED AT 2026 ESMO mOS 14.9m vs 12.1m, HR 0.75 (P=0.0031) FOR IVONESCIMAB PLUS CHEMO VS DURVALUMAB PLUS CHEMO IN 1L ADVANCED BTC"
+        ],
+        "source_headline": "AKESO (09926): VOLUNTARY ANNOUNCEMENT - HARMONI-GI1 RESULTS PUBLISHED AT 2026 ESMO mOS 14.9m vs 12.1m, HR 0.75 (P=0.0031) FOR IVONESCIMAB PLUS CHEMO VS DURVALUMAB PLUS CHEMO IN 1L ADVANCED BTC",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1026/2026102600019.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 91,
+        "newest_source_at": "2026-10-25T23:38:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-26T00:44:51Z",
+        "updated_at": "2026-10-26T00:44:51Z",
+        "decay_at": "2026-10-27T11:38:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-27T11:38:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b46baf89fdca",
         "idea_version": "IDEAV-9f527617e5a30b41",
@@ -238416,81 +238490,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-9716a5634f9d",
-        "idea_version": "IDEAV-8dc32f373e9e5b1b",
-        "idea_version_started_at": "2026-10-12T02:08:33Z",
-        "ticker": "700",
-        "company": "Tencent",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Tencent's plan to sell dollar and offshore yuan bonds under its note programme could improve its capital structure or fund strategic initiatives at potentially favorable rates.",
-        "why_now": "Reuters reported today that Tencent plans a bond sale, indicating an imminent capital markets transaction.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b65fd114d7e6"
-        ],
-        "primary_source_event_id": "EVT-b65fd114d7e6",
-        "source_headlines": [
-          "Tencent plans dollar, offshore yuan bond sale under note programme"
-        ],
-        "source_headline": "Tencent plans dollar, offshore yuan bond sale under note programme",
-        "source_url": "https://www.reuters.com/world/asia-pacific/tencent-plans-dollar-offshore-yuan-bond-sale-under-note-programme-2026-10-12/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 90,
-        "newest_source_at": "2026-10-12T01:19:05Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-12T02:08:33Z",
-        "updated_at": "2026-10-12T02:08:33Z",
-        "decay_at": "2026-10-13T13:19:05Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-15T02:47:27Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-6b3b74b3573e",
         "idea_version": "IDEAV-2c83a373078e1ddc",
         "idea_version_started_at": "2026-10-12T01:12:56Z",
@@ -247232,7 +247231,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1962,
-    "live_count": 58,
+    "live_count": 57,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -247251,9 +247250,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1614183,
-    "news_picked_today": 727,
-    "news_dropped_today": 15353
+    "news_seen_today": 1623517,
+    "news_picked_today": 762,
+    "news_dropped_today": 15438
   },
   "book_momentum": {
     "live_count": 8,
