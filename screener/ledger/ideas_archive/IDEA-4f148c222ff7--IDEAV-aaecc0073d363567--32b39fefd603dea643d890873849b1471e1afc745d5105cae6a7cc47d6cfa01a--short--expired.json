@@ -1,33 +1,33 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-30T09:32:54Z",
+  "archived_at": "2026-10-26T17:25:46Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-8b18351c452b",
-    "idea_version": "IDEAV-74cc105ed3b65696",
-    "idea_version_started_at": "2026-09-27T09:54:29Z",
-    "ticker": "9023",
-    "company": "Tokyo Metro Co., Ltd.",
-    "exchange": "TSE",
+    "idea_id": "IDEA-4f148c222ff7",
+    "idea_version": "IDEAV-aaecc0073d363567",
+    "idea_version_started_at": "2026-10-23T20:01:12Z",
+    "ticker": "VOLV-B",
+    "company": "Volvo Cars",
+    "exchange": "STO",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "The compromise of 59,000 customer email addresses creates immediate operational risk, potential regulatory fines, and reputational damage that will weigh on sentiment.",
-    "why_now": "The breach was reported today, September 27, 2026, and the market has not yet fully priced the potential remediation costs and loss of consumer trust.",
-    "conviction": 65,
+    "reason": "The company reported a $373M Q3 loss and a rapid, unexpected slump in China sales, necessitating a 2,500-job workforce reduction.",
+    "why_now": "The earnings miss and restructuring announcement occurred on October 23, 2026.",
+    "conviction": 80,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 14,
+      "impact": 21,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
-      "corroboration": 0,
+      "corroboration": 7,
       "learning_adjustment": 0
     },
     "trade_readiness": "watch_only",
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -53,26 +52,28 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-c6eafa4a494c"
+      "EVT-fe4ccbc3e7aa",
+      "EVT-dc75eb016288"
     ],
-    "primary_source_event_id": "EVT-c6eafa4a494c",
+    "primary_source_event_id": "EVT-fe4ccbc3e7aa",
     "source_headlines": [
-      "BREAKING NEWS: Tokyo Metro says 59,000 customer email addresses may be compromised"
+      "Volvo Cars plunges 24% as CEO says China sales slump came 'faster than we thought'",
+      "Volvo Cars cuts 2,500 jobs after posting $373M loss in Q3"
     ],
-    "source_headline": "BREAKING NEWS: Tokyo Metro says 59,000 customer email addresses may be compromised",
-    "source_url": "https://english.kyodonews.net/articles/-/86475",
-    "source_name": "Kyodo News (Japan Wire)",
-    "materiality_max": 87,
-    "newest_source_at": "2026-09-27T09:19:24Z",
+    "source_headline": "Volvo Cars plunges 24% as CEO says China sales slump came 'faster than we thought'",
+    "source_url": "https://www.cnbc.com/2026/10/23/volvo-cars-q3-earnings-job-cuts.html",
+    "source_name": "CNBC",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-23T15:57:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-27T09:54:29Z",
-    "updated_at": "2026-09-27T09:54:29Z",
-    "decay_at": "2026-09-28T21:19:24Z",
+    "surfaced_at": "2026-10-23T20:01:12Z",
+    "updated_at": "2026-10-23T20:01:12Z",
+    "decay_at": "2026-10-25T03:57:00Z",
     "status": "live",
     "promoted_signal_id": null
   }
