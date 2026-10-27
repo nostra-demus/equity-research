@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T12:28:32Z",
+  "generated_at": "2026-10-27T12:31:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-411",
@@ -1039,6 +1039,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-434",
+      "headline": "Hubbell Earnings Up In Q3; Lifts FY26 Outlook But Stock Down 5%",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/hubbell-earnings-q3-lifts-fy26-outlook-stock-down-5",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T12:07:43Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Hubbell reported Q3 earnings and raised FY26 guidance, yet the stock fell 5%, indicating a negative market reaction to the report.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hubbell reported Q3 earnings and raised FY26 guidance, yet the stock fell 5%, indicating a negative market reaction to the report.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hubbell",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-425",
       "headline": "Novartis AG Reports Q3 2026 Financial Results and Raises Full-Year Core Operating Income Guidance",
       "headline_en": null,
@@ -1933,56 +1983,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-283",
-      "headline": "Novartis Raises Guidance Despite Drug-Trial Setbacks Hitting Profit",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/novartis-raises-guidance-despite-trial-setbacks-hitting-profit-f642c87f?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T09:05:00Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Novartis raised its guidance despite reporting profit hits from drug-trial setbacks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Novartis raised its guidance despite reporting profit hits from drug-trial setbacks.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Novartis",
-          "ticker": null,
-          "listing_country": "CH"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247247,9 +247247,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1825695,
-    "news_picked_today": 848,
-    "news_dropped_today": 15808
+    "news_seen_today": 1836785,
+    "news_picked_today": 856,
+    "news_dropped_today": 15824
   },
   "book_momentum": {
     "live_count": 8,
