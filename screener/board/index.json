@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T20:36:51Z",
+  "generated_at": "2026-10-27T20:45:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-553",
@@ -1781,6 +1781,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-632",
+      "headline": "Meta Boosts Equity Offering to $98 Billion, Raising Its AI Bet",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-10-27/bloomberg-tech-10-27-2026-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T18:24:15Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Meta is significantly increasing its capital expenditure on AI infrastructure to $98 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta is significantly increasing its capital expenditure on AI infrastructure to $98 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-615",
       "headline": "Tata Motors’ Iveco takeover offer turns unconditional as shareholding reaches 89%",
       "headline_en": null,
@@ -1880,99 +1929,51 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261027-607",
-      "headline": "Weil Gotshal Enlists Bankruptcy Lawyer, as Firm’s Situation Worsens",
+      "inbox_id": "INB-20261027-635",
+      "headline": "Poundland teeters on brink of collapse - putting stores and jobs at risk",
       "headline_en": null,
-      "url": "https://www.wsj.com/business/weil-gotshal-leaders-spent-frantic-weekend-trying-to-stabilize-law-firm-3a1f6f31?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
+      "url": "https://www.thisismoney.co.uk/money/markets/article-16242759/Poundland-teeters-brink-collapse-putting-stores-jobs-risk.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
       "input_nature": "news_headline",
-      "found_at": "2026-10-27T18:09:00Z",
+      "found_at": "2026-10-27T18:14:15Z",
       "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Major law firm Weil Gotshal is reportedly seeking bankruptcy counsel, indicating severe financial distress.",
+      "prelim_note": "UK discount retailer Poundland faces imminent insolvency and store closures, triggering solvency risk and job losses.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Major law firm Weil Gotshal is reportedly seeking bankruptcy counsel, indicating severe financial distress.",
-      "region": "US",
+      "triage_reason": "UK discount retailer Poundland faces imminent insolvency and store closures, triggering solvency risk and job losses.",
+      "region": "GB",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 78,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 78,
         "source_tier": 0,
         "scope": 6,
         "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 7,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "default_distress",
-        "size_bucket": "unknown"
+        "size_bucket": "mid"
       },
       "event_types": [
-        "default_distress"
+        "default_distress",
+        "restructuring_layoffs"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Weil Gotshal",
+          "name": "Poundland",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "GB"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-609",
-      "headline": "Chip-Equipment Supplier ASM International Lifts Guidance Again Amid AI Spending Frenzy",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/chip-equipment-supplier-asm-international-lifts-guidance-again-amid-ai-spending-frenzy-8963e8de?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T17:48:00Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "ASM International raised its financial guidance again, citing strong demand from AI-related capital spending.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ASM International raised its financial guidance again, citing strong demand from AI-related capital spending.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ASM International",
-          "ticker": null,
-          "listing_country": "NL"
-        }
-      ],
-      "size_bucket": "large",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -204541,78 +204542,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-53d0cfb512c1",
-      "idea_version": "IDEAV-f0fdf24bd47d3d79",
-      "idea_version_started_at": "2026-10-26T12:14:09Z",
-      "ticker": "EMG",
-      "company": "Man Group",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Meiji Yasuda's $1.25 billion investment and 5% stake acquisition provides a significant capital injection and institutional validation for the asset manager.",
-      "why_now": "The investment was announced today, October 26, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a24434e188ea"
-      ],
-      "primary_source_event_id": "EVT-a24434e188ea",
-      "source_headlines": [
-        "Man Group Shares Up On Meiji Yasuda's $1.25 Bln Investment, 5% Stake Acquisition Plan"
-      ],
-      "source_headline": "Man Group Shares Up On Meiji Yasuda's $1.25 Bln Investment, 5% Stake Acquisition Plan",
-      "source_url": "https://www.nasdaq.com/articles/man-group-shares-meiji-yasudas-125-bln-investment-5-stake-acquisition-plan",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T08:39:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T12:14:09Z",
-      "updated_at": "2026-10-26T12:14:09Z",
-      "decay_at": "2026-10-27T20:39:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-c67828ffc052",
       "idea_version": "IDEAV-473f6cfd0ac85592",
       "idea_version_started_at": "2026-10-26T12:14:09Z",
@@ -206088,6 +206017,78 @@
       "surfaced_at": "2026-10-25T02:38:24Z",
       "updated_at": "2026-10-25T02:38:24Z",
       "decay_at": "2026-10-26T13:50:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-53d0cfb512c1",
+      "idea_version": "IDEAV-f0fdf24bd47d3d79",
+      "idea_version_started_at": "2026-10-26T12:14:09Z",
+      "ticker": "EMG",
+      "company": "Man Group",
+      "exchange": "LSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Meiji Yasuda's $1.25 billion investment and 5% stake acquisition provides a significant capital injection and institutional validation for the asset manager.",
+      "why_now": "The investment was announced today, October 26, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a24434e188ea"
+      ],
+      "primary_source_event_id": "EVT-a24434e188ea",
+      "source_headlines": [
+        "Man Group Shares Up On Meiji Yasuda's $1.25 Bln Investment, 5% Stake Acquisition Plan"
+      ],
+      "source_headline": "Man Group Shares Up On Meiji Yasuda's $1.25 Bln Investment, 5% Stake Acquisition Plan",
+      "source_url": "https://www.nasdaq.com/articles/man-group-shares-meiji-yasudas-125-bln-investment-5-stake-acquisition-plan",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-26T08:39:18Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-26T12:14:09Z",
+      "updated_at": "2026-10-26T12:14:09Z",
+      "decay_at": "2026-10-27T20:39:18Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -209420,14 +209421,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 562,
+    "total_count": 563,
     "shown_count": 500,
-    "hidden_count": 62,
+    "hidden_count": 63,
     "side_counts": {
       "long": {
-        "total_count": 286,
+        "total_count": 287,
         "shown_count": 250,
-        "hidden_count": 36
+        "hidden_count": 37
       },
       "short": {
         "total_count": 276,
@@ -209451,6 +209452,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-53d0cfb512c1",
+        "idea_version": "IDEAV-f0fdf24bd47d3d79",
+        "idea_version_started_at": "2026-10-26T12:14:09Z",
+        "ticker": "EMG",
+        "company": "Man Group",
+        "exchange": "LSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Meiji Yasuda's $1.25 billion investment and 5% stake acquisition provides a significant capital injection and institutional validation for the asset manager.",
+        "why_now": "The investment was announced today, October 26, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a24434e188ea"
+        ],
+        "primary_source_event_id": "EVT-a24434e188ea",
+        "source_headlines": [
+          "Man Group Shares Up On Meiji Yasuda's $1.25 Bln Investment, 5% Stake Acquisition Plan"
+        ],
+        "source_headline": "Man Group Shares Up On Meiji Yasuda's $1.25 Bln Investment, 5% Stake Acquisition Plan",
+        "source_url": "https://www.nasdaq.com/articles/man-group-shares-meiji-yasudas-125-bln-investment-5-stake-acquisition-plan",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-26T08:39:18Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-26T12:14:09Z",
+        "updated_at": "2026-10-26T12:14:09Z",
+        "decay_at": "2026-10-27T20:39:18Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-27T20:39:18Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a01750e9e4fe",
         "idea_version": "IDEAV-932c765a691cde8b",
@@ -238272,80 +238348,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-c9da0ae18daf",
-        "idea_version": "IDEAV-fed8a91888ad3742",
-        "idea_version_started_at": "2026-10-12T11:48:12Z",
-        "ticker": "IONQ",
-        "company": "IonQ",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "IonQ is acquiring cybersecurity firm Elisity for up to $1.3 billion, which will expand its capabilities and market reach in the cybersecurity sector.",
-        "why_now": "News of the acquisition broke today, October 12, 2026, indicating a strategic move to bolster its cyber unit.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 74,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 7,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a525b9beabd9",
-          "EVT-f861d6876829"
-        ],
-        "primary_source_event_id": "EVT-a525b9beabd9",
-        "source_headlines": [
-          "Quantum-Computing Company IonQ to Buy Cybersecurity Firm for Up to $1.3 Billion",
-          "IonQ to Buy Elisity for Up to $1.3 Billion to Bolster Cyber Unit"
-        ],
-        "source_headline": "Quantum-Computing Company IonQ to Buy Cybersecurity Firm for Up to $1.3 Billion",
-        "source_url": "https://www.wsj.com/business/deals/quantum-computing-company-ionq-to-buy-cybersecurity-firm-for-up-to-1-3-billion-65af65bd?mod=pls_whats_news_us_business_f",
-        "source_name": "The Wall Street Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-12T11:13:34Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-12T11:48:12Z",
-        "updated_at": "2026-10-12T11:48:12Z",
-        "decay_at": "2026-10-13T23:13:34Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-15T13:17:43Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-207b8410f8ba",
         "idea_version": "IDEAV-7ad6c798fd7587d3",
         "idea_version_started_at": "2026-10-12T11:48:12Z",
@@ -246716,7 +246718,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1969,
-    "live_count": 43,
+    "live_count": 42,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -246735,9 +246737,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3268939,
-    "news_picked_today": 1357,
-    "news_dropped_today": 23651
+    "news_seen_today": 3278743,
+    "news_picked_today": 1417,
+    "news_dropped_today": 23783
   },
   "book_momentum": {
     "live_count": 8,
