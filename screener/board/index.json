@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T10:18:23Z",
+  "generated_at": "2026-10-27T10:24:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-303",
@@ -639,6 +639,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-308",
+      "headline": "Mazagon Dock Q2 results: Shares slump 10% after revenue declines; Higher provisions drags profit",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/mazagon-dock-shipbuilders-q2-results-revenue-fall-provisions-impact-on-profit-share-price-fall-20020370.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T09:53:33Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Mazagon Dock reported a 54% decline in profit and revenue contraction, leading to a 10% share price drop.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mazagon Dock reported a 54% decline in profit and revenue contraction, leading to a 10% share price drop.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mazagon Dock Shipbuilders",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-311",
+      "headline": "Mazagon Dock Q2 Results: Profit Falls 54%, Margins Contract Sharply To 8.1%",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/mazagon-dock-q2-results-profit-falls-54-announces-interim-dividend-check-record-date-12242241#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T09:36:26Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Mazagon Dock reported a 54% profit decline and significant margin contraction to 8.1%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mazagon Dock reported a 54% profit decline and significant margin contraction to 8.1%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mazagon Dock Shipbuilders",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1888,105 +1986,6 @@
           "name": "Iveco",
           "ticker": null,
           "listing_country": "IT"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-142",
-      "headline": "HDFC Bank Limited: HDFC Bank Limited has informed the Exchange regarding disclosure under Regulation 30 and other applicable regulations of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 - Change in Managing Director and Chief Executive Officer of the Bank",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/HDFCBANK_27102026080232_SEIntimation_appt_of_AB.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-27T02:32:54Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Change in Managing Director and Chief Executive Officer of HDFC Bank Limited disclosed via Regulation 30 filing; headline lacks detail on who is departing and arriving, but the change itself affects management continuity, investor confidence, and strategic direction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Change in Managing Director and Chief Executive Officer of HDFC Bank Limited disclosed via Regulation 30 filing; headline lacks detail on who is departing and arriving, but the change itself affects management continuity, investor confidence, and strategic direction.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 73,
-      "rank_factors": {
-        "materiality": 73,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "executive_exit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "executive_exit",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HDFC Bank Limited",
-          "ticker": "500180",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-084",
-      "headline": "WDS: Woodside agrees Greater Sunrise sale to Timor Gap",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WDS?key=2924-03153683-6A1351639",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-27T01:12:06Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Woodside Energy agrees to sell Greater Sunrise oil and gas field in Timor Gap, a major asset disposal affecting capital structure and future cash flow.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Woodside Energy agrees to sell Greater Sunrise oil and gas field in Timor Gap, a major asset disposal affecting capital structure and future cash flow.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Woodside Energy",
-          "ticker": "WDS",
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "large",
@@ -247397,9 +247396,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1440182,
-    "news_picked_today": 566,
-    "news_dropped_today": 14410
+    "news_seen_today": 1456258,
+    "news_picked_today": 583,
+    "news_dropped_today": 14561
   },
   "book_momentum": {
     "live_count": 8,
