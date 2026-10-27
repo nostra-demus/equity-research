@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T01:13:26Z",
+  "generated_at": "2026-10-27T01:20:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-034",
@@ -683,6 +683,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-071",
+      "headline": "Persistent Systems raises ₹4,264 crore through its QIP - These institutions received shares",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/persistent-systems-share-price-qip-closure-4264-crore-raised-domestic-mfs-issued-shares-acquisition-q2-impact-20019833.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T00:53:47Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Persistent Systems raises ₹4,264 crore (~$510M USD) via qualified institutional placement—immediate per-share dilution offset by capital for operations and growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Persistent Systems raises ₹4,264 crore (~$510M USD) via qualified institutional placement—immediate per-share dilution offset by capital for operations and growth.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 8,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Persistent Systems",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1892,50 +1941,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-024",
-      "headline": "TRAI submits its Recommendations to DoT On The Reference made On The Spectrum Charging For 3G Services- Moves from spectrum charges linked with revenue to Flat Rate linked to market based price",
-      "headline_en": null,
-      "url": "http://trai.gov.in/notifications/press-release/trai-submits-its-recommendations-dot-reference-made-spectrum-charging",
-      "source_name": "Telecom Regulatory Authority of India (TRAI)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-26T13:14:58Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "TRAI recommends shift from revenue-linked to flat-rate spectrum charges for 3G; affects all Indian telecom operators but is non-binding and covers declining technology.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "TRAI recommends shift from revenue-linked to flat-rate spectrum charges for 3G; affects all Indian telecom operators but is non-binding and covers declining technology.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 48,
-      "rank_factors": {
-        "materiality": 48,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -246773,9 +246778,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 219946,
-    "news_picked_today": 79,
-    "news_dropped_today": 1625
+    "news_seen_today": 251551,
+    "news_picked_today": 81,
+    "news_dropped_today": 1647
   },
   "book_momentum": {
     "live_count": 8,
