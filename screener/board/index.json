@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T04:40:08Z",
+  "generated_at": "2026-10-27T04:49:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-171",
@@ -1190,6 +1190,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-197",
+      "headline": "FERRETTI (09638): INSIDE INFORMATION ANNOUNCEMENT - UNAUDITED COMMERCIAL AND FINANCIAL UPDATE FOR THE NINE MONTHS ENDED SEPTEMBER 30, 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700196.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T04:12:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Unaudited commercial and financial update for nine months ended September 30, 2026, disclosed as inside information; specific metrics not stated in headline but interim financial disclosure moves revenue and margin expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Unaudited commercial and financial update for nine months ended September 30, 2026, disclosed as inside information; specific metrics not stated in headline but interim financial disclosure moves revenue and margin expectations.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 2,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ferretti",
+          "ticker": "09638",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-062",
       "headline": "BUY: Quarterly Activities and Cashflow Report - Sept 2026 [price-sensitive]",
       "headline_en": null,
@@ -1921,55 +1970,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-167",
-      "headline": "Dalmia Bharat shares downgraded, price targets cut after Q2 results; Details here",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/dalmia-bharat-share-price-downgraded-target-cut-q2-results-details-here-20019924.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T03:12:48Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Dalmia Bharat received a downgrade and price target cuts following its Q2 results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Dalmia Bharat received a downgrade and price target cuts following its Q2 results.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "credit_rating_downgrade",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "credit_rating_downgrade"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dalmia Bharat",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247163,9 +247163,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 762169,
-    "news_picked_today": 270,
-    "news_dropped_today": 5178
+    "news_seen_today": 770223,
+    "news_picked_today": 272,
+    "news_dropped_today": 5512
   },
   "book_momentum": {
     "live_count": 8,
