@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T01:59:09Z",
+  "generated_at": "2026-10-27T01:59:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-034",
@@ -202022,6 +202022,75 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-77b0931ae560",
+      "idea_version": "IDEAV-9d944fb084806f51",
+      "idea_version_started_at": "2026-10-27T01:59:31Z",
+      "ticker": "SNES",
+      "company": "SenesTech, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The filing of a Schedule 13D indicates an activist investor has taken a significant stake, which often precedes efforts to influence corporate strategy or governance.",
+      "why_now": "The Schedule 13D was filed on 2026-10-26, signaling immediate potential for strategic changes or a buyout attempt.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 70,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 13,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ff82ad17b8da"
+      ],
+      "primary_source_event_id": "EVT-ff82ad17b8da",
+      "source_headlines": [
+        "SCHEDULE 13D - SenesTech, Inc. (0001680378) (Subject)"
+      ],
+      "source_headline": "SCHEDULE 13D - SenesTech, Inc. (0001680378) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1680378/000216182226000002/0002161822-26-000002-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "materiality_max": 72,
+      "newest_source_at": "2026-10-26T18:27:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-27T01:59:31Z",
+      "updated_at": "2026-10-27T01:59:31Z",
+      "decay_at": "2026-10-28T06:27:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-613a9ec31465",
       "idea_version": "IDEAV-c2277b85808dd4d7",
       "idea_version_started_at": "2026-10-26T23:02:14Z",
@@ -246770,8 +246839,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1947,
-    "live_count": 49,
+    "surfaced_total": 1948,
+    "live_count": 50,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
