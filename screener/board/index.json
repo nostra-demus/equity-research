@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T04:39:26Z",
+  "generated_at": "2026-10-27T04:40:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-171",
@@ -202529,6 +202529,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-1eedaee326ce",
+      "idea_version": "IDEAV-805ff45cb433dc4c",
+      "idea_version_started_at": "2026-10-27T04:39:49Z",
+      "ticker": "HBT",
+      "company": "HBT Financial",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "HBT Financial is acquiring Tri-County Financial Group, which will expand its regional banking presence and deposit base.",
+      "why_now": "The filing of the 425 communication on 2026-10-26 confirms the ongoing progress of the merger integration.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b2d3621f1710",
+        "EVT-b4986e77821c"
+      ],
+      "primary_source_event_id": "EVT-b2d3621f1710",
+      "source_headlines": [
+        "425 - Tri-County Financial Group, Inc. (0001725262) (Subject)",
+        "425 - HBT Financial, Inc. (0000775215) (Filed by)"
+      ],
+      "source_headline": "425 - Tri-County Financial Group, Inc. (0001725262) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1725262/000077521526000087/0000775215-26-000087-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-26T11:04:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-27T04:39:49Z",
+      "updated_at": "2026-10-27T04:39:49Z",
+      "decay_at": "2026-10-27T23:04:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-8239e24e9708",
       "idea_version": "IDEAV-e9b499f4916f6f14",
       "idea_version_started_at": "2026-10-26T17:25:34Z",
@@ -247071,8 +247143,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1955,
-    "live_count": 56,
+    "surfaced_total": 1956,
+    "live_count": 57,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
