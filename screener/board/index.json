@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-10-27T14:32:49Z",
+  "generated_at": "2026-10-27T14:46:21Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261027-550",
+      "headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated October 27, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited (formerly TML Commercial Vehicles Limited) ( the Company ) Voluntary Totalitarian Tender Offer for all the common shares of Iveco Group N.V.\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TML2_27102026195840_NSEBSELETTER.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T14:29:09Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Tender offer by TML CV Holdings B.V. (Tata Motors subsidiary) for all common shares of Iveco Group N.V., a major global commercial-vehicle manufacturer; material M&A with capital-structure and earnings implications, though deal value not stated in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tender offer by TML CV Holdings B.V. (Tata Motors subsidiary) for all common shares of Iveco Group N.V., a major global commercial-vehicle manufacturer; material M&A with capital-structure and earnings implications, though deal value not stated in headline.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors Limited",
+          "ticker": "TATAMOTORS",
+          "listing_country": "IN"
+        },
+        {
+          "name": "Iveco Group N.V.",
+          "ticker": null,
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261027-530",
       "headline": "S-4/A - Inflection Point Acquisition Corp. VI (0002102041) (Filer)",
@@ -1432,6 +1486,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-552",
+      "headline": "Guidewire Software, Inc. to Acquire Hyperexponential Ltd for $1.7 billion in Cash",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/guidewire-software-inc-acquire-hyperexponential-ltd-17-billion-cash",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T14:02:19Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Guidewire Software announced $1.7B cash acquisition of Hyperexponential, affecting capital structure and product portfolio.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Guidewire Software announced $1.7B cash acquisition of Hyperexponential, affecting capital structure and product portfolio.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Guidewire Software, Inc.",
+          "ticker": "GWRE",
+          "listing_country": "US"
+        },
+        {
+          "name": "Hyperexponential Ltd",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-548",
       "headline": "Ares Capital is Making a $2.6 Billion Acquisition. Here’s What it Means for its 10%-Yielding Dividend.",
       "headline_en": null,
@@ -1877,107 +1985,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-529",
-      "headline": "Poundland could be broken up and face insolvency as bids assessed",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/poundland-poundstretcher-irish-wilko-press-association-b3074138.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T12:15:45Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Poundland faces potential insolvency and a possible breakup as bids are assessed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Poundland faces potential insolvency and a possible breakup as bids are assessed.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Poundland",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-468",
-      "headline": "CenterPoint Energy, Inc. Reports Q3 2026 Results, Raises Guidance, and Increases 10-year Capital Plan to $70.7 billion",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/centerpoint-energy-inc-reports-q3-2026-results-raises-guidance-and-increases-10-year",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T12:13:19Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "CenterPoint Energy reported Q3 results, raised guidance, and announced a $70.7 billion 10-year capital plan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CenterPoint Energy reported Q3 results, raised guidance, and announced a $70.7 billion 10-year capital plan.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CenterPoint Energy",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -246733,9 +246740,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2181160,
-    "news_picked_today": 1033,
-    "news_dropped_today": 17975
+    "news_seen_today": 2231736,
+    "news_picked_today": 1044,
+    "news_dropped_today": 18060
   },
   "book_momentum": {
     "live_count": 8,
