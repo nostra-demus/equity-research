@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T01:29:11Z",
+  "generated_at": "2026-10-27T01:32:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-034",
@@ -144,6 +144,109 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-081",
+      "headline": "Tata Motor’s Iveco takeover bid clears 80% threshold",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/tata-motors-iveco-takeover-bid-clears-80-threshold/articleshow/135222297.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T01:11:36Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Tata Motors' Iveco acquisition bid has cleared the 80% approval threshold, reducing execution risk and advancing deal completion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Motors' Iveco acquisition bid has cleared the 80% approval threshold, reducing execution risk and advancing deal completion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors",
+          "ticker": "TATAMOTORS",
+          "listing_country": "IN"
+        },
+        {
+          "name": "Iveco",
+          "ticker": null,
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-084",
+      "headline": "WDS: Woodside agrees Greater Sunrise sale to Timor Gap",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WDS?key=2924-03153683-6A1351639",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T01:12:06Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Woodside Energy agrees to sell Greater Sunrise oil and gas field in Timor Gap, a major asset disposal affecting capital structure and future cash flow.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Woodside Energy agrees to sell Greater Sunrise oil and gas field in Timor Gap, a major asset disposal affecting capital structure and future cash flow.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Woodside Energy",
+          "ticker": "WDS",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1849,104 +1952,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-001",
-      "headline": "424B2 - BANK OF NOVA SCOTIA (0000009631) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/9631/000183988226052464/0001839882-26-052464-index.htm",
-      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-26T18:38:00Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Bank of Nova Scotia filed a 424B2 shelf-takedown prospectus for an active securities offering, but headline does not disclose size, terms, or instrument type.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Bank of Nova Scotia filed a 424B2 shelf-takedown prospectus for an active securities offering, but headline does not disclose size, terms, or instrument type.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 47,
-      "rank_factors": {
-        "materiality": 47,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bank of Nova Scotia",
-          "ticker": "BNS",
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-002",
-      "headline": "424B2 - TORONTO DOMINION BANK (0000947263) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/947263/000114036126040751/0001140361-26-040751-index.htm",
-      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-26T18:36:37Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Toronto Dominion Bank filed a 424B2 shelf-takedown prospectus for an active securities offering, but headline does not disclose size, terms, or instrument type.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Toronto Dominion Bank filed a 424B2 shelf-takedown prospectus for an active securities offering, but headline does not disclose size, terms, or instrument type.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 47,
-      "rank_factors": {
-        "materiality": 47,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Toronto Dominion Bank",
-          "ticker": "TD",
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -246784,9 +246789,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 262127,
-    "news_picked_today": 91,
-    "news_dropped_today": 1781
+    "news_seen_today": 272559,
+    "news_picked_today": 95,
+    "news_dropped_today": 1849
   },
   "book_momentum": {
     "live_count": 8,
