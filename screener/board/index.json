@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-27T10:14:37Z",
+  "generated_at": "2026-10-27T10:18:23Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261027-303",
+      "headline": "Dharani Sugars & Chemicals Limited: Dharani Sugars & Chemicals Limited has informed the Exchange regarding 'Discl.default Loans including revolving like cash credit from banks Default'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/dharanisugarsltd_27102026152522_DharsugardefaultNotice30092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T09:55:38Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Dharani Sugars & Chemicals Limited disclosed a default on bank loans, indicating significant financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dharani Sugars & Chemicals Limited disclosed a default on bank loans, indicating significant financial distress.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dharani Sugars & Chemicals Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261027-296",
       "headline": "CHINA CHUNLAI (01969): COMPLETION ANNOUNCEMENT - MAJOR TRANSACTION - COMPLETION OF THE ACQUISITION OF THE ENTIRE ISSUED SHARE CAPITAL OF ACCOUNTANCY & BUSINESS COLLEGE (IRELAND) LIMITED (TRADING AS DUBLIN BUSINESS SCHOOL)",
@@ -1941,55 +1990,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-276",
-      "headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Outcome of the Voting Results of the 8th (Eighth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_27102026142034_IntimationofOutcomeof8thE-VotingResultsofCoC27102026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-27T08:51:33Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "India Power Corporation Limited is undergoing a corporate insolvency resolution process.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "India Power Corporation Limited is undergoing a corporate insolvency resolution process.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "India Power Corporation Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247397,9 +247397,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1432036,
-    "news_picked_today": 553,
-    "news_dropped_today": 14399
+    "news_seen_today": 1440182,
+    "news_picked_today": 566,
+    "news_dropped_today": 14410
   },
   "book_momentum": {
     "live_count": 8,
