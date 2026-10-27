@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T05:29:31Z",
+  "generated_at": "2026-10-27T06:03:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-171",
@@ -994,6 +994,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-215",
+      "headline": "Tata Motors' Unit Gains 89.42% Stake In Iveco Group For ₹30,300 Crore, Tender Offer Terms To Reopen",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/tata-motors-unit-gains-8942-stake-in-iveco-group-for-30300-crore-tender-offer-terms-to-reopen",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T04:50:20Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Tata Motors unit acquires 89.42% stake in Iveco Group for ₹30,300 crore; major M&A deal with control stake, material capital-structure and capex impact for named large-cap.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Tata Motors unit acquires 89.42% stake in Iveco Group for ₹30,300 crore; major M&A deal with control stake, material capital-structure and capex impact for named large-cap.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-146",
       "headline": "Meta Platform seeks to raise $95 billion through stock offering in largest ever funding round for AI expansion",
       "headline_en": null,
@@ -1333,6 +1382,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-210",
+      "headline": "Onesource Specialty Pharma Limited: Onesource Specialty Pharma Limited has informed the Exchange regarding a press release dated October 27, 2026, titled \"OneSource Announces Strong Q2FY27 ResultsRevenue up 37% YoY and EBITDA up 53% YoY\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ONESOURCECDMO_27102026104146_OS_PR_IR.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T05:12:31Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Q2 FY27 results show 37% YoY revenue growth and 53% YoY EBITDA growth, representing material operating performance that can shift analyst expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Q2 FY27 results show 37% YoY revenue growth and 53% YoY EBITDA growth, representing material operating performance that can shift analyst expectations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Onesource Specialty Pharma Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1873,104 +1971,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-204",
-      "headline": "Microsoft to offer buyouts to 60,000 workers in new cost cut",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/microsoft-offer-buyouts-60000-workers-new-cost-cut",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T04:10:37Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Microsoft is offering buyouts to 60,000 workers as part of a cost-cutting initiative.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Microsoft is offering buyouts to 60,000 workers as part of a cost-cutting initiative.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Microsoft",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-154",
-      "headline": "[JPX]Consolidated financial results for the six months ended September 30, 2026 (Based on IFRS), unaudited",
-      "headline_en": null,
-      "url": "https://www.jpx.co.jp/english/corporate/news/news-releases/0063/vk0khi000002r3yo-att/E_ER_Q2FY2026.pdf",
-      "source_name": "Japan Exchange Group (JPX) — News Release",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-27T03:03:00Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Japan Exchange Group reported unaudited consolidated financial results for the six months ended September 30, 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Japan Exchange Group reported unaudited consolidated financial results for the six months ended September 30, 2026.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Japan Exchange Group",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247164,9 +247164,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 825519,
-    "news_picked_today": 302,
-    "news_dropped_today": 6946
+    "news_seen_today": 876441,
+    "news_picked_today": 308,
+    "news_dropped_today": 8284
   },
   "book_momentum": {
     "live_count": 8,
