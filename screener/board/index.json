@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T02:09:11Z",
+  "generated_at": "2026-10-27T02:14:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-034",
@@ -1134,6 +1134,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-105",
+      "headline": "Microsoft to offer buyouts to 60,000 workers in latest cost cut",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/microsoft-to-offer-buyouts-to-60-000-workers-in-latest-cost-cut-11793066021811.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T01:55:19Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Microsoft offering voluntary buyouts to 60,000 workers affects operating cost structure and severance cash flows, a material restructuring announcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Microsoft offering voluntary buyouts to 60,000 workers affects operating cost structure and severance cash flows, a material restructuring announcement.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 2,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Microsoft Corporation",
+          "ticker": "MSFT",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-096",
       "headline": "Noel objects to Tata Sons board minutes, RoC filing over N Chandrasekaran's reappointment",
       "headline_en": null,
@@ -1900,55 +1949,6 @@
           "name": "GigCapital9 Corp",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-004",
-      "headline": "SCHEDULE 13D - LeBeau Justin Michael (0002161822) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2161822/000216182226000002/0002161822-26-000002-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-26T18:27:45Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Justin Michael LeBeau filed a Schedule 13D, indicating a significant ownership stake in a company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Justin Michael LeBeau filed a Schedule 13D, indicating a significant ownership stake in a company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LeBeau Justin Michael",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -246859,9 +246859,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 365317,
-    "news_picked_today": 127,
-    "news_dropped_today": 2321
+    "news_seen_today": 385331,
+    "news_picked_today": 137,
+    "news_dropped_today": 2455
   },
   "book_momentum": {
     "live_count": 8,
