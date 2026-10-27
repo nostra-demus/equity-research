@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T01:49:38Z",
+  "generated_at": "2026-10-27T01:59:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-034",
@@ -1368,6 +1368,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-085",
+      "headline": "ALB: Change in substantial holding",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ALB?key=2924-03153696-6A1351647",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T01:34:11Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Substantial holding change disclosed without direction, magnitude, acquirer identity, or new holding percentage; filing likely contains material details but headline is too sparse to confirm from the announcement alone.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "Substantial holding change disclosed without direction, magnitude, acquirer identity, or new holding percentage; filing likely contains material details but headline is too sparse to confirm from the announcement alone.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ALB",
+          "ticker": "ALB",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-007",
       "headline": "SCHEDULE 13G - FTAI Aviation Ltd. (0001590364) (Subject)",
       "headline_en": null,
@@ -1903,55 +1952,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-039",
-      "headline": "Times Car Operators to Face Damages Lawsuit over Data Breach",
-      "headline_en": null,
-      "url": "https://www.nippon.com/en/news/yjj2026102600861/",
-      "source_name": "nippon.com",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T00:10:56Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Times Car operators face a lawsuit regarding a data breach.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Times Car operators face a lawsuit regarding a data breach.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Times Car",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -246790,9 +246790,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 334459,
-    "news_picked_today": 98,
-    "news_dropped_today": 2062
+    "news_seen_today": 355070,
+    "news_picked_today": 106,
+    "news_dropped_today": 2174
   },
   "book_momentum": {
     "live_count": 8,
