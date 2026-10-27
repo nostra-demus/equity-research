@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T06:59:46Z",
+  "generated_at": "2026-10-27T07:03:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-243",
@@ -1639,6 +1639,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-244",
+      "headline": "Listing of Equity Shares of Jio Platforms Limited",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261027-5/20261027-5.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T06:34:52Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Listing of equity shares for Jio Platforms, a major subsidiary of Reliance Industries, is a significant capital market event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Listing of equity shares for Jio Platforms, a major subsidiary of Reliance Industries, is a significant capital market event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jio Platforms Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-089",
       "headline": "ATR: Donald Project debt conditionally approved [price-sensitive]",
       "headline_en": null,
@@ -1925,55 +1974,6 @@
           "name": "Onesource Specialty Pharma Limited",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-197",
-      "headline": "FERRETTI (09638): INSIDE INFORMATION ANNOUNCEMENT - UNAUDITED COMMERCIAL AND FINANCIAL UPDATE FOR THE NINE MONTHS ENDED SEPTEMBER 30, 2026",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700196.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-27T04:12:00Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Unaudited commercial and financial update for nine months ended September 30, 2026, disclosed as inside information; specific metrics not stated in headline but interim financial disclosure moves revenue and margin expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Unaudited commercial and financial update for nine months ended September 30, 2026, disclosed as inside information; specific metrics not stated in headline but interim financial disclosure moves revenue and margin expectations.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 2,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ferretti",
-          "ticker": "09638",
-          "listing_country": "HK"
         }
       ],
       "size_bucket": "unknown",
@@ -247312,9 +247312,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 977957,
-    "news_picked_today": 356,
-    "news_dropped_today": 9652
+    "news_seen_today": 1002965,
+    "news_picked_today": 371,
+    "news_dropped_today": 9757
   },
   "book_momentum": {
     "live_count": 8,
