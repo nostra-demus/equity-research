@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T04:20:00Z",
+  "generated_at": "2026-10-27T04:29:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-171",
@@ -1730,6 +1730,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-183",
+      "headline": "YUEYAN B3110B-R (85500): Publication of the Offering Circular - CNY200,000,000 2.50 per cent. bonds due 2031 by Yueyang Construction and Investment Group Co., Ltd.",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700192.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T04:06:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Yueyang Construction and Investment Group announces CNY200 million bond issuance due 2031, a capital-structure event affecting leverage.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Yueyang Construction and Investment Group announces CNY200 million bond issuance due 2031, a capital-structure event affecting leverage.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yueyang Construction and Investment Group Co., Ltd.",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-042",
       "headline": "INSILICO (03696): VOLUNTARY ANNOUNCEMENT INSILICO MEDICINE REPORTS PRELIMINARY POSITIVE FIRST-IN-HUMAN CLINICAL TRIAL DATA FOR ISM6331 DESIGNED USING GENERATIVE AI IN MESOTHELIOMA AND OTHER SOLID TUMORS AT ESMO 2026",
       "headline_en": null,
@@ -1922,55 +1971,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-043",
-      "headline": "424B5 - TEXAS INSTRUMENTS INC (0000097476) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/97476/000119312526431173/0001193125-26-431173-index.htm",
-      "source_name": "SEC EDGAR — Latest 424B5 (Shelf Offering Final Prospectus)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-26T13:03:21Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Texas Instruments filed SEC 424B5 final prospectus executing shelf offering; confirmed capital action affecting share count and structure, but instrument type (equity vs. debt) and net direction unknown from headline alone.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Texas Instruments filed SEC 424B5 final prospectus executing shelf offering; confirmed capital action affecting share count and structure, but instrument type (equity vs. debt) and net direction unknown from headline alone.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Texas Instruments Inc",
-          "ticker": "TXN",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247092,9 +247092,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 745345,
-    "news_picked_today": 246,
-    "news_dropped_today": 4602
+    "news_seen_today": 753899,
+    "news_picked_today": 252,
+    "news_dropped_today": 4980
   },
   "book_momentum": {
     "live_count": 8,
