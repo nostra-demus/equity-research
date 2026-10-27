@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T19:41:53Z",
+  "generated_at": "2026-10-27T19:45:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-553",
@@ -1634,6 +1634,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-627",
+      "headline": "‎e& makes AED 11.24B profit in Q3 2026",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/financial-reports/company-report/5442/2026/72?preview=true",
+      "source_name": "Argaam — UAE Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T20:23:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "e& reported a profit of AED 11.24 billion for Q3 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "e& reported a profit of AED 11.24 billion for Q3 2026.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "e&",
+          "ticker": null,
+          "listing_country": "AE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-621",
+      "headline": "Pop Mart's revenue halves in Q3 as Labubu craze cools",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/consumer/pop-mart-s-revenue-halves-in-q3-as-labubu-craze-cools",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T18:58:56Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Pop Mart reported a 50% decline in Q3 revenue due to cooling demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Pop Mart reported a 50% decline in Q3 revenue due to cooling demand.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pop Mart",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-618",
       "headline": "Tata Motors’ €3.43 bn Iveco bid sees 87.8% acceptance, paves way for biggest buyout since JLR: What exchange filing says",
       "headline_en": null,
@@ -1875,104 +1973,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-598",
-      "headline": "etisalat delivers record 9M 2026 results as consolidated net profit surges 46 percent to $4.68 billion",
-      "headline_en": null,
-      "url": "https://economymiddleeast.com/news/etisalat-delivers-record-9m-2026-results-as-consolidated-net-profit-surges-46-percent-to-4-68-billion/?utm_source=rss&utm_medium=rss&utm_campaign=etisalat-delivers-record-9m-2026-results-as-consolidated-net-profit-surges-46-percent-to-4-68-billion",
-      "source_name": "Economy Middle East",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T16:23:28Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Etisalat reported a significant 46% surge in net profit to $4.68 billion for 9M 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Etisalat reported a significant 46% surge in net profit to $4.68 billion for 9M 2026.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "etisalat",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-578",
-      "headline": "AAR Corp. Details Pending $4.0B Acquisition of Controlling Interest in MRO Holdings",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/aar-corp-details-pending-40b-acquisition-controlling-interest-mro-holdings",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T15:39:40Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "AAR Corp. announced a $4.0B acquisition of a controlling interest in MRO Holdings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "AAR Corp. announced a $4.0B acquisition of a controlling interest in MRO Holdings.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AAR Corp.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -246736,9 +246736,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3176239,
-    "news_picked_today": 1285,
-    "news_dropped_today": 22907
+    "news_seen_today": 3197455,
+    "news_picked_today": 1295,
+    "news_dropped_today": 22921
   },
   "book_momentum": {
     "live_count": 8,
