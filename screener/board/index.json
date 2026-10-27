@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-27T06:29:18Z",
+  "generated_at": "2026-10-27T06:32:40Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261027-216",
+      "headline": "Opening Of Offer to Buy – Acquisition Window (Takeover) for KUBER UDYOG LIMITED",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261027-3/20261027-3.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T06:10:12Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "The company is undergoing a formal takeover acquisition process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is undergoing a formal takeover acquisition process.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kuber Udyog Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-217",
+      "headline": "Opening Of Offer to Buy – Acquisition Window (Takeover) for INDIA CEMENTS CAPITAL LIMITED",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261027-2/20261027-2.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T06:09:38Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "The company is undergoing a formal takeover acquisition process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is undergoing a formal takeover acquisition process.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "India Cements Capital Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261027-171",
       "headline": "VA Tech Wabag Limited: Bagging of Order/Contract - WABAG secures order from RIL to deliver Mega Desalination Plant and Remineralisation Plant at Jamnagar",
@@ -345,6 +443,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-222",
+      "headline": "DoorDash Reportedly Nears $17 Bln Deal To Acquire Instacart",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/doordash-reportedly-nears-17-bln-deal-acquire-instacart",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T05:36:33Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "DoorDash is reportedly nearing a $17 billion acquisition of Instacart.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DoorDash is reportedly nearing a $17 billion acquisition of Instacart.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DoorDash",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Instacart",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1824,153 +1976,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-100",
-      "headline": "Japan's Subaru to go EV-only in Europe by 2028",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/automobiles/japan-s-subaru-to-go-ev-only-in-europe-by-2028",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T02:01:27Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Subaru commits to EV-only sales in Europe by 2028, a major geographic strategy shift implying significant capital redeployment and stranded-asset risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Subaru commits to EV-only sales in Europe by 2028, a major geographic strategy shift implying significant capital redeployment and stranded-asset risk.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 74,
-      "rank_factors": {
-        "materiality": 74,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Subaru Corporation",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-045",
-      "headline": "SBP GROUP (01177): VOLUNTARY ANNOUNCEMENT - TQ-A3334 \"TLR7 AGONIST\" AND TQA3605 \"CORE PROTEIN ALLOSTERIC MODULATOR\" GRANTED BREAKTHROUGH THERAPY DESIGNATION BY CDE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700048.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-26T23:54:00Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "TQ-A3334 (TLR7 agonist) and TQ-A3605 (core protein allosteric modulator) granted Breakthrough Therapy Designation by China's CDE; accelerates development timelines and reduces regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "TQ-A3334 (TLR7 agonist) and TQ-A3605 (core protein allosteric modulator) granted Breakthrough Therapy Designation by China's CDE; accelerates development timelines and reduces regulatory risk.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SBP GROUP",
-          "ticker": "01177",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-104",
-      "headline": "EV DYNAMICS (00476): QUARTERLY UPDATE ON IMPLEMENTATION OF ACTION PLAN TO RESOLVE DISCLAIMER OF OPINION",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1026/2026102601049.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-26T12:03:00Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "EV Dynamics (00476) reports quarterly update on action plan to resolve auditor disclaimer of opinion, a critical accounting red flag that blocks rating per doctrine §13.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "EV Dynamics (00476) reports quarterly update on action plan to resolve auditor disclaimer of opinion, a critical accounting red flag that blocks rating per doctrine §13.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EV Dynamics",
-          "ticker": "00476",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247164,9 +247169,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 902713,
-    "news_picked_today": 315,
-    "news_dropped_today": 9477
+    "news_seen_today": 919337,
+    "news_picked_today": 325,
+    "news_dropped_today": 9491
   },
   "book_momentum": {
     "live_count": 8,
