@@ -1,0 +1,80 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-10-08T05:28:26Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-cbb29109fa62",
+    "idea_version": "IDEAV-3e3b439d8d461221",
+    "idea_version_started_at": "2026-10-05T07:26:59Z",
+    "ticker": "TALK.L",
+    "company": "TalkTalk",
+    "exchange": "LSE",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "short",
+    "pair_with": null,
+    "reason": "BT Group is reportedly closing in on a deal to acquire embattled TalkTalk, suggesting a distressed situation for TalkTalk.",
+    "why_now": "The potential acquisition was reported on October 5, 2026.",
+    "conviction": 55,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 19,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "price and market expectations",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "unknown",
+    "thesis_type": "pair_trade",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-ab289598947c"
+    ],
+    "primary_source_event_id": "EVT-ab289598947c",
+    "source_headlines": [
+      "BT closes in on deal for embattled TalkTalk"
+    ],
+    "source_headline": "BT closes in on deal for embattled TalkTalk",
+    "source_url": "https://www.ft.com/content/27d5abde-c1cd-4dc1-932f-4812a41a66c4",
+    "source_name": "Financial Times",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-05T05:11:07Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-10-05T07:26:59Z",
+    "updated_at": "2026-10-05T07:26:59Z",
+    "decay_at": "2026-10-06T17:11:07Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

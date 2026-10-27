@@ -1,5 +1,58 @@
 # Nostradamus Swarm — Equity Research Cockpit
 
+## Universe Model
+
+Screener defaults to Universe (saved Portfolio/Watchlist choices are respected). Universe → Events
+retains the event workspace; Universe → Model shows the free Finviz US-listed stock screen:
+market cap above $2bn and average volume above 50,000 shares. Company and USD market price precede
+twelve material-event columns and a descending green-tick count: results, guidance, commercial contracts/JVs,
+capex, products, operations, deals/restructuring, capital/returns, debt/distress, ownership, governance
+and legal/regulatory actions. The existing news archive supplies the past 90 days of evidence for
+3–6 month trade research, with no extra ingest or model calls. Routine meetings, record dates and small
+employee grants are excluded by the materiality gate. Total always counts displayed green ticks, once
+per signal category; duplicate reports never add ticks. Saved legacy weights cannot affect Total or
+ranking. Weighted scoring is deferred. A green tick requires favorable company-specific effects from saved
+engine article reads for every retained report in that category. Adverse or mixed effects produce a red
+cross; missing company effects or an unassessed report produce a dash. Headline sentiment never supplies
+a tick. These are inferred assessments, not proof that a catalyst remains pending or a trade will profit.
+
+Signals reuse the archive's existing event types and high/critical materiality classifications. A match
+requires an exact ticker plus normalized company name; known foreign listing tags cannot match a US
+line. A tagged ticker with an unmatched issuer name stays unavailable rather than asserting a negative.
+Conflicting foreign listing tags also leave coverage unavailable, including uncertain ADR identities.
+These tags are headline-based inference, not verified issuer research. Company names open a compact
+signal overview; every signal cell (tick, cross or unavailable) opens a keyboard-accessible dialog.
+Cells show up to three recent reports, source excerpts and the saved classification reason. The grid joins
+one read-only snapshot of the existing complete article-read cache; its popup explains that same snapshot.
+Unchanged cache files reuse the parsed snapshot. Failed primary reads or older backup loads retry at the
+next observation; they cannot pin an old favorable assessment after the current read recovers.
+A read-only
+`GET /api/screener/universe-model/evidence` lookup reuses existing complete article reads, without fetching
+sources, triggering enrichment or spending API credits. Company-specific effects require exact ticker
+and normalized-name matches and retain benefit/risk, magnitude, timing and read provenance. Event-level
+assessments stay separately labelled as inference; missing impact or current catalyst status is not
+invented. Failed/degraded reads, future reads and reads predating the report cannot supply favorable effects.
+Opposing effects remain visible even when the compact effect list is bounded. Escape, Close and the backdrop
+dismiss the dialog and return focus. Red crosses mean no favorable signal in the retained reports, never
+proof that no event occurred. A stale (>48h) or unreadable/empty archive leaves signals and totals unavailable.
+The event index refreshes off-thread every minute while read, caching compact results by each day's
+file stamp so unchanged history is not reparsed. Strict shard failures or concurrent archive changes leave coverage unavailable.
+The grid shows the actual archived-day
+count, latest report time, and scan time, without claiming exhaustive market coverage.
+
+`GET /api/screener/universe-model` shares one paced public-page sweep across all viewers. The Model
+checks every 15 seconds while visible; a new full sweep is eligible five minutes after a successful attempt ends (failures retain a 30-minute cooldown). The free sector options are discovered from Finviz’s public filter catalog; Elite-only/custom options are excluded. Two matching passes across those disjoint filtered Tickers screens freeze membership, and their unique union must match the original screen’s total and first-page identities. Normal free Overview pages then price 20 frozen names at a time. No deep pagination of the broad screen or custom columns are needed. This avoids moving pagination boundaries when a company crosses $2bn
+during a longer price sweep. With eleven one-page sector partitions, a 2,000-name screen needs about 124 pages at two seconds between requests,
+plus network time. Quotes are Finviz's free delayed data, not an exchange real-time feed; individual quote timestamps
+are unavailable, so each row shows its retrieval time. Closing the view stops scheduling new sweeps.
+No Elite token, subscription, trial, paid search/enrichment API or per-company quote calls are used.
+
+Only a complete, unique, validated sweep replaces `.state/universe-model.json` (or the configured
+`ENGINE_STATE_DIR`). Cold-start partial coverage is labelled; failures preserve the last complete grid
+and expose the source error with a 30-minute retry cooldown. A block, rate limit or changed page schema
+never triggers a paid fallback, challenge bypass or a fabricated signal. The source may restrict free
+access, so continuous availability and real-time pricing cannot be guaranteed.
+
 A local, animated "swarm of agents" control surface for the research engine in this repo. It renders
 every agent / module / dependency from disk, shows per-ticker data readiness (mirroring the engine's
 data-triage rules), launches a single agent, a whole module, or the full pipeline on one click, and

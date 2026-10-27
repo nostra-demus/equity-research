@@ -1,0 +1,83 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-10-20T09:20:15Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-279942e1dba3",
+    "idea_version": "IDEAV-8872139601beaa0a",
+    "idea_version_started_at": "2026-10-17T10:42:01Z",
+    "ticker": "HDFCBANK",
+    "company": "HDFC Bank",
+    "exchange": "NSE",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "short",
+    "pair_with": null,
+    "reason": "Q2 results showed net profit growth missing expectations, record low margins, and a 67% drop in treasury income, signaling underlying weakness in core profitability.",
+    "why_now": "The earnings report was released on October 17, 2026, and the market is currently digesting the negative surprise in margin and treasury performance.",
+    "conviction": 70,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 20,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 10,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "priced-in risk",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "priced",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-6031f54995d5",
+      "EVT-83e3b71de2d5",
+      "EVT-99ad0fb7b02b"
+    ],
+    "primary_source_event_id": "EVT-6031f54995d5",
+    "source_headlines": [
+      "HDFC Bank Q2 Results: Net profit rises 5% to ₹19,610 crore, NII jumps 10% in last quarter under outgoing CEO Jagdishan",
+      "HDFC Bank Q2 Results: Net Profit Below Estimates, Provisions Rise Marginally",
+      "HDFC Bank Q2 Results: Margins at record low; Treasury income drops 67%"
+    ],
+    "source_headline": "HDFC Bank Q2 Results: Net profit rises 5% to ₹19,610 crore, NII jumps 10% in last quarter under outgoing CEO Jagdishan",
+    "source_url": "https://www.livemint.com/market/stock-market-news/hdfc-bank-q2-results-net-profit-rises-5-to-rs-19-610-crore-nii-jumps-10-in-last-quarter-under-outgoing-ceo-jagdishan-11792226165605.html",
+    "source_name": "Mint",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-17T09:11:08Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-10-17T10:42:01Z",
+    "updated_at": "2026-10-17T10:42:01Z",
+    "decay_at": "2026-10-18T21:11:08Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

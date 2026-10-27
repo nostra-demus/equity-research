@@ -1,4 +1,4 @@
-import { PersonalScopeToggle } from './components/screener/PersonalScopeToggle'
+import { UniverseWorkspace } from './components/screener/UniverseWorkspace'
 import { lazy, Suspense, useEffect, useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useStore } from './lib/store'
@@ -226,7 +226,7 @@ function ScreenerStage() {
         </div>
       </div>
     )
-  return config.gauntlet ? <div className="personal-wire"><PersonalScopeToggle /><WireSurface config={config} home={home} /></div> : <WireSurface config={config} home={home} />
+  return config.gauntlet ? <UniverseWorkspace events={<WireSurface config={config} home={home} />} /> : <WireSurface config={config} home={home} />
 }
 
 // The return door to the phone chat shell. Rendered only on a coarse-pointer viewport ≤820px (the CSS

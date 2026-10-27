@@ -1,0 +1,79 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-10-25T21:59:09Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-301c9958417a",
+    "idea_version": "IDEAV-af10e51d87cc5a7f",
+    "idea_version_started_at": "2026-10-24T03:46:54Z",
+    "ticker": "META",
+    "company": "Meta Platforms",
+    "exchange": "NASDAQ",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "short",
+    "pair_with": null,
+    "reason": "Aggressive capital expenditure on AI infrastructure has pushed free cash flow into negative territory, signaling a potential multi-quarter margin compression.",
+    "why_now": "The earnings report released on 2026-10-22 highlighted this shift in capital allocation, which is currently being repriced by investors.",
+    "conviction": 75,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 62,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 20,
+      "specificity": 15,
+      "timing": 6,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-8550489cb6de",
+      "EVT-06e66a945494"
+    ],
+    "primary_source_event_id": "EVT-8550489cb6de",
+    "source_headlines": [
+      "Meta stock sinks 6% as AI spend pushes free cash flow negative",
+      "Meta stock sinks nearly 7% as AI spend pushes free cash flow negative"
+    ],
+    "source_headline": "Meta stock sinks 6% as AI spend pushes free cash flow negative",
+    "source_url": "https://www.cnbc.com/2026/10/22/meta-stock-q3-earnings-free-cash-flow.html",
+    "source_name": "CNBC",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-22T20:03:03Z",
+    "prior_coverage": {
+      "has_run": true,
+      "latest_run": "analyses/META_2026-08-31",
+      "latest_decision": null,
+      "data_pool_present": true
+    },
+    "surfaced_at": "2026-10-19T04:16:06Z",
+    "updated_at": "2026-10-24T03:46:54Z",
+    "decay_at": "2026-10-24T08:03:03Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

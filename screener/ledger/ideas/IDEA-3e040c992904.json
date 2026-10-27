@@ -1,0 +1,76 @@
+{
+  "idea_id": "IDEA-3e040c992904",
+  "idea_version": "IDEAV-f8ebbfdf52ac7ab7",
+  "idea_version_started_at": "2026-10-27T04:19:35Z",
+  "ticker": "HBTF",
+  "company": "HBT Financial, Inc.",
+  "exchange": "NASDAQ",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "long",
+  "pair_with": null,
+  "reason": "HBT Financial is acquiring Tri-County Financial Group, which will consolidate regional banking operations and improve HBTF's scale in its core markets.",
+  "why_now": "The companies filed the required 425 M&A communication on October 26, 2026, signaling the deal is moving toward finalization.",
+  "conviction": 80,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 25,
+    "impact": 19,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "priced-in risk",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "priced",
+  "thesis_type": "pair_trade",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-b2d3621f1710",
+    "EVT-b4986e77821c"
+  ],
+  "primary_source_event_id": "EVT-b2d3621f1710",
+  "source_headlines": [
+    "425 - Tri-County Financial Group, Inc. (0001725262) (Subject)",
+    "425 - HBT Financial, Inc. (0000775215) (Filed by)"
+  ],
+  "source_headline": "425 - Tri-County Financial Group, Inc. (0001725262) (Subject)",
+  "source_url": "https://www.sec.gov/Archives/edgar/data/1725262/000077521526000087/0000775215-26-000087-index.htm",
+  "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-26T11:04:53Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-27T04:19:35Z",
+  "updated_at": "2026-10-27T04:19:35Z",
+  "decay_at": "2026-10-27T23:04:53Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

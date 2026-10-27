@@ -1,0 +1,81 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-10-06T10:47:40Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-d04744233983",
+    "idea_version": "IDEAV-515f15235fab9160",
+    "idea_version_started_at": "2026-10-03T07:11:46Z",
+    "ticker": "TILHC",
+    "company": "TIL Healthcare",
+    "exchange": "BSE",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "short",
+    "pair_with": null,
+    "reason": "A fatal boiler explosion at a pharmaceutical plant will likely result in operational disruptions, regulatory scrutiny, and potential liabilities.",
+    "why_now": "The incident occurred today and rescue operations are underway.",
+    "conviction": 55,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 19,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 7,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "price and market expectations",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "unknown",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-06c883ef25bb",
+      "EVT-75f950727e96"
+    ],
+    "primary_source_event_id": "EVT-06c883ef25bb",
+    "source_headlines": [
+      "Tirupati Blast: 5 Dead, 10 Critically Injured As Powerful Boiler Explosion Rocks Pharma Unit In Sri City; Rescue Ops Underway - VIDEO",
+      "4 workers dead 2 injured in blast at TIL Healthcare’s Sri City plant"
+    ],
+    "source_headline": "Tirupati Blast: 5 Dead, 10 Critically Injured As Powerful Boiler Explosion Rocks Pharma Unit In Sri City; Rescue Ops Underway - VIDEO",
+    "source_url": "https://www.freepressjournal.in/india/tirupati-blast-5-dead-10-critically-injured-as-powerful-boiler-explosion-rocks-pharma-unit-in-sri-city-rescue-ops-underway-video",
+    "source_name": "Free Press Journal",
+    "materiality_max": 98,
+    "newest_source_at": "2026-10-03T07:05:29Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-10-03T07:11:46Z",
+    "updated_at": "2026-10-03T07:11:46Z",
+    "decay_at": "2026-10-04T19:05:29Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

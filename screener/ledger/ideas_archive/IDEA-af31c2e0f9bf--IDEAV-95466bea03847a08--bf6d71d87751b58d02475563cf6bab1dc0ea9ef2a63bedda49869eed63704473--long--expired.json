@@ -1,0 +1,78 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-10-21T01:03:10Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-af31c2e0f9bf",
+    "idea_version": "IDEAV-95466bea03847a08",
+    "idea_version_started_at": "2026-10-18T02:20:51Z",
+    "ticker": "AAPL",
+    "company": "Apple",
+    "exchange": "NASDAQ",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "Strong demand for the new foldable iPhone model suggests a successful product cycle that could drive higher average selling prices and hardware revenue.",
+    "why_now": "The sell-out status was reported on October 18, 2026, indicating immediate consumer traction.",
+    "conviction": 60,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 60,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 15,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "priced-in risk",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "priced",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-892b390b998d"
+    ],
+    "primary_source_event_id": "EVT-892b390b998d",
+    "source_headlines": [
+      "Apple blames ‘extraordinary’ demand as foldable iPhones sell out"
+    ],
+    "source_headline": "Apple blames ‘extraordinary’ demand as foldable iPhones sell out",
+    "source_url": "https://www.afr.com/world/north-america/apple-blames-extraordinary-demand-as-foldable-iphones-sell-out-20261018-p616gk?ref=rss&utm_medium=rss&utm_source=rss_feed",
+    "source_name": "Australian Financial Review",
+    "materiality_max": 83,
+    "newest_source_at": "2026-10-18T00:25:42Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-10-18T02:20:51Z",
+    "updated_at": "2026-10-18T02:20:51Z",
+    "decay_at": "2026-10-19T12:25:42Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

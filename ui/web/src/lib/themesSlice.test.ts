@@ -509,4 +509,64 @@ assert.equal(useStore.getState().selectedTheme, null, 'a removed open theme cann
 useStore.getState()._handleNewsEvent({ type: 'theme-update', theme: cachedTheme })
 assert.deepEqual(useStore.getState().themes.map((t) => t.theme_id), [newerTheme.theme_id], 'an equal/older update cannot resurrect a removed theme')
 
-console.log('themes slice cache: filters, request generations, owner guards, and removal events passed')
+// The all-sector Ideas reader shares removal floors with the wire, but never inherits its slice.
+try {
+  let pending: Pending[] = []
+  const calls: unknown[][] = []
+  api.newsThemes = (...args) => { calls.push(args); return new Promise<ThemesIndex>((resolve, reject) => pending.push({ resolve, reject })) }
+  useStore.setState({ readingThemes: null, themes: [], themesView: null, selectedTheme: null,
+    themesGeo: { country: 'IN', geoRegion: 'asia', label: 'India' }, themesSubject: 'GOLD' })
+  const reader = { ...cachedTheme, theme_id: 'THM-deadf00d', rev: 3 }
+  const oldRead = useStore.getState().refreshReadingThemes()
+  const newRead = useStore.getState().refreshReadingThemes()
+  pending[1].resolve(indexOf(reader, '2026-08-04T00:02:00Z')); await newRead
+  pending[0].resolve(indexOf({ ...reader, rev: 2 }, '2026-08-04T00:01:00Z')); await oldRead
+  assert.equal(useStore.getState().readingThemes?.themes[0].rev, 3, 'newest reader request wins')
+  assert.ok(calls.every((args) => args.length === 0), 'global reader never borrows geo or commodity filters')
+
+  pending = []
+  const bufferedReader = useStore.getState().refreshReadingThemes()
+  const removal = { theme_id: reader.theme_id, reason: 'retired', merged_into: null, rev: 4 }
+  useStore.getState()._handleNewsEvent({ type: 'theme-remove', removal })
+  assert.deepEqual(useStore.getState().readingThemes?.themes, [], 'removal is immediate while HTTP is pending')
+  const wireRecreation = useStore.getState().refreshThemes()
+  pending[1].resolve(indexOf({ ...reader, rev: 5 }, '2026-08-04T00:03:00Z')); await wireRecreation
+  pending[0].resolve(indexOf(reader, '2026-08-04T00:02:00Z')); await bufferedReader
+  assert.deepEqual(useStore.getState().readingThemes?.themes, [], 'wire re-creation cannot clear the floor and resurrect an older reader response')
+
+  useStore.getState()._handleNewsEvent({ type: 'theme-update', theme: { ...reader, rev: 5 } })
+  assert.equal(useStore.getState().readingThemes?.themes[0].rev, 5, 'strictly newer re-creation is allowed')
+  useStore.getState()._handleNewsEvent({ type: 'theme-remove', removal })
+  assert.equal(useStore.getState().readingThemes?.themes[0].rev, 5, 'duplicate old removal cannot erase re-creation')
+  useStore.getState()._handleNewsEvent({ type: 'theme-update', theme: reader })
+  assert.equal(useStore.getState().readingThemes?.themes[0].rev, 5, 'old buffered upsert cannot replace re-creation')
+
+  pending = []
+  const staleAfterRecreation = useStore.getState().refreshReadingThemes()
+  pending[0].resolve(indexOf(reader, '2026-08-04T00:03:00Z')); await staleAfterRecreation
+  assert.equal(useStore.getState().readingThemes?.themes[0].rev, 5, 'a stale HTTP row cannot remove a known newer re-creation')
+  const revalidation = { ...cachedFormationQueue, candidates: cachedFormationQueue.candidates.map((c) => ({ ...c, theme_id: reader.theme_id })) }
+  pending = []
+  const revalidationReader = useStore.getState().refreshReadingThemes()
+  pending[0].resolve({ ...indexOf({ ...reader, rev: 5 }, '2026-08-04T00:04:00Z'), formation_queue: revalidation }); await revalidationReader
+  assert.equal(useStore.getState().readingThemes?.formation_queue?.total, 1, 're-created reader theme keeps its current formation/revalidation disclosure')
+  assert.deepEqual(useStore.getState().readingThemes?.formation_queue?.candidates.map((c) => c.theme_id), [reader.theme_id])
+  assert.equal(useStore.getState().readingThemes?.formation_queue?.client_withheld, 0)
+  const revalidationWire = useStore.getState().refreshThemes()
+  pending[1].resolve({ ...indexOf({ ...reader, rev: 5 }, '2026-08-04T00:04:00Z'), formation_queue: revalidation }); await revalidationWire
+  assert.equal(useStore.getState().themeFormationQueue?.total, 1, 'wire uses the same re-creation exception to the formation floor')
+  assert.deepEqual(useStore.getState().themeFormationQueue?.candidates.map((c) => c.theme_id), [reader.theme_id])
+  assert.equal(useStore.getState().themeFormationQueue?.client_withheld, 0)
+
+  pending = []
+  const beforeUpsert = useStore.getState().refreshReadingThemes()
+  const sameRevision = { ...reader, rev: 5, description: 'Same-revision qualification changed' }
+  useStore.getState()._handleNewsEvent({ type: 'theme-update', theme: sameRevision })
+  pending[0].resolve(indexOf({ ...reader, rev: 5 }, '2026-08-04T00:03:00Z'))
+  await new Promise((resolve) => setTimeout(resolve, 0))
+  assert.equal(pending.length, 2, 'an intervening same-revision update forces an authoritative replacement read')
+  pending[1].resolve(indexOf(sameRevision, '2026-08-04T00:04:00Z')); await beforeUpsert
+  assert.equal(useStore.getState().readingThemes?.themes[0].description, sameRevision.description)
+} finally { api.newsThemes = originalNewsThemes }
+
+console.log('themes slice cache: filters, request generations, owner guards, shared reader lifecycle and removal events passed')

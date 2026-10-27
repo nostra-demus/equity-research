@@ -7,7 +7,7 @@ import { moduleLabel, preferRunRoot, resolveVerdict } from './format'
 import { coerceViewForWebgl, isPersistableView, normalizeStoredView, type ResearchView } from './researchView'
 import type { WatchMessagesRead, WatchRowInput, WatchlistRead } from './types'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
-import type { Theme, ThemeCompilerHealth, ThemeDetail, ThemeBrief, ThemeFormationQueue, ThemeRemoval } from './themes'
+import type { Theme, ThemesIndex, ThemeCompilerHealth, ThemeDetail, ThemeBrief, ThemeFormationQueue, ThemeRemoval } from './themes'
 import { compareBriefingThemes, intensityWindowForHours, normalizeThemeCompilerHealth, normalizeThemeFormationQueue, themeSurfaceStatus, themeWindowForView } from './themes'
 import { deriveWireConfig, type WireConfig, type WirePulseSubject } from './wire'
 import { archiveErrorNote } from './archiveError'
@@ -205,6 +205,7 @@ let themesGeoRefetchTimer: any = null // debounces the geo-sliced themes re-fetc
 // Every Themes request gets a generation. Slice labels alone are not enough: two requests for the same
 // slice can finish out of order, and an owner switch can briefly recreate the same empty geo/subject.
 let themesRequestSeq = 0
+let readingThemesRequestSeq = 0 // the all-sector reader is independent of the wire's selected slice
 // Detail reads have their own generation. The selected id alone is not a sufficient guard: retrying the
 // same id can leave two responses in flight, and the slower old response must never overwrite the newer.
 let themeDetailRequestSeq = 0
@@ -217,6 +218,16 @@ let themeUpsertMutationSeq = 0
 // A removal can race an already-buffered theme-update frame. Keep its revision for this session so an
 // older update cannot resurrect a retired/merged row after the explicit invalidation lands.
 const themeRemovalRevs = new Map<string, number>()
+
+function reconcileThemeRemovals(themes: Theme[]): Theme[] {
+  return themes.filter((t) => {
+    const removedAt = themeRemovalRevs.get(t.theme_id)
+    if (removedAt === undefined) return true
+    // Keep the floor even after re-creation: a second consumer may still hold a pre-removal response.
+    if (Number.isFinite(t.rev) && t.rev > removedAt) return true
+    return false
+  })
+}
 
 const canonicalContractValue = (value: unknown): unknown => {
   if (Array.isArray(value)) return value.map(canonicalContractValue)
@@ -1259,6 +1270,8 @@ interface State {
 
   // ---- dynamic themes (the firehose bucketed into living, ranked investment themes) ----
   themes: Theme[]
+  readingThemes: ThemesIndex | null
+  refreshReadingThemes: () => Promise<void>
   // A separate, non-investable disclosure lane. It never feeds map nodes, dossier selection, or Ideas.
   // Null means the server did not disclose this contract (rolling deploy), not that the queue is empty.
   themeFormationQueue: ThemeFormationQueue | null
@@ -1269,8 +1282,9 @@ interface State {
   // the other), exactly like themesView.
   ideasOpen: boolean
   scIdeasLandingSet: boolean
-  ideasLane: IdeaLane
-  setIdeasLane: (lane: IdeaLane) => void
+  ideasLane: IdeaLane | 'themes'
+  universeView: 'events' | 'model'
+  setIdeasLane: (lane: IdeaLane | 'themes') => void
   // "Calendar" tab — the forward events calendar (upcoming earnings + macro, server /api/calendar). Another
   // sibling of Themes/Best-ideas in the wire's tab row; mutually exclusive with them.
   calendarOpen: boolean
@@ -1907,12 +1921,14 @@ export const useStore = create<State>((set, get) => ({
   bridgeStatus: null,
   newsStreamOnline: false,
   themes: [],
+  readingThemes: null,
   themeFormationQueue: null,
   themeCompilerHealth: null,
   themesView: null,
   ideasOpen: false,
   scIdeasLandingSet: false,
   ideasLane: 'events',
+  universeView: 'events',
   setIdeasLane: (ideasLane) => set({ ideasLane }),
   calendarOpen: false,
   themesWindow: null,
@@ -4162,6 +4178,7 @@ export const useStore = create<State>((set, get) => ({
     if (warpTimer) { clearTimeout(warpTimer); warpTimer = null }
     if (get().warp) set({ warp: null })
     const targetSwarm = c.swarm || 'research'
+    if (targetSwarm === 'screener') set({ universeView: 'events' })
     // A different swarm is a deliberate jump — switch directly (no animated warp), mirroring switchSwarm's
     // reduced-motion reset so no panel or in-flight warp is left dangling over the new view.
     if (get().activeSwarm !== targetSwarm) {
@@ -5260,7 +5277,7 @@ export const useStore = create<State>((set, get) => ({
 
   scSelectEvent: (it) => {
     // opening any event exits the company drill-down (the CompanyView takes main-stage precedence)
-    set({ scSelectedEvent: it, scFocusedCompany: null })
+    set({ scSelectedEvent: it, scFocusedCompany: null, universeView: 'events' })
     if (it) {
       get().markEventsRead([it.event_id]) // opening an item is what marks it read (RSS/Gmail standard)
       void get().fetchEnrichment(it) // kick the enrichment the moment an event opens
@@ -5270,6 +5287,30 @@ export const useStore = create<State>((set, get) => ({
   scFocusCompany: (c) => set({ scFocusedCompany: c }),
 
   // ---- dynamic themes ----
+  refreshReadingThemes: async () => {
+    const requestSeq = ++readingThemesRequestSeq
+    const requestUpsertMutationSeq = themeUpsertMutationSeq
+    const idx = await api.newsThemes()
+    if (requestSeq !== readingThemesRequestSeq) return
+    // Reuse the wire lifecycle: even same-revision SSE qualification changes invalidate an older read.
+    if (requestUpsertMutationSeq !== themeUpsertMutationSeq) return get().refreshReadingThemes()
+    if (!idx || !Array.isArray(idx.themes) || typeof idx.generated_at !== 'string'
+      || idx.themes.some((t) => !t || typeof t.theme_id !== 'string' || typeof t.name !== 'string')) throw new Error('The theme data could not be read. Please retry.')
+    const previous = new Map((get().readingThemes?.themes || []).map((t) => [t.theme_id, t]))
+    const themes = reconcileThemeRemovals(idx.themes.map((t) => {
+      const newer = previous.get(t.theme_id)
+      return newer && Number.isFinite(newer.rev) && Number.isFinite(t.rev) && newer.rev > t.rev ? newer : t
+    }))
+    let formation = normalizeThemeFormationQueue(idx.formation_queue)
+    let health = normalizeThemeCompilerHealth(idx.compiler_health)
+    for (const candidate of formation?.candidates || []) {
+      const floor = themeRemovalRevs.get(candidate.theme_id)
+      if (floor === undefined || themes.some((t) => t.theme_id === candidate.theme_id && Number.isFinite(t.rev) && t.rev > floor)) continue
+      const next = withoutFormationCandidate(formation, health, candidate.theme_id)
+      formation = next.formation; health = next.health
+    }
+    set({ readingThemes: { ...idx, themes, formation_queue: formation || undefined, compiler_health: health || undefined } })
+  },
   refreshThemes: async () => {
     const requestSeq = ++themesRequestSeq
     const requestUpsertMutationSeq = themeUpsertMutationSeq
@@ -5313,19 +5354,15 @@ export const useStore = create<State>((set, get) => ({
       // projection changes do). Do not let the older snapshot overwrite it; fetch once more from the
       // now-authoritative store. Request generations bound concurrent retries and owner/slice switches.
       if (themeUpsertMutationSeq !== requestUpsertMutationSeq) return get().refreshThemes()
-      const currentThemes = idx.themes.filter((t) => {
-        const removedAt = themeRemovalRevs.get(t.theme_id)
-        if (removedAt === undefined) return true
-        if (Number.isFinite(t.rev) && t.rev > removedAt) { themeRemovalRevs.delete(t.theme_id); return true }
-        return false
-      })
+      const currentThemes = reconcileThemeRemovals(idx.themes)
       // A global removal deliberately lets an already-useful index read settle. Apply the same session
       // tombstones to its additive formation excerpt before commit, otherwise a pre-removal HTTP response
       // can resurrect the exact non-investable row that SSE just invalidated.
       let nextFormation = normalizeThemeFormationQueue(idx.formation_queue)
       let nextCompilerHealth = normalizeThemeCompilerHealth(idx.compiler_health)
       for (const candidate of nextFormation?.candidates || []) {
-        if (!themeRemovalRevs.has(candidate.theme_id)) continue
+        const floor = themeRemovalRevs.get(candidate.theme_id)
+        if (floor === undefined || currentThemes.some((t) => t.theme_id === candidate.theme_id && Number.isFinite(t.rev) && t.rev > floor)) continue
         const reconciled = withoutFormationCandidate(nextFormation, nextCompilerHealth, candidate.theme_id)
         nextFormation = reconciled.formation
         nextCompilerHealth = reconciled.health
@@ -5436,6 +5473,7 @@ export const useStore = create<State>((set, get) => ({
   // 30s poll. Read-only — surfacing happens server-side on the ingester tick.
   openIdeas: () => {
     cancelThemeDetailRequest()
+    set({ universeView: 'events' })
     set({ ideasOpen: true, calendarOpen: false, themesView: null, selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false, scSelectedEvent: null, scFocusedCompany: null })
     void get().scRefreshBoard()
   },
@@ -5444,10 +5482,12 @@ export const useStore = create<State>((set, get) => ({
   // tabs. CalendarView fetches /api/calendar itself (no store data to seed) — this just flips the pane.
   openCalendar: () => {
     cancelThemeDetailRequest()
+    set({ universeView: 'events' })
     set({ calendarOpen: true, ideasOpen: false, themesView: null, selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false, scSelectedEvent: null, scFocusedCompany: null })
   },
   closeCalendar: () => set({ calendarOpen: false }),
   openThemes: async (view) => {
+    set({ universeView: 'events' })
     const themesWindow = themeWindowForView(view, get().themesWindow)
     // An explicit Themes-tab open is navigation to the first-look surface, not a resurrection of whichever
     // deep dive happened to be open before Ideas/Calendar. Clear its whole async state synchronously so an
@@ -6006,7 +6046,7 @@ export const useStore = create<State>((set, get) => ({
     // on to another one (cross-run answer contamination: wrong SIG context + wrong saved thread/id).
     chatPendingBaseline = null
     chatAbort?.abort(); chatAbort = null
-    set({ scSelectedSignal: sigId, scRuntime: {}, scRouted: {}, ...CHAT_RESET, ...(navigate && sigId ? { ideasOpen: false, themesView: null, calendarOpen: false } : {}) })
+    set({ scSelectedSignal: sigId, scRuntime: {}, scRouted: {}, ...CHAT_RESET, ...(navigate && sigId ? { ideasOpen: false, themesView: null, calendarOpen: false, universeView: 'events' as const } : {}) })
     if (!sigId) return
     try {
       const m = await api.screenerRun(sigId)
@@ -6213,8 +6253,8 @@ export const useStore = create<State>((set, get) => ({
     })
   },
 
-  openSignalIntake: () => set({ signalIntakeOpen: true, signalIntakeSeed: null }),
-  openSignalIntakeWith: (seed) => set({ signalIntakeOpen: true, signalIntakeSeed: seed }),
+  openSignalIntake: () => set({ signalIntakeOpen: true, signalIntakeSeed: null, universeView: 'events' }),
+  openSignalIntakeWith: (seed) => set({ signalIntakeOpen: true, signalIntakeSeed: seed, universeView: 'events' }),
   closeSignalIntake: () => set({ signalIntakeOpen: false, signalIntakeSeed: null }),
 
   submitSignal: async (intake, until) => {
@@ -6230,7 +6270,7 @@ export const useStore = create<State>((set, get) => ({
       const out = await api.launchSignal(execution, { intake, until })
       requireLaunchProviderReceipt(out, execution, get().providers.catalogState)
       const { runId, preflight } = out
-      set({ signalIntakeOpen: false, signalIntakeSeed: null })
+      set({ signalIntakeOpen: false, signalIntakeSeed: null, universeView: 'events' })
       const sigId = preflight.ticker
       set({ scSelectedSignal: sigId, scRuntime: {}, scRouted: {} })
       beginScreenerRun(set, get, runId, { subject: sigId, swarmId: 'screener', execution })
@@ -6770,16 +6810,32 @@ export const useStore = create<State>((set, get) => ({
       const g = get().themesGeo
       const wireCfg = activeWireConfig(get())
       const sliced = !!(g.country || g.geoRegion || get().themesSubject || (wireCfg && !wireCfg.flow && wireCfg.eventScope))
-      const refetchSlice = sliced && get().themesView !== null
+      const newerThanRemoval = (t: Theme | undefined) => !!t && Number.isFinite(t.rev) && t.rev > removal.rev
+      const current = get().themes.find((t) => t.theme_id === removal.theme_id)
+      const preserveWire = newerThanRemoval(current)
+      const refetchSlice = sliced && get().themesView !== null && !preserveWire
       // A global in-flight response is still useful: its tombstone-filtered result settles loading without
       // resurrecting this row. A sliced projection can change more broadly around a merge, so only that
       // active slice invalidates its request and schedules a full replacement below.
       if (refetchSlice) themesRequestSeq++
-      const selected = get().selectedTheme === removal.theme_id
+      const selected = get().selectedTheme === removal.theme_id && !preserveWire
+        && !newerThanRemoval(get().themeDetail?.theme)
       if (selected) cancelThemeDetailRequest()
-      const reconciledFormation = withoutFormationCandidate(get().themeFormationQueue, get().themeCompilerHealth, removal.theme_id)
+      const reconciledFormation = preserveWire
+        ? { formation: get().themeFormationQueue, health: get().themeCompilerHealth }
+        : withoutFormationCandidate(get().themeFormationQueue, get().themeCompilerHealth, removal.theme_id)
+      const reading = get().readingThemes
+      const readingFormation = newerThanRemoval(reading?.themes.find((t) => t.theme_id === removal.theme_id))
+        ? { formation: reading?.formation_queue, health: reading?.compiler_health }
+        : withoutFormationCandidate(reading?.formation_queue || null, reading?.compiler_health || null, removal.theme_id)
       set({
-        themes: get().themes.filter((t) => t.theme_id !== removal.theme_id),
+        themes: get().themes.filter((t) => t.theme_id !== removal.theme_id || newerThanRemoval(t)),
+        ...(reading ? { readingThemes: {
+          ...reading,
+          themes: reading.themes.filter((t) => t.theme_id !== removal.theme_id || newerThanRemoval(t)),
+          formation_queue: readingFormation.formation || undefined,
+          compiler_health: readingFormation.health || undefined,
+        } } : {}),
         themeFormationQueue: reconciledFormation.formation,
         themeCompilerHealth: reconciledFormation.health,
         ...(selected ? { selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false } : {}),
@@ -6794,6 +6850,18 @@ export const useStore = create<State>((set, get) => ({
       const t = e.theme as Theme
       if (!t.theme_id) return
       themeUpsertMutationSeq++
+      // The reader always owns a global projection, even while the wire map is closed or geo-sliced.
+      // Apply exact global SSE truth there before the wire's slice-specific handling below.
+      const reading = get().readingThemes
+      const removedReadingAt = themeRemovalRevs.get(t.theme_id)
+      const oldReading = reading?.themes.find((row) => row.theme_id === t.theme_id)
+      if (reading && (removedReadingAt === undefined || (Number.isFinite(t.rev) && t.rev > removedReadingAt))
+        && !(oldReading && Number.isFinite(oldReading.rev) && Number.isFinite(t.rev) && oldReading.rev > t.rev)) {
+        const nextFormation = themeSurfaceStatus(t) !== 'context'
+          ? withoutFormationCandidate(reading.formation_queue || null, reading.compiler_health || null, t.theme_id)
+          : { formation: reading.formation_queue, health: reading.compiler_health }
+        set({ readingThemes: { ...reading, themes: reconcileThemeRemovals([...reading.themes.filter((row) => row.theme_id !== t.theme_id), t]).sort(compareBriefingThemes), formation_queue: nextFormation.formation || undefined, compiler_health: nextFormation.health || undefined } })
+      }
       // upsert the changed theme; the map/board re-rank from the array. Only when the themes view is
       // open (otherwise we'd hold stale themes until next open anyway).
       if (get().themesView === null && !get().themes.length) return
@@ -6817,7 +6885,7 @@ export const useStore = create<State>((set, get) => ({
       const removedAt = themeRemovalRevs.get(t.theme_id)
       if (removedAt !== undefined) {
         if (!Number.isFinite(t.rev) || t.rev <= removedAt) return
-        themeRemovalRevs.delete(t.theme_id) // a strictly newer revision is an explicit re-creation
+        // A strictly newer revision is an explicit re-creation; retain the floor for buffered reads.
       }
       const cur = get().themes
       const i = cur.findIndex((x) => x.theme_id === t.theme_id)

@@ -1,4 +1,5 @@
 import { registerIdeasWorkspace } from './news/ideas/ideas-workspace'
+import { registerUniverseModel } from './universe-model'
 import { createHash, randomUUID, timingSafeEqual } from 'node:crypto'
 import fs from 'node:fs'
 import os from 'node:os'
@@ -5942,8 +5943,8 @@ app.get('/api/valuation-levers', async (req, reply) => {
 const ValuationOverrideBody = z.object({
   runRoot: z.string().min(1).max(300),
   reason: z.string().max(4000).optional(),
-  overrides: z.record(z.any()).optional(),
-  levels: z.record(z.number()).optional(),
+  overrides: z.record(z.string(), z.any()).optional(),
+  levels: z.record(z.string(), z.number()).optional(),
 }).strip()
 app.post('/api/valuation-levers/override', { config: { rateLimit: { max: 200, timeWindow: '1 minute' } } }, async (req, reply) => {
   const parsed = ValuationOverrideBody.safeParse(req.body ?? {})
@@ -6851,6 +6852,7 @@ app.get('/api/calls/artifact', async (req, reply) => {
 
 // ---------- screener swarm (dedicated, sandboxed readers — /api/output stays locked to analyses/) ----------
 registerIdeasWorkspace(app, REPO_ROOT, NEWS.newsArchiveDir, () => markIdeasPublicationPending(STATE_DIR))
+registerUniverseModel(app, STATE_DIR, REPO_ROOT, NEWS.newsArchiveDir, { canRun: originAllowed })
 
 app.get('/api/screener/board', async (_req, reply) => {
   try {
@@ -7708,7 +7710,7 @@ const FeedbackBody = z.object({
   company_name: z.string().max(200).optional(),
   company_ticker: z.string().max(20).optional(),
   sector_theme: z.string().max(200).optional(),
-  score_breakdown: z.record(z.any()).nullable().optional(),
+  score_breakdown: z.record(z.string(), z.any()).nullable().optional(),
 }).strip()
 app.post('/api/screener/feedback', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async (req, reply) => {
   const parsed = FeedbackBody.safeParse(req.body)

@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-10-09T00:14:10Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-41f871048ef0",
+    "idea_version": "IDEAV-d881e5e1a428d88d",
+    "idea_version_started_at": "2026-10-05T23:32:47Z",
+    "ticker": "ORCL",
+    "company": "Oracle Corporation",
+    "exchange": "NYSE",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "short",
+    "pair_with": null,
+    "reason": "A data breach involving 20 million records creates substantial litigation risk, regulatory scrutiny, and potential reputational damage to the firm's cloud and health data business.",
+    "why_now": "The breach was reported on 2026-10-05, and the scale of the compromise suggests significant future legal and remediation costs.",
+    "conviction": 65,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 67,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 21,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-08f447a7192f"
+    ],
+    "primary_source_event_id": "EVT-08f447a7192f",
+    "source_headlines": [
+      "Oracle 2025 Health Breach Compromised Data of 20 Million People"
+    ],
+    "source_headline": "Oracle 2025 Health Breach Compromised Data of 20 Million People",
+    "source_url": "https://www.bloomberg.com/news/articles/2026-10-05/oracle-2025-health-breach-compromised-data-of-20-million-people",
+    "source_name": "Bloomberg",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-05T23:09:19Z",
+    "prior_coverage": {
+      "has_run": true,
+      "latest_run": "analyses/ORCL_2026-08-14",
+      "latest_decision": "Watchlist",
+      "data_pool_present": true
+    },
+    "surfaced_at": "2026-10-05T23:32:47Z",
+    "updated_at": "2026-10-05T23:32:47Z",
+    "decay_at": "2026-10-07T11:09:19Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

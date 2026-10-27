@@ -3,6 +3,10 @@ import { createRoot } from 'react-dom/client'
 import '../src/styles/global.css'
 import { BestIdeasView } from '../src/components/screener/BestIdeasView'
 import { useStore } from '../src/lib/store'
+import { EventRail } from '../src/components/screener/EventRail'
+import { ActivityHistory } from '../src/components/ActivityLog'
+import { PerformancePanel } from '../src/components/PerformancePanel'
+import { UniverseWorkspace } from '../src/components/screener/UniverseWorkspace'
 
 window.__ENGINE_LIVE__ = true
 useStore.setState({ activeSwarm: 'screener', staticMode: false, health: 'online',
@@ -12,10 +16,16 @@ useStore.setState({ activeSwarm: 'screener', staticMode: false, health: 'online'
 
 function Harness() {
   const ideasOpen = useStore((s) => s.ideasOpen)
-  useEffect(() => { void useStore.getState().scInit() }, [])
+  const surface = new URLSearchParams(window.location.search).get('surface')
+  useEffect(() => { if (!surface) void useStore.getState().scInit() }, [surface])
+  if (surface === 'model') return <main className="app" data-swarm="screener"><UniverseWorkspace events={<div className="scstage">Existing Events workspace<input aria-label="Event context" defaultValue="" /></div>} /><button type="button" style={{ position: 'fixed', top: 12, right: 12, zIndex: 50 }} onClick={() => useStore.getState().openSignalIntake()}>Check an event</button></main>
+  if (surface === 'wire') return <main className="app" data-swarm="screener" style={{ flexDirection: 'row' }}><EventRail /></main>
+  if (surface === 'activity') return <main className="app"><ActivityHistory /></main>
+  if (surface === 'speed') return <main className="app"><PerformancePanel onClose={() => {}} /></main>
   return <main className="app" data-swarm="screener" style={{ minHeight: '100vh' }}>
     <nav><button type="button" role="radio" aria-checked={ideasOpen} onClick={() => useStore.getState().openIdeas()}>Ideas</button></nav>
     {ideasOpen && <BestIdeasView />}
   </main>
 }
-createRoot(document.getElementById('root')!).render(<Harness />)
+const harness = <Harness />
+createRoot(document.getElementById('root')!).render(new URLSearchParams(window.location.search).get('surface') === 'model' ? <React.StrictMode>{harness}</React.StrictMode> : harness)

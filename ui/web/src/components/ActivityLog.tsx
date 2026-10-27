@@ -149,6 +149,7 @@ export function ActivityHistory({ onLoaded }: { onLoaded?: (s: { runCount: numbe
   const refreshResumable = useStore((s) => s.refreshResumable)
   const [data, setData] = useState<ActivityResult | null>(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
   const [whoami, setWhoami] = useState<Whoami | null>(null)
   // the per-row report chooser (manifest-driven popup), anchored to the clicked button
   const [menu, setMenu] = useState<{ row: ActivityRow; anchor: ReportMenuAnchor } | null>(null)
@@ -215,20 +216,29 @@ export function ActivityHistory({ onLoaded }: { onLoaded?: (s: { runCount: numbe
         q: qDebounced || undefined,
         limit: 1000,
       })
-      if (mounted.current && gen === reqGen.current) setData(res)
+      if (mounted.current && gen === reqGen.current) { setData(res); setError(false) }
     } catch {
-      if (mounted.current && gen === reqGen.current) setData({ rows: [], total: 0, allTime: 0, users: [], tickers: [], earliest: null })
+      if (mounted.current && gen === reqGen.current) setError(true)
     } finally {
       if (mounted.current && gen === reqGen.current) setLoading(false)
     }
   }, [fromTo, ticker, kind, user, status, qDebounced, refreshResumable])
 
   // (re)fetch on mount + whenever a filter changes, and auto-refresh every 15s so in-flight runs settle
+  const queryKey = JSON.stringify([fromTo, ticker, kind, user, status, qDebounced])
+  const [previousQuery, setPreviousQuery] = useState(queryKey)
+  if (previousQuery !== queryKey) {
+    setPreviousQuery(queryKey)
+    reqGen.current++
+    setData(null)
+    setError(false)
+    setLoading(true)
+  }
   useEffect(() => {
     load()
     const id = setInterval(load, 15_000)
     return () => clearInterval(id)
-  }, [load])
+  }, [load, queryKey])
 
   useEffect(() => { api.whoami().then(setWhoami).catch(() => {}) }, [])
 
@@ -426,7 +436,8 @@ export function ActivityHistory({ onLoaded }: { onLoaded?: (s: { runCount: numbe
           </div>
 
           <div className="activity__body">
-            {rows.length === 0 && !loading ? (
+            {error && <div className="bideas__fetch bideas__fetch--bad" role="status">Could not refresh activity. {data ? 'Showing the last loaded runs.' : 'Run history is unavailable.'}<button type="button" onClick={() => void load()}>Retry</button></div>}
+            {rows.length === 0 && !loading && !error ? (
               <div className="activity__empty">{anyFilter ? 'No runs match these filters.' : 'No runs recorded yet. Launch an orb, a module, or a full run and it will appear here.'}</div>
             ) : (
               <table className="atable">

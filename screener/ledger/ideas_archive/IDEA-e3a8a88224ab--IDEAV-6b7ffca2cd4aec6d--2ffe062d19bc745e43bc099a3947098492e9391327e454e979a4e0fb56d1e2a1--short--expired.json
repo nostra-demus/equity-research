@@ -1,0 +1,79 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-10-22T11:04:11Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-e3a8a88224ab",
+    "idea_version": "IDEAV-6b7ffca2cd4aec6d",
+    "idea_version_started_at": "2026-10-19T10:36:10Z",
+    "ticker": "329180",
+    "company": "HD Hyundai Heavy Industries",
+    "exchange": "KRX",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "short",
+    "pair_with": null,
+    "reason": "A partial strike by the HD Hyundai Heavy Industries Union could disrupt operations, increase labor costs, and negatively impact production and profitability.",
+    "why_now": "The union started a partial strike today, 2026-10-19, creating an immediate operational risk.",
+    "conviction": 55,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 19,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-5f5169fbb393"
+    ],
+    "primary_source_event_id": "EVT-5f5169fbb393",
+    "source_headlines": [
+      "HD Hyundai Heavy Industries Union Starts Partial Strike"
+    ],
+    "source_headline": "HD Hyundai Heavy Industries Union Starts Partial Strike",
+    "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279122",
+    "source_name": "Business Korea — All English Articles",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-19T09:18:46Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-10-19T10:36:10Z",
+    "updated_at": "2026-10-19T10:36:10Z",
+    "decay_at": "2026-10-20T21:18:46Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
