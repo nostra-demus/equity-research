@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T03:19:11Z",
+  "generated_at": "2026-10-27T03:28:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-119",
@@ -291,6 +291,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-158",
+      "headline": "FTC to slap 20 bln-won fine on Samsung Electronics for misleading gaming ads",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261027003300320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T03:00:09Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Samsung Electronics faces a 20 billion won fine for misleading advertising.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Samsung Electronics faces a 20 billion won fine for misleading advertising.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung Electronics",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -989,6 +1038,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-166",
+      "headline": "Alibaba Wins Challenge to Pentagon’s Chinese Army Blacklisting",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-27/alibaba-wins-challenge-to-pentagon-s-chinese-army-blacklisting",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T02:49:25Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Alibaba successfully challenged its inclusion on a US military blacklist, reducing regulatory and investment risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Alibaba successfully challenged its inclusion on a US military blacklist, reducing regulatory and investment risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alibaba Group Holding Limited",
+          "ticker": "BABA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-048",
       "headline": "PRB: Quarterly Activities/Appendix 5B Cash Flow Report [price-sensitive]",
       "headline_en": null,
@@ -1229,6 +1328,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261027-154",
+      "headline": "[JPX]Consolidated financial results for the six months ended September 30, 2026 (Based on IFRS), unaudited",
+      "headline_en": null,
+      "url": "https://www.jpx.co.jp/english/corporate/news/news-releases/0063/vk0khi000002r3yo-att/E_ER_Q2FY2026.pdf",
+      "source_name": "Japan Exchange Group (JPX) — News Release",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T03:03:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Japan Exchange Group reported unaudited consolidated financial results for the six months ended September 30, 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Japan Exchange Group reported unaudited consolidated financial results for the six months ended September 30, 2026.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Japan Exchange Group",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1815,154 +1963,6 @@
       "companies": [
         {
           "name": "Microsoft Corporation",
-          "ticker": "MSFT",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-114",
-      "headline": "BREAKING NEWS: GMO Internet calls on users to unplug computers as noon cyberattack looms",
-      "headline_en": null,
-      "url": "https://english.kyodonews.net/articles/-/89507",
-      "source_name": "Kyodo News (Japan Wire)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T01:29:00Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Active cyberattack threat on Japan-listed internet services provider requiring user action (unplug devices); could materially disrupt operations, service availability, and customer trust.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Active cyberattack threat on Japan-listed internet services provider requiring user action (unplug devices); could materially disrupt operations, service availability, and customer trust.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "cybersecurity",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GMO Internet",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-096",
-      "headline": "Noel objects to Tata Sons board minutes, RoC filing over N Chandrasekaran's reappointment",
-      "headline_en": null,
-      "url": "https://www.hindustantimes.com/business/noel-objects-to-tata-sons-board-minutes-roc-filing-over-n-chandrasekarans-reappointment-101793058296253.html",
-      "source_name": "Hindustan Times (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T01:14:12Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "RoC filing of objection to Tata Sons chairman N. Chandrasekaran's reappointment raises governance risk and management-succession uncertainty at India's largest conglomerate.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "RoC filing of objection to Tata Sons chairman N. Chandrasekaran's reappointment raises governance risk and management-succession uncertainty at India's largest conglomerate.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 52,
-      "rank_factors": {
-        "materiality": 52,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 18,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-063",
-      "headline": "Microsoft offers buyouts to 60,000 employees as AI spending mounts",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/technology/artificial-intelligence/microsoft-offers-buyouts-to-60-000-employees-as-ai-spending-mounts",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T00:56:29Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Microsoft announces voluntary buyouts to 60,000 employees in response to rising AI spending, signaling cost discipline but without quantified impact on earnings or savings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Microsoft announces voluntary buyouts to 60,000 employees in response to rising AI spending, signaling cost discipline but without quantified impact on earnings or savings.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Microsoft",
           "ticker": "MSFT",
           "listing_country": "US"
         }
@@ -247016,9 +247016,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 558081,
-    "news_picked_today": 200,
-    "news_dropped_today": 3328
+    "news_seen_today": 567428,
+    "news_picked_today": 221,
+    "news_dropped_today": 3499
   },
   "book_momentum": {
     "live_count": 8,
