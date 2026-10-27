@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-13T05:16:49Z",
+  "archived_at": "2026-10-27T11:08:11Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-6e03d8c38d33",
-    "idea_version": "IDEAV-3a933cf114501052",
-    "idea_version_started_at": "2026-10-10T08:29:45Z",
-    "ticker": "AVANTEL",
-    "company": "Avantel Limited",
-    "exchange": "NSE",
+    "idea_id": "IDEA-71b9d8d7d868",
+    "idea_version": "IDEAV-b359861aeac48342",
+    "idea_version_started_at": "2026-10-24T09:25:22Z",
+    "ticker": "MCG",
+    "company": "Mobico Group",
+    "exchange": "LSE",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "long",
     "pair_with": null,
-    "reason": "The company secured new orders, which directly increases its order book and provides revenue visibility.",
-    "why_now": "The exchange filing confirming the order win was released on 2026-10-10.",
-    "conviction": 75,
+    "reason": "The company is in active takeover talks for a £282m deal, which typically provides a floor and potential premium for shareholders.",
+    "why_now": "The news of the takeover talks emerged on 2026-10-24.",
+    "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
-      "impact": 14,
+      "evidence": 14,
+      "impact": 20,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -52,26 +53,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-616dc86d7a44"
+      "EVT-12e4c0a9e4ef"
     ],
-    "primary_source_event_id": "EVT-616dc86d7a44",
+    "primary_source_event_id": "EVT-12e4c0a9e4ef",
     "source_headlines": [
-      "Avantel Limited: Avantel Limited has informed the Exchange about Bagging/Receiving of orders/contracts"
+      "National Express owner in talks over £282m takeover deal"
     ],
-    "source_headline": "Avantel Limited: Avantel Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
-    "source_url": "https://nsearchives.nseindia.com/corporate/AVANTEL_10102026101310_OrderIntimation10102026.pdf",
-    "source_name": "BSE / NSE Exchange Filing",
-    "materiality_max": 88,
-    "newest_source_at": "2026-10-10T04:43:39Z",
+    "source_headline": "National Express owner in talks over £282m takeover deal",
+    "source_url": "https://www.independent.co.uk/news/business/national-express-coach-takeover-mobico-shares-adl-b3072615.html",
+    "source_name": "The Independent — Business",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-24T08:32:16Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-10T08:29:45Z",
-    "updated_at": "2026-10-10T08:29:45Z",
-    "decay_at": "2026-10-11T16:43:39Z",
+    "surfaced_at": "2026-10-24T09:25:22Z",
+    "updated_at": "2026-10-24T09:25:22Z",
+    "decay_at": "2026-10-25T20:32:16Z",
     "status": "live",
     "promoted_signal_id": null
   }
