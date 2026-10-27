@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T23:31:25Z",
+  "generated_at": "2026-10-27T23:39:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-713",
@@ -201904,77 +201904,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-406ba717f9ef",
-      "idea_version": "IDEAV-25276e7ead781014",
-      "idea_version_started_at": "2026-10-26T13:58:56Z",
-      "ticker": "EQT",
-      "company": "EQT Corporation",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "EQT is acquiring Range Resources in an all-stock transaction, which typically leads to short-term downward pressure on the acquirer's shares due to dilution and integration risks.",
-      "why_now": "The acquisition was announced on October 26, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 74,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-fc03d932cd46",
-        "EVT-43f3ac559d18"
-      ],
-      "primary_source_event_id": "EVT-fc03d932cd46",
-      "source_headlines": [
-        "EQT to acquire Range Resources, creating U.S. gas giant",
-        "EQT Corporation to Acquire Range Resources Corporation in All-Stock Transaction with Pro Forma Enterprise Value of more than $50 billion"
-      ],
-      "source_headline": "EQT to acquire Range Resources, creating U.S. gas giant",
-      "source_url": "https://www.theglobeandmail.com/business/industry-news/article-eqt-to-acquire-range-resources-creating-us-gas-giant/",
-      "source_name": "The Globe and Mail",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T11:32:34Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T13:58:56Z",
-      "updated_at": "2026-10-26T13:58:56Z",
-      "decay_at": "2026-10-27T23:32:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-77b0931ae560",
       "idea_version": "IDEAV-9d944fb084806f51",
       "idea_version_started_at": "2026-10-27T01:59:31Z",
@@ -204606,6 +204535,77 @@
       "surfaced_at": "2026-10-24T20:13:45Z",
       "updated_at": "2026-10-25T04:38:42Z",
       "decay_at": "2026-10-26T14:10:40Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-406ba717f9ef",
+      "idea_version": "IDEAV-25276e7ead781014",
+      "idea_version_started_at": "2026-10-26T13:58:56Z",
+      "ticker": "EQT",
+      "company": "EQT Corporation",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "EQT is acquiring Range Resources in an all-stock transaction, which typically leads to short-term downward pressure on the acquirer's shares due to dilution and integration risks.",
+      "why_now": "The acquisition was announced on October 26, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 74,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fc03d932cd46",
+        "EVT-43f3ac559d18"
+      ],
+      "primary_source_event_id": "EVT-fc03d932cd46",
+      "source_headlines": [
+        "EQT to acquire Range Resources, creating U.S. gas giant",
+        "EQT Corporation to Acquire Range Resources Corporation in All-Stock Transaction with Pro Forma Enterprise Value of more than $50 billion"
+      ],
+      "source_headline": "EQT to acquire Range Resources, creating U.S. gas giant",
+      "source_url": "https://www.theglobeandmail.com/business/industry-news/article-eqt-to-acquire-range-resources-creating-us-gas-giant/",
+      "source_name": "The Globe and Mail",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-26T11:32:34Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-26T13:58:56Z",
+      "updated_at": "2026-10-26T13:58:56Z",
+      "decay_at": "2026-10-27T23:32:34Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -209421,9 +209421,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 568,
+    "total_count": 569,
     "shown_count": 500,
-    "hidden_count": 68,
+    "hidden_count": 69,
     "side_counts": {
       "long": {
         "total_count": 292,
@@ -209431,9 +209431,9 @@
         "hidden_count": 42
       },
       "short": {
-        "total_count": 276,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 27
       }
     },
     "retention": {
@@ -209452,6 +209452,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-406ba717f9ef",
+        "idea_version": "IDEAV-25276e7ead781014",
+        "idea_version_started_at": "2026-10-26T13:58:56Z",
+        "ticker": "EQT",
+        "company": "EQT Corporation",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "EQT is acquiring Range Resources in an all-stock transaction, which typically leads to short-term downward pressure on the acquirer's shares due to dilution and integration risks.",
+        "why_now": "The acquisition was announced on October 26, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 74,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-fc03d932cd46",
+          "EVT-43f3ac559d18"
+        ],
+        "primary_source_event_id": "EVT-fc03d932cd46",
+        "source_headlines": [
+          "EQT to acquire Range Resources, creating U.S. gas giant",
+          "EQT Corporation to Acquire Range Resources Corporation in All-Stock Transaction with Pro Forma Enterprise Value of more than $50 billion"
+        ],
+        "source_headline": "EQT to acquire Range Resources, creating U.S. gas giant",
+        "source_url": "https://www.theglobeandmail.com/business/industry-news/article-eqt-to-acquire-range-resources-creating-us-gas-giant/",
+        "source_name": "The Globe and Mail",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-26T11:32:34Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-26T13:58:56Z",
+        "updated_at": "2026-10-26T13:58:56Z",
+        "decay_at": "2026-10-27T23:32:34Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-27T23:32:34Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1eedaee326ce",
         "idea_version": "IDEAV-805ff45cb433dc4c",
@@ -246640,86 +246714,12 @@
         "archived_at": "2026-10-05T20:12:25Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-936025bbcdb3",
-        "idea_version": "IDEAV-78acbe3d08e19ae6",
-        "idea_version_started_at": "2026-10-02T23:54:55Z",
-        "ticker": "00389",
-        "company": "China Tontine Wines Group Limited",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The conditional voluntary cash partial offer by Mr. Wang He to acquire 56,320,200 shares has officially lapsed due to failure to meet acceptance levels, removing a key valuation floor for the stock.",
-        "why_now": "The lapse of the partial offer was formally announced on October 2, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-6cbe4874af63"
-        ],
-        "primary_source_event_id": "EVT-6cbe4874af63",
-        "source_headlines": [
-          "TONTINE WINES (00389): ANNOUNCEMENT - CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY I WIN SECURITIES LIMITED FOR AND ON BEHALF OF MR. WANG HE TO ACQUIRE 56,320,200 SHARES IN CHINA TONTINE WINES GROUP LIMITED (STOCK CODE: 389) (OTHER THAN THOSE ALREADY OWNED BY MR. WANG HE AND PARTIES ACTING IN CONCERT WITH HIM) (1) LEVEL OF ACCEPTANCE ON THE FIRST CLOSING DATE; AND (2) LAPSE OF THE PARTIAL OFFER"
-        ],
-        "source_headline": "TONTINE WINES (00389): ANNOUNCEMENT - CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY I WIN SECURITIES LIMITED FOR AND ON BEHALF OF MR. WANG HE TO ACQUIRE 56,320,200 SHARES IN CHINA TONTINE WINES GROUP LIMITED (STOCK CODE: 389) (OTHER THAN THOSE ALREADY OWNED BY MR. WANG HE AND PARTIES ACTING IN CONCERT WITH HIM) (1) LEVEL OF ACCEPTANCE ON THE FIRST CLOSING DATE; AND (2) LAPSE OF THE PARTIAL OFFER",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1002/2026100203027.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-02T10:36:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-02T23:54:55Z",
-        "updated_at": "2026-10-02T23:54:55Z",
-        "decay_at": "2026-10-03T22:36:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-05T20:12:25Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1969,
-    "live_count": 37,
+    "live_count": 36,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -246738,9 +246738,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3553598,
-    "news_picked_today": 1800,
-    "news_dropped_today": 27024
+    "news_seen_today": 3562869,
+    "news_picked_today": 1807,
+    "news_dropped_today": 27137
   },
   "book_momentum": {
     "live_count": 8,
