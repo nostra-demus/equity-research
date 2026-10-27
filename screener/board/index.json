@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T23:21:34Z",
+  "generated_at": "2026-10-27T23:31:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-713",
@@ -1781,6 +1781,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-721",
+      "headline": "USA Rare Earth Just Broke Ground on a $1.2 Billion Magnet Complex. Here's Why It Matters.",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/10/27/usa-rare-earth-just-broke-ground-on-a-12-billion-m/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T22:54:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "USA Rare Earth announced a $1.2 billion investment in a new magnet complex.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "USA Rare Earth announced a $1.2 billion investment in a new magnet complex.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "USA Rare Earth",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-697",
       "headline": "The Ensign Group, Inc. Reports Third Quarter 2026 Results and Raises 2026 Annual Earnings Guidance",
       "headline_en": null,
@@ -1920,55 +1969,6 @@
       "companies": [
         {
           "name": "Boeing",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-659",
-      "headline": "Stock Market Today, Oct. 27: Meta Raises Largest-Ever Equity Offering to Nearly $98 Billion to Fund AI Infrastructure Bet",
-      "headline_en": null,
-      "url": "https://www.fool.com/coverage/stock-market-today/2026/10/27/stock-market-today-oct-27-meta-raises-largest-ever-equity-offering-to-nearly-usd98-billion-to-fund-ai-infrastructure-bet/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T21:16:42Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Meta is raising a massive $98 billion in equity to fund AI infrastructure, significantly diluting shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Meta is raising a massive $98 billion in equity to fund AI infrastructure, significantly diluting shareholders.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta",
           "ticker": null,
           "listing_country": "US"
         }
@@ -246738,9 +246738,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3544207,
-    "news_picked_today": 1779,
-    "news_dropped_today": 26925
+    "news_seen_today": 3553598,
+    "news_picked_today": 1800,
+    "news_dropped_today": 27024
   },
   "book_momentum": {
     "live_count": 8,
