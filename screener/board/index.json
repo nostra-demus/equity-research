@@ -1,6 +1,57 @@
 {
-  "generated_at": "2026-10-27T11:54:41Z",
+  "generated_at": "2026-10-27T11:58:36Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261027-407",
+      "headline": "Maral Overseas Limited: Maral Overseas Limited has submitted to the Exchange, the financial results for the period ended September 30, 2026 along with in principle approval of capex plan and update on acquisition in Asawata Energy Private Limited",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MARALOVER_27102026171708_Stxintimationresultsandoutcomeofboardmeeting.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T11:48:14Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Company reported financial results and announced a new capex plan and an acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company reported financial results and announced a new capex plan and an acquisition.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capex",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Maral Overseas Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261027-399",
       "headline": "ESTUN (02715): UPDATE ANNOUNCEMENT - CONNECTED TRANSACTION IN RELATION TO THE ACQUISITION OF 19.4574% EQUITY INTEREST IN ESTUN INTELLIGENT (JIANGSU)",
@@ -1935,56 +1986,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-256",
-      "headline": "Sky Gold Q2 results: Stock jumps 5% after profit nearly doubles; Board approves ₹1,800 crore fund raise",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/sky-gold-q2-results-profit-nearly-doubles-revenue-growth-margins-1800-crore-fund-raise-qip-share-price-20020242.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T08:08:10Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Sky Gold reported nearly doubled profit and approved a Rs. 1,800 crore fund raise.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sky Gold reported nearly doubled profit and approved a Rs. 1,800 crore fund raise.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sky Gold",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247250,9 +247251,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1678912,
-    "news_picked_today": 792,
-    "news_dropped_today": 15528
+    "news_seen_today": 1697682,
+    "news_picked_today": 804,
+    "news_dropped_today": 15540
   },
   "book_momentum": {
     "live_count": 8,
