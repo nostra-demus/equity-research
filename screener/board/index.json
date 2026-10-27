@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T01:20:58Z",
+  "generated_at": "2026-10-27T01:29:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-034",
@@ -737,6 +737,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-076",
+      "headline": "Cava Reported Revenue Increasing by 31%",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/cava-reported-revenue-increasing-31",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T00:47:01Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Cava reported 31% YoY revenue growth, a material quantified operating metric that affects earnings expectations and valuations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Cava reported 31% YoY revenue growth, a material quantified operating metric that affects earnings expectations and valuations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cava",
+          "ticker": "CAVA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-063",
       "headline": "Microsoft offers buyouts to 60,000 employees as AI spending mounts",
       "headline_en": null,
@@ -1117,6 +1166,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-075",
+      "headline": "Anthropic's Billions in Microsoft Commitments Add to Its Mounting Compute Bill",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/anthropics-billions-microsoft-commitments-add-its-mounting-compute-bill",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T00:50:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Anthropic faces mounting compute costs due to multi-billion dollar commitments to Microsoft, impacting its cash burn profile.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Anthropic faces mounting compute costs due to multi-billion dollar commitments to Microsoft, impacting its cash burn profile.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Microsoft",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-025",
       "headline": "TRAI releases Recommendations on Allocation and Pricing for 2.3-2.4 GHz, 2.5-2.69 GHz & 3.3-3.6 GHz bands",
       "headline_en": null,
@@ -1407,6 +1510,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-080",
+      "headline": "Expect rates to increase by 50bps in Dec: SBI chief",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/expect-rates-to-increase-by-50bps-in-dec-sbi-chief/articleshow/135222156.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T00:24:01Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "SBI's chief executive forecasts a 50 basis-point RBI rate increase in December, which would materially affect bank net interest margins, borrowing costs, and equity valuations if confirmed, but remains an expectation, not a decided policy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "SBI's chief executive forecasts a 50 basis-point RBI rate increase in December, which would materially affect bank net interest margins, borrowing costs, and equity valuations if confirmed, but remains an expectation, not a decided policy.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 53,
+      "rank_factors": {
+        "materiality": 53,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "macro_sector",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "State Bank of India",
+          "ticker": "SBIN",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-053",
       "headline": "OTPBANK N3612 OTPBANK N3109 OTPBANK N2908-R (40506 40739 85157): OTP Bank Nyrt. announces the listing of its EMTN Programme on the Singapore Exchange",
       "headline_en": null,
@@ -1603,6 +1756,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261027-079",
+      "headline": "424B5 - PROCTER & GAMBLE Co (0000080424) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/80424/000162828026067163/0001628280-26-067163-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B5 (Shelf Offering Final Prospectus)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-26T12:37:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Procter & Gamble 424B5 shelf takedown filed; capital action by mega-cap, but no size, terms, or market-access context disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Procter & Gamble 424B5 shelf takedown filed; capital action by mega-cap, but no size, terms, or market-access context disclosed.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Procter & Gamble Co",
+          "ticker": "PG",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261027-039",
       "headline": "Times Car Operators to Face Damages Lawsuit over Data Breach",
       "headline_en": null,
@@ -1745,202 +1947,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-008",
-      "headline": "8-K - LANDMARK BANCORP INC (0001141688) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1141688/000149315226048481/0001493152-26-048481-index.htm",
-      "source_name": "SEC EDGAR — Latest 8-K (Current Reports)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-26T18:11:11Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Landmark Bancorp filed an 8-K, which typically contains material operational or financial updates.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Landmark Bancorp filed an 8-K, which typically contains material operational or financial updates.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Landmark Bancorp Inc",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-067",
-      "headline": "SCHEDULE 13G - Canada Goose Holdings Inc. (0001690511) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1690511/000149315226048434/0001493152-26-048434-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-26T12:58:40Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "A Schedule 13G filing indicates a significant stake has been acquired by an investor, which could signal future activism or a change in control.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "A Schedule 13G filing indicates a significant stake has been acquired by an investor, which could signal future activism or a change in control.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Canada Goose Holdings Inc.",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-065",
-      "headline": "FDV: Change of interests of substantial holder - Cove view",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FDV?key=2924-03153663-3A705062",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-27T00:41:31Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "A change in substantial holder interest is a routine regulatory disclosure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "A change in substantial holder interest is a routine regulatory disclosure.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FDV",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-046",
-      "headline": "Aequs Limited: The Nomination and Remuneration Committee ('NRC') of the Board of Directors of Aequs Limited ('Company') at its meeting held on October 26, 2026 has approved the grant of 2,00,000 (Two Lakh) Employee Stock Options ( Stock Options ) under the Aequs Employee Stock Option Plan 2025",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/AEQUSLIMITED_26102026183222_Intimation_ESOP_Grant.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-26T13:02:45Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Aequs Limited approved grant of 200,000 employee stock options under ESOP plan on 26 Oct 2026; routine equity-dilution governance announcement with no disclosed vesting, strike, or beneficiary scope.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Aequs Limited approved grant of 200,000 employee stock options under ESOP plan on 26 Oct 2026; routine equity-dilution governance announcement with no disclosed vesting, strike, or beneficiary scope.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 48,
-      "rank_factors": {
-        "materiality": 48,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aequs Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -246778,9 +246784,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 251551,
-    "news_picked_today": 81,
-    "news_dropped_today": 1647
+    "news_seen_today": 262127,
+    "news_picked_today": 91,
+    "news_dropped_today": 1781
   },
   "book_momentum": {
     "live_count": 8,
