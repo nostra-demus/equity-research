@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-27T10:47:03Z",
+  "generated_at": "2026-10-27T10:52:23Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261027-314",
+      "headline": "SCE CM (00606): JOINT ANNOUNCEMENT VERY SUBSTANTIAL ACQUISITION AND CONNECTED TRANSACTION IN RELATION TO ACQUISITION OF ENTIRE ISSUED SHARE CAPITAL OF COMPANIES HOLDING COMMERCIAL PROPERTIES FROM CHINA SCE GROUP",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700854.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T10:38:00Z",
+      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
+      "prelim_note": "Announced very substantial acquisition of entire issued share capital of companies holding commercial properties; official HK exchange filing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Announced very substantial acquisition of entire issued share capital of companies holding commercial properties; official HK exchange filing.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SCE CM",
+          "ticker": "00606",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261027-303",
       "headline": "Dharani Sugars & Chemicals Limited: Dharani Sugars & Chemicals Limited has informed the Exchange regarding 'Discl.default Loans including revolving like cash credit from banks Default'.",
@@ -1932,60 +1981,6 @@
           "name": "GMO Internet Inc.",
           "ticker": null,
           "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261027-081",
-      "headline": "Tata Motor’s Iveco takeover bid clears 80% threshold",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/tata-motors-iveco-takeover-bid-clears-80-threshold/articleshow/135222297.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T01:11:36Z",
-      "sweep_file": "screener/inbox/2026-10-27_sweep.json",
-      "prelim_note": "Tata Motors' Iveco acquisition bid has cleared the 80% approval threshold, reducing execution risk and advancing deal completion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tata Motors' Iveco acquisition bid has cleared the 80% approval threshold, reducing execution risk and advancing deal completion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 76,
-      "rank_factors": {
-        "materiality": 76,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Motors",
-          "ticker": "TATAMOTORS",
-          "listing_country": "IN"
-        },
-        {
-          "name": "Iveco",
-          "ticker": null,
-          "listing_country": "IT"
         }
       ],
       "size_bucket": "large",
@@ -247396,9 +247391,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1487907,
-    "news_picked_today": 615,
-    "news_dropped_today": 14913
+    "news_seen_today": 1504393,
+    "news_picked_today": 619,
+    "news_dropped_today": 14933
   },
   "book_momentum": {
     "live_count": 8,
