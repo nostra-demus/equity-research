@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T16:44:47Z",
+  "generated_at": "2026-10-27T16:49:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261027-553",
@@ -204839,80 +204839,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-1fab37e5db24",
-      "idea_version": "IDEAV-c3e1fe74f52ae7f1",
-      "idea_version_started_at": "2026-10-26T09:24:06Z",
-      "ticker": "EVN",
-      "company": "Evolution Mining",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Evolution Mining is likely to be the beneficiary of a scheme meeting result, potentially acquiring Centaurus Metals.",
-      "why_now": "The results of the scheme meeting are being published, indicating a near-term decision on the transaction.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9d210ca43004",
-        "EVT-e2a5591df324"
-      ],
-      "primary_source_event_id": "EVT-9d210ca43004",
-      "source_headlines": [
-        "EVN: CNB: Results of Scheme Meeting",
-        "CNB: Results of Scheme Meeting [price-sensitive]"
-      ],
-      "source_headline": "EVN: CNB: Results of Scheme Meeting",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EVN?key=2924-03153125_NPS-2A1706122",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T04:47:32Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T09:24:06Z",
-      "updated_at": "2026-10-26T09:24:06Z",
-      "decay_at": "2026-10-27T16:47:32Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-772799d9898e",
       "idea_version": "IDEAV-45e7022537d0d47b",
       "idea_version_started_at": "2026-10-26T06:48:34Z",
@@ -206603,6 +206529,80 @@
       "surfaced_at": "2026-10-25T02:38:24Z",
       "updated_at": "2026-10-25T02:38:24Z",
       "decay_at": "2026-10-26T13:50:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-1fab37e5db24",
+      "idea_version": "IDEAV-c3e1fe74f52ae7f1",
+      "idea_version_started_at": "2026-10-26T09:24:06Z",
+      "ticker": "EVN",
+      "company": "Evolution Mining",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Evolution Mining is likely to be the beneficiary of a scheme meeting result, potentially acquiring Centaurus Metals.",
+      "why_now": "The results of the scheme meeting are being published, indicating a near-term decision on the transaction.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9d210ca43004",
+        "EVT-e2a5591df324"
+      ],
+      "primary_source_event_id": "EVT-9d210ca43004",
+      "source_headlines": [
+        "EVN: CNB: Results of Scheme Meeting",
+        "CNB: Results of Scheme Meeting [price-sensitive]"
+      ],
+      "source_headline": "EVN: CNB: Results of Scheme Meeting",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EVN?key=2924-03153125_NPS-2A1706122",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-26T04:47:32Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-26T09:24:06Z",
+      "updated_at": "2026-10-26T09:24:06Z",
+      "decay_at": "2026-10-27T16:47:32Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -209285,14 +209285,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 553,
+    "total_count": 554,
     "shown_count": 500,
-    "hidden_count": 53,
+    "hidden_count": 54,
     "side_counts": {
       "long": {
-        "total_count": 282,
+        "total_count": 283,
         "shown_count": 250,
-        "hidden_count": 32
+        "hidden_count": 33
       },
       "short": {
         "total_count": 271,
@@ -209316,6 +209316,83 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-1fab37e5db24",
+        "idea_version": "IDEAV-c3e1fe74f52ae7f1",
+        "idea_version_started_at": "2026-10-26T09:24:06Z",
+        "ticker": "EVN",
+        "company": "Evolution Mining",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Evolution Mining is likely to be the beneficiary of a scheme meeting result, potentially acquiring Centaurus Metals.",
+        "why_now": "The results of the scheme meeting are being published, indicating a near-term decision on the transaction.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9d210ca43004",
+          "EVT-e2a5591df324"
+        ],
+        "primary_source_event_id": "EVT-9d210ca43004",
+        "source_headlines": [
+          "EVN: CNB: Results of Scheme Meeting",
+          "CNB: Results of Scheme Meeting [price-sensitive]"
+        ],
+        "source_headline": "EVN: CNB: Results of Scheme Meeting",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EVN?key=2924-03153125_NPS-2A1706122",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-26T04:47:32Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-26T09:24:06Z",
+        "updated_at": "2026-10-26T09:24:06Z",
+        "decay_at": "2026-10-27T16:47:32Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-27T16:47:32Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7124724b5aaa",
         "idea_version": "IDEAV-4e019cea77bb7b14",
@@ -237903,82 +237980,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-b0b9aa045546",
-        "idea_version": "IDEAV-7359c810d800daa5",
-        "idea_version_started_at": "2026-10-12T05:53:02Z",
-        "ticker": "63MOONS",
-        "company": "63 Moons Technologies",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company raised its FY27 revenue guidance to Rs 600 crore, indicating improved demand or operational efficiency within its subsidiary.",
-        "why_now": "The guidance update was reported on October 12, 2026, following a 9% rally in share price.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9f7a25855681"
-        ],
-        "primary_source_event_id": "EVT-9f7a25855681",
-        "source_headlines": [
-          "63 Moons Technologies shares rally 9% as subsidiary raises FY27 revenue guidance to Rs 600 crore"
-        ],
-        "source_headline": "63 Moons Technologies shares rally 9% as subsidiary raises FY27 revenue guidance to Rs 600 crore",
-        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/63-moons-technologies-shares-rally-9-as-subsidiary-raises-fy27-revenue-guidance-to-rs-600-crore/articleshow/134883373.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-12T05:14:25Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-12T05:53:02Z",
-        "updated_at": "2026-10-12T05:53:02Z",
-        "decay_at": "2026-10-13T17:14:25Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-15T05:35:16Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-1aeb23b16c7e",
         "idea_version": "IDEAV-cb2c73fb1a174ba3",
         "idea_version_started_at": "2026-10-12T03:38:04Z",
@@ -246572,7 +246573,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1967,
-    "live_count": 50,
+    "live_count": 49,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -246591,9 +246592,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2645858,
-    "news_picked_today": 1135,
-    "news_dropped_today": 19601
+    "news_seen_today": 2658217,
+    "news_picked_today": 1136,
+    "news_dropped_today": 19720
   },
   "book_momentum": {
     "live_count": 8,
