@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T02:47:15Z",
+  "generated_at": "2026-10-28T02:53:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-239",
@@ -96,6 +96,104 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-277",
+      "headline": "Bajaj Auto Q2 net profit up 35% on strong exports, product mix",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/bajaj-auto-q2-net-profit-up-35-on-strong-exports-product-mix/articleshow/135249431.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T02:18:25Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Bajaj Auto reported a 35% increase in Q2 net profit driven by exports and product mix.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bajaj Auto reported a 35% increase in Q2 net profit driven by exports and product mix.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bajaj Auto",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-278",
+      "headline": "Star Health and Allied Insurance reports 232% profit surge at Rs 264.4 crore",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/star-health-and-allied-insurance-reports-232-profit-surge-at-rs-264-4-crore/articleshow/135249329.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T02:11:00Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Star Health and Allied Insurance reported a 232% surge in profit to Rs 264.4 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Star Health and Allied Insurance reported a 232% surge in profit to Rs 264.4 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Star Health and Allied Insurance",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1584,6 +1682,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-273",
+      "headline": "Bidding war erupts in $3b battle for developer Ingenia",
+      "headline_en": null,
+      "url": "https://www.afr.com/property/commercial/bidding-war-erupts-in-3b-battle-for-developer-ingenia-20261028-p61998?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T02:05:26Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "A bidding war has erupted for developer Ingenia with a $3 billion valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "A bidding war has erupted for developer Ingenia with a $3 billion valuation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ingenia",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-079",
       "headline": "PPG reports record third quarter 2026 EPS and raises midpoint of full-year EPS guidance",
       "headline_en": null,
@@ -1827,153 +1974,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-213",
-      "headline": "AVG: Resignation of CFO",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AVG?key=2924-03154416-2A1706645",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-28T01:46:51Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "CFO resignation at AVG filed to ASX; no stated cause, interim arrangement, or succession timeline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "CFO resignation at AVG filed to ASX; no stated cause, interim arrangement, or succession timeline.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "executive_exit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AVG",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-032",
-      "headline": "Samsung's AI boom comes with a $100 billion warning",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/investing/samsungs-ai-boom-comes-with-a-100-billion-warning",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T23:47:00Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Samsung faces a $100 billion warning related to its AI-driven growth strategy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Samsung faces a $100 billion warning related to its AI-driven growth strategy.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-070",
-      "headline": "IRC (01029): (I) PROPOSED RIGHTS ISSUE ON THE BASIS OF 1 RIGHTS SHARE FOR EVERY 2 EXISTING SHARES HELD ON THE RECORD DATE ON A NON-FULLY UNDERWRITTEN BASIS; AND (II) CONNECTED TRANSACTION IN RELATION TO THE UNDERWRITING AGREEMENT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1028/2026102800043.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-28T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "IRC is proposing a rights issue on a non-fully underwritten basis, which typically signals capital dilution and potential liquidity concerns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "IRC is proposing a rights issue on a non-fully underwritten basis, which typically signals capital dilution and potential liquidity concerns.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IRC",
-          "ticker": "01029",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -204090,76 +204090,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-dba8408df9af",
-      "idea_version": "IDEAV-8fb529b4ea87788f",
-      "idea_version_started_at": "2026-10-26T17:25:34Z",
-      "ticker": "JBLU",
-      "company": "JetBlue Airways",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is facing severe liquidity concerns as creditors have begun hiring restructuring advisers, signaling a potential debt crisis.",
-      "why_now": "The news of creditor engagement with restructuring specialists broke on October 26, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8c4974cfbb04"
-      ],
-      "primary_source_event_id": "EVT-8c4974cfbb04",
-      "source_headlines": [
-        "JetBlue Airways Tumbles 16% as Creditors Hire Restructuring Advisers; United Airlines Rises 3%, Delta Edges Higher"
-      ],
-      "source_headline": "JetBlue Airways Tumbles 16% as Creditors Hire Restructuring Advisers; United Airlines Rises 3%, Delta Edges Higher",
-      "source_url": "https://247wallst.com/investing/2026/10/26/jetblue-airways-tumbles-16-as-creditors-hire-restructuring-advisers-united-airlines-rises-3-delta-edges-higher/",
-      "source_name": "24/7 Wall St.",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T14:52:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T11:28:14Z",
-      "updated_at": "2026-10-26T17:25:34Z",
-      "decay_at": "2026-10-28T02:52:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-301c9958417a",
       "idea_version": "IDEAV-1a5df032afd29548",
       "idea_version_started_at": "2026-10-27T06:46:23Z",
@@ -206363,6 +206293,76 @@
       "surfaced_at": "2026-10-26T03:24:01Z",
       "updated_at": "2026-10-26T03:24:01Z",
       "decay_at": "2026-10-27T13:43:11Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-dba8408df9af",
+      "idea_version": "IDEAV-8fb529b4ea87788f",
+      "idea_version_started_at": "2026-10-26T17:25:34Z",
+      "ticker": "JBLU",
+      "company": "JetBlue Airways",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is facing severe liquidity concerns as creditors have begun hiring restructuring advisers, signaling a potential debt crisis.",
+      "why_now": "The news of creditor engagement with restructuring specialists broke on October 26, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8c4974cfbb04"
+      ],
+      "primary_source_event_id": "EVT-8c4974cfbb04",
+      "source_headlines": [
+        "JetBlue Airways Tumbles 16% as Creditors Hire Restructuring Advisers; United Airlines Rises 3%, Delta Edges Higher"
+      ],
+      "source_headline": "JetBlue Airways Tumbles 16% as Creditors Hire Restructuring Advisers; United Airlines Rises 3%, Delta Edges Higher",
+      "source_url": "https://247wallst.com/investing/2026/10/26/jetblue-airways-tumbles-16-as-creditors-hire-restructuring-advisers-united-airlines-rises-3-delta-edges-higher/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-26T14:52:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T11:28:14Z",
+      "updated_at": "2026-10-26T17:25:34Z",
+      "decay_at": "2026-10-28T02:52:22Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -211039,9 +211039,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 567,
+    "total_count": 568,
     "shown_count": 500,
-    "hidden_count": 67,
+    "hidden_count": 68,
     "side_counts": {
       "long": {
         "total_count": 294,
@@ -211049,9 +211049,9 @@
         "hidden_count": 44
       },
       "short": {
-        "total_count": 273,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 24
       }
     },
     "retention": {
@@ -211070,6 +211070,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-dba8408df9af",
+        "idea_version": "IDEAV-8fb529b4ea87788f",
+        "idea_version_started_at": "2026-10-26T17:25:34Z",
+        "ticker": "JBLU",
+        "company": "JetBlue Airways",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company is facing severe liquidity concerns as creditors have begun hiring restructuring advisers, signaling a potential debt crisis.",
+        "why_now": "The news of creditor engagement with restructuring specialists broke on October 26, 2026.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8c4974cfbb04"
+        ],
+        "primary_source_event_id": "EVT-8c4974cfbb04",
+        "source_headlines": [
+          "JetBlue Airways Tumbles 16% as Creditors Hire Restructuring Advisers; United Airlines Rises 3%, Delta Edges Higher"
+        ],
+        "source_headline": "JetBlue Airways Tumbles 16% as Creditors Hire Restructuring Advisers; United Airlines Rises 3%, Delta Edges Higher",
+        "source_url": "https://247wallst.com/investing/2026/10/26/jetblue-airways-tumbles-16-as-creditors-hire-restructuring-advisers-united-airlines-rises-3-delta-edges-higher/",
+        "source_name": "24/7 Wall St.",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-26T14:52:22Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-24T11:28:14Z",
+        "updated_at": "2026-10-26T17:25:34Z",
+        "decay_at": "2026-10-28T02:52:22Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-28T02:52:22Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-fa21270b499e",
         "idea_version": "IDEAV-d7616b75b50bf538",
@@ -248260,87 +248333,12 @@
         "archived_at": "2026-10-05T20:12:25Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-e67734d8e0e7",
-        "idea_version": "IDEAV-013c2fcab391bc2a",
-        "idea_version_started_at": "2026-10-03T00:30:09Z",
-        "ticker": "VOLCARB",
-        "company": "Volvo Car AB",
-        "exchange": "TSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Volvo Car has withdrawn its financial guidance due to worsening conditions and accelerating demand deterioration in the Chinese automotive market.",
-        "why_now": "The guidance withdrawal was announced on October 2, 2026, presenting an immediate negative catalyst for the stock.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "macro_conditional",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-28ee22cd8bb6"
-        ],
-        "primary_source_event_id": "EVT-28ee22cd8bb6",
-        "source_headlines": [
-          "Volvo Car Pulls Guidance as Chinese Auto Market Worsens"
-        ],
-        "source_headline": "Volvo Car Pulls Guidance as Chinese Auto Market Worsens",
-        "source_url": "https://www.wsj.com/business/earnings/volvo-car-pulls-guidance-as-chinese-auto-market-worsen-e72ca14f?mod=pls_whats_news_us_business_f",
-        "source_name": "The Wall Street Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-02T14:22:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-03T00:30:09Z",
-        "updated_at": "2026-10-03T00:30:09Z",
-        "decay_at": "2026-10-04T02:22:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-05T20:12:25Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1970,
-    "live_count": 33,
+    "live_count": 32,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -248359,9 +248357,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 285150,
-    "news_picked_today": 425,
-    "news_dropped_today": 1663
+    "news_seen_today": 293022,
+    "news_picked_today": 452,
+    "news_dropped_today": 1732
   },
   "book_momentum": {
     "live_count": 8,
