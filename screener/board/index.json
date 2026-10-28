@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T16:18:42Z",
+  "generated_at": "2026-10-28T16:24:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-948",
@@ -984,6 +984,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-963",
+      "headline": "Bausch + Lomb Reports Third-Quarter 2026 Revenue of $1.375 Billion and Raises Full-Year Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/bausch-lomb-reports-third-quarter-2026-revenue-1375-billion-and-raises-full-year-guidance",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T15:43:06Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Q3 2026 revenue $1.375 billion; company raises full-year 2026 guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Q3 2026 revenue $1.375 billion; company raises full-year 2026 guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bausch + Lomb",
+          "ticker": "BLCO",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-946",
       "headline": "Adani Enterprises revenue jumps 75% as new businesses ramp up; Adani Ports raises FY27 guidance",
       "headline_en": null,
@@ -1935,55 +1984,6 @@
       "companies": [
         {
           "name": "Cholamandalam Investment",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-832",
-      "headline": "TVS Motor Q2 Results: Profit jumps 52% YoY to Rs 1,377 crore; revenue rises 44%",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/tvs-motor-q2-results-profit-jumps-52-yoy-to-rs-1377-crore-revenue-rises-44/articleshow/135264582.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T11:57:39Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "TVS Motor reported a 52% profit jump to Rs 1,377 crore and 44% revenue growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "TVS Motor reported a 52% profit jump to Rs 1,377 crore and 44% revenue growth.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TVS Motor",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -247368,9 +247368,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2490111,
-    "news_picked_today": 2087,
-    "news_dropped_today": 13993
+    "news_seen_today": 2501418,
+    "news_picked_today": 2102,
+    "news_dropped_today": 14050
   },
   "book_momentum": {
     "live_count": 8,
