@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T00:22:24Z",
+  "generated_at": "2026-10-28T00:30:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-041",
@@ -1270,6 +1270,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-058",
+      "headline": "Stena AB indgår aftale om at købe Color Line",
+      "headline_en": "Stena AB enters into an agreement to acquire Color Line",
+      "url": "https://news.cision.com/dk/stena-line-danmark/r/stena-ab-indgar-aftale-om-at-kobe-color-line,c4415384",
+      "source_name": "Cision — Denmark Regulatory & Company News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-26T13:16:46Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Stena AB has entered into an agreement to acquire Color Line.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "Stena AB has entered into an agreement to acquire Color Line.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Stena AB",
+          "ticker": null,
+          "listing_country": "SE"
+        },
+        {
+          "name": "Color Line",
+          "ticker": null,
+          "listing_country": "NO"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-030",
       "headline": "Truist Securities Initiates Coverage of PPL Corporation - Debt at Buy",
       "headline_en": null,
@@ -1563,6 +1617,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-066",
+      "headline": "Endeavor Bancorp Reports Record Net Income of $2.1 Million for the Third Quarter of 2026; Tangible Book Value Increases to $15.46 and NIM Remains Strong at 4.41% | EDVR Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/EDVR/endeavor-bancorp-reports-record-net-income-of-2-1-million-for-the-3tfnbg41tcrc.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-26T13:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Endeavor Bancorp reported record net income of $2.1 million for Q3 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 59,
+      "triage_reason": "Endeavor Bancorp reported record net income of $2.1 million for Q3 2026.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Endeavor Bancorp",
+          "ticker": "EDVR",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-050",
       "headline": "OMERS recoups cost on Xanadu investment after trimming stake in quantum company",
       "headline_en": null,
@@ -1828,114 +1931,6 @@
       "companies": [
         {
           "name": "Vantage",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-019",
-      "headline": "Astellas and Audax Biosciences Enter Exclusive Option and License Agreement for DAX-044, a Novel Immune-Targeted IL-12 Antibody-Cytokine Fusion for Immuno-Oncology",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/astellas-and-audax-biosciences-enter-exclusive-option-and-license-agreement-for-dax-044-a-novel-immune-targeted-il-12-antibody-cytokine-fusion-for-immuno-oncology-302920594.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-27T23:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Astellas entered an exclusive option and license agreement for a novel oncology asset, indicating strategic R&D expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "Astellas entered an exclusive option and license agreement for a novel oncology asset, indicating strategic R&D expansion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Astellas",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-033",
-      "headline": "Taco Bell makes new Mountain Dew decision after KFC drops Pepsi",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/restaurants/taco-bell-extends-pepsico-partnership-mountain-dew-baja-blast-kfc-drops-pepsi",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T23:33:00Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Taco Bell is adjusting its beverage supplier strategy following KFC's move away from Pepsi.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "Taco Bell is adjusting its beverage supplier strategy following KFC's move away from Pepsi.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Taco Bell",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "KFC",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Pepsi",
           "ticker": null,
           "listing_country": "US"
         }
@@ -248686,9 +248681,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 26814,
-    "news_picked_today": 62,
-    "news_dropped_today": 226
+    "news_seen_today": 35576,
+    "news_picked_today": 75,
+    "news_dropped_today": 333
   },
   "book_momentum": {
     "live_count": 8,
