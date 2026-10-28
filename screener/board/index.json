@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-10-28T05:03:06Z",
+  "generated_at": "2026-10-28T05:06:51Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261028-570",
+      "headline": "Standard Chartered Quarterly Net Profit Jumps, Raises Income Guidance",
+      "headline_en": null,
+      "url": "https://www.wsj.com/finance/banking/standard-chartered-quarterly-net-profit-jumps-raises-income-guidance-22a84a62?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T04:55:00Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Standard Chartered reported a jump in quarterly net profit and raised its income guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Standard Chartered reported a jump in quarterly net profit and raised its income guidance.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Standard Chartered",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261028-285",
       "headline": "Naver Secures $9 Billion AI Infrastructure Deal With Brookfield",
@@ -101,6 +151,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-571",
+      "headline": "HUL Q2 Results: Net profit rises 4% YoY to Rs 2,790 crore; Rs 19/share dividend declared",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/hul-q2-results-net-profit-rises-4-yoy-to-rs-2790-crore-rs-19/share-dividend-declared/articleshow/135251974.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T04:34:38Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "HUL reported a 4% YoY net profit rise to Rs 2,790 crore and declared a Rs 19/share dividend.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HUL reported a 4% YoY net profit rise to Rs 2,790 crore and declared a Rs 19/share dividend.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HUL",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-123",
       "headline": "SK hynix Posts Record 104.6 Trillion Won in Quarterly Revenue, Unveiling 100 Trillion Won Shareholder Return Plan",
       "headline_en": null,
@@ -146,6 +246,110 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-579",
+      "headline": "Hydrofarm Holdings Group, Inc. Announces $8.3 million Offering and Restructuring of $109 million Debt",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/hydrofarm-holdings-group-inc-announces-83-million-offering-and-restructuring-109-million",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T03:48:33Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Hydrofarm announced an $8.3 million offering and a restructuring of $109 million in debt.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hydrofarm announced an $8.3 million offering and a restructuring of $109 million in debt.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hydrofarm Holdings Group",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-581",
+      "headline": "Renasant Corporation to Acquire Commercial Holding Company in $142 million Transaction",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/renasant-corporation-acquire-commercial-holding-company-142-million-transaction",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T03:38:27Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Renasant Corporation announced the acquisition of Commercial Holding Company for $142 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Renasant Corporation announced the acquisition of Commercial Holding Company for $142 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Renasant Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Commercial Holding Company",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1814,213 +2018,6 @@
           "name": "Almarai",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-538",
-      "headline": "Wall Street banks, Blackstone line up $63 billion to finance Broadcom AI chips for Anthropic",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/business/wall-street-banks-blackstone-line-up-63-billion-to-finance-broadcom-ai-chips-for-anthropic",
-      "source_name": "Khaleej Times — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T12:13:45Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "A $63 billion financing package for AI infrastructure represents a massive capital commitment for the sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A $63 billion financing package for AI infrastructure represents a massive capital commitment for the sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Broadcom",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Blackstone",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-553",
-      "headline": "Autohersteller: Chinaflaute und Irankrieg – Mercedes senkt Gewinnprognose deutlich",
-      "headline_en": "Automakers: China slowdown and Iran war – Mercedes significantly lowers profit forecast",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/mercedes-china-debakel-und-irankrieg-mercedes-senkt-gewinnprognose-deutlich/100265218.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T11:45:06Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Mercedes-Benz significantly lowered its profit guidance due to a slowdown in China and geopolitical risks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Mercedes-Benz significantly lowered its profit guidance due to a slowdown in China and geopolitical risks.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mercedes-Benz",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-564",
-      "headline": "Woodside Energy Group Ltd Agrees to Sell Greater Sunrise Participating Interest to TIMOR GAP for Up to $200 million",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/woodside-energy-group-ltd-agrees-sell-greater-sunrise-participating-interest-timor-gap-200",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T11:13:35Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Woodside Energy agreed to sell its Greater Sunrise interest for up to $200 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Woodside Energy agreed to sell its Greater Sunrise interest for up to $200 million.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Woodside Energy Group Ltd",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-193",
-      "headline": "Centene progresses on profit recovery, drops 6,000 employees",
-      "headline_en": null,
-      "url": "https://www.healthcaredive.com/news/centene-progresses-profit-recovery-cuts-workforce-by-6k/872816/",
-      "source_name": "Healthcare Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T16:32:45Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Centene is cutting 6,000 employees as part of a profit recovery strategy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Centene is cutting 6,000 employees as part of a profit recovery strategy.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Centene",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -248407,9 +248404,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 486830,
-    "news_picked_today": 987,
-    "news_dropped_today": 3021
+    "news_seen_today": 494412,
+    "news_picked_today": 1003,
+    "news_dropped_today": 3077
   },
   "book_momentum": {
     "live_count": 8,
