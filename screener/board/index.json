@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T10:50:24Z",
+  "generated_at": "2026-10-28T10:52:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-743",
@@ -389,6 +389,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-780",
+      "headline": "Vedanta Aluminium Q2 Results: Profit dips 6% despite record production, margins fall",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/vedanta-aluminium-q2-results-profit-dips-6-pc-despite-record-production-margins-fall-20021524.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T10:44:01Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Vedanta Aluminium reported a 6% profit dip despite record production, with falling margins.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vedanta Aluminium reported a 6% profit dip despite record production, with falling margins.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vedanta Aluminium",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1949,55 +1998,6 @@
           "name": "Ultralife Corporation",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-311",
-      "headline": "Labubu-maker Pop Mart's shares extend declines as third-quarter sales plunge",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/28/labubu-pop-mart-third-quarter-earnings.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T02:57:36Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Pop Mart reported a plunge in third-quarter sales, triggering a significant share price decline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Pop Mart reported a plunge in third-quarter sales, triggering a significant share price decline.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pop Mart",
-          "ticker": null,
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "mid",
@@ -205905,77 +205905,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-87a066998bed",
-      "idea_version": "IDEAV-3867b91ae92205e1",
-      "idea_version_started_at": "2026-10-26T23:25:14Z",
-      "ticker": "TAT",
-      "company": "The Lottery Corporation",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The resignation of an auditor is a significant red flag for potential accounting irregularities or internal control failures, which typically triggers a sharp sell-off due to heightened governance risk.",
-      "why_now": "The resignation was filed on 2026-10-26, making this a live, immediate governance crisis.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3dbd4dd21c2f"
-      ],
-      "primary_source_event_id": "EVT-3dbd4dd21c2f",
-      "source_headlines": [
-        "TAT: Resignation of Auditor"
-      ],
-      "source_headline": "TAT: Resignation of Auditor",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TAT?key=2924-03153576-2A1706302",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T22:50:36Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T23:25:14Z",
-      "updated_at": "2026-10-26T23:25:14Z",
-      "decay_at": "2026-10-28T10:50:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f8710fa2cf67",
       "idea_version": "IDEAV-e574f18749ad3529",
       "idea_version_started_at": "2026-10-27T06:46:23Z",
@@ -207242,6 +207171,77 @@
       "surfaced_at": "2026-10-26T23:25:14Z",
       "updated_at": "2026-10-26T23:25:14Z",
       "decay_at": "2026-10-28T10:45:21Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-87a066998bed",
+      "idea_version": "IDEAV-3867b91ae92205e1",
+      "idea_version_started_at": "2026-10-26T23:25:14Z",
+      "ticker": "TAT",
+      "company": "The Lottery Corporation",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The resignation of an auditor is a significant red flag for potential accounting irregularities or internal control failures, which typically triggers a sharp sell-off due to heightened governance risk.",
+      "why_now": "The resignation was filed on 2026-10-26, making this a live, immediate governance crisis.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3dbd4dd21c2f"
+      ],
+      "primary_source_event_id": "EVT-3dbd4dd21c2f",
+      "source_headlines": [
+        "TAT: Resignation of Auditor"
+      ],
+      "source_headline": "TAT: Resignation of Auditor",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TAT?key=2924-03153576-2A1706302",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-26T22:50:36Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-26T23:25:14Z",
+      "updated_at": "2026-10-26T23:25:14Z",
+      "decay_at": "2026-10-28T10:50:36Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -210072,9 +210072,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 553,
+    "total_count": 554,
     "shown_count": 500,
-    "hidden_count": 53,
+    "hidden_count": 54,
     "side_counts": {
       "long": {
         "total_count": 285,
@@ -210082,9 +210082,9 @@
         "hidden_count": 35
       },
       "short": {
-        "total_count": 268,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 19
       }
     },
     "retention": {
@@ -210103,6 +210103,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-87a066998bed",
+        "idea_version": "IDEAV-3867b91ae92205e1",
+        "idea_version_started_at": "2026-10-26T23:25:14Z",
+        "ticker": "TAT",
+        "company": "The Lottery Corporation",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The resignation of an auditor is a significant red flag for potential accounting irregularities or internal control failures, which typically triggers a sharp sell-off due to heightened governance risk.",
+        "why_now": "The resignation was filed on 2026-10-26, making this a live, immediate governance crisis.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "governance_turnaround",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3dbd4dd21c2f"
+        ],
+        "primary_source_event_id": "EVT-3dbd4dd21c2f",
+        "source_headlines": [
+          "TAT: Resignation of Auditor"
+        ],
+        "source_headline": "TAT: Resignation of Auditor",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TAT?key=2924-03153576-2A1706302",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-26T22:50:36Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-26T23:25:14Z",
+        "updated_at": "2026-10-26T23:25:14Z",
+        "decay_at": "2026-10-28T10:50:36Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-28T10:50:36Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-58073379706b",
         "idea_version": "IDEAV-7eff9f1952b8997c",
@@ -247288,87 +247362,12 @@
         "archived_at": "2026-10-06T04:16:17Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-72e70ba438d7",
-        "idea_version": "IDEAV-7ca9dda32038e80d",
-        "idea_version_started_at": "2026-10-03T03:15:01Z",
-        "ticker": "BAJFINANCE",
-        "company": "Bajaj Finance",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company is diluting existing shareholders by raising Rs 17,500 crore through a Qualified Institutional Placement and warrants.",
-        "why_now": "The capital raise was announced on 2026-10-03.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-29b42a9f0a75"
-        ],
-        "primary_source_event_id": "EVT-29b42a9f0a75",
-        "source_headlines": [
-          "Bajaj Finance set to mop up Rs 17,500 crore via QIP, warrants"
-        ],
-        "source_headline": "Bajaj Finance set to mop up Rs 17,500 crore via QIP, warrants",
-        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/bajaj-finance-set-to-mop-up-rs-17500-crore-via-qip-warrants/articleshow/134650449.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 98,
-        "newest_source_at": "2026-10-03T02:16:09Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-03T03:15:01Z",
-        "updated_at": "2026-10-03T03:15:01Z",
-        "decay_at": "2026-10-04T14:16:09Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-06T02:27:07Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1979,
-    "live_count": 33,
+    "live_count": 32,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -247387,9 +247386,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1290345,
-    "news_picked_today": 1640,
-    "news_dropped_today": 10000
+    "news_seen_today": 1309371,
+    "news_picked_today": 1653,
+    "news_dropped_today": 10011
   },
   "book_momentum": {
     "live_count": 8,
