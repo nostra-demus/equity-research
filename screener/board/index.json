@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T04:02:48Z",
+  "generated_at": "2026-10-28T04:12:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-285",
@@ -1665,6 +1665,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-468",
+      "headline": "Itron Boosts FY26 Adj. EPS Outlook - Update",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/itron-boosts-fy26-adj-eps-outlook-update",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T13:07:09Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Itron raised its FY26 adjusted EPS outlook, signaling improved financial performance expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Itron raised its FY26 adjusted EPS outlook, signaling improved financial performance expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Itron",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-505",
+      "headline": "Almarai Company Announces Entry into the Red Meat Category with an Investment of Approximately Half a Billion Saudi Riyals",
+      "headline_en": null,
+      "url": "http://english.mubasher.info/news/4691521/Almarai-Company-Announces-Entry-into-the-Red-Meat-Category-with-an-Investment-of-Approximately-Half-a-Billion-Saudi-Riyals",
+      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T12:39:32Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Almarai is entering the red meat category with a capital investment of approximately 500 million Saudi Riyals.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Almarai is entering the red meat category with a capital investment of approximately 500 million Saudi Riyals.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Almarai",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-193",
       "headline": "Centene progresses on profit recovery, drops 6,000 employees",
       "headline_en": null,
@@ -1902,104 +2000,6 @@
           "name": "Larsen & Toubro",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-443",
-      "headline": "L&T Q2 profit up 33% on healthy order inflow despite Iran war",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/company-results/lt-q2-quarterly-results-fy27-11793107268468.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T13:26:45Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "L&T reported a 33% increase in Q2 profit driven by strong order inflows.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "L&T reported a 33% increase in Q2 profit driven by strong order inflows.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Larsen & Toubro",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-461",
-      "headline": "Pentair plc Reports Third Quarter 2026 Sales of $976 million",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/pentair-plc-reports-third-quarter-2026-sales-976-million",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T13:13:06Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Pentair reported Q3 2026 sales of $976 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Pentair reported Q3 2026 sales of $976 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pentair",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -248386,9 +248386,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 412122,
-    "news_picked_today": 726,
-    "news_dropped_today": 2394
+    "news_seen_today": 419119,
+    "news_picked_today": 775,
+    "news_dropped_today": 2537
   },
   "book_momentum": {
     "live_count": 8,
