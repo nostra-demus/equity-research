@@ -1,6 +1,1551 @@
 {
-  "generated_at": "2026-10-28T00:04:24Z",
+  "generated_at": "2026-10-28T00:13:35Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261028-010",
+      "headline": "Star’s $260m money laundering fine puts it on the brink",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/games-and-wagering/star-s-260m-money-laundering-fine-puts-it-on-the-brink-20261028-p6193f?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T23:54:57Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "The Star Entertainment Group faces a $260 million money laundering fine, threatening its financial viability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Star Entertainment Group faces a $260 million money laundering fine, threatening its financial viability.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Star Entertainment Group",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-026",
+      "headline": "USA Rare Earth Just Broke Ground on a $1.2 Billion Magnet Complex. Here's Why It Matters.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/usa-rare-earth-just-broke-ground-12-billion-magnet-complex-heres-why-it-matters",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T23:14:00Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "USA Rare Earth is investing $1.2 billion in a new magnet manufacturing complex.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "USA Rare Earth is investing $1.2 billion in a new magnet manufacturing complex.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "USA Rare Earth",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-023",
+      "headline": "SK Hynix third-quarter profit sharply beats estimates on AI memory boost",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/28/sk-hynix-third-quarter-profit.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T23:45:49Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "SK Hynix Q3 profit sharply beats consensus estimates, driven by AI memory demand, confirming semiconductor-cycle strength and customer AI-chip adoption tailwind.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "SK Hynix Q3 profit sharply beats consensus estimates, driven by AI memory demand, confirming semiconductor-cycle strength and customer AI-chip adoption tailwind.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 77,
+      "rank_factors": {
+        "materiality": 77,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK Hynix",
+          "ticker": "000660.KS",
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-032",
+      "headline": "Samsung's AI boom comes with a $100 billion warning",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/investing/samsungs-ai-boom-comes-with-a-100-billion-warning",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T23:47:00Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Samsung faces a $100 billion warning related to its AI-driven growth strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Samsung faces a $100 billion warning related to its AI-driven growth strategy.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-029",
+      "headline": "Prospect Capital Corporation Announces Preliminary Financial Estimates for Quarter Ended September 30, 2026",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/prospect-capital-corporation-announces-preliminary-financial-estimates-quarter-ended",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T23:33:00Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Prospect Capital released preliminary financial estimates for the quarter ended September 30, 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Prospect Capital released preliminary financial estimates for the quarter ended September 30, 2026.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prospect Capital Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-005",
+      "headline": "Visteon Corporation Appoints Colleen E. Myers as Interim CFO, Jerome J. Rouquet to Depart",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/visteon-corporation-appoints-colleen-e-myers-interim-cfo-jerome-j-rouquet-depart",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T23:32:52Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Visteon Corporation announced the departure of CFO Jerome J. Rouquet and the appointment of an interim successor.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Visteon Corporation announced the departure of CFO Jerome J. Rouquet and the appointment of an interim successor.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "executive_exit",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Visteon Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-006",
+      "headline": "Banc of California, Inc. Reports Third Quarter Diluted Earnings per Share of $0.46",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/banc-california-inc-reports-third-quarter-diluted-earnings-share-046",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T23:32:52Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Banc of California reported 3Q26 diluted EPS of $0.46.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Banc of California reported 3Q26 diluted EPS of $0.46.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Banc of California, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-014",
+      "headline": "WEL: Quarterly Report & 5B [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WEL?key=2924-03154337-6A1351955",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T23:52:10Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Quarterly earnings report (Tier 2 filing) flagged price-sensitive by ASX, but headline gives no direction—beat, miss, guidance change, or magnitude unknown.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Quarterly earnings report (Tier 2 filing) flagged price-sensitive by ASX, but headline gives no direction—beat, miss, guidance change, or magnitude unknown.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 58,
+      "rank_factors": {
+        "materiality": 58,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-028",
+      "headline": "Trump Moves to Weaken Methane Emissions Rules for Oil and Gas",
+      "headline_en": null,
+      "url": "https://www.wsj.com/politics/policy/trump-moves-to-weaken-methane-emissions-rules-for-oil-and-gas-71736afd?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T23:16:00Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Proposed deregulation of methane emissions reduces compliance costs for the oil and gas sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Proposed deregulation of methane emissions reduces compliance costs for the oil and gas sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-009",
+      "headline": "PG Electroplast share price will react to Q2 results that beat expectations, but trade payables rise",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/pg-electroplast-share-price-reaction-q2-results-revenue-margin-beat-payables-debt-increase-cash-falls-outlook-capacity-expansion-20020813.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T23:44:46Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "PG Electroplast reported Q2 results that beat expectations but showed an increase in trade payables.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "PG Electroplast reported Q2 results that beat expectations but showed an increase in trade payables.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PG Electroplast",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-015",
+      "headline": "BIT: Quarterly Activities/Appendix 4C Cash Flow Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BIT?key=2924-03154329-2A1706611",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T23:32:30Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Quarterly cash flow report provides transparency on operational burn and liquidity for BIT.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "Quarterly cash flow report provides transparency on operational burn and liquidity for BIT.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BIT",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-016",
+      "headline": "AFA: Quarterly Activities/Appendix 4C Cash Flow Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AFA?key=2924-03154326-2A1706609",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T23:28:15Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Quarterly cash flow report provides transparency on operational burn and liquidity for AFA.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "Quarterly cash flow report provides transparency on operational burn and liquidity for AFA.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AFA",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-017",
+      "headline": "IME: Quarterly Activities/Appendix 4C Cash Flow Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IME?key=2924-03154324-3A705185",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T23:27:10Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Quarterly cash flow report provides transparency on operational burn and liquidity for IME.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "Quarterly cash flow report provides transparency on operational burn and liquidity for IME.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IME",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-007",
+      "headline": "American Assets Trust, Inc. Reports Third Quarter 2026 Financial Results",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/american-assets-trust-inc-reports-third-quarter-2026-financial-results",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T23:22:34Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "American Assets Trust reported 3Q26 financial results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "American Assets Trust reported 3Q26 financial results.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "American Assets Trust, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-011",
+      "headline": "Palo Alto Networks CEO Gets Smaller Pay Package After Pushback",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-27/palo-alto-networks-ceo-gets-smaller-pay-package-after-pushback",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T23:24:04Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Palo Alto Networks CEO received a smaller pay package following shareholder pushback.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Palo Alto Networks CEO received a smaller pay package following shareholder pushback.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Palo Alto Networks",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-008",
+      "headline": "Charter Communications, Inc. Adjusts Interim CFO Compensation and Declares $0.43750001 Preferred Dividend",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/charter-communications-inc-adjusts-interim-cfo-compensation-and-declares-043750001",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T23:22:34Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Charter Communications adjusted CFO compensation and declared a preferred dividend.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Charter Communications adjusted CFO compensation and declared a preferred dividend.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Charter Communications, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-030",
+      "headline": "Truist Securities Initiates Coverage of PPL Corporation - Debt at Buy",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/truist-securities-initiates-coverage-ppl-corporation-debt-buy",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T23:26:36Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Truist Securities initiated coverage on PPL Corporation debt with a buy rating.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Truist Securities initiated coverage on PPL Corporation debt with a buy rating.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PPL Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-001",
+      "headline": "SK hynix Announces 3Q26 Financial Results",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/sk-hynix-announces-3q26-financial-results-302921407.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-27T23:45:00Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "SK hynix reported 3Q26 financial results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "SK hynix reported 3Q26 financial results.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK hynix",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-003",
+      "headline": "SK hynix Announces 3Q26 Financial Results | SKHY Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/SKHY/sk-hynix-announces-3q26-financial-fcr2bh8ikc0x.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-27T23:45:00Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "SK hynix reported 3Q26 financial results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "SK hynix reported 3Q26 financial results.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK hynix",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-002",
+      "headline": "Franklin Electric Enters Into Agreement to Acquire Challenge Pumps, Strengthening Global Mineral Extraction Dewatering Platform",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/10/27/3389806/11167/en/franklin-electric-enters-into-agreement-to-acquire-challenge-pumps-strengthening-global-mineral-extraction-dewatering-platform.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-27T23:33:00Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Franklin Electric entered an agreement to acquire Challenge Pumps to expand its mineral extraction dewatering platform.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "Franklin Electric entered an agreement to acquire Challenge Pumps to expand its mineral extraction dewatering platform.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Franklin Electric",
+          "ticker": "FELE",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-004",
+      "headline": "Franklin Electric Enters Into Agreement to Acquire Challenge Pumps, Strengthening Global Mineral Extraction Dewatering Platform | FELE Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/FELE/franklin-electric-enters-into-agreement-to-acquire-challenge-pumps-5ssq2vzt1s88.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-27T23:33:00Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Franklin Electric entered an agreement to acquire Challenge Pumps to expand its mineral extraction dewatering platform.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "Franklin Electric entered an agreement to acquire Challenge Pumps to expand its mineral extraction dewatering platform.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Franklin Electric",
+          "ticker": "FELE",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-018",
+      "headline": "EXL: The Healthy Chef Targets Creatine & Womens Wellness Market",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EXL?key=2924-03154320-3A705184",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-27T23:23:55Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Company is expanding into new product categories, though the impact is not quantified.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 59,
+      "triage_reason": "Company is expanding into new product categories, though the impact is not quantified.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Healthy Chef",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-012",
+      "headline": "Healey to reverse cuts to cash Isa allowance",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/619978f5-4400-4bf0-8b1f-4cf62bee9774?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T22:39:52Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "UK Chancellor reverses prior cuts to Individual Savings Account allowance, potentially increasing deposit demand at UK banks and building societies, but impact is indirect and sector-level with no company-specific quantification.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "UK Chancellor reverses prior cuts to Individual Savings Account allowance, potentially increasing deposit demand at UK banks and building societies, but impact is indirect and sector-level with no company-specific quantification.",
+      "region": "GB",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 48,
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-013",
+      "headline": "Healey to reverse cuts to cash Isa allowances",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/619978f5-4400-4bf0-8b1f-4cf62bee9774?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T22:39:52Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "UK Chancellor reverses prior cuts to Individual Savings Account allowances, potentially increasing deposit demand at UK banks and building societies, but impact is indirect and sector-level with no company-specific quantification.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "UK Chancellor reverses prior cuts to Individual Savings Account allowances, potentially increasing deposit demand at UK banks and building societies, but impact is indirect and sector-level with no company-specific quantification.",
+      "region": "GB",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 48,
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-027",
+      "headline": "Trump shows off tanker with ‘1m barrels of oil’ and floats Venezuela as 51st state",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/us-news/2026/oct/27/trump-oil-tanker-venezuela",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T23:07:06Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Geopolitical rhetoric regarding oil supply and territorial expansion impacts energy market sentiment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Geopolitical rhetoric regarding oil supply and territorial expansion impacts energy market sentiment.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-031",
+      "headline": "Litchfield Hills Initiates Coverage of Vantage at Buy",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/litchfield-hills-initiates-coverage-vantage-buy",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T23:24:21Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Litchfield Hills initiated coverage on Vantage with a buy rating.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "Litchfield Hills initiated coverage on Vantage with a buy rating.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vantage",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-019",
+      "headline": "Astellas and Audax Biosciences Enter Exclusive Option and License Agreement for DAX-044, a Novel Immune-Targeted IL-12 Antibody-Cytokine Fusion for Immuno-Oncology",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/astellas-and-audax-biosciences-enter-exclusive-option-and-license-agreement-for-dax-044-a-novel-immune-targeted-il-12-antibody-cytokine-fusion-for-immuno-oncology-302920594.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-27T23:30:00Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Astellas entered an exclusive option and license agreement for a novel oncology asset, indicating strategic R&D expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "Astellas entered an exclusive option and license agreement for a novel oncology asset, indicating strategic R&D expansion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Astellas",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-033",
+      "headline": "Taco Bell makes new Mountain Dew decision after KFC drops Pepsi",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/restaurants/taco-bell-extends-pepsico-partnership-mountain-dew-baja-blast-kfc-drops-pepsi",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T23:33:00Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Taco Bell is adjusting its beverage supplier strategy following KFC's move away from Pepsi.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "Taco Bell is adjusting its beverage supplier strategy following KFC's move away from Pepsi.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Taco Bell",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "KFC",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Pepsi",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-025",
+      "headline": "Why Archer Aviation Stock Took Flight on Tuesday",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/why-archer-aviation-stock-took-flight-tuesday",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T23:16:15Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Archer Aviation stock movement is attributed to recent operational developments.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "Archer Aviation stock movement is attributed to recent operational developments.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Archer Aviation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-020",
+      "headline": "SANDS CHINA ANNOUNCES PRICING OF $1.0 BILLION OF SENIOR UNSECURED NOTES",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/sands-china-announces-pricing-of-1-0-billion-of-senior-unsecured-notes-302921386.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-27T23:23:00Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Sands China prices $1.0 billion senior unsecured notes, a quantified debt issuance affecting capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "Sands China prices $1.0 billion senior unsecured notes, a quantified debt issuance affecting capital structure.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sands China Limited",
+          "ticker": null,
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-021",
+      "headline": "SANDS CHINA ANNOUNCES PRICING OF $1.0 BILLION OF SENIOR UNSECURED NOTES | LVS Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/LVS/sands-china-announces-pricing-of-1-0-billion-of-senior-unsecured-zekk95gjqwc8.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-27T23:23:00Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Sands China prices $1.0 billion senior unsecured notes, a quantified debt issuance affecting capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "Sands China prices $1.0 billion senior unsecured notes, a quantified debt issuance affecting capital structure.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sands China Limited",
+          "ticker": null,
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-022",
+      "headline": "Pentagon picks Poland for new missile maintenance facility",
+      "headline_en": null,
+      "url": "https://thehill.com/newsletters/defense-national-security/6176571-pentagon-picks-poland-missile-facility/",
+      "source_name": "The Hill — Homenews",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T23:15:58Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Pentagon selects Poland for missile-maintenance facility, signaling NATO defense-sector capex and Eastern European buildup; no deal value, facility scope, or named company beneficiary disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 43,
+      "triage_reason": "Pentagon selects Poland for missile-maintenance facility, signaling NATO defense-sector capex and Eastern European buildup; no deal value, facility scope, or named company beneficiary disclosed.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 58,
+      "rank_factors": {
+        "materiality": 58,
+        "source_tier": 0,
+        "scope": -26,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex",
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261027-713",
       "headline": "BTN: Suspension from Quotation [price-sensitive]",
@@ -204039,78 +205584,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-f37da333a82f",
-      "idea_version": "IDEAV-5fbb982d0893e35d",
-      "idea_version_started_at": "2026-10-26T13:58:56Z",
-      "ticker": "RECLTD",
-      "company": "REC Ltd",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "REC reported a 21% decline in net profit for Q2, reflecting potential margin compression or asset quality headwinds.",
-      "why_now": "The Q2 results were released on October 26, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-245868c36a28"
-      ],
-      "primary_source_event_id": "EVT-245868c36a28",
-      "source_headlines": [
-        "REC Q2 results: Net profit falls 21% to ₹3,478 crore, declares interim dividend"
-      ],
-      "source_headline": "REC Q2 results: Net profit falls 21% to ₹3,478 crore, declares interim dividend",
-      "source_url": "https://www.cnbctv18.com/market/rec-share-price-q2-results-net-profit-revenue-declares-interim-dividend-20019558.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T12:04:58Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T13:58:56Z",
-      "updated_at": "2026-10-26T13:58:56Z",
-      "decay_at": "2026-10-28T00:04:58Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f8710fa2cf67",
       "idea_version": "IDEAV-e574f18749ad3529",
       "idea_version_started_at": "2026-10-27T06:46:23Z",
@@ -205872,6 +207345,78 @@
       "surfaced_at": "2026-10-26T13:58:56Z",
       "updated_at": "2026-10-26T13:58:56Z",
       "decay_at": "2026-10-27T23:56:32Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-f37da333a82f",
+      "idea_version": "IDEAV-5fbb982d0893e35d",
+      "idea_version_started_at": "2026-10-26T13:58:56Z",
+      "ticker": "RECLTD",
+      "company": "REC Ltd",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "REC reported a 21% decline in net profit for Q2, reflecting potential margin compression or asset quality headwinds.",
+      "why_now": "The Q2 results were released on October 26, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-245868c36a28"
+      ],
+      "primary_source_event_id": "EVT-245868c36a28",
+      "source_headlines": [
+        "REC Q2 results: Net profit falls 21% to ₹3,478 crore, declares interim dividend"
+      ],
+      "source_headline": "REC Q2 results: Net profit falls 21% to ₹3,478 crore, declares interim dividend",
+      "source_url": "https://www.cnbctv18.com/market/rec-share-price-q2-results-net-profit-revenue-declares-interim-dividend-20019558.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-26T12:04:58Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-26T13:58:56Z",
+      "updated_at": "2026-10-26T13:58:56Z",
+      "decay_at": "2026-10-28T00:04:58Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -209421,9 +210966,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 570,
+    "total_count": 571,
     "shown_count": 500,
-    "hidden_count": 70,
+    "hidden_count": 71,
     "side_counts": {
       "long": {
         "total_count": 293,
@@ -209431,9 +210976,9 @@
         "hidden_count": 43
       },
       "short": {
-        "total_count": 277,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 28
       }
     },
     "retention": {
@@ -209452,6 +210997,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-f37da333a82f",
+        "idea_version": "IDEAV-5fbb982d0893e35d",
+        "idea_version_started_at": "2026-10-26T13:58:56Z",
+        "ticker": "RECLTD",
+        "company": "REC Ltd",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "REC reported a 21% decline in net profit for Q2, reflecting potential margin compression or asset quality headwinds.",
+        "why_now": "The Q2 results were released on October 26, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-245868c36a28"
+        ],
+        "primary_source_event_id": "EVT-245868c36a28",
+        "source_headlines": [
+          "REC Q2 results: Net profit falls 21% to ₹3,478 crore, declares interim dividend"
+        ],
+        "source_headline": "REC Q2 results: Net profit falls 21% to ₹3,478 crore, declares interim dividend",
+        "source_url": "https://www.cnbctv18.com/market/rec-share-price-q2-results-net-profit-revenue-declares-interim-dividend-20019558.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-26T12:04:58Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-26T13:58:56Z",
+        "updated_at": "2026-10-26T13:58:56Z",
+        "decay_at": "2026-10-28T00:04:58Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-28T00:04:58Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-12bc112e4547",
         "idea_version": "IDEAV-b21eff0807614f38",
@@ -246643,85 +248263,12 @@
         "archived_at": "2026-10-05T20:12:25Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-7dd2f5622830",
-        "idea_version": "IDEAV-e85efac39c95a0bb",
-        "idea_version_started_at": "2026-10-02T20:03:39Z",
-        "ticker": "FMC",
-        "company": "FMC Corporation",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A 26% reduction in consensus price targets reflects a severe deterioration in analyst confidence regarding the company's earnings power and growth trajectory.",
-        "why_now": "The downward revision to price targets was published today, October 2, 2026, indicating a fresh reassessment of the stock's valuation.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-94a3b44949ce"
-        ],
-        "primary_source_event_id": "EVT-94a3b44949ce",
-        "source_headlines": [
-          "FMC Consensus Price Target Lowered by 26.18% to $13.75"
-        ],
-        "source_headline": "FMC Consensus Price Target Lowered by 26.18% to $13.75",
-        "source_url": "https://www.nasdaq.com/articles/fmc-consensus-price-target-lowered-2618-1375",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-02T12:54:26Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-02T20:03:39Z",
-        "updated_at": "2026-10-02T20:03:39Z",
-        "decay_at": "2026-10-04T00:54:26Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-05T20:12:25Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1969,
-    "live_count": 35,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -246731,7 +248278,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 4127,
+    "inbox_unconsumed": 4159,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -246740,9 +248287,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 0,
-    "news_picked_today": 0,
-    "news_dropped_today": 0
+    "news_seen_today": 17932,
+    "news_picked_today": 33,
+    "news_dropped_today": 135
   },
   "book_momentum": {
     "live_count": 8,
