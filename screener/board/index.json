@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T04:27:50Z",
+  "generated_at": "2026-10-28T04:41:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-285",
@@ -1823,6 +1823,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-553",
+      "headline": "Autohersteller: Chinaflaute und Irankrieg – Mercedes senkt Gewinnprognose deutlich",
+      "headline_en": "Automakers: China slowdown and Iran war – Mercedes significantly lowers profit forecast",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/mercedes-china-debakel-und-irankrieg-mercedes-senkt-gewinnprognose-deutlich/100265218.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T11:45:06Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Mercedes-Benz significantly lowered its profit guidance due to a slowdown in China and geopolitical risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mercedes-Benz significantly lowered its profit guidance due to a slowdown in China and geopolitical risks.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mercedes-Benz",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-193",
       "headline": "Centene progresses on profit recovery, drops 6,000 employees",
       "headline_en": null,
@@ -1965,55 +2014,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-430",
-      "headline": "Boeing narrows third-quarter loss as defense sales rise, but focus remains on 737 Max production",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/27/-boeing-ba-q3-2026-earnings.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T13:42:26Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Boeing narrows Q3 loss, defense sales rise, but 737 Max production remains key.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Boeing narrows Q3 loss, defense sales rise, but 737 Max production remains key.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Boeing",
-          "ticker": "BA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248397,9 +248397,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 432609,
-    "news_picked_today": 844,
-    "news_dropped_today": 2684
+    "news_seen_today": 458965,
+    "news_picked_today": 917,
+    "news_dropped_today": 2827
   },
   "book_momentum": {
     "live_count": 8,
