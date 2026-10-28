@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-28T10:52:35Z",
+  "generated_at": "2026-10-28T10:59:24Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261028-783",
+      "headline": "Prudent Corporate Advisory Services Limited: Prudent Corporate Advisory Services Limited has informed the Exchange regarding a press release dated October 28, 2026, titled \"Prudent's Operating Profit Rises 42.4% YoY in Q2 FY27;Records Highest-Ever Equity Net Sales of ₹4,138 Crore\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PRUDENT9992_28102026155330_Intimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-28T10:23:39Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Company reported a 42.4% YoY increase in operating profit for Q2 FY27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company reported a 42.4% YoY increase in operating profit for Q2 FY27.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prudent Corporate Advisory Services Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261028-743",
       "headline": "TEXWINCA HOLD (00321): PROFIT WARNING",
@@ -1947,60 +1996,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-583",
-      "headline": "EnerSys to Acquire Ultralife Corporation for $16.00 per Share in Cash",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/enersys-acquire-ultralife-corporation-1600-share-cash",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T03:08:33Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "EnerSys announced an acquisition of Ultralife Corporation for $16.00 per share in cash.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "EnerSys announced an acquisition of Ultralife Corporation for $16.00 per share in cash.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EnerSys",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Ultralife Corporation",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247386,9 +247381,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1309371,
-    "news_picked_today": 1653,
-    "news_dropped_today": 10011
+    "news_seen_today": 1319098,
+    "news_picked_today": 1660,
+    "news_dropped_today": 10124
   },
   "book_momentum": {
     "live_count": 8,
