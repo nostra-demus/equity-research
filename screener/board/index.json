@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T22:20:51Z",
+  "generated_at": "2026-10-28T22:31:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-992",
@@ -1132,6 +1132,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-1043",
+      "headline": "Wendy's, struggling with beef prices and growing competition, gets a buyout offer",
+      "headline_en": null,
+      "url": "https://japantoday.com/category/business/struggling-burger-chain-wendy%27s-gets-a-buyout-offer-from-activist-investor-nelson-peltz",
+      "source_name": "Japan Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T21:53:10Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Wendy's received a buyout offer amid operational struggles.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Wendy's received a buyout offer amid operational struggles.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wendy's",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-1041",
       "headline": "CONMED Q3 Profit Rises, Updates 2026 Guidance",
       "headline_en": null,
@@ -1939,55 +1988,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-923",
-      "headline": "Wendy's Shares Jump On $1.4 Bln Takeover Offer From Trian Group, Affiliates",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/wendys-shares-jump-14-bln-takeover-offer-trian-group-affiliates",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T14:31:34Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Wendy's received a $1.4 billion takeover offer from Trian Group and affiliates.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Wendy's received a $1.4 billion takeover offer from Trian Group and affiliates.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "The Wendy's Company",
-          "ticker": "WEN",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247145,9 +247145,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3302236,
-    "news_picked_today": 2565,
-    "news_dropped_today": 21219
+    "news_seen_today": 3309220,
+    "news_picked_today": 2581,
+    "news_dropped_today": 21587
   },
   "book_momentum": {
     "live_count": 8,
