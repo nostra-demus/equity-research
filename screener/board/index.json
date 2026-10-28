@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T03:38:48Z",
+  "generated_at": "2026-10-28T03:48:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-285",
@@ -1812,6 +1812,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-430",
+      "headline": "Boeing narrows third-quarter loss as defense sales rise, but focus remains on 737 Max production",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/27/-boeing-ba-q3-2026-earnings.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T13:42:26Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Boeing narrows Q3 loss, defense sales rise, but 737 Max production remains key.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Boeing narrows Q3 loss, defense sales rise, but 737 Max production remains key.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boeing",
+          "ticker": "BA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-096",
       "headline": "MEITUAN-W MEITUAN-WR (03690 83690): ISSUANCE OF CNY4.5 BILLION 2.50% SENIOR NOTES DUE 2031 AND CNY3.5 BILLION 3.10% SENIOR NOTES DUE 2036",
       "headline_en": null,
@@ -1954,55 +2003,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-212",
-      "headline": "Ripple gets OCC’s unconditional charter approval",
-      "headline_en": null,
-      "url": "https://www.bankingdive.com/news/ripple-occ-charter-bny-robinhood-partnerships-garlinghouse-alderoty/872896/",
-      "source_name": "Banking Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T16:20:17Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Ripple received unconditional charter approval from the OCC, a significant regulatory milestone.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Ripple received unconditional charter approval from the OCC, a significant regulatory milestone.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ripple",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248387,9 +248387,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 376393,
-    "news_picked_today": 643,
-    "news_dropped_today": 2165
+    "news_seen_today": 383702,
+    "news_picked_today": 675,
+    "news_dropped_today": 2301
   },
   "book_momentum": {
     "live_count": 8,
