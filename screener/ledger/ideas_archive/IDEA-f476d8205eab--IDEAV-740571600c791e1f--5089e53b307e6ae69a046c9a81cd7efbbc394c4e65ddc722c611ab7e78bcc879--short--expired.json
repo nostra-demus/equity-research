@@ -1,25 +1,25 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-02T09:44:43Z",
+  "archived_at": "2026-10-27T16:00:13Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-2c23f01c47d1",
-    "idea_version": "IDEAV-d1e9cc4365757f82",
-    "idea_version_started_at": "2026-09-29T09:29:53Z",
-    "ticker": "LISN.SW",
-    "company": "Lindt & Sprüngli",
-    "exchange": "Swiss",
+    "idea_id": "IDEA-f476d8205eab",
+    "idea_version": "IDEAV-740571600c791e1f",
+    "idea_version_started_at": "2026-10-24T18:03:05Z",
+    "ticker": "GSK",
+    "company": "GSK plc",
+    "exchange": "NYSE",
     "ticker_verified": true,
     "listing_verified": true,
     "liquidity_verified": false,
     "listing_verification_source": "yahoo_symbol_directory",
     "direction": "short",
     "pair_with": null,
-    "reason": "The company is facing a double-whammy of demand destruction from high chocolate prices and adverse weather conditions, forcing a downward revision to sales guidance.",
-    "why_now": "The sales forecast cut was announced today, September 29, 2026, reflecting immediate consumer pushback to price hikes.",
+    "reason": "GSK faces significant legal charges of $2.2 billion and R&D setbacks, which are likely to negatively impact its earnings and profitability.",
+    "why_now": "The potential impact of legal charges and R&D setbacks is being assessed ahead of an October 28 event.",
     "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
-    "trade_score": 60,
+    "trade_score": 65,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
@@ -34,7 +34,7 @@
     "missing_checks": [
       "live liquidity",
       "dated catalyst",
-      "priced-in risk",
+      "price and market expectations",
       "independent confirmation",
       "live price, liquidity, and consensus"
     ],
@@ -47,31 +47,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "priced",
+    "priced_in": "unknown",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-e2619a9fa4a6"
+      "EVT-02a04c82926f"
     ],
-    "primary_source_event_id": "EVT-e2619a9fa4a6",
+    "primary_source_event_id": "EVT-02a04c82926f",
     "source_headlines": [
-      "Lindt cuts sales forecast as higher chocolate prices, heatwave dampen demand"
+      "Can Specialty Meds Offset GSK’s $2.2B Legal Charges and Sizzling R&D Setbacks on Oct. 28?"
     ],
-    "source_headline": "Lindt cuts sales forecast as higher chocolate prices, heatwave dampen demand",
-    "source_url": "https://www.reuters.com/business/retail-consumer/lindt-cuts-2026-growth-forecast-weak-demand-heatwave-weigh-sales-2026-09-29/",
-    "source_name": "Reuters — Latest, next page (news sitemap)",
+    "source_headline": "Can Specialty Meds Offset GSK’s $2.2B Legal Charges and Sizzling R&D Setbacks on Oct. 28?",
+    "source_url": "https://247wallst.com/investing/2026/10/24/can-specialty-meds-offset-gsks-2-2b-legal-charges-and-sizzling-rd-setbacks-on-oct-28/",
+    "source_name": "24/7 Wall St.",
     "materiality_max": 100,
-    "newest_source_at": "2026-09-29T07:13:05Z",
+    "newest_source_at": "2026-10-24T15:08:12Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-29T09:29:53Z",
-    "updated_at": "2026-09-29T09:29:53Z",
-    "decay_at": "2026-09-30T19:13:05Z",
+    "surfaced_at": "2026-10-24T16:48:28Z",
+    "updated_at": "2026-10-24T18:03:05Z",
+    "decay_at": "2026-10-26T03:08:12Z",
     "status": "live",
     "promoted_signal_id": null
   }

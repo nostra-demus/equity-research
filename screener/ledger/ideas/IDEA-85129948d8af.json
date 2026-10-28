@@ -1,9 +1,9 @@
 {
-  "idea_id": "IDEA-f476d8205eab",
-  "idea_version": "IDEAV-740571600c791e1f",
-  "idea_version_started_at": "2026-10-24T18:03:05Z",
-  "ticker": "GSK",
-  "company": "GSK plc",
+  "idea_id": "IDEA-85129948d8af",
+  "idea_version": "IDEAV-63cd6e976e3b57ff",
+  "idea_version_started_at": "2026-10-27T16:21:10Z",
+  "ticker": "NVS",
+  "company": "Novartis",
   "exchange": "NYSE",
   "ticker_verified": true,
   "listing_verified": true,
@@ -11,11 +11,11 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "GSK faces significant legal charges of $2.2 billion and R&D setbacks, which are likely to negatively impact its earnings and profitability.",
-  "why_now": "The potential impact of legal charges and R&D setbacks is being assessed ahead of an October 28 event.",
+  "reason": "A $1.9 billion writedown on a key drug asset indicates poor capital allocation and potential future earnings pressure following the Avidity acquisition.",
+  "why_now": "The writedown was reported on October 27, 2026.",
   "conviction": 65,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 65,
+  "trade_score": 60,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
@@ -30,7 +30,7 @@
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
-    "price and market expectations",
+    "priced-in risk",
     "independent confirmation",
     "live price, liquidity, and consensus"
   ],
@@ -43,31 +43,31 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "unknown",
+  "priced_in": "priced",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-02a04c82926f"
+    "EVT-49958d316f65"
   ],
-  "primary_source_event_id": "EVT-02a04c82926f",
+  "primary_source_event_id": "EVT-49958d316f65",
   "source_headlines": [
-    "Can Specialty Meds Offset GSK’s $2.2B Legal Charges and Sizzling R&D Setbacks on Oct. 28?"
+    "Novartis takes $1.9bn writedown on key drug after blockbuster Avidity acquisition"
   ],
-  "source_headline": "Can Specialty Meds Offset GSK’s $2.2B Legal Charges and Sizzling R&D Setbacks on Oct. 28?",
-  "source_url": "https://247wallst.com/investing/2026/10/24/can-specialty-meds-offset-gsks-2-2b-legal-charges-and-sizzling-rd-setbacks-on-oct-28/",
-  "source_name": "24/7 Wall St.",
+  "source_headline": "Novartis takes $1.9bn writedown on key drug after blockbuster Avidity acquisition",
+  "source_url": "https://www.ft.com/content/f7651365-f19c-40fd-87de-fcdb8a8a7104?syn-25a6b1a6=1",
+  "source_name": "Financial Times",
   "materiality_max": 100,
-  "newest_source_at": "2026-10-24T15:08:12Z",
+  "newest_source_at": "2026-10-27T15:15:31Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-10-24T16:48:28Z",
-  "updated_at": "2026-10-24T18:03:05Z",
-  "decay_at": "2026-10-26T03:08:12Z",
+  "surfaced_at": "2026-10-27T16:21:10Z",
+  "updated_at": "2026-10-27T16:21:10Z",
+  "decay_at": "2026-10-29T03:15:31Z",
   "status": "live",
   "promoted_signal_id": null
 }
