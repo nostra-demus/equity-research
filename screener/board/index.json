@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-10-28T02:53:44Z",
+  "generated_at": "2026-10-28T02:59:41Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261028-285",
+      "headline": "Naver Secures $9 Billion AI Infrastructure Deal With Brookfield",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279822",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T04:36:03Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Naver secured a $9 billion AI infrastructure deal with Brookfield.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Naver secured a $9 billion AI infrastructure deal with Brookfield.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Naver",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261028-239",
       "headline": "Naver Secures $9 Billion AI Infrastructure Deal With Brookfield, Paving Way for Nvidia to Become Third-Largest Shareholder",
@@ -1541,6 +1591,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-288",
+      "headline": "Ambani’s Jio to make Mumbai trading debut after record US$3.2 billion India IPO",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/global/ambanis-jio-make-mumbai-trading-debut-after-record-us3-2-billion-india-ipo",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T00:56:37Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Jio is set to debut in Mumbai following a record $3.2 billion IPO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Jio is set to debut in Mumbai following a record $3.2 billion IPO.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jio",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-162",
       "headline": "ASMPT Sales Jump 49% on AI Demand as Chip Unit Misses Estimate",
       "headline_en": null,
@@ -1871,106 +1970,6 @@
           "name": "SK Hynix",
           "ticker": "000660.KS",
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-053",
-      "headline": "Dongshan Precision Set to Debut After $1.3 Billion HK Listing",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-27/dongshan-precision-set-to-debut-after-1-3-billion-hk-listing",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T23:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Dongshan Precision is launching a $1.3 billion IPO in Hong Kong.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Dongshan Precision is launching a $1.3 billion IPO in Hong Kong.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dongshan Precision",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-253",
-      "headline": "Boeing stock sinks 9% as company says it won't significantly ramp up 737 Max production until late 2027",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/27/-boeing-ba-q3-2026-earnings.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T15:45:49Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Boeing delays significant 737 Max production ramp until late 2027, deferring cash-flow recovery and capex normalization.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Boeing delays significant 737 Max production ramp until late 2027, deferring cash-flow recovery and capex normalization.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex",
-        "operations",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Boeing",
-          "ticker": "BA",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -248357,9 +248356,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 293022,
-    "news_picked_today": 452,
-    "news_dropped_today": 1732
+    "news_seen_today": 300798,
+    "news_picked_today": 479,
+    "news_dropped_today": 1801
   },
   "book_momentum": {
     "live_count": 8,
