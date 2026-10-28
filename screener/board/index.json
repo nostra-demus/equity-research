@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T16:33:45Z",
+  "generated_at": "2026-10-28T16:37:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-948",
@@ -984,6 +984,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-968",
+      "headline": "Boston Scientific cuts 2026 guidance for third time this year",
+      "headline_en": null,
+      "url": "https://www.medtechdive.com/news/boston-scientific-cuts-2026-guidance-for-third-time-this-year/873037/",
+      "source_name": "MedTech Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T16:11:00Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Boston Scientific cut its 2026 guidance for the third time this year, a major negative signal for future earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Boston Scientific cut its 2026 guidance for the third time this year, a major negative signal for future earnings.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boston Scientific",
+          "ticker": "BSX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-963",
       "headline": "Bausch + Lomb Reports Third-Quarter 2026 Revenue of $1.375 Billion and Raises Full-Year Guidance",
       "headline_en": null,
@@ -1934,56 +1983,6 @@
       "companies": [
         {
           "name": "TVS Holdings",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-831",
-      "headline": "Cholamandalam Investment Q2 Results: Profit surges 41% to Rs 1,630 crore; co plans to raise Rs 5,00O crore via QIP",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/cholamandalam-investment-q2-results-profit-surges-41-to-rs-1630-crore-co-plans-to-raise-rs-500o-crore-via-qip/articleshow/135264678.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T12:00:29Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Cholamandalam reported a 41% profit surge to Rs 1,630 crore and plans a Rs 5,000 crore QIP.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Cholamandalam reported a 41% profit surge to Rs 1,630 crore and plans a Rs 5,000 crore QIP.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cholamandalam Investment",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -247368,7 +247367,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2535336,
+    "news_seen_today": 2546568,
     "news_picked_today": 2105,
     "news_dropped_today": 14263
   },
