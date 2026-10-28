@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T09:45:32Z",
+  "generated_at": "2026-10-28T09:58:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-735",
@@ -95,6 +95,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-741",
+      "headline": "BEISEN HOLDING (09669): POSITIVE PROFIT ALERT - TURNAROUND FROM LOSS TO PROFIT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1028/2026102800490.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-28T09:08:00Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "The company issued a positive profit alert, signaling a turnaround from loss to profit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company issued a positive profit alert, signaling a turnaround from loss to profit.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BEISEN HOLDING",
+          "ticker": "09669",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1952,55 +2001,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-278",
-      "headline": "Star Health and Allied Insurance reports 232% profit surge at Rs 264.4 crore",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/star-health-and-allied-insurance-reports-232-profit-surge-at-rs-264-4-crore/articleshow/135249329.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T02:11:00Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Star Health and Allied Insurance reported a 232% surge in profit to Rs 264.4 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Star Health and Allied Insurance reported a 232% surge in profit to Rs 264.4 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Star Health and Allied Insurance",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -203978,76 +203978,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-613a9ec31465",
-      "idea_version": "IDEAV-c2277b85808dd4d7",
-      "idea_version_started_at": "2026-10-26T23:02:14Z",
-      "ticker": "WHR",
-      "company": "Whirlpool Corporation",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported a quarterly loss and lowered its full-year earnings guidance, signaling persistent demand weakness and margin compression.",
-      "why_now": "The earnings release and guidance cut occurred on 2026-10-26, providing an immediate catalyst for downward revisions.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a4e91aa9922f"
-      ],
-      "primary_source_event_id": "EVT-a4e91aa9922f",
-      "source_headlines": [
-        "Whirlpool Q3 Swings To Loss; Cuts FY Earnings Outlook"
-      ],
-      "source_headline": "Whirlpool Q3 Swings To Loss; Cuts FY Earnings Outlook",
-      "source_url": "https://www.nasdaq.com/articles/whirlpool-q3-swings-loss-cuts-fy-earnings-outlook",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T21:46:04Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T23:02:14Z",
-      "updated_at": "2026-10-26T23:02:14Z",
-      "decay_at": "2026-10-28T09:46:04Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-301c9958417a",
       "idea_version": "IDEAV-1a5df032afd29548",
       "idea_version_started_at": "2026-10-27T06:46:23Z",
@@ -206319,6 +206249,76 @@
       "surfaced_at": "2026-10-27T01:59:31Z",
       "updated_at": "2026-10-27T01:59:31Z",
       "decay_at": "2026-10-28T06:27:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-613a9ec31465",
+      "idea_version": "IDEAV-c2277b85808dd4d7",
+      "idea_version_started_at": "2026-10-26T23:02:14Z",
+      "ticker": "WHR",
+      "company": "Whirlpool Corporation",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a quarterly loss and lowered its full-year earnings guidance, signaling persistent demand weakness and margin compression.",
+      "why_now": "The earnings release and guidance cut occurred on 2026-10-26, providing an immediate catalyst for downward revisions.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a4e91aa9922f"
+      ],
+      "primary_source_event_id": "EVT-a4e91aa9922f",
+      "source_headlines": [
+        "Whirlpool Q3 Swings To Loss; Cuts FY Earnings Outlook"
+      ],
+      "source_headline": "Whirlpool Q3 Swings To Loss; Cuts FY Earnings Outlook",
+      "source_url": "https://www.nasdaq.com/articles/whirlpool-q3-swings-loss-cuts-fy-earnings-outlook",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-26T21:46:04Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-26T23:02:14Z",
+      "updated_at": "2026-10-26T23:02:14Z",
+      "decay_at": "2026-10-28T09:46:04Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -210357,9 +210357,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 559,
+    "total_count": 560,
     "shown_count": 500,
-    "hidden_count": 59,
+    "hidden_count": 60,
     "side_counts": {
       "long": {
         "total_count": 288,
@@ -210367,9 +210367,9 @@
         "hidden_count": 38
       },
       "short": {
-        "total_count": 271,
+        "total_count": 272,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 22
       }
     },
     "retention": {
@@ -210388,6 +210388,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-613a9ec31465",
+        "idea_version": "IDEAV-c2277b85808dd4d7",
+        "idea_version_started_at": "2026-10-26T23:02:14Z",
+        "ticker": "WHR",
+        "company": "Whirlpool Corporation",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company reported a quarterly loss and lowered its full-year earnings guidance, signaling persistent demand weakness and margin compression.",
+        "why_now": "The earnings release and guidance cut occurred on 2026-10-26, providing an immediate catalyst for downward revisions.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a4e91aa9922f"
+        ],
+        "primary_source_event_id": "EVT-a4e91aa9922f",
+        "source_headlines": [
+          "Whirlpool Q3 Swings To Loss; Cuts FY Earnings Outlook"
+        ],
+        "source_headline": "Whirlpool Q3 Swings To Loss; Cuts FY Earnings Outlook",
+        "source_url": "https://www.nasdaq.com/articles/whirlpool-q3-swings-loss-cuts-fy-earnings-outlook",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-26T21:46:04Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-26T23:02:14Z",
+        "updated_at": "2026-10-26T23:02:14Z",
+        "decay_at": "2026-10-28T09:46:04Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-28T09:46:04Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3dcf768f4a41",
         "idea_version": "IDEAV-57a0fff54634725b",
@@ -247576,85 +247649,12 @@
         "archived_at": "2026-10-06T02:27:07Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-49a2653dd307",
-        "idea_version": "IDEAV-ad9d2a5fd570966f",
-        "idea_version_started_at": "2026-10-03T01:50:22Z",
-        "ticker": "VWAGY",
-        "company": "Volkswagen",
-        "exchange": "OTC Markets",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The discontinuation of the ID.4 model coupled with a massive $12,500 discount signals severe inventory overhang and a failure of the current EV strategy in the US market.",
-        "why_now": "The launch of the aggressive discount program and model termination is effective as of October 3, 2024.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 60,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 14,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-155b1f808faa"
-        ],
-        "primary_source_event_id": "EVT-155b1f808faa",
-        "source_headlines": [
-          "As VW Kills Off The ID.4, It Launches A $12,500 Discount In The US"
-        ],
-        "source_headline": "As VW Kills Off The ID.4, It Launches A $12,500 Discount In The US",
-        "source_url": "https://www.carscoops.com/2026/10/vw-id-4-incentives/",
-        "source_name": "Carscoops",
-        "materiality_max": 83,
-        "newest_source_at": "2026-10-03T00:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-03T01:50:22Z",
-        "updated_at": "2026-10-03T01:50:22Z",
-        "decay_at": "2026-10-04T12:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-06T00:00:51Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1975,
-    "live_count": 31,
+    "live_count": 30,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -247673,9 +247673,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1140513,
-    "news_picked_today": 1549,
-    "news_dropped_today": 8315
+    "news_seen_today": 1196951,
+    "news_picked_today": 1558,
+    "news_dropped_today": 8498
   },
   "book_momentum": {
     "live_count": 8,
