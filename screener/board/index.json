@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T16:43:16Z",
+  "generated_at": "2026-10-28T16:52:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-948",
@@ -43,6 +43,56 @@
           "name": "Emkay Global Financial Services Limited",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-974",
+      "headline": "GAPACK (00468): INSIDE INFORMATION (1) UPDATE ON LEGAL PROCEEDINGS AND (2) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1028/2026102801669.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-28T14:27:00Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Inside Information disclosure of legal proceedings update and continued trading suspension indicates material contingent liability and unresolved operational distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Inside Information disclosure of legal proceedings update and continued trading suspension indicates material contingent liability and unresolved operational distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 77,
+      "rank_factors": {
+        "materiality": 77,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GAPACK",
+          "ticker": "00468",
+          "listing_country": "HK"
         }
       ],
       "size_bucket": "unknown",
@@ -1939,55 +1989,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-833",
-      "headline": "TVS Holdings Q2 Results: Net profit surges 43% to ₹635 crore as revenue crosses ₹20,000 crore",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/tvs-holdings-share-price-q2-results-net-profit-surges-43-to-rs-635-crore-as-revenue-crosses-rs-20000-crore-20021608.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T12:05:24Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "TVS Holdings reported a 43% profit surge to ₹635 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "TVS Holdings reported a 43% profit surge to ₹635 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TVS Holdings",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247367,9 +247368,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2579866,
-    "news_picked_today": 2131,
-    "news_dropped_today": 14357
+    "news_seen_today": 2601616,
+    "news_picked_today": 2142,
+    "news_dropped_today": 14586
   },
   "book_momentum": {
     "live_count": 8,
