@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-1b994a384f0c",
-  "idea_version": "IDEAV-16a9adb22aa66e25",
-  "idea_version_started_at": "2026-10-26T01:09:27Z",
+  "idea_version": "IDEAV-dcf1a6b1e97114ff",
+  "idea_version_started_at": "2026-10-28T10:33:30Z",
   "ticker": "000660",
   "company": "SK Hynix",
   "exchange": "KRX",
@@ -11,19 +11,19 @@
   "listing_verification_source": null,
   "direction": "long",
   "pair_with": null,
-  "reason": "The company plans to distribute a $12 billion dividend funded by gains from its Kioxia investment, significantly boosting shareholder returns.",
-  "why_now": "The report of the dividend plan surfaced on 2026-10-25.",
-  "conviction": 70,
+  "reason": "The company reported record quarterly revenue of 104.6 trillion won and announced a massive 100 trillion won shareholder return plan, signaling strong cash flow generation and capital discipline.",
+  "why_now": "The earnings and capital return plan were officially announced on October 28, 2026.",
+  "conviction": 85,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 19,
+    "impact": 20,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
-    "corroboration": 0,
+    "corroboration": 7,
     "learning_adjustment": 0
   },
   "trade_readiness": "watch_only",
@@ -32,7 +32,6 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -49,17 +48,19 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-0a86b088e8da"
+    "EVT-e77d45f346d3",
+    "EVT-0e3b59ecd09d"
   ],
-  "primary_source_event_id": "EVT-0a86b088e8da",
+  "primary_source_event_id": "EVT-e77d45f346d3",
   "source_headlines": [
-    "SK Hynix Plans $12 Billion Dividend From Kioxia Gains: Report"
+    "SK Hynix profit beat fuels $45 billion of dividends, buyback",
+    "SK hynix Posts Record 104.6 Trillion Won in Quarterly Revenue, Unveiling 100 Trillion Won Shareholder Return Plan"
   ],
-  "source_headline": "SK Hynix Plans $12 Billion Dividend From Kioxia Gains: Report",
-  "source_url": "https://www.bloomberg.com/news/articles/2026-10-25/sk-hynix-plans-12-billion-dividend-from-kioxia-gains-report",
-  "source_name": "Bloomberg",
-  "materiality_max": 88,
-  "newest_source_at": "2026-10-25T23:52:02Z",
+  "source_headline": "SK Hynix profit beat fuels $45 billion of dividends, buyback",
+  "source_url": "https://www.thehindubusinessline.com/markets/sk-hynix-profit-beat-fuels-45-billion-of-dividends-buyback/article71634160.ece",
+  "source_name": "The Hindu BusinessLine",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-28T03:55:26Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -67,8 +68,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-10-25T02:18:41Z",
-  "updated_at": "2026-10-26T01:09:27Z",
-  "decay_at": "2026-10-27T11:52:02Z",
+  "updated_at": "2026-10-28T10:33:30Z",
+  "decay_at": "2026-10-29T15:55:26Z",
   "status": "live",
   "promoted_signal_id": null
 }
