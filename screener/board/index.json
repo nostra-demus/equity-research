@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T04:41:50Z",
+  "generated_at": "2026-10-28T04:49:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-285",
@@ -1872,6 +1872,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-564",
+      "headline": "Woodside Energy Group Ltd Agrees to Sell Greater Sunrise Participating Interest to TIMOR GAP for Up to $200 million",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/woodside-energy-group-ltd-agrees-sell-greater-sunrise-participating-interest-timor-gap-200",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T11:13:35Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Woodside Energy agreed to sell its Greater Sunrise interest for up to $200 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Woodside Energy agreed to sell its Greater Sunrise interest for up to $200 million.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Woodside Energy Group Ltd",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-193",
       "headline": "Centene progresses on profit recovery, drops 6,000 employees",
       "headline_en": null,
@@ -1965,55 +2014,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-362",
-      "headline": "Tata Capital’s consolidated Q2 net profit jumps 51% to ₹1,660 cr",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/tata-capitals-consolidated-q2-net-profit-jumps-51-to-1660-cr/article71632266.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T14:43:04Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Tata Capital reported a 51% jump in Q2 net profit to ₹1,660 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Tata Capital reported a 51% jump in Q2 net profit to ₹1,660 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Capital",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248397,9 +248397,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 458965,
-    "news_picked_today": 917,
-    "news_dropped_today": 2827
+    "news_seen_today": 465338,
+    "news_picked_today": 969,
+    "news_dropped_today": 2943
   },
   "book_momentum": {
     "live_count": 8,
