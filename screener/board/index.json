@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T03:35:50Z",
+  "generated_at": "2026-10-28T03:38:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-285",
@@ -1616,6 +1616,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-398",
+      "headline": "SoFi Lifts Outlook After Memberships and Lending Grow",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/earnings/sofi-lifts-outlook-after-profit-revenue-and-memberships-jump-8cc45f94?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T14:15:00Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "SoFi raised its outlook following growth in memberships and lending.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SoFi raised its outlook following growth in memberships and lending.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SoFi",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-193",
       "headline": "Centene progresses on profit recovery, drops 6,000 employees",
       "headline_en": null,
@@ -1954,55 +2003,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-103",
-      "headline": "SANDS CHINA LTD SANDS N2808 SANDS N2703A SANDS N2903A SANDS N3108A SANDS N2808B SANDS N3006 SANDS N3006A SANDS N2703 SANDS N2903 SANDS N3108 (01928 05142 05413 05414 05415 05733 40247 40585 40852 40853 40854): Inside Information - Issue of Senior Notes",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1028/2026102800027.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-27T23:01:00Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Sands China issued senior notes in multiple series (N2808, N2703A, N2903A, N3108A, and others), a capital action affecting debt structure and cash position; marked Inside Information by HK Exchange.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Sands China issued senior notes in multiple series (N2808, N2703A, N2903A, N3108A, and others), a capital action affecting debt structure and cash position; marked Inside Information by HK Exchange.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 2,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sands China Ltd",
-          "ticker": "01928",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -205830,79 +205830,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a78031ede4db",
-      "idea_version": "IDEAV-feb8ddb5e9a5b3cd",
-      "idea_version_started_at": "2026-10-26T17:25:34Z",
-      "ticker": "HLF",
-      "company": "High Liner Foods",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is being acquired by Japanese seafood firm Umios in a deal valued at over $800 million.",
-      "why_now": "The acquisition announcement was reported on October 26, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bbf980997906"
-      ],
-      "primary_source_event_id": "EVT-bbf980997906",
-      "source_headlines": [
-        "Japanese seafood giant Umios to buy Nova Scotia’s High Liner Foods for more than $800-million"
-      ],
-      "source_headline": "Japanese seafood giant Umios to buy Nova Scotia’s High Liner Foods for more than $800-million",
-      "source_url": "https://www.theglobeandmail.com/business/article-umios-to-buy-high-liner-foods-for-more-than-800-million/",
-      "source_name": "The Globe and Mail",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T15:38:32Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T13:58:56Z",
-      "updated_at": "2026-10-26T17:25:34Z",
-      "decay_at": "2026-10-28T03:38:32Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f8710fa2cf67",
       "idea_version": "IDEAV-e574f18749ad3529",
       "idea_version_started_at": "2026-10-27T06:46:23Z",
@@ -207591,6 +207518,79 @@
       "surfaced_at": "2026-10-26T21:48:47Z",
       "updated_at": "2026-10-26T21:48:47Z",
       "decay_at": "2026-10-28T02:09:10Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-a78031ede4db",
+      "idea_version": "IDEAV-feb8ddb5e9a5b3cd",
+      "idea_version_started_at": "2026-10-26T17:25:34Z",
+      "ticker": "HLF",
+      "company": "High Liner Foods",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is being acquired by Japanese seafood firm Umios in a deal valued at over $800 million.",
+      "why_now": "The acquisition announcement was reported on October 26, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-bbf980997906"
+      ],
+      "primary_source_event_id": "EVT-bbf980997906",
+      "source_headlines": [
+        "Japanese seafood giant Umios to buy Nova Scotia’s High Liner Foods for more than $800-million"
+      ],
+      "source_headline": "Japanese seafood giant Umios to buy Nova Scotia’s High Liner Foods for more than $800-million",
+      "source_url": "https://www.theglobeandmail.com/business/article-umios-to-buy-high-liner-foods-for-more-than-800-million/",
+      "source_name": "The Globe and Mail",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-26T15:38:32Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-26T13:58:56Z",
+      "updated_at": "2026-10-26T17:25:34Z",
+      "decay_at": "2026-10-28T03:38:32Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -211068,14 +211068,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 568,
+    "total_count": 569,
     "shown_count": 500,
-    "hidden_count": 68,
+    "hidden_count": 69,
     "side_counts": {
       "long": {
-        "total_count": 294,
+        "total_count": 295,
         "shown_count": 250,
-        "hidden_count": 44
+        "hidden_count": 45
       },
       "short": {
         "total_count": 274,
@@ -211099,6 +211099,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a78031ede4db",
+        "idea_version": "IDEAV-feb8ddb5e9a5b3cd",
+        "idea_version_started_at": "2026-10-26T17:25:34Z",
+        "ticker": "HLF",
+        "company": "High Liner Foods",
+        "exchange": "TSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is being acquired by Japanese seafood firm Umios in a deal valued at over $800 million.",
+        "why_now": "The acquisition announcement was reported on October 26, 2026.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-bbf980997906"
+        ],
+        "primary_source_event_id": "EVT-bbf980997906",
+        "source_headlines": [
+          "Japanese seafood giant Umios to buy Nova Scotia’s High Liner Foods for more than $800-million"
+        ],
+        "source_headline": "Japanese seafood giant Umios to buy Nova Scotia’s High Liner Foods for more than $800-million",
+        "source_url": "https://www.theglobeandmail.com/business/article-umios-to-buy-high-liner-foods-for-more-than-800-million/",
+        "source_name": "The Globe and Mail",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-26T15:38:32Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-26T13:58:56Z",
+        "updated_at": "2026-10-26T17:25:34Z",
+        "decay_at": "2026-10-28T03:38:32Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-28T03:38:32Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-dba8408df9af",
         "idea_version": "IDEAV-8fb529b4ea87788f",
@@ -239399,81 +239475,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-ba81c0b2f5d4",
-        "idea_version": "IDEAV-db96fb09ed44dae1",
-        "idea_version_started_at": "2026-10-13T14:10:50Z",
-        "ticker": "JMAT",
-        "company": "Jardine Matheson",
-        "exchange": "LSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company raised its earnings guidance for 2026, indicating improved financial performance.",
-        "why_now": "The guidance was raised on October 13, 2026, providing a current catalyst for the stock.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-05775b6dc42f"
-        ],
-        "primary_source_event_id": "EVT-05775b6dc42f",
-        "source_headlines": [
-          "Jardine Matheson raises 2026 earnings guidance as high as US$5.65 per share"
-        ],
-        "source_headline": "Jardine Matheson raises 2026 earnings guidance as high as US$5.65 per share",
-        "source_url": "https://www.businesstimes.com.sg/companies-markets/jardine-matheson-raises-2026-earnings-guidance-high-us5-65-share",
-        "source_name": "The Business Times (Singapore)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-13T00:58:52Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-13T14:10:50Z",
-        "updated_at": "2026-10-13T14:10:50Z",
-        "decay_at": "2026-10-14T12:58:52Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-16T01:24:28Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-00b4c736ede9",
         "idea_version": "IDEAV-3710c24cc71a30c8",
         "idea_version_started_at": "2026-10-13T16:07:22Z",
@@ -248367,7 +248368,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1970,
-    "live_count": 32,
+    "live_count": 31,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -248386,9 +248387,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 369060,
-    "news_picked_today": 634,
-    "news_dropped_today": 2150
+    "news_seen_today": 376393,
+    "news_picked_today": 643,
+    "news_dropped_today": 2165
   },
   "book_momentum": {
     "live_count": 8,
