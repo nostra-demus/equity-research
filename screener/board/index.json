@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T05:46:13Z",
+  "generated_at": "2026-10-28T05:52:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-570",
@@ -300,6 +300,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-602",
+      "headline": "Dubai’s Amanat buys UK specialist care provider Cornerstone Healthcare",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/business/dubais-amanat-buys-uk-specialist-care-provider-cornerstone-healthcare",
+      "source_name": "Khaleej Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T04:02:22Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Dubai's Amanat acquiring a UK specialist care provider is a significant M&A transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dubai's Amanat acquiring a UK specialist care provider is a significant M&A transaction.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amanat",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Cornerstone Healthcare",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-123",
       "headline": "SK hynix Posts Record 104.6 Trillion Won in Quarterly Revenue, Unveiling 100 Trillion Won Shareholder Return Plan",
       "headline_en": null,
@@ -508,6 +562,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-603",
+      "headline": "Enphase Energy, Inc. Q3 Profit Falls",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/enphase-energy-inc-q3-profit-falls",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T03:19:05Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Enphase Energy reported a decline in Q3 profit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Enphase Energy reported a decline in Q3 profit.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Enphase Energy, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1913,120 +2016,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-384",
-      "headline": "Nvidia to invest $3bn in Meta’s $97.5bn equity offering, as social media giant plans to deploy more Nvidia hardware",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/nvidia-to-invest-3bn-in-metas-975bn-equity-offering-as-social-media-giant-plans-to-deploy-more-nvidia-hardware/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T14:22:38Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Nvidia is investing $3 billion into Meta's $97.5 billion equity offering, representing a massive capital deployment and strategic partnership.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia is investing $3 billion into Meta's $97.5 billion equity offering, representing a massive capital deployment and strategic partnership.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Meta",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-390",
-      "headline": "Nvidia, AMD to invest $4 billion in Meta as tech giants deepen AI partnership",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/27/nvidia-invest-meta.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T14:19:36Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Nvidia and AMD are investing $4 billion in Meta, signaling a major AI infrastructure partnership.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia and AMD are investing $4 billion in Meta, signaling a major AI infrastructure partnership.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "AMD",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Meta",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
