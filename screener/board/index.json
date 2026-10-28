@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T19:25:40Z",
+  "generated_at": "2026-10-28T19:35:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-980",
@@ -1083,6 +1083,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-990",
+      "headline": "Poundland set to appoint administrators as union warns of job losses before Christmas",
+      "headline_en": null,
+      "url": "https://www.thisismoney.co.uk/money/markets/article-16245001/Government-probe-Poundland-crisis-unions-warn-job-losses-Christmas.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T18:40:49Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Poundland preparing to enter administration (UK insolvency) wipes shareholder equity and signals operational failure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Poundland preparing to enter administration (UK insolvency) wipes shareholder equity and signals operational failure.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Poundland",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-979",
       "headline": "South Korea's Mirae Asset to buy prop trading unit of Japan's Okasan",
       "headline_en": null,
@@ -1949,56 +1999,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-899",
-      "headline": "Videocon Industries Q2 Results Delayed, Company Cites Pending Audits And Insolvency Proceedings",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/videocon-industries-q2-results-delayed-company-cites-pending-audits-and-insolvency-proceedings",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T12:20:02Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Videocon Industries delays Q2 results due to pending audits and ongoing insolvency proceedings; signals distress and potential equity loss.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Videocon Industries delays Q2 results due to pending audits and ongoing insolvency proceedings; signals distress and potential equity loss.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 3,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress",
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Videocon Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247157,9 +247157,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3046496,
-    "news_picked_today": 2237,
-    "news_dropped_today": 16675
+    "news_seen_today": 3056793,
+    "news_picked_today": 2256,
+    "news_dropped_today": 16824
   },
   "book_momentum": {
     "live_count": 8,
