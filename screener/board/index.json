@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T22:01:50Z",
+  "generated_at": "2026-10-28T22:09:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-992",
@@ -1132,6 +1132,263 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-1016",
+      "headline": "DoorDash's deal to buy Instacart coming as early as Thursday morning, sources tell CNBC",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/28/doordash-instacart-maplebear.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T21:36:07Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "DoorDash is reportedly in talks to acquire Instacart.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DoorDash is reportedly in talks to acquire Instacart.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DoorDash",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Instacart",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-1020",
+      "headline": "EnerSys to Acquire Ultralife Corporation in a $320 Million All-Cash Transaction",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/enersys-acquire-ultralife-corporation-320-million-all-cash-transaction",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T21:12:33Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "EnerSys to acquire Ultralife Corporation for $320 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EnerSys to acquire Ultralife Corporation for $320 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EnerSys",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Ultralife Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-1018",
+      "headline": "Stock Market Today, Oct. 28: Boston Scientific Slips 6% After Cutting Q4 Sales and Full-Year EPS Guidance on Cyberattack Impact",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/stock-market-today-oct-28-boston-scientific-slips-6-after-cutting-q4-sales-and-full-year",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T21:10:22Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Boston Scientific cut Q4 sales and full-year EPS guidance due to a cyberattack.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Boston Scientific cut Q4 sales and full-year EPS guidance due to a cyberattack.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boston Scientific",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-1019",
+      "headline": "Stock Market Today, Oct. 28: Oracle Surges on Fiscal 2030 Revenue Guidance of $225 Billion",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/stock-market-today-oct-28-oracle-surges-fiscal-2030-revenue-guidance-225-billion",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T21:10:11Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Oracle provided a strong fiscal 2030 revenue guidance of $225 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Oracle provided a strong fiscal 2030 revenue guidance of $225 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oracle",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-1032",
+      "headline": "Amphenol Corporation Announces Dividend Increase, New $4.0 Billion Stock Repurchase Program, and $1.6 Billion in Acquisitions",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/amphenol-corporation-announces-dividend-increase-new-40-billion-stock-repurchase-program",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T20:23:04Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Amphenol announced a dividend increase, a $4.0 billion buyback, and $1.6 billion in acquisitions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Amphenol announced a dividend increase, a $4.0 billion buyback, and $1.6 billion in acquisitions.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amphenol Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-1012",
       "headline": "Japan's Nidec misses deadline to obtain unqualified audit opinion",
       "headline_en": null,
@@ -1735,256 +1992,6 @@
         {
           "name": "Sunrun Inc.",
           "ticker": "RUN",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-878",
-      "headline": "Wendy's shares jump 15% as Nelson Peltz's Trian offers $1.4 billion to buy burger chain",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/28/nelson-peltz-trian-wendys-1point4-billion.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T13:21:49Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Trian Partners offered $1.4 billion to acquire Wendy's, causing shares to jump 15%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Trian Partners offered $1.4 billion to acquire Wendy's, causing shares to jump 15%.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Wendy's",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-890",
-      "headline": "GE Vernova Beats, Raises Guidance and Buys Trench Group. Here’s What the Grid Deal Adds.",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/10/28/ge-vernova-beats-raises-guidance-and-buys-trench-group-heres-what-the-grid-deal-adds/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T13:13:26Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "GE Vernova beat earnings, raised guidance, and acquired Trench Group.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GE Vernova beat earnings, raised guidance, and acquired Trench Group.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GE Vernova",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-905",
-      "headline": "Kirby Q3 Profit Rises As Revenue Climbs 12.2%, Narrows FY26 EPS Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/kirby-q3-profit-rises-revenue-climbs-122-narrows-fy26-eps-guidance",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T13:13:24Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Kirby reported revenue growth of 12.2% and narrowed FY26 EPS guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Kirby reported revenue growth of 12.2% and narrowed FY26 EPS guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kirby",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-880",
-      "headline": "Constellium SE Reports Net Income of $119 million for Q3 2026 and Raises Full Year 2026 Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/constellium-se-reports-net-income-119-million-q3-2026-and-raises-full-year-2026-guidance",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T13:13:17Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Constellium reported $119 million in Q3 net income and raised full-year 2026 guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Constellium reported $119 million in Q3 net income and raised full-year 2026 guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Constellium SE",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-906",
-      "headline": "Aker Solutions Q3 Results Down, Lifts FY26 Outlook, Sees Weak Revenues In FY27; Stock Drops",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/aker-solutions-q3-results-down-lifts-fy26-outlook-sees-weak-revenues-fy27-stock-drops",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T13:01:12Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Aker Solutions reported lower Q3 results and warned of weak revenues in FY27.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Aker Solutions reported lower Q3 results and warned of weak revenues in FY27.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aker Solutions",
-          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -204459,77 +204466,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3eef32686df1",
-      "idea_version": "IDEAV-9b1fad0a60c4996a",
-      "idea_version_started_at": "2026-10-28T18:19:07Z",
-      "ticker": "01173",
-      "company": "Veeko International Holdings Limited",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company issued a positive profit alert, indicating a significant improvement in financial performance compared to the prior period.",
-      "why_now": "The announcement was filed on October 27, 2026, providing immediate visibility into improved earnings.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e3809955fb2d"
-      ],
-      "primary_source_event_id": "EVT-e3809955fb2d",
-      "source_headlines": [
-        "VEEKO INT'L (01173): INSIDE INFORMATION - POSITIVE PROFIT ALERT"
-      ],
-      "source_headline": "VEEKO INT'L (01173): INSIDE INFORMATION - POSITIVE PROFIT ALERT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700760.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T10:07:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-28T18:19:07Z",
-      "updated_at": "2026-10-28T18:19:07Z",
-      "decay_at": "2026-10-28T22:07:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-4c854ef51212",
       "idea_version": "IDEAV-5742d7e49be3f677",
       "idea_version_started_at": "2026-10-28T18:19:07Z",
@@ -206303,6 +206239,77 @@
       "surfaced_at": "2026-10-26T17:25:34Z",
       "updated_at": "2026-10-26T17:25:34Z",
       "decay_at": "2026-10-28T03:58:52Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-3eef32686df1",
+      "idea_version": "IDEAV-9b1fad0a60c4996a",
+      "idea_version_started_at": "2026-10-28T18:19:07Z",
+      "ticker": "01173",
+      "company": "Veeko International Holdings Limited",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company issued a positive profit alert, indicating a significant improvement in financial performance compared to the prior period.",
+      "why_now": "The announcement was filed on October 27, 2026, providing immediate visibility into improved earnings.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e3809955fb2d"
+      ],
+      "primary_source_event_id": "EVT-e3809955fb2d",
+      "source_headlines": [
+        "VEEKO INT'L (01173): INSIDE INFORMATION - POSITIVE PROFIT ALERT"
+      ],
+      "source_headline": "VEEKO INT'L (01173): INSIDE INFORMATION - POSITIVE PROFIT ALERT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700760.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-27T10:07:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-28T18:19:07Z",
+      "updated_at": "2026-10-28T18:19:07Z",
+      "decay_at": "2026-10-28T22:07:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -209843,14 +209850,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 561,
+    "total_count": 562,
     "shown_count": 500,
-    "hidden_count": 61,
+    "hidden_count": 62,
     "side_counts": {
       "long": {
-        "total_count": 289,
+        "total_count": 290,
         "shown_count": 250,
-        "hidden_count": 39
+        "hidden_count": 40
       },
       "short": {
         "total_count": 272,
@@ -209874,6 +209881,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3eef32686df1",
+        "idea_version": "IDEAV-9b1fad0a60c4996a",
+        "idea_version_started_at": "2026-10-28T18:19:07Z",
+        "ticker": "01173",
+        "company": "Veeko International Holdings Limited",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company issued a positive profit alert, indicating a significant improvement in financial performance compared to the prior period.",
+        "why_now": "The announcement was filed on October 27, 2026, providing immediate visibility into improved earnings.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e3809955fb2d"
+        ],
+        "primary_source_event_id": "EVT-e3809955fb2d",
+        "source_headlines": [
+          "VEEKO INT'L (01173): INSIDE INFORMATION - POSITIVE PROFIT ALERT"
+        ],
+        "source_headline": "VEEKO INT'L (01173): INSIDE INFORMATION - POSITIVE PROFIT ALERT",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700760.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-27T10:07:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-28T18:19:07Z",
+        "updated_at": "2026-10-28T18:19:07Z",
+        "decay_at": "2026-10-28T22:07:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-28T22:07:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-5ac020e252f1",
         "idea_version": "IDEAV-f6edb2d1124ee651",
@@ -238543,80 +238624,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-36caf66b30a2",
-        "idea_version": "IDEAV-698170b57ed1112e",
-        "idea_version_started_at": "2026-10-14T01:34:40Z",
-        "ticker": "GRR",
-        "company": "Grange Resources",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The Final Investment Decision (FID) to proceed with the Savage River Underground project secures the company's long-term production profile and resource life.",
-        "why_now": "The official filing confirming the FID was released on October 13, 2026, providing a clear catalyst for production growth.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-173b72f67ffe"
-        ],
-        "primary_source_event_id": "EVT-173b72f67ffe",
-        "source_headlines": [
-          "GRR: FID to deliver the Savage River Underground [price-sensitive]"
-        ],
-        "source_headline": "GRR: FID to deliver the Savage River Underground [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GRR?key=2924-03148079-3A704046",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-13T22:48:53Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-14T01:34:40Z",
-        "updated_at": "2026-10-14T01:34:40Z",
-        "decay_at": "2026-10-15T10:48:53Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-16T23:31:12Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-bc0beacad2eb",
         "idea_version": "IDEAV-30cf9e9a4f104e94",
         "idea_version_started_at": "2026-10-14T04:53:47Z",
@@ -247127,7 +247134,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1982,
-    "live_count": 22,
+    "live_count": 21,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -247146,9 +247153,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3274005,
-    "news_picked_today": 2496,
-    "news_dropped_today": 20952
+    "news_seen_today": 3288067,
+    "news_picked_today": 2527,
+    "news_dropped_today": 21089
   },
   "book_momentum": {
     "live_count": 8,
