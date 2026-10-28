@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-28T12:03:42Z",
+  "generated_at": "2026-10-28T12:09:40Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261028-812",
+      "headline": "ZHI SHENG GP (08370): MAJOR AND CONNECTED TRANSACTION ACQUISITION OF EQUITY INTEREST AND SALE LOAN IN THE TARGET COMPANY AND NOTICE OF EGM",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1028/2026102801221.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-28T11:57:00Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Zhi Sheng Group is acquiring equity interest and a sale loan in a target company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Zhi Sheng Group is acquiring equity interest and a sale loan in a target company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zhi Sheng Group",
+          "ticker": "08370",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261028-809",
       "headline": "SC TO-T - ULTRALIFE CORP (0000875657) (Subject)",
@@ -1915,55 +1964,6 @@
       "event_types": [
         "capex",
         "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Naver",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-239",
-      "headline": "Naver Secures $9 Billion AI Infrastructure Deal With Brookfield, Paving Way for Nvidia to Become Third-Largest Shareholder",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279822",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T04:36:03Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Naver secured a $9 billion AI infrastructure deal with Brookfield, significantly expanding its AI capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Naver secured a $9 billion AI infrastructure deal with Brookfield, significantly expanding its AI capacity.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -247358,9 +247358,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1541573,
-    "news_picked_today": 1772,
-    "news_dropped_today": 11452
+    "news_seen_today": 1562619,
+    "news_picked_today": 1792,
+    "news_dropped_today": 11480
   },
   "book_momentum": {
     "live_count": 8,
