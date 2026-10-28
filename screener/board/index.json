@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T15:28:40Z",
+  "generated_at": "2026-10-28T15:38:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-918",
@@ -881,6 +881,61 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-946",
+      "headline": "Adani Enterprises revenue jumps 75% as new businesses ramp up; Adani Ports raises FY27 guidance",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/company-results/adani-enterprises-revenue-jumps-75-as-new-businesses-ramp-up-adani-ports-raises-fy27-guidance-11793197700398.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T15:17:53Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Adani Ports raises FY27 guidance and Adani Enterprises reports 75% revenue jump on new business ramp-up; dual positive catalysts for group.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Adani Ports raises FY27 guidance and Adani Enterprises reports 75% revenue jump on new business ramp-up; dual positive catalysts for group.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Enterprises",
+          "ticker": "ADANIENTERP",
+          "listing_country": "IN"
+        },
+        {
+          "name": "Adani Ports and Special Economic Zone",
+          "ticker": "ADANIPORTS",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1931,55 +1986,6 @@
         {
           "name": "Boston Scientific",
           "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-804",
-      "headline": "GE Vernova To Buy Trench Group For $9 Bln; GEV Up Over 3% In Pre-Market",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/ge-vernova-buy-trench-group-9-bln-gev-over-3-pre-market",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T11:11:20Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "GE Vernova announced the acquisition of Trench Group for $9 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GE Vernova announced the acquisition of Trench Group for $9 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GE Vernova",
-          "ticker": "GEV",
           "listing_country": "US"
         }
       ],
@@ -247368,9 +247374,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2356305,
-    "news_picked_today": 2048,
-    "news_dropped_today": 13408
+    "news_seen_today": 2367673,
+    "news_picked_today": 2061,
+    "news_dropped_today": 13659
   },
   "book_momentum": {
     "live_count": 8,
