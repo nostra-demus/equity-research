@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T02:59:41Z",
+  "generated_at": "2026-10-28T03:08:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-285",
@@ -1194,6 +1194,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-307",
+      "headline": "PACCAR Inc Reports Third Quarter 2026 Net Income of $847.5 Million and Revenues of $7.94 Billion",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/paccar-inc-reports-third-quarter-2026-net-income-8475-million-and-revenues-794-billion",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T15:20:10Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "PACCAR reported Q3 net income of $847.5 million and revenues of $7.94 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PACCAR reported Q3 net income of $847.5 million and revenues of $7.94 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PACCAR Inc",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-193",
       "headline": "Centene progresses on profit recovery, drops 6,000 employees",
       "headline_en": null,
@@ -1924,55 +1973,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-023",
-      "headline": "SK Hynix third-quarter profit sharply beats estimates on AI memory boost",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/28/sk-hynix-third-quarter-profit.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T23:45:49Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "SK Hynix Q3 profit sharply beats consensus estimates, driven by AI memory demand, confirming semiconductor-cycle strength and customer AI-chip adoption tailwind.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "SK Hynix Q3 profit sharply beats consensus estimates, driven by AI memory demand, confirming semiconductor-cycle strength and customer AI-chip adoption tailwind.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 77,
-      "rank_factors": {
-        "materiality": 77,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK Hynix",
-          "ticker": "000660.KS",
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248356,9 +248356,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 300798,
-    "news_picked_today": 479,
-    "news_dropped_today": 1801
+    "news_seen_today": 308550,
+    "news_picked_today": 510,
+    "news_dropped_today": 1890
   },
   "book_momentum": {
     "live_count": 8,
