@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-28T14:39:06Z",
+  "generated_at": "2026-10-28T14:56:09Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261028-918",
+      "headline": "PASHUN INT'L (00574): WINDING-UP PETITION HEARING ADJOURNED",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1028/2026102801509.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-28T13:57:00Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Winding-up petition hearing against Pashun International (00574) adjourned; indicates ongoing going-concern and solvency distress to the issuer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Winding-up petition hearing against Pashun International (00574) adjourned; indicates ongoing going-concern and solvency distress to the issuer.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 88,
+      "rank_factors": {
+        "materiality": 88,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pashun International",
+          "ticker": "00574",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261028-900",
       "headline": "Fortis Healthcare Limited: Fortis Healthcare Limited has informed the Exchange regarding a press release dated October 28, 2026, titled \"Fortis acquires 110-bedded Suguna Hospital, Rajajinagar, Bengaluru for approx. INR 277 Crs; facility provides further potential to scale up to 150 beds\".",
@@ -1930,60 +1979,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-799",
-      "headline": "GE Vernova Agrees to Pay $9 Billion to Acquire Trench Group",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-28/ge-vernova-agrees-to-pay-9-billion-to-acquire-trench-group",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T10:16:16Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "GE Vernova confirmed a $9 billion acquisition of Trench Group.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GE Vernova confirmed a $9 billion acquisition of Trench Group.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GE Vernova",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Trench Group",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -205532,77 +205527,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-27a3f949d026",
-      "idea_version": "IDEAV-7dbabc17598082c5",
-      "idea_version_started_at": "2026-10-27T08:26:43Z",
-      "ticker": "WABAG",
-      "company": "VA Tech Wabag",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a significant order from Reliance Industries for a mega desalination and remineralisation plant, which will directly contribute to revenue growth and order book visibility.",
-      "why_now": "The contract was officially announced via exchange filing on 2026-10-27.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a9d789c2ed29"
-      ],
-      "primary_source_event_id": "EVT-a9d789c2ed29",
-      "source_headlines": [
-        "VA Tech Wabag Limited: Bagging of Order/Contract - WABAG secures order from RIL to deliver Mega Desalination Plant and Remineralisation Plant at Jamnagar"
-      ],
-      "source_headline": "VA Tech Wabag Limited: Bagging of Order/Contract - WABAG secures order from RIL to deliver Mega Desalination Plant and Remineralisation Plant at Jamnagar",
-      "source_url": "https://nsearchives.nseindia.com/corporate/VATECH_27102026082542_SI_RIL_27102026v2.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T02:56:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-27T08:26:43Z",
-      "updated_at": "2026-10-27T08:26:43Z",
-      "decay_at": "2026-10-28T14:56:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f8710fa2cf67",
       "idea_version": "IDEAV-e574f18749ad3529",
       "idea_version_started_at": "2026-10-27T06:46:23Z",
@@ -206581,6 +206505,77 @@
       "surfaced_at": "2026-10-26T17:25:34Z",
       "updated_at": "2026-10-26T17:25:34Z",
       "decay_at": "2026-10-28T03:58:52Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-27a3f949d026",
+      "idea_version": "IDEAV-7dbabc17598082c5",
+      "idea_version_started_at": "2026-10-27T08:26:43Z",
+      "ticker": "WABAG",
+      "company": "VA Tech Wabag",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a significant order from Reliance Industries for a mega desalination and remineralisation plant, which will directly contribute to revenue growth and order book visibility.",
+      "why_now": "The contract was officially announced via exchange filing on 2026-10-27.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a9d789c2ed29"
+      ],
+      "primary_source_event_id": "EVT-a9d789c2ed29",
+      "source_headlines": [
+        "VA Tech Wabag Limited: Bagging of Order/Contract - WABAG secures order from RIL to deliver Mega Desalination Plant and Remineralisation Plant at Jamnagar"
+      ],
+      "source_headline": "VA Tech Wabag Limited: Bagging of Order/Contract - WABAG secures order from RIL to deliver Mega Desalination Plant and Remineralisation Plant at Jamnagar",
+      "source_url": "https://nsearchives.nseindia.com/corporate/VATECH_27102026082542_SI_RIL_27102026v2.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-27T02:56:07Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-27T08:26:43Z",
+      "updated_at": "2026-10-27T08:26:43Z",
+      "decay_at": "2026-10-28T14:56:07Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -210055,14 +210050,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 561,
+    "total_count": 562,
     "shown_count": 500,
-    "hidden_count": 61,
+    "hidden_count": 62,
     "side_counts": {
       "long": {
-        "total_count": 290,
+        "total_count": 291,
         "shown_count": 250,
-        "hidden_count": 40
+        "hidden_count": 41
       },
       "short": {
         "total_count": 271,
@@ -210086,6 +210081,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-27a3f949d026",
+        "idea_version": "IDEAV-7dbabc17598082c5",
+        "idea_version_started_at": "2026-10-27T08:26:43Z",
+        "ticker": "WABAG",
+        "company": "VA Tech Wabag",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company secured a significant order from Reliance Industries for a mega desalination and remineralisation plant, which will directly contribute to revenue growth and order book visibility.",
+        "why_now": "The contract was officially announced via exchange filing on 2026-10-27.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a9d789c2ed29"
+        ],
+        "primary_source_event_id": "EVT-a9d789c2ed29",
+        "source_headlines": [
+          "VA Tech Wabag Limited: Bagging of Order/Contract - WABAG secures order from RIL to deliver Mega Desalination Plant and Remineralisation Plant at Jamnagar"
+        ],
+        "source_headline": "VA Tech Wabag Limited: Bagging of Order/Contract - WABAG secures order from RIL to deliver Mega Desalination Plant and Remineralisation Plant at Jamnagar",
+        "source_url": "https://nsearchives.nseindia.com/corporate/VATECH_27102026082542_SI_RIL_27102026v2.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-27T02:56:07Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-27T08:26:43Z",
+        "updated_at": "2026-10-27T08:26:43Z",
+        "decay_at": "2026-10-28T14:56:07Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-28T14:56:07Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-301c9958417a",
         "idea_version": "IDEAV-1a5df032afd29548",
@@ -238609,81 +238678,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-4a9e909a1a08",
-        "idea_version": "IDEAV-fe059f209e72a430",
-        "idea_version_started_at": "2026-10-13T23:04:58Z",
-        "ticker": "LSEG",
-        "company": "London Stock Exchange Group",
-        "exchange": "LSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The acquisition of US financial data group Octus for £2.6 billion strengthens LSEG's data and analytics division, diversifying revenue streams away from pure trading volumes.",
-        "why_now": "The news of the acquisition talks broke on October 13, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-da821e52a18f"
-        ],
-        "primary_source_event_id": "EVT-da821e52a18f",
-        "source_headlines": [
-          "London Stock Exchange owner in talks to buy US financial data group Octus for £2.6bn from private equity"
-        ],
-        "source_headline": "London Stock Exchange owner in talks to buy US financial data group Octus for £2.6bn from private equity",
-        "source_url": "https://www.thisismoney.co.uk/money/markets/article-16206191/London-Stock-Exchange-owner-talks-buy-US-financial-data-group-Octus-2-6bn-private-equity.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-        "source_name": "This is Money (Daily Mail) — Markets",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-13T16:27:21Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-13T23:04:58Z",
-        "updated_at": "2026-10-13T23:04:58Z",
-        "decay_at": "2026-10-15T04:27:21Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-16T21:35:53Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c6c88bb7ea3e",
         "idea_version": "IDEAV-18ef8f3c9a75bd4b",
         "idea_version_started_at": "2026-10-13T21:10:09Z",
@@ -247351,7 +247345,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1979,
-    "live_count": 25,
+    "live_count": 24,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -247370,9 +247364,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2146904,
-    "news_picked_today": 2002,
-    "news_dropped_today": 13166
+    "news_seen_today": 2233206,
+    "news_picked_today": 2014,
+    "news_dropped_today": 13226
   },
   "book_momentum": {
     "live_count": 8,
