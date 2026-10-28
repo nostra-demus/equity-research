@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T20:42:48Z",
+  "generated_at": "2026-10-28T20:51:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-992",
@@ -1132,6 +1132,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-1012",
+      "headline": "Japan's Nidec misses deadline to obtain unqualified audit opinion",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/electronics/japan-s-nidec-misses-deadline-to-obtain-unqualified-audit-opinion",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T19:45:59Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Nidec missed a deadline for an unqualified audit opinion, raising significant concerns regarding financial reporting and governance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nidec missed a deadline for an unqualified audit opinion, raising significant concerns regarding financial reporting and governance.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nidec",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-996",
       "headline": "Vedanta cuts debt by Rs 4,624 crore in September quarter as net profit jumps 151%",
       "headline_en": null,
@@ -1940,55 +1989,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-882",
-      "headline": "LCI Industries Confirms Receipt of Unsolicited, Non-Binding Proposal from Monomoy Capital Partners to Acquire LCI for $101 Per Share in Cash",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/lci-industries-confirms-receipt-unsolicited-non-binding-proposal-monomoy-capital-partners",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T12:42:56Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "LCI Industries received an unsolicited acquisition proposal for $101 per share.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "LCI Industries received an unsolicited acquisition proposal for $101 per share.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LCI Industries",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247148,9 +247148,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3166682,
-    "news_picked_today": 2312,
-    "news_dropped_today": 20056
+    "news_seen_today": 3173647,
+    "news_picked_today": 2340,
+    "news_dropped_today": 20220
   },
   "book_momentum": {
     "live_count": 8,
