@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-28T18:59:39Z",
+  "generated_at": "2026-10-28T19:02:43Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261028-980",
+      "headline": "NT 10-K - Panamera Holdings Corp (0001620749) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1620749/000164033426001695/0001640334-26-001695-index.htm",
+      "source_name": "SEC EDGAR — Latest NT 10-K (Late Annual Filing Notice)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-28T18:44:05Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Panamera Holdings Corp filed a late annual report, indicating potential accounting or operational issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Panamera Holdings Corp filed a late annual report, indicating potential accounting or operational issues.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Panamera Holdings Corp",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261028-948",
       "headline": "Emkay Global Financial Services Limited: Emkay Global Financial Services Limited has informed the Exchange that:1. The Board has approved the transfer by the Company of its investment in Emkay Investment Managers Limited ( EIML ), comprising 100% stake being 90,00,000 equity shares held by the Company (along with its nominees), to Emkay Capital Private Limited (ECPL), on the terms and conditions as set out in the Share Purchase Agreement ( SPA )2. The Board has also approved the transfer by the",
@@ -1950,49 +1999,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-829",
-      "headline": "Brand created to help moms files Chapter 11 bankruptcy",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/retail/oat-mama-brand-designed-to-help-moms-files-chapter-11-bankruptcy",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T12:07:00Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "A company has filed for Chapter 11 bankruptcy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A company has filed for Chapter 11 bankruptcy.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247151,9 +247157,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2973681,
-    "news_picked_today": 2228,
-    "news_dropped_today": 15892
+    "news_seen_today": 2984447,
+    "news_picked_today": 2229,
+    "news_dropped_today": 15939
   },
   "book_momentum": {
     "live_count": 8,
