@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-28T11:47:40Z",
+  "generated_at": "2026-10-28T11:52:40Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261028-809",
+      "headline": "SC TO-T - ULTRALIFE CORP (0000875657) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/875657/000119312526435071/0001193125-26-435071-index.htm",
+      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-28T11:00:54Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Ultralife Corp is the subject of a third-party tender offer, typically involving a premium to market price.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ultralife Corp is the subject of a third-party tender offer, typically involving a premium to market price.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ultralife Corp",
+          "ticker": "ULBI",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-808",
+      "headline": "SC TO-T - EnerSys (0001289308) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1289308/000119312526435071/0001193125-26-435071-index.htm",
+      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-28T11:00:54Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "EnerSys filed a third-party tender offer (SC TO-T), indicating an active acquisition attempt.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EnerSys filed a third-party tender offer (SC TO-T), indicating an active acquisition attempt.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EnerSys",
+          "ticker": "ENS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261028-783",
       "headline": "Prudent Corporate Advisory Services Limited: Prudent Corporate Advisory Services Limited has informed the Exchange regarding a press release dated October 28, 2026, titled \"Prudent's Operating Profit Rises 42.4% YoY in Q2 FY27;Records Highest-Ever Equity Net Sales of ₹4,138 Crore\".",
@@ -1876,110 +1974,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-571",
-      "headline": "HUL Q2 Results: Net profit rises 4% YoY to Rs 2,790 crore; Rs 19/share dividend declared",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/hul-q2-results-net-profit-rises-4-yoy-to-rs-2790-crore-rs-19/share-dividend-declared/articleshow/135251974.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T04:34:38Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "HUL reported a 4% YoY net profit rise to Rs 2,790 crore and declared a Rs 19/share dividend.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "HUL reported a 4% YoY net profit rise to Rs 2,790 crore and declared a Rs 19/share dividend.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HUL",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-602",
-      "headline": "Dubai’s Amanat buys UK specialist care provider Cornerstone Healthcare",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/business/dubais-amanat-buys-uk-specialist-care-provider-cornerstone-healthcare",
-      "source_name": "Khaleej Times — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T04:02:22Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Dubai's Amanat acquiring a UK specialist care provider is a significant M&A transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Dubai's Amanat acquiring a UK specialist care provider is a significant M&A transaction.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amanat",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Cornerstone Healthcare",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -205813,77 +205807,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-353a9b0c8455",
-      "idea_version": "IDEAV-44f50e41e1df4666",
-      "idea_version_started_at": "2026-10-27T02:24:36Z",
-      "ticker": "00177",
-      "company": "Jiangsu Expressway",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is acquiring the Suxichang South Expressway, which will consolidate its regional toll road network and likely improve long-term cash flow through increased scale and operational synergies.",
-      "why_now": "The acquisition was formally announced via HKEX filing on 2026-10-26.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cb7a7ef84d5e"
-      ],
-      "primary_source_event_id": "EVT-cb7a7ef84d5e",
-      "source_headlines": [
-        "JIANGSU EXPRESS (00177): PROGRESS ANNOUNCEMENT - DISCLOSEABLE AND CONNECTED TRANSACTION - CASH ACQUISITION OF 100% EQUITY INTERESTS IN SUXICHANG SOUTH EXPRESSWAY COMPANY"
-      ],
-      "source_headline": "JIANGSU EXPRESS (00177): PROGRESS ANNOUNCEMENT - DISCLOSEABLE AND CONNECTED TRANSACTION - CASH ACQUISITION OF 100% EQUITY INTERESTS IN SUXICHANG SOUTH EXPRESSWAY COMPANY",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700044.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T23:48:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-27T02:24:36Z",
-      "updated_at": "2026-10-27T02:24:36Z",
-      "decay_at": "2026-10-28T11:48:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f8710fa2cf67",
       "idea_version": "IDEAV-e574f18749ad3529",
       "idea_version_started_at": "2026-10-27T06:46:23Z",
@@ -207079,6 +207002,77 @@
       "surfaced_at": "2026-10-27T04:19:35Z",
       "updated_at": "2026-10-27T04:19:35Z",
       "decay_at": "2026-10-27T23:04:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-353a9b0c8455",
+      "idea_version": "IDEAV-44f50e41e1df4666",
+      "idea_version_started_at": "2026-10-27T02:24:36Z",
+      "ticker": "00177",
+      "company": "Jiangsu Expressway",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is acquiring the Suxichang South Expressway, which will consolidate its regional toll road network and likely improve long-term cash flow through increased scale and operational synergies.",
+      "why_now": "The acquisition was formally announced via HKEX filing on 2026-10-26.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cb7a7ef84d5e"
+      ],
+      "primary_source_event_id": "EVT-cb7a7ef84d5e",
+      "source_headlines": [
+        "JIANGSU EXPRESS (00177): PROGRESS ANNOUNCEMENT - DISCLOSEABLE AND CONNECTED TRANSACTION - CASH ACQUISITION OF 100% EQUITY INTERESTS IN SUXICHANG SOUTH EXPRESSWAY COMPANY"
+      ],
+      "source_headline": "JIANGSU EXPRESS (00177): PROGRESS ANNOUNCEMENT - DISCLOSEABLE AND CONNECTED TRANSACTION - CASH ACQUISITION OF 100% EQUITY INTERESTS IN SUXICHANG SOUTH EXPRESSWAY COMPANY",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700044.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-26T23:48:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-27T02:24:36Z",
+      "updated_at": "2026-10-27T02:24:36Z",
+      "decay_at": "2026-10-28T11:48:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -210051,14 +210045,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 554,
+    "total_count": 555,
     "shown_count": 500,
-    "hidden_count": 54,
+    "hidden_count": 55,
     "side_counts": {
       "long": {
-        "total_count": 285,
+        "total_count": 286,
         "shown_count": 250,
-        "hidden_count": 35
+        "hidden_count": 36
       },
       "short": {
         "total_count": 269,
@@ -210082,6 +210076,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-353a9b0c8455",
+        "idea_version": "IDEAV-44f50e41e1df4666",
+        "idea_version_started_at": "2026-10-27T02:24:36Z",
+        "ticker": "00177",
+        "company": "Jiangsu Expressway",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is acquiring the Suxichang South Expressway, which will consolidate its regional toll road network and likely improve long-term cash flow through increased scale and operational synergies.",
+        "why_now": "The acquisition was formally announced via HKEX filing on 2026-10-26.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-cb7a7ef84d5e"
+        ],
+        "primary_source_event_id": "EVT-cb7a7ef84d5e",
+        "source_headlines": [
+          "JIANGSU EXPRESS (00177): PROGRESS ANNOUNCEMENT - DISCLOSEABLE AND CONNECTED TRANSACTION - CASH ACQUISITION OF 100% EQUITY INTERESTS IN SUXICHANG SOUTH EXPRESSWAY COMPANY"
+        ],
+        "source_headline": "JIANGSU EXPRESS (00177): PROGRESS ANNOUNCEMENT - DISCLOSEABLE AND CONNECTED TRANSACTION - CASH ACQUISITION OF 100% EQUITY INTERESTS IN SUXICHANG SOUTH EXPRESSWAY COMPANY",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700044.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-26T23:48:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-27T02:24:36Z",
+        "updated_at": "2026-10-27T02:24:36Z",
+        "decay_at": "2026-10-28T11:48:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-28T11:48:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-87a066998bed",
         "idea_version": "IDEAV-3867b91ae92205e1",
@@ -238604,81 +238672,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-ea0eb25c074b",
-        "idea_version": "IDEAV-1536ce726c271807",
-        "idea_version_started_at": "2026-10-13T16:07:22Z",
-        "ticker": "J36",
-        "company": "Jardine Matheson",
-        "exchange": "SGX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company raised its 2026 earnings guidance to as high as US$5.65 per share, signaling improved profitability expectations.",
-        "why_now": "The guidance update was announced on October 13, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-fd1b1915ad8e"
-        ],
-        "primary_source_event_id": "EVT-fd1b1915ad8e",
-        "source_headlines": [
-          "Jardine Matheson raises 2026 earnings guidance as high as US$5.65 per share"
-        ],
-        "source_headline": "Jardine Matheson raises 2026 earnings guidance as high as US$5.65 per share",
-        "source_url": "https://www.straitstimes.com/business/companies-markets/jardine-matheson-raises-2026-earnings-guidance-as-high-as-us5-65-per-share",
-        "source_name": "The Straits Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-13T04:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-13T16:07:22Z",
-        "updated_at": "2026-10-13T16:07:22Z",
-        "decay_at": "2026-10-14T16:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-16T04:22:13Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-bcfe3a2924a3",
         "idea_version": "IDEAV-3c94b90729487e24",
         "idea_version_started_at": "2026-10-13T14:10:50Z",
@@ -247346,7 +247339,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1979,
-    "live_count": 32,
+    "live_count": 31,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -247365,9 +247358,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1455632,
-    "news_picked_today": 1749,
-    "news_dropped_today": 11187
+    "news_seen_today": 1474680,
+    "news_picked_today": 1761,
+    "news_dropped_today": 11319
   },
   "book_momentum": {
     "live_count": 8,
