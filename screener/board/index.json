@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-28T23:09:05Z",
+  "generated_at": "2026-10-28T23:19:04Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261028-1080",
+      "headline": "CAR: Brazil acquisition",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CAR?key=2924-03155045-3A705302",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-28T22:56:55Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Carsales.com announced an acquisition in Brazil.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Carsales.com announced an acquisition in Brazil.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Carsales.com",
+          "ticker": "CAR",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261028-992",
       "headline": "OnEMI Technology Solutions Limited: OnEMI Technology Solutions Limited has informed the Exchange regarding a press release dated October 28, 2026, titled \"Kissht delivers strong Q2FY27 performance; AUM reached ₹9,317 Cr, PAT doubles YoY to ₹125 Cr\".",
@@ -1132,6 +1181,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-1090",
+      "headline": "Star chairman says $260m fine won’t be the death of casino operator",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/games-and-wagering/star-s-260m-money-laundering-fine-puts-it-on-the-brink-20261028-p6193f?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T22:39:11Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Quantified $260 million regulatory fine is a material capital outflow, liability crystallization, and reputation impact for casino operator.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Quantified $260 million regulatory fine is a material capital outflow, liability crystallization, and reputation impact for casino operator.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Star Entertainment Group",
+          "ticker": "SGR",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-1086",
+      "headline": "Enerpac Tool Group Corp. Completes Acquisition of SFE Group for Approximately $452 million in Cash",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/enerpac-tool-group-corp-completes-acquisition-sfe-group-approximately-452-million-cash",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T22:32:58Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Enerpac Tool Group completed the acquisition of SFE Group for $452 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Enerpac Tool Group completed the acquisition of SFE Group for $452 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Enerpac Tool Group Corp.",
+          "ticker": "EPAC",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-1048",
       "headline": "Alphabet sinks 10% as it holds 2026 capex unchanged, expects significant increase in 2027",
       "headline_en": null,
@@ -1824,155 +1971,6 @@
           "name": "Oracle",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-1032",
-      "headline": "Amphenol Corporation Announces Dividend Increase, New $4.0 Billion Stock Repurchase Program, and $1.6 Billion in Acquisitions",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/amphenol-corporation-announces-dividend-increase-new-40-billion-stock-repurchase-program",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T20:23:04Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Amphenol announced a dividend increase, a $4.0 billion buyback, and $1.6 billion in acquisitions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Amphenol announced a dividend increase, a $4.0 billion buyback, and $1.6 billion in acquisitions.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amphenol Corporation",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-1012",
-      "headline": "Japan's Nidec misses deadline to obtain unqualified audit opinion",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/electronics/japan-s-nidec-misses-deadline-to-obtain-unqualified-audit-opinion",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T19:45:59Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Nidec missed a deadline for an unqualified audit opinion, raising significant concerns regarding financial reporting and governance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nidec missed a deadline for an unqualified audit opinion, raising significant concerns regarding financial reporting and governance.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nidec",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-996",
-      "headline": "Vedanta cuts debt by Rs 4,624 crore in September quarter as net profit jumps 151%",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/vedanta-cuts-debt-by-rs-4624-crore-in-september-quarter-as-net-profit-jumps-151/articleshow/135278530.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T19:09:39Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Vedanta reported a 151% jump in net profit and reduced debt by Rs 4,624 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Vedanta reported a 151% jump in net profit and reduced debt by Rs 4,624 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vedanta",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -247133,9 +247131,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3364805,
-    "news_picked_today": 2657,
-    "news_dropped_today": 22207
+    "news_seen_today": 3376699,
+    "news_picked_today": 2691,
+    "news_dropped_today": 22317
   },
   "book_momentum": {
     "live_count": 8,
