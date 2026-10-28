@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T07:05:46Z",
+  "generated_at": "2026-10-28T07:06:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-606",
@@ -204126,6 +204126,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-45c433f18ce8",
+      "idea_version": "IDEAV-904d622c46bec612",
+      "idea_version_started_at": "2026-10-28T07:06:06Z",
+      "ticker": "NBHC",
+      "company": "National Bank Holdings Corporation",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A swing into a net loss of $8.8 million in Q3 alongside non-core asset sales signals deteriorating loan portfolio quality and compressed net interest margins.",
+      "why_now": "Q3 2026 financial report published on October 28, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6ca668a06fa0"
+      ],
+      "primary_source_event_id": "EVT-6ca668a06fa0",
+      "source_headlines": [
+        "National Bank Holdings Corporation Reports Third Quarter 2026 Net Loss of $8.8 million and Agrees to Sell Palm Beach Banking Center"
+      ],
+      "source_headline": "National Bank Holdings Corporation Reports Third Quarter 2026 Net Loss of $8.8 million and Agrees to Sell Palm Beach Banking Center",
+      "source_url": "https://www.nasdaq.com/articles/national-bank-holdings-corporation-reports-third-quarter-2026-net-loss-88-million-and",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-28T00:43:04Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-28T07:06:06Z",
+      "updated_at": "2026-10-28T07:06:06Z",
+      "decay_at": "2026-10-29T12:43:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-f60d317b461b",
       "idea_version": "IDEAV-c31c71fee5520652",
       "idea_version_started_at": "2026-10-28T02:32:22Z",
@@ -204543,6 +204613,374 @@
       "surfaced_at": "2026-10-23T15:10:57Z",
       "updated_at": "2026-10-27T08:26:43Z",
       "decay_at": "2026-10-28T15:58:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-1b994a384f0c",
+      "idea_version": "IDEAV-241cd284d92f8e89",
+      "idea_version_started_at": "2026-10-28T07:06:06Z",
+      "ticker": "000660",
+      "company": "SK Hynix",
+      "exchange": "KRX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A seven-fold surge in quarterly operating profit driven by high-bandwidth memory demand directly expands profit margins and operating cash flow.",
+      "why_now": "Q3 2026 earnings results were released on October 28, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2a125410fb51",
+        "EVT-9d13adc9e763",
+        "EVT-b648bfc66f03"
+      ],
+      "primary_source_event_id": "EVT-2a125410fb51",
+      "source_headlines": [
+        "SK Hynix Posts Record Profit Amid AI Rush",
+        "SK Hynix Profit Jumps Seven-Fold to Soothe Doubts Over AI Rush",
+        "SK Hynix quarterly profit soars sevenfold to $63bn on strong memory demand"
+      ],
+      "source_headline": "SK Hynix Posts Record Profit Amid AI Rush",
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-28/sk-hynix-posts-record-profit-amid-ai-rush-video",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-28T00:44:57Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-25T02:18:41Z",
+      "updated_at": "2026-10-28T07:06:06Z",
+      "decay_at": "2026-10-29T12:44:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-414a14e26ddd",
+      "idea_version": "IDEAV-73bee4aa7ba1a618",
+      "idea_version_started_at": "2026-10-28T07:06:06Z",
+      "ticker": "BMPS",
+      "company": "Banca Monte dei Paschi di Siena",
+      "exchange": "BIT",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "ECB regulatory clearance for a acquisition by Intesa Sanpaolo paves the way for a definitive takeover bid and M&A control premium.",
+      "why_now": "ECB approval granted on October 27, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ccffd4c37f63"
+      ],
+      "primary_source_event_id": "EVT-ccffd4c37f63",
+      "source_headlines": [
+        "Banks: ECB gives Intesa Sanpaolo green light for MPS takeover"
+      ],
+      "source_headline": "Banken: EZB gibt Intesa Sanpaolo grünes Licht für MPS-Übernahme",
+      "source_url": "https://www.handelsblatt.com/finanzen/banken-versicherungen/banken-ezb-gibt-intesa-sanpaolo-gruenes-licht-fuer-mps-uebernahme/100265409.html",
+      "source_name": "Handelsblatt",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-27T23:59:40Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-28T07:06:06Z",
+      "updated_at": "2026-10-28T07:06:06Z",
+      "decay_at": "2026-10-29T11:59:40Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-7c03452ec8b3",
+      "idea_version": "IDEAV-6a3304b7bd14dbc2",
+      "idea_version_started_at": "2026-10-28T07:06:06Z",
+      "ticker": "SGR",
+      "company": "The Star Entertainment Group",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A massive $260 million regulatory money-laundering penalty threatens liquidity and solvency for a financially distressed operator.",
+      "why_now": "Fine imposed and reported on October 27, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a3fb5ff57038"
+      ],
+      "primary_source_event_id": "EVT-a3fb5ff57038",
+      "source_headlines": [
+        "Star’s $260m money laundering fine puts it on the brink"
+      ],
+      "source_headline": "Star’s $260m money laundering fine puts it on the brink",
+      "source_url": "https://www.afr.com/companies/games-and-wagering/star-s-260m-money-laundering-fine-puts-it-on-the-brink-20261028-p6193f?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-27T23:54:57Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-28T07:06:06Z",
+      "updated_at": "2026-10-28T07:06:06Z",
+      "decay_at": "2026-10-29T11:54:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-84d3d160ac55",
+      "idea_version": "IDEAV-8cd30cae10826c6c",
+      "idea_version_started_at": "2026-10-28T07:06:06Z",
+      "ticker": "INA",
+      "company": "Ingenia Communities Group",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Receipt of an improved buyout proposal from private equity firm Warburg Pincus directly increases the takeover probability and immediate cash-offer value for shareholders.",
+      "why_now": "Confirmed via official ASX regulatory filing on October 27, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-582c6c049f34",
+        "EVT-42f573d6ba09"
+      ],
+      "primary_source_event_id": "EVT-582c6c049f34",
+      "source_headlines": [
+        "INA: Receipt of improved proposal from Warburg Pincus [price-sensitive]",
+        "Warburg Pincus Sweetens Ingenia Offer as Bidding War Ramps Up"
+      ],
+      "source_headline": "INA: Receipt of improved proposal from Warburg Pincus [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.INA?key=2924-03154291-2A1706595",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-27T23:32:52Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-26T09:24:06Z",
+      "updated_at": "2026-10-28T07:06:06Z",
+      "decay_at": "2026-10-29T11:32:52Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-b763cf3031a8",
+      "idea_version": "IDEAV-6d1d4fe159337cc3",
+      "idea_version_started_at": "2026-10-28T07:06:06Z",
+      "ticker": "4503",
+      "company": "Astellas Pharma",
+      "exchange": "TSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Committing up to $1.3 billion to $2 billion for an unproven licensing deal on cancer therapies that have not entered human trials creates immediate capital drain with high drug-development failure risk.",
+      "why_now": "Licensing agreement announced on October 27, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-11e438f9552e",
+        "EVT-524c55de60f7"
+      ],
+      "primary_source_event_id": "EVT-11e438f9552e",
+      "source_headlines": [
+        "Melbourne cancer therapy start-up wins $2b deal with Japan’s Astellas",
+        "Astellas Bets Up to $1.3 Billion on Cancer Drug Yet to Enter Human Trials"
+      ],
+      "source_headline": "Melbourne cancer therapy start-up wins $2b deal with Japan’s Astellas",
+      "source_url": "https://www.afr.com/companies/healthcare-and-fitness/melbourne-cancer-therapy-start-up-wins-2b-deal-with-japan-s-astellas-20261028-p618ud?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-27T23:30:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-28T07:06:06Z",
+      "updated_at": "2026-10-28T07:06:06Z",
+      "decay_at": "2026-10-29T11:30:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -206260,146 +206698,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-fe25590a4b61",
-      "idea_version": "IDEAV-cfa88a9b5596f65d",
-      "idea_version_started_at": "2026-10-25T05:23:46Z",
-      "ticker": "WF",
-      "company": "Woori Financial Group",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company achieved record-breaking quarterly net profit exceeding 1 trillion KRW for two consecutive quarters, signaling strong underlying operational momentum.",
-      "why_now": "The Q3 earnings results were released on October 25, 2026, confirming the sustained financial performance.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f45653af21f7"
-      ],
-      "primary_source_event_id": "EVT-f45653af21f7",
-      "source_headlines": [
-        "Woori Financial Group's 3rd quarter net profit of 1.0492 trillion KRW... first time in history to join the '1 trillion club' for two consecutive quarters"
-      ],
-      "source_headline": "우리금융 3분기 순익 1조492억원…사상 첫 2분기 연속 '1조 클럽'",
-      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279594",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-25T04:50:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-25T05:23:46Z",
-      "updated_at": "2026-10-25T05:23:46Z",
-      "decay_at": "2026-10-26T16:50:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-fbb98074a072",
-      "idea_version": "IDEAV-04e4d02e414e29c6",
-      "idea_version_started_at": "2026-10-25T07:14:09Z",
-      "ticker": "GM",
-      "company": "General Motors",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "General Motors announced a $20 billion share buyback program, which is expected to increase shareholder value.",
-      "why_now": "The buyback was announced today, October 25, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f19b2407fb9e"
-      ],
-      "primary_source_event_id": "EVT-f19b2407fb9e",
-      "source_headlines": [
-        "GM Just Announced a $20 Billion Buyback. Tesla Trades at 350 Times Earnings. Here's Which Auto Stock I'd Buy Today."
-      ],
-      "source_headline": "GM Just Announced a $20 Billion Buyback. Tesla Trades at 350 Times Earnings. Here's Which Auto Stock I'd Buy Today.",
-      "source_url": "https://www.nasdaq.com/articles/gm-just-announced-20-billion-buyback-tesla-trades-350-times-earnings-heres-which-auto",
-      "source_name": "Nasdaq",
-      "materiality_max": 98,
-      "newest_source_at": "2026-10-25T06:25:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-25T07:14:09Z",
-      "updated_at": "2026-10-25T07:14:09Z",
-      "decay_at": "2026-10-26T18:25:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-0c63b840ab2f",
       "idea_version": "IDEAV-cc11d3f273a2ff05",
       "idea_version_started_at": "2026-10-26T13:58:56Z",
@@ -206821,76 +207119,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-e916594f6443",
-      "idea_version": "IDEAV-89914ab883350773",
-      "idea_version_started_at": "2026-10-25T06:39:18Z",
-      "ticker": "BORR",
-      "company": "Borr Drilling",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The loss of a drilling rig offshore Gabon represents a significant operational failure and potential asset impairment, likely leading to increased insurance costs and revenue disruption.",
-      "why_now": "The incident occurred immediately prior to the report on October 25, with ongoing search and rescue operations.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-03074e96907f"
-      ],
-      "primary_source_event_id": "EVT-03074e96907f",
-      "source_headlines": [
-        "Borr Drilling rig sinks offshore Gabon, five personnel missing"
-      ],
-      "source_headline": "Borr Drilling rig sinks offshore Gabon, five personnel missing",
-      "source_url": "https://www.reuters.com/world/africa/borr-drilling-rig-sinks-offshore-gabon-five-personnel-missing-2026-10-25/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-25T06:30:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-25T06:39:18Z",
-      "updated_at": "2026-10-25T06:39:18Z",
-      "decay_at": "2026-10-26T18:30:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-35e446beedc4",
       "idea_version": "IDEAV-a86ce9060031a2e8",
       "idea_version_started_at": "2026-10-26T03:24:01Z",
@@ -207168,146 +207396,6 @@
       "surfaced_at": "2026-10-26T17:25:34Z",
       "updated_at": "2026-10-26T17:25:34Z",
       "decay_at": "2026-10-28T03:58:52Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-4e8059fc08a2",
-      "idea_version": "IDEAV-ad3e10c6de61bda5",
-      "idea_version_started_at": "2026-10-25T04:38:42Z",
-      "ticker": "7211.T",
-      "company": "Mitsubishi Motors",
-      "exchange": "Tokyo Stock Exchange",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Mitsubishi Motors is making a risky strategic pivot due to intense competitive pressure from Chinese electric vehicles in Southeast Asia.",
-      "why_now": "The competitive pressure from Chinese EVs in Southeast Asia is forcing a strategic review as of October 25, 2026.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 14,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "sector_cycle",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7d746fbc00c1"
-      ],
-      "primary_source_event_id": "EVT-7d746fbc00c1",
-      "source_headlines": [
-        "Pressed by Chinese EVs in Southeast Asia, Mitsubishi Motors makes risky pivot"
-      ],
-      "source_headline": "Pressed by Chinese EVs in Southeast Asia, Mitsubishi Motors makes risky pivot",
-      "source_url": "https://asia.nikkei.com/business/automobiles/pressed-by-chinese-evs-in-southeast-asia-mitsubishi-motors-makes-risky-pivot",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 88,
-      "newest_source_at": "2026-10-25T02:50:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-25T04:38:42Z",
-      "updated_at": "2026-10-25T04:38:42Z",
-      "decay_at": "2026-10-26T14:50:52Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-b483d5aa9fc1",
-      "idea_version": "IDEAV-5dd1c72d81beae0e",
-      "idea_version_started_at": "2026-10-25T04:09:49Z",
-      "ticker": "MMTOF",
-      "company": "Mitsubishi Motors",
-      "exchange": "OTC Markets",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is forced into a high-risk strategic pivot to combat market share erosion from Chinese EV manufacturers in Southeast Asia, threatening margins and long-term viability.",
-      "why_now": "The pivot is being reported as a reactive, risky measure to ongoing competitive pressure as of October 25, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 14,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7d746fbc00c1"
-      ],
-      "primary_source_event_id": "EVT-7d746fbc00c1",
-      "source_headlines": [
-        "Pressed by Chinese EVs in Southeast Asia, Mitsubishi Motors makes risky pivot"
-      ],
-      "source_headline": "Pressed by Chinese EVs in Southeast Asia, Mitsubishi Motors makes risky pivot",
-      "source_url": "https://asia.nikkei.com/business/automobiles/pressed-by-chinese-evs-in-southeast-asia-mitsubishi-motors-makes-risky-pivot",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 88,
-      "newest_source_at": "2026-10-25T02:50:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-25T04:09:49Z",
-      "updated_at": "2026-10-25T04:09:49Z",
-      "decay_at": "2026-10-26T14:50:52Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -208320,80 +208408,6 @@
       "surfaced_at": "2026-10-26T09:24:06Z",
       "updated_at": "2026-10-26T09:24:06Z",
       "decay_at": "2026-10-27T16:47:32Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-84d3d160ac55",
-      "idea_version": "IDEAV-f8b032bcbd57543c",
-      "idea_version_started_at": "2026-10-26T09:24:06Z",
-      "ticker": "INA",
-      "company": "Ingenia Communities",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Ingenia Communities is the target of a competing $1.55B offer, suggesting its assets are valued highly and a potential acquisition is likely.",
-      "why_now": "A rival bid has emerged, creating a live M&A situation with a specific price point.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2a7eca185ec1",
-        "EVT-6373ef28b87f"
-      ],
-      "primary_source_event_id": "EVT-2a7eca185ec1",
-      "source_headlines": [
-        "Ingenia Removes Warburg Pincus From Data Room Following Rival $1.55B Offer",
-        "Real estate investor Avid steps in with $3.2b offer for Ingenia"
-      ],
-      "source_headline": "Ingenia Removes Warburg Pincus From Data Room Following Rival $1.55B Offer",
-      "source_url": "https://www.wsj.com/business/deals/ingenia-removes-warburg-pincus-from-data-room-following-rival-1-55b-offer-47c8f800?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T03:10:20Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T09:24:06Z",
-      "updated_at": "2026-10-26T09:24:06Z",
-      "decay_at": "2026-10-27T15:10:20Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -210343,79 +210357,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-9fdd5f603edf",
-      "idea_version": "IDEAV-f3dcf2a900195a7d",
-      "idea_version_started_at": "2026-10-25T08:28:56Z",
-      "ticker": "CANBK",
-      "company": "Canara Bank",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Central Bureau of Investigation enforcement actions against IL&FS Energy executives regarding a historical Rs 212 crore fraud aid long-term recovery efforts on legacy non-performing assets.",
-      "why_now": "CBI booked IL&FS Energy and executives on October 25, 2026.",
-      "conviction": 45,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ff0b62fe6e85"
-      ],
-      "primary_source_event_id": "EVT-ff0b62fe6e85",
-      "source_headlines": [
-        "CBI books IL&FS Energy, executives in alleged Rs 212 crore Canara Bank loan fraud case"
-      ],
-      "source_headline": "CBI books IL&FS Energy, executives in alleged Rs 212 crore Canara Bank loan fraud case",
-      "source_url": "https://economictimes.indiatimes.com/industry/energy/power/cbi-books-ilfs-energy-executives-in-alleged-rs-212-crore-canara-bank-loan-fraud-case/articleshow/135184694.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 92,
-      "newest_source_at": "2026-10-25T06:20:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-25T08:28:56Z",
-      "updated_at": "2026-10-25T08:28:56Z",
-      "decay_at": "2026-10-26T18:20:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-586f6f9b0df8",
       "idea_version": "IDEAV-567857f204fc9c2f",
       "idea_version_started_at": "2026-10-26T00:44:51Z",
@@ -210558,79 +210499,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-5d7e7121c615",
-      "idea_version": "IDEAV-741d7a5410fa2ff8",
-      "idea_version_started_at": "2026-10-25T06:04:01Z",
-      "ticker": "YESBANK",
-      "company": "YES Bank",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Ongoing uncertainty regarding the payment of AT-1 bond coupons following a Supreme Court judgment creates a potential liability overhang and capital structure risk.",
-      "why_now": "The bank is currently reviewing the judgment and coupon options, meaning a decision on a significant cash outflow is imminent.",
-      "conviction": 40,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8490376789a7"
-      ],
-      "primary_source_event_id": "EVT-8490376789a7",
-      "source_headlines": [
-        "YES Bank AT-1 Bond Payment Decision Still Pending, Lender Reviews Supreme Court Judgment And Coupon Options"
-      ],
-      "source_headline": "YES Bank AT-1 Bond Payment Decision Still Pending, Lender Reviews Supreme Court Judgment And Coupon Options",
-      "source_url": "https://www.freepressjournal.in/business/yes-bank-at-1-bond-payment-decision-still-pending-lender-reviews-supreme-court-judgment-and-coupon-options",
-      "source_name": "Free Press Journal",
-      "materiality_max": 89,
-      "newest_source_at": "2026-10-25T05:05:42Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-25T06:04:01Z",
-      "updated_at": "2026-10-25T06:04:01Z",
-      "decay_at": "2026-10-26T17:05:42Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-19c8572b0c99",
       "idea_version": "IDEAV-ff27778e9ddf4622",
       "idea_version_started_at": "2026-10-26T01:55:29Z",
@@ -210697,151 +210565,6 @@
       "surfaced_at": "2026-10-26T01:55:29Z",
       "updated_at": "2026-10-26T01:55:29Z",
       "decay_at": "2026-10-27T12:37:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-1b994a384f0c",
-      "idea_version": "IDEAV-16a9adb22aa66e25",
-      "idea_version_started_at": "2026-10-26T01:09:27Z",
-      "ticker": "000660",
-      "company": "SK Hynix",
-      "exchange": "KRX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company plans to distribute a $12 billion dividend funded by gains from its Kioxia investment, significantly boosting shareholder returns.",
-      "why_now": "The report of the dividend plan surfaced on 2026-10-25.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0a86b088e8da"
-      ],
-      "primary_source_event_id": "EVT-0a86b088e8da",
-      "source_headlines": [
-        "SK Hynix Plans $12 Billion Dividend From Kioxia Gains: Report"
-      ],
-      "source_headline": "SK Hynix Plans $12 Billion Dividend From Kioxia Gains: Report",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-10-25/sk-hynix-plans-12-billion-dividend-from-kioxia-gains-report",
-      "source_name": "Bloomberg",
-      "materiality_max": 88,
-      "newest_source_at": "2026-10-25T23:52:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-25T02:18:41Z",
-      "updated_at": "2026-10-26T01:09:27Z",
-      "decay_at": "2026-10-27T11:52:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-70ae92af30c5",
-      "idea_version": "IDEAV-b7a3dd56f74eccd4",
-      "idea_version_started_at": "2026-10-25T06:04:01Z",
-      "ticker": "JKTYRE",
-      "company": "JK Tyre & Industries",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A massive ₹6,110 crore capital expenditure plan targeting high-margin premium and EV segments aims to structurally improve the company's margin profile.",
-      "why_now": "The announcement of this specific, large-scale investment strategy serves as a medium-term re-rating catalyst for the stock.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-44c5812880e7"
-      ],
-      "primary_source_event_id": "EVT-44c5812880e7",
-      "source_headlines": [
-        "JK Tyre bets ₹6,110 crore on premium, smart and EV tyres to revive margins"
-      ],
-      "source_headline": "JK Tyre bets ₹6,110 crore on premium, smart and EV tyres to revive margins",
-      "source_url": "https://www.thehindubusinessline.com/companies/jk-tyre-bets-6110-crore-on-premium-smart-and-ev-tyres-to-revive-margins/article71619769.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 88,
-      "newest_source_at": "2026-10-25T05:48:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-25T06:04:01Z",
-      "updated_at": "2026-10-25T06:04:01Z",
-      "decay_at": "2026-10-26T17:48:11Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -210918,150 +210641,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-3d8b801f82e2",
-      "idea_version": "IDEAV-fe24e38fa70b2227",
-      "idea_version_started_at": "2026-10-25T06:04:01Z",
-      "ticker": "PNB",
-      "company": "Punjab National Bank",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Management has committed to an aggressive efficiency target, aiming to reduce the cost-to-income ratio below 50% this fiscal year and to 45% by FY29.",
-      "why_now": "The MD's specific guidance on cost-to-income targets provides a measurable benchmark for upcoming quarterly earnings performance.",
-      "conviction": 45,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 14,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-85408a37b20d"
-      ],
-      "primary_source_event_id": "EVT-85408a37b20d",
-      "source_headlines": [
-        "PNB aims to bring cost-to-income ratio below 50% this fiscal, 45% by FY29: MD Chandra"
-      ],
-      "source_headline": "PNB aims to bring cost-to-income ratio below 50% this fiscal, 45% by FY29: MD Chandra",
-      "source_url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/pnb-aims-to-bring-cost-to-income-ratio-below-50-this-fiscal-45-by-fy29-md-chandra/articleshow/135184373.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 75,
-      "newest_source_at": "2026-10-25T05:41:56Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-25T06:04:01Z",
-      "updated_at": "2026-10-25T06:04:01Z",
-      "decay_at": "2026-10-26T17:41:56Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-a88645ad4c07",
-      "idea_version": "IDEAV-d15c0f12515b1928",
-      "idea_version_started_at": "2026-10-25T04:58:37Z",
-      "ticker": "7581",
-      "company": "Saizeriya",
-      "exchange": "TSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Rising input and labor costs are compressing profit margins at the value-focused restaurant chain, which struggles to pass cost increases to price-sensitive consumers.",
-      "why_now": "Fresh operational coverage detailing ongoing margin squeeze released on October 25, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 44,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 13,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-baca69eb5426"
-      ],
-      "primary_source_event_id": "EVT-baca69eb5426",
-      "source_headlines": [
-        "Budget-friendly restaurant chain Saizeriya succumbs to rising costs"
-      ],
-      "source_headline": "Budget-friendly restaurant chain Saizeriya succumbs to rising costs",
-      "source_url": "https://www.japantimes.co.jp/business/2026/10/25/companies/saizeriya-price-hike/",
-      "source_name": "The Japan Times",
-      "materiality_max": 67,
-      "newest_source_at": "2026-10-25T03:56:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-25T04:58:37Z",
-      "updated_at": "2026-10-25T04:58:37Z",
-      "decay_at": "2026-10-26T15:56:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -211074,33 +210653,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 571,
+    "total_count": 559,
     "shown_count": 500,
-    "hidden_count": 71,
+    "hidden_count": 59,
     "side_counts": {
       "long": {
-        "total_count": 297,
+        "total_count": 290,
         "shown_count": 250,
-        "hidden_count": 47
+        "hidden_count": 40
       },
       "short": {
-        "total_count": 274,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 24
+        "hidden_count": 19
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1369,
-      "oldest_retained_at": "2026-10-01T00:00:28Z",
+      "evicted_count": 1379,
+      "oldest_retained_at": "2026-10-01T08:00:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 905,
-          "oldest_retained_at": "2026-10-12T06:14:28Z"
+          "evicted_count": 910,
+          "oldest_retained_at": "2026-10-12T21:24:00Z"
         },
         "short": {
-          "evicted_count": 465,
-          "oldest_retained_at": "2026-10-01T00:00:28Z"
+          "evicted_count": 470,
+          "oldest_retained_at": "2026-10-01T08:00:00Z"
         }
       }
     },
@@ -213203,83 +212782,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-84d3d160ac55",
-        "idea_version": "IDEAV-f8b032bcbd57543c",
-        "idea_version_started_at": "2026-10-26T09:24:06Z",
-        "ticker": "INA",
-        "company": "Ingenia Communities",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Ingenia Communities is the target of a competing $1.55B offer, suggesting its assets are valued highly and a potential acquisition is likely.",
-        "why_now": "A rival bid has emerged, creating a live M&A situation with a specific price point.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 7,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2a7eca185ec1",
-          "EVT-6373ef28b87f"
-        ],
-        "primary_source_event_id": "EVT-2a7eca185ec1",
-        "source_headlines": [
-          "Ingenia Removes Warburg Pincus From Data Room Following Rival $1.55B Offer",
-          "Real estate investor Avid steps in with $3.2b offer for Ingenia"
-        ],
-        "source_headline": "Ingenia Removes Warburg Pincus From Data Room Following Rival $1.55B Offer",
-        "source_url": "https://www.wsj.com/business/deals/ingenia-removes-warburg-pincus-from-data-room-following-rival-1-55b-offer-47c8f800?mod=pls_whats_news_us_business_f",
-        "source_name": "The Wall Street Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-26T03:10:20Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-26T09:24:06Z",
-        "updated_at": "2026-10-26T09:24:06Z",
-        "decay_at": "2026-10-27T15:10:20Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-27T15:10:20Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-43576d5bf0b5",
         "idea_version": "IDEAV-5ec1527dde5b57f6",
         "idea_version_started_at": "2026-10-26T03:24:01Z",
@@ -213717,81 +213219,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-10-27T12:00:00Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-1b994a384f0c",
-        "idea_version": "IDEAV-16a9adb22aa66e25",
-        "idea_version_started_at": "2026-10-26T01:09:27Z",
-        "ticker": "000660",
-        "company": "SK Hynix",
-        "exchange": "KRX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company plans to distribute a $12 billion dividend funded by gains from its Kioxia investment, significantly boosting shareholder returns.",
-        "why_now": "The report of the dividend plan surfaced on 2026-10-25.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0a86b088e8da"
-        ],
-        "primary_source_event_id": "EVT-0a86b088e8da",
-        "source_headlines": [
-          "SK Hynix Plans $12 Billion Dividend From Kioxia Gains: Report"
-        ],
-        "source_headline": "SK Hynix Plans $12 Billion Dividend From Kioxia Gains: Report",
-        "source_url": "https://www.bloomberg.com/news/articles/2026-10-25/sk-hynix-plans-12-billion-dividend-from-kioxia-gains-report",
-        "source_name": "Bloomberg",
-        "materiality_max": 88,
-        "newest_source_at": "2026-10-25T23:52:02Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-25T02:18:41Z",
-        "updated_at": "2026-10-26T01:09:27Z",
-        "decay_at": "2026-10-27T11:52:02Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-27T11:52:02Z",
         "archive_reason": "expired",
         "audit_only": true
       },
@@ -215727,8 +215154,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-26T18:30:18Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-28T07:06:27Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -215800,8 +215227,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-26T18:25:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-28T07:06:27Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -215876,8 +215303,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-26T18:20:50Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-28T07:06:27Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -215952,8 +215379,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-26T17:48:11Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-28T07:06:27Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -216027,8 +215454,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-26T17:41:56Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-28T07:06:27Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -216103,8 +215530,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-26T17:05:42Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-28T07:06:27Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -216176,8 +215603,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-26T16:50:39Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-28T07:06:27Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -216251,8 +215678,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-26T15:56:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-28T07:06:27Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -216324,8 +215751,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-26T14:50:52Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-28T07:06:27Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -216397,8 +215824,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-26T14:50:52Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-28T07:06:27Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -239479,6 +238906,154 @@
         "audit_only": true
       },
       {
+        "idea_id": "IDEA-ab675b24d137",
+        "idea_version": "IDEAV-b4003ca2a21d5f59",
+        "idea_version_started_at": "2026-10-13T14:10:50Z",
+        "ticker": "BMBL",
+        "company": "Bumble",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Bumble shares surged on news of potential takeover talks valuing the company at $1 billion.",
+        "why_now": "The report of takeover talks emerged on October 13, 2026, creating immediate market reaction.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b82a79096114"
+        ],
+        "primary_source_event_id": "EVT-b82a79096114",
+        "source_headlines": [
+          "Bumble shares soar after report dating firm in $1bn takeover talks"
+        ],
+        "source_headline": "Bumble shares soar after report dating firm in $1bn takeover talks",
+        "source_url": "https://www.bbc.co.uk/news/articles/cm9qzwjgnjxlo?at_medium=RSS&at_campaign=rss",
+        "source_name": "BBC News — Business",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-13T01:36:36Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-13T14:10:50Z",
+        "updated_at": "2026-10-13T14:10:50Z",
+        "decay_at": "2026-10-14T13:36:36Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-16T04:22:13Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-8a22e6887d94",
+        "idea_version": "IDEAV-9406b06e3a9d7790",
+        "idea_version_started_at": "2026-10-13T14:10:50Z",
+        "ticker": "6645",
+        "company": "Omron",
+        "exchange": "TSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Omron is acquiring OnLogic for $675 million to bolster its physical AI capabilities.",
+        "why_now": "The acquisition was announced on October 13, 2026, making it a current event.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b14868033146"
+        ],
+        "primary_source_event_id": "EVT-b14868033146",
+        "source_headlines": [
+          "Japan's Omron to buy US-based OnLogic for $675m in physical AI push"
+        ],
+        "source_headline": "Japan's Omron to buy US-based OnLogic for $675m in physical AI push",
+        "source_url": "https://asia.nikkei.com/business/business-deals/japan-s-omron-to-buy-us-based-onlogic-for-675m-in-physical-ai-push",
+        "source_name": "Nikkei Asia",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-13T01:28:56Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-13T14:10:50Z",
+        "updated_at": "2026-10-13T14:10:50Z",
+        "decay_at": "2026-10-14T13:28:56Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-16T04:22:13Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
+      },
+      {
         "idea_id": "IDEA-00b4c736ede9",
         "idea_version": "IDEAV-3710c24cc71a30c8",
         "idea_version_started_at": "2026-10-13T16:07:22Z",
@@ -248371,8 +247946,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1970,
-    "live_count": 29,
+    "surfaced_total": 1974,
+    "live_count": 35,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
