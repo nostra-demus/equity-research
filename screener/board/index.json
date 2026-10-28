@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-28T13:50:35Z",
+  "generated_at": "2026-10-28T13:54:52Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261028-900",
+      "headline": "Fortis Healthcare Limited: Fortis Healthcare Limited has informed the Exchange regarding a press release dated October 28, 2026, titled \"Fortis acquires 110-bedded Suguna Hospital, Rajajinagar, Bengaluru for approx. INR 277 Crs; facility provides further potential to scale up to 150 beds\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/FORTIS_28102026191214_Intimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-28T13:42:57Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Fortis Healthcare is acquiring Suguna Hospital for INR 277 Crores.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Fortis Healthcare is acquiring Suguna Hospital for INR 277 Crores.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fortis Healthcare Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261028-870",
       "headline": "425 - LCI INDUSTRIES (0000763744) (Subject)",
@@ -898,6 +947,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-905",
+      "headline": "Kirby Q3 Profit Rises As Revenue Climbs 12.2%, Narrows FY26 EPS Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/kirby-q3-profit-rises-revenue-climbs-122-narrows-fy26-eps-guidance",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T13:13:24Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Kirby reported revenue growth of 12.2% and narrowed FY26 EPS guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kirby reported revenue growth of 12.2% and narrowed FY26 EPS guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kirby",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-880",
       "headline": "Constellium SE Reports Net Income of $119 million for Q3 2026 and Raises Full Year 2026 Guidance",
       "headline_en": null,
@@ -943,6 +1042,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-906",
+      "headline": "Aker Solutions Q3 Results Down, Lifts FY26 Outlook, Sees Weak Revenues In FY27; Stock Drops",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/aker-solutions-q3-results-down-lifts-fy26-outlook-sees-weak-revenues-fy27-stock-drops",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T13:01:12Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Aker Solutions reported lower Q3 results and warned of weak revenues in FY27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Aker Solutions reported lower Q3 results and warned of weak revenues in FY27.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aker Solutions",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1833,154 +1982,6 @@
           "name": "Hunting PLC",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-726",
-      "headline": "Hyundai Motor India Q2 Results: Standalone profit falls 24% to Rs 1,189 crore, but revenue gains 18% YoY",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/hyundai-motor-india-q2-results-standalone-profit-falls-24-to-rs-1189-crore-but-revenue-gains-18-yoy/articleshow/135259321.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T09:19:48Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Hyundai Motor India reported a 24% decline in standalone profit to Rs 1,189 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Hyundai Motor India reported a 24% decline in standalone profit to Rs 1,189 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hyundai Motor India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-727",
-      "headline": "Vedanta Q2 Results: Profit Falls 33% As Demerged Businesses Drop Out; Ebitda Rises 17%",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/vedanta-q2-results-profit-falls-33-sequentially-as-demerged-businesses-drop-out-ebitda-rises-17-12247667#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T09:19:13Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Vedanta reported a 33% profit decline alongside a 17% increase in EBITDA.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Vedanta reported a 33% profit decline alongside a 17% increase in EBITDA.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vedanta",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-730",
-      "headline": "PVR INOX posts record Q2 earnings, plans to return 30% of annual surplus cash flow",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/media/entertainment/pvr-inox-posts-record-q2-earnings-plans-to-return-30-of-annual-surplus-cash-flow/articleshow/135259058.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T09:08:19Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "PVR Inox reported record Q2 earnings and announced a plan to return 30% of annual surplus cash flow.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "PVR Inox reported record Q2 earnings and announced a plan to return 30% of annual surplus cash flow.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PVR Inox",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -247371,9 +247372,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1990807,
-    "news_picked_today": 1959,
-    "news_dropped_today": 12633
+    "news_seen_today": 2012991,
+    "news_picked_today": 1966,
+    "news_dropped_today": 12650
   },
   "book_momentum": {
     "live_count": 8,
