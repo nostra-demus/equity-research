@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T00:38:33Z",
+  "generated_at": "2026-10-28T00:44:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-041",
@@ -1422,6 +1422,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-069",
+      "headline": "Safe Harbor Financial Signs Non-Binding Term Sheet to Combine with Opifex Media, Creating a Nasdaq-Listed Diversified Holding Company",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/10/26/3388070/0/en/safe-harbor-financial-signs-non-binding-term-sheet-to-combine-with-opifex-media-creating-a-nasdaq-listed-diversified-holding-company.html",
+      "source_name": "GlobeNewswire — Mergers & Acquisitions",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-26T12:24:00Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "The company signed a term sheet to merge and create a new Nasdaq-listed entity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "The company signed a term sheet to merge and create a new Nasdaq-listed entity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Safe Harbor Financial",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Opifex Media",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-036",
       "headline": "Jarden alleges defectors gave confidential information to Barrenjoey",
       "headline_en": null,
@@ -1886,55 +1940,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-031",
-      "headline": "Litchfield Hills Initiates Coverage of Vantage at Buy",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/litchfield-hills-initiates-coverage-vantage-buy",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T23:24:21Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Litchfield Hills initiated coverage on Vantage with a buy rating.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 56,
-      "triage_reason": "Litchfield Hills initiated coverage on Vantage with a buy rating.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vantage",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -248681,9 +248686,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 70024,
-    "news_picked_today": 83,
-    "news_dropped_today": 397
+    "news_seen_today": 78594,
+    "news_picked_today": 93,
+    "news_dropped_today": 435
   },
   "book_momentum": {
     "live_count": 8,
