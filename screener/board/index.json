@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T04:59:49Z",
+  "generated_at": "2026-10-28T05:03:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-285",
@@ -146,6 +146,65 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-566",
+      "headline": "Nvidia, AMD To Invest $4 Billion In Meta As It Raises $95 Billion For AI Infrastructure",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/tech/nvidia-amd-to-invest-4-billion-in-meta-as-it-raises-95-billion-for-ai-infrastructure",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T03:33:51Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Nvidia and AMD are investing $4 billion into Meta's AI infrastructure, representing a significant capital commitment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia and AMD are investing $4 billion into Meta's AI infrastructure, representing a significant capital commitment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "AMD",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Meta",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1965,55 +2024,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-189",
-      "headline": "United Breweries Q2 profit soars 190% as Heineken Silver, Kingfisher Ultra volumes surge",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/united-breweries-q2-results-profit-jumps-190-pc-heineken-silver-kingfisher-ultra-beer-20020723.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T16:31:59Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "United Breweries reported a 190% surge in Q2 profit driven by volume growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "United Breweries reported a 190% surge in Q2 profit driven by volume growth.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "United Breweries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248397,9 +248407,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 479200,
-    "news_picked_today": 980,
-    "news_dropped_today": 2980
+    "news_seen_today": 486830,
+    "news_picked_today": 987,
+    "news_dropped_today": 3021
   },
   "book_momentum": {
     "live_count": 8,
