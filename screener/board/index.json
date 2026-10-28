@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T02:38:50Z",
+  "generated_at": "2026-10-28T02:47:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-239",
@@ -1781,6 +1781,57 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-253",
+      "headline": "Boeing stock sinks 9% as company says it won't significantly ramp up 737 Max production until late 2027",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/27/-boeing-ba-q3-2026-earnings.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T15:45:49Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Boeing delays significant 737 Max production ramp until late 2027, deferring cash-flow recovery and capex normalization.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Boeing delays significant 737 Max production ramp until late 2027, deferring cash-flow recovery and capex normalization.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex",
+        "operations",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boeing",
+          "ticker": "BA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-213",
       "headline": "AVG: Resignation of CFO",
       "headline_en": null,
@@ -1923,61 +1974,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-132",
-      "headline": "EQT Corporation Reports Third Quarter 2026 Results and Announces Range Acquisition",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/eqt-corporation-reports-third-quarter-2026-results-and-announces-range-acquisition",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T00:53:16Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "EQT announced acquisition of Range, a material M&A transaction in oil and gas with deal terms undisclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "EQT announced acquisition of Range, a material M&A transaction in oil and gas with deal terms undisclosed.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EQT Corporation",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Range",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248363,9 +248359,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 277230,
-    "news_picked_today": 420,
-    "news_dropped_today": 1620
+    "news_seen_today": 285150,
+    "news_picked_today": 425,
+    "news_dropped_today": 1663
   },
   "book_momentum": {
     "live_count": 8,
