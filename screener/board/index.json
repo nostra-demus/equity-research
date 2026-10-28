@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T08:30:19Z",
+  "generated_at": "2026-10-28T08:34:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-654",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-671",
+      "headline": "Q2 Results Live Updates: Adani Ent Q2 profit falls 55% YoY to Rs 1,492 crore, revenue surges 75% YoY",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/live-blog/q2-results-today-live-updates-hyundai-vedanta-adani-enterprises-quarter-2-fy27-earnings-result-dividend-share-price-updates/liveblog/135257115.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T07:41:09Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Adani Enterprises reported a 55% YoY profit decline to Rs 1,492 crore despite a 75% revenue surge.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Adani Enterprises reported a 55% YoY profit decline to Rs 1,492 crore despite a 75% revenue surge.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Enterprises",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1962,55 +2011,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-037",
-      "headline": "Melbourne cancer therapy start-up wins $2b deal with Japan’s Astellas",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/healthcare-and-fitness/melbourne-cancer-therapy-start-up-wins-2b-deal-with-japan-s-astellas-20261028-p618ud?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T23:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Astellas Pharma is acquiring a cancer therapy startup in a deal valued at $2 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Astellas Pharma is acquiring a cancer therapy startup in a deal valued at $2 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Astellas Pharma",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -205845,78 +205845,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-deec11ae506b",
-      "idea_version": "IDEAV-4ea5f2ca34567a00",
-      "idea_version_started_at": "2026-10-26T22:42:48Z",
-      "ticker": "SKO",
-      "company": "Serko",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a negative guidance update, indicating a deterioration in financial performance expectations for the current period.",
-      "why_now": "The price-sensitive guidance update was filed on October 26, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e0955ffc2325"
-      ],
-      "primary_source_event_id": "EVT-e0955ffc2325",
-      "source_headlines": [
-        "SKO: Serko Guidance Update [price-sensitive]"
-      ],
-      "source_headline": "SKO: Serko Guidance Update [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SKO?key=2924-03153295-3A704993",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T20:31:10Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T22:42:48Z",
-      "updated_at": "2026-10-26T22:42:48Z",
-      "decay_at": "2026-10-28T08:31:10Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3dcf768f4a41",
       "idea_version": "IDEAV-57a0fff54634725b",
       "idea_version_started_at": "2026-10-26T21:48:47Z",
@@ -207259,6 +207187,78 @@
       "surfaced_at": "2026-10-26T22:42:48Z",
       "updated_at": "2026-10-26T22:42:48Z",
       "decay_at": "2026-10-28T07:57:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-deec11ae506b",
+      "idea_version": "IDEAV-4ea5f2ca34567a00",
+      "idea_version_started_at": "2026-10-26T22:42:48Z",
+      "ticker": "SKO",
+      "company": "Serko",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a negative guidance update, indicating a deterioration in financial performance expectations for the current period.",
+      "why_now": "The price-sensitive guidance update was filed on October 26, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e0955ffc2325"
+      ],
+      "primary_source_event_id": "EVT-e0955ffc2325",
+      "source_headlines": [
+        "SKO: Serko Guidance Update [price-sensitive]"
+      ],
+      "source_headline": "SKO: Serko Guidance Update [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SKO?key=2924-03153295-3A704993",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-26T20:31:10Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-26T22:42:48Z",
+      "updated_at": "2026-10-26T22:42:48Z",
+      "decay_at": "2026-10-28T08:31:10Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -210369,9 +210369,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 557,
+    "total_count": 558,
     "shown_count": 500,
-    "hidden_count": 57,
+    "hidden_count": 58,
     "side_counts": {
       "long": {
         "total_count": 288,
@@ -210379,9 +210379,9 @@
         "hidden_count": 38
       },
       "short": {
-        "total_count": 269,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 19
+        "hidden_count": 20
       }
     },
     "retention": {
@@ -210400,6 +210400,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-deec11ae506b",
+        "idea_version": "IDEAV-4ea5f2ca34567a00",
+        "idea_version_started_at": "2026-10-26T22:42:48Z",
+        "ticker": "SKO",
+        "company": "Serko",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a negative guidance update, indicating a deterioration in financial performance expectations for the current period.",
+        "why_now": "The price-sensitive guidance update was filed on October 26, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e0955ffc2325"
+        ],
+        "primary_source_event_id": "EVT-e0955ffc2325",
+        "source_headlines": [
+          "SKO: Serko Guidance Update [price-sensitive]"
+        ],
+        "source_headline": "SKO: Serko Guidance Update [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SKO?key=2924-03153295-3A704993",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-26T20:31:10Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-26T22:42:48Z",
+        "updated_at": "2026-10-26T22:42:48Z",
+        "decay_at": "2026-10-28T08:31:10Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-28T08:31:10Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-26a4a64ef76e",
         "idea_version": "IDEAV-ad9e93eed4234da6",
@@ -247582,87 +247657,12 @@
         "archived_at": "2026-10-05T22:45:03Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-0157f621dab9",
-        "idea_version": "IDEAV-76e7c56cd73c4042",
-        "idea_version_started_at": "2026-10-03T06:51:27Z",
-        "ticker": "VLVLY",
-        "company": "Volvo Car",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The withdrawal of financial guidance due to deteriorating conditions in the Chinese auto market signals significant near-term margin compression and volume risk.",
-        "why_now": "The guidance withdrawal was announced on 2026-10-02, creating an immediate catalyst for re-rating.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-28ee22cd8bb6"
-        ],
-        "primary_source_event_id": "EVT-28ee22cd8bb6",
-        "source_headlines": [
-          "Volvo Car Pulls Guidance as Chinese Auto Market Worsens"
-        ],
-        "source_headline": "Volvo Car Pulls Guidance as Chinese Auto Market Worsens",
-        "source_url": "https://www.wsj.com/business/earnings/volvo-car-pulls-guidance-as-chinese-auto-market-worsen-e72ca14f?mod=pls_whats_news_us_business_f",
-        "source_name": "The Wall Street Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-02T14:22:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-02T21:12:37Z",
-        "updated_at": "2026-10-03T06:51:27Z",
-        "decay_at": "2026-10-04T02:22:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-05T20:12:25Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1974,
-    "live_count": 33,
+    "live_count": 32,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -247681,9 +247681,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 879378,
-    "news_picked_today": 1436,
-    "news_dropped_today": 7036
+    "news_seen_today": 898634,
+    "news_picked_today": 1442,
+    "news_dropped_today": 7078
   },
   "book_momentum": {
     "live_count": 8,
