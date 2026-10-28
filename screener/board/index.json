@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T04:12:51Z",
+  "generated_at": "2026-10-28T04:19:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-285",
@@ -1763,6 +1763,66 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-538",
+      "headline": "Wall Street banks, Blackstone line up $63 billion to finance Broadcom AI chips for Anthropic",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/business/wall-street-banks-blackstone-line-up-63-billion-to-finance-broadcom-ai-chips-for-anthropic",
+      "source_name": "Khaleej Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T12:13:45Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "A $63 billion financing package for AI infrastructure represents a massive capital commitment for the sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A $63 billion financing package for AI infrastructure represents a massive capital commitment for the sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Broadcom",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Blackstone",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-193",
       "headline": "Centene progresses on profit recovery, drops 6,000 employees",
       "headline_en": null,
@@ -1954,55 +2014,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-439",
-      "headline": "L&T Q2 profit jumps 33%, order inflows hit record high; margins ease on higher costs",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/lt-q2-results-profit-up-33-pc-order-inflows-record-high-margins-ease-higher-costs-20020591.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T13:36:27Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "L&T reported a 33% jump in Q2 profit and record order inflows.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "L&T reported a 33% jump in Q2 profit and record order inflows.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Larsen & Toubro",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248386,9 +248397,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 419119,
-    "news_picked_today": 775,
-    "news_dropped_today": 2537
+    "news_seen_today": 425924,
+    "news_picked_today": 819,
+    "news_dropped_today": 2613
   },
   "book_momentum": {
     "live_count": 8,
