@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T05:06:51Z",
+  "generated_at": "2026-10-28T05:12:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-570",
@@ -409,6 +409,60 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-583",
+      "headline": "EnerSys to Acquire Ultralife Corporation for $16.00 per Share in Cash",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/enersys-acquire-ultralife-corporation-1600-share-cash",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T03:08:33Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "EnerSys announced an acquisition of Ultralife Corporation for $16.00 per share in cash.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EnerSys announced an acquisition of Ultralife Corporation for $16.00 per share in cash.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EnerSys",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Ultralife Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1972,55 +2026,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-505",
-      "headline": "Almarai Company Announces Entry into the Red Meat Category with an Investment of Approximately Half a Billion Saudi Riyals",
-      "headline_en": null,
-      "url": "http://english.mubasher.info/news/4691521/Almarai-Company-Announces-Entry-into-the-Red-Meat-Category-with-an-Investment-of-Approximately-Half-a-Billion-Saudi-Riyals",
-      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T12:39:32Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Almarai is entering the red meat category with a capital investment of approximately 500 million Saudi Riyals.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Almarai is entering the red meat category with a capital investment of approximately 500 million Saudi Riyals.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Almarai",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248404,9 +248409,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 494412,
-    "news_picked_today": 1003,
-    "news_dropped_today": 3077
+    "news_seen_today": 501922,
+    "news_picked_today": 1021,
+    "news_dropped_today": 3155
   },
   "book_momentum": {
     "live_count": 8,
