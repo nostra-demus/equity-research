@@ -1,9 +1,9 @@
 {
-  "idea_id": "IDEA-6253abd0a020",
-  "idea_version": "IDEAV-cc944c7327b2b819",
-  "idea_version_started_at": "2026-10-25T21:58:59Z",
-  "ticker": "08158",
-  "company": "CRMI",
+  "idea_id": "IDEA-ff50b38b1f7b",
+  "idea_version": "IDEAV-b38608d5ef7fa213",
+  "idea_version_started_at": "2026-10-28T10:33:30Z",
+  "ticker": "9992",
+  "company": "Pop Mart",
   "exchange": "HKEX",
   "ticker_verified": false,
   "listing_verified": false,
@@ -11,15 +11,15 @@
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "The resignation of an auditor is a high-severity red flag often preceding accounting irregularities or governance failures.",
-  "why_now": "The resignation was announced on October 25, 2026, creating immediate downside risk.",
-  "conviction": 80,
+  "reason": "A sharp plunge in third-quarter sales suggests a potential cooling in demand for its core 'Labubu' product line, threatening the company's high growth valuation multiple.",
+  "why_now": "The sales decline was reported on October 28, 2026.",
+  "conviction": 65,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
-    "evidence": 25,
-    "impact": 19,
+    "evidence": 14,
+    "impact": 20,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
@@ -32,6 +32,7 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -44,30 +45,30 @@
     "evidenceIds": []
   },
   "priced_in": "room",
-  "thesis_type": "governance_turnaround",
+  "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-c2d7718d4c78"
+    "EVT-0ae91f685228"
   ],
-  "primary_source_event_id": "EVT-c2d7718d4c78",
+  "primary_source_event_id": "EVT-0ae91f685228",
   "source_headlines": [
-    "CRMI (08158): RESIGNATION OF AUDITOR"
+    "Labubu-maker Pop Mart's shares extend declines as third-quarter sales plunge"
   ],
-  "source_headline": "CRMI (08158): RESIGNATION OF AUDITOR",
-  "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1025/2026102500029.pdf",
-  "source_name": "HKEXnews (HK Exchange Filing)",
+  "source_headline": "Labubu-maker Pop Mart's shares extend declines as third-quarter sales plunge",
+  "source_url": "https://www.cnbc.com/2026/10/28/labubu-pop-mart-third-quarter-earnings.html",
+  "source_name": "CNBC",
   "materiality_max": 100,
-  "newest_source_at": "2026-10-25T10:15:00Z",
+  "newest_source_at": "2026-10-28T02:57:36Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-10-25T10:33:48Z",
-  "updated_at": "2026-10-25T21:58:59Z",
-  "decay_at": "2026-10-26T22:15:00Z",
+  "surfaced_at": "2026-10-28T10:33:30Z",
+  "updated_at": "2026-10-28T10:33:30Z",
+  "decay_at": "2026-10-29T14:57:36Z",
   "status": "live",
   "promoted_signal_id": null
 }

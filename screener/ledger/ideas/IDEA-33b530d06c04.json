@@ -1,25 +1,25 @@
 {
-  "idea_id": "IDEA-4a437db750bd",
-  "idea_version": "IDEAV-1606cc91e1dc29b8",
-  "idea_version_started_at": "2026-10-25T11:09:28Z",
-  "ticker": "6808",
-  "company": "Sun Art Retail Group Limited",
-  "exchange": "HKEX",
+  "idea_id": "IDEA-33b530d06c04",
+  "idea_version": "IDEAV-0006589f869e206b",
+  "idea_version_started_at": "2026-10-28T10:33:30Z",
+  "ticker": "MARUTI",
+  "company": "Maruti Suzuki",
+  "exchange": "NSE",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "Sun Art Retail issued an official profit warning filing on the HKEX indicating severe earnings deterioration and margin compression for its retail operations.",
-  "why_now": "The negative regulatory profit warning disclosure was filed on October 25, 2026.",
-  "conviction": 65,
+  "reason": "The company missed street profit expectations despite record sales, indicating significant margin compression likely due to rising input costs or discounting pressures.",
+  "why_now": "The Q2 earnings miss was reported on October 28, 2026.",
+  "conviction": 60,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
-    "evidence": 25,
-    "impact": 21,
+    "evidence": 14,
+    "impact": 19,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
@@ -32,6 +32,7 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -48,26 +49,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-6530a5ebb0ae"
+    "EVT-d79c34edfbab"
   ],
-  "primary_source_event_id": "EVT-6530a5ebb0ae",
+  "primary_source_event_id": "EVT-d79c34edfbab",
   "source_headlines": [
-    "SUNART RETAIL (06808): PROFIT WARNING"
+    "Maruti Q2 net misses street view despite record quarterly sales"
   ],
-  "source_headline": "SUNART RETAIL (06808): PROFIT WARNING",
-  "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1025/2026102500031.pdf",
-  "source_name": "HKEXnews (HK Exchange Filing)",
+  "source_headline": "Maruti Q2 net misses street view despite record quarterly sales",
+  "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/maruti-q2-net-misses-street-view-despite-record-quarterly-sales/articleshow/135249522.cms",
+  "source_name": "The Economic Times",
   "materiality_max": 100,
-  "newest_source_at": "2026-10-25T10:20:00Z",
+  "newest_source_at": "2026-10-28T02:25:09Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-10-25T11:09:28Z",
-  "updated_at": "2026-10-25T11:09:28Z",
-  "decay_at": "2026-10-26T22:20:00Z",
+  "surfaced_at": "2026-10-28T10:33:30Z",
+  "updated_at": "2026-10-28T10:33:30Z",
+  "decay_at": "2026-10-29T14:25:09Z",
   "status": "live",
   "promoted_signal_id": null
 }
