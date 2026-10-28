@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T23:19:04Z",
+  "generated_at": "2026-10-28T23:26:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-1080",
@@ -1181,6 +1181,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-1099",
+      "headline": "Alphabet shares fall after revenue miss, cash burn worsens",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/alphabet-shares-fall-after-revenue-miss-cash-burn-worsens",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T22:48:42Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Alphabet reported a revenue miss and increased cash burn, impacting financial expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Alphabet reported a revenue miss and increased cash burn, impacting financial expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alphabet",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-1090",
       "headline": "Star chairman says $260m fine won’t be the death of casino operator",
       "headline_en": null,
@@ -1920,55 +1969,6 @@
       "companies": [
         {
           "name": "Boston Scientific",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-1019",
-      "headline": "Stock Market Today, Oct. 28: Oracle Surges on Fiscal 2030 Revenue Guidance of $225 Billion",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/stock-market-today-oct-28-oracle-surges-fiscal-2030-revenue-guidance-225-billion",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T21:10:11Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Oracle provided a strong fiscal 2030 revenue guidance of $225 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Oracle provided a strong fiscal 2030 revenue guidance of $225 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Oracle",
           "ticker": null,
           "listing_country": "US"
         }
@@ -247131,9 +247131,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3376699,
-    "news_picked_today": 2691,
-    "news_dropped_today": 22317
+    "news_seen_today": 3388295,
+    "news_picked_today": 2718,
+    "news_dropped_today": 22410
   },
   "book_momentum": {
     "live_count": 8,
