@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T15:45:03Z",
+  "generated_at": "2026-10-28T16:01:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-948",
@@ -193,6 +193,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-954",
+      "headline": "425 - FIRST COMMUNITY BANKSHARES INC /VA/ (0000859070) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/859070/000143774926033708/0001437749-26-033708-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-28T12:54:18Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Form 425 business-combination communication filed by First Community Bankshares as transaction subject; confirms an active M&A transaction altering ownership and capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Form 425 business-combination communication filed by First Community Bankshares as transaction subject; confirms an active M&A transaction altering ownership and capital structure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "First Community Bankshares Inc",
+          "ticker": "FCBS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1940,55 +1989,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-819",
-      "headline": "Force Motors Q2 results: Profit falls 16% to ₹294 crore despite 41% revenue growth",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/earnings/force-motors-q2-results-profit-falls-16-to-rs294-crore-despite-41-revenue-growth-20021587.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T11:49:25Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Force Motors reported a 16% profit decline to ₹294 crore despite revenue growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Force Motors reported a 16% profit decline to ₹294 crore despite revenue growth.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Force Motors",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -204388,77 +204388,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-58d3e0cadc2a",
-      "idea_version": "IDEAV-3b0ca6c61b0b4714",
-      "idea_version_started_at": "2026-10-27T08:26:43Z",
-      "ticker": "INFY",
-      "company": "Infosys",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Multiple analyst downgrades following a weaker sales outlook indicate a structural slowdown in demand for IT services, pressuring margins and valuation multiples.",
-      "why_now": "The wave of four downgrades occurred on 2026-10-27, signaling a rapid shift in market sentiment.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8b171158c84f"
-      ],
-      "primary_source_event_id": "EVT-8b171158c84f",
-      "source_headlines": [
-        "Infosys Draws Four Downgrades in a Day on Weaker Sales Outlook"
-      ],
-      "source_headline": "Infosys Draws Four Downgrades in a Day on Weaker Sales Outlook",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-10-27/infosys-downgrades-weaker-sales-outlook-software-exporter-ai",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T03:58:57Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T15:10:57Z",
-      "updated_at": "2026-10-27T08:26:43Z",
-      "decay_at": "2026-10-28T15:58:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-1b994a384f0c",
       "idea_version": "IDEAV-dcf1a6b1e97114ff",
       "idea_version_started_at": "2026-10-28T10:33:30Z",
@@ -206300,6 +206229,77 @@
       "surfaced_at": "2026-10-26T02:34:32Z",
       "updated_at": "2026-10-26T03:24:01Z",
       "decay_at": "2026-10-27T12:52:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-58d3e0cadc2a",
+      "idea_version": "IDEAV-3b0ca6c61b0b4714",
+      "idea_version_started_at": "2026-10-27T08:26:43Z",
+      "ticker": "INFY",
+      "company": "Infosys",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Multiple analyst downgrades following a weaker sales outlook indicate a structural slowdown in demand for IT services, pressuring margins and valuation multiples.",
+      "why_now": "The wave of four downgrades occurred on 2026-10-27, signaling a rapid shift in market sentiment.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8b171158c84f"
+      ],
+      "primary_source_event_id": "EVT-8b171158c84f",
+      "source_headlines": [
+        "Infosys Draws Four Downgrades in a Day on Weaker Sales Outlook"
+      ],
+      "source_headline": "Infosys Draws Four Downgrades in a Day on Weaker Sales Outlook",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-27/infosys-downgrades-weaker-sales-outlook-software-exporter-ai",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-27T03:58:57Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-23T15:10:57Z",
+      "updated_at": "2026-10-27T08:26:43Z",
+      "decay_at": "2026-10-28T15:58:57Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -210060,9 +210060,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 563,
+    "total_count": 564,
     "shown_count": 500,
-    "hidden_count": 63,
+    "hidden_count": 64,
     "side_counts": {
       "long": {
         "total_count": 291,
@@ -210070,9 +210070,9 @@
         "hidden_count": 41
       },
       "short": {
-        "total_count": 272,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 23
       }
     },
     "retention": {
@@ -210091,6 +210091,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-58d3e0cadc2a",
+        "idea_version": "IDEAV-3b0ca6c61b0b4714",
+        "idea_version_started_at": "2026-10-27T08:26:43Z",
+        "ticker": "INFY",
+        "company": "Infosys",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Multiple analyst downgrades following a weaker sales outlook indicate a structural slowdown in demand for IT services, pressuring margins and valuation multiples.",
+        "why_now": "The wave of four downgrades occurred on 2026-10-27, signaling a rapid shift in market sentiment.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8b171158c84f"
+        ],
+        "primary_source_event_id": "EVT-8b171158c84f",
+        "source_headlines": [
+          "Infosys Draws Four Downgrades in a Day on Weaker Sales Outlook"
+        ],
+        "source_headline": "Infosys Draws Four Downgrades in a Day on Weaker Sales Outlook",
+        "source_url": "https://www.bloomberg.com/news/articles/2026-10-27/infosys-downgrades-weaker-sales-outlook-software-exporter-ai",
+        "source_name": "Bloomberg",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-27T03:58:57Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-23T15:10:57Z",
+        "updated_at": "2026-10-27T08:26:43Z",
+        "decay_at": "2026-10-28T15:58:57Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-28T15:58:57Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-f8710fa2cf67",
         "idea_version": "IDEAV-e574f18749ad3529",
@@ -247270,91 +247344,12 @@
         "archived_at": "2026-10-06T10:47:40Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-830bd652e0ef",
-        "idea_version": "IDEAV-578bb18fe805ad92",
-        "idea_version_started_at": "2026-10-03T07:11:46Z",
-        "ticker": "FLYDUBAI",
-        "company": "flydubai",
-        "exchange": null,
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A co-pilot attempted a terrorist attack on a flight, which will likely lead to increased security costs and reputational damage.",
-        "why_now": "The investigation into the incident is ongoing and has been reported by multiple news outlets today.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 10,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d3dac1b562f1",
-          "EVT-a713c433334d",
-          "EVT-0353b0e7dd1d"
-        ],
-        "primary_source_event_id": "EVT-d3dac1b562f1",
-        "source_headlines": [
-          "UAE investigation finds flydubai co-pilot tried to carry out terror attack",
-          "Flydubai co-pilot stabbed captain with crash axe in ‘terrorist’ attack: UAE",
-          "UAE says flydubai co-pilot attempted ‘terrorist act’ on Israel-bound flight"
-        ],
-        "source_headline": "UAE investigation finds flydubai co-pilot tried to carry out terror attack",
-        "source_url": "https://www.khaleejtimes.com/uae/uae-investigation-finds-flydubai-co-pilot-tried-to-carry-out-terror-attack",
-        "source_name": "Khaleej Times — UAE",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-03T06:40:15Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-03T07:11:46Z",
-        "updated_at": "2026-10-03T07:11:46Z",
-        "decay_at": "2026-10-04T18:40:15Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-06T10:47:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1979,
-    "live_count": 23,
+    "live_count": 22,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -247373,9 +247368,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2378731,
-    "news_picked_today": 2063,
-    "news_dropped_today": 13753
+    "news_seen_today": 2433397,
+    "news_picked_today": 2075,
+    "news_dropped_today": 13909
   },
   "book_momentum": {
     "live_count": 8,
