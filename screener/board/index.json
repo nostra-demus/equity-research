@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T22:53:59Z",
+  "generated_at": "2026-10-28T22:54:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-992",
@@ -1132,6 +1132,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-1048",
+      "headline": "Alphabet sinks 10% as it holds 2026 capex unchanged, expects significant increase in 2027",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/28/alphabet-googl-earnings-q3-2026.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T22:07:17Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Alphabet shares fell 10% following a guidance update where capex remains unchanged for 2026 but is expected to increase significantly in 2027.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Alphabet shares fell 10% following a guidance update where capex remains unchanged for 2026 but is expected to increase significantly in 2027.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alphabet",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-1043",
       "headline": "Wendy's, struggling with beef prices and growing competition, gets a buyout offer",
       "headline_en": null,
@@ -1935,55 +1984,6 @@
         {
           "name": "American Electric Power Company, Inc.",
           "ticker": "AEP",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-920",
-      "headline": "Nelson Peltz-led group offers to buy Wendy’s for $1.4B",
-      "headline_en": null,
-      "url": "https://www.foxbusiness.com/markets/nelson-peltz-led-group-offers-buy-wendys-1-4b",
-      "source_name": "Fox Business — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T14:35:49Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Nelson Peltz's group makes unsolicited $1.4B offer to acquire Wendy's, potentially triggering strategic review and competing bids.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nelson Peltz's group makes unsolicited $1.4B offer to acquire Wendy's, potentially triggering strategic review and competing bids.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Wendy's",
-          "ticker": "WEN",
           "listing_country": "US"
         }
       ],
@@ -247145,9 +247145,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3346562,
-    "news_picked_today": 2610,
-    "news_dropped_today": 22038
+    "news_seen_today": 3352611,
+    "news_picked_today": 2615,
+    "news_dropped_today": 22057
   },
   "book_momentum": {
     "live_count": 8,
