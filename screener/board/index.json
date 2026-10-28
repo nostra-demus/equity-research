@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T12:14:34Z",
+  "generated_at": "2026-10-28T12:15:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-812",
@@ -585,6 +585,105 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-819",
+      "headline": "Force Motors Q2 results: Profit falls 16% to ₹294 crore despite 41% revenue growth",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/force-motors-q2-results-profit-falls-16-to-rs294-crore-despite-41-revenue-growth-20021587.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T11:49:25Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Force Motors reported a 16% profit decline to ₹294 crore despite revenue growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Force Motors reported a 16% profit decline to ₹294 crore despite revenue growth.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Force Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-814",
+      "headline": "Boston Scientific Cuts View Again After Cyberattack, Other Challenges",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/earnings/boston-scientific-cuts-view-again-after-cyberattack-other-challenges-79d8945a?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T11:30:00Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Boston Scientific cut its financial outlook following a cyberattack and other operational challenges.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Boston Scientific cut its financial outlook following a cyberattack and other operational challenges.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boston Scientific",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1875,105 +1974,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-591",
-      "headline": "(4th LD) SK hynix logs record profit in Q3 on AI chip supercycle",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261028001654320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T04:43:39Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "SK Hynix reported record Q3 profit driven by the AI chip supercycle.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SK Hynix reported record Q3 profit driven by the AI chip supercycle.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK Hynix",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-285",
-      "headline": "Naver Secures $9 Billion AI Infrastructure Deal With Brookfield",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279822",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T04:36:03Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Naver secured a $9 billion AI infrastructure deal with Brookfield.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Naver secured a $9 billion AI infrastructure deal with Brookfield.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Naver",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -205950,77 +205950,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-12b791fa381c",
-      "idea_version": "IDEAV-a4e817085f560c80",
-      "idea_version_started_at": "2026-10-27T03:29:04Z",
-      "ticker": "03696",
-      "company": "Insilico Medicine",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported positive first-in-human clinical trial data for its AI-designed ISM6331 drug candidate, validating its generative AI drug discovery platform.",
-      "why_now": "The data was presented at ESMO 2026 and announced via filing on October 27, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d86476870b7f"
-      ],
-      "primary_source_event_id": "EVT-d86476870b7f",
-      "source_headlines": [
-        "INSILICO (03696): VOLUNTARY ANNOUNCEMENT INSILICO MEDICINE REPORTS PRELIMINARY POSITIVE FIRST-IN-HUMAN CLINICAL TRIAL DATA FOR ISM6331 DESIGNED USING GENERATIVE AI IN MESOTHELIOMA AND OTHER SOLID TUMORS AT ESMO 2026"
-      ],
-      "source_headline": "INSILICO (03696): VOLUNTARY ANNOUNCEMENT INSILICO MEDICINE REPORTS PRELIMINARY POSITIVE FIRST-IN-HUMAN CLINICAL TRIAL DATA FOR ISM6331 DESIGNED USING GENERATIVE AI IN MESOTHELIOMA AND OTHER SOLID TUMORS AT ESMO 2026",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700060.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 89,
-      "newest_source_at": "2026-10-27T00:15:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-27T03:29:04Z",
-      "updated_at": "2026-10-27T03:29:04Z",
-      "decay_at": "2026-10-28T12:15:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-406ba717f9ef",
       "idea_version": "IDEAV-25276e7ead781014",
       "idea_version_started_at": "2026-10-26T13:58:56Z",
@@ -209891,6 +209820,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-12b791fa381c",
+      "idea_version": "IDEAV-a4e817085f560c80",
+      "idea_version_started_at": "2026-10-27T03:29:04Z",
+      "ticker": "03696",
+      "company": "Insilico Medicine",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported positive first-in-human clinical trial data for its AI-designed ISM6331 drug candidate, validating its generative AI drug discovery platform.",
+      "why_now": "The data was presented at ESMO 2026 and announced via filing on October 27, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d86476870b7f"
+      ],
+      "primary_source_event_id": "EVT-d86476870b7f",
+      "source_headlines": [
+        "INSILICO (03696): VOLUNTARY ANNOUNCEMENT INSILICO MEDICINE REPORTS PRELIMINARY POSITIVE FIRST-IN-HUMAN CLINICAL TRIAL DATA FOR ISM6331 DESIGNED USING GENERATIVE AI IN MESOTHELIOMA AND OTHER SOLID TUMORS AT ESMO 2026"
+      ],
+      "source_headline": "INSILICO (03696): VOLUNTARY ANNOUNCEMENT INSILICO MEDICINE REPORTS PRELIMINARY POSITIVE FIRST-IN-HUMAN CLINICAL TRIAL DATA FOR ISM6331 DESIGNED USING GENERATIVE AI IN MESOTHELIOMA AND OTHER SOLID TUMORS AT ESMO 2026",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700060.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 89,
+      "newest_source_at": "2026-10-27T00:15:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-27T03:29:04Z",
+      "updated_at": "2026-10-27T03:29:04Z",
+      "decay_at": "2026-10-28T12:15:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-19c8572b0c99",
       "idea_version": "IDEAV-ff27778e9ddf4622",
       "idea_version_started_at": "2026-10-26T01:55:29Z",
@@ -210045,14 +210045,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 556,
+    "total_count": 557,
     "shown_count": 500,
-    "hidden_count": 56,
+    "hidden_count": 57,
     "side_counts": {
       "long": {
-        "total_count": 287,
+        "total_count": 288,
         "shown_count": 250,
-        "hidden_count": 37
+        "hidden_count": 38
       },
       "short": {
         "total_count": 269,
@@ -210076,6 +210076,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-12b791fa381c",
+        "idea_version": "IDEAV-a4e817085f560c80",
+        "idea_version_started_at": "2026-10-27T03:29:04Z",
+        "ticker": "03696",
+        "company": "Insilico Medicine",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported positive first-in-human clinical trial data for its AI-designed ISM6331 drug candidate, validating its generative AI drug discovery platform.",
+        "why_now": "The data was presented at ESMO 2026 and announced via filing on October 27, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d86476870b7f"
+        ],
+        "primary_source_event_id": "EVT-d86476870b7f",
+        "source_headlines": [
+          "INSILICO (03696): VOLUNTARY ANNOUNCEMENT INSILICO MEDICINE REPORTS PRELIMINARY POSITIVE FIRST-IN-HUMAN CLINICAL TRIAL DATA FOR ISM6331 DESIGNED USING GENERATIVE AI IN MESOTHELIOMA AND OTHER SOLID TUMORS AT ESMO 2026"
+        ],
+        "source_headline": "INSILICO (03696): VOLUNTARY ANNOUNCEMENT INSILICO MEDICINE REPORTS PRELIMINARY POSITIVE FIRST-IN-HUMAN CLINICAL TRIAL DATA FOR ISM6331 DESIGNED USING GENERATIVE AI IN MESOTHELIOMA AND OTHER SOLID TUMORS AT ESMO 2026",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1027/2026102700060.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 89,
+        "newest_source_at": "2026-10-27T00:15:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-27T03:29:04Z",
+        "updated_at": "2026-10-27T03:29:04Z",
+        "decay_at": "2026-10-28T12:15:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-28T12:15:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-de5c328d9705",
         "idea_version": "IDEAV-114005cce7ad6539",
@@ -238523,79 +238597,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-01df123bfa03",
-        "idea_version": "IDEAV-aa2290e56b4a0d8e",
-        "idea_version_started_at": "2026-10-13T21:10:09Z",
-        "ticker": "UNH",
-        "company": "UnitedHealth Group",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "UnitedHealth's ability to manage medical loss ratios while raising full-year guidance indicates superior operational efficiency and pricing power in a challenging healthcare cost environment.",
-        "why_now": "The company issued an updated positive guidance outlook today, October 13, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c6991a6cc645"
-        ],
-        "primary_source_event_id": "EVT-c6991a6cc645",
-        "source_headlines": [
-          "UnitedHealth keeps medical costs under control — and raises its outlook again"
-        ],
-        "source_headline": "UnitedHealth keeps medical costs under control — and raises its outlook again",
-        "source_url": "https://www.marketwatch.com/story/unitedhealth-keeps-medical-costs-under-control-and-raises-its-outlook-again-71abc99c?mod=mw_rss_topstories",
-        "source_name": "MarketWatch",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-13T13:49:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-13T21:10:09Z",
-        "updated_at": "2026-10-13T21:10:09Z",
-        "decay_at": "2026-10-15T01:49:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-16T21:35:53Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-44f60ec8fa69",
         "idea_version": "IDEAV-139e11281bf778b4",
         "idea_version_started_at": "2026-10-14T05:13:31Z",
@@ -247339,7 +247340,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1979,
-    "live_count": 30,
+    "live_count": 29,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -247358,9 +247359,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1573049,
-    "news_picked_today": 1801,
-    "news_dropped_today": 11495
+    "news_seen_today": 1583455,
+    "news_picked_today": 1809,
+    "news_dropped_today": 11511
   },
   "book_momentum": {
     "live_count": 8,
