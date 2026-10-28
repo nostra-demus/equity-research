@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T03:48:50Z",
+  "generated_at": "2026-10-28T03:56:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-285",
@@ -1861,6 +1861,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-439",
+      "headline": "L&T Q2 profit jumps 33%, order inflows hit record high; margins ease on higher costs",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/lt-q2-results-profit-up-33-pc-order-inflows-record-high-margins-ease-higher-costs-20020591.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T13:36:27Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "L&T reported a 33% jump in Q2 profit and record order inflows.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "L&T reported a 33% jump in Q2 profit and record order inflows.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Larsen & Toubro",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-096",
       "headline": "MEITUAN-W MEITUAN-WR (03690 83690): ISSUANCE OF CNY4.5 BILLION 2.50% SENIOR NOTES DUE 2031 AND CNY3.5 BILLION 3.10% SENIOR NOTES DUE 2036",
       "headline_en": null,
@@ -1924,55 +1973,6 @@
       "launched_signal_id": null,
       "triage_score": 98,
       "triage_reason": "Jio Platforms is making its trading debut following a record $3.2 billion IPO.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jio Platforms",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-223",
-      "headline": "Jio Platforms Listing Today: Rs 30,213 crore IPO eyes strong debut on Dalal Street",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/ipos/fpos/indias-biggest-listing-jio-shares-to-debut-today-what-to-expect-from-gmp-and-analysts/articleshow/135245742.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T01:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Jio Platforms is listing following a record Rs 30,213 crore IPO, a major liquidity event for the Indian market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Jio Platforms is listing following a record Rs 30,213 crore IPO, a major liquidity event for the Indian market.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 80,
@@ -248387,9 +248387,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 383702,
-    "news_picked_today": 675,
-    "news_dropped_today": 2301
+    "news_seen_today": 405053,
+    "news_picked_today": 703,
+    "news_dropped_today": 2345
   },
   "book_momentum": {
     "live_count": 8,
