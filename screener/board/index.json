@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-28T13:08:52Z",
+  "generated_at": "2026-10-28T13:16:52Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261028-870",
+      "headline": "425 - LCI INDUSTRIES (0000763744) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/763744/000076374426000096/0000763744-26-000096-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-28T12:36:33Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Form 425 business-combination communication filed by LCI Industries indicates an announced merger or acquisition transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Form 425 business-combination communication filed by LCI Industries indicates an announced merger or acquisition transaction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LCI Industries",
+          "ticker": "LCII",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261028-844",
       "headline": "HOPSON DEV HOLD (00754): (1) FINAL RESULTS FOR THE YEAR ENDED 31 DECEMBER 2025 AND (2) CONTINUED SUSPENSION OF TRADING",
@@ -1917,56 +1966,6 @@
       "companies": [
         {
           "name": "Adani Enterprises",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-703",
-      "headline": "APSEZ Q2 Net Profit Jumps To ₹3,682 Crore, Revenue Hits ₹11,340 Crore; FY27 Guidance Increased",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/apsez-q2-net-profit-jumps-to-3682-crore-revenue-hits-11340-crore-fy27-guidance-increased",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T08:13:33Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "APSEZ reported Q2 net profit of ₹3,682 crore, revenue of ₹11,340 crore, and increased FY27 guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "APSEZ reported Q2 net profit of ₹3,682 crore, revenue of ₹11,340 crore, and increased FY27 guidance.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "APSEZ",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -205733,78 +205732,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a025b73a32d6",
-      "idea_version": "IDEAV-8d3a7093d99aad51",
-      "idea_version_started_at": "2026-10-27T04:19:35Z",
-      "ticker": "TATAMOTORS",
-      "company": "Tata Motors",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of Iveco expands Tata Motors' commercial vehicle footprint and global market share, providing long-term revenue synergy potential.",
-      "why_now": "The bid has cleared the 80% shareholder threshold as of October 27, 2026, significantly increasing the probability of deal completion.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ac3063693d3b"
-      ],
-      "primary_source_event_id": "EVT-ac3063693d3b",
-      "source_headlines": [
-        "Tata Motor’s Iveco takeover bid clears 80% threshold"
-      ],
-      "source_headline": "Tata Motor’s Iveco takeover bid clears 80% threshold",
-      "source_url": "https://timesofindia.indiatimes.com/business/india-business/tata-motors-iveco-takeover-bid-clears-80-threshold/articleshow/135222297.cms",
-      "source_name": "The Times of India (Business)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T01:11:36Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-27T04:19:35Z",
-      "updated_at": "2026-10-27T04:19:35Z",
-      "decay_at": "2026-10-28T13:11:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f8710fa2cf67",
       "idea_version": "IDEAV-e574f18749ad3529",
       "idea_version_started_at": "2026-10-27T06:46:23Z",
@@ -206787,6 +206714,78 @@
       "surfaced_at": "2026-10-27T04:19:35Z",
       "updated_at": "2026-10-27T04:19:35Z",
       "decay_at": "2026-10-27T23:04:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-a025b73a32d6",
+      "idea_version": "IDEAV-8d3a7093d99aad51",
+      "idea_version_started_at": "2026-10-27T04:19:35Z",
+      "ticker": "TATAMOTORS",
+      "company": "Tata Motors",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of Iveco expands Tata Motors' commercial vehicle footprint and global market share, providing long-term revenue synergy potential.",
+      "why_now": "The bid has cleared the 80% shareholder threshold as of October 27, 2026, significantly increasing the probability of deal completion.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ac3063693d3b"
+      ],
+      "primary_source_event_id": "EVT-ac3063693d3b",
+      "source_headlines": [
+        "Tata Motor’s Iveco takeover bid clears 80% threshold"
+      ],
+      "source_headline": "Tata Motor’s Iveco takeover bid clears 80% threshold",
+      "source_url": "https://timesofindia.indiatimes.com/business/india-business/tata-motors-iveco-takeover-bid-clears-80-threshold/articleshow/135222297.cms",
+      "source_name": "The Times of India (Business)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-27T01:11:36Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-27T04:19:35Z",
+      "updated_at": "2026-10-27T04:19:35Z",
+      "decay_at": "2026-10-28T13:11:36Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -210043,14 +210042,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 558,
+    "total_count": 559,
     "shown_count": 500,
-    "hidden_count": 58,
+    "hidden_count": 59,
     "side_counts": {
       "long": {
-        "total_count": 289,
+        "total_count": 290,
         "shown_count": 250,
-        "hidden_count": 39
+        "hidden_count": 40
       },
       "short": {
         "total_count": 269,
@@ -210074,6 +210073,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a025b73a32d6",
+        "idea_version": "IDEAV-8d3a7093d99aad51",
+        "idea_version_started_at": "2026-10-27T04:19:35Z",
+        "ticker": "TATAMOTORS",
+        "company": "Tata Motors",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of Iveco expands Tata Motors' commercial vehicle footprint and global market share, providing long-term revenue synergy potential.",
+        "why_now": "The bid has cleared the 80% shareholder threshold as of October 27, 2026, significantly increasing the probability of deal completion.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ac3063693d3b"
+        ],
+        "primary_source_event_id": "EVT-ac3063693d3b",
+        "source_headlines": [
+          "Tata Motor’s Iveco takeover bid clears 80% threshold"
+        ],
+        "source_headline": "Tata Motor’s Iveco takeover bid clears 80% threshold",
+        "source_url": "https://timesofindia.indiatimes.com/business/india-business/tata-motors-iveco-takeover-bid-clears-80-threshold/articleshow/135222297.cms",
+        "source_name": "The Times of India (Business)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-27T01:11:36Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-27T04:19:35Z",
+        "updated_at": "2026-10-27T04:19:35Z",
+        "decay_at": "2026-10-28T13:11:36Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-28T13:11:36Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-75953c391d3a",
         "idea_version": "IDEAV-b03e7bca4f57768c",
@@ -238449,79 +238523,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-d42db65b6b2f",
-        "idea_version": "IDEAV-5277018282cf5049",
-        "idea_version_started_at": "2026-10-13T23:04:58Z",
-        "ticker": "SSRM",
-        "company": "SSR Mining",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The acquisition of Roxmore Resources for $712 million adds a significant Nevada gold project to the company's portfolio, increasing its long-term reserve base.",
-        "why_now": "The deal was announced on October 13, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 66,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-6d71f371b7c0"
-        ],
-        "primary_source_event_id": "EVT-6d71f371b7c0",
-        "source_headlines": [
-          "SSR Mining to buy Roxmore Resources, Nevada gold project in $712-million deal"
-        ],
-        "source_headline": "SSR Mining to buy Roxmore Resources, Nevada gold project in $712-million deal",
-        "source_url": "https://www.theglobeandmail.com/business/article-ssr-mining-to-buy-roxmore-resources-converse-gold-project/",
-        "source_name": "The Globe and Mail",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-13T15:22:35Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-13T23:04:58Z",
-        "updated_at": "2026-10-13T23:04:58Z",
-        "decay_at": "2026-10-15T03:22:35Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-16T21:35:53Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c6c88bb7ea3e",
         "idea_version": "IDEAV-18ef8f3c9a75bd4b",
         "idea_version_started_at": "2026-10-13T21:10:09Z",
@@ -247338,7 +247339,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1979,
-    "live_count": 28,
+    "live_count": 27,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -247357,9 +247358,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1863116,
-    "news_picked_today": 1910,
-    "news_dropped_today": 12058
+    "news_seen_today": 1894507,
+    "news_picked_today": 1916,
+    "news_dropped_today": 12244
   },
   "book_momentum": {
     "live_count": 8,
