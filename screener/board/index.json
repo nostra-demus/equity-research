@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T23:47:11Z",
+  "generated_at": "2026-10-28T23:54:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-1080",
@@ -1826,6 +1826,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-1109",
+      "headline": "Sprouts Sinks After Outlook Cut on Cyclospora, Consumer Woes",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-28/sprouts-slashes-outlook-after-cyclospora-outbreak-hit-sales",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T21:24:40Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Sprouts cut its outlook due to health concerns and consumer weakness, leading to a significant stock price decline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sprouts cut its outlook due to health concerns and consumer weakness, leading to a significant stock price decline.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sprouts Farmers Market",
+          "ticker": "SFM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-1079",
       "headline": "BCE Inc. Announces Agreement with La Caisse to Sell 49.9% Stake in Wireless Tower Infrastructure Company for CAD $2.45 billion",
       "headline_en": null,
@@ -1924,56 +1974,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-1018",
-      "headline": "Stock Market Today, Oct. 28: Boston Scientific Slips 6% After Cutting Q4 Sales and Full-Year EPS Guidance on Cyberattack Impact",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/stock-market-today-oct-28-boston-scientific-slips-6-after-cutting-q4-sales-and-full-year",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T21:10:22Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Boston Scientific cut Q4 sales and full-year EPS guidance due to a cyberattack.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Boston Scientific cut Q4 sales and full-year EPS guidance due to a cyberattack.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Boston Scientific",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247131,9 +247131,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3416207,
-    "news_picked_today": 2775,
-    "news_dropped_today": 22569
+    "news_seen_today": 3421706,
+    "news_picked_today": 2812,
+    "news_dropped_today": 22652
   },
   "book_momentum": {
     "live_count": 8,
