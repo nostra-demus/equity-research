@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T09:27:30Z",
+  "generated_at": "2026-10-28T09:31:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-708",
@@ -193,6 +193,154 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-726",
+      "headline": "Hyundai Motor India Q2 Results: Standalone profit falls 24% to Rs 1,189 crore, but revenue gains 18% YoY",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/hyundai-motor-india-q2-results-standalone-profit-falls-24-to-rs-1189-crore-but-revenue-gains-18-yoy/articleshow/135259321.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T09:19:48Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Hyundai Motor India reported a 24% decline in standalone profit to Rs 1,189 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hyundai Motor India reported a 24% decline in standalone profit to Rs 1,189 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyundai Motor India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-727",
+      "headline": "Vedanta Q2 Results: Profit Falls 33% As Demerged Businesses Drop Out; Ebitda Rises 17%",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/vedanta-q2-results-profit-falls-33-sequentially-as-demerged-businesses-drop-out-ebitda-rises-17-12247667#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T09:19:13Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Vedanta reported a 33% profit decline alongside a 17% increase in EBITDA.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vedanta reported a 33% profit decline alongside a 17% increase in EBITDA.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vedanta",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-730",
+      "headline": "PVR INOX posts record Q2 earnings, plans to return 30% of annual surplus cash flow",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/media/entertainment/pvr-inox-posts-record-q2-earnings-plans-to-return-30-of-annual-surplus-cash-flow/articleshow/135259058.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T09:08:19Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "PVR Inox reported record Q2 earnings and announced a plan to return 30% of annual surplus cash flow.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PVR Inox reported record Q2 earnings and announced a plan to return 30% of annual surplus cash flow.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PVR Inox",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1854,154 +2002,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-234",
-      "headline": "(3rd LD) SK hynix logs record profit in Q3 on AI chip supercycle",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261028001653320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T01:34:05Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "SK hynix reported record Q3 profits driven by the AI chip supercycle.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SK hynix reported record Q3 profits driven by the AI chip supercycle.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK hynix",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-145",
-      "headline": "SK Hynix posts record Q3 profit of $62.8 billion, beats estimates on AI demand",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/sk-hynix-posts-record-q3-profit-of-62-8-billion-beats-estimates-on-ai-demand-20020822.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T01:02:02Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "SK Hynix reported a record Q3 profit of $62.8 billion, significantly beating market expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SK Hynix reported a record Q3 profit of $62.8 billion, significantly beating market expectations.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK Hynix",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-153",
-      "headline": "Inflation above forecasts; Star on brink after $260m fine; Iron ore price’s scary China warning",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/inflation-above-forecasts-star-on-brink-after-260m-fine-iron-ore-price-s-scary-china-warning-20261028-p619b9?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T01:01:46Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Star Entertainment faces a $260 million fine, threatening its viability, alongside negative macro signals from iron ore prices.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Star Entertainment faces a $260 million fine, threatening its viability, alongside negative macro signals from iron ore prices.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Star Entertainment",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -205832,82 +205832,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3dcf768f4a41",
-      "idea_version": "IDEAV-57a0fff54634725b",
-      "idea_version_started_at": "2026-10-26T21:48:47Z",
-      "ticker": "CART",
-      "company": "Instacart",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "DoorDash is in advanced talks to acquire Instacart, which generally leads to a share price convergence toward the acquisition offer price.",
-      "why_now": "Multiple news outlets confirmed the advanced stage of acquisition talks on October 26, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 10,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-21417e106065",
-        "EVT-dfea9407c81e",
-        "EVT-7ca9b21f1f71"
-      ],
-      "primary_source_event_id": "EVT-21417e106065",
-      "source_headlines": [
-        "DoorDash Is in Advanced Talks to Acquire Instacart, WSJ Says",
-        "DoorDash in talks to buy Instacart in deal valued around $17-billion, source says",
-        "DoorDash Circles Deal to Buy Instacart"
-      ],
-      "source_headline": "DoorDash Is in Advanced Talks to Acquire Instacart, WSJ Says",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-10-26/doordash-is-in-advanced-talks-to-acquire-instacart-wsj-says",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T21:28:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-24T05:52:11Z",
-      "updated_at": "2026-10-26T21:48:47Z",
-      "decay_at": "2026-10-28T09:28:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f8710fa2cf67",
       "idea_version": "IDEAV-e574f18749ad3529",
       "idea_version_started_at": "2026-10-27T06:46:23Z",
@@ -207248,6 +207172,82 @@
       "surfaced_at": "2026-10-26T22:42:48Z",
       "updated_at": "2026-10-26T22:42:48Z",
       "decay_at": "2026-10-28T08:31:10Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-3dcf768f4a41",
+      "idea_version": "IDEAV-57a0fff54634725b",
+      "idea_version_started_at": "2026-10-26T21:48:47Z",
+      "ticker": "CART",
+      "company": "Instacart",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "DoorDash is in advanced talks to acquire Instacart, which generally leads to a share price convergence toward the acquisition offer price.",
+      "why_now": "Multiple news outlets confirmed the advanced stage of acquisition talks on October 26, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-21417e106065",
+        "EVT-dfea9407c81e",
+        "EVT-7ca9b21f1f71"
+      ],
+      "primary_source_event_id": "EVT-21417e106065",
+      "source_headlines": [
+        "DoorDash Is in Advanced Talks to Acquire Instacart, WSJ Says",
+        "DoorDash in talks to buy Instacart in deal valued around $17-billion, source says",
+        "DoorDash Circles Deal to Buy Instacart"
+      ],
+      "source_headline": "DoorDash Is in Advanced Talks to Acquire Instacart, WSJ Says",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-26/doordash-is-in-advanced-talks-to-acquire-instacart-wsj-says",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-26T21:28:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-24T05:52:11Z",
+      "updated_at": "2026-10-26T21:48:47Z",
+      "decay_at": "2026-10-28T09:28:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -210358,14 +210358,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 558,
+    "total_count": 559,
     "shown_count": 500,
-    "hidden_count": 58,
+    "hidden_count": 59,
     "side_counts": {
       "long": {
-        "total_count": 287,
+        "total_count": 288,
         "shown_count": 250,
-        "hidden_count": 37
+        "hidden_count": 38
       },
       "short": {
         "total_count": 271,
@@ -210389,6 +210389,85 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3dcf768f4a41",
+        "idea_version": "IDEAV-57a0fff54634725b",
+        "idea_version_started_at": "2026-10-26T21:48:47Z",
+        "ticker": "CART",
+        "company": "Instacart",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "DoorDash is in advanced talks to acquire Instacart, which generally leads to a share price convergence toward the acquisition offer price.",
+        "why_now": "Multiple news outlets confirmed the advanced stage of acquisition talks on October 26, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 10,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-21417e106065",
+          "EVT-dfea9407c81e",
+          "EVT-7ca9b21f1f71"
+        ],
+        "primary_source_event_id": "EVT-21417e106065",
+        "source_headlines": [
+          "DoorDash Is in Advanced Talks to Acquire Instacart, WSJ Says",
+          "DoorDash in talks to buy Instacart in deal valued around $17-billion, source says",
+          "DoorDash Circles Deal to Buy Instacart"
+        ],
+        "source_headline": "DoorDash Is in Advanced Talks to Acquire Instacart, WSJ Says",
+        "source_url": "https://www.bloomberg.com/news/articles/2026-10-26/doordash-is-in-advanced-talks-to-acquire-instacart-wsj-says",
+        "source_name": "Bloomberg",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-26T21:28:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-24T05:52:11Z",
+        "updated_at": "2026-10-26T21:48:47Z",
+        "decay_at": "2026-10-28T09:28:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-28T09:28:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b15bac6543df",
         "idea_version": "IDEAV-d4d3743d27218a0f",
@@ -238910,79 +238989,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-ab675b24d137",
-        "idea_version": "IDEAV-b4003ca2a21d5f59",
-        "idea_version_started_at": "2026-10-13T14:10:50Z",
-        "ticker": "BMBL",
-        "company": "Bumble",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Bumble shares surged on news of potential takeover talks valuing the company at $1 billion.",
-        "why_now": "The report of takeover talks emerged on October 13, 2026, creating immediate market reaction.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 67,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b82a79096114"
-        ],
-        "primary_source_event_id": "EVT-b82a79096114",
-        "source_headlines": [
-          "Bumble shares soar after report dating firm in $1bn takeover talks"
-        ],
-        "source_headline": "Bumble shares soar after report dating firm in $1bn takeover talks",
-        "source_url": "https://www.bbc.co.uk/news/articles/cm9qzwjgnjxlo?at_medium=RSS&at_campaign=rss",
-        "source_name": "BBC News — Business",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-13T01:36:36Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-13T14:10:50Z",
-        "updated_at": "2026-10-13T14:10:50Z",
-        "decay_at": "2026-10-14T13:36:36Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-16T04:22:13Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-00b4c736ede9",
         "idea_version": "IDEAV-3710c24cc71a30c8",
         "idea_version_started_at": "2026-10-13T16:07:22Z",
@@ -247649,7 +247655,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1975,
-    "live_count": 32,
+    "live_count": 31,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -247668,9 +247674,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1071786,
-    "news_picked_today": 1529,
-    "news_dropped_today": 7903
+    "news_seen_today": 1091646,
+    "news_picked_today": 1535,
+    "news_dropped_today": 7921
   },
   "book_momentum": {
     "live_count": 8,
