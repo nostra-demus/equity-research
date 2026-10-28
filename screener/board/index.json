@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T08:47:28Z",
+  "generated_at": "2026-10-28T08:58:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-654",
@@ -46,6 +46,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-681",
+      "headline": "Adani Ports Q2 Results: Co Raises FY27 Guidance After Profit Rises 17%; Logistics, International Ports Drive Growth",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/adani-ports-q2-results-co-raises-fy27-guidance-after-profit-rises-17-logistics-international-ports-drive-growth-12247321#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T07:56:29Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Adani Ports reports Q2 profit up 17% and raises FY27 guidance; logistics and international ports drive growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Adani Ports reports Q2 profit up 17% and raises FY27 guidance; logistics and international ports drive growth.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Ports",
+          "ticker": "ADANIPORTS",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1957,60 +2007,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-042",
-      "headline": "Warburg Pincus Sweetens Ingenia Offer as Bidding War Ramps Up",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-27/warburg-pincus-sweetens-ingenia-offer-as-bidding-war-ramps-up",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T23:32:52Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Warburg Pincus has increased its offer for Ingenia, intensifying a bidding war.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Warburg Pincus has increased its offer for Ingenia, intensifying a bidding war.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Warburg Pincus",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Ingenia",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247681,9 +247677,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 946779,
-    "news_picked_today": 1450,
-    "news_dropped_today": 7382
+    "news_seen_today": 956712,
+    "news_picked_today": 1461,
+    "news_dropped_today": 7515
   },
   "book_momentum": {
     "live_count": 8,
