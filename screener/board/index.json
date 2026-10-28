@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T22:17:07Z",
+  "generated_at": "2026-10-28T22:20:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-992",
@@ -1132,6 +1132,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-1041",
+      "headline": "CONMED Q3 Profit Rises, Updates 2026 Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/conmed-q3-profit-rises-updates-2026-guidance",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T21:41:17Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "CONMED reported Q3 profit growth and updated 2026 guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CONMED reported Q3 profit growth and updated 2026 guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CONMED",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-1016",
       "headline": "DoorDash's deal to buy Instacart coming as early as Thursday morning, sources tell CNBC",
       "headline_en": null,
@@ -1181,6 +1231,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-1042",
+      "headline": "EPR Properties Q3 Profit Rises, Raises FY26 Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/epr-properties-q3-profit-rises-raises-fy26-guidance",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T21:29:01Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "EPR Properties reported Q3 profit growth and raised FY26 guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EPR Properties reported Q3 profit growth and raised FY26 guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EPR Properties",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1888,114 +1988,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-940",
-      "headline": "GE Vernova to Buy Grid-Equipment Manufacturer for $9 Billion as Energy Demand Grows",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/energy-oil/ge-vernova-to-buy-high-voltage-grid-equipment-manufacturer-for-9-billion-b29dd2ef?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T14:18:00Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "GE Vernova announces $9 billion acquisition of grid-equipment manufacturer, a major capital deployment affecting capital structure, cash flow, and strategic capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GE Vernova announces $9 billion acquisition of grid-equipment manufacturer, a major capital deployment affecting capital structure, cash flow, and strategic capacity.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 7,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GE Vernova",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-897",
-      "headline": "Enphase Energy Sinks 20% on Weak Q4 Guidance as Residential Solar Slump Deepens; SolarEdge Drops 10%, Sunrun Falls 5%, First Solar Dips",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/10/28/enphase-energy-sinks-20-on-weak-q4-guidance-as-residential-solar-slump-deepens-solaredge-drops-10-sunrun-falls-5-first-solar-dips/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T13:30:04Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Enphase Energy issues weak Q4 guidance, reducing revenue and earnings expectations and triggering analyst downgrades across solar sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Enphase Energy issues weak Q4 guidance, reducing revenue and earnings expectations and triggering analyst downgrades across solar sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Enphase Energy",
-          "ticker": "ENPH",
-          "listing_country": "US"
-        },
-        {
-          "name": "SolarEdge Technologies",
-          "ticker": "SEDG",
-          "listing_country": "US"
-        },
-        {
-          "name": "Sunrun Inc.",
-          "ticker": "RUN",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247153,9 +247145,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3295228,
-    "news_picked_today": 2554,
-    "news_dropped_today": 21206
+    "news_seen_today": 3302236,
+    "news_picked_today": 2565,
+    "news_dropped_today": 21219
   },
   "book_momentum": {
     "live_count": 8,
