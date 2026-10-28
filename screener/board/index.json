@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T19:52:51Z",
+  "generated_at": "2026-10-28T20:02:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-992",
@@ -1132,6 +1132,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-996",
+      "headline": "Vedanta cuts debt by Rs 4,624 crore in September quarter as net profit jumps 151%",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/vedanta-cuts-debt-by-rs-4624-crore-in-september-quarter-as-net-profit-jumps-151/articleshow/135278530.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T19:09:39Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Vedanta reported a 151% jump in net profit and reduced debt by Rs 4,624 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vedanta reported a 151% jump in net profit and reduced debt by Rs 4,624 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vedanta",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-990",
       "headline": "Poundland set to appoint administrators as union warns of job losses before Christmas",
       "headline_en": null,
@@ -1939,60 +1989,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-868",
-      "headline": "FCC approves Amazon Leo's $11.5bn acquisition of Globalstar",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/fcc-approves-amazon-leos-115bn-acquisition-of-globalstar/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T12:38:21Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "FCC approved Amazon's $11.5 billion acquisition of Globalstar.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "FCC approved Amazon's $11.5 billion acquisition of Globalstar.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Globalstar",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247151,9 +247147,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3117295,
-    "news_picked_today": 2263,
-    "news_dropped_today": 17225
+    "news_seen_today": 3127229,
+    "news_picked_today": 2275,
+    "news_dropped_today": 18029
   },
   "book_momentum": {
     "live_count": 8,
