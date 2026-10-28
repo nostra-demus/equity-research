@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-28T09:43:25Z",
+  "generated_at": "2026-10-28T09:45:32Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261028-735",
+      "headline": "RSUN PPT (01996): INSIDE INFORMATION - UPDATE ON THE PROPOSED RESTRUCTURING OF OFFSHORE DEBTS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1028/2026102800560.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-28T09:24:00Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "RSUN Property provided an update on the restructuring of its offshore debts, indicating ongoing financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "RSUN Property provided an update on the restructuring of its offshore debts, indicating ongoing financial distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RSUN Property",
+          "ticker": "01996",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261028-708",
       "headline": "LOTUS HORIZON (06063): PROFIT WARNING",
@@ -1952,56 +2001,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-221",
-      "headline": "SK Hynix shares soar over 8% as profit beats, chipmaker to return $25 billion to investors",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/28/sk-hynix-third-quarter-profit.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T01:56:59Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "SK Hynix reported a profit beat and announced a $25 billion capital return plan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SK Hynix reported a profit beat and announced a $25 billion capital return plan.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK Hynix",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247674,9 +247673,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1121407,
-    "news_picked_today": 1539,
-    "news_dropped_today": 8301
+    "news_seen_today": 1140513,
+    "news_picked_today": 1549,
+    "news_dropped_today": 8315
   },
   "book_momentum": {
     "live_count": 8,
