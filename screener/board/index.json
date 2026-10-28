@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T14:07:00Z",
+  "generated_at": "2026-10-28T14:15:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-900",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261028-908",
+      "headline": "eClerx Services Limited: eClerx Services Limited has informed the Exchange regarding a press release dated October 28, 2026, titled \"eClerx s Q2 FY27 revenue at INR 1,212.6 crore, up by 17.1% YoY\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ECLERX_28102026190847_BSENSEPR28102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-28T13:39:55Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "eClerx reported a significant 17.1% year-over-year revenue growth for Q2 FY27, reaching INR 1,212.6 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "eClerx reported a significant 17.1% year-over-year revenue growth for Q2 FY27, reaching INR 1,212.6 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "eClerx Services Limited",
+          "ticker": "ECLERX",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1935,56 +1984,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-776",
-      "headline": "Hunting shares tumble after cutting guidance as Middle East conflict hits oil services",
-      "headline_en": null,
-      "url": "https://ukinvestormagazine.co.uk/hunting-shares-tumble-after-cutting-guidance-as-middle-east-conflict-hits-oil-services/",
-      "source_name": "UK Investor Magazine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T09:53:04Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Shares tumbled after the company cut guidance due to Middle East conflict impacts on oil services.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shares tumbled after the company cut guidance due to Middle East conflict impacts on oil services.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 3,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change",
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hunting PLC",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247374,9 +247373,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2057579,
-    "news_picked_today": 1980,
-    "news_dropped_today": 12732
+    "news_seen_today": 2091083,
+    "news_picked_today": 1985,
+    "news_dropped_today": 12871
   },
   "book_momentum": {
     "live_count": 8,
