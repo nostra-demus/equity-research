@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-28T19:35:41Z",
+  "generated_at": "2026-10-28T19:43:45Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261028-992",
+      "headline": "OnEMI Technology Solutions Limited: OnEMI Technology Solutions Limited has informed the Exchange regarding a press release dated October 28, 2026, titled \"Kissht delivers strong Q2FY27 performance; AUM reached ₹9,317 Cr, PAT doubles YoY to ₹125 Cr\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ONEMI_29102026002048_Pressreleaseintimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-28T18:50:59Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "OnEMI Technology Solutions reported strong Q2FY27 results with AUM at ₹9,317 Cr and PAT doubling YoY to ₹125 Cr.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "OnEMI Technology Solutions reported strong Q2FY27 results with AUM at ₹9,317 Cr and PAT doubling YoY to ₹125 Cr.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OnEMI Technology Solutions Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261028-980",
       "headline": "NT 10-K - Panamera Holdings Corp (0001620749) (Filer)",
@@ -1939,61 +1988,6 @@
         },
         {
           "name": "Globalstar",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-863",
-      "headline": "Google, Apple hit with $61m fine in South Korea’s app store crackdown",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/google-apple-hit-with-61m-fine-in-south-koreas-app-store-crackdown",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T12:35:00Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Google and Apple were fined $61 million by South Korean regulators.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Google and Apple were fined $61 million by South Korean regulators.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Google",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Apple",
           "ticker": null,
           "listing_country": "US"
         }
@@ -247157,9 +247151,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3056793,
-    "news_picked_today": 2256,
-    "news_dropped_today": 16824
+    "news_seen_today": 3087111,
+    "news_picked_today": 2258,
+    "news_dropped_today": 16918
   },
   "book_momentum": {
     "live_count": 8,
