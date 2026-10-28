@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T01:06:47Z",
+  "generated_at": "2026-10-28T01:11:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261028-123",
@@ -1584,6 +1584,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261028-128",
+      "headline": "SK Hynix Unveils $45 Billion Shareholder Returns From AI Profits",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-27/sk-hynix-profit-jumps-seven-fold-to-soothe-doubts-over-ai-rush",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-27T23:34:14Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "SK Hynix announces quantified $45 billion shareholder-return programme attributed to AI-driven profit growth, material capital action from mega-cap semiconductor company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "SK Hynix announces quantified $45 billion shareholder-return programme attributed to AI-driven profit growth, material capital action from mega-cap semiconductor company.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK Hynix",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261028-005",
       "headline": "Visteon Corporation Appoints Colleen E. Myers as Interim CFO, Jerome J. Rouquet to Depart",
       "headline_en": null,
@@ -1916,55 +1965,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-080",
-      "headline": "Landstar System Reports Third Quarter Revenue of $1.512B and Earnings Per Share of $1.42",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/landstar-system-reports-third-quarter-revenue-1512b-and-earnings-share-142",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-27T23:52:53Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Landstar System reported Q3 2026 revenue of $1.512B and EPS of $1.42.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Landstar System reported Q3 2026 revenue of $1.512B and EPS of $1.42.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Landstar System",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248710,9 +248710,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 113158,
-    "news_picked_today": 173,
-    "news_dropped_today": 739
+    "news_seen_today": 121583,
+    "news_picked_today": 182,
+    "news_dropped_today": 778
   },
   "book_momentum": {
     "live_count": 8,
