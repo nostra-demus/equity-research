@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-28T15:38:03Z",
+  "generated_at": "2026-10-28T15:45:03Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261028-948",
+      "headline": "Emkay Global Financial Services Limited: Emkay Global Financial Services Limited has informed the Exchange that:1. The Board has approved the transfer by the Company of its investment in Emkay Investment Managers Limited ( EIML ), comprising 100% stake being 90,00,000 equity shares held by the Company (along with its nominees), to Emkay Capital Private Limited (ECPL), on the terms and conditions as set out in the Share Purchase Agreement ( SPA )2. The Board has also approved the transfer by the",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/jpshah_28102026195658_Restructuring_Intimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-28T14:28:02Z",
+      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
+      "prelim_note": "Board approved divestiture of 100% stake in subsidiary Emkay Investment Managers Limited (90 million shares) to Emkay Capital Private Limited, affecting capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Board approved divestiture of 100% stake in subsidiary Emkay Investment Managers Limited (90 million shares) to Emkay Capital Private Limited, affecting capital structure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Emkay Global Financial Services Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261028-918",
       "headline": "PASHUN INT'L (00574): WINDING-UP PETITION HEARING ADJOURNED",
@@ -1940,56 +1989,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261028-814",
-      "headline": "Boston Scientific Cuts View Again After Cyberattack, Other Challenges",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/boston-scientific-cuts-view-again-after-cyberattack-other-challenges-79d8945a?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T11:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-28_sweep.json",
-      "prelim_note": "Boston Scientific cut its financial outlook following a cyberattack and other operational challenges.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Boston Scientific cut its financial outlook following a cyberattack and other operational challenges.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Boston Scientific",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247374,9 +247373,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2367673,
-    "news_picked_today": 2061,
-    "news_dropped_today": 13659
+    "news_seen_today": 2378731,
+    "news_picked_today": 2063,
+    "news_dropped_today": 13753
   },
   "book_momentum": {
     "live_count": 8,
