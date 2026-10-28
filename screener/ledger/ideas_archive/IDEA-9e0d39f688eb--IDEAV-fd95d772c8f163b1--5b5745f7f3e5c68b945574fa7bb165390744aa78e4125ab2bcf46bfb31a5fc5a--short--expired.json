@@ -1,13 +1,13 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-02T09:44:43Z",
+  "archived_at": "2026-10-28T02:32:27Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-000581c2d4b0",
-    "idea_version": "IDEAV-c3234b6d80f23e22",
-    "idea_version_started_at": "2026-09-29T10:02:00Z",
-    "ticker": "ZIM",
-    "company": "ZIM Integrated Shipping Services",
+    "idea_id": "IDEA-9e0d39f688eb",
+    "idea_version": "IDEAV-fd95d772c8f163b1",
+    "idea_version_started_at": "2026-10-25T22:53:36Z",
+    "ticker": "TECK",
+    "company": "Teck Resources",
     "exchange": "NYSE",
     "ticker_verified": true,
     "listing_verified": true,
@@ -15,17 +15,17 @@
     "listing_verification_source": "yahoo_symbol_directory",
     "direction": "short",
     "pair_with": null,
-    "reason": "The proposed $4 billion takeover by Hapag-Lloyd is being blocked by Israeli regulators due to concerns over foreign ownership stakes, removing the acquisition premium from the stock price.",
-    "why_now": "The regulatory intervention was reported on September 29, 2026.",
+    "reason": "A labor strike at the Highland Valley Copper mine halts production at a key asset, directly impacting copper output and quarterly revenue.",
+    "why_now": "The strike began on 2026-10-24 and is an active operational disruption.",
     "conviction": 70,
     "conviction_basis": "pre_edge_proxy",
-    "trade_score": 66,
+    "trade_score": 61,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 20,
+      "impact": 19,
       "specificity": 15,
-      "timing": 10,
+      "timing": 6,
       "expression": 7,
       "corroboration": 0,
       "learning_adjustment": 0
@@ -51,26 +51,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-acf117012996"
+      "EVT-7e383581d94f"
     ],
-    "primary_source_event_id": "EVT-acf117012996",
+    "primary_source_event_id": "EVT-7e383581d94f",
     "source_headlines": [
-      "Israel Cites Saudi, Qatari Stakes in Hapag to Halt $4 Billion ZIM Takeover"
+      "Teck says strike begins at Highland Valley Copper mine in British Columbia"
     ],
-    "source_headline": "Israel Cites Saudi, Qatari Stakes in Hapag to Halt $4 Billion ZIM Takeover",
-    "source_url": "https://www.bloomberg.com/news/articles/2026-09-29/israel-cites-saudi-qatari-stakes-in-hapag-to-halt-4-billion-zim-takeover",
-    "source_name": "Bloomberg",
+    "source_headline": "Teck says strike begins at Highland Valley Copper mine in British Columbia",
+    "source_url": "https://www.reuters.com/business/world-at-work/teck-says-strike-begins-highland-valley-copper-mine-british-columbia-2026-10-24/",
+    "source_name": "Reuters — Latest (news sitemap)",
     "materiality_max": 100,
-    "newest_source_at": "2026-09-29T09:18:14Z",
+    "newest_source_at": "2026-10-24T20:21:48Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-29T10:02:00Z",
-    "updated_at": "2026-09-29T10:02:00Z",
-    "decay_at": "2026-09-30T21:18:14Z",
+    "surfaced_at": "2026-10-24T20:38:50Z",
+    "updated_at": "2026-10-25T22:53:36Z",
+    "decay_at": "2026-10-26T08:21:48Z",
     "status": "live",
     "promoted_signal_id": null
   }

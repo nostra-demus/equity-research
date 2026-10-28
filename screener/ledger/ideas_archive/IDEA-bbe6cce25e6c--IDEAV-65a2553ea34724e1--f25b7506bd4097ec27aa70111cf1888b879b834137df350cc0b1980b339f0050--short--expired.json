@@ -1,33 +1,33 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-02T09:44:43Z",
+  "archived_at": "2026-10-28T02:32:27Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-ecd44507baf4",
-    "idea_version": "IDEAV-db22a8845cd3834f",
-    "idea_version_started_at": "2026-09-29T10:02:00Z",
-    "ticker": "LISN",
-    "company": "Lindt & Sprüngli",
-    "exchange": "SIX",
+    "idea_id": "IDEA-bbe6cce25e6c",
+    "idea_version": "IDEAV-65a2553ea34724e1",
+    "idea_version_started_at": "2026-10-25T02:18:41Z",
+    "ticker": "005380",
+    "company": "Hyundai Motor",
+    "exchange": "KRX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "The company is lowering sales forecasts for the second time in 2026 due to weakening consumer demand for chocolate, which will compress margins and revenue growth.",
-    "why_now": "The guidance revision was announced on September 29, 2026.",
-    "conviction": 75,
+    "reason": "Combined China sales for Hyundai and Kia fell below the 10,000-unit threshold in September, signaling a near-total collapse of their market share in the world's largest auto market.",
+    "why_now": "September sales data confirming the sub-10k unit volume was just released on October 25, 2026.",
+    "conviction": 50,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 20,
+      "impact": 15,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
-      "corroboration": 7,
+      "corroboration": 0,
       "learning_adjustment": 0
     },
     "trade_readiness": "watch_only",
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -52,28 +53,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-fbc7e068c201",
-      "EVT-97f16f384a67"
+      "EVT-d2b11f635530"
     ],
-    "primary_source_event_id": "EVT-fbc7e068c201",
+    "primary_source_event_id": "EVT-d2b11f635530",
     "source_headlines": [
-      "Lindt Plans Price Cuts After Second 2026 Guidance Revision",
-      "Lindt cuts sales forecast as heatwaves dampen demand for chocolate"
+      "Hyundai Motor, Kia's combined China sales fall below 10,000 units in Sept."
     ],
-    "source_headline": "Lindt Plans Price Cuts After Second 2026 Guidance Revision",
-    "source_url": "https://www.bloomberg.com/news/articles/2026-09-29/lindt-cuts-sales-growth-guidance-for-second-time-on-weak-demand",
-    "source_name": "Bloomberg",
-    "materiality_max": 100,
-    "newest_source_at": "2026-09-29T09:04:25Z",
+    "source_headline": "Hyundai Motor, Kia's combined China sales fall below 10,000 units in Sept.",
+    "source_url": "https://en.yna.co.kr/view/AEN20261025001900320",
+    "source_name": "Yonhap News Agency — All News (English)",
+    "materiality_max": 87,
+    "newest_source_at": "2026-10-25T02:02:45Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-29T10:02:00Z",
-    "updated_at": "2026-09-29T10:02:00Z",
-    "decay_at": "2026-09-30T21:04:25Z",
+    "surfaced_at": "2026-10-25T02:18:41Z",
+    "updated_at": "2026-10-25T02:18:41Z",
+    "decay_at": "2026-10-26T14:02:45Z",
     "status": "live",
     "promoted_signal_id": null
   }
