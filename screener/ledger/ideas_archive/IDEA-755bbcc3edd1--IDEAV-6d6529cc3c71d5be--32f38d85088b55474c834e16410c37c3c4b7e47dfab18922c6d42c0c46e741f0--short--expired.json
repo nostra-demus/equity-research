@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-04T16:45:10Z",
+  "archived_at": "2026-10-29T06:54:38Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-fcc665b98933",
-    "idea_version": "IDEAV-5cd3b330cd494a3e",
-    "idea_version_started_at": "2026-10-01T19:27:53Z",
-    "ticker": "PTNM",
-    "company": "Pitanium Ltd",
-    "exchange": "NASDAQ",
+    "idea_id": "IDEA-755bbcc3edd1",
+    "idea_version": "IDEAV-6d6529cc3c71d5be",
+    "idea_version_started_at": "2026-10-26T05:56:09Z",
+    "ticker": "AUBANK",
+    "company": "AU Small Finance Bank",
+    "exchange": "NSE",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "The company is subject to a 25-NSE delisting notification, which typically follows a failure to meet exchange listing standards or severe financial distress.",
-    "why_now": "The delisting notification was filed on October 1, 2026.",
-    "conviction": 80,
+    "reason": "The bank reported Q2 results that highlighted significant margin pressure, indicating a deterioration in net interest margins.",
+    "why_now": "The market is reacting to the Q2 earnings release and margin warning issued on 2026-10-26.",
+    "conviction": 75,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
-      "impact": 20,
+      "evidence": 14,
+      "impact": 19,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -48,30 +49,30 @@
       "evidenceIds": []
     },
     "priced_in": "room",
-    "thesis_type": "balance_sheet_survival",
+    "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-5af6f8be825b"
+      "EVT-6805e82b98d4"
     ],
-    "primary_source_event_id": "EVT-5af6f8be825b",
+    "primary_source_event_id": "EVT-6805e82b98d4",
     "source_headlines": [
-      "25-NSE - Pitanium Ltd (0002046573) (Subject)"
+      "AU Small Finance Bank shares fall 8% after flagging margin pressure post Q2 results"
     ],
-    "source_headline": "25-NSE - Pitanium Ltd (0002046573) (Subject)",
-    "source_url": "https://www.sec.gov/Archives/edgar/data/2046573/000135445726000933/0001354457-26-000933-index.htm",
-    "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+    "source_headline": "AU Small Finance Bank shares fall 8% after flagging margin pressure post Q2 results",
+    "source_url": "https://www.cnbctv18.com/market/au-small-finance-bank-share-price-falls-after-flagging-margin-pressure-post-q2-results-20019190.htm",
+    "source_name": "CNBC-TV18",
     "materiality_max": 100,
-    "newest_source_at": "2026-10-01T16:03:52Z",
+    "newest_source_at": "2026-10-26T05:30:55Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-01T19:27:53Z",
-    "updated_at": "2026-10-01T19:27:53Z",
-    "decay_at": "2026-10-03T04:03:52Z",
+    "surfaced_at": "2026-10-26T05:56:09Z",
+    "updated_at": "2026-10-26T05:56:09Z",
+    "decay_at": "2026-10-27T17:30:55Z",
     "status": "live",
     "promoted_signal_id": null
   }

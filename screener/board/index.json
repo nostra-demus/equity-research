@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T06:54:05Z",
+  "generated_at": "2026-10-29T06:54:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-600",
@@ -205891,6 +205891,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-198dd76261e7",
+      "idea_version": "IDEAV-20005e8171e77b87",
+      "idea_version_started_at": "2026-10-29T06:54:24Z",
+      "ticker": "CVNA",
+      "company": "Carvana",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Carvana reported a 40% increase in vehicle sales, indicating significant market share gains and improved operational leverage.",
+      "why_now": "The earnings report was released on 2026-10-28.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-538bdc920006"
+      ],
+      "primary_source_event_id": "EVT-538bdc920006",
+      "source_headlines": [
+        "Carvana Profit Soars as Vehicle Sales Climb Nearly 40%"
+      ],
+      "source_headline": "Carvana Profit Soars as Vehicle Sales Climb Nearly 40%",
+      "source_url": "https://www.wsj.com/business/earnings/carvana-profit-soars-as-vehicle-sales-climb-nearly-40-8e0355ab?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-28T21:53:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-29T06:54:24Z",
+      "updated_at": "2026-10-29T06:54:24Z",
+      "decay_at": "2026-10-30T09:53:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-3bb4c249dc6a",
       "idea_version": "IDEAV-2099ae65e9670312",
       "idea_version_started_at": "2026-10-29T04:07:36Z",
@@ -206025,6 +206095,76 @@
       "surfaced_at": "2026-10-29T04:07:36Z",
       "updated_at": "2026-10-29T04:07:36Z",
       "decay_at": "2026-10-30T09:58:51Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-34b1c0c0d084",
+      "idea_version": "IDEAV-b7e689d91490f08f",
+      "idea_version_started_at": "2026-10-29T06:54:24Z",
+      "ticker": "BCE",
+      "company": "BCE Inc.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The sale of a 49.9% stake in its wireless tower infrastructure for CAD $2.45 billion provides a significant cash infusion to deleverage the balance sheet.",
+      "why_now": "The divestiture agreement was announced on 2026-10-28.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-abf127936387"
+      ],
+      "primary_source_event_id": "EVT-abf127936387",
+      "source_headlines": [
+        "BCE Inc. Announces Agreement with La Caisse to Sell 49.9% Stake in Wireless Tower Infrastructure Company for CAD $2.45 billion"
+      ],
+      "source_headline": "BCE Inc. Announces Agreement with La Caisse to Sell 49.9% Stake in Wireless Tower Infrastructure Company for CAD $2.45 billion",
+      "source_url": "https://www.nasdaq.com/articles/bce-inc-announces-agreement-la-caisse-sell-499-stake-wireless-tower-infrastructure-company",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-28T21:22:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-29T06:54:24Z",
+      "updated_at": "2026-10-29T06:54:24Z",
+      "decay_at": "2026-10-30T09:22:45Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -206171,6 +206311,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-e50b386de176",
+      "idea_version": "IDEAV-977c48b53ebf4b30",
+      "idea_version_started_at": "2026-10-29T06:54:24Z",
+      "ticker": "EADSY",
+      "company": "Airbus",
+      "exchange": "OTC Markets",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Airbus is experiencing declining profits driven by a slowdown in aircraft deliveries, suggesting persistent supply chain or production bottlenecks.",
+      "why_now": "The profit drop was reported on 2026-10-28.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-481a58f07c9a"
+      ],
+      "primary_source_event_id": "EVT-481a58f07c9a",
+      "source_headlines": [
+        "Airbus profits drop as plane deliveries slow"
+      ],
+      "source_headline": "Airbus profits drop as plane deliveries slow",
+      "source_url": "https://www.ft.com/content/9aaeaa0c-3846-4eef-9356-6261f6543075?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-28T18:17:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-29T06:54:24Z",
+      "updated_at": "2026-10-29T06:54:24Z",
+      "decay_at": "2026-10-30T06:17:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-bb455d1c06d8",
       "idea_version": "IDEAV-b909c1deb8fc7a29",
       "idea_version_started_at": "2026-10-29T04:07:36Z",
@@ -206235,6 +206445,77 @@
       "surfaced_at": "2026-10-29T04:07:36Z",
       "updated_at": "2026-10-29T04:07:36Z",
       "decay_at": "2026-10-30T09:24:40Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-d7d58dc6acc2",
+      "idea_version": "IDEAV-f2199dcb3b9c7330",
+      "idea_version_started_at": "2026-10-29T06:54:24Z",
+      "ticker": "IP",
+      "company": "International Paper Company",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a substantial $1.10 billion loss in Q3 2026, highlighting severe margin pressure and operational challenges.",
+      "why_now": "The earnings results were released on 2026-10-28.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-35551fa80c1b"
+      ],
+      "primary_source_event_id": "EVT-35551fa80c1b",
+      "source_headlines": [
+        "International Paper Company Reports Third Quarter 2026 Net Sales of $6.20 billion and Loss of $1.10 billion"
+      ],
+      "source_headline": "International Paper Company Reports Third Quarter 2026 Net Sales of $6.20 billion and Loss of $1.10 billion",
+      "source_url": "https://www.nasdaq.com/articles/international-paper-company-reports-third-quarter-2026-net-sales-620-billion-and-loss-110",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-28T16:33:11Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-29T06:54:24Z",
+      "updated_at": "2026-10-29T06:54:24Z",
+      "decay_at": "2026-10-30T04:33:11Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -210532,441 +210813,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-1fab37e5db24",
-      "idea_version": "IDEAV-c3e1fe74f52ae7f1",
-      "idea_version_started_at": "2026-10-26T09:24:06Z",
-      "ticker": "EVN",
-      "company": "Evolution Mining",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Evolution Mining is likely to be the beneficiary of a scheme meeting result, potentially acquiring Centaurus Metals.",
-      "why_now": "The results of the scheme meeting are being published, indicating a near-term decision on the transaction.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9d210ca43004",
-        "EVT-e2a5591df324"
-      ],
-      "primary_source_event_id": "EVT-9d210ca43004",
-      "source_headlines": [
-        "EVN: CNB: Results of Scheme Meeting",
-        "CNB: Results of Scheme Meeting [price-sensitive]"
-      ],
-      "source_headline": "EVN: CNB: Results of Scheme Meeting",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EVN?key=2924-03153125_NPS-2A1706122",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T04:47:32Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T09:24:06Z",
-      "updated_at": "2026-10-26T09:24:06Z",
-      "decay_at": "2026-10-27T16:47:32Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-fdbb7c08dd67",
-      "idea_version": "IDEAV-86367a8754ac62ca",
-      "idea_version_started_at": "2026-10-26T09:24:06Z",
-      "ticker": "SHRF.NS",
-      "company": "Shriram Finance",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Shriram Finance's stock hit an 11-month low due to a cut in its growth outlook and rising credit costs.",
-      "why_now": "The stock has reached a significant low point, reflecting current negative pressures on its outlook.",
-      "conviction": 45,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4c1a3f674fca"
-      ],
-      "primary_source_event_id": "EVT-4c1a3f674fca",
-      "source_headlines": [
-        "India's Shriram Finance hits 11-month low as growth outlook cut, credit costs weigh"
-      ],
-      "source_headline": "India's Shriram Finance hits 11-month low as growth outlook cut, credit costs weigh",
-      "source_url": "https://www.reuters.com/world/india/indias-shriram-finance-hits-11-month-low-growth-outlook-cut-credit-costs-weigh-2026-10-26/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T04:15:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T09:24:06Z",
-      "updated_at": "2026-10-26T09:24:06Z",
-      "decay_at": "2026-10-27T16:15:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-772799d9898e",
-      "idea_version": "IDEAV-45e7022537d0d47b",
-      "idea_version_started_at": "2026-10-26T06:48:34Z",
-      "ticker": "RAILTEL",
-      "company": "RailTel Corporation of India",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A 10% drop in quarterly profit despite revenue growth indicates significant margin compression and rising operational costs.",
-      "why_now": "The earnings report was released on October 26, 2026, highlighting the profit decline.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-81f3edbab820"
-      ],
-      "primary_source_event_id": "EVT-81f3edbab820",
-      "source_headlines": [
-        "RailTel Reports 10% Profit Drop In Q2 FY27, Declares ₹1 Interim Dividend As Revenue Climbs 20%"
-      ],
-      "source_headline": "RailTel Reports 10% Profit Drop In Q2 FY27, Declares ₹1 Interim Dividend As Revenue Climbs 20%",
-      "source_url": "https://www.freepressjournal.in/business/railtel-reports-10-profit-drop-in-q2-fy27-declares-1-interim-dividend-as-revenue-climbs-20",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T05:43:20Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T06:48:34Z",
-      "updated_at": "2026-10-26T06:48:34Z",
-      "decay_at": "2026-10-27T17:43:20Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-755bbcc3edd1",
-      "idea_version": "IDEAV-6d6529cc3c71d5be",
-      "idea_version_started_at": "2026-10-26T05:56:09Z",
-      "ticker": "AUBANK",
-      "company": "AU Small Finance Bank",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The bank reported Q2 results that highlighted significant margin pressure, indicating a deterioration in net interest margins.",
-      "why_now": "The market is reacting to the Q2 earnings release and margin warning issued on 2026-10-26.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6805e82b98d4"
-      ],
-      "primary_source_event_id": "EVT-6805e82b98d4",
-      "source_headlines": [
-        "AU Small Finance Bank shares fall 8% after flagging margin pressure post Q2 results"
-      ],
-      "source_headline": "AU Small Finance Bank shares fall 8% after flagging margin pressure post Q2 results",
-      "source_url": "https://www.cnbctv18.com/market/au-small-finance-bank-share-price-falls-after-flagging-margin-pressure-post-q2-results-20019190.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T05:30:55Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T05:56:09Z",
-      "updated_at": "2026-10-26T05:56:09Z",
-      "decay_at": "2026-10-27T17:30:55Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-4beb9e83c333",
-      "idea_version": "IDEAV-6d040e909cb10384",
-      "idea_version_started_at": "2026-10-26T05:19:35Z",
-      "ticker": "006400",
-      "company": "Samsung SDI",
-      "exchange": "KRX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Securing a 1.5 GWh Energy Storage System (ESS) deal in the U.S. provides a significant revenue boost and validates their expansion into the high-growth renewable energy storage market.",
-      "why_now": "The contract win was reported today, October 26, 2026, and represents a concrete commercial milestone.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b9cf7e71c7ff"
-      ],
-      "primary_source_event_id": "EVT-b9cf7e71c7ff",
-      "source_headlines": [
-        "Samsung SDI Wins 1.5 GWh U.S. ESS Deal"
-      ],
-      "source_headline": "Samsung SDI Wins 1.5 GWh U.S. ESS Deal",
-      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279618",
-      "source_name": "Business Korea — All English Articles",
-      "materiality_max": 98,
-      "newest_source_at": "2026-10-26T04:57:31Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T01:55:29Z",
-      "updated_at": "2026-10-26T05:19:35Z",
-      "decay_at": "2026-10-27T16:57:31Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-54d6d9bfeddd",
-      "idea_version": "IDEAV-4851e537da667ffc",
-      "idea_version_started_at": "2026-10-26T05:56:09Z",
-      "ticker": "D01",
-      "company": "DFI Retail Group",
-      "exchange": "SGX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 17% increase in Q3 underlying profit and raised its full-year guidance, suggesting improved operational efficiency.",
-      "why_now": "The positive earnings and guidance update were released on 2026-10-26.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e211255c4b69"
-      ],
-      "primary_source_event_id": "EVT-e211255c4b69",
-      "source_headlines": [
-        "DFI Retail Group Q3 underlying profit up 17%; full-year guidance raised"
-      ],
-      "source_headline": "DFI Retail Group Q3 underlying profit up 17%; full-year guidance raised",
-      "source_url": "https://www.businesstimes.com.sg/companies-markets/dfi-retail-group-q3-underlying-profit-17-full-year-guidance-raised",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 96,
-      "newest_source_at": "2026-10-26T05:30:41Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T05:56:09Z",
-      "updated_at": "2026-10-26T05:56:09Z",
-      "decay_at": "2026-10-27T17:30:41Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-f8710fa2cf67",
       "idea_version": "IDEAV-e574f18749ad3529",
       "idea_version_started_at": "2026-10-27T06:46:23Z",
@@ -211036,78 +210882,6 @@
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-7124724b5aaa",
-      "idea_version": "IDEAV-4e019cea77bb7b14",
-      "idea_version_started_at": "2026-10-26T05:19:35Z",
-      "ticker": "HOLN",
-      "company": "Holcim",
-      "exchange": "SIX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its guidance due to strong demand, indicating better-than-expected volume or pricing in the construction materials sector.",
-      "why_now": "The guidance hike was announced today, October 26, 2026, providing a fresh catalyst for earnings upgrades.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4193adf83029"
-      ],
-      "primary_source_event_id": "EVT-4193adf83029",
-      "source_headlines": [
-        "Holcim lifts guidance again on strong demand"
-      ],
-      "source_headline": "Holcim lifts guidance again on strong demand",
-      "source_url": "https://economictimes.indiatimes.com/markets/us-stocks/news/holcim-lifts-guidance-again-on-strong-demand/articleshow/135202905.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 95,
-      "newest_source_at": "2026-10-26T04:42:15Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-23T12:15:36Z",
-      "updated_at": "2026-10-26T05:19:35Z",
-      "decay_at": "2026-10-27T16:42:15Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": "down",
       "stale": true
     },
     {
@@ -211334,33 +211108,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 556,
+    "total_count": 549,
     "shown_count": 500,
-    "hidden_count": 56,
+    "hidden_count": 49,
     "side_counts": {
       "long": {
-        "total_count": 284,
+        "total_count": 280,
         "shown_count": 250,
-        "hidden_count": 34
+        "hidden_count": 30
       },
       "short": {
-        "total_count": 272,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 19
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1412,
-      "oldest_retained_at": "2026-10-03T04:03:09Z",
+      "evicted_count": 1419,
+      "oldest_retained_at": "2026-10-03T08:51:44Z",
       "side_counts": {
         "long": {
-          "evicted_count": 933,
-          "oldest_retained_at": "2026-10-13T16:09:53Z"
+          "evicted_count": 937,
+          "oldest_retained_at": "2026-10-13T21:12:00Z"
         },
         "short": {
-          "evicted_count": 480,
-          "oldest_retained_at": "2026-10-03T04:03:09Z"
+          "evicted_count": 483,
+          "oldest_retained_at": "2026-10-03T08:51:44Z"
         }
       }
     },
@@ -215081,8 +214855,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-27T17:43:20Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-29T06:54:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -215156,8 +214930,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-27T17:30:55Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-29T06:54:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -215231,8 +215005,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-27T17:30:41Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-29T06:54:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -215306,8 +215080,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-27T16:57:31Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-29T06:54:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -215383,8 +215157,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-27T16:47:32Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-29T06:54:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -215458,8 +215232,8 @@
         "promoted_signal_id": null,
         "feedback": "down",
         "stale": true,
-        "archived_at": "2026-10-27T16:42:15Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-29T06:54:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -215534,8 +215308,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-27T16:15:01Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-29T06:54:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -248611,14 +248385,14 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1989,
-    "live_count": 20,
+    "surfaced_total": 1993,
+    "live_count": 24,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
     "machine_pending": 0,
     "up_votes": 0,
-    "down_votes": 1,
+    "down_votes": 0,
     "resolved": 0
   },
   "counts": {
