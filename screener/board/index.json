@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T21:02:17Z",
+  "generated_at": "2026-10-29T21:09:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-1241",
@@ -1285,6 +1285,106 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-1327",
+      "headline": "Intel Server Sales Jump 78%, Q4 Outlook Dims: Rapid Earnings Reaction",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/10/29/intel-server-sales-jump-78-q4-outlook-dims-rapid-e/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T20:49:15Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Intel reported a 78% jump in server sales but provided a dim Q4 outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Intel reported a 78% jump in server sales but provided a dim Q4 outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intel",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-1328",
+      "headline": "Stock Market Today, Oct. 29: Norwegian Cruise Line Holdings Beats Q3 Estimates, Raises Full-Year Guidance",
+      "headline_en": null,
+      "url": "https://www.fool.com/coverage/stock-market-today/2026/10/29/stock-market-today-oct-29-norwegian-cruise-line-holdings-beats-q3-estimates-raises-full-year-guidance/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T20:48:36Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Norwegian Cruise Line Holdings beat Q3 estimates and raised its full-year guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Norwegian Cruise Line Holdings beat Q3 estimates and raised its full-year guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Norwegian Cruise Line Holdings",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-1309",
       "headline": "Tenet Healthcare sails past Q3 earnings estimates, boosts 2026 guidance",
       "headline_en": null,
@@ -1330,6 +1430,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-1322",
+      "headline": "Intel stock plunges 16% as chipmaker blames PC slowdown for weak guidance",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/29/intel-intc-q3-earnings-report-2026-.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T20:47:13Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Intel guides weak citing PC slowdown, signaling revenue and margin pressure ahead with stock down 16%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Intel guides weak citing PC slowdown, signaling revenue and margin pressure ahead with stock down 16%.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intel Corporation",
+          "ticker": "INTC",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1522,56 +1671,6 @@
       "companies": [
         {
           "name": "Lilly",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-1305",
-      "headline": "Intel stock plunges 20% as chipmaker blames PC slowdown for weak guidance",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/29/intel-intc-q3-earnings-report-2026-.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T20:06:00Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Intel stock fell 20% following weak guidance attributed to a PC market slowdown.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Intel stock fell 20% following weak guidance attributed to a PC market slowdown.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Intel",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1875,106 +1974,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-1281",
-      "headline": "Cheniere Energy, Inc. Reports Third Quarter 2026 Results, Raises Full Year Guidance, and Declares $0.625 Dividend",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/cheniere-energy-inc-reports-third-quarter-2026-results-raises-full-year-guidance-and",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T18:41:31Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Cheniere Energy reported Q3 results, raised full-year guidance, and declared a $0.625 dividend.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Cheniere Energy reported Q3 results, raised full-year guidance, and declared a $0.625 dividend.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cheniere Energy",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-1276",
-      "headline": "ServiceNow shares plunge 27% after earnings revive AI disruption fears",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/29/servicenow-now-earnings-q3-2026.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T18:38:34Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "ServiceNow shares plunged 27% following earnings that highlighted concerns over AI disruption.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ServiceNow shares plunged 27% following earnings that highlighted concerns over AI disruption.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ServiceNow",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -207060,77 +207059,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-15e1e4d040eb",
-      "idea_version": "IDEAV-f0e0feba7a68630d",
-      "idea_version_started_at": "2026-10-28T18:19:07Z",
-      "ticker": "09669",
-      "company": "Beisen Holding Limited",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company announced a turnaround from loss to profit, suggesting successful operational restructuring or improved demand.",
-      "why_now": "The positive profit alert was filed on October 28, 2026, indicating a material shift in profitability.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bd2a95fdc31c"
-      ],
-      "primary_source_event_id": "EVT-bd2a95fdc31c",
-      "source_headlines": [
-        "BEISEN HOLDING (09669): POSITIVE PROFIT ALERT - TURNAROUND FROM LOSS TO PROFIT"
-      ],
-      "source_headline": "BEISEN HOLDING (09669): POSITIVE PROFIT ALERT - TURNAROUND FROM LOSS TO PROFIT",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1028/2026102800490.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-28T09:08:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-28T18:19:07Z",
-      "updated_at": "2026-10-28T18:19:07Z",
-      "decay_at": "2026-10-29T21:08:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-4c854ef51212",
       "idea_version": "IDEAV-5742d7e49be3f677",
       "idea_version_started_at": "2026-10-28T18:19:07Z",
@@ -207968,6 +207896,77 @@
       "surfaced_at": "2026-10-23T15:10:57Z",
       "updated_at": "2026-10-27T08:26:43Z",
       "decay_at": "2026-10-28T15:58:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-15e1e4d040eb",
+      "idea_version": "IDEAV-f0e0feba7a68630d",
+      "idea_version_started_at": "2026-10-28T18:19:07Z",
+      "ticker": "09669",
+      "company": "Beisen Holding Limited",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company announced a turnaround from loss to profit, suggesting successful operational restructuring or improved demand.",
+      "why_now": "The positive profit alert was filed on October 28, 2026, indicating a material shift in profitability.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-bd2a95fdc31c"
+      ],
+      "primary_source_event_id": "EVT-bd2a95fdc31c",
+      "source_headlines": [
+        "BEISEN HOLDING (09669): POSITIVE PROFIT ALERT - TURNAROUND FROM LOSS TO PROFIT"
+      ],
+      "source_headline": "BEISEN HOLDING (09669): POSITIVE PROFIT ALERT - TURNAROUND FROM LOSS TO PROFIT",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1028/2026102800490.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-28T09:08:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-28T18:19:07Z",
+      "updated_at": "2026-10-28T18:19:07Z",
+      "decay_at": "2026-10-29T21:08:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -210209,14 +210208,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 542,
+    "total_count": 543,
     "shown_count": 500,
-    "hidden_count": 42,
+    "hidden_count": 43,
     "side_counts": {
       "long": {
-        "total_count": 274,
+        "total_count": 275,
         "shown_count": 250,
-        "hidden_count": 24
+        "hidden_count": 25
       },
       "short": {
         "total_count": 268,
@@ -210240,6 +210239,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-15e1e4d040eb",
+        "idea_version": "IDEAV-f0e0feba7a68630d",
+        "idea_version_started_at": "2026-10-28T18:19:07Z",
+        "ticker": "09669",
+        "company": "Beisen Holding Limited",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company announced a turnaround from loss to profit, suggesting successful operational restructuring or improved demand.",
+        "why_now": "The positive profit alert was filed on October 28, 2026, indicating a material shift in profitability.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-bd2a95fdc31c"
+        ],
+        "primary_source_event_id": "EVT-bd2a95fdc31c",
+        "source_headlines": [
+          "BEISEN HOLDING (09669): POSITIVE PROFIT ALERT - TURNAROUND FROM LOSS TO PROFIT"
+        ],
+        "source_headline": "BEISEN HOLDING (09669): POSITIVE PROFIT ALERT - TURNAROUND FROM LOSS TO PROFIT",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1028/2026102800490.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-28T09:08:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-28T18:19:07Z",
+        "updated_at": "2026-10-28T18:19:07Z",
+        "decay_at": "2026-10-29T21:08:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-29T21:08:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-caee2ba9fe82",
         "idea_version": "IDEAV-9255d407cd03f51b",
@@ -238689,80 +238762,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-73bf913da657",
-        "idea_version": "IDEAV-f77ec95fb3a33bf7",
-        "idea_version_started_at": "2026-10-15T02:47:20Z",
-        "ticker": "FBU",
-        "company": "Fletcher Building",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The fast-track approval of the Hunua Quarry project removes a significant regulatory bottleneck, allowing the company to unlock long-term aggregate supply and revenue potential.",
-        "why_now": "The regulatory approval was confirmed in an exchange filing on October 15, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-272def03df7e"
-        ],
-        "primary_source_event_id": "EVT-272def03df7e",
-        "source_headlines": [
-          "FBU: Fletcher Building welcomes Hunua Quarry Fast Track approval"
-        ],
-        "source_headline": "FBU: Fletcher Building welcomes Hunua Quarry Fast Track approval",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FBU?key=2924-03148759-2A1704229",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 94,
-        "newest_source_at": "2026-10-15T00:04:48Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-15T02:47:20Z",
-        "updated_at": "2026-10-15T02:47:20Z",
-        "decay_at": "2026-10-16T12:04:48Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-18T00:22:55Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-4e4abdc55d24",
         "idea_version": "IDEAV-d6091653d5bc0ad2",
         "idea_version_started_at": "2026-10-16T00:51:39Z",
@@ -247489,7 +247488,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1999,
-    "live_count": 19,
+    "live_count": 18,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -247508,9 +247507,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2560496,
-    "news_picked_today": 2800,
-    "news_dropped_today": 17184
+    "news_seen_today": 2571338,
+    "news_picked_today": 2815,
+    "news_dropped_today": 17385
   },
   "book_momentum": {
     "live_count": 8,
