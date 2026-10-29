@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T03:23:09Z",
+  "generated_at": "2026-10-29T03:30:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-276",
@@ -1367,6 +1367,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-542",
+      "headline": "EQT-Range Deal Will Create $50B Gas 'Champion'",
+      "headline_en": null,
+      "url": "https://www.rigzone.com/news/eqtrange_deal_will_create_50b_gas_champion-28-oct-2026-184951-article/?rss=true",
+      "source_name": "Rigzone",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T12:34:12Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "A major $50 billion merger between EQT and Range Resources would create a dominant player in the natural gas sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A major $50 billion merger between EQT and Range Resources would create a dominant player in the natural gas sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EQT Corporation",
+          "ticker": "EQT",
+          "listing_country": "US"
+        },
+        {
+          "name": "Range Resources",
+          "ticker": "RRC",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-411",
       "headline": "AIS: Quarterly Results Presentation - Sept 2026 [price-sensitive]",
       "headline_en": null,
@@ -1955,55 +2009,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-340",
-      "headline": "Bigger than Bing or Xbox: Microsoft’s OpenAI haul reaches $10B in quarterly revenue",
-      "headline_en": null,
-      "url": "https://www.geekwire.com/2026/bigger-than-bing-or-xbox-microsofts-openai-haul-reaches-10b-in-quarterly-revenue/",
-      "source_name": "GeekWire",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T23:28:53Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Microsoft reports $10 billion in quarterly revenue from its OpenAI-related business, showing significant growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Microsoft reports $10 billion in quarterly revenue from its OpenAI-related business, showing significant growth.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Microsoft",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248564,9 +248569,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 180437,
-    "news_picked_today": 782,
-    "news_dropped_today": 2074
+    "news_seen_today": 183604,
+    "news_picked_today": 829,
+    "news_dropped_today": 2171
   },
   "book_momentum": {
     "live_count": 8,
