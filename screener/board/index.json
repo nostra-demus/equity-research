@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T17:23:00Z",
+  "generated_at": "2026-10-29T17:39:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-1241",
@@ -1285,6 +1285,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-1264",
+      "headline": "Hilton Grand Vacations Inc. Reports Third Quarter 2026 Results and Reduces Full Year Adjusted EBITDA Guidance to Range of $1.165 billion to $1.180 billion",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/hilton-grand-vacations-inc-reports-third-quarter-2026-results-and-reduces-full-year",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T17:12:31Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Company reported Q3 results and cut full-year EBITDA guidance to $1.165B-$1.180B.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company reported Q3 results and cut full-year EBITDA guidance to $1.165B-$1.180B.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hilton Grand Vacations Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-1245",
       "headline": "Alphabet falls 12%, putting it on course for its biggest ever post-earnings drop",
       "headline_en": null,
@@ -1939,55 +1988,6 @@
         },
         {
           "name": "Thrive Capital",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-1178",
-      "headline": "Kushner’s Thrive Holdings to Buy ADT for $7.6 Billion in Cash",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-29/kushner-s-thrive-holdings-to-buy-adt-for-7-6-billion-in-cash",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T14:01:04Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Thrive Holdings to acquire ADT for $7.6 billion in cash.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Thrive Holdings to acquire ADT for $7.6 billion in cash.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ADT",
           "ticker": null,
           "listing_country": "US"
         }
@@ -247172,9 +247172,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1934721,
-    "news_picked_today": 2591,
-    "news_dropped_today": 13793
+    "news_seen_today": 1996037,
+    "news_picked_today": 2605,
+    "news_dropped_today": 14019
   },
   "book_momentum": {
     "live_count": 8,
