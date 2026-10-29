@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-29T10:37:39Z",
+  "generated_at": "2026-10-29T10:47:04Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261029-876",
+      "headline": "Wipro Limited: Wipro Limited has informed the Exchange to please refer to our earlier letter dated October 16, 2026, informing that Wipro Limited through its step-down subsidiary - Wipro IT Services, LLC had signed a definitive agreement to acquire 20% shareholding in FLARRE.AI, Inc. and that the transaction was expected to be completed by October 31, 2026.In continuation to the aforesaid letter, it is hereby informed that the said transaction has been completed on October 28, 2026.The Company r",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/Cslogin_29102026154834_Reg30SEIntimation29102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-29T10:19:50Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Wipro completed the acquisition of a 20% stake in FLARRE.AI, Inc. on October 28, 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Wipro completed the acquisition of a 20% stake in FLARRE.AI, Inc. on October 28, 2026.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wipro Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-902",
+      "headline": "HUARONG ENERGY (01101): DECISION OF THE LISTING COMMITTEE ON CANCELLATION OF LISTING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1029/2026102900898.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-29T09:58:00Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Hong Kong Listing Committee decided to cancel listing of Huarong Energy (01101), forcing shareholder exit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hong Kong Listing Committee decided to cancel listing of Huarong Energy (01101), forcing shareholder exit.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 88,
+      "rank_factors": {
+        "materiality": 88,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Huarong Energy",
+          "ticker": "01101",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261029-804",
       "headline": "Equitas Small Finance Bank Limited: Equitas Small Finance Bank Limited has informed the Exchange regarding Resignation of Mr. P N Vasudevan as Managing Director & CEO of the company w.e.f. October 29, 2026.",
@@ -189,55 +287,6 @@
         {
           "name": "SUPERACTIVE GP",
           "ticker": "00176",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-869",
-      "headline": "HUARONG ENERGY (01101): Cancellation of listing",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1029/2026102900620.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-29T09:09:00Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Cancellation of listing for HUARONG ENERGY (01101), a Hong Kong-listed company, terminates public trading rights; the underlying reason and terms are not disclosed in the headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Cancellation of listing for HUARONG ENERGY (01101), a Hong Kong-listed company, terminates public trading rights; the underlying reason and terms are not disclosed in the headline.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HUARONG ENERGY",
-          "ticker": "01101",
           "listing_country": "HK"
         }
       ],
@@ -492,6 +541,98 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-886",
+      "headline": "Christine Lagarde to Resign Early as ECB President",
+      "headline_en": null,
+      "url": "https://www.wsj.com/world/europe/christine-lagarde-to-resign-early-as-ecb-president-2ad844e6?mod=rss_worldnews",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T10:18:00Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "The resignation of the ECB President is a major geopolitical and economic event that would significantly impact monetary policy expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The resignation of the ECB President is a major geopolitical and economic event that would significantly impact monetary policy expectations.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-889",
+      "headline": "Greaves Cotton Q2 results: Profit plunges 81% to ₹5 crore despite 44% revenue growth",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/greaves-cotton-q2-results-profit-plunges-81pc-to-rs5-crore-despite-44pc-revenue-growth-20022447.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T10:00:47Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Greaves Cotton reported an 81% plunge in profit to ₹5 crore, indicating significant margin compression.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Greaves Cotton reported an 81% plunge in profit to ₹5 crore, indicating significant margin compression.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Greaves Cotton",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1828,154 +1969,6 @@
           "name": "Gen Digital Inc.",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-329",
-      "headline": "(LEAD) Samsung SDI Q3 net profit jumps to 342.2 bln won on ESS deals",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261029001851320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T00:47:02Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Samsung SDI reported a Q3 net profit of 342.2 billion won, driven by ESS deals.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Samsung SDI reported a Q3 net profit of 342.2 billion won, driven by ESS deals.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung SDI",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-026",
-      "headline": "The DOE announces $5B loan to Constellation for nuclear uprates",
-      "headline_en": null,
-      "url": "https://www.canarymedia.com/articles/nuclear/doe-5b-loan-constellation-energy",
-      "source_name": "Canary Media",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T19:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Constellation Energy secures $5B DOE loan to fund nuclear-uprate capex, enabling material capital-investment execution and signaling favorable regulatory environment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Constellation Energy secures $5B DOE loan to fund nuclear-uprate capex, enabling material capital-investment execution and signaling favorable regulatory environment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Constellation Energy",
-          "ticker": "CEG",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-031",
-      "headline": "United Spirits Q2 Profit Falls 7.75 Per Cent To ₹428 Crore As Revenue Declines 2.56 Pc To ₹7,014 Crore",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/united-spirits-q2-profit-falls-775-per-cent-to-428-crore-as-revenue-declines-256-pc-to-7014-crore",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T18:45:10Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "United Spirits reported a 7.75% decline in Q2 profit to ₹428 crore and a 2.56% decline in revenue to ₹7,014 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "United Spirits reported a 7.75% decline in Q2 profit to ₹428 crore and a 2.56% decline in revenue to ₹7,014 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "United Spirits",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -248376,7 +248369,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 722822,
+    "news_seen_today": 729159,
     "news_picked_today": 1940,
     "news_dropped_today": 8612
   },
