@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T04:28:18Z",
+  "generated_at": "2026-10-29T04:34:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-600",
@@ -1765,6 +1765,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-658",
+      "headline": "Shalimar Paints Q2 Net Loss Widens To ₹32.55 Crore, Revenue Declines Year-On-Year",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/shalimar-paints-q2-net-loss-widens-to-3255-crore-revenue-declines-year-on-year",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T10:49:23Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Shalimar Paints reported a widened net loss of ₹32.55 crore and declining revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shalimar Paints reported a widened net loss of ₹32.55 crore and declining revenue.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shalimar Paints",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-411",
       "headline": "AIS: Quarterly Results Presentation - Sept 2026 [price-sensitive]",
       "headline_en": null,
@@ -1958,55 +2007,6 @@
           "name": "OneSpaWorld Holdings",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-353",
-      "headline": "Tanla Q2 PAT up 17% at ₹146 crore",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/tanla-q2-pat-up-17-at-146-crore/article71636721.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T15:10:40Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Tanla reported a 17% increase in Q2 profit after tax to 146 crore INR, meeting the threshold for material earnings news.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Tanla reported a 17% increase in Q2 profit after tax to 146 crore INR, meeting the threshold for material earnings news.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tanla",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -248634,9 +248634,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 219837,
-    "news_picked_today": 1046,
-    "news_dropped_today": 2722
+    "news_seen_today": 224664,
+    "news_picked_today": 1067,
+    "news_dropped_today": 2773
   },
   "book_momentum": {
     "live_count": 8,
