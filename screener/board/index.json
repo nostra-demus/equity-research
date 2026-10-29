@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T21:17:55Z",
+  "generated_at": "2026-10-29T21:28:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-1241",
@@ -1334,6 +1334,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-1335",
+      "headline": "APi Group Corporation Reports Record Third Quarter 2026 Net Revenues of $2.6 billion and Raises Full-Year Outlook",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/api-group-corporation-reports-record-third-quarter-2026-net-revenues-26-billion-and-raises",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T20:52:06Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Record Q3 2026 revenues of $2.6 billion with full-year outlook raised, signaling upward earnings revision and improved visibility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Record Q3 2026 revenues of $2.6 billion with full-year outlook raised, signaling upward earnings revision and improved visibility.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "APi Group Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-1327",
       "headline": "Intel Server Sales Jump 78%, Q4 Outlook Dims: Rapid Earnings Reaction",
       "headline_en": null,
@@ -1922,57 +1972,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-1277",
-      "headline": "CRH plc Reports Q3 2026 Results, Completes $8.5B Arcosa Acquisition, and Announces $6B Share Buyback",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/crh-plc-reports-q3-2026-results-completes-85b-arcosa-acquisition-and-announces-6b-share",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T19:11:43Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "CRH completed an $8.5B acquisition and announced a $6B share buyback alongside Q3 results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CRH completed an $8.5B acquisition and announced a $6B share buyback alongside Q3 results.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "capital_actions",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CRH plc",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247504,9 +247503,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2582205,
-    "news_picked_today": 2823,
-    "news_dropped_today": 17521
+    "news_seen_today": 2603651,
+    "news_picked_today": 2842,
+    "news_dropped_today": 17838
   },
   "book_momentum": {
     "live_count": 8,
