@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T04:59:24Z",
+  "generated_at": "2026-10-29T05:05:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-600",
@@ -1814,6 +1814,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-682",
+      "headline": "NextDC cash crunch threatens $2b Melbourne technology hub",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/infrastructure/nextdc-cash-crunch-threatens-2b-melbourne-technology-hub-20261028-p618um?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T09:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "NextDC is facing a cash crunch that threatens a $2 billion technology hub project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NextDC is facing a cash crunch that threatens a $2 billion technology hub project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NextDC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-411",
       "headline": "AIS: Quarterly Results Presentation - Sept 2026 [price-sensitive]",
       "headline_en": null,
@@ -1958,55 +2007,6 @@
           "name": "Bandhan Bank",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-258",
-      "headline": "OneSpaWorld Holdings Limited Reports Third Quarter Fiscal 2026 Total Revenues of $276.5 Million and Net Income of $28.2 Million",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/onespaworld-holdings-limited-reports-third-quarter-fiscal-2026-total-revenues-2765-million",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T15:23:33Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Company reported Q3 revenue of $276.5 million and net income of $28.2 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Company reported Q3 revenue of $276.5 million and net income of $28.2 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OneSpaWorld Holdings",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mid",
@@ -248634,9 +248634,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 233193,
-    "news_picked_today": 1194,
-    "news_dropped_today": 3102
+    "news_seen_today": 236739,
+    "news_picked_today": 1221,
+    "news_dropped_today": 3195
   },
   "book_momentum": {
     "live_count": 8,
