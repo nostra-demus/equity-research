@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T01:53:09Z",
+  "generated_at": "2026-10-29T01:57:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-276",
@@ -1439,6 +1439,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-348",
+      "headline": "Alphabet Shares Tank on Sales Misses Across Core Businesses",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-10-28/alphabet-shares-tank-on-sales-misses-across-businesses-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T23:23:23Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Alphabet reported sales misses across core businesses (Search, YouTube, Cloud), triggering share decline and repricing of growth and earnings expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Alphabet reported sales misses across core businesses (Search, YouTube, Cloud), triggering share decline and repricing of growth and earnings expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alphabet",
+          "ticker": "GOOGL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-068",
       "headline": "F5 stock suffers worst day in more than a decade as AI spending shakes investors",
       "headline_en": null,
@@ -1690,6 +1739,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-349",
+      "headline": "Microsoft beats expectations fueled by Azure cloud business",
+      "headline_en": null,
+      "url": "https://japantoday.com/category/tech/microsoft-beats-expectations-fueled-by-azure-cloud-business",
+      "source_name": "Japan Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T00:13:31Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Microsoft reported earnings beat driven by Azure cloud growth exceeding expectations, signaling sustained AI and cloud infrastructure demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Microsoft reported earnings beat driven by Azure cloud growth exceeding expectations, signaling sustained AI and cloud infrastructure demand.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Microsoft",
+          "ticker": "MSFT",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-332",
       "headline": "HUL sales rise 15% to hit 14-quarter high, but inflation clouds demand outlook",
       "headline_en": null,
@@ -1877,104 +1975,6 @@
       "companies": [
         {
           "name": "Vedanta",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-158",
-      "headline": "HUL beats cost pressures with price hikes, savings as net profit rises 3.9%",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/hul-beats-cost-pressures-with-price-hikes-savings-as-net-profit-rises-39/article71636141.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T16:35:23Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "HUL reported a 3.9% rise in net profit by offsetting cost pressures with price hikes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "HUL reported a 3.9% rise in net profit by offsetting cost pressures with price hikes.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HUL",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-320",
-      "headline": "Shapoorji Seeks to Raise Up to $200 Million to Repay Debt",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-29/shapoorji-seeks-to-raise-up-to-200-million-to-repay-debt",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T00:56:44Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Shapoorji Pallonji seeking $200 million to repay debt indicates liquidity pressure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Shapoorji Pallonji seeking $200 million to repay debt indicates liquidity pressure.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shapoorji Pallonji",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -249109,9 +249109,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 109006,
-    "news_picked_today": 417,
-    "news_dropped_today": 1143
+    "news_seen_today": 116934,
+    "news_picked_today": 429,
+    "news_dropped_today": 1179
   },
   "book_momentum": {
     "live_count": 8,
