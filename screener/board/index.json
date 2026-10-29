@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T00:31:13Z",
+  "generated_at": "2026-10-29T00:37:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-026",
@@ -575,6 +575,141 @@
         "size": 0,
         "recency": 3,
         "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-101",
+      "headline": "DFW’s $12 Billion Transformation",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-10-28/dfw-s-12-billion-transformation-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T17:26:02Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "A $12 billion infrastructure transformation project at DFW airport represents a major capital expenditure event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "A $12 billion infrastructure transformation project at DFW airport represents a major capital expenditure event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-107",
+      "headline": "Hope Bancorp, Inc. Reports Third Quarter 2026 Net Income of $35.6 million",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/hope-bancorp-inc-reports-third-quarter-2026-net-income-356-million",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T17:21:34Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Hope Bancorp reported Q3 2026 net income of $35.6 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Hope Bancorp reported Q3 2026 net income of $35.6 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hope Bancorp, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-108",
+      "headline": "Fed holds main interest rate steady despite accelerating inflation",
+      "headline_en": null,
+      "url": "https://www.cfodive.com/news/fed-holds-main-interest-rate-steady-accelerating-inflation-Warsh/873063/",
+      "source_name": "CFO Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T17:21:09Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "The Federal Reserve held interest rates steady, impacting broader market expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "The Federal Reserve held interest rates steady, impacting broader market expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
@@ -1801,153 +1936,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-036",
-      "headline": "Apple Unveils Touch-Screen MacBook Pro, Reversing Long-Held Jobs Stance",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/apple-unveils-touch-screen-macbook-pro-reversing-long-held-jobs-stance-11793212673842.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T18:37:53Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Apple is reportedly shifting product strategy by introducing a touch-screen MacBook Pro.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Apple is reportedly shifting product strategy by introducing a touch-screen MacBook Pro.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Apple",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-049",
-      "headline": "Carlsberg India moves closer to IPO: What its updated filing reveals about the beer maker",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/carlsberg-india-ipo-updated-drhp-sebi-filing-20021912.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T18:26:35Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Carlsberg India is advancing its IPO plans, a significant capital event for the subsidiary.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Carlsberg India is advancing its IPO plans, a significant capital event for the subsidiary.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Carlsberg India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-061",
-      "headline": "‎Acwa signs SAR 1.79B water purchase deal in Dubai",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1948092",
-      "source_name": "Argaam — Company Disclosures (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T18:13:00Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "ACWA signs SAR 1.79 billion water purchase deal in Dubai; a major contract for a regional water/power generator with implications for multi-year revenue and cash flow.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "ACWA signs SAR 1.79 billion water purchase deal in Dubai; a major contract for a regional water/power generator with implications for multi-year revenue and cash flow.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ACWA Power",
-          "ticker": "2082",
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249082,9 +249070,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 34651,
-    "news_picked_today": 108,
-    "news_dropped_today": 324
+    "news_seen_today": 39356,
+    "news_picked_today": 126,
+    "news_dropped_today": 354
   },
   "book_momentum": {
     "live_count": 8,
