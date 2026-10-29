@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-29T12:06:35Z",
+  "generated_at": "2026-10-29T12:10:08Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261029-1018",
+      "headline": "Emmbi Industries Limited: Emmbi Industries Limited has informed the Exchange regarding the Board s approval, at its meeting held on October 29, 2026, of the proposal for acquisition of 50% of the equity share capital of Britpac AB, Sweden, operating under the trade name FortaPac , by Zastian Pte. Ltd., Singapore, a wholly-owned subsidiary of the Company.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/EMMBI_29102026172052_BritpacAB_Fortapac_AnnouncementSigned.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-29T11:56:46Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Emmbi Industries is acquiring a 50% stake in Sweden-based Britpac AB through its Singapore subsidiary.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Emmbi Industries is acquiring a 50% stake in Sweden-based Britpac AB through its Singapore subsidiary.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Emmbi Industries Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261029-903",
       "headline": "NIIT Learning Systems Limited: Press release dated October 29, 2026; acquisition of Bluewater Learning, LLP.",
@@ -1911,55 +1960,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-494",
-      "headline": "Ford sees profit flattening as inflation, war take mounting toll on American car giant",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/ford-sees-profit-flattening-as-inflation-war-take-mounting-toll-on-american-car-giant-20022008.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T02:18:05Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Ford reported profit flattening due to inflation and geopolitical pressures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ford reported profit flattening due to inflation and geopolitical pressures.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ford Motor Company",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247566,9 +247566,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 916462,
-    "news_picked_today": 2162,
-    "news_dropped_today": 9614
+    "news_seen_today": 924714,
+    "news_picked_today": 2167,
+    "news_dropped_today": 9633
   },
   "book_momentum": {
     "live_count": 8,
