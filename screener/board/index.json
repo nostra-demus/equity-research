@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T00:37:09Z",
+  "generated_at": "2026-10-29T00:38:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-026",
@@ -1165,6 +1165,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-110",
+      "headline": "Apple launches new MacBook with touchscreen and OLED — starts at $2,899",
+      "headline_en": null,
+      "url": "https://www.tomshardware.com/laptops/apple-launches-new-macbook-with-touchscreen-and-oled-starts-at-usd2-899",
+      "source_name": "Tom's Hardware",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T17:15:39Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Apple launched a new MacBook model featuring a touchscreen and OLED display, priced starting at $2,899.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Apple launched a new MacBook model featuring a touchscreen and OLED display, priced starting at $2,899.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-117",
+      "headline": "Wingstop Inc. Reports Third Quarter 2026 Revenue of $185.1 million",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/wingstop-inc-reports-third-quarter-2026-revenue-1851-million",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T17:12:59Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Wingstop reported Q3 2026 revenue of $185.1 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Wingstop reported Q3 2026 revenue of $185.1 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wingstop",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-005",
       "headline": "Konsum: US-Behörde will Auskunft über Preisgestaltung bei Uber und Walmart",
       "headline_en": "Consumer: US authority wants information on pricing at Uber and Walmart",
@@ -1495,6 +1593,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-114",
+      "headline": "‎NBF 9M 2026 profit rises 10% to AED 1.04B",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/financial-reports/company-report/5408/2026/72?preview=false",
+      "source_name": "Argaam — UAE Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T17:13:00Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "National Bank of Fujairah reported a 10% increase in 9M 2026 profit to AED 1.04 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "National Bank of Fujairah reported a 10% increase in 9M 2026 profit to AED 1.04 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Bank of Fujairah",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-012",
       "headline": "Weil leadership to tell partners firm should be dissolved",
       "headline_en": null,
@@ -1784,158 +1931,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-079",
-      "headline": "Meta, Snap head back to LA court for social media addiction trial: What to know",
-      "headline_en": null,
-      "url": "https://thehill.com/policy/technology/6178703-meta-snap-social-media-addiction-trial/",
-      "source_name": "The Hill — Homenews",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T17:46:36Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Ongoing litigation regarding social media addiction poses operational and legal risk to Meta and Snap.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Ongoing litigation regarding social media addiction poses operational and legal risk to Meta and Snap.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta Platforms",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Snap",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-088",
-      "headline": "JP Morgan to press on with London HQ despite new bank tax in ‘boring budget’ – as it happened",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/business/live/2026/oct/28/john-healey-budget-standing-charges-gas-city-bonds-pound-latest-news-updates",
-      "source_name": "The Guardian — Stock markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T17:38:01Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "JP Morgan confirms London headquarters commitment despite UK Budget announcement of new bank tax; real sector-level regulatory event with company response.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "JP Morgan confirms London headquarters commitment despite UK Budget announcement of new bank tax; real sector-level regulatory event with company response.",
-      "region": "GB",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JP Morgan Chase",
-          "ticker": "JPM",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-006",
-      "headline": "Anthropic Flags Data Center Moratoriums as a Top Risk to Its Growth Plans",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/10/28/anthropic-flags-data-center-blocking-as-a-top-risk/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T19:19:00Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Anthropic identifies data center moratoriums as a top risk to its growth, highlighting a significant operational constraint.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Anthropic identifies data center moratoriums as a top risk to its growth, highlighting a significant operational constraint.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249070,9 +249065,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 39356,
-    "news_picked_today": 126,
-    "news_dropped_today": 354
+    "news_seen_today": 43989,
+    "news_picked_today": 135,
+    "news_dropped_today": 369
   },
   "book_momentum": {
     "live_count": 8,
