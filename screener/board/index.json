@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T04:15:09Z",
+  "generated_at": "2026-10-29T04:22:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-600",
@@ -1716,6 +1716,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-639",
+      "headline": "Energie: Berliner Hochspannungs-Spezialist Trench für neun Milliarden Dollar in die USA verkauft",
+      "headline_en": "Energy: Berlin high-voltage specialist Trench sold to the USA for nine billion dollars",
+      "url": "https://www.handelsblatt.com/unternehmen/energie/energie-hochspannungs-spezialist-trench-fuer-neun-milliarden-dollar-in-die-usa-verkauft/100265586.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T11:04:39Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Trench, a high-voltage specialist, has been sold to a US buyer for $9 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Trench, a high-voltage specialist, has been sold to a US buyer for $9 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Trench",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-411",
       "headline": "AIS: Quarterly Results Presentation - Sept 2026 [price-sensitive]",
       "headline_en": null,
@@ -1956,55 +2005,6 @@
       "companies": [
         {
           "name": "Tanla",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-410",
-      "headline": "PVR INOX net profit surged to ₹263.1 crore, revenue up 17% in blockbuster Q2",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/pvr-inox-net-profit-surged-to-2631-crore-revenue-up-17-in-blockbuster-q2/article71636714.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T14:46:54Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "PVR INOX reported a net profit of ₹263.1 crore and a 17% revenue increase in Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "PVR INOX reported a net profit of ₹263.1 crore and a 17% revenue increase in Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PVR INOX",
           "ticker": null,
           "listing_country": "IN"
         }
