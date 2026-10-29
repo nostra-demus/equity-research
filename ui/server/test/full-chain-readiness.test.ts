@@ -1134,7 +1134,7 @@ async function copiedGenerationLifecycleChecks() {
         fs.writeFileSync(sourceFile, 'corrupted frozen source')
         fs.chmodSync(sourceFile, 0o444)
       }
-      if (damage === 'hardlink') fs.linkSync(sourceFile, path.join(stateDir, 'linked-source'))
+      if (damage === 'hardlink') fs.linkSync(sourceFile, path.join(path.dirname(frozen.generationDir), `linked-source-${randomUUID()}`)) // same device as the source; stateDir may be on another (EXDEV)
       const original = snapshot(frozen.generationDir)
       const requestId = randomUUID()
       requests.push(requestId)
