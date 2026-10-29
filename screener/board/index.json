@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T02:12:06Z",
+  "generated_at": "2026-10-29T02:18:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-276",
@@ -56,6 +56,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-404",
+      "headline": "(2nd LD) Samsung Electronics posts record profit in Q3 on AI chip supercycle",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261029002652320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T01:48:58Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Samsung Electronics reported record third-quarter profits driven by strong demand in its AI chip supercycle.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Samsung Electronics reported record third-quarter profits driven by strong demand in its AI chip supercycle.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung Electronics",
+          "ticker": "005930",
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-400",
+      "headline": "UltraGreen.ai shares down 9.7% after guiding for lower FY2026 revenue",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/ultragreen-ai-shares-down-9-7-after-guiding-lower-fy2026-revenue",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T01:39:25Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "The company issued a revenue guidance cut for FY2026, leading to a 9.7% share price decline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company issued a revenue guidance cut for FY2026, leading to a 9.7% share price decline.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UltraGreen.ai",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-322",
       "headline": "Samsung Chip Operating Profit Misses Estimates",
       "headline_en": null,
@@ -100,6 +198,60 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-407",
+      "headline": "Siam Cement, PTT Global Forge $5.5 Billion Petrochemical Deal",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-29/siam-cement-ptt-global-forge-5-5-billion-petrochemical-deal",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T01:10:50Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Siam Cement and PTT Global Chemical entered into a $5.5 billion petrochemical deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Siam Cement and PTT Global Chemical entered into a $5.5 billion petrochemical deal.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Siam Cement",
+          "ticker": "SCC",
+          "listing_country": "TH"
+        },
+        {
+          "name": "PTT Global Chemical",
+          "ticker": "PTTGC",
+          "listing_country": "TH"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1596,55 +1748,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261029-326",
-      "headline": "(LEAD) Samsung Electronics posts record profit in Q3 on AI chip supercycle",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261029002651320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T01:08:49Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Samsung Electronics reported record Q3 profit, directly moving revenue and margin expectations in the AI chip supercycle.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Samsung Electronics reported record Q3 profit, directly moving revenue and margin expectations in the AI chip supercycle.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 77,
-      "rank_factors": {
-        "materiality": 77,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung Electronics",
-          "ticker": "005930",
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20261029-348",
       "headline": "Alphabet Shares Tank on Sales Misses Across Core Businesses",
       "headline_en": null,
@@ -1891,105 +1994,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-383",
-      "headline": "Microsoft profits soar days after announcing thousands of layoffs",
-      "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/c6m24klyjr8no?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T01:27:40Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Microsoft reported strong profit growth alongside previously announced restructuring efforts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Microsoft reported strong profit growth alongside previously announced restructuring efforts.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Microsoft",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-273",
-      "headline": "Adani Said to Weigh Deal for €3 Billion Energy Storage Firm VTTI",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-28/adani-said-to-weigh-deal-for-3-billion-energy-storage-firm-vtti",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T15:17:07Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Adani Group is reportedly considering a €3 billion acquisition of energy storage firm VTTI.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Adani Group is reportedly considering a €3 billion acquisition of energy storage firm VTTI.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249119,9 +249123,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 129066,
-    "news_picked_today": 455,
-    "news_dropped_today": 1225
+    "news_seen_today": 137090,
+    "news_picked_today": 514,
+    "news_dropped_today": 1430
   },
   "book_momentum": {
     "live_count": 8,
