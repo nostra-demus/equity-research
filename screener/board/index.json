@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T00:38:06Z",
+  "generated_at": "2026-10-29T00:43:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-026",
@@ -588,6 +588,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-123",
+      "headline": "United Spirits’ popular segment sales fall 22.7% as state policies squeeze margins",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/cons-products/liquor/united-spirits-popular-segment-sales-fall-22-7-as-state-policies-squeeze-margins/articleshow/135273671.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T17:08:25Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "United Spirits reported a 22.7% decline in popular segment sales due to state policy impacts on margins.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "United Spirits reported a 22.7% decline in popular segment sales due to state policy impacts on margins.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "United Spirits",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1263,6 +1312,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-125",
+      "headline": "Flugzeugbauer: Airbus meldet schrumpfenden Umsatz, hält aber Ziele stabil",
+      "headline_en": "Aircraft manufacturer: Airbus reports shrinking revenue, but keeps targets stable",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/flugzeugbauer-airbus-meldet-schrumpfenden-umsatz-haelt-aber-ziele-stabil/100265025.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T17:04:57Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Airbus reported shrinking revenue while maintaining its financial targets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Airbus reported shrinking revenue while maintaining its financial targets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Airbus",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-005",
       "headline": "Konsum: US-Behörde will Auskunft über Preisgestaltung bei Uber und Walmart",
       "headline_en": "Consumer: US authority wants information on pricing at Uber and Walmart",
@@ -1833,104 +1931,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-064",
-      "headline": "AMAK records lower net profits in 9M-26; revenue remains nearly flat",
-      "headline_en": null,
-      "url": "http://english.mubasher.info/news/4692415/AMAK-records-lower-net-profits-in-9M-26-revenue-remains-nearly-flat",
-      "source_name": "Mubasher — Saudi Tadawul (TDWL) News, English",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T18:08:12Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "AMAK reported lower net profits for 9M-26 with flat revenue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "AMAK reported lower net profits for 9M-26 with flat revenue.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AMAK",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-098",
-      "headline": "ADS-TEC Energy PLC Announces Progress on Planned 1 GW Battery Storage Project in Germany",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/ads-tec-energy-plc-announces-progress-planned-1-gw-battery-storage-project-germany",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-28T17:32:23Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "ADS-TEC Energy is progressing on a significant 1 GW battery storage project in Germany.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "ADS-TEC Energy is progressing on a significant 1 GW battery storage project in Germany.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ADS-TEC Energy",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -249065,9 +249065,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 43989,
-    "news_picked_today": 135,
-    "news_dropped_today": 369
+    "news_seen_today": 48598,
+    "news_picked_today": 149,
+    "news_dropped_today": 403
   },
   "book_momentum": {
     "live_count": 8,
