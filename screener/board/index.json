@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-29T12:42:11Z",
+  "generated_at": "2026-10-29T12:48:13Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261029-1050",
+      "headline": "Electrotherm (India) Limited: Disclosure of default on payment of interest / repayment of principal amount on loans from Banks / Financial Institutions",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ELECTHERM_29102026175210_SE_Letter.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-29T12:22:33Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "Electrotherm (India) Limited has disclosed a default on its loan obligations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Electrotherm (India) Limited has disclosed a default on its loan obligations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Electrotherm (India) Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261029-1018",
       "headline": "Emmbi Industries Limited: Emmbi Industries Limited has informed the Exchange regarding the Board s approval, at its meeting held on October 29, 2026, of the proposal for acquisition of 50% of the equity share capital of Britpac AB, Sweden, operating under the trade name FortaPac , by Zastian Pte. Ltd., Singapore, a wholly-owned subsidiary of the Company.",
@@ -1917,55 +1966,6 @@
           "name": "Hyundai Motor",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-741",
-      "headline": "Nidec unable to obtain auditor’s opinion on fiscal 2025 report by end of October",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/10/29/companies/nidec-miss-audit-opinion-deadline/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T05:26:00Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Nidec is unable to obtain an auditor's opinion on its fiscal 2025 report by the deadline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nidec is unable to obtain an auditor's opinion on its fiscal 2025 report by the deadline.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nidec",
-          "ticker": null,
-          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
@@ -206133,76 +206133,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-45c433f18ce8",
-      "idea_version": "IDEAV-904d622c46bec612",
-      "idea_version_started_at": "2026-10-28T07:06:06Z",
-      "ticker": "NBHC",
-      "company": "National Bank Holdings Corporation",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A swing into a net loss of $8.8 million in Q3 alongside non-core asset sales signals deteriorating loan portfolio quality and compressed net interest margins.",
-      "why_now": "Q3 2026 financial report published on October 28, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6ca668a06fa0"
-      ],
-      "primary_source_event_id": "EVT-6ca668a06fa0",
-      "source_headlines": [
-        "National Bank Holdings Corporation Reports Third Quarter 2026 Net Loss of $8.8 million and Agrees to Sell Palm Beach Banking Center"
-      ],
-      "source_headline": "National Bank Holdings Corporation Reports Third Quarter 2026 Net Loss of $8.8 million and Agrees to Sell Palm Beach Banking Center",
-      "source_url": "https://www.nasdaq.com/articles/national-bank-holdings-corporation-reports-third-quarter-2026-net-loss-88-million-and",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-28T00:43:04Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-28T07:06:06Z",
-      "updated_at": "2026-10-28T07:06:06Z",
-      "decay_at": "2026-10-29T12:43:04Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-e50b386de176",
       "idea_version": "IDEAV-977c48b53ebf4b30",
       "idea_version_started_at": "2026-10-29T06:54:24Z",
@@ -207546,6 +207476,76 @@
       "surfaced_at": "2026-10-27T06:46:23Z",
       "updated_at": "2026-10-27T06:46:23Z",
       "decay_at": "2026-10-28T14:35:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-45c433f18ce8",
+      "idea_version": "IDEAV-904d622c46bec612",
+      "idea_version_started_at": "2026-10-28T07:06:06Z",
+      "ticker": "NBHC",
+      "company": "National Bank Holdings Corporation",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A swing into a net loss of $8.8 million in Q3 alongside non-core asset sales signals deteriorating loan portfolio quality and compressed net interest margins.",
+      "why_now": "Q3 2026 financial report published on October 28, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6ca668a06fa0"
+      ],
+      "primary_source_event_id": "EVT-6ca668a06fa0",
+      "source_headlines": [
+        "National Bank Holdings Corporation Reports Third Quarter 2026 Net Loss of $8.8 million and Agrees to Sell Palm Beach Banking Center"
+      ],
+      "source_headline": "National Bank Holdings Corporation Reports Third Quarter 2026 Net Loss of $8.8 million and Agrees to Sell Palm Beach Banking Center",
+      "source_url": "https://www.nasdaq.com/articles/national-bank-holdings-corporation-reports-third-quarter-2026-net-loss-88-million-and",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-28T00:43:04Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-28T07:06:06Z",
+      "updated_at": "2026-10-28T07:06:06Z",
+      "decay_at": "2026-10-29T12:43:04Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -210278,9 +210278,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 543,
+    "total_count": 544,
     "shown_count": 500,
-    "hidden_count": 43,
+    "hidden_count": 44,
     "side_counts": {
       "long": {
         "total_count": 276,
@@ -210288,9 +210288,9 @@
         "hidden_count": 26
       },
       "short": {
-        "total_count": 267,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 18
       }
     },
     "retention": {
@@ -210309,6 +210309,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-45c433f18ce8",
+        "idea_version": "IDEAV-904d622c46bec612",
+        "idea_version_started_at": "2026-10-28T07:06:06Z",
+        "ticker": "NBHC",
+        "company": "National Bank Holdings Corporation",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A swing into a net loss of $8.8 million in Q3 alongside non-core asset sales signals deteriorating loan portfolio quality and compressed net interest margins.",
+        "why_now": "Q3 2026 financial report published on October 28, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6ca668a06fa0"
+        ],
+        "primary_source_event_id": "EVT-6ca668a06fa0",
+        "source_headlines": [
+          "National Bank Holdings Corporation Reports Third Quarter 2026 Net Loss of $8.8 million and Agrees to Sell Palm Beach Banking Center"
+        ],
+        "source_headline": "National Bank Holdings Corporation Reports Third Quarter 2026 Net Loss of $8.8 million and Agrees to Sell Palm Beach Banking Center",
+        "source_url": "https://www.nasdaq.com/articles/national-bank-holdings-corporation-reports-third-quarter-2026-net-loss-88-million-and",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-28T00:43:04Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-28T07:06:06Z",
+        "updated_at": "2026-10-28T07:06:06Z",
+        "decay_at": "2026-10-29T12:43:04Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-29T12:43:04Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-414a14e26ddd",
         "idea_version": "IDEAV-73bee4aa7ba1a618",
@@ -247476,87 +247549,12 @@
         "archived_at": "2026-10-06T18:52:42Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-e92c01041db0",
-        "idea_version": "IDEAV-5013a3c353b88bcf",
-        "idea_version_started_at": "2026-10-03T22:10:02Z",
-        "ticker": "2222",
-        "company": "Saudi Aramco",
-        "exchange": "TADAWUL",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Reports of fire and smoke near a primary facility in Riyadh suggest operational disruption or security risks to core production infrastructure.",
-        "why_now": "The event was reported on October 3, 2026, creating an immediate risk premium or operational downside.",
-        "conviction": 45,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-8e0c8a7d8a1b"
-        ],
-        "primary_source_event_id": "EVT-8e0c8a7d8a1b",
-        "source_headlines": [
-          "Fire, smoke seen near Aramco facility in Riyadh"
-        ],
-        "source_headline": "Fire, smoke seen near Aramco facility in Riyadh",
-        "source_url": "https://www.deccanherald.com/world/middle-east/fire-smoke-seen-near-aramco-facility-in-riyadh-4169337",
-        "source_name": "Deccan Herald",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-03T12:10:53Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-03T14:22:04Z",
-        "updated_at": "2026-10-03T22:10:02Z",
-        "decay_at": "2026-10-05T00:10:53Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-06T13:00:22Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1993,
-    "live_count": 19,
+    "live_count": 18,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -247575,9 +247573,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1022421,
-    "news_picked_today": 2202,
-    "news_dropped_today": 10030
+    "news_seen_today": 1031636,
+    "news_picked_today": 2211,
+    "news_dropped_today": 10045
   },
   "book_momentum": {
     "live_count": 8,
