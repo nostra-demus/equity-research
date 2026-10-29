@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T11:58:07Z",
+  "generated_at": "2026-10-29T12:01:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-903",
@@ -207194,78 +207194,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-414a14e26ddd",
-      "idea_version": "IDEAV-73bee4aa7ba1a618",
-      "idea_version_started_at": "2026-10-28T07:06:06Z",
-      "ticker": "BMPS",
-      "company": "Banca Monte dei Paschi di Siena",
-      "exchange": "BIT",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "ECB regulatory clearance for a acquisition by Intesa Sanpaolo paves the way for a definitive takeover bid and M&A control premium.",
-      "why_now": "ECB approval granted on October 27, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ccffd4c37f63"
-      ],
-      "primary_source_event_id": "EVT-ccffd4c37f63",
-      "source_headlines": [
-        "Banks: ECB gives Intesa Sanpaolo green light for MPS takeover"
-      ],
-      "source_headline": "Banken: EZB gibt Intesa Sanpaolo grünes Licht für MPS-Übernahme",
-      "source_url": "https://www.handelsblatt.com/finanzen/banken-versicherungen/banken-ezb-gibt-intesa-sanpaolo-gruenes-licht-fuer-mps-uebernahme/100265409.html",
-      "source_name": "Handelsblatt",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-27T23:59:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-28T07:06:06Z",
-      "updated_at": "2026-10-28T07:06:06Z",
-      "decay_at": "2026-10-29T11:59:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-77b0931ae560",
       "idea_version": "IDEAV-9d944fb084806f51",
       "idea_version_started_at": "2026-10-27T01:59:31Z",
@@ -208316,6 +208244,78 @@
       "surfaced_at": "2026-10-26T09:24:06Z",
       "updated_at": "2026-10-28T08:58:37Z",
       "decay_at": "2026-10-29T10:56:35Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-414a14e26ddd",
+      "idea_version": "IDEAV-73bee4aa7ba1a618",
+      "idea_version_started_at": "2026-10-28T07:06:06Z",
+      "ticker": "BMPS",
+      "company": "Banca Monte dei Paschi di Siena",
+      "exchange": "BIT",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "ECB regulatory clearance for a acquisition by Intesa Sanpaolo paves the way for a definitive takeover bid and M&A control premium.",
+      "why_now": "ECB approval granted on October 27, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ccffd4c37f63"
+      ],
+      "primary_source_event_id": "EVT-ccffd4c37f63",
+      "source_headlines": [
+        "Banks: ECB gives Intesa Sanpaolo green light for MPS takeover"
+      ],
+      "source_headline": "Banken: EZB gibt Intesa Sanpaolo grünes Licht für MPS-Übernahme",
+      "source_url": "https://www.handelsblatt.com/finanzen/banken-versicherungen/banken-ezb-gibt-intesa-sanpaolo-gruenes-licht-fuer-mps-uebernahme/100265409.html",
+      "source_name": "Handelsblatt",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-27T23:59:40Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-28T07:06:06Z",
+      "updated_at": "2026-10-28T07:06:06Z",
+      "decay_at": "2026-10-29T11:59:40Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -210269,14 +210269,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 542,
+    "total_count": 543,
     "shown_count": 500,
-    "hidden_count": 42,
+    "hidden_count": 43,
     "side_counts": {
       "long": {
-        "total_count": 275,
+        "total_count": 276,
         "shown_count": 250,
-        "hidden_count": 25
+        "hidden_count": 26
       },
       "short": {
         "total_count": 267,
@@ -210300,6 +210300,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-414a14e26ddd",
+        "idea_version": "IDEAV-73bee4aa7ba1a618",
+        "idea_version_started_at": "2026-10-28T07:06:06Z",
+        "ticker": "BMPS",
+        "company": "Banca Monte dei Paschi di Siena",
+        "exchange": "BIT",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "ECB regulatory clearance for a acquisition by Intesa Sanpaolo paves the way for a definitive takeover bid and M&A control premium.",
+        "why_now": "ECB approval granted on October 27, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ccffd4c37f63"
+        ],
+        "primary_source_event_id": "EVT-ccffd4c37f63",
+        "source_headlines": [
+          "Banks: ECB gives Intesa Sanpaolo green light for MPS takeover"
+        ],
+        "source_headline": "Banken: EZB gibt Intesa Sanpaolo grünes Licht für MPS-Übernahme",
+        "source_url": "https://www.handelsblatt.com/finanzen/banken-versicherungen/banken-ezb-gibt-intesa-sanpaolo-gruenes-licht-fuer-mps-uebernahme/100265409.html",
+        "source_name": "Handelsblatt",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-27T23:59:40Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-28T07:06:06Z",
+        "updated_at": "2026-10-28T07:06:06Z",
+        "decay_at": "2026-10-29T11:59:40Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-29T11:59:40Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7c03452ec8b3",
         "idea_version": "IDEAV-6a3304b7bd14dbc2",
@@ -238965,81 +239040,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-dbad30ae5c0f",
-        "idea_version": "IDEAV-59347acf71dafbd6",
-        "idea_version_started_at": "2026-10-14T20:04:17Z",
-        "ticker": "BAJAJCON",
-        "company": "Bajaj Consumer Care",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported a 66% jump in net profit to Rs 70 crore and a 26% increase in revenue, indicating strong operational momentum.",
-        "why_now": "The Q2 results were released on October 14, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9572d429d6b1"
-        ],
-        "primary_source_event_id": "EVT-9572d429d6b1",
-        "source_headlines": [
-          "Bajaj Consumer Q2 Results: Net Profit Jumps 66% To Rs 70 Crore, Revenue Rises 26%"
-        ],
-        "source_headline": "Bajaj Consumer Q2 Results: Net Profit Jumps 66% To Rs 70 Crore, Revenue Rises 26%",
-        "source_url": "https://www.ndtvprofit.com/markets/bajaj-consumer-q2-results-net-profit-jumps-66-to-rs-70-crore-revenue-rises-26-12184963#publisher=newsstand",
-        "source_name": "NDTV Profit",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-14T12:55:01Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-14T20:04:17Z",
-        "updated_at": "2026-10-14T20:04:17Z",
-        "decay_at": "2026-10-16T00:55:01Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-17T13:20:28Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-d9ce787618db",
         "idea_version": "IDEAV-5b81c7ae489e1e69",
         "idea_version_started_at": "2026-10-14T16:36:34Z",
@@ -247547,7 +247547,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1993,
-    "live_count": 20,
+    "live_count": 19,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -247566,9 +247566,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 892820,
-    "news_picked_today": 2144,
-    "news_dropped_today": 9464
+    "news_seen_today": 908114,
+    "news_picked_today": 2159,
+    "news_dropped_today": 9521
   },
   "book_momentum": {
     "live_count": 8,
