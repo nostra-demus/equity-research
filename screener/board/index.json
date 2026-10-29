@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T12:10:08Z",
+  "generated_at": "2026-10-29T12:15:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-1018",
@@ -743,37 +743,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261029-1013",
-      "headline": "DoorDash to Buy Instacart for $17 Billion",
+      "inbox_id": "INB-20261029-1039",
+      "headline": "DoorDash to acquire Instacart for $17bn",
       "headline_en": null,
-      "url": "https://www.wsj.com/business/deals/doordash-to-buy-instacart-for-17-billion-7d6a6f3f?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
+      "url": "https://www.ft.com/content/d84d7db1-d18d-49ce-9f60-e42c07a3d67a?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
       "input_nature": "news_headline",
-      "found_at": "2026-10-29T11:31:00Z",
+      "found_at": "2026-10-29T11:57:23Z",
       "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "DoorDash announced acquisition of Instacart for $17 billion, a material capital deployment affecting both companies' capital structures, valuations, and strategic positioning.",
+      "prelim_note": "DoorDash to acquire Instacart for $17 billion.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "DoorDash announced acquisition of Instacart for $17 billion, a material capital deployment affecting both companies' capital structures, valuations, and strategic positioning.",
+      "triage_reason": "DoorDash to acquire Instacart for $17 billion.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 78,
+      "materiality_pre_score": 90,
       "rank_factors": {
-        "materiality": 78,
+        "materiality": 90,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 7,
+        "materiality_label_floor": 0,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
         "event_id": "mna",
-        "size_bucket": "mega"
+        "size_bucket": "large"
       },
       "event_types": [
         "mna"
@@ -782,7 +782,7 @@
       "companies": [
         {
           "name": "DoorDash",
-          "ticker": "DASH",
+          "ticker": null,
           "listing_country": "US"
         },
         {
@@ -791,7 +791,61 @@
           "listing_country": "US"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-1036",
+      "headline": "DoorDash is acquiring Instacart for around $17 billion",
+      "headline_en": null,
+      "url": "https://www.theverge.com/business/1021981/doordash-instacart-acquisition-announcement",
+      "source_name": "The Verge",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T11:56:35Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "DoorDash announced the acquisition of Instacart for approximately $17 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DoorDash announced the acquisition of Instacart for approximately $17 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DoorDash",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Instacart",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -838,6 +892,60 @@
         {
           "name": "Cognizant Technology Solutions Corp",
           "ticker": "CTSH",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261029-1040",
+      "headline": "DoorDash to Buy Rival Instacart in $17 Billion Deal",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-29/doordash-to-buy-instacart-in-17-billion-deal",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T11:20:13Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "DoorDash to buy rival Instacart in a $17 billion deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DoorDash to buy rival Instacart in a $17 billion deal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DoorDash",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Instacart",
+          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -1861,105 +1969,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-730",
-      "headline": "Alphabet Inc. shares: Google parent stock price falls 10% post Q3 earnings | What should investors do?",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/alphabet-inc-shares-google-parent-stock-price-falls-10-post-q3-earnings-check-goog-performance-11793247168396.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T04:54:24Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Alphabet shares fell 10% following Q3 earnings results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Alphabet shares fell 10% following Q3 earnings results.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alphabet Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-606",
-      "headline": "PVR Inox Q2 profit rises 111% to Rs 273 crore, targets 500 new screens in 3 years",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/pvr-inox-q2-profit-rises-111-to-rs-273-crore-targets-500-new-screens-in-3-years/articleshow/135288278.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T03:29:22Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "PVR Inox reported a 111% profit increase to Rs 273 crore and announced a major expansion plan of 500 new screens over 3 years.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "PVR Inox reported a 111% profit increase to Rs 273 crore and announced a major expansion plan of 500 new screens over 3 years.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PVR Inox",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247566,9 +247575,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 924714,
-    "news_picked_today": 2167,
-    "news_dropped_today": 9633
+    "news_seen_today": 932942,
+    "news_picked_today": 2194,
+    "news_dropped_today": 9678
   },
   "book_momentum": {
     "live_count": 8,
