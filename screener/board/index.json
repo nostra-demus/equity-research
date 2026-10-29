@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T05:49:24Z",
+  "generated_at": "2026-10-29T05:52:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-600",
@@ -1962,50 +1962,51 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261029-411",
-      "headline": "AIS: Quarterly Results Presentation - Sept 2026 [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AIS?key=2924-03155209-6A1352376",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-29T02:17:50Z",
+      "inbox_id": "INB-20261029-689",
+      "headline": "Chemie: BASF hebt erneut Ergebnisprognose 2026 an – Quartal besser als erwartet",
+      "headline_en": "Chemistry: BASF raises 2026 earnings forecast again – quarter better than expected",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/basf-chemiekonzern-uebertrifft-erwartungen-und-hebt-jahresziele-an/100261992.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-28T06:14:28Z",
       "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "The company released its quarterly results presentation, which is explicitly marked as price-sensitive.",
+      "prelim_note": "BASF raised its 2026 earnings guidance following better-than-expected quarterly results.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "The company released its quarterly results presentation, which is explicitly marked as price-sensitive.",
+      "triage_score": 100,
+      "triage_reason": "BASF raised its 2026 earnings guidance following better-than-expected quarterly results.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
+        "materiality": 80,
+        "source_tier": 0,
         "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
       },
       "event_types": [
+        "guidance_change",
         "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "AIS",
+          "name": "BASF",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "DE"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -248630,9 +248631,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 250818,
-    "news_picked_today": 1423,
-    "news_dropped_today": 3617
+    "news_seen_today": 251738,
+    "news_picked_today": 1431,
+    "news_dropped_today": 3633
   },
   "book_momentum": {
     "live_count": 8,
