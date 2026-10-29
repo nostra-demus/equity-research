@@ -1,13 +1,13 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-10-04T00:39:36Z",
+  "archived_at": "2026-10-29T02:54:23Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-80657c4063b1",
-    "idea_version": "IDEAV-93f6cc7c00a3cae9",
-    "idea_version_started_at": "2026-10-01T05:01:30Z",
-    "ticker": "CHM",
-    "company": "CHM",
+    "idea_id": "IDEA-ba24132911c9",
+    "idea_version": "IDEAV-3e2e73ac1214c697",
+    "idea_version_started_at": "2026-10-26T01:09:27Z",
+    "ticker": "CZR",
+    "company": "CZR Resources",
     "exchange": "ASX",
     "ticker_verified": false,
     "listing_verified": false,
@@ -15,15 +15,15 @@
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "The combination of default distress, creditor updates, and executive exits signals a high probability of insolvency or severe capital structure impairment.",
-    "why_now": "The annual report and creditor update were filed on 2026-10-01.",
-    "conviction": 80,
+    "reason": "The failure to satisfy shareholder approval conditions for the takeover offer removes the acquisition premium from the stock price.",
+    "why_now": "The filing confirming the condition was not satisfied was released on 2026-10-26.",
+    "conviction": 85,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 25,
-      "impact": 16,
+      "impact": 19,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -48,30 +48,30 @@
       "evidenceIds": []
     },
     "priced_in": "room",
-    "thesis_type": "balance_sheet_survival",
+    "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-147198e0dc75"
+      "EVT-ad102a401b33"
     ],
-    "primary_source_event_id": "EVT-147198e0dc75",
+    "primary_source_event_id": "EVT-ad102a401b33",
     "source_headlines": [
-      "CHM: FY2026 Annual Report, creditor update and Board changes"
+      "CZR: Takeover Offer-Shareholder Approval Condition Not Satisfied [price-sensitive]"
     ],
-    "source_headline": "CHM: FY2026 Annual Report, creditor update and Board changes",
-    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CHM?key=2924-03143098-2A1701052",
+    "source_headline": "CZR: Takeover Offer-Shareholder Approval Condition Not Satisfied [price-sensitive]",
+    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CZR?key=2924-03153002-6A1351299",
     "source_name": "ASX (Australia Exchange Filing)",
-    "materiality_max": 98,
-    "newest_source_at": "2026-10-01T00:16:13Z",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-26T00:20:11Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-10-01T05:01:30Z",
-    "updated_at": "2026-10-01T05:01:30Z",
-    "decay_at": "2026-10-02T12:16:13Z",
+    "surfaced_at": "2026-10-26T01:09:27Z",
+    "updated_at": "2026-10-26T01:09:27Z",
+    "decay_at": "2026-10-27T12:20:11Z",
     "status": "live",
     "promoted_signal_id": null
   }

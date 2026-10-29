@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T02:53:51Z",
+  "generated_at": "2026-10-29T02:54:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-276",
@@ -206093,6 +206093,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-b185b56cf3f7",
+      "idea_version": "IDEAV-b1f241a0b9637bcb",
+      "idea_version_started_at": "2026-10-29T02:54:08Z",
+      "ticker": "ULBI",
+      "company": "Ultralife Corp",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "EnerSys has initiated a third-party tender offer for Ultralife, which typically forces a price convergence toward the offer price.",
+      "why_now": "The SC TO-T filing was processed on October 28, 2026, making the acquisition attempt live.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3b6456da3a29",
+        "EVT-cfc5dd709a10"
+      ],
+      "primary_source_event_id": "EVT-3b6456da3a29",
+      "source_headlines": [
+        "SC TO-T - ULTRALIFE CORP (0000875657) (Subject)",
+        "SC TO-T - EnerSys (0001289308) (Filed by)"
+      ],
+      "source_headline": "SC TO-T - ULTRALIFE CORP (0000875657) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/875657/000119312526435071/0001193125-26-435071-index.htm",
+      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-28T11:00:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-29T02:54:08Z",
+      "updated_at": "2026-10-29T02:54:08Z",
+      "decay_at": "2026-10-29T23:00:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-14600c52489c",
       "idea_version": "IDEAV-57292833b014c260",
       "idea_version_started_at": "2026-10-27T18:30:15Z",
@@ -206229,6 +206301,219 @@
       "surfaced_at": "2026-10-27T16:21:10Z",
       "updated_at": "2026-10-27T16:21:10Z",
       "decay_at": "2026-10-29T03:15:31Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-8d0cbe562695",
+      "idea_version": "IDEAV-a7c41e84466f49b0",
+      "idea_version_started_at": "2026-10-29T02:54:08Z",
+      "ticker": "FORTIS",
+      "company": "Fortis Healthcare Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of Suguna Hospital for INR 277 crore expands the company's footprint in Bengaluru with immediate scale-up potential to 150 beds.",
+      "why_now": "The acquisition was officially announced via exchange filing on October 28, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6c91d9a236aa"
+      ],
+      "primary_source_event_id": "EVT-6c91d9a236aa",
+      "source_headlines": [
+        "Fortis Healthcare Limited: Fortis Healthcare Limited has informed the Exchange regarding a press release dated October 28, 2026, titled \"Fortis acquires 110-bedded Suguna Hospital, Rajajinagar, Bengaluru for approx. INR 277 Crs; facility provides further potential to scale up to 150 beds\"."
+      ],
+      "source_headline": "Fortis Healthcare Limited: Fortis Healthcare Limited has informed the Exchange regarding a press release dated October 28, 2026, titled \"Fortis acquires 110-bedded Suguna Hospital, Rajajinagar, Bengaluru for approx. INR 277 Crs; facility provides further potential to scale up to 150 beds\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/FORTIS_28102026191214_Intimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-28T13:42:57Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-29T02:54:08Z",
+      "updated_at": "2026-10-29T02:54:08Z",
+      "decay_at": "2026-10-30T01:42:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-a054c961905a",
+      "idea_version": "IDEAV-b8baa0b053322b6f",
+      "idea_version_started_at": "2026-10-29T02:54:08Z",
+      "ticker": "ECLERX",
+      "company": "eClerx Services Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported Q2 FY27 revenue of INR 1,212.6 crore, representing a 17.1% YoY growth, indicating successful execution in its service segments.",
+      "why_now": "The financial results were released on October 28, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c503f4df4e72"
+      ],
+      "primary_source_event_id": "EVT-c503f4df4e72",
+      "source_headlines": [
+        "eClerx Services Limited: eClerx Services Limited has informed the Exchange regarding a press release dated October 28, 2026, titled \"eClerx s Q2 FY27 revenue at INR 1,212.6 crore, up by 17.1% YoY\"."
+      ],
+      "source_headline": "eClerx Services Limited: eClerx Services Limited has informed the Exchange regarding a press release dated October 28, 2026, titled \"eClerx s Q2 FY27 revenue at INR 1,212.6 crore, up by 17.1% YoY\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/ECLERX_28102026190847_BSENSEPR28102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-28T13:39:55Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-29T02:54:08Z",
+      "updated_at": "2026-10-29T02:54:08Z",
+      "decay_at": "2026-10-30T01:39:55Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-f71ecb5c2907",
+      "idea_version": "IDEAV-1b60731801d1b517",
+      "idea_version_started_at": "2026-10-29T02:54:08Z",
+      "ticker": "PRUDENT",
+      "company": "Prudent Corporate Advisory Services Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 42.4% YoY increase in operating profit for Q2 FY27, signaling strong momentum in its financial services and distribution business.",
+      "why_now": "The earnings release was filed on October 28, 2026, providing immediate fundamental validation for the stock.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-14a50e7c1689"
+      ],
+      "primary_source_event_id": "EVT-14a50e7c1689",
+      "source_headlines": [
+        "Prudent Corporate Advisory Services Limited: Prudent Corporate Advisory Services Limited has informed the Exchange regarding a press release dated October 28, 2026, titled \"Prudent's Operating Profit Rises 42.4% YoY in Q2 FY27;Records Highest-Ever Equity Net Sales of ₹4,138 Crore\"."
+      ],
+      "source_headline": "Prudent Corporate Advisory Services Limited: Prudent Corporate Advisory Services Limited has informed the Exchange regarding a press release dated October 28, 2026, titled \"Prudent's Operating Profit Rises 42.4% YoY in Q2 FY27;Records Highest-Ever Equity Net Sales of ₹4,138 Crore\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/PRUDENT9992_28102026155330_Intimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-28T10:23:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-29T02:54:08Z",
+      "updated_at": "2026-10-29T02:54:08Z",
+      "decay_at": "2026-10-29T22:23:39Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -207170,75 +207455,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-43576d5bf0b5",
-      "idea_version": "IDEAV-5ec1527dde5b57f6",
-      "idea_version_started_at": "2026-10-26T03:24:01Z",
-      "ticker": "HON",
-      "company": "Honeywell International",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The execution of a long-term agreement with Unimech Aerospace secures a stable, multi-year revenue stream for Honeywell's aerospace division, enhancing long-term margin visibility.",
-      "why_now": "The agreement was formally filed with the exchange on 2026-10-26.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 72,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-737f735de597"
-      ],
-      "primary_source_event_id": "EVT-737f735de597",
-      "source_headlines": [
-        "Unimech Aerospace and Manufacturing Limited: Unimech Aerospace and Manufacturing Limited has informed the Exchange about execution of Long-Term Agreement with Honeywell Aerospace US LLC"
-      ],
-      "source_headline": "Unimech Aerospace and Manufacturing Limited: Unimech Aerospace and Manufacturing Limited has informed the Exchange about execution of Long-Term Agreement with Honeywell Aerospace US LLC",
-      "source_url": "https://nsearchives.nseindia.com/corporate/UNIMECH_26102026071241_Unimech_Exchange_Disclosure_-_Honeywell_LTA_Clean__1_.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 87,
-      "newest_source_at": "2026-10-26T01:43:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T03:24:01Z",
-      "updated_at": "2026-10-26T03:24:01Z",
-      "decay_at": "2026-10-27T13:43:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-77b0931ae560",
       "idea_version": "IDEAV-9d944fb084806f51",
       "idea_version_started_at": "2026-10-27T01:59:31Z",
@@ -207722,146 +207938,6 @@
       "surfaced_at": "2026-10-26T13:58:56Z",
       "updated_at": "2026-10-26T13:58:56Z",
       "decay_at": "2026-10-27T23:01:31Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-a85bb583dca8",
-      "idea_version": "IDEAV-49b3a59fac5c38a8",
-      "idea_version_started_at": "2026-10-26T03:59:06Z",
-      "ticker": "9984.T",
-      "company": "SoftBank Group",
-      "exchange": "Tokyo Stock Exchange",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is committing $50 billion to technology investments in Malaysia, signaling a major expansion of its capital deployment strategy into emerging Southeast Asian tech markets.",
-      "why_now": "The investment plan was confirmed by the Malaysian Prime Minister on 2026-10-26.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-41081c30ce2b"
-      ],
-      "primary_source_event_id": "EVT-41081c30ce2b",
-      "source_headlines": [
-        "SoftBank’s Son plans $50 billion Malaysia tech outlay, PM Anwar Ibrahim says"
-      ],
-      "source_headline": "SoftBank’s Son plans $50 billion Malaysia tech outlay, PM Anwar Ibrahim says",
-      "source_url": "https://www.japantimes.co.jp/business/2026/10/26/softbank-malaysia-data-center-investments/",
-      "source_name": "The Japan Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T01:34:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T03:59:06Z",
-      "updated_at": "2026-10-26T03:59:06Z",
-      "decay_at": "2026-10-27T13:34:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-35e446beedc4",
-      "idea_version": "IDEAV-a86ce9060031a2e8",
-      "idea_version_started_at": "2026-10-26T03:24:01Z",
-      "ticker": "006400.KS",
-      "company": "Samsung SDI",
-      "exchange": "Korea",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a 1.5GWh Energy Storage System (ESS) supply contract, which provides a direct, incremental boost to its revenue and order backlog in the growing US renewable infrastructure market.",
-      "why_now": "The contract was announced on 2026-10-26, making it a fresh catalyst for revenue growth.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f2721abdd92c"
-      ],
-      "primary_source_event_id": "EVT-f2721abdd92c",
-      "source_headlines": [
-        "Samsung SDI signs 1.5GWh ESS supply contract with US-based AOP"
-      ],
-      "source_headline": "삼성SDI, 美 AOP와 1.5GWh 규모 ESS 공급 계약 체결",
-      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279609",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "materiality_max": 98,
-      "newest_source_at": "2026-10-26T00:52:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T02:34:32Z",
-      "updated_at": "2026-10-26T03:24:01Z",
-      "decay_at": "2026-10-27T12:52:07Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -210601,365 +210677,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-ba24132911c9",
-      "idea_version": "IDEAV-3e2e73ac1214c697",
-      "idea_version_started_at": "2026-10-26T01:09:27Z",
-      "ticker": "CZR",
-      "company": "CZR Resources",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The failure to satisfy shareholder approval conditions for the takeover offer removes the acquisition premium from the stock price.",
-      "why_now": "The filing confirming the condition was not satisfied was released on 2026-10-26.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ad102a401b33"
-      ],
-      "primary_source_event_id": "EVT-ad102a401b33",
-      "source_headlines": [
-        "CZR: Takeover Offer-Shareholder Approval Condition Not Satisfied [price-sensitive]"
-      ],
-      "source_headline": "CZR: Takeover Offer-Shareholder Approval Condition Not Satisfied [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CZR?key=2924-03153002-6A1351299",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-26T00:20:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T01:09:27Z",
-      "updated_at": "2026-10-26T01:09:27Z",
-      "decay_at": "2026-10-27T12:20:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-b46baf89fdca",
-      "idea_version": "IDEAV-9f527617e5a30b41",
-      "idea_version_started_at": "2026-10-26T00:44:51Z",
-      "ticker": "WC8",
-      "company": "Wildcat Resources",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The Definitive Feasibility Study for the Tabba Tabba project confirms the technical and economic viability for large-scale lithium development, de-risking the company's primary asset.",
-      "why_now": "The filing was released on 2026-10-25, providing an immediate catalyst for project valuation re-rating.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d5ff625d16f0"
-      ],
-      "primary_source_event_id": "EVT-d5ff625d16f0",
-      "source_headlines": [
-        "WC8: TABBA TABBA DFS CLEARS PATHWAY FOR LARGE-SCALE DEVELOPMENT [price-sensitive]"
-      ],
-      "source_headline": "WC8: TABBA TABBA DFS CLEARS PATHWAY FOR LARGE-SCALE DEVELOPMENT [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WC8?key=2924-03152983-6A1351295",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-25T23:30:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T00:44:51Z",
-      "updated_at": "2026-10-26T00:44:51Z",
-      "decay_at": "2026-10-27T11:30:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-035d29edfe11",
-      "idea_version": "IDEAV-43b4e4f366a81dab",
-      "idea_version_started_at": "2026-10-26T00:29:16Z",
-      "ticker": "VFQS",
-      "company": "Vodafone Qatar",
-      "exchange": "QE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A 23.7% increase in nine-month profit to QR611 million indicates strong operational leverage and market share growth in the Qatari telecommunications sector.",
-      "why_now": "The financial results were reported on 2026-10-25.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-58623c60c77c"
-      ],
-      "primary_source_event_id": "EVT-58623c60c77c",
-      "source_headlines": [
-        "Vodafone Qatar nine month profit jumps 23.7% to QR611 mn"
-      ],
-      "source_headline": "Vodafone Qatar nine month profit jumps 23.7% to QR611 mn",
-      "source_url": "https://www.qatar-tribune.com/article/261017/business/vodafone-qatar-nine-month-profit-jumps-237-to-qr611-mn",
-      "source_name": "Qatar Tribune — Business",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-25T21:29:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T00:29:16Z",
-      "updated_at": "2026-10-26T00:29:16Z",
-      "decay_at": "2026-10-27T09:29:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-10777c7adaa7",
-      "idea_version": "IDEAV-3882d64cf7e65898",
-      "idea_version_started_at": "2026-10-26T00:29:16Z",
-      "ticker": "PIM",
-      "company": "Pinnacle Minerals",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Acquiring five tungsten projects in Utah provides the company with exposure to a critical mineral asset class, potentially re-rating the stock based on resource development prospects.",
-      "why_now": "The acquisition was formally announced in an investor presentation and exchange filing on 2026-10-25.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-919d0f045bea",
-        "EVT-f49f3cec542a"
-      ],
-      "primary_source_event_id": "EVT-919d0f045bea",
-      "source_headlines": [
-        "PIM: Investor Presentation - Acquiring Five US Tungsten Projects",
-        "PIM: Pinnacle acquires rights to five Utah tungsten projects USA [price-sensitive]"
-      ],
-      "source_headline": "PIM: Investor Presentation - Acquiring Five US Tungsten Projects",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PIM?key=2924-03152913-6A1351185",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-25T22:41:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T00:29:16Z",
-      "updated_at": "2026-10-26T00:29:16Z",
-      "decay_at": "2026-10-27T10:41:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-415c3f6939fe",
-      "idea_version": "IDEAV-74a39652fb4ddfa1",
-      "idea_version_started_at": "2026-10-26T00:29:16Z",
-      "ticker": "APE",
-      "company": "Eagers Automotive",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Consolidating full ownership of the BYD retail joint venture allows Eagers to capture 100% of the margins from the rapidly growing electric vehicle brand in Australia.",
-      "why_now": "The acquisition of the remaining 20% interest was announced via exchange filing on 2026-10-25.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ab01c8055600"
-      ],
-      "primary_source_event_id": "EVT-ab01c8055600",
-      "source_headlines": [
-        "APE: Eagers to acquire remaining 20% interest in BYD Retail JV"
-      ],
-      "source_headline": "APE: Eagers to acquire remaining 20% interest in BYD Retail JV",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.APE?key=2924-03152775-2A1705984",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-25T21:52:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T00:29:16Z",
-      "updated_at": "2026-10-26T00:29:16Z",
-      "decay_at": "2026-10-27T09:52:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-4beb9e83c333",
       "idea_version": "IDEAV-6d040e909cb10384",
       "idea_version_started_at": "2026-10-26T05:19:35Z",
@@ -211463,148 +211180,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-586f6f9b0df8",
-      "idea_version": "IDEAV-567857f204fc9c2f",
-      "idea_version_started_at": "2026-10-26T00:44:51Z",
-      "ticker": "09926",
-      "company": "Akeso",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Positive Phase 3 clinical data for Ivonescimab in advanced biliary tract cancer demonstrates superior efficacy (mOS 14.9m vs 12.1m) compared to the current standard of care, supporting potential market share gains.",
-      "why_now": "Results were presented at the 2026 ESMO meeting on 2026-10-25, providing fresh clinical validation.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4cd8dfbfe92c"
-      ],
-      "primary_source_event_id": "EVT-4cd8dfbfe92c",
-      "source_headlines": [
-        "AKESO (09926): VOLUNTARY ANNOUNCEMENT - HARMONI-GI1 RESULTS PUBLISHED AT 2026 ESMO mOS 14.9m vs 12.1m, HR 0.75 (P=0.0031) FOR IVONESCIMAB PLUS CHEMO VS DURVALUMAB PLUS CHEMO IN 1L ADVANCED BTC"
-      ],
-      "source_headline": "AKESO (09926): VOLUNTARY ANNOUNCEMENT - HARMONI-GI1 RESULTS PUBLISHED AT 2026 ESMO mOS 14.9m vs 12.1m, HR 0.75 (P=0.0031) FOR IVONESCIMAB PLUS CHEMO VS DURVALUMAB PLUS CHEMO IN 1L ADVANCED BTC",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1026/2026102600019.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 91,
-      "newest_source_at": "2026-10-25T23:38:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T00:44:51Z",
-      "updated_at": "2026-10-26T00:44:51Z",
-      "decay_at": "2026-10-27T11:38:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-52c1133413b1",
-      "idea_version": "IDEAV-9209882c9efe76bb",
-      "idea_version_started_at": "2026-10-26T01:09:27Z",
-      "ticker": "00013",
-      "company": "HUTCHMED",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Positive Phase III data for SAFFRON published in the New England Journal of Medicine validates the efficacy of their oncology pipeline, likely accelerating commercialization prospects.",
-      "why_now": "Data was presented at the ESMO Congress 2026 and published on 2026-10-26.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3ca06f391bd1"
-      ],
-      "primary_source_event_id": "EVT-3ca06f391bd1",
-      "source_headlines": [
-        "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Highlights SAFFRON Global Phase III Data Presented at ESMO Congress 2026 and Simultaneously Published in The New England Journal of Medicine"
-      ],
-      "source_headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Highlights SAFFRON Global Phase III Data Presented at ESMO Congress 2026 and Simultaneously Published in The New England Journal of Medicine",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1026/2026102600045.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 90,
-      "newest_source_at": "2026-10-26T00:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T01:09:27Z",
-      "updated_at": "2026-10-26T01:09:27Z",
-      "decay_at": "2026-10-27T12:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-12b791fa381c",
       "idea_version": "IDEAV-a4e817085f560c80",
       "idea_version_started_at": "2026-10-27T03:29:04Z",
@@ -211674,150 +211249,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-19c8572b0c99",
-      "idea_version": "IDEAV-ff27778e9ddf4622",
-      "idea_version_started_at": "2026-10-26T01:55:29Z",
-      "ticker": "BSL",
-      "company": "BlueScope Steel",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "BlueScope Steel benefits from increased US profit margins driven by the implementation of protective tariffs on imported steel.",
-      "why_now": "The company is currently realizing the financial impact of the tariff environment as reported in recent earnings updates.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3084701615e5"
-      ],
-      "primary_source_event_id": "EVT-3084701615e5",
-      "source_headlines": [
-        "BlueScope Steel rides Trump tariff train to bumper US profits"
-      ],
-      "source_headline": "BlueScope Steel rides Trump tariff train to bumper US profits",
-      "source_url": "https://www.afr.com/companies/manufacturing/bluescope-steel-rides-trump-tariff-train-to-bumper-us-profits-20261026-p618jk?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 88,
-      "newest_source_at": "2026-10-26T00:37:36Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T01:55:29Z",
-      "updated_at": "2026-10-26T01:55:29Z",
-      "decay_at": "2026-10-27T12:37:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-83bd5483df63",
-      "idea_version": "IDEAV-392e394cd3f28813",
-      "idea_version_started_at": "2026-10-26T00:44:51Z",
-      "ticker": "NXT",
-      "company": "NextDC",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Management instability following the M3 data center project fallout creates significant governance risk and uncertainty regarding operational execution.",
-      "why_now": "The announcement of the CEO bonus forfeiture and Chairman exit occurred on 2026-10-25.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d2354827e685"
-      ],
-      "primary_source_event_id": "EVT-d2354827e685",
-      "source_headlines": [
-        "NextDC CEO Scroggie to lose bonus, chairman to step down in M3 fallout"
-      ],
-      "source_headline": "NextDC CEO Scroggie to lose bonus, chairman to step down in M3 fallout",
-      "source_url": "https://www.afr.com/companies/infrastructure/nextdc-chairman-to-step-down-scroggie-to-lose-bonus-in-m3-fallout-20261026-p618im?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 87,
-      "newest_source_at": "2026-10-25T22:07:08Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-26T00:44:51Z",
-      "updated_at": "2026-10-26T00:44:51Z",
-      "decay_at": "2026-10-27T10:07:08Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -211830,33 +211261,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 566,
+    "total_count": 554,
     "shown_count": 500,
-    "hidden_count": 66,
+    "hidden_count": 54,
     "side_counts": {
       "long": {
-        "total_count": 293,
+        "total_count": 283,
         "shown_count": 250,
-        "hidden_count": 43
+        "hidden_count": 33
       },
       "short": {
-        "total_count": 273,
+        "total_count": 271,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 21
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 1398,
-      "oldest_retained_at": "2026-10-02T12:16:13Z",
+      "evicted_count": 1410,
+      "oldest_retained_at": "2026-10-02T21:44:22Z",
       "side_counts": {
         "long": {
-          "evicted_count": 922,
-          "oldest_retained_at": "2026-10-13T12:35:40Z"
+          "evicted_count": 932,
+          "oldest_retained_at": "2026-10-13T16:06:00Z"
         },
         "short": {
-          "evicted_count": 477,
-          "oldest_retained_at": "2026-10-02T12:16:13Z"
+          "evicted_count": 479,
+          "oldest_retained_at": "2026-10-02T21:44:22Z"
         }
       }
     },
@@ -215958,8 +215389,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-27T13:43:11Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-29T02:54:23Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -216031,8 +215462,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-27T13:34:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-29T02:54:23Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -216104,8 +215535,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-27T12:52:07Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-29T02:54:23Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -216179,8 +215610,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-27T12:37:36Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-29T02:54:23Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -216253,8 +215684,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-27T12:20:11Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-29T02:54:23Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -216327,8 +215758,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-27T12:00:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-29T02:54:23Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -216401,8 +215832,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-27T11:38:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-29T02:54:23Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -216475,8 +215906,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-27T11:30:01Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-29T02:54:23Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -216551,8 +215982,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-27T10:41:11Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-29T02:54:23Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -216626,8 +216057,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-27T10:07:08Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-29T02:54:23Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -216700,8 +216131,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-27T09:52:01Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-29T02:54:23Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -216776,8 +216207,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-27T09:29:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-29T02:54:23Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -249108,8 +248539,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1982,
-    "live_count": 17,
+    "surfaced_total": 1986,
+    "live_count": 21,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
