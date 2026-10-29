@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T17:01:59Z",
+  "generated_at": "2026-10-29T17:05:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261029-1241",
@@ -1433,6 +1433,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261029-1257",
+      "headline": "DoorDash to Buy Rival Instacart in $17 Billion Deal",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-10-29/doordash-to-buy-rival-instacart-in-17-billion-deal-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-29T16:15:05Z",
+      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
+      "prelim_note": "DoorDash to acquire Instacart in a $17 billion deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DoorDash to acquire Instacart in a $17 billion deal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DoorDash",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Instacart",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261029-1227",
       "headline": "Cruise line that left travelers stranded will file for Chapter 11 bankruptcy",
       "headline_en": null,
@@ -1939,55 +1993,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261029-1176",
-      "headline": "Allied Properties REIT cuts distribution by 90% to focus on debt repayment",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-allied-properties-reit-cuts-distribution-by-90-to-focus-on-debt/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-29T14:00:56Z",
-      "sweep_file": "screener/inbox/2026-10-29_sweep.json",
-      "prelim_note": "Allied Properties REIT cut its distribution by 90% to focus on debt repayment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Allied Properties REIT cut its distribution by 90% to focus on debt repayment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "dividend_cut",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "dividend_cut"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Allied Properties REIT",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -247167,9 +247172,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1882835,
-    "news_picked_today": 2575,
-    "news_dropped_today": 13449
+    "news_seen_today": 1893289,
+    "news_picked_today": 2581,
+    "news_dropped_today": 13467
   },
   "book_momentum": {
     "live_count": 8,
